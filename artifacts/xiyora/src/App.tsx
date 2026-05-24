@@ -1,0 +1,2364 @@
+import { useState, useEffect, useRef, useCallback } from "react";
+
+/* ─── BUSINESS INFO ─────────────────────────────────────── */
+const BIZ = {
+  wa: "917028311226",
+  email: "xiyatosaanvi@gmail.com",
+  ig: "https://www.instagram.com/xiyora.zi/",
+  address: "Yogesh Nagar, Section 25, Near 12 No School, Ulhasnagar – 421004, Thane, Maharashtra, India",
+  gstNote: "GST invoice available where applicable. GST number will be updated after registration.",
+};
+
+const API_BASE = "/api";
+async function apiPost(endpoint: string, data: Record<string, string | undefined>) {
+  try {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return await res.json();
+  } catch {
+    return { error: "Network error. Please try WhatsApp instead." };
+  }
+}
+
+/* ─── PRODUCTS ───────────────────────────────────────────── */
+const PRODUCTS = [
+  {
+    id:"talalay-bread-pillow",name:"Talalay Bread Pillow",
+    category:"Pillows",latexType:"Talalay",latexContent:"93% natural latex",
+    tag:"Most Popular",badge:"2nd-Generation Talalay",
+    headline:"Classic Talalay Comfort, Made for Everyday Luxury",
+    shortDesc:"A refined bread-shaped Talalay latex pillow — familiar silhouette, premium breathable comfort.",
+    description:"The Talalay Bread Pillow is the most universal product in the collection. It keeps the classic pillow shape customers already trust, while upgrading the comfort story with breathable Talalay latex, steady rebound, and a refined sleep surface.",
+    highlights:["Open-cell Talalay structure for cooler, more breathable feel","Naturally springy latex — holds shape without fluffing","Traditional rectangular design with broad retail appeal","Multiple sizes for different sleep preferences"],
+    specs:{"Process":"Talalay","Latex Content":"93% natural latex","Sizes":"60×40×14 cm | 70×40×14 cm | 85×40×15 cm","Weight":"1.0 – 1.6 kg by size","Custom Sizes":"Available on request","Certificates":"Available on request"},
+    sizes:["60×40×14 cm (1.0 kg)","70×40×14 cm (1.25 kg)","85×40×15 cm (1.6 kg)"],
+    useCases:["Premium hotel pillow collections","Home bedroom upgrades","B2B retail & wholesale"],
+    gallery:["/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-2.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-3.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-4.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-5.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-6.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-7.jpg"],
+    priceINR:"₹3,200 – ₹4,600*",priceUSD:"$39 – $56*",
+    priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight from China: ~25–35 days.",
+    variants:[
+      {label:"Standard — 60×40×14 cm (1.0 kg)",sku:"BXT1001-1",priceINR:"₹3,200",priceUSD:"$39"},
+      {label:"Queen   — 70×40×14 cm (1.25 kg)",sku:"BXT1001-2",priceINR:"₹3,900",priceUSD:"$47"},
+      {label:"King     — 85×40×15 cm (1.6 kg)",sku:"BXT1001-3",priceINR:"₹4,600",priceUSD:"$56"},
+    ],
+  },
+  {
+    id:"talalay-contour-pillow",name:"Talalay Contour Pillow",
+    category:"Pillows",latexType:"Talalay",latexContent:"93% natural latex",
+    tag:"Ergonomic",badge:"2nd-Generation Talalay",
+    headline:"Ergonomic Neck Support with Premium Talalay Feel",
+    shortDesc:"Wave-shaped Talalay latex pillow designed to support the natural curve of head and neck.",
+    description:"The premium ergonomic option in the range. Its sculpted wave shape provides better neck positioning and comfortable head cradling. Designed for side and back sleepers who want structure without sacrificing comfort.",
+    highlights:["Dual-height contour profile for flexible comfort","Breathable Talalay latex for fresher sleep surface","Smooth, resilient rebound after pressure","Supports natural head and neck positioning"],
+    specs:{"Process":"Talalay","Latex Content":"93% natural latex","Sizes":"60×40×8/10 cm | 60×40×10/12 cm","Custom Sizes":"Available on request"},
+    sizes:["60×40×8/10 cm (0.9 kg)","60×40×10/12 cm (1.0 kg)"],
+    useCases:["Side and back sleepers","Ergonomic bedding collections","Hotel premium bedding"],
+    gallery:["/assets/products/talalay-contour-pillow/talalay-contour-pillow-1.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-2.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-3.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-4.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-5.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-6.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-7.jpg"],
+    priceINR:"₹3,200 – ₹3,600*",priceUSD:"$39 – $44*",
+    priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"Low Profile — 60×40×8/10 cm (0.9 kg)",sku:"BXT2002-1",priceINR:"₹3,200",priceUSD:"$39"},
+      {label:"Mid Profile — 60×40×10/12 cm (1.0 kg)",sku:"BXT2002-2",priceINR:"₹3,600",priceUSD:"$44"},
+    ],
+  },
+  {
+    id:"talalay-junior-pillow",name:"Talalay Junior Pillow",
+    category:"Pillows",latexType:"Talalay",latexContent:"93% natural latex",
+    tag:"Junior",badge:"2nd-Generation Talalay",
+    headline:"Gentle Talalay Support for Growing Sleepers",
+    shortDesc:"A smaller-format Talalay latex pillow for children and junior bedding collections.",
+    description:"The Talalay Junior Pillow gives the collection a family-friendly premium product. Focus on gentle comfort, breathability, and appropriate sizing for children.",
+    highlights:["Lower height options suitable for younger users","Soft and breathable Talalay latex comfort","Compact sizes for children's beds and travel","Premium look for family-oriented collections"],
+    specs:{"Process":"Talalay","Latex Content":"93% natural latex","Sizes":"40×25×3/5 cm | 50×30×3/5 cm | 55×35×5/7 cm"},
+    sizes:["40×25×3/5 cm (0.25 kg)","50×30×3/5 cm (0.35 kg)","55×35×5/7 cm (0.45 kg)"],
+    useCases:["Kids' bedding sections","Premium family sleep collections","Retailers needing a junior pillow option"],
+    gallery:["/assets/products/talalay-junior-pillow/talalay-junior-pillow-1.jpg","/assets/products/talalay-junior-pillow/talalay-junior-pillow-2.jpg","/assets/products/talalay-junior-pillow/talalay-junior-pillow-3.jpg","/assets/products/talalay-junior-pillow/talalay-junior-pillow-4.jpg","/assets/products/talalay-junior-pillow/talalay-junior-pillow-5.jpg","/assets/products/talalay-junior-pillow/talalay-junior-pillow-6.jpg"],
+    priceINR:"₹2,000 – ₹2,600*",priceUSD:"$24 – $32*",
+    priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"Small — 40×25×3/5 cm (0.25 kg)",sku:"BXT2001-1",priceINR:"₹2,000",priceUSD:"$24"},
+      {label:"Medium — 50×30×3/5 cm (0.35 kg)",sku:"BXT2001-2",priceINR:"₹2,300",priceUSD:"$28"},
+      {label:"Large — 55×35×5/7 cm (0.45 kg)",sku:"BXT2001-3",priceINR:"₹2,600",priceUSD:"$32"},
+    ],
+  },
+  {
+    id:"bumpy-massage-pillow",name:"Bumpy Massage Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Tactile Comfort",badge:"B2B Competitive",
+    headline:"Bumpy-Textured Latex Pillow for Relaxed Support",
+    shortDesc:"A bumpy massage-feel latex pillow with a contour profile and breathable construction.",
+    description:"A tactile comfort pillow with a distinctive raised granule-style texture. Creates a soothing, textured feel that stands out on any product page.",
+    highlights:["Raised granule-style texture for soothing feel","Contour profile for head and neck support","Breathable latex design","Memorable tactile product story"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×8/10 cm | 60×40×10/12 cm"},
+    sizes:["60×40×8/10 cm","60×40×10/12 cm"],
+    useCases:["Texture-loving buyers","Ergonomic pillow pages","Premium specialty pillow range"],
+    gallery:["/assets/products/bumpy-massage-pillow/bumpy-massage-pillow-1.jpg"],
+    priceINR:"₹1,600 – ₹2,800*",priceUSD:"$19 – $34*",
+    priceNote:"* Indicative range. Final price confirmed after city, quantity & shipping.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-bone-pillow",name:"Dunlop Bone Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Compact",badge:"B2B Competitive",
+    headline:"Bone-Shaped Latex Support Pillow",
+    shortDesc:"A compact bone-shaped Dunlop latex pillow for travel, neck support, and decorative comfort use.",
+    description:"Perfect for sofa, car, travel, and gifting bundles. The unique shape creates a memorable product story.",
+    highlights:["Compact supportive bone shape","Useful for neck, waist, or decorative support","Easy add-on product for bundles","Memorable shape for buyers"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"36×24×10 cm"},
+    sizes:["36×24×10 cm"],
+    useCases:["Travel support","Sofa accessories","Compact comfort products"],
+    gallery:["/assets/products/dunlop-bone-pillow/dunlop-bone-pillow-1.jpg"],
+    priceINR:"₹1,200 – ₹2,000*",priceUSD:"$14 – $24*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-bread-pillow",name:"Dunlop Bread Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Value Luxury",badge:"B2B Competitive",
+    headline:"Classic Dunlop Latex Pillow for Everyday Comfort",
+    shortDesc:"Familiar bread-shaped Dunlop latex pillow — traditional shape, supportive feel, accessible luxury.",
+    description:"The value-premium pillow in the range. Available in 80% or 90% latex content with multiple height options.",
+    highlights:["Traditional rectangular design with broad retail appeal","Dunlop latex support — firmer and more grounded feel","Multiple height options","Available in 80% or 90% latex content"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×5 cm | 60×40×10 cm | 70×40×10 cm | 70×40×13 cm"},
+    sizes:["60×40×5 cm","60×40×10 cm","70×40×10 cm","70×40×13 cm"],
+    useCases:["Hotel guest rooms","Value-premium home bedding","Retail pillow collections"],
+    gallery:["/assets/products/dunlop-bread-pillow/dunlop-bread-pillow-1.jpg"],
+    priceINR:"₹1,900 – ₹3,500*",priceUSD:"$23 – $43*",
+    priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×40×5 cm — 90% latex",sku:"BXD1001-1",priceINR:"₹1,900",priceUSD:"$23"},
+      {label:"60×40×10 cm — 80% latex",sku:"BXD1001-2",priceINR:"₹2,300",priceUSD:"$28"},
+      {label:"60×40×10 cm — 90% latex",sku:"BXD1001-3",priceINR:"₹2,700",priceUSD:"$33"},
+      {label:"70×40×10 cm — 80% latex",sku:"BXD1001-4",priceINR:"₹2,500",priceUSD:"$30"},
+      {label:"70×40×10 cm — 90% latex",sku:"BXD1001-5",priceINR:"₹2,900",priceUSD:"$35"},
+      {label:"70×40×13 cm — 80% latex",sku:"BXD1001-6",priceINR:"₹3,100",priceUSD:"$38"},
+      {label:"70×40×13 cm — 90% latex",sku:"BXD1001-7",priceINR:"₹3,500",priceUSD:"$43"},
+    ],
+  },
+  {
+    id:"dunlop-butterfly-pillow",name:"Dunlop Butterfly Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Ergonomic Shape",badge:"B2B Competitive",
+    headline:"Butterfly-Shaped Latex Support Pillow",
+    shortDesc:"A shaped Dunlop latex pillow with zoned support for the head, neck, and shoulders.",
+    description:"A specialty ergonomic product with butterfly-inspired support zones.",
+    highlights:["Butterfly-inspired support zones","Designed for head, neck, and shoulder comfort","Distinctive premium shape"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×33×7/11 cm"},
+    sizes:["60×33×7/11 cm"],
+    useCases:["Ergonomic pillow buyers","Customers who want shaped support"],
+    gallery:["/assets/products/dunlop-butterfly-pillow/dunlop-butterfly-pillow-1.jpg"],
+    priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-cloud-pillow",name:"Dunlop Cloud Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Textured",badge:"B2B Competitive",
+    headline:"Cloud-Textured Dunlop Latex Pillow",
+    shortDesc:"A textured latex pillow with a soft, cloud-like surface feel and supportive Dunlop latex core.",
+    description:"The surface texture gives it a strong visual identity. Use when you want the product range to feel differentiated.",
+    highlights:["Textured surface for a distinctive comfort feel","Supportive latex structure","Premium alternative to ordinary flat pillows"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×38×8 cm"},
+    sizes:["60×38×8 cm"],
+    useCases:["Massage feel seekers","Back/side comfort buyers","Unique product pages"],
+    gallery:["/assets/products/dunlop-cloud-pillow/dunlop-cloud-pillow-1.jpg"],
+    priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-contour-pillow",name:"Dunlop Contour Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Neck Support",badge:"B2B Competitive",
+    headline:"Dunlop Contour Pillow for Balanced Neck Comfort",
+    shortDesc:"Sculpted Dunlop latex pillow designed to follow the natural curve of head and neck.",
+    description:"The standard ergonomic Dunlop pillow for side and back sleepers who prefer a more structured, supportive feel.",
+    highlights:["Balanced dual-height contour profile","Supportive Dunlop latex response","Perforated latex design for better airflow"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×8/10 cm | 60×40×10/12 cm"},
+    sizes:["60×40×8/10 cm","60×40×10/12 cm"],
+    useCases:["Side and back sleepers","Ergonomic bedding retail","Hotel collections"],
+    gallery:["/assets/products/dunlop-contour-pillow/dunlop-contour-pillow-1.jpg"],
+    priceINR:"₹1,900 – ₹2,800*",priceUSD:"$23 – $34*",
+    priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×40×8/10 cm — 80% latex",sku:"BXD2001-1",priceINR:"₹1,900",priceUSD:"$23"},
+      {label:"60×40×8/10 cm — 90% latex",sku:"BXD2001-2",priceINR:"₹2,200",priceUSD:"$27"},
+      {label:"60×40×10/12 cm — 80% latex",sku:"BXD2001-3",priceINR:"₹2,200",priceUSD:"$27"},
+      {label:"60×40×10/12 cm — 90% latex",sku:"BXD2001-4",priceINR:"₹2,800",priceUSD:"$34"},
+    ],
+  },
+  {
+    id:"dunlop-contour-pillow-high",name:"Dunlop Contour Pillow High",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"High Profile",badge:"B2B Competitive",
+    headline:"High-Profile Dunlop Contour Pillow for Extra Support",
+    shortDesc:"A taller contour Dunlop latex pillow for elevated head and neck positioning.",
+    description:"The high-profile variant of the contour pillow. Best for shoulder sleepers, broader frames, or customers who prefer an elevated sleep position.",
+    highlights:["Higher loft profile for elevated support","Ergonomic contour shape","Firm Dunlop latex response"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×40×10/14 cm"},
+    sizes:["60×40×10/14 cm"],
+    useCases:["Shoulder-width sleepers","Firmer support seekers"],
+    gallery:["/assets/products/dunlop-contour-pillow-high/dunlop-contour-pillow-high-1.jpg"],
+    priceINR:"₹1,600 – ₹2,800*",priceUSD:"$19 – $34*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-contour-pillow-junior",name:"Dunlop Contour Pillow Junior",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Junior",badge:"B2B Competitive",
+    headline:"Junior Contour Pillow for Growing Sleepers",
+    shortDesc:"A smaller contour Dunlop latex pillow for children and young adults.",
+    description:"Designed specifically for children and young adults. The contour shape with lower loft provides appropriate support in a compact format.",
+    highlights:["Appropriate loft for children","Ergonomic contour support","Breathable Dunlop latex","Compact junior sizing"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"50×30×6/8 cm"},
+    sizes:["50×30×6/8 cm"],
+    useCases:["Kids' bedding","Junior sleep collections"],
+    gallery:["/assets/products/dunlop-contour-pillow-junior/dunlop-contour-pillow-junior-1.jpg"],
+    priceINR:"₹1,200 – ₹2,000*",priceUSD:"$14 – $24*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-couples-pillow",name:"Dunlop Couples Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Couples",badge:"B2B Competitive",
+    headline:"Wide-Format Dunlop Pillow for Couples",
+    shortDesc:"An extra-wide Dunlop latex pillow designed for shared sleep and couple comfort.",
+    description:"The extra-wide format makes it a conversation-starting gifting and lifestyle product.",
+    highlights:["Extra-wide format for shared use","Comfortable latex support for two","Unique gifting product angle"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"120×40×10 cm or custom"},
+    sizes:["120×40×10 cm","Custom width available"],
+    useCases:["Couples gifting","Lifestyle bedding collections"],
+    gallery:["/assets/products/dunlop-couples-pillow/dunlop-couples-pillow-1.jpg"],
+    priceINR:"₹3,200 – ₹5,200*",priceUSD:"$38 – $62*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-cylinder-pillow",name:"Dunlop Cylinder Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Bolster",badge:"B2B Competitive",
+    headline:"Cylindrical Dunlop Latex Bolster Pillow",
+    shortDesc:"A classic bolster-style cylindrical Dunlop latex pillow for back support and decorative use.",
+    description:"The cylinder format serves multiple purposes — back support while seated, leg elevation while sleeping, and decorative bolster use.",
+    highlights:["Classic bolster cylinder shape","Multiple use cases","Easy to style and photograph"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×15 cm diameter or custom"},
+    sizes:["60×15 cm diameter","Custom available"],
+    useCases:["Back support","Leg elevation","Decorative bedroom styling"],
+    gallery:["/assets/products/dunlop-cylinder-pillow/dunlop-cylinder-pillow-1.jpg"],
+    priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-seahorse-pillow",name:"Dunlop Seahorse Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Specialty Shape",badge:"B2B Competitive",
+    headline:"Seahorse-Shaped Latex Comfort Pillow",
+    shortDesc:"A uniquely shaped Dunlop latex pillow inspired by the seahorse form.",
+    description:"A distinctive design statement piece. The seahorse shape creates a memorable, gift-worthy product.",
+    highlights:["Unique seahorse-inspired silhouette","Premium latex comfort in a distinctive form","Great for gifting and curated collections"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"Custom seahorse form"},
+    sizes:["Standard seahorse form"],
+    useCases:["Premium gifting","Specialty collections"],
+    gallery:["/assets/products/dunlop-seahorse-pillow/dunlop-seahorse-pillow-1.jpg"],
+    priceINR:"₹1,800 – ₹3,000*",priceUSD:"$22 – $36*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-stomach-pillow",name:"Dunlop Stomach Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Stomach Sleepers",badge:"B2B Competitive",
+    headline:"Low-Profile Dunlop Pillow for Stomach Sleepers",
+    shortDesc:"A thin, flat Dunlop latex pillow for stomach sleepers who need minimal loft.",
+    description:"A niche but important product for stomach sleepers. The low profile prevents neck strain while still providing breathable latex comfort.",
+    highlights:["Very low profile prevents neck strain","Designed for stomach sleepers","Breathable Dunlop latex"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×3 cm | 60×40×5 cm"},
+    sizes:["60×40×3 cm","60×40×5 cm"],
+    useCases:["Stomach sleepers","Flat pillow seekers"],
+    gallery:["/assets/products/dunlop-stomach-pillow/dunlop-stomach-pillow-1.jpg"],
+    priceINR:"₹1,200 – ₹2,000*",priceUSD:"$14 – $24*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-throw-pillow",name:"Dunlop Throw Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Décor",badge:"B2B Competitive",
+    headline:"Premium Latex Throw Pillow for Home Styling",
+    shortDesc:"A decorative Dunlop latex throw pillow combining home décor aesthetics with real latex comfort.",
+    description:"The intersection of home décor and functional latex comfort.",
+    highlights:["Decorative shape meets functional comfort","Pairs with any bedroom styling","Accessible entry into the latex collection"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"Various decorative formats"},
+    sizes:["Standard throw format","Custom available"],
+    useCases:["Home décor collections","Interior design retail"],
+    gallery:["/assets/products/dunlop-throw-pillow/dunlop-throw-pillow-1.jpg"],
+    priceINR:"₹1,000 – ₹1,800*",priceUSD:"$12 – $22*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-u-pillow",name:"Dunlop U-Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Travel & Neck",badge:"B2B Competitive",
+    headline:"U-Shaped Dunlop Latex Neck Support Pillow",
+    shortDesc:"A classic U-shaped travel and neck support Dunlop latex pillow for desk, car, and flight use.",
+    description:"The most recognizable travel pillow shape, upgraded with real latex comfort.",
+    highlights:["Classic U-shape for 360° neck support","Premium latex feel vs foam alternatives","Works for travel, desk rest, and recovery"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"Standard U-form, custom available"},
+    sizes:["Standard U-form"],
+    useCases:["Travel accessories","Office and desk rest"],
+    gallery:["/assets/products/dunlop-u-pillow/dunlop-u-pillow-1.jpg"],
+    priceINR:"₹1,200 – ₹2,200*",priceUSD:"$14 – $26*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"peanut-massage-pillow",name:"Peanut Massage Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Massage Feel",badge:"B2B Competitive",
+    headline:"Peanut-Shaped Latex Massage Comfort Pillow",
+    shortDesc:"A peanut-shaped Dunlop latex pillow with bumpy texture for soothing massage-like support.",
+    description:"A distinctive ergonomic shape meets tactile texture.",
+    highlights:["Peanut shape with bumpy texture","Soothing tactile surface feel","Distinctive in any product lineup"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"Peanut ergonomic form"},
+    sizes:["Standard peanut form"],
+    useCases:["Relaxation seekers","Massage pillow buyers"],
+    gallery:["/assets/products/peanut-massage-pillow/peanut-massage-pillow-1.jpg"],
+    priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"spiky-massage-pillow",name:"Spiky Massage Pillow",
+    category:"Pillows",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Deep Texture",badge:"B2B Competitive",
+    headline:"Spiky Textured Latex Pillow for Acupressure-Style Comfort",
+    shortDesc:"A spiky-textured Dunlop latex pillow for intense tactile stimulation.",
+    description:"A bold tactile product. The spiky texture creates an acupressure-inspired feel.",
+    highlights:["Prominent spiky texture for tactile stimulation","Wellness and recovery positioning","Natural latex construction"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×8/10 cm"},
+    sizes:["60×40×8/10 cm"],
+    useCases:["Wellness and recovery seekers","Specialty massage pillow range"],
+    gallery:["/assets/products/spiky-massage-pillow/spiky-massage-pillow-1.jpg"],
+    priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"talalay-latex-mattress",name:"Talalay Latex Mattress",
+    category:"Mattresses",latexType:"Talalay",latexContent:"Confirm with supplier",
+    tag:"Flagship",badge:"Premium Talalay",
+    headline:"Premium Talalay Latex Mattress — Customizable & Breathable",
+    shortDesc:"Customizable Talalay latex mattress built for breathability, pressure distribution, and refined sleep.",
+    description:"The flagship mattress category. Available in custom sizes, densities, and construction configurations. Suitable for luxury home buyers, premium hotels, interior designers, and bedding brands.",
+    highlights:["Customizable size, density, and construction","Open-cell latex structure for airflow","Designed for pressure distribution across body zones","Private-label and branding customization available"],
+    specs:{"Process":"Talalay","Density Options":"D60 / D70 / D80","Sizes":"150×200 cm | 180×200 cm | Custom","Height":"10 cm standard | Custom available","Private Label":"Available on request"},
+    sizes:["150×200×10 cm","180×200×10 cm","Custom — contact for quote"],
+    useCases:["Luxury home bedrooms","Premium hotels & resorts","Interior design projects","Private-label mattress brands"],
+    gallery:["/assets/products/talalay-latex-mattress/talalay-latex-mattress-1.jpg","/assets/products/talalay-latex-mattress/talalay-latex-mattress-2.jpg"],
+    priceINR:"₹52,000 – ₹83,000*",priceUSD:"$632 – $1,010*",
+    priceNote:"* Indicative landed price. Final confirmed after city, quantity, density & specs.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days for custom/bulk.",
+    variants:[
+      {label:"150×200×10 cm — D60 (Soft)",sku:"TXMAT-1",priceINR:"₹52,000",priceUSD:"$632"},
+      {label:"150×200×10 cm — D70 (Medium)",sku:"TXMAT-2",priceINR:"₹60,000",priceUSD:"$730"},
+      {label:"150×200×10 cm — D80 (Firm)",sku:"TXMAT-3",priceINR:"₹68,000",priceUSD:"$827"},
+      {label:"180×200×10 cm — D60 (Soft)",sku:"TXMAT-4",priceINR:"₹63,000",priceUSD:"$766"},
+      {label:"180×200×10 cm — D70 (Medium)",sku:"TXMAT-5",priceINR:"₹73,000",priceUSD:"$888"},
+      {label:"180×200×10 cm — D80 (Firm)",sku:"TXMAT-6",priceINR:"₹83,000",priceUSD:"$1,010"},
+    ],
+  },
+  {
+    id:"dunlop-bay-window-mattress",name:"Dunlop Bay Window Mattress",
+    category:"Mattresses",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Custom Shape",badge:"B2B Favourite",
+    headline:"Custom-Cut Dunlop Mattress for Bay Windows & Unique Spaces",
+    shortDesc:"A custom-shaped Dunlop latex mattress designed for bay windows, reading nooks, and non-standard spaces.",
+    description:"A unique B2B product for interior designers and custom furniture makers.",
+    highlights:["Custom-cut for bay window and alcove seating","Firm Dunlop latex for seated and resting use","High-value B2B interior design product"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Format":"Custom to specification"},
+    sizes:["Custom to specification"],
+    useCases:["Bay window seating","Reading nooks","Custom interior furniture"],
+    gallery:["/assets/products/dunlop-bay-window-mattress/dunlop-bay-window-mattress-1.jpg"],
+    priceINR:"From ₹12,000*",priceUSD:"From $145*",
+    priceNote:"* Indicative starting range.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+  },
+  {
+    id:"dunlop-standard-mattress",name:"Dunlop Standard Mattress",
+    category:"Mattresses",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"B2B Favourite",badge:"B2B Competitive",
+    headline:"Custom Dunlop Latex Mattress Core",
+    shortDesc:"Dunlop latex mattress with customizable dimensions and thickness for homes, hotels, and brands.",
+    description:"The core Dunlop mattress product. Suitable for B2B buyers, hotel projects, and private-label mattress development.",
+    highlights:["Multiple height options: 5 / 7.5 / 10 / 15 cm","Custom size for standard Indian bed dimensions","Supportive Dunlop latex feel"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Height Options":"5 / 7.5 / 10 / 15 cm","Common Sizes":"90×200 | 120×200 | 150×200 | 180×200 cm"},
+    sizes:["90×200 cm","120×200 cm","150×200 cm","180×200 cm","Custom"],
+    useCases:["B2B mattress buyers","Hotel and interior projects"],
+    gallery:["/assets/products/dunlop-standard-mattress/dunlop-standard-mattress-1.jpg"],
+    priceINR:"₹18,000 – ₹52,000*",priceUSD:"$219 – $633*",
+    priceNote:"* Indicative landed price. Final confirmed after city, quantity & specs.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+    variants:[
+      {label:"120×200×5 cm — 80% D70",sku:"DXMAT-1",priceINR:"₹18,000",priceUSD:"$219"},
+      {label:"150×200×5 cm — 80% D70",sku:"DXMAT-2",priceINR:"₹22,500",priceUSD:"$274"},
+      {label:"180×200×5 cm — 80% D70",sku:"DXMAT-3",priceINR:"₹27,000",priceUSD:"$329"},
+      {label:"120×200×7.5 cm — 80% D70",sku:"DXMAT-4",priceINR:"₹27,000",priceUSD:"$329"},
+      {label:"150×200×7.5 cm — 80% D70",sku:"DXMAT-5",priceINR:"₹33,000",priceUSD:"$402"},
+      {label:"180×200×7.5 cm — 80% D70",sku:"DXMAT-6",priceINR:"₹39,500",priceUSD:"$481"},
+      {label:"120×200×10 cm — 80% D70",sku:"DXMAT-7",priceINR:"₹35,000",priceUSD:"$426"},
+      {label:"150×200×10 cm — 80% D70",sku:"DXMAT-8",priceINR:"₹43,500",priceUSD:"$529"},
+      {label:"180×200×10 cm — 80% D70",sku:"DXMAT-9",priceINR:"₹52,000",priceUSD:"$633"},
+    ],
+  },
+  {
+    id:"latex-topper",name:"Latex Topper",
+    category:"Toppers",latexType:"Talalay",latexContent:"Confirm with supplier",
+    tag:"Easy Upgrade",badge:"Premium Value",
+    headline:"Instant Mattress Upgrade with Natural Latex Comfort",
+    shortDesc:"Latex topper that adds breathable cushioning and premium feel to any existing mattress.",
+    description:"A practical, high-value product. An instant upgrade: more cushioning, better airflow, premium latex feel.",
+    highlights:["Adds softer, more responsive comfort layer","Breathable latex construction for improved airflow","Works on existing bed frames and mattresses"],
+    specs:{"Material":"Natural latex","Thickness":"1 / 2 / 3 / 4 / 5 cm","Sizes":"150×200 cm | 180×200 cm | Custom","Density":"D60 / D70 / D80 available"},
+    sizes:["150×200 cm","180×200 cm","Custom size — contact for quote"],
+    useCases:["Customers upgrading existing mattresses","Hotel bed upgrades"],
+    gallery:["/assets/products/latex-topper/latex-topper-1.jpg","/assets/products/latex-topper/latex-topper-2.jpg","/assets/products/latex-topper/latex-topper-3.jpg"],
+    priceINR:"₹17,500 – ₹43,000*",priceUSD:"$213 – $523*",
+    priceNote:"* Indicative landed price. Final confirmed after city, quantity, thickness & density.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"150×200 cm × 1 cm — D60",sku:"TXTP-1",priceINR:"₹17,500",priceUSD:"$213"},
+      {label:"150×200 cm × 2 cm — D60",sku:"TXTP-2",priceINR:"₹18,000",priceUSD:"$219"},
+      {label:"150×200 cm × 3 cm — D60",sku:"TXTP-3",priceINR:"₹21,500",priceUSD:"$261"},
+      {label:"150×200 cm × 4 cm — D70",sku:"TXTP-4",priceINR:"₹35,000",priceUSD:"$426"},
+      {label:"150×200 cm × 5 cm — D70",sku:"TXTP-5",priceINR:"₹35,500",priceUSD:"$432"},
+      {label:"180×200 cm × 1 cm — D60",sku:"TXTP-6",priceINR:"₹19,000",priceUSD:"$231"},
+      {label:"180×200 cm × 2 cm — D60",sku:"TXTP-7",priceINR:"₹21,000",priceUSD:"$255"},
+      {label:"180×200 cm × 3 cm — D60",sku:"TXTP-8",priceINR:"₹26,000",priceUSD:"$316"},
+      {label:"180×200 cm × 4 cm — D70",sku:"TXTP-9",priceINR:"₹42,500",priceUSD:"$517"},
+      {label:"180×200 cm × 5 cm — D70",sku:"TXTP-10",priceINR:"₹43,000",priceUSD:"$523"},
+    ],
+  },
+  {
+    id:"shredded-talalay-latex",name:"Shredded Talalay Latex",
+    category:"Latex Material",latexType:"Talalay",latexContent:"Talalay shredded fill",
+    tag:"B2B Material",badge:"Custom Fill",
+    headline:"Adjustable Talalay Latex Filling for Bespoke Products",
+    shortDesc:"Loose shredded Talalay latex for customizable pillows, cushions, sofa inserts, and bedding.",
+    description:"Best positioned as B2B customization material for manufacturers, furniture brands, and custom bedding developers. Sold per kilogram.",
+    highlights:["Flexible fill volume for adjustable loft and firmness","Multiple applications: pillows, cushions, sofas","Cost-effective entry into custom latex comfort products"],
+    specs:{"Type":"Shredded Talalay Latex","Unit":"Per kilogram","Applications":"Pillows, cushions, sofas, bedding, upholstery"},
+    sizes:["Per kg — custom quantity"],
+    useCases:["Pillow manufacturers","Custom furniture brands"],
+    gallery:["/assets/products/shredded-talalay-latex/shredded-talalay-latex-1.jpg","/assets/products/shredded-talalay-latex/shredded-talalay-latex-2.jpg"],
+    priceINR:"Contact for price*",priceUSD:"Contact for price*",
+    priceNote:"* Price per kg depends on quantity, grade, and shipping terms.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+  },
+  {
+    id:"hybrid-latex-with-bamboo",name:"Hybrid Latex with Bamboo",
+    category:"Latex Material",latexType:"Hybrid",latexContent:"Latex + bamboo composite",
+    tag:"Eco Hybrid",badge:"Sustainable",
+    headline:"Natural Latex Combined with Bamboo for Eco-Friendly Comfort",
+    shortDesc:"A hybrid latex-bamboo material combining latex comfort with bamboo's natural breathability.",
+    description:"Premium hybrid material combining latex with bamboo for a breathable, sustainable comfort experience.",
+    highlights:["Bamboo enhances breathability and moisture wicking","Premium latex comfort base","Eco-friendly sustainability story"],
+    specs:{"Type":"Hybrid Latex + Bamboo","Applications":"Pillows, toppers, mattress layers"},
+    sizes:["Per specification"],
+    useCases:["Eco bedding brands","Sustainable retail collections"],
+    gallery:["/assets/products/hybrid-latex-with-bamboo/hybrid-latex-with-bamboo-1.png"],
+    priceINR:"Contact for price*",priceUSD:"Contact for price*",
+    priceNote:"* Price confirmed after specifications and quantity.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+  },
+  {
+    id:"hybrid-latex-with-gel",name:"Hybrid Latex with Gel",
+    category:"Latex Material",latexType:"Hybrid",latexContent:"Latex + gel composite",
+    tag:"Cool Comfort",badge:"Temperature Control",
+    headline:"Latex + Gel Hybrid for Enhanced Temperature Regulation",
+    shortDesc:"A latex-gel hybrid that combines latex support with gel's superior cooling properties.",
+    description:"Combines the responsive support of latex with gel's superior cooling properties — a strong selling point in India's warm climate.",
+    highlights:["Gel infusion for enhanced cooling","Responsive latex support base","Temperature regulation story"],
+    specs:{"Type":"Hybrid Latex + Gel","Applications":"Pillows, mattress toppers, mattress layers"},
+    sizes:["Per specification"],
+    useCases:["Warm climate bedding","Hot sleepers"],
+    gallery:["/assets/products/hybrid-latex-with-gel/hybrid-latex-with-gel-1.png"],
+    priceINR:"Contact for price*",priceUSD:"Contact for price*",
+    priceNote:"* Price confirmed after specifications and quantity.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+  },
+  {
+    id:"hybrid-latex-with-graphene",name:"Hybrid Latex with Graphene",
+    category:"Latex Material",latexType:"Hybrid",latexContent:"Latex + graphene composite",
+    tag:"Premium Tech",badge:"Advanced Material",
+    headline:"Graphene-Infused Latex for Advanced Comfort Technology",
+    shortDesc:"A cutting-edge graphene-infused latex hybrid for premium thermal regulation.",
+    description:"Graphene known for exceptional thermal conductivity and antibacterial properties. Creates a premium, differentiated product.",
+    highlights:["Graphene for superior thermal conductivity","Natural antibacterial properties","Distinctive differentiation in crowded market"],
+    specs:{"Type":"Hybrid Latex + Graphene","Applications":"Premium pillows, mattress layers"},
+    sizes:["Per specification"],
+    useCases:["Premium tech bedding","High-end retail collections"],
+    gallery:["/assets/products/hybrid-latex-with-graphene/hybrid-latex-with-graphene-1.png"],
+    priceINR:"Contact for price*",priceUSD:"Contact for price*",
+    priceNote:"* Price confirmed after specifications and quantity.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+  },
+  {
+    id:"hybrid-latex-with-lavender",name:"Hybrid Latex with Lavender",
+    category:"Latex Material",latexType:"Hybrid",latexContent:"Latex + lavender composite",
+    tag:"Aromatherapy",badge:"Wellness",
+    headline:"Lavender-Infused Latex for a Calming Sleep Experience",
+    shortDesc:"A latex hybrid infused with lavender for aromatherapy-enhanced sleep comfort.",
+    description:"The lavender infusion creates a gentle aromatherapy effect that promotes relaxation and better sleep.",
+    highlights:["Lavender aromatherapy for calming sleep","Natural latex comfort base","Great for gifting and personal wellness retail"],
+    specs:{"Type":"Hybrid Latex + Lavender","Applications":"Pillows, toppers"},
+    sizes:["Per specification"],
+    useCases:["Wellness retail","Aromatherapy-focused buyers"],
+    gallery:["/assets/products/hybrid-latex-with-lavender/hybrid-latex-with-lavender-1.png"],
+    priceINR:"Contact for price*",priceUSD:"Contact for price*",
+    priceNote:"* Price confirmed after specifications and quantity.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+  },
+  {
+    id:"hybrid-latex-with-negative-oxygen-ion",name:"Hybrid Latex with Negative Oxygen Ion",
+    category:"Latex Material",latexType:"Hybrid",latexContent:"Latex + negative ion composite",
+    tag:"Air Purifying",badge:"Health & Wellness",
+    headline:"Negative Oxygen Ion Latex for a Healthier Sleep Environment",
+    shortDesc:"A latex hybrid infused with negative oxygen ions for air-purifying sleep.",
+    description:"Negative oxygen ion technology marketed in premium sleep products for air-purifying and wellness properties.",
+    highlights:["Negative ion technology for air purification","Premium wellness product story","Health-conscious buyer positioning"],
+    specs:{"Type":"Hybrid Latex + Negative Oxygen Ion","Applications":"Pillows, mattress layers"},
+    sizes:["Per specification"],
+    useCases:["Health-conscious buyers","Wellness sleep collections"],
+    gallery:["/assets/products/hybrid-latex-with-negative-oxygen-ion/hybrid-latex-with-negative-oxygen-ion-1.png"],
+    priceINR:"Contact for price*",priceUSD:"Contact for price*",
+    priceNote:"* Price confirmed after specifications and quantity.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+  },
+  {
+    id:"hybrid-latex-with-traditional-chinese-medicine",name:"Hybrid Latex with Traditional Chinese Medicine",
+    category:"Latex Material",latexType:"Hybrid",latexContent:"Latex + TCM herbal composite",
+    tag:"Herbal Wellness",badge:"TCM Infused",
+    headline:"TCM Herbal-Infused Latex for Holistic Sleep Wellness",
+    shortDesc:"A luxury latex hybrid infused with traditional Chinese medicine herbs.",
+    description:"Traditional Chinese Medicine herb infusion gives this latex a unique holistic wellness positioning.",
+    highlights:["TCM herb infusion for holistic wellness","Premium natural sleep support story","Unique, differentiated product line"],
+    specs:{"Type":"Hybrid Latex + TCM Herbs","Applications":"Pillows, toppers"},
+    sizes:["Per specification"],
+    useCases:["TCM-focused wellness brands","Holistic health retail"],
+    gallery:["/assets/products/hybrid-latex-with-traditional-chinese-medicine/hybrid-latex-with-traditional-chinese-medicine-1.png"],
+    priceINR:"Contact for price*",priceUSD:"Contact for price*",
+    priceNote:"* Price confirmed after specifications and quantity.",
+    deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
+  },
+  {
+    id:"dunlop-bottom-seat-cushion",name:"Dunlop Bottom Seat Cushion",
+    category:"Cushions",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Ergonomic Seat",badge:"B2B Competitive",
+    headline:"Ergonomic Dunlop Latex Bottom Cushion",
+    shortDesc:"A shaped latex seat cushion for more supportive seated comfort in office, home, and travel use.",
+    description:"Position as an ergonomic comfort cushion for extended sitting. Works for office chairs, car seats, dining chairs, and meditation seating.",
+    highlights:["Shaped base for seated comfort","Supportive Dunlop latex","Office, car, and home use"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"40×40×5 cm or custom"},
+    sizes:["40×40×5 cm","Custom available"],
+    useCases:["Office seating upgrades","Car seat comfort","Meditation seating"],
+    gallery:["/assets/products/dunlop-bottom-seat-cushion/dunlop-bottom-seat-cushion-1.jpg"],
+    priceINR:"₹1,400 – ₹2,800*",priceUSD:"$17 – $34*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-bubble-seat-cushion",name:"Dunlop Bubble Seat Cushion",
+    category:"Cushions",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Textured Seating",badge:"B2B Competitive",
+    headline:"Bubble-Textured Dunlop Latex Seat Cushion",
+    shortDesc:"A bubble-textured Dunlop latex seat cushion with a distinctive surface and supportive feel.",
+    description:"The bubble texture creates a tactile cushion that stands out from ordinary flat cushions.",
+    highlights:["Distinctive bubble texture surface","Massage-style seated feel","Supportive latex core"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"40×40×5 cm or custom"},
+    sizes:["40×40×5 cm","Custom available"],
+    useCases:["Textured comfort seekers","Office and home seating"],
+    gallery:["/assets/products/dunlop-bubble-seat-cushion/dunlop-bubble-seat-cushion-1.jpg"],
+    priceINR:"₹1,400 – ₹2,800*",priceUSD:"$17 – $34*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-butterfly-back-cushion",name:"Dunlop Butterfly Back Cushion",
+    category:"Cushions",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Back Support",badge:"B2B Competitive",
+    headline:"Butterfly-Shaped Latex Back Cushion for Lumbar Comfort",
+    shortDesc:"A butterfly-shaped Dunlop latex back cushion that contours to the lumbar spine.",
+    description:"The butterfly shape contours naturally to the lumbar area.",
+    highlights:["Butterfly contour fits lumbar naturally","Supportive Dunlop latex","Office and car seat compatible"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"40×30 cm or custom"},
+    sizes:["40×30 cm","Custom available"],
+    useCases:["Lower back support","Office chair upgrade"],
+    gallery:["/assets/products/dunlop-butterfly-back-cushion/dunlop-butterfly-back-cushion-1.jpg"],
+    priceINR:"₹1,200 – ₹2,400*",priceUSD:"$14 – $29*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-chunk-seat-cushion",name:"Dunlop Chunk Seat Cushion",
+    category:"Cushions",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Deep Comfort",badge:"B2B Competitive",
+    headline:"Chunky Dunlop Latex Seat Cushion for Deep Comfort",
+    shortDesc:"A thicker, more substantial Dunlop latex seat cushion for more depth in seating comfort.",
+    description:"For buyers who need more cushion depth for extended sitting periods.",
+    highlights:["Greater thickness for deep comfort","High-density Dunlop support","Works with most chair types"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"40×40×8 cm or custom"},
+    sizes:["40×40×8 cm","Custom available"],
+    useCases:["Extended sitting comfort","Office ergonomics"],
+    gallery:["/assets/products/dunlop-chunk-seat-cushion/dunlop-chunk-seat-cushion-1.jpg"],
+    priceINR:"₹1,600 – ₹3,000*",priceUSD:"$19 – $36*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-standard-back-cushion",name:"Dunlop Standard Back Cushion",
+    category:"Cushions",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Lumbar",badge:"B2B Competitive",
+    headline:"Latex Lumbar Back Cushion for Work and Home",
+    shortDesc:"A supportive Dunlop latex back cushion for filling the gap between the lower back and chair.",
+    description:"A practical product with clear utility — fill the lumbar gap in any chair.",
+    highlights:["Standard lumbar support shape","Firm Dunlop latex fill","Universal chair compatibility"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"40×30×8 cm or custom"},
+    sizes:["40×30×8 cm","Custom available"],
+    useCases:["Office chair lumbar support","Car seat back support"],
+    gallery:["/assets/products/dunlop-standard-back-cushion/dunlop-standard-back-cushion-1.jpg"],
+    priceINR:"₹1,200 – ₹2,400*",priceUSD:"$14 – $29*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-standard-seat-cushion",name:"Dunlop Standard Seat Cushion",
+    category:"Cushions",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Essential",badge:"B2B Competitive",
+    headline:"Premium Latex Seat Cushion for Daily Comfort",
+    shortDesc:"A simple square Dunlop latex seat cushion for chairs, sofas, office seating, and home use.",
+    description:"Simple square format, clear comfort story. Works for office, dining, meditation, and sofa use.",
+    highlights:["Simple square format","Universal seating compatibility","Supportive Dunlop latex","Easy retail story"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"40×40×5 cm | 45×45×5 cm | Custom"},
+    sizes:["40×40×5 cm","45×45×5 cm","Custom available"],
+    useCases:["Office seating","Dining chairs","Meditation cushions"],
+    gallery:["/assets/products/dunlop-standard-seat-cushion/dunlop-standard-seat-cushion-1.jpg"],
+    priceINR:"₹1,200 – ₹2,400*",priceUSD:"$14 – $29*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+  {
+    id:"dunlop-triangle-back-cushion",name:"Dunlop Triangle Back Cushion",
+    category:"Cushions",latexType:"Dunlop",latexContent:"80%/90% natural latex",
+    tag:"Reading Wedge",badge:"B2B Competitive",
+    headline:"Triangular Latex Wedge Cushion for Reading and Relaxation",
+    shortDesc:"A triangular Dunlop latex wedge cushion for elevated reading, sleeping at an angle, and reflux support.",
+    description:"The wedge format serves specific functional needs: reading in bed, acid reflux elevation, post-surgery positioning.",
+    highlights:["Wedge angle for reading and elevation","Useful for acid reflux and recovery","Fills a specific comfort need"],
+    specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×40×20 cm wedge or custom"},
+    sizes:["60×40×20 cm wedge","Custom available"],
+    useCases:["Reading in bed","Acid reflux elevation","Post-surgery positioning"],
+    gallery:["/assets/products/dunlop-triangle-back-cushion/dunlop-triangle-back-cushion-1.jpg"],
+    priceINR:"₹1,600 – ₹3,000*",priceUSD:"$19 – $36*",
+    priceNote:"* Indicative range.",
+    deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+  },
+];
+
+const CATS = [
+  {name:"All Products",filter:null},
+  {name:"Mattresses",filter:"Mattresses"},
+  {name:"Pillows",filter:"Pillows"},
+  {name:"Toppers",filter:"Toppers"},
+  {name:"Cushions",filter:"Cushions"},
+  {name:"Latex Material",filter:"Latex Material"},
+];
+
+const PINCODE_ZONES: Record<string,{zone:string;port:string;days:string}> = {
+  "400":{zone:"A",port:"Nhava Sheva, Mumbai",days:"3–6"},
+  "421":{zone:"A",port:"Nhava Sheva, Mumbai",days:"3–6"},
+  "380":{zone:"A",port:"Mundra Port",days:"3–6"},
+  "600":{zone:"A",port:"Chennai Port",days:"3–6"},
+  "700":{zone:"A",port:"Kolkata / Haldia",days:"3–6"},
+  "682":{zone:"A",port:"Cochin Port",days:"3–6"},
+  "110":{zone:"B",port:"ICD Tughlakabad / Nhava Sheva",days:"4–8"},
+  "560":{zone:"B",port:"Chennai Port",days:"4–7"},
+  "500":{zone:"B",port:"Visakhapatnam / Chennai",days:"4–7"},
+  "226":{zone:"C",port:"Nearest Port + ICD",days:"6–10"},
+};
+const ZONE_INFO: Record<string,{label:string;col:string;bg:string}> = {
+  A:{label:"Zone A — Near Port",col:"#1a9e6e",bg:"#edfaf5"},
+  B:{label:"Zone B — Standard",col:"#C8A97E",bg:"#F5EEE4"},
+  C:{label:"Zone C — Extended",col:"#888",bg:"#f5f5f5"},
+};
+const lookupPincode = (pin:string) => {
+  const p = String(pin).trim();
+  if(p.length!==6||!/^\d+$/.test(p))return null;
+  return PINCODE_ZONES[p.slice(0,3)]||{zone:"B",port:"Nearest Available Port",days:"4–10"};
+};
+
+const C={white:"#F8F6F2",beige:"#EFE8DE",gold:"#C8A97E",dark:"#2D2D2D",sand:"#D9CBB8",lgold:"#F5EEE4",char:"#1C1C1C"};
+const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
+const EMPTY_FORM={name:"",company:"",email:"",phone:"",city:"",state:"",pincode:"",customerType:"Home Buyer",productName:"",selectedSize:"",quantity:"1",message:"",intent:"quote"};
+const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23EFE8DE'/%3E%3Crect x='220' y='140' width='160' height='120' rx='8' fill='%23D9CBB8'/%3E%3Ccircle cx='300' cy='165' r='22' fill='%23C8A97E' opacity='.6'/%3E%3Ctext x='300' y='290' text-anchor='middle' font-family='serif' font-size='14' fill='%23C8A97E' letter-spacing='3'%3EXIYORA%3C/text%3E%3C/svg%3E";
+
+/* ─── GLOBAL CSS ─────────────────────────────────────────── */
+const CSS=`
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:#F8F6F2;color:#2D2D2D;overflow-x:hidden}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes heroScale{from{transform:scale(1.06)}to{transform:scale(1)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(200,169,126,.12)}50%{box-shadow:0 0 60px rgba(200,169,126,.32)}}
+@keyframes sweepBtn{0%{left:-60%}100%{left:120%}}
+@keyframes revealUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ht1{animation:fadeInUp .9s ease both}
+.ht2{animation:fadeInUp .9s .14s ease both}
+.ht3{animation:fadeInUp .9s .28s ease both}
+.ht4{animation:fadeInUp .9s .42s ease both}
+.ht5{animation:fadeInUp .9s .56s ease both}
+.at{display:flex;animation:marquee 38s linear infinite}
+.sl{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#C8A97E;margin-bottom:14px;font-weight:500;display:block}
+.nl{color:#2D2D2D;font-size:12.5px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;padding:4px 0;position:relative;line-height:1}
+.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#C8A97E;transition:width .3s ease}
+.nl:hover{color:#C8A97E}.nl:hover::after{width:100%}
+.bg{background:#C8A97E;color:#fff;border:none;padding:13px 28px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px;position:relative;overflow:hidden}
+.bg::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);transition:none}
+.bg:hover::before{animation:sweepBtn .5s ease forwards}
+.bg:hover{background:#B89472;transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,169,126,.32)}
+.bg:active{transform:translateY(0)}
+.bo{background:transparent;color:#C8A97E;border:1px solid #C8A97E;padding:13px 28px;font-family:'Jost',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px}
+.bo:hover{background:#C8A97E;color:#fff;transform:translateY(-1px)}
+.bd{background:transparent;border:1px solid #3a3a3a;color:#D9CBB8;padding:13px 28px;font-family:'Jost',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px}
+.bd:hover{border-color:#C8A97E;color:#C8A97E}
+.ib{background:none;border:none;cursor:pointer;color:#2D2D2D;display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
+.ib:hover{color:#C8A97E;transform:scale(1.1)}
+.pc{background:#F8F6F2;border-radius:4px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.05);transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative}
+.pc:hover{box-shadow:0 24px 60px rgba(0,0,0,.13);transform:translateY(-5px)}
+.pc:hover .pi{transform:scale(1.07)}
+.pi{transition:transform .65s cubic-bezier(.23,1,.32,1);width:100%;height:100%;object-fit:cover}
+.cc{position:relative;border-radius:4px;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1)}
+.cc:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.cc:hover .ci{transform:scale(1.08)}
+.ci{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.23,1,.32,1)}
+/* ── TYPOGRAPHY CONTRAST IMPROVEMENTS ── */
+.txt-muted{color:#6a6a6a!important}
+.txt-dim{color:#888!important}
+.txt-body{color:#555!important;font-weight:400!important}
+.lbl-sm{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:#888;margin-bottom:10px;font-weight:500}
+.spec-key{font-size:12.5px;color:#666;width:38%;vertical-align:top;padding:7px 10px 7px 0}
+.spec-val{font-size:13px;color:#2D2D2D;padding:7px 0}
+.price-note{font-size:12px;color:#777;line-height:1.6}
+.delivery-txt{font-size:13px;color:#666;line-height:1.65}
+.card-desc{font-size:12.5px;color:#777;margin-bottom:14px;line-height:1.6}
+.wb{position:fixed;bottom:28px;right:28px;z-index:998;background:#25D366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 26px rgba(37,211,102,.42);cursor:pointer;transition:all .3s}
+.wb:hover{transform:scale(1.14);box-shadow:0 10px 38px rgba(37,211,102,.52)}
+.fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Jost',sans-serif;padding:0}
+.fl:hover{color:#C8A97E}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!important;box-shadow:0 0 0 3px rgba(200,169,126,.1)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#C8A97E}
+.img-zoom-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(6px)}
+.img-zoom-overlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;animation:fadeInUp .25s ease}
+.glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(217,203,184,.4);border-radius:6px;box-shadow:0 32px 80px rgba(0,0,0,.22)}
+.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #E0D5C9;border-radius:20px;padding:5px 13px;font-family:'Jost',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
+.google-btn:hover{background:#F5EEE4;border-color:#C8A97E;color:#2D2D2D;box-shadow:0 4px 12px rgba(200,169,126,.16)}
+.inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Jost',sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
+.tag-pill{background:#C8A97E;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* ── DESKTOP LAYOUT ── */
+.container{max-width:1280px;margin:0 auto;padding:0 40px}
+.sec{padding:88px 0}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+/* ── TABLET ── */
+@media(max-width:1024px){
+  .nc{display:none!important}
+  .container{padding:0 28px}
+  .grid-5{grid-template-columns:repeat(3,1fr)!important}
+  .grid-4{grid-template-columns:repeat(2,1fr)!important}
+  .grid-3{grid-template-columns:repeat(2,1fr)!important}
+  .grid-2{gap:36px!important}
+  .fc-grid{grid-template-columns:1fr 1fr!important}
+}
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .container{padding:0 18px}
+  .sec{padding:56px 0}
+  .grid-3,.grid-4,.grid-5{grid-template-columns:1fr 1fr!important;gap:14px!important}
+  .grid-2{grid-template-columns:1fr!important;gap:24px!important}
+  .fc-grid{grid-template-columns:1fr!important}
+  .hh{font-size:clamp(2.6rem,8vw,4rem)!important}
+  .hero-h{height:75vh!important}
+  .detail-img-h{height:300px!important}
+}
+@media(max-width:480px){
+  .grid-3,.grid-4,.grid-5{grid-template-columns:1fr!important}
+  .container{padding:0 14px}
+}
+/* ── NAV MOBILE HIDE ── */
+@media(max-width:1024px){.nc-item{display:none!important}}
+/* ── CHECKOUT GRID ── */
+.checkout-grid{grid-template-columns:1fr 1fr!important}
+@media(max-width:900px){.checkout-grid{grid-template-columns:1fr!important}}
+/* ── PROOF LIBRARY ── */
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.proof-grid{grid-template-columns:1fr 1fr!important}}
+@media(max-width:560px){.proof-grid{grid-template-columns:1fr!important}}
+/* ── DESKTOP HERO IMPROVEMENTS ── */
+@media(min-width:1200px){
+  .container{padding:0 60px}
+  .hh{font-size:clamp(3.5rem,4.5vw,6rem)!important}
+  .sec{padding:100px 0}
+}
+`;
+
+/* ─── SMALL UI COMPONENTS ────────────────────────────────── */
+const Tag=({c=C.gold,children}:{c?:string;children:React.ReactNode})=>(
+  <span className="tag-pill" style={{background:c}}>{children}</span>
+);
+const SL=({children,dark}:{children:React.ReactNode;dark?:boolean})=>(
+  <span className="sl" style={{color:dark?"#9B8B6E":"#C8A97E"}}>{children}</span>
+);
+const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>(
+  <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:size||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"}}
+    dangerouslySetInnerHTML={{__html:children as string}}/>
+);
+
+/* ─── SPINNER ────────────────────────────────────────────── */
+const Spinner=()=>(
+  <div style={{width:18,height:18,border:"2px solid rgba(255,255,255,.3)",borderTop:"2px solid #fff",borderRadius:"50%",animation:"spin .7s linear infinite",display:"inline-block"}}/>
+);
+
+/* ─── INQUIRY MODAL ──────────────────────────────────────── */
+function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
+  const [f,setF]=useState({...EMPTY_FORM});
+  const [ok,setOk]=useState(false);
+  const [loading,setLoading]=useState(false);
+  const [apiErr,setApiErr]=useState("");
+  const [zoneInfo,setZoneInfo]=useState<any>(null);
+  const [savedId,setSavedId]=useState<number|null>(null);
+
+  useEffect(()=>{
+    if(show){setF({...EMPTY_FORM,productName:product?.name||"",intent:initIntent||"quote"});setOk(false);setApiErr("");setZoneInfo(null);setSavedId(null);}
+  },[show,product,initIntent]);
+
+  const set=(k:string,v:string)=>setF((p:any)=>({...p,[k]:v}));
+  const checkPin=()=>{const z=lookupPincode(f.pincode);if(!z){alert("Enter a valid 6-digit Indian pincode");return;}setZoneInfo(z);};
+
+  const submit=async()=>{
+    if(!f.name.trim()||!f.phone.trim()){alert("Please enter your name and phone number.");return;}
+    setLoading(true);setApiErr("");
+    const payload={
+      name:f.name,phone:f.phone,email:f.email||undefined,company:f.company||undefined,
+      city:f.city||undefined,state:f.state||undefined,pincode:f.pincode||undefined,
+      customerType:f.customerType||undefined,
+      productName:f.productName||undefined,
+      productSlug:product?.id||undefined,
+      selectedSize:f.selectedSize||undefined,
+      quantity:f.quantity||undefined,
+      message:f.message||undefined,
+      inquiryType:f.intent||undefined,
+      intentLabel:f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"General Enquiry",
+      estimatedPort:zoneInfo?zoneInfo.port:undefined,
+      estimatedPriceRange:currency==="INR"?product?.priceINR:product?.priceUSD,
+      currency,
+    };
+    const res=await apiPost("/enquiries",payload as any);
+    setLoading(false);
+    if(res?.success){setSavedId(res.id);setOk(true);}
+    else setApiErr(res?.error||"Could not save. Please use WhatsApp instead.");
+  };
+
+  const toWA=()=>{
+    const msg=`Hi XIYORA,\n\nProduct: ${f.productName||"General Inquiry"}\nIntent: ${f.intent}\nName: ${f.name}\nPhone: ${f.phone}${f.company?"\nCompany: "+f.company:""}${f.city?"\nCity: "+f.city:""}${f.pincode?"\nPincode: "+f.pincode:""}${f.quantity?"\nQuantity: "+f.quantity:""}${f.selectedSize?"\nSize: "+f.selectedSize:""}${f.message?"\nMessage: "+f.message:""}`;
+    window.open(waMsg(msg),"_blank");
+  };
+
+  if(!show)return null;
+  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:10,transition:"border-color .2s"};
+  const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block",letterSpacing:".3px"};
+
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:900,background:"rgba(28,28,28,.6)",display:"flex",alignItems:"center",justifyContent:"center",padding:"16px",backdropFilter:"blur(12px)"}} onClick={onClose}>
+      <div className="glass-modal" style={{padding:"32px 36px",maxWidth:560,width:"100%",maxHeight:"92vh",overflowY:"auto",animation:"fadeInUp .3s ease"}} onClick={e=>e.stopPropagation()}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
+          <div>
+            <SL>{f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"Enquiry"}</SL>
+            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:500,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
+          </div>
+          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:22,lineHeight:1,marginLeft:16}}>✕</button>
+        </div>
+
+        {ok?(
+          <div style={{textAlign:"center",padding:"28px 0"}}>
+            <div style={{width:64,height:64,background:"linear-gradient(135deg,#C8A97E,#B89472)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28}}>✓</div>
+            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
+            <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
+            {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
+            <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:2,fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7}}>
+                <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                WhatsApp Us
+              </button>
+              <button className="bo" onClick={onClose} style={{padding:"12px 20px",fontSize:12}}>Close</button>
+            </div>
+          </div>
+        ):(
+          <>
+            <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:18}}>
+              {[["quote","Get Quote"],["proforma","Proforma Invoice"],["bulk","Bulk Order"],["general","General"]].map(([k,v])=>(
+                <button key={k} onClick={()=>set("intent",k)} style={{background:f.intent===k?C.gold:"#EFE8DE",color:f.intent===k?"#fff":"#888",border:"none",padding:"5px 13px",borderRadius:20,fontSize:11,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{v}</button>
+              ))}
+            </div>
+            {product&&<div style={{background:C.lgold,padding:"10px 14px",borderRadius:3,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <span style={{fontSize:13,color:"#888"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
+              <span style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:600}}>{currency==="INR"?product.priceINR:product.priceUSD}</span>
+            </div>}
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 14px"}}>
+              {([["Your Name *","name","text","Full name"],["Phone / WhatsApp *","phone","tel","+91 XXXXX"]] as const).map(([l,k,t,ph])=>(
+                <div key={k}><label style={lbl}>{l}</label><input style={inp} type={t} value={(f as any)[k]} onChange={e=>set(k,e.target.value)} placeholder={ph}/></div>
+              ))}
+              {([["Email","email","email","your@email.com"],["Company / Brand","company","text","Optional"]] as const).map(([l,k,t,ph])=>(
+                <div key={k}><label style={lbl}>{l}</label><input style={inp} type={t} value={(f as any)[k]} onChange={e=>set(k,e.target.value)} placeholder={ph}/></div>
+              ))}
+            </div>
+            <div style={{background:C.beige,borderRadius:3,padding:"14px",marginBottom:12}}>
+              <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:10,letterSpacing:".3px",display:"flex",alignItems:"center",gap:6}}>
+                <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Your Location
+              </div>
+              <button onClick={()=>{
+                if(!navigator.geolocation){alert("Geolocation not supported by your browser.");return;}
+                navigator.geolocation.getCurrentPosition(pos=>{
+                  const coords=`${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
+                  localStorage.setItem("xiyora_geo",JSON.stringify({lat:pos.coords.latitude,lng:pos.coords.longitude,ts:Date.now()}));
+                  alert(`Location detected (${coords}). Please confirm your city and pincode below for an accurate delivery estimate.`);
+                },()=>alert("Location access denied. Please enter your city and pincode manually."));
+              }} style={{background:"#fff",border:`1px solid ${C.sand}`,color:C.dark,padding:"8px 14px",borderRadius:3,fontSize:11.5,cursor:"pointer",fontFamily:"'Jost',sans-serif",marginBottom:10,display:"flex",alignItems:"center",gap:7,transition:"border-color .2s"}}
+                onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold}
+                onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
+                <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Use my current location
+              </button>
+              <div style={{display:"flex",gap:8,marginBottom:10}}>
+                <input style={{...inp,marginBottom:0,flex:1}} value={f.pincode} onChange={e=>set("pincode",e.target.value)} placeholder="6-digit pincode" maxLength={6}/>
+                <button onClick={checkPin} style={{background:C.dark,color:"#fff",border:"none",padding:"10px 16px",borderRadius:2,fontSize:12,cursor:"pointer",fontFamily:"'Jost',sans-serif",whiteSpace:"nowrap",transition:"background .2s"}}
+                  onMouseEnter={(e:any)=>e.currentTarget.style.background="#444"}
+                  onMouseLeave={(e:any)=>e.currentTarget.style.background=C.dark}>Check Zone</button>
+              </div>
+              {zoneInfo&&(
+                <div style={{background:ZONE_INFO[zoneInfo.zone]?.bg||"#f5f5f5",border:`1px solid ${ZONE_INFO[zoneInfo.zone]?.col||"#ccc"}`,borderRadius:3,padding:"10px 14px"}}>
+                  <div style={{fontSize:12.5,fontWeight:500,color:ZONE_INFO[zoneInfo.zone]?.col}}>{ZONE_INFO[zoneInfo.zone]?.label}</div>
+                  <div style={{fontSize:12,color:"#888",marginTop:3}}>Nearest Port: {zoneInfo.port} · Inland delivery: {zoneInfo.days} days</div>
+                </div>
+              )}
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 10px",marginTop:10}}>
+                {([["City","city","Mumbai"],["State","state","Maharashtra"]] as const).map(([l,k,ph])=>(
+                  <div key={k}><label style={lbl}>{l}</label><input style={inp} value={(f as any)[k]} onChange={e=>set(k,e.target.value)} placeholder={ph}/></div>
+                ))}
+              </div>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 14px"}}>
+              <div><label style={lbl}>Customer Type</label>
+                <select style={inp} value={f.customerType} onChange={e=>set("customerType",e.target.value)}>
+                  {["Home Buyer","Hotel / Resort","Interior Designer","Retailer","Manufacturer","Other"].map(o=><option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
+              <div><label style={lbl}>Quantity</label>
+                <input style={inp} value={f.quantity} onChange={e=>set("quantity",e.target.value)} placeholder="e.g. 2 pieces"/>
+              </div>
+            </div>
+            {product?.sizes?.length>0&&<div><label style={lbl}>Size / Variant</label>
+              <select style={inp} value={f.selectedSize} onChange={e=>set("selectedSize",e.target.value)}>
+                <option value="">Select size</option>
+                {product.sizes.map((s:string)=><option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>}
+            <div><label style={lbl}>Message (optional)</label>
+              <textarea style={{...inp,resize:"vertical",minHeight:70}} value={f.message} onChange={e=>set("message",e.target.value)} placeholder="Any specific requirements or questions..."/>
+            </div>
+            {apiErr&&<div style={{background:"#fff0f0",border:"1px solid #ffcccc",borderRadius:3,padding:"10px 14px",marginBottom:12,fontSize:13,color:"#cc4444"}}>{apiErr}</div>}
+            <p style={{fontSize:11.5,color:"#bbb",marginBottom:14,lineHeight:1.65}}>No payment is collected through this form. Final landed price confirmed in writing before any payment.</p>
+            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+              <button onClick={submit} className="bg" style={{flex:1,minWidth:120,padding:"12px 14px",fontSize:12}} disabled={loading}>
+                {loading?<Spinner/>:"Send Enquiry"}
+              </button>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 14px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+                <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                WhatsApp
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ─── SUBSCRIBE MODAL ────────────────────────────────────── */
+function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
+  const [f,setF]=useState({email:"",name:"",whatsapp:"",city:"",customerType:"Home Buyer",interestCategory:"Pillows",subscriptionType:"Home Buyer Updates"});
+  const [ok,setOk]=useState(false);
+  const [loading,setLoading]=useState(false);
+  const [err,setErr]=useState("");
+
+  useEffect(()=>{if(!show){setOk(false);setErr("");}},[show]);
+  const set=(k:string,v:string)=>setF((p:any)=>({...p,[k]:v}));
+
+  const submit=async()=>{
+    if(!f.email.trim()){alert("Email is required.");return;}
+    setLoading(true);setErr("");
+    const res=await apiPost("/subscriptions",{email:f.email,name:f.name||undefined,whatsapp:f.whatsapp||undefined,city:f.city||undefined,customerType:f.customerType,interestCategory:f.interestCategory,subscriptionType:f.subscriptionType});
+    setLoading(false);
+    if(res?.success)setOk(true);
+    else setErr(res?.error||"Something went wrong. Please try again.");
+  };
+
+  if(!show)return null;
+  const inp:React.CSSProperties={width:"100%",background:"#1e1e1e",border:"1px solid #2a2a2a",color:"#F0EBE3",padding:"11px 14px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",marginBottom:10};
+  const lbl:React.CSSProperties={fontSize:11.5,color:"#666",marginBottom:5,display:"block"};
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:900,background:"rgba(0,0,0,.72)",display:"flex",alignItems:"center",justifyContent:"center",padding:16,backdropFilter:"blur(10px)"}} onClick={onClose}>
+      <div style={{background:"#141414",borderRadius:6,padding:"32px 36px",maxWidth:480,width:"100%",boxShadow:"0 32px 80px rgba(0,0,0,.5)",border:"1px solid #2a2a2a",animation:"fadeInUp .3s ease"}} onClick={e=>e.stopPropagation()}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
+          <div>
+            <SL dark>Stay in Touch</SL>
+            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:400,color:"#F0EBE3",marginTop:4}}>Join XIYORA</h3>
+          </div>
+          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#555",fontSize:22,lineHeight:1}}>✕</button>
+        </div>
+        {ok?(
+          <div style={{textAlign:"center",padding:"20px 0"}}>
+            <div style={{fontSize:48,marginBottom:14}}>✓</div>
+            <p style={{fontSize:16,color:"#F0EBE3",fontFamily:"'Cormorant Garamond',serif",marginBottom:8}}>You're on the list!</p>
+            <p style={{fontSize:13,color:"#666",lineHeight:1.7}}>We'll reach out with product launches, B2B updates, and exclusive offers.</p>
+          </div>
+        ):(
+          <>
+            <label style={lbl}>Email *</label><input style={inp} type="email" value={f.email} onChange={e=>set("email",e.target.value)} placeholder="your@email.com"/>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 12px"}}>
+              <div><label style={lbl}>Your Name</label><input style={inp} value={f.name} onChange={e=>set("name",e.target.value)} placeholder="Full name"/></div>
+              <div><label style={lbl}>WhatsApp</label><input style={inp} value={f.whatsapp} onChange={e=>set("whatsapp",e.target.value)} placeholder="+91 XXXXX"/></div>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 12px"}}>
+              <div><label style={lbl}>City</label><input style={inp} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Mumbai"/></div>
+              <div><label style={lbl}>I am a</label>
+                <select style={inp} value={f.customerType} onChange={e=>set("customerType",e.target.value)}>
+                  {["Home Buyer","Hotel / Resort","Interior Designer","Retailer","Manufacturer"].map(o=><option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
+            </div>
+            <label style={lbl}>Subscription Type</label>
+            <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14}}>
+              {["Home Buyer Updates","Retailer — B2B Access","Hotel & Interior Partner","Trade Partner"].map(t=>(
+                <button key={t} onClick={()=>set("subscriptionType",t)} style={{background:f.subscriptionType===t?C.gold:"#1e1e1e",color:f.subscriptionType===t?"#fff":"#666",border:`1px solid ${f.subscriptionType===t?C.gold:"#2a2a2a"}`,padding:"6px 12px",borderRadius:20,fontSize:11.5,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{t}</button>
+              ))}
+            </div>
+            {err&&<div style={{color:"#f87171",fontSize:12,marginBottom:10}}>{err}</div>}
+            <button className="bg" onClick={submit} style={{width:"100%",padding:13}} disabled={loading}>
+              {loading?<Spinner/>:"Join XIYORA"}
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ─── IMAGE ZOOM ─────────────────────────────────────────── */
+function ImageZoom({src,alt,onClose}:{src:string;alt:string;onClose:()=>void}){
+  useEffect(()=>{
+    const fn=(e:KeyboardEvent)=>{if(e.key==="Escape")onClose();};
+    document.addEventListener("keydown",fn);
+    return()=>document.removeEventListener("keydown",fn);
+  },[onClose]);
+  return(
+    <div className="img-zoom-overlay" onClick={onClose}>
+      <img src={src} alt={alt} onClick={e=>e.stopPropagation()}/>
+      <button onClick={onClose} style={{position:"absolute",top:24,right:28,background:"none",border:"none",color:"#fff",fontSize:28,cursor:"pointer",opacity:.6}}>✕</button>
+    </div>
+  );
+}
+
+/* ─── SEARCH OVERLAY ─────────────────────────────────────── */
+function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
+  const [q,setQ]=useState("");
+  const ref=useRef<HTMLInputElement>(null);
+  useEffect(()=>{if(show)ref.current?.focus();if(!show)setQ("");},[show]);
+  if(!show)return null;
+  const hits=q.length>1?PRODUCTS.filter(p=>[p.name,p.category,p.latexType,p.shortDesc].join(" ").toLowerCase().includes(q.toLowerCase())):[];
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:800,background:"rgba(28,28,28,.68)",backdropFilter:"blur(14px)",display:"flex",flexDirection:"column",alignItems:"center",padding:"70px 20px 20px"}} onClick={onClose}>
+      <div style={{width:"100%",maxWidth:620,background:"rgba(248,246,242,.98)",backdropFilter:"blur(20px)",borderRadius:5,overflow:"hidden",boxShadow:"0 40px 100px rgba(0,0,0,.28)",border:`1px solid ${C.sand}`,animation:"fadeInUp .22s ease"}} onClick={e=>e.stopPropagation()}>
+        <div style={{display:"flex",alignItems:"center",padding:"15px 20px",borderBottom:`1px solid ${C.sand}`,gap:12}}>
+          <svg width={17} height={17} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
+          <input ref={ref} value={q} onChange={e=>setQ(e.target.value)} placeholder="Search mattresses, pillows, toppers, cushions…" style={{flex:1,background:"none",border:"none",fontSize:15,color:C.dark,fontFamily:"'Jost',sans-serif",outline:"none"}}/>
+          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:20}}>✕</button>
+        </div>
+        {hits.length>0&&<div style={{maxHeight:400,overflowY:"auto"}}>
+          {hits.map(p=>(
+            <div key={p.id} style={{display:"flex",alignItems:"center",gap:14,padding:"12px 20px",cursor:"pointer",borderBottom:`1px solid ${C.beige}`,transition:"background .18s"}}
+              onClick={()=>{onPickProduct(p);onClose();}}
+              onMouseEnter={(e:any)=>e.currentTarget.style.background=C.beige}
+              onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
+              <img src={p.gallery[0]} alt={p.name} style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
+                <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
+              </div>
+              <div style={{fontSize:13,color:"#aaa",flexShrink:0}}>{p.priceINR}</div>
+            </div>
+          ))}
+        </div>}
+        {q.length>1&&!hits.length&&(
+          <div style={{padding:"28px 20px",textAlign:"center"}}>
+            <p style={{fontSize:14,color:"#aaa",marginBottom:14}}>No results for "<strong>{q}</strong>"</p>
+            <button className="bg" onClick={()=>{onCatalog();onClose();}} style={{padding:"10px 22px",fontSize:12}}>Browse All Products</button>
+          </div>
+        )}
+        {!q&&<div style={{padding:"14px 20px"}}>
+          <p style={{fontSize:11,color:"#bbb",marginBottom:10,letterSpacing:"1px",textTransform:"uppercase"}}>Quick Browse</p>
+          <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+            {["Mattresses","Pillows","Toppers","Cushions","Talalay","Dunlop"].map(t=>(
+              <button key={t} onClick={()=>setQ(t)} style={{background:C.beige,border:"none",padding:"7px 14px",borderRadius:20,fontSize:12.5,color:C.dark,cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>{t}</button>
+            ))}
+          </div>
+        </div>}
+      </div>
+    </div>
+  );
+}
+
+/* ─── PRODUCT CARD ───────────────────────────────────────── */
+function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
+  const [imgErr,setImgErr]=useState(false);
+  return(
+    <div className="pc" onClick={()=>onOpen(p)}>
+      <div style={{position:"relative",overflow:"hidden",height:240}}>
+        <img src={imgErr?FALLBACK_IMG:p.gallery[0]} alt={p.name} className="pi" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%"}}/>
+        <div style={{position:"absolute",top:10,left:10}}>
+          <Tag>{p.tag}</Tag>
+        </div>
+        <button style={{position:"absolute",top:10,right:10,background:"rgba(248,246,242,.92)",border:"none",width:34,height:34,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all .2s"}}
+          onClick={e=>{e.stopPropagation();onWish(p.id);}}>
+          <svg width={15} height={15} fill={wl.includes(p.id)?C.gold:"none"} stroke={wl.includes(p.id)?C.gold:"#999"} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div style={{padding:"16px 18px"}}>
+        <div style={{fontSize:10,letterSpacing:"1.8px",textTransform:"uppercase",color:C.gold,marginBottom:5,fontWeight:500}}>{p.latexType} · {p.category}</div>
+        <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
+        <p style={{fontSize:12.5,color:"#aaa",marginBottom:14,lineHeight:1.55,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:12,borderTop:`1px solid ${C.sand}`}}>
+          <div>
+            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:600,color:C.dark}}>{cur==="INR"?p.priceINR:p.priceUSD}</div>
+            <div style={{fontSize:10,color:"#ccc",marginTop:2}}>Indicative · Quote after city</div>
+          </div>
+          <button className="bg" style={{padding:"9px 14px",fontSize:11,letterSpacing:"1px"}} onClick={e=>{e.stopPropagation();onInquire(p,"quote");}}>Get Quote</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── PRODUCT DETAIL ─────────────────────────────────────── */
+function ProductDetail({p,cur,wl,onWish,onBack,onInquire}:any){
+  const [img,setImg]=useState(0);
+  const [zoom,setZoom]=useState(false);
+  const [imgErrors,setImgErrors]=useState<Record<number,boolean>>({});
+  const [selVar,setSelVar]=useState<number>(-1);
+  useEffect(()=>{setImg(0);setImgErrors({});setSelVar(-1);window.scrollTo(0,0);},[p]);
+  const wished=wl.includes(p.id);
+  const currentSrc=imgErrors[img]?FALLBACK_IMG:p.gallery[img];
+  const hasVariants=p.variants&&p.variants.length>0;
+  const activeVar=hasVariants&&selVar>=0?p.variants[selVar]:null;
+  const displayPriceINR=activeVar?activeVar.priceINR:p.priceINR;
+  const displayPriceUSD=activeVar?activeVar.priceUSD:p.priceUSD;
+  return(
+    <div style={{background:C.white,minHeight:"100vh"}}>
+      {zoom&&<ImageZoom src={currentSrc} alt={p.name} onClose={()=>setZoom(false)}/>}
+      {/* Breadcrumb */}
+      <div style={{borderBottom:`1px solid ${C.sand}`,padding:"12px 0"}}>
+        <div className="container" style={{display:"flex",gap:8,alignItems:"center",fontSize:13}}>
+          <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:"#888",fontFamily:"'Jost',sans-serif",display:"flex",alignItems:"center",gap:6,transition:"color .2s"}}
+            onMouseEnter={(e:any)=>e.currentTarget.style.color=C.gold}
+            onMouseLeave={(e:any)=>e.currentTarget.style.color="#888"}>
+            <svg width={14} height={14} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Back
+          </button>
+          <span style={{color:"#ddd"}}>·</span><span style={{color:"#bbb"}}>{p.category}</span>
+          <span style={{color:"#ddd"}}>·</span><span style={{color:C.dark,fontWeight:500}}>{p.name}</span>
+        </div>
+      </div>
+      <div className="container" style={{padding:"48px 40px"}}>
+        <div className="grid-2" style={{gap:56}}>
+          {/* Images */}
+          <div>
+            <div style={{borderRadius:5,overflow:"hidden",background:C.beige,marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h">
+              <img src={currentSrc} alt={p.name} style={{width:"100%",height:"100%",objectFit:"cover",transition:"opacity .3s"}} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
+              <div style={{position:"absolute",bottom:12,right:12,background:"rgba(248,246,242,.85)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"#888",display:"flex",alignItems:"center",gap:5}}>
+                <svg width={11} height={11} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                Tap to zoom
+              </div>
+              {p.gallery.length>1&&<>
+                <button onClick={e=>{e.stopPropagation();setImg(i=>(i-1+p.gallery.length)%p.gallery.length);}} style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",background:"rgba(248,246,242,.88)",border:"none",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 8px rgba(0,0,0,.12)"}}>‹</button>
+                <button onClick={e=>{e.stopPropagation();setImg(i=>(i+1)%p.gallery.length);}} style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"rgba(248,246,242,.88)",border:"none",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 8px rgba(0,0,0,.12)"}}>›</button>
+              </>}
+            </div>
+            {p.gallery.length>1&&<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+              {p.gallery.map((im:string,i:number)=>(
+                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"transparent"}`,transition:"border-color .2s",flexShrink:0}}>
+                  <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} style={{width:"100%",height:"100%",objectFit:"cover"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
+                </div>
+              ))}
+            </div>}
+          </div>
+          {/* Info */}
+          <div>
+            <div style={{marginBottom:14}}>
+              <Tag>{p.tag}</Tag>
+              <Tag c={p.latexType==="Talalay"?"#9B8B6E":p.latexType==="Hybrid"?"#7B8F7E":"#5a7a7a"}>{p.latexType} Latex</Tag>
+              <Tag c="#999">{p.category}</Tag>
+            </div>
+            <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.1,marginBottom:8}}>{p.name}</h1>
+            <p style={{fontSize:16,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",marginBottom:20,lineHeight:1.4}}>{p.headline}</p>
+            <p style={{fontSize:14.5,color:"#666",lineHeight:1.82,marginBottom:24,fontWeight:300}}>{p.description}</p>
+            {p.latexContent&&<div style={{padding:"8px 14px",background:C.lgold,borderRadius:3,marginBottom:20,display:"flex",gap:8,alignItems:"center"}}>
+              <span style={{color:"#777",fontSize:13}}>Latex Content:</span>
+              <strong style={{fontSize:13,color:C.dark}}>{p.latexContent}</strong>
+            </div>}
+            {/* Highlights */}
+            <div style={{marginBottom:22}}>
+              <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:10,fontWeight:500}}>Highlights</p>
+              {p.highlights.map((h:string,i:number)=>(
+                <div key={i} style={{display:"flex",gap:10,marginBottom:9,alignItems:"flex-start"}}>
+                  <span style={{color:C.gold,flexShrink:0,marginTop:2}}>◈</span>
+                  <span style={{fontSize:13.5,color:"#555",lineHeight:1.65}}>{h}</span>
+                </div>
+              ))}
+            </div>
+            {/* Specs */}
+            <div style={{marginBottom:22}}>
+              <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:10,fontWeight:500}}>Specifications</p>
+              <table style={{width:"100%",borderCollapse:"collapse"}}><tbody>
+                {Object.entries(p.specs).map(([k,v])=>(
+                  <tr key={k} style={{borderBottom:`1px solid ${C.beige}`}}>
+                    <td className="spec-key">{k}</td>
+                    <td className="spec-val">{String(v)}</td>
+                  </tr>
+                ))}
+              </tbody></table>
+            </div>
+            {/* Variant Selector */}
+            {hasVariants&&(
+              <div style={{marginBottom:18}}>
+                <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:10,fontWeight:500}}>Select Size / Specification</p>
+                <div style={{display:"flex",flexDirection:"column",gap:7}}>
+                  {(p.variants as any[]).map((v:any,i:number)=>(
+                    <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Jost',sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
+                      <span>{v.label}</span>
+                      <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888",flexShrink:0,marginLeft:12}}>{cur==="INR"?v.priceINR:v.priceUSD}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            {/* Price */}
+            <div style={{background:C.lgold,padding:"16px 18px",borderRadius:3,borderLeft:`3px solid ${C.gold}`,marginBottom:18}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:5,flexWrap:"wrap",gap:8}}>
+                <span style={{fontSize:12,color:"#777"}}>{activeVar?"Selected price (indicative)":"Indicative price range"}</span>
+                <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,color:C.gold}}>{cur==="INR"?displayPriceINR:displayPriceUSD}</span>
+              </div>
+              {activeVar&&<div style={{fontSize:11.5,color:"#777",marginBottom:6}}>SKU: {activeVar.sku}</div>}
+              <p style={{fontSize:11.5,color:"#777",lineHeight:1.5}}>{p.priceNote}</p>
+            </div>
+            {/* Delivery */}
+            <div style={{padding:"12px 14px",background:C.beige,borderRadius:3,marginBottom:22,display:"flex",gap:10,alignItems:"flex-start"}}>
+              <svg width={18} height={18} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24" style={{flexShrink:0,marginTop:2}}><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+              <div>
+                <p style={{fontSize:12.5,fontWeight:500,color:C.dark,marginBottom:3}}>Delivery Estimate</p>
+                <p style={{fontSize:12.5,color:"#666",lineHeight:1.6}}>Timeline confirmed after stock, city, port, and quantity review. {p.deliveryNote}</p>
+              </div>
+            </div>
+            {/* CTAs */}
+            <div style={{display:"flex",gap:10,flexWrap:"wrap",marginBottom:10}}>
+              <button className="bg" style={{flex:1,minWidth:120,padding:"13px 16px",fontSize:12}} onClick={()=>onInquire(p,"quote")}>Get Price Quote</button>
+              <button className="bo" style={{flex:1,minWidth:120,padding:"13px 16px",fontSize:12}} onClick={()=>onInquire(p,"proforma")}>Proforma Invoice</button>
+            </div>
+            <div style={{display:"flex",gap:10,flexWrap:"wrap",marginBottom:14}}>
+              <button style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 16px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s"}}
+                onClick={()=>window.open(waMsg(`Hi XIYORA, I'm interested in ${p.name}. Can you share the landed price for my city?`),"_blank")}>
+                <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                WhatsApp
+              </button>
+              <button onClick={()=>onWish(p.id)} style={{background:wished?C.lgold:"transparent",border:`1px solid ${wished?C.gold:C.sand}`,color:wished?C.gold:"#888",padding:"12px 16px",borderRadius:2,cursor:"pointer",fontSize:13,fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>
+                {wished?"♥ Saved":"♡ Save"}
+              </button>
+            </div>
+            <button className="bo" style={{width:"100%",padding:"12px",fontSize:12}} onClick={()=>onInquire(p,"bulk")}>Contact for Bulk / B2B Order</button>
+          </div>
+        </div>
+      </div>
+      {p.useCases?.length>0&&(
+        <div style={{background:C.beige,padding:"36px 0"}}>
+          <div className="container">
+            <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:14,fontWeight:500}}>Ideal For</p>
+            <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
+              {p.useCases.map((u:string,i:number)=>(
+                <div key={i} style={{background:C.white,padding:"12px 18px",borderRadius:3,fontSize:13.5,color:C.dark,boxShadow:"0 2px 10px rgba(0,0,0,.04)"}}>◈ {u}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─── CATALOG VIEW ───────────────────────────────────────── */
+function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
+  const filtered=cat?PRODUCTS.filter(p=>p.category===cat):PRODUCTS;
+  return(
+    <div style={{background:C.white,minHeight:"100vh"}}>
+      <div style={{background:"linear-gradient(135deg,#EFE8DE 0%,#F8F6F2 100%)",padding:"52px 0 44px"}}>
+        <div className="container">
+          <SL>Official Bingxi Partner Catalogue</SL>
+          <SH>Natural Latex Comfort Products</SH>
+          <p style={{fontSize:14.5,color:"#888",marginTop:12,maxWidth:540,lineHeight:1.75,fontWeight:300}}>Premium Talalay & Dunlop latex pillows, mattresses, toppers, and cushions. Indicative prices — final quotes confirmed after your city and quantity.</p>
+        </div>
+      </div>
+      <div style={{borderBottom:`1px solid ${C.sand}`,position:"sticky",top:68,zIndex:10,background:"rgba(248,246,242,.97)",backdropFilter:"blur(12px)"}}>
+        <div className="container" style={{display:"flex",overflowX:"auto"}}>
+          {CATS.map(c=>(
+            <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Jost',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:"#888",borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
+              {c.name} <span style={{fontSize:10,color:"#bbb"}}>({c.name==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.category===c.filter).length})</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="container" style={{padding:"44px 40px"}}>
+        <div className="grid-3">
+          {filtered.map(p=><PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>)}
+        </div>
+        <div style={{marginTop:44,padding:"16px 20px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2}}>
+          <p style={{fontSize:13,color:"#888",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> Indicative prices include estimated import costs. Shipping, customs, IGST, and local delivery confirmed in your final quote. {BIZ.gstNote}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── HOME VIEW ──────────────────────────────────────────── */
+function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire}:any){
+  const catImages:Record<string,string>={
+    Mattresses:"/assets/products/talalay-latex-mattress/talalay-latex-mattress-1.jpg",
+    Pillows:"/assets/products/talalay-contour-pillow/talalay-contour-pillow-1.jpg",
+    Toppers:"/assets/products/latex-topper/latex-topper-1.jpg",
+    Cushions:"/assets/products/dunlop-standard-seat-cushion/dunlop-standard-seat-cushion-1.jpg",
+    "Latex Material":"/assets/products/shredded-talalay-latex/shredded-talalay-latex-1.jpg",
+  };
+  return(
+    <div>
+      {/* HERO */}
+      <section style={{position:"relative",height:"88vh",minHeight:580,overflow:"hidden",display:"flex",alignItems:"center"}} className="hero-h">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1800&q=85" alt="Luxury latex bedroom"
+          style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 40%",animation:"heroScale 1.8s ease forwards"}}
+          onError={(e:any)=>{e.currentTarget.src="/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg";}}/>
+        <div style={{position:"absolute",inset:0,background:"linear-gradient(108deg,rgba(248,246,242,.99) 46%,rgba(248,246,242,.55) 70%,rgba(248,246,242,.08) 100%)"}}/>
+        <div className="container" style={{position:"relative",width:"100%"}}>
+          <div style={{maxWidth:560}}>
+            <p className="sl ht1" style={{textShadow:"0 1px 4px rgba(248,246,242,.8)"}}>✦ &nbsp;Official Bingxi Partner for India</p>
+            <h1 className="ht2 hh" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(3rem,5.2vw,5.4rem)",fontWeight:500,lineHeight:1.08,color:C.dark,marginBottom:22,textShadow:"0 1px 6px rgba(248,246,242,.6)"}}>
+              Luxury Living,<br/><em>Imported.</em>
+            </h1>
+            <p className="ht3" style={{fontSize:15.5,color:"#3a3a3a",lineHeight:1.82,marginBottom:32,fontWeight:400,maxWidth:460}}>
+              Premium natural Talalay & Dunlop latex pillows, mattresses & toppers — sourced from Bingxi, delivered across India.
+            </p>
+            <div className="ht4" style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:22}}>
+              <button className="bg" onClick={onCatalog} style={{padding:"14px 32px",fontSize:12,letterSpacing:"2.5px"}}>Explore Products</button>
+              <button className="bo" onClick={onSupplier} style={{padding:"14px 30px",fontSize:12}}>For Businesses</button>
+            </div>
+            <p className="ht5" style={{fontSize:12,color:"#4a4a4a",letterSpacing:".8px",display:"flex",gap:18,flexWrap:"wrap",fontWeight:500}}>
+              <span>✓ Indicative Prices</span><span>✓ B2B & Retail</span><span>✓ Custom Sizes</span><span>✓ WhatsApp Support</span>
+            </p>
+          </div>
+        </div>
+      </section>
+      {/* FEATURE BAR */}
+      <section style={{background:C.char}}>
+        <div className="container">
+          <div className="grid-4" style={{gap:0}}>
+            {[["◈","Natural Latex Quality","Talalay & Dunlop from Bingxi"],["◉","Certificates Available","On request before ordering"],["◎","Pan-India Delivery","Shipping & import in your quote"],["◇","B2B & Retail","Bulk pricing for trade buyers"]].map(([ic,t,d],i)=>(
+              <div key={i} style={{display:"flex",alignItems:"center",gap:14,padding:"22px 24px",borderRight:i<3?"1px solid #252525":"none"}}>
+                <span style={{fontSize:20,color:C.gold,flexShrink:0}}>{ic}</span>
+                <div>
+                  <div style={{fontSize:13,fontWeight:500,color:"#F0EBE3",marginBottom:2}}>{t}</div>
+                  <div style={{fontSize:11.5,color:"#555"}}>{d}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* CATEGORIES */}
+      <section className="sec" style={{background:C.white}}>
+        <div className="container">
+          <div style={{textAlign:"center",marginBottom:52}}>
+            <SL>Bingxi Collection</SL>
+            <SH center>Shop By Category</SH>
+            <p style={{fontSize:14.5,color:"#aaa",marginTop:10,maxWidth:440,margin:"10px auto 0",lineHeight:1.7,fontWeight:300}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
+          </div>
+          <div className="grid-5">
+            {CATS.filter(c=>c.filter).map((cat,i)=>{
+              const [imgErr,setImgErr]=useState(false);
+              return(
+                <div key={i} className="cc" style={{aspectRatio:"2/3"}} onClick={()=>onCatFilter(cat.filter)}>
+                  <img src={imgErr?FALLBACK_IMG:catImages[cat.filter!]} alt={cat.name} className="ci" onError={()=>setImgErr(true)}/>
+                  <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(28,28,28,.82) 0%,transparent 55%)"}}/>
+                  <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"18px 16px"}}>
+                    <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:500,color:"#fff",marginBottom:4}}>{cat.name}</div>
+                    <div style={{fontSize:10.5,color:"rgba(255,255,255,.55)",letterSpacing:"1.2px",textTransform:"uppercase"}}>{PRODUCTS.filter(p=>p.category===cat.filter).length} Products</div>
+                  </div>
+                  <div style={{position:"absolute",top:12,right:12,background:"rgba(248,246,242,.88)",padding:"4px 9px",fontSize:10,letterSpacing:"1.2px",textTransform:"uppercase",color:C.dark,fontWeight:500,borderRadius:2}}>Explore →</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      {/* FEATURED PRODUCTS */}
+      <section className="sec" style={{background:C.beige}}>
+        <div className="container">
+          <div style={{display:"flex",alignItems:"flex-end",justifyContent:"space-between",marginBottom:48,flexWrap:"wrap",gap:18}}>
+            <div><SL>Bingxi Catalogue</SL><SH>Featured Products</SH></div>
+            <div style={{display:"flex",alignItems:"center",gap:12}}>
+              <span style={{fontSize:12,color:"#888"}}>Indicative landed ranges</span>
+              <button className="bo" style={{padding:"10px 18px",fontSize:11}} onClick={onCatalog}>View All →</button>
+            </div>
+          </div>
+          <div className="grid-3">
+            {PRODUCTS.slice(0,6).map(p=><PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>)}
+          </div>
+          <div style={{marginTop:32,padding:"14px 20px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2}}>
+            <p style={{fontSize:13,color:"#888",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> All indicative prices include estimated import costs. Final landed price confirmed in your quote. {BIZ.gstNote}</p>
+          </div>
+        </div>
+      </section>
+      {/* WHY XIYORA */}
+      <section className="sec" style={{background:C.white}}>
+        <div className="container">
+          <div className="grid-2" style={{gap:72}}>
+            <div>
+              <SL>Our Promise</SL>
+              <SH>Why Choose<br/><em>XIYORA?</em></SH>
+              <p style={{fontSize:15,color:"#888",lineHeight:1.85,margin:"18px 0 36px",fontWeight:300}}>We connect trusted global latex manufacturers with the Indian market — genuine comfort products with transparent pricing and dedicated support.</p>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+                {[["◈","Honest Sourcing","Official Bingxi sourcing partner. No inflated claims."],["◉","Transparent Pricing","Indicative ranges shown. Full breakdown in your quote."],["◎","B2B Focused","Hotels, retailers, designers, and manufacturers welcome."],["◇","Custom Orders","Non-standard sizes, densities, and branding available."]].map(([ic,t,d],i)=>(
+                  <div key={i} style={{padding:"18px 16px",background:C.beige,borderRadius:3,borderTop:`2px solid ${C.gold}`,transition:"box-shadow .3s"}}
+                    onMouseEnter={(e:any)=>e.currentTarget.style.boxShadow="0 8px 28px rgba(0,0,0,.09)"}
+                    onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
+                    <div style={{fontSize:20,color:C.gold,marginBottom:9}}>{ic}</div>
+                    <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:6}}>{t}</div>
+                    <div style={{fontSize:12.5,color:"#aaa",lineHeight:1.7}}>{d}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{position:"relative"}}>
+              <img src="/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg" alt="Premium latex comfort" style={{width:"100%",height:520,objectFit:"cover",borderRadius:5}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
+              <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,animation:"glowPulse 4s ease-in-out infinite"}}>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:13,color:"#aaa",letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:28,fontWeight:600,color:C.gold}}>₹1,600</div>
+                <div style={{fontSize:11,color:"#bbb",marginTop:3}}>Indicative · Quote after your city</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* PROCESS */}
+      <section className="sec" style={{background:C.beige}}>
+        <div className="container">
+          <div style={{textAlign:"center",marginBottom:52}}>
+            <SL>Simple Process</SL>
+            <SH center>How It Works</SH>
+          </div>
+          <div className="grid-4">
+            {[["01","Browse & Select","Explore the full Bingxi catalogue and select products that match your needs."],["02","Get a Quote","Send an inquiry or WhatsApp us. We reply with an indicative landed price for your city."],["03","Confirm Order","Review the proforma invoice, confirm specs, and approve before any payment."],["04","Delivery","Shipped from China and delivered to your door. 3–10 days inland after port clearance."]].map(([n,t,d])=>(
+              <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:3,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.09)";}}
+                onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:40,fontWeight:300,color:C.sand,marginBottom:14,lineHeight:1}}>{n}</div>
+                <h4 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontWeight:500,color:C.dark,marginBottom:10}}>{t}</h4>
+                <p style={{fontSize:13,color:"#888",lineHeight:1.72,fontWeight:300}}>{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* B2B CTA */}
+      <section className="sec" style={{background:C.char,position:"relative",overflow:"hidden"}}>
+        <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:700,height:700,background:"radial-gradient(circle,rgba(200,169,126,.06) 0%,transparent 70%)",pointerEvents:"none"}}/>
+        <div className="container" style={{position:"relative",textAlign:"center"}}>
+          <SL dark>B2B Welcome</SL>
+          <SH dark center>Partner With <em>XIYORA</em></SH>
+          <p style={{fontSize:15.5,color:"#666",lineHeight:1.88,margin:"18px auto 44px",maxWidth:580,fontWeight:300}}>Bulk pricing, custom specifications, private-label options, and dedicated B2B support. Hotels, retailers, interior designers, and manufacturers welcome.</p>
+          <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap",marginBottom:52}}>
+            <button className="bg" style={{padding:"14px 36px",fontSize:12,letterSpacing:"2px"}} onClick={onSupplier}>Explore B2B Options</button>
+            <button className="bd" style={{padding:"14px 36px",fontSize:12,letterSpacing:"2px"}} onClick={()=>onInquire(null,"bulk")}>Send B2B Inquiry</button>
+          </div>
+          <div style={{display:"flex",gap:48,justifyContent:"center",flexWrap:"wrap"}}>
+            {[["Pan-India","Delivery Network"],["Custom Sizes","& Densities"],["GST Invoice","Where Applicable"],["B2B Quote","Within 48 Hours"]].map(([l1,l2],i)=>(
+              <div key={i} style={{textAlign:"center"}}>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:500,color:C.gold}}>{l1}</div>
+                <div style={{fontSize:11.5,color:"#555",marginTop:3}}>{l2}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* BOTTOM CTA */}
+      <section style={{padding:"64px 0",background:C.beige}}>
+        <div className="container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24}}>
+          <div>
+            <SL>Ready to Start?</SL>
+            <SH>Let's Talk About Your Order</SH>
+            <p style={{fontSize:14.5,color:"#888",marginTop:10,maxWidth:480,lineHeight:1.72,fontWeight:300}}>Home buyer or B2B buyer — we're ready to share an indicative quote and get you started.</p>
+          </div>
+          <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
+            <button className="bg" onClick={()=>onInquire(null,"general")} style={{padding:"14px 28px",fontSize:12}}>Send Inquiry</button>
+            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"14px 28px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.5px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
+              onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")}>
+                <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                WhatsApp
+              </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ─── NAVBAR ─────────────────────────────────────────────── */
+function Navbar({page,setPage,cur,setCur,scrolled,wl,onSearch,onCatalog,onCatFilter,onCheckout,onAccount}:any){
+  const handleGoogleLogin=()=>{
+    alert("Google / Account login coming soon. For now you can save your location and preferences in your Account page.");
+    onAccount();
+  };
+  return(
+    <nav style={{position:"sticky",top:0,zIndex:200,background:scrolled?"rgba(248,246,242,.97)":C.white,borderBottom:`1px solid ${C.sand}`,backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 28px rgba(0,0,0,.07)":"none",transition:"all .35s ease"}}>
+      <div className="container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",height:68}}>
+        <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:26,fontWeight:600,letterSpacing:7,color:C.dark,cursor:"pointer",flexShrink:0}} onClick={()=>setPage("home")}>XIYORA</div>
+        <div className="nc" style={{display:"flex",gap:24,alignItems:"center"}}>
+          {[["Home","home"],["Mattresses","Mattresses"],["Pillows","Pillows"],["Toppers","Toppers"],["Cushions","Cushions"],["Collections","catalog"],["For B2B","supplier"],["About","about"],["Contact","contact"]].map(([l,v])=>(
+            <button key={l} className="nl" onClick={()=>{
+              if(["Mattresses","Pillows","Toppers","Cushions"].includes(v))onCatFilter(v);
+              else if(v==="catalog")onCatalog();
+              else setPage(v);
+            }} style={{color:page===v?C.gold:C.dark}}>{l}</button>
+          ))}
+        </div>
+        <div style={{display:"flex",alignItems:"center",gap:8}}>
+          <div style={{display:"flex",background:C.beige,borderRadius:20,padding:"3px 3px",gap:2}}>
+            {["INR","USD"].map(c=>(
+              <button key={c} onClick={()=>setCur(c)} style={{background:cur===c?C.gold:"transparent",color:cur===c?"#fff":C.dark,border:"none",padding:"4px 11px",borderRadius:16,fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{c}</button>
+            ))}
+          </div>
+          <button className="google-btn nc" onClick={handleGoogleLogin} title="Account">
+            <svg width={14} height={14} viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            <span>Account</span>
+          </button>
+          <button className="ib" onClick={onSearch} title="Search">
+            <svg width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
+          </button>
+          <button className="ib" onClick={onCheckout} style={{position:"relative"}} title="Saved / Checkout">
+            <svg width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            {wl.length>0&&<span style={{position:"absolute",top:-5,right:-5,background:C.gold,color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+function Footer({setPage,onInquire,onSubscribe}:any){
+  return(
+    <footer style={{background:"#141414",color:"#666",padding:"70px 0 36px"}}>
+      <div className="container">
+        <div className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
+          <div>
+            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:26,fontWeight:600,letterSpacing:7,color:"#F0EBE3",marginBottom:14,cursor:"pointer"}} onClick={()=>setPage("home")}>XIYORA</div>
+            <p style={{fontSize:13,lineHeight:1.85,color:"#555",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
+            <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" style={{fontSize:12.5,color:"#444",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:7}}>
+              <span style={{color:"#25D366",fontSize:9}}>●</span>+91 70283 11226
+            </a>
+            <a href={`mailto:${BIZ.email}`} style={{fontSize:12.5,color:"#444",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:8}}>
+              <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              {BIZ.email}
+            </a>
+            <a href={BIZ.ig} target="_blank" rel="noreferrer"
+              style={{fontSize:12.5,color:"#444",textDecoration:"none",display:"flex",alignItems:"center",gap:8,marginBottom:12,transition:"color .25s"}}
+              onMouseEnter={(e:any)=>e.currentTarget.style.color="#E1306C"}
+              onMouseLeave={(e:any)=>e.currentTarget.style.color="#444"}>
+              <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.01" fill="currentColor" strokeWidth={2.5}/>
+              </svg>
+              @xiyora.zi
+            </a>
+            <div style={{display:"flex",gap:10}}>
+              <a href={BIZ.ig} target="_blank" rel="noreferrer" title="Instagram"
+                style={{width:34,height:34,background:"linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",opacity:.8,transition:"opacity .2s,transform .2s"}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.opacity="1";e.currentTarget.style.transform="scale(1.1)";}}
+                onMouseLeave={(e:any)=>{e.currentTarget.style.opacity=".8";e.currentTarget.style.transform="scale(1)";}}>
+                <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" fill="white" strokeWidth={2.5}/></svg>
+              </a>
+              <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" title="WhatsApp"
+                style={{width:34,height:34,background:"#25D366",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",opacity:.8,transition:"opacity .2s,transform .2s"}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.opacity="1";e.currentTarget.style.transform="scale(1.1)";}}
+                onMouseLeave={(e:any)=>{e.currentTarget.style.opacity=".8";e.currentTarget.style.transform="scale(1)";}}>
+                <svg width={16} height={16} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div>
+            <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Products</div>
+            {[["Mattresses","Mattresses"],["Pillows","Pillows"],["Toppers","Toppers"],["Cushions","Cushions"],["All Products","catalog"]].map(([l,v])=>(
+              <button key={l} className="fl" onClick={()=>setPage(v==="catalog"?"catalog":"catalog")}>{l}</button>
+            ))}
+          </div>
+          <div>
+            <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Company</div>
+            {[["About XIYORA","about"],["For B2B","supplier"],["Contact","contact"],["FAQ","faq"],["Certificates & Proof","proof"]].map(([l,v])=>(
+              <button key={l} className="fl" onClick={()=>setPage(v)}>{l}</button>
+            ))}
+          </div>
+          <div>
+            <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Help</div>
+            {[["Shipping","shipping"],["Returns","returns"],["Privacy","privacy"],["Terms","terms"]].map(([l,v])=>(
+              <button key={l} className="fl" onClick={()=>setPage(v)}>{l}</button>
+            ))}
+          </div>
+          <div>
+            <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Stay in Touch</div>
+            <p style={{fontSize:13,color:"#555",lineHeight:1.78,marginBottom:16}}>Product launches, B2B updates, and comfort insights.</p>
+            <button className="bg" style={{width:"100%",padding:12,fontSize:12}} onClick={onSubscribe}>Join XIYORA</button>
+            <p style={{fontSize:11.5,color:"#333",lineHeight:1.7,marginTop:16,maxWidth:220}}>{BIZ.address}</p>
+          </div>
+        </div>
+        <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
+          <div style={{fontSize:12,color:"#2e2e2e"}}>© 2025 XIYORA. All prices indicative. GST invoice available where applicable.</div>
+          <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
+            {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
+              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#2e2e2e",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>{l}</button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ─── CHECKOUT VIEW ──────────────────────────────────────── */
+const UPI_ID = "chaitanyagaikwad022@okicici";
+const UPI_NAME = "XIYORA";
+
+function CheckoutView({wl,onWish,cur,onOpen,onInquire,onCatalog}:any){
+  const items=PRODUCTS.filter(p=>wl.includes(p.id));
+  const [payMode,setPayMode]=useState<"upi"|"proforma"|"whatsapp"|"card">("upi");
+  const [utr,setUtr]=useState("");
+  const [form,setForm]=useState({name:"",phone:"",email:"",city:"",state:"",pincode:""});
+  const [loading,setLoading]=useState(false);
+  const [submitted,setSubmitted]=useState(false);
+  const [savedId,setSavedId]=useState<number|null>(null);
+  const [err,setErr]=useState("");
+
+  const setF=(k:string,v:string)=>setForm((p:any)=>({...p,[k]:v}));
+  const totalLabel=items.map((p:any)=>cur==="INR"?p.priceINR:p.priceUSD).join(" + ");
+  const productNames=items.map((p:any)=>p.name).join(", ");
+
+  const upiLink=`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&cu=INR&tn=${encodeURIComponent("XIYORA Order: "+productNames.slice(0,50))}`;
+
+  const submitIntent=async()=>{
+    if(!form.name.trim()||!form.phone.trim()){setErr("Please enter your name and phone.");return;}
+    setLoading(true);setErr("");
+    const res=await apiPost("/checkout-intents",{
+      name:form.name,phone:form.phone,email:form.email||undefined,
+      city:form.city||undefined,state:form.state||undefined,pincode:form.pincode||undefined,
+      productName:productNames,currency:cur,
+      estimatedPriceRange:totalLabel,
+      paymentMode:payMode==="upi"?`UPI Manual — UTR: ${utr||"pending"}`:payMode==="proforma"?"Proforma Invoice":payMode==="whatsapp"?"WhatsApp Confirmation":"Card/Gateway (pending)",
+    });
+    setLoading(false);
+    if(res?.success){setSavedId(res.id);setSubmitted(true);}
+    else setErr(res?.error||"Could not save. Please use WhatsApp instead.");
+  };
+
+  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:10};
+  const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
+
+  return(
+    <div style={{background:C.white,minHeight:"60vh",padding:"64px 0"}}>
+      <div className="container" style={{maxWidth:900}}>
+        <SL>Checkout</SL>
+        <SH>Your Selected Products</SH>
+
+        {!items.length?(
+          <div style={{textAlign:"center",padding:"56px 0"}}>
+            <div style={{width:80,height:80,background:C.beige,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
+              <svg width={32} height={32} fill="none" stroke={C.gold} strokeWidth={1.4} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </div>
+            <p style={{fontSize:16,color:"#bbb",marginBottom:18}}>Your checkout list is empty.</p>
+            <button className="bg" onClick={onCatalog}>Browse Products</button>
+          </div>
+        ):submitted?(
+          <div style={{textAlign:"center",padding:"40px 0",maxWidth:520,margin:"40px auto 0"}}>
+            <div style={{width:72,height:72,background:"linear-gradient(135deg,#C8A97E,#B89472)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
+              <svg width={28} height={28} fill="none" stroke="white" strokeWidth={2.5} viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
+            {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:8}}>Reference: CHK-{String(savedId).padStart(4,"0")}</p>}
+            <p style={{fontSize:14,color:"#888",lineHeight:1.75,marginBottom:8}}>
+              {payMode==="upi"?`UPI payment pending verification. UTR/Ref: ${utr||"not entered"}.`:""}
+              {payMode==="proforma"?"We will prepare your Proforma Invoice and send via WhatsApp / email.":""}
+              {payMode==="whatsapp"?"We will confirm your order via WhatsApp shortly.":""}
+            </p>
+            <p style={{fontSize:13,color:"#aaa",lineHeight:1.7,marginBottom:20}}>We will contact you within 24–48 hours to confirm and proceed with your final invoice.</p>
+            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 28px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
+              onClick={()=>window.open(waMsg(`Hi XIYORA, I placed an order (CHK-${String(savedId).padStart(4,"0")}) for: ${productNames}. Please confirm next steps.`),"_blank")}>
+              <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+              Confirm on WhatsApp
+            </button>
+          </div>
+        ):(
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:36,marginTop:32}} className="checkout-grid">
+            {/* Left: Items */}
+            <div>
+              <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:20}}>
+                {items.map((p:any)=>(
+                  <div key={p.id} style={{display:"flex",gap:14,padding:"14px 16px",background:C.beige,borderRadius:4,alignItems:"center",cursor:"pointer",transition:"box-shadow .2s"}}
+                    onClick={()=>onOpen(p)}
+                    onMouseEnter={(e:any)=>e.currentTarget.style.boxShadow="0 4px 18px rgba(0,0,0,.07)"}
+                    onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
+                    <img src={p.gallery[0]} alt={p.name} style={{width:70,height:70,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+                    <div style={{flex:1,minWidth:0}}>
+                      <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
+                      <div style={{fontSize:11.5,color:C.gold,marginBottom:3}}>{p.latexType} · {p.category}</div>
+                      <div style={{fontSize:13,color:"#888"}}>{cur==="INR"?p.priceINR:p.priceUSD} <span style={{fontSize:10,color:"#bbb"}}>(indicative)</span></div>
+                    </div>
+                    <button onClick={e=>{e.stopPropagation();onWish(p.id);}} style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 12px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif",flexShrink:0}}>Remove</button>
+                  </div>
+                ))}
+              </div>
+              {/* Customer details */}
+              <div style={{background:C.beige,borderRadius:4,padding:"18px 20px",marginBottom:16}}>
+                <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:14,letterSpacing:".5px",textTransform:"uppercase"}}>Your Details</div>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 12px"}}>
+                  <div><label style={lbl}>Name *</label><input style={inp} value={form.name} onChange={e=>setF("name",e.target.value)} placeholder="Full name"/></div>
+                  <div><label style={lbl}>Phone / WhatsApp *</label><input style={inp} value={form.phone} onChange={e=>setF("phone",e.target.value)} placeholder="+91 XXXXX"/></div>
+                  <div><label style={lbl}>Email</label><input style={inp} type="email" value={form.email} onChange={e=>setF("email",e.target.value)} placeholder="your@email.com"/></div>
+                  <div><label style={lbl}>City</label><input style={inp} value={form.city} onChange={e=>setF("city",e.target.value)} placeholder="Mumbai"/></div>
+                  <div><label style={lbl}>State</label><input style={inp} value={form.state} onChange={e=>setF("state",e.target.value)} placeholder="Maharashtra"/></div>
+                  <div><label style={lbl}>Pincode</label><input style={inp} value={form.pincode} onChange={e=>setF("pincode",e.target.value)} placeholder="421004" maxLength={6}/></div>
+                </div>
+              </div>
+              {err&&<div style={{background:"#fff0f0",border:"1px solid #ffcccc",borderRadius:3,padding:"10px 14px",marginBottom:12,fontSize:13,color:"#cc4444"}}>{err}</div>}
+            </div>
+
+            {/* Right: Payment */}
+            <div>
+              <div style={{background:C.lgold,borderRadius:4,padding:"20px 22px",borderLeft:`3px solid ${C.gold}`,marginBottom:16}}>
+                <div style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#bbb",marginBottom:8}}>Order Summary</div>
+                <div style={{fontSize:13,color:"#888",marginBottom:6}}>Products: {productNames.length>60?productNames.slice(0,60)+"…":productNames}</div>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontWeight:600,color:C.gold,marginBottom:4}}>{totalLabel}</div>
+                <div style={{fontSize:11,color:"#bbb",lineHeight:1.6}}>Indicative range. Final price confirmed via proforma invoice before payment is collected.</div>
+              </div>
+
+              <div style={{background:C.beige,borderRadius:4,padding:"20px 22px",marginBottom:16}}>
+                <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:14,letterSpacing:".5px",textTransform:"uppercase"}}>Payment Method</div>
+                {[
+                  {k:"upi",label:"UPI / Google Pay / PhonePe / Paytm",sub:"Manual UPI transfer — enter UTR after payment"},
+                  {k:"proforma",label:"Request Proforma Invoice",sub:"We send you a formal invoice to review before payment"},
+                  {k:"whatsapp",label:"Confirm via WhatsApp",sub:"Finalise details on WhatsApp, pay after confirmation"},
+                  {k:"card",label:"Card / Net Banking (coming soon)",sub:"Gateway integration in progress"},
+                ].map(({k,label,sub})=>(
+                  <div key={k} onClick={()=>setPayMode(k as any)} style={{display:"flex",gap:12,padding:"12px 14px",marginBottom:8,borderRadius:3,border:`2px solid ${payMode===k?C.gold:C.sand}`,background:payMode===k?C.white:"transparent",cursor:"pointer",transition:"all .2s",opacity:k==="card"?.5:1}}>
+                    <div style={{width:16,height:16,borderRadius:"50%",border:`2px solid ${payMode===k?C.gold:"#ccc"}`,background:payMode===k?C.gold:"transparent",flexShrink:0,marginTop:2}}/>
+                    <div>
+                      <div style={{fontSize:13,fontWeight:500,color:C.dark}}>{label}</div>
+                      <div style={{fontSize:11.5,color:"#aaa",marginTop:2}}>{sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {payMode==="upi"&&(
+                <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:4,padding:"18px 20px",marginBottom:16}}>
+                  <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:12}}>UPI Payment Details</div>
+                  <div style={{background:C.beige,borderRadius:3,padding:"12px 14px",marginBottom:12}}>
+                    <div style={{fontSize:11,color:"#aaa",marginBottom:3}}>UPI ID</div>
+                    <div style={{fontSize:14,fontWeight:600,color:C.dark,letterSpacing:".5px"}}>{UPI_ID}</div>
+                    <div style={{fontSize:11,color:"#aaa",marginTop:3}}>Google Pay · PhonePe · Paytm · BHIM · Any UPI app</div>
+                  </div>
+                  <div style={{background:"#fff3d6",borderRadius:3,padding:"8px 12px",fontSize:11.5,color:"#8a6400",marginBottom:12,lineHeight:1.6}}>
+                    QR code image: place <code>/assets/payment/upi-qr.jpg</code> in your public folder for customers to scan directly.
+                  </div>
+                  <a href={upiLink} style={{display:"block",textAlign:"center",background:C.gold,color:"#fff",padding:"11px",borderRadius:3,fontSize:12,textDecoration:"none",letterSpacing:"1px",textTransform:"uppercase",marginBottom:12,fontFamily:"'Jost',sans-serif",fontWeight:500}}>
+                    Open UPI App to Pay
+                  </a>
+                  <label style={lbl}>UTR / Reference Number (after payment)</label>
+                  <input style={inp} value={utr} onChange={e=>setUtr(e.target.value)} placeholder="Enter UTR or transaction reference"/>
+                  <p style={{fontSize:11.5,color:"#aaa",lineHeight:1.65}}>Payment status: <strong style={{color:"#C8860A"}}>Pending manual verification.</strong> We will confirm within 24 hours after you share the UTR.</p>
+                </div>
+              )}
+
+              {payMode==="card"&&(
+                <div style={{background:"#fff8f0",border:"1px solid #f0d8b0",borderRadius:4,padding:"14px 16px",marginBottom:16,fontSize:13,color:"#8a6400",lineHeight:1.7}}>
+                  Online card / net banking payment integration is pending. Please use UPI manual payment, request a proforma invoice, or confirm via WhatsApp.
+                </div>
+              )}
+
+              <div style={{fontSize:11.5,color:"#bbb",marginBottom:14,lineHeight:1.65,padding:"0 2px"}}>
+                No card details are collected here. No payment is processed automatically. Final invoice confirmed before any payment is collected.
+              </div>
+
+              <button className="bg" onClick={submitIntent} style={{width:"100%",padding:"14px",fontSize:12,marginBottom:10}} disabled={loading}>
+                {loading?<Spinner/>:payMode==="upi"?"Confirm UPI Payment Intent":payMode==="proforma"?"Request Proforma Invoice":payMode==="whatsapp"?"Confirm via WhatsApp":"Submit Order Intent"}
+              </button>
+              <button style={{width:"100%",background:"#25D366",color:"#fff",border:"none",padding:"13px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}
+                onClick={()=>window.open(waMsg(`Hi XIYORA, I'd like to order: ${productNames}. Can you guide me through payment?`),"_blank")}>
+                <svg width={15} height={15} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                WhatsApp Support
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ─── ACCOUNT VIEW ───────────────────────────────────────── */
+function AccountView({setPage}:any){
+  const [profile,setProfile]=useState(()=>{
+    try{return JSON.parse(localStorage.getItem("xiyora_profile")||"null")||{name:"",phone:"",email:"",city:"",state:"",pincode:"",customerType:"Home Buyer"};}catch{return{name:"",phone:"",email:"",city:"",state:"",pincode:"",customerType:"Home Buyer"};}
+  });
+  const [saved,setSaved]=useState(false);
+  const set=(k:string,v:string)=>setProfile((p:any)=>({...p,[k]:v}));
+  const save=()=>{localStorage.setItem("xiyora_profile",JSON.stringify(profile));setSaved(true);setTimeout(()=>setSaved(false),3000);};
+  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:12};
+  const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
+  return(
+    <div style={{background:C.white,minHeight:"70vh",padding:"56px 0"}}>
+      <div className="container" style={{maxWidth:640}}>
+        <SL>Your Profile</SL>
+        <SH>Account</SH>
+        <p style={{fontSize:14,color:"#aaa",marginBottom:36,marginTop:10,lineHeight:1.7}}>Your profile is saved locally on this device. We use it to pre-fill enquiry forms for faster checkout.</p>
+        <div style={{background:C.beige,borderRadius:4,padding:"28px 28px"}}>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 16px"}}>
+            {([["Full Name","name","text","Your name"],["Phone / WhatsApp","phone","tel","+91 XXXXX"],["Email","email","email","your@email.com"],["City","city","text","Mumbai"],["State","state","text","Maharashtra"],["Pincode","pincode","text","400001"]] as const).map(([l,k,t,ph])=>(
+              <div key={k}><label style={lbl}>{l}</label><input style={inp} type={t} value={profile[k]||""} onChange={e=>set(k,e.target.value)} placeholder={ph}/></div>
+            ))}
+          </div>
+          <div><label style={lbl}>I am a</label>
+            <select style={inp} value={profile.customerType||"Home Buyer"} onChange={e=>set("customerType",e.target.value)}>
+              {["Home Buyer","Hotel / Resort","Interior Designer","Retailer","Manufacturer","Other"].map(o=><option key={o} value={o}>{o}</option>)}
+            </select>
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
+            <button onClick={()=>{
+              if(!navigator.geolocation){alert("Geolocation not supported by your browser.");return;}
+              navigator.geolocation.getCurrentPosition(pos=>{
+                alert(`Location detected (${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}). Please enter your city and pincode manually for accurate delivery estimates.`);
+                localStorage.setItem("xiyora_geo",JSON.stringify({lat:pos.coords.latitude,lng:pos.coords.longitude,ts:Date.now()}));
+              },()=>alert("Location access denied. Please enter your city and pincode manually."));
+            }} style={{background:C.beige,border:`1px solid ${C.sand}`,color:C.dark,padding:"10px 16px",borderRadius:3,fontSize:12,cursor:"pointer",fontFamily:"'Jost',sans-serif",display:"flex",alignItems:"center",gap:8,transition:"border-color .2s"}}
+              onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold}
+              onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
+              <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Detect my location
+            </button>
+            <span style={{fontSize:12,color:"#bbb"}}>Then fill city & pincode below</span>
+          </div>
+          {saved&&<div style={{background:"#edfaf5",border:"1px solid #1a9e6e",borderRadius:3,padding:"10px 14px",marginBottom:14,fontSize:13,color:"#1a9e6e"}}>✓ Profile saved to this device</div>}
+          <button className="bg" onClick={save} style={{padding:"12px 28px",fontSize:12}}>Save Profile</button>
+        </div>
+        <div style={{marginTop:32,padding:"18px 22px",background:C.beige,borderRadius:4,borderLeft:`3px solid ${C.gold}`}}>
+          <p style={{fontSize:14,fontWeight:500,color:C.dark,marginBottom:6}}>Your Enquiries</p>
+          <p style={{fontSize:13,color:"#888",lineHeight:1.7}}>Your enquiries are saved in our database. Contact us on WhatsApp at <a href={waMsg("Hi XIYORA, I want to check my enquiry status.")} target="_blank" rel="noreferrer" style={{color:C.gold,textDecoration:"none"}}>+91 70283 11226</a> or email <a href={`mailto:${BIZ.email}`} style={{color:C.gold,textDecoration:"none"}}>{BIZ.email}</a> to check the status of your enquiry.</p>
+        </div>
+        <button className="bo" style={{marginTop:22,padding:"11px 22px",fontSize:12}} onClick={()=>setPage("home")}>← Back to Home</button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── PROOF LIBRARY ──────────────────────────────────────── */
+const DOCS=[
+  {key:"oeko-tex",title:"OEKO-TEX® Certificate",file:"/assets/docs/oeko-tex-certificate.pdf"},
+  {key:"iso9001",title:"ISO 9001 Certificate",file:"/assets/docs/iso-9001-certificate.pdf"},
+  {key:"gttc",title:"GTTC Testing Report",file:"/assets/docs/gttc-testing-report.pdf"},
+  {key:"biz",title:"Business License",file:"/assets/docs/business-license.pdf"},
+  {key:"catalogue",title:"Full Product Catalogue",file:"/assets/docs/product-catalogue.pdf"},
+  {key:"mattress",title:"Mattress Catalogue",file:"/assets/docs/mattress-catalogue.pdf"},
+  {key:"profile",title:"Bingxi Company Profile",file:"/assets/docs/bingxi-company-profile.pdf"},
+];
+
+function ProofLibraryView({setPage}:any){
+  const certs=[
+    {
+      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>),
+      title:"OEKO-TEX® Standard 100",
+      sub:"Tested for Harmful Substances",
+      body:"Bingxi products are manufactured with OEKO-TEX® Standard 100 certification. No harmful substances per international safety requirements.",
+      tag:"Certificate Available",
+      docKey:"oeko-tex",
+    },
+    {
+      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>),
+      title:"ISO 9001 Quality Management",
+      sub:"International Quality Certification",
+      body:"Bingxi holds ISO 9001 quality management system certification — verifying consistent manufacturing processes and quality standards.",
+      tag:"Certificate Available",
+      docKey:"iso9001",
+    },
+    {
+      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>),
+      title:"GTTC Lab Testing Report",
+      sub:"Independent Quality Testing",
+      body:"Third-party GTTC lab test reports covering latex content percentage, density, durability, and safety parameters for Bingxi product lines.",
+      tag:"Report Available",
+      docKey:"gttc",
+    },
+    {
+      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>),
+      title:"Full Product Catalogue",
+      sub:"Complete Bingxi Range — 37+ Products",
+      body:"Complete product catalogue with specifications, SKUs, and options for the full Bingxi range of Talalay, Dunlop, and hybrid latex products.",
+      tag:"Download Available",
+      docKey:"catalogue",
+    },
+    {
+      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>),
+      title:"Bingxi Company Profile",
+      sub:"Authorised India Sourcing Partner",
+      body:"Official Bingxi company profile with manufacturer background, production capacity, export history, and certifications overview.",
+      tag:"Download Available",
+      docKey:"profile",
+    },
+    {
+      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>),
+      title:"Mattress Catalogue",
+      sub:"Mattress & Topper Specifications",
+      body:"Detailed mattress and topper specifications, available sizes, density options, and construction details for B2B buyers and interior designers.",
+      tag:"Download Available",
+      docKey:"mattress",
+    },
+  ];
+
+  return(
+    <div style={{background:C.white}}>
+      <div style={{background:"linear-gradient(135deg,#EFE8DE 0%,#F8F6F2 100%)",padding:"60px 0 48px"}}>
+        <div className="container">
+          <SL>Certificates & Proof</SL>
+          <SH>Quality Documentation Library</SH>
+          <p style={{fontSize:15,color:"#888",maxWidth:600,lineHeight:1.78,marginTop:12}}>
+            XIYORA maintains transparent documentation for all products. Certificates, lab reports, and trade documents are available on request for verified B2B buyers.
+          </p>
+        </div>
+      </div>
+      <div className="container" style={{padding:"56px 40px"}}>
+        <div className="proof-grid">
+          {certs.map((c,i)=>{
+            const doc=DOCS.find(d=>d.key===c.docKey);
+            return(
+              <div key={i} style={{background:C.beige,borderRadius:5,padding:"28px 26px",border:`1px solid ${C.sand}`,transition:"box-shadow .25s",display:"flex",flexDirection:"column"}}
+                onMouseEnter={(e:any)=>e.currentTarget.style.boxShadow="0 8px 30px rgba(0,0,0,.09)"}
+                onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
+                <div style={{marginBottom:16}}>{c.icon}</div>
+                <span style={{fontSize:10,letterSpacing:"1.5px",textTransform:"uppercase",color:C.gold,fontWeight:500,background:"#F5EDE0",padding:"3px 10px",borderRadius:20,marginBottom:14,display:"inline-block"}}>{c.tag}</span>
+                <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontWeight:500,color:C.dark,margin:"10px 0 6px"}}>{c.title}</h3>
+                <div style={{fontSize:11.5,color:C.gold,letterSpacing:".4px",marginBottom:10}}>{c.sub}</div>
+                <p style={{fontSize:13.5,color:"#666",lineHeight:1.78,fontWeight:400,flex:1}}>{c.body}</p>
+                {doc&&(
+                  <div style={{display:"flex",gap:8,marginTop:16,flexWrap:"wrap"}}>
+                    <a href={doc.file} target="_blank" rel="noreferrer"
+                      style={{display:"inline-flex",alignItems:"center",gap:6,padding:"8px 14px",background:C.gold,color:"#fff",borderRadius:3,fontSize:11.5,textDecoration:"none",fontFamily:"'Jost',sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,transition:"background .2s"}}
+                      onMouseEnter={(e:any)=>e.currentTarget.style.background="#B89060"}
+                      onMouseLeave={(e:any)=>e.currentTarget.style.background=C.gold}>
+                      <svg width={12} height={12} fill="none" stroke="white" strokeWidth={2} viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      View PDF
+                    </a>
+                    <a href={doc.file} download
+                      style={{display:"inline-flex",alignItems:"center",gap:6,padding:"8px 14px",border:`1px solid ${C.gold}`,color:C.gold,borderRadius:3,fontSize:11.5,textDecoration:"none",fontFamily:"'Jost',sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,transition:"all .2s"}}
+                      onMouseEnter={(e:any)=>{e.currentTarget.style.background=C.gold;e.currentTarget.style.color="#fff";}}
+                      onMouseLeave={(e:any)=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color=C.gold;}}>
+                      <svg width={12} height={12} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                      Download
+                    </a>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div style={{marginTop:56,background:"linear-gradient(135deg,#2D2D2D,#1a1a1a)",borderRadius:5,padding:"40px 44px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24}}>
+          <div>
+            <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>Request Documentation</div>
+            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
+            <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,maxWidth:480}}>Send us your company details and the specific documentation required. We will provide the relevant certificates from Bingxi's documentation library for your import/compliance team.</p>
+          </div>
+          <div style={{display:"flex",gap:12,flexWrap:"wrap",flexShrink:0}}>
+            <button className="bg" style={{padding:"14px 26px",fontSize:12}}
+              onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I need certificates/documentation for import compliance. Company: [your company name]. Documents needed: [specify]")}`)}>
+              Request Documents
+            </button>
+            <button className="bd" style={{padding:"14px 26px",fontSize:12}} onClick={()=>setPage("supplier")}>
+              B2B Enquiry
+            </button>
+          </div>
+        </div>
+
+        <div style={{marginTop:32,textAlign:"center"}}>
+          <button className="bo" onClick={()=>setPage("home")} style={{padding:"12px 28px",fontSize:12}}>Back to Home</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── ORDER STATUS VIEW ──────────────────────────────────── */
+function OrderStatusView({setPage}:any){
+  const [ref,setRef]=useState("");
+  const [result,setResult]=useState<any>(null);
+  const [loading,setLoading]=useState(false);
+  const [err,setErr]=useState("");
+
+  const STATUS_MAP:Record<string,{label:string;color:string;bg:string;desc:string}>={
+    new:{label:"Received",color:"#C8A97E",bg:"#FBF5EC",desc:"Your enquiry has been received. We'll be in touch within 24–48 hours."},
+    contacted:{label:"In Touch",color:"#3B82F6",bg:"#EFF6FF",desc:"Our team has reached out to you. Please check your phone or email."},
+    quoted:{label:"Quote Sent",color:"#8B5CF6",bg:"#F5F3FF",desc:"A price quote has been sent to you. Please review and let us know."},
+    confirmed:{label:"Confirmed",color:"#10B981",bg:"#ECFDF5",desc:"Your order has been confirmed. We are preparing it for dispatch."},
+    dispatched:{label:"Dispatched",color:"#F59E0B",bg:"#FFFBEB",desc:"Your order is on its way. Track via your shipping reference."},
+    delivered:{label:"Delivered",color:"#10B981",bg:"#ECFDF5",desc:"Your order has been delivered. Thank you for choosing XIYORA!"},
+    pending:{label:"Pending",color:"#C8A97E",bg:"#FBF5EC",desc:"Your request is pending review. We'll confirm within 48 hours."},
+    cancelled:{label:"Cancelled",color:"#EF4444",bg:"#FEF2F2",desc:"This order has been cancelled. Please contact us if this is a mistake."},
+  };
+
+  const lookup=async()=>{
+    const r=ref.trim().toUpperCase();
+    if(!r){alert("Please enter a reference number (e.g. EQ-0001 or CHK-0001).");return;}
+    setLoading(true);setErr("");setResult(null);
+    try{
+      const res=await fetch(`/api/order-status?ref=${encodeURIComponent(r)}`);
+      const json=await res.json();
+      if(!res.ok){setErr(json.error||"Order not found. Please check your reference number.");setLoading(false);return;}
+      setResult(json);
+    }catch{setErr("Network error. Please try WhatsApp for a status update.");}
+    setLoading(false);
+  };
+
+  const status=result?STATUS_MAP[result.status]||{label:result.status,color:C.gold,bg:C.lgold,desc:""}:null;
+
+  return(
+    <div style={{background:C.white,minHeight:"70vh"}}>
+      <div style={{background:"linear-gradient(135deg,#EFE8DE,#F8F6F2)",padding:"52px 0 44px",borderBottom:`1px solid ${C.sand}`}}>
+        <div className="container">
+          <SL>Track Your Request</SL>
+          <SH>Order Status</SH>
+          <p style={{fontSize:14.5,color:"#888",marginTop:10,maxWidth:500,lineHeight:1.72,fontWeight:300}}>Enter the reference number from your confirmation — EQ-XXXX for enquiries, CHK-XXXX for checkout orders, QR-XXXX for quote requests.</p>
+        </div>
+      </div>
+      <div className="container" style={{maxWidth:640,padding:"56px 40px"}}>
+        <div style={{background:C.beige,borderRadius:5,padding:"32px 36px",marginBottom:28,border:`1px solid ${C.sand}`}}>
+          <label style={{fontSize:11.5,color:"#888",letterSpacing:".3px",display:"block",marginBottom:8}}>Your Reference Number</label>
+          <div style={{display:"flex",gap:10,marginBottom:8}}>
+            <input
+              value={ref} onChange={e=>setRef(e.target.value)} onKeyDown={e=>e.key==="Enter"&&lookup()}
+              placeholder="e.g. EQ-0001" maxLength={12}
+              style={{flex:1,background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:15,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,letterSpacing:"1px"}}/>
+            <button className="bg" onClick={lookup} disabled={loading} style={{padding:"12px 24px",fontSize:12,letterSpacing:"1.5px",whiteSpace:"nowrap"}}>
+              {loading?<Spinner/>:"Track →"}
+            </button>
+          </div>
+          <p style={{fontSize:11.5,color:"#bbb",lineHeight:1.6}}>Your reference was shown after submitting an enquiry or checkout form. Check your WhatsApp or email for it.</p>
+        </div>
+
+        {err&&(
+          <div style={{background:"#fff0f0",border:"1px solid #ffcccc",borderRadius:4,padding:"16px 20px",marginBottom:20,color:"#cc4444",fontSize:13.5}}>
+            {err}
+            <div style={{marginTop:10}}>
+              <a href={`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I need a status update on my order.")}`} target="_blank" rel="noreferrer"
+                style={{color:C.gold,fontSize:12.5,textDecoration:"none",fontWeight:500}}>→ Ask via WhatsApp</a>
+            </div>
+          </div>
+        )}
+
+        {result&&status&&(
+          <div style={{border:`1px solid ${C.sand}`,borderRadius:5,overflow:"hidden",animation:"fadeInUp .3s ease"}}>
+            <div style={{background:status.bg,borderBottom:`3px solid ${status.color}`,padding:"22px 26px"}}>
+              <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:6}}>
+                <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:500,color:C.dark}}>{result.ref}</span>
+                <span style={{background:status.color,color:"#fff",padding:"3px 12px",borderRadius:20,fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500}}>{status.label}</span>
+              </div>
+              <p style={{fontSize:14,color:"#666",lineHeight:1.7,margin:0}}>{status.desc}</p>
+            </div>
+            <div style={{padding:"22px 26px",background:C.white}}>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+                {[
+                  ["Type",result.type],
+                  ["Product",result.productName||"—"],
+                  ["Size",result.selectedSize||"—"],
+                  ["Submitted",new Date(result.createdAt).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})],
+                ].map(([k,v])=>(
+                  <div key={k} style={{padding:"10px 0",borderBottom:`1px solid ${C.beige}`}}>
+                    <div style={{fontSize:10.5,color:"#bbb",letterSpacing:"1.2px",textTransform:"uppercase",marginBottom:4}}>{k}</div>
+                    <div style={{fontSize:14,color:C.dark,fontWeight:500}}>{v}</div>
+                  </div>
+                ))}
+              </div>
+              <p style={{fontSize:12.5,color:"#aaa",marginTop:18,lineHeight:1.65}}>For the latest update or to make changes, contact us on WhatsApp with your reference number.</p>
+              <div style={{display:"flex",gap:10,marginTop:14,flexWrap:"wrap"}}>
+                <a href={`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(`Hi XIYORA, I need an update on my order. Reference: ${result.ref}`)}`} target="_blank" rel="noreferrer"
+                  style={{background:"#25D366",color:"#fff",padding:"10px 18px",borderRadius:2,fontSize:12,letterSpacing:"1px",textTransform:"uppercase",textDecoration:"none",display:"flex",alignItems:"center",gap:6,fontFamily:"'Jost',sans-serif"}}>
+                  <svg width={13} height={13} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                  WhatsApp Update
+                </a>
+                <button className="bo" onClick={()=>{setResult(null);setRef("");setErr("");}} style={{padding:"10px 18px",fontSize:12}}>Track Another</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div style={{marginTop:40,textAlign:"center"}}>
+          <button className="bo" onClick={()=>setPage("home")} style={{padding:"11px 26px",fontSize:12}}>← Back to Home</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AdminView(){
+  const [pin,setPin]=useState("");
+  const [unlocked,setUnlocked]=useState(false);
+  const [tab,setTab]=useState<"enquiries"|"subscriptions"|"quotes"|"checkouts">("enquiries");
+  const [data,setData]=useState<any[]>([]);
+  const [loading,setLoading]=useState(false);
+  const [err,setErr]=useState("");
+
+  const fetchTab=useCallback(async(t:string,secret:string)=>{
+    setLoading(true);setErr("");
+    const ep=t==="enquiries"?"/enquiries":t==="subscriptions"?"/subscriptions":t==="quotes"?"/quote-requests":"/checkout-intents";
+    try{
+      const res=await fetch(`${API_BASE}${ep}`,{headers:{"x-admin-secret":secret}});
+      if(res.status===403){setErr("Incorrect admin secret. Set ADMIN_SECRET in your environment.");setLoading(false);return;}
+      const rows=await res.json();
+      setData(Array.isArray(rows)?rows:[]);
+    }catch{setErr("Network error.");}
+    setLoading(false);
+  },[]);
+
+  const unlock=async()=>{
+    if(!pin.trim()){setErr("Enter admin secret.");return;}
+    setLoading(true);setErr("");
+    try{
+      const res=await fetch(`${API_BASE}/enquiries`,{headers:{"x-admin-secret":pin.trim()}});
+      setLoading(false);
+      if(res.status===403){setErr("Incorrect admin secret. Set ADMIN_SECRET in your Replit environment.");return;}
+      if(!res.ok){setErr("Unexpected error — check backend is running.");return;}
+      setUnlocked(true);
+      const rows=await res.json();
+      setData(Array.isArray(rows)?rows:[]);
+    }catch{setLoading(false);setErr("Network error — check backend is running.");}
+  };
+
+  useEffect(()=>{if(unlocked)fetchTab(tab,pin);},[tab,unlocked]);
+
+  const exportCSV=()=>{
+    if(!data.length)return;
+    const cols=Object.keys(data[0]);
+    const rows=[cols.join(","),...data.map(r=>cols.map(c=>`"${String(r[c]??"")}"`).join(","))];
+    const blob=new Blob([rows.join("\n")],{type:"text/csv"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`xiyora-${tab}.csv`;a.click();
+  };
+
+  if(!unlocked)return(
+    <div style={{background:C.white,minHeight:"60vh",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      <div style={{background:C.beige,borderRadius:4,padding:"40px 48px",maxWidth:400,width:"100%",textAlign:"center"}}>
+        <SL>Internal</SL>
+        <SH>Admin Panel</SH>
+        <p style={{fontSize:13,color:"#aaa",margin:"12px 0 24px",lineHeight:1.7}}>Enter your ADMIN_SECRET environment variable to access leads.</p>
+        <input type="password" value={pin} onChange={e=>setPin(e.target.value)} onKeyDown={e=>e.key==="Enter"&&unlock()} placeholder="Admin secret" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:14,borderRadius:3,fontFamily:"'Jost',sans-serif",marginBottom:12}}/>
+        {err&&<p style={{color:"#cc4444",fontSize:12,marginBottom:12}}>{err}</p>}
+        <button className="bg" onClick={unlock} style={{width:"100%",padding:13}} disabled={loading}>{loading?<Spinner/>:"Unlock"}</button>
+      </div>
+    </div>
+  );
+
+  const tabs=[["enquiries","Enquiries"],["subscriptions","Subscriptions"],["quotes","Quote Requests"],["checkouts","Checkout Intents"]] as const;
+  return(
+    <div style={{background:C.white,minHeight:"80vh",padding:"40px 0"}}>
+      <div className="container">
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:28,flexWrap:"wrap",gap:12}}>
+          <div><SL>Internal Admin</SL><SH>Lead Dashboard</SH></div>
+          <button className="bo" onClick={exportCSV} style={{padding:"10px 20px",fontSize:12}}>Export CSV</button>
+        </div>
+        <div style={{display:"flex",gap:0,borderBottom:`1px solid ${C.sand}`,marginBottom:28}}>
+          {tabs.map(([key,label])=>(
+            <button key={key} onClick={()=>setTab(key)} style={{background:"none",border:"none",padding:"12px 20px",fontSize:13,fontFamily:"'Jost',sans-serif",cursor:"pointer",color:tab===key?C.gold:"#888",borderBottom:`2px solid ${tab===key?C.gold:"transparent"}`,transition:"all .2s"}}>
+              {label}
+            </button>
+          ))}
+        </div>
+        {loading&&<div style={{textAlign:"center",padding:"40px",color:"#aaa"}}>Loading…</div>}
+        {err&&<div style={{color:"#cc4444",marginBottom:14}}>{err}</div>}
+        {!loading&&data.length===0&&!err&&<div style={{textAlign:"center",padding:"40px",color:"#bbb"}}>No records yet.</div>}
+        {!loading&&data.length>0&&(
+          <div style={{overflowX:"auto"}}>
+            <table style={{width:"100%",borderCollapse:"collapse",fontSize:12.5}}>
+              <thead>
+                <tr style={{borderBottom:`2px solid ${C.sand}`}}>
+                  {Object.keys(data[0]).map(k=>(
+                    <th key={k} style={{padding:"10px 12px",textAlign:"left",color:"#888",fontWeight:500,whiteSpace:"nowrap",textTransform:"uppercase",fontSize:10.5,letterSpacing:"1px"}}>{k.replace(/_/g," ")}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((row,i)=>(
+                  <tr key={i} style={{borderBottom:`1px solid ${C.beige}`,background:i%2===0?"transparent":C.lgold}}>
+                    {Object.values(row).map((v,j)=>(
+                      <td key={j} style={{padding:"10px 12px",color:C.dark,maxWidth:220,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}} title={String(v??"")}>{String(v??"-")}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ─── SIMPLE PAGE ────────────────────────────────────────── */
+function SimplePage({title,content,setPage}:any){
+  return(
+    <div style={{background:C.white}}>
+      <div style={{background:"linear-gradient(135deg,#EFE8DE 0%,#F8F6F2 100%)",padding:"52px 0 44px"}}>
+        <div className="container"><SH>{title}</SH></div>
+      </div>
+      <div className="container" style={{maxWidth:780,padding:"52px 40px"}}>
+        {content.map(([k,v]:string[],i:number)=>(
+          <div key={i} style={{marginBottom:28,paddingBottom:28,borderBottom:i<content.length-1?`1px solid ${C.sand}`:"none"}}>
+            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:500,color:C.dark,marginBottom:8}}>{k}</h3>
+            <p style={{fontSize:14,color:"#777",lineHeight:1.82,fontWeight:300}}>{v}</p>
+          </div>
+        ))}
+        <button className="bg" onClick={()=>setPage("home")} style={{marginTop:20}}>Back to Home</button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── MAIN APP ───────────────────────────────────────────── */
+export default function App(){
+  const [page,setPage]=useState("home");
+  const [selProd,setSelProd]=useState<any>(null);
+  const [activeCat,setActiveCat]=useState<string|null>(null);
+  const [cur,setCur]=useState("INR");
+  const [wl,setWl]=useState<string[]>([]);
+  const [scrolled,setScrolled]=useState(false);
+  const [inquiry,setInquiry]=useState({show:false,product:null as any,intent:"general"});
+  const [showSearch,setShowSearch]=useState(false);
+  const [showSubscribe,setShowSubscribe]=useState(false);
+
+  useEffect(()=>{
+    if(!document.getElementById("xiyora-css")){
+      const s=document.createElement("style");s.id="xiyora-css";s.textContent=CSS;document.head.appendChild(s);
+    }
+  },[]);
+  useEffect(()=>{
+    const fn=()=>setScrolled(window.scrollY>55);
+    window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);
+  },[]);
+  useEffect(()=>{window.scrollTo(0,0);},[page]);
+
+  const toggleWl=(id:string)=>setWl(p=>p.includes(id)?p.filter(x=>x!==id):[...p,id]);
+  const openProd=(p:any)=>{setSelProd(p);setPage("product");};
+  const openCatalog=()=>{setActiveCat(null);setPage("catalog");};
+  const openCatFilter=(cat:string)=>{setActiveCat(cat);setPage("catalog");};
+  const openInquiry=(p:any,intent="general")=>setInquiry({show:true,product:p,intent});
+
+  const renderView=()=>{
+    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>setPage("catalog")} onInquire={openInquiry}/>;
+    if(page==="catalog")return<CatalogView cat={activeCat} setCat={setActiveCat} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry}/>;
+    if(page==="checkout")return<CheckoutView wl={wl} onWish={toggleWl} cur={cur} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
+    if(page==="account")return<AccountView setPage={setPage}/>;
+    if(page==="admin")return<AdminView/>;
+    if(page==="proof")return<ProofLibraryView setPage={setPage}/>;
+    if(page==="order-status")return<OrderStatusView setPage={setPage}/>;
+    if(page==="supplier")return<SimplePage title="For B2B Buyers" content={[["B2B Welcome","We welcome retailers, hotels, interior designers, mattress stores, and manufacturers. Contact us for bulk pricing, custom specifications, and private-label options."],["Our Process","Send inquiry → Receive indicative quote → Confirm specs → Proforma invoice → Payment confirmation → Production & shipping → Delivery."],["Bulk Pricing","Volume discounts available for trade buyers. Minimum order quantities vary by product."],["Custom Options","Custom sizes, densities, cover fabrics, and private-label branding available for most products on request."],["Contact",`WhatsApp: +91 70283 11226 | Email: ${BIZ.email}`]]} setPage={setPage}/>;
+    if(page==="about")return<SimplePage title="About XIYORA" content={[["Our Mission","To make genuine premium natural latex comfort accessible in India — with transparent pricing, honest sourcing, and dedicated support."],["Bingxi Partnership","XIYORA is the official sourcing partner for Bingxi products in India. Bingxi is a Chinese premium latex manufacturer with a broad portfolio of Talalay, Dunlop, and hybrid latex products."],["Our Address",BIZ.address],["GST",BIZ.gstNote]]} setPage={setPage}/>;
+    if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={setPage}/>;
+    if(page==="faq")return<SimplePage title="FAQ" content={[["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],["Do you offer GST invoices?",BIZ.gstNote],["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]]} setPage={setPage}/>;
+    if(page==="shipping")return<SimplePage title="Shipping & Delivery" content={[["Origin","Imported from Bingxi, China via sea freight."],["Indian Ports","Mumbai (Nhava Sheva), Mundra, Chennai, Kolkata, Cochin — based on buyer location."],["Sea Freight","~25–40 days from order confirmation, depending on product and quantity."],["Inland Delivery","3–10 days after port clearance depending on your zone."],["Costs","Shipping, customs, IGST, and inland delivery are included in your final quoted price."]]} setPage={setPage}/>;
+    if(page==="returns")return<SimplePage title="Returns & Refunds" content={[["Damaged in Transit","Document with photos within 24 hours of delivery and contact us immediately."],["Wrong Product","We arrange replacement or refund for incorrect products sent."],["Custom Orders","Non-returnable once production has started — confirm all specs before approval."],["Contact",`${BIZ.email} or WhatsApp +91 70283 11226`]]} setPage={setPage}/>;
+    if(page==="privacy")return<SimplePage title="Privacy Policy" content={[["Data Collected","Name, phone, email, city from inquiry forms."],["Use","To respond to inquiries, send quotes, and process orders."],["Sharing","Not sold or shared except where required for order processing and delivery."],["Contact",BIZ.email]]} setPage={setPage}/>;
+    if(page==="terms")return<SimplePage title="Terms of Use" content={[["Products","Subject to availability. Prices are indicative and subject to change."],["Orders","Confirmed after proforma invoice acceptance and advance payment."],["Pricing","Final landed price confirmed in writing before any payment is collected."],["Governing Law","Maharashtra, India."]]} setPage={setPage}/>;
+    return<HomeView cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onCatalog={openCatalog} onCatFilter={openCatFilter} onSupplier={()=>setPage("supplier")} onInquire={openInquiry}/>;
+  };
+
+  return(
+    <div style={{background:C.white,minHeight:"100vh"}}>
+      {/* Ticker */}
+      <div style={{background:C.char,color:"#D9CBB8",padding:"9px 0",overflow:"hidden"}}>
+        <div style={{display:"flex",overflow:"hidden"}}>
+          <div className="at">
+            {[0,1].map(k=>(
+              <span key={k} style={{fontSize:11,letterSpacing:"2.5px",textTransform:"uppercase",whiteSpace:"nowrap",paddingRight:80}}>
+                Premium Natural Latex Products &nbsp;✦&nbsp; Official Bingxi Partner for India &nbsp;✦&nbsp; WhatsApp: +91 70283 11226 &nbsp;✦&nbsp; {PRODUCTS.length}+ Products Available &nbsp;✦&nbsp; 3–10 Days Inland After Port Clearance &nbsp;✦&nbsp;
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+      <Navbar page={page} setPage={setPage} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl}
+        onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
+        onCheckout={()=>setPage("checkout")} onAccount={()=>setPage("account")}/>
+      <main style={{minHeight:"80vh"}}>{renderView()}</main>
+      <Footer setPage={setPage} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
+      {/* WhatsApp FAB */}
+      <div className="wb" onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")} title="Chat on WhatsApp">
+        <svg width={26} height={26} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+      </div>
+      <InquiryModal show={inquiry.show} onClose={()=>setInquiry(i=>({...i,show:false}))} product={inquiry.product} intent={inquiry.intent} currency={cur}/>
+      <SubscribeModal show={showSubscribe} onClose={()=>setShowSubscribe(false)}/>
+      <SearchOverlay show={showSearch} onClose={()=>setShowSearch(false)} onPickProduct={(p:any)=>{openProd(p);setShowSearch(false);}} onCatalog={openCatalog}/>
+    </div>
+  );
+}

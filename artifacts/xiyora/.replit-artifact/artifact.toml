@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "XIYORA — Premium Natural Latex Bedding"
+version = "1.0.0"
+id = "artifacts/xiyora"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26244
+
+[services.development]
+run = "pnpm --filter @workspace/xiyora run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/xiyora", "run", "build" ]
+publicDir = "artifacts/xiyora/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26244"
+BASE_PATH = "/"
