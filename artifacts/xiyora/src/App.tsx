@@ -1339,17 +1339,29 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire}:any){
               </button>
             </div>
             <button className="bo" style={{width:"100%",padding:"12px",fontSize:12}} onClick={()=>onInquire(p,"bulk")}>Contact for Bulk / B2B Order</button>
-            {/* Cert chips near product specs */}
-            <div style={{marginTop:18,padding:"12px 14px",background:C.beige,borderRadius:3,border:`1px solid ${C.sand}`}}>
-              <div style={{fontSize:9,letterSpacing:"2px",textTransform:"uppercase",color:"#aaa",marginBottom:8}}>Documents available for buyer review</div>
-              <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
-                {["OEKO-TEX®","ISO 9001","GTTC Report","Catalogue"].map(c=>(
-                  <span key={c} style={{padding:"4px 10px",border:`1px solid ${C.sand}`,borderRadius:20,fontSize:10,color:"#777",background:C.white,fontFamily:"'Jost',sans-serif",cursor:"pointer",transition:"all .2s"}}
-                    onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.color=C.gold;}}
-                    onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.color="#777";}}>{c}</span>
+            {/* Document cards near product specs */}
+            <div style={{marginTop:20,padding:"18px",background:C.beige,borderRadius:4,border:`1px solid ${C.sand}`}}>
+              <div style={{fontSize:9,letterSpacing:"2.5px",textTransform:"uppercase",color:"#aaa",marginBottom:14,fontWeight:500}}>Documents Available for Buyer Review</div>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+                {[
+                  {title:"OEKO-TEX® Cert",msg:"Hi XIYORA, I would like to request the OEKO-TEX® Standard 100 certificate for my review."},
+                  {title:"ISO 9001 Cert",msg:"Hi XIYORA, I would like to request the ISO 9001 Quality Management certificate."},
+                  {title:"GTTC Lab Report",msg:"Hi XIYORA, I would like to request the GTTC Lab Testing Report for your latex products."},
+                  {title:"Product Catalogue",msg:"Hi XIYORA, please share the full Bingxi product catalogue with specifications and pricing."},
+                ].map((d,i)=>(
+                  <button key={i} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(d.msg)}`,"_blank")}
+                    style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 12px",cursor:"pointer",textAlign:"left",transition:"all .2s",fontFamily:"'Jost',sans-serif"}}
+                    onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 4px 18px rgba(200,169,126,.15)";}}
+                    onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";}}>
+                    <div style={{fontSize:11.5,fontWeight:500,color:C.dark,marginBottom:5}}>{d.title}</div>
+                    <div style={{display:"flex",alignItems:"center",gap:5}}>
+                      <svg width={10} height={10} fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                      <span style={{fontSize:10,color:"#25D366",fontWeight:500}}>Request via WhatsApp</span>
+                    </div>
+                  </button>
                 ))}
               </div>
-              <p style={{fontSize:10,color:"#bbb",marginTop:7,fontStyle:"italic",lineHeight:1.5}}>Certificates apply to the scope stated in each document. Request verified copies via WhatsApp.</p>
+              <p style={{fontSize:10,color:"#bbb",marginTop:10,fontStyle:"italic",lineHeight:1.5}}>Originals shared within 24 hours. Scope per document.</p>
             </div>
           </div>
         </div>
@@ -1550,27 +1562,45 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
           </div>
         </div>
       </section>
-      {/* CERT STRIP */}
-      <section style={{background:C.beige,borderTop:`1px solid ${C.sand}`,borderBottom:`1px solid ${C.sand}`,padding:"20px 0"}}>
+      {/* DOCUMENTS SECTION */}
+      <section className="sec" style={{background:C.beige}}>
         <div className="container">
-          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:16}}>
-            <div>
-              <div style={{fontSize:10,letterSpacing:"2.5px",textTransform:"uppercase",color:"#aaa",marginBottom:10}}>Documents Available for Buyer Review</div>
-              <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                {[["🛡","OEKO-TEX®"],["◎","ISO 9001"],["◈","GTTC Lab Report"],["◇","Business Licence"],["◉","Catalogues"]].map(([ic,lbl],i)=>(
-                  <span key={i} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"5px 12px",border:`1px solid ${C.sand}`,borderRadius:20,fontSize:10.5,letterSpacing:".6px",color:"#666",background:C.white,cursor:"pointer",whiteSpace:"nowrap",transition:"all .2s"}}
-                    onClick={()=>{window.scrollTo({top:0});}}
-                    onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.color=C.gold;}}
-                    onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.color="#666";}}>
-                    <span style={{color:C.gold,fontSize:9}}>{ic}</span>{lbl}
-                  </span>
-                ))}
-              </div>
-              <p style={{fontSize:10.5,color:"#bbb",marginTop:9,fontStyle:"italic"}}>Certificates apply to the products and scope stated in each document.</p>
-            </div>
+          <div style={{textAlign:"center",marginBottom:44}}>
+            <SL>Transparency First</SL>
+            <SH>Documents & Certifications</SH>
+            <p style={{fontSize:15,color:"#888",maxWidth:540,margin:"14px auto 0",lineHeight:1.8}}>All Bingxi quality documents available for buyer review. Tap any card to request via WhatsApp — we share the original within 24 hours.</p>
           </div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:18}}>
+            {[
+              {icon:<svg width={28} height={28} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,title:"OEKO-TEX® Standard 100",sub:"Tested for harmful substances",msg:"Hi XIYORA, I would like to request the OEKO-TEX® Standard 100 certificate for my review."},
+              {icon:<svg width={28} height={28} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>,title:"ISO 9001 Certificate",sub:"International quality management",msg:"Hi XIYORA, I would like to request the ISO 9001 Quality Management certificate for my review."},
+              {icon:<svg width={28} height={28} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>,title:"GTTC Lab Testing Report",sub:"Independent third-party test report",msg:"Hi XIYORA, I would like to request the GTTC Lab Testing Report for latex content, density and safety."},
+              {icon:<svg width={28} height={28} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>,title:"Business Licence",sub:"Registered manufacturer document",msg:"Hi XIYORA, I would like to request the Bingxi Business Licence document for our import compliance."},
+              {icon:<svg width={28} height={28} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>,title:"Full Product Catalogue",sub:"37+ products with specs & SKUs",msg:"Hi XIYORA, please share the full Bingxi product catalogue with specifications and pricing."},
+              {icon:<svg width={28} height={28} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>,title:"Mattress Catalogue",sub:"Sizes, densities & construction details",msg:"Hi XIYORA, please share the Bingxi Mattress & Topper catalogue with specifications and available sizes."},
+            ].map((d,i)=>(
+              <div key={i}
+                style={{background:C.white,borderRadius:4,padding:"26px 24px",border:`1px solid ${C.sand}`,cursor:"pointer",transition:"all .25s",display:"flex",flexDirection:"column",gap:10}}
+                onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(d.msg)}`,"_blank")}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 10px 36px rgba(200,169,126,.18)";e.currentTarget.style.transform="translateY(-3px)";}}
+                onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";e.currentTarget.style.transform="none";}}>
+                <div style={{width:52,height:52,background:"#F5EDE0",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{d.icon}</div>
+                <div>
+                  <h4 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:500,color:C.dark,margin:"0 0 4px"}}>{d.title}</h4>
+                  <p style={{fontSize:12,color:"#999",margin:0,lineHeight:1.5}}>{d.sub}</p>
+                </div>
+                <div style={{marginTop:"auto",paddingTop:12,borderTop:`1px solid ${C.sand}`,display:"flex",alignItems:"center",gap:7}}>
+                  <svg width={13} height={13} fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                  <span style={{fontSize:11.5,color:"#25D366",fontFamily:"'Jost',sans-serif",fontWeight:500,letterSpacing:".3px"}}>Request via WhatsApp</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p style={{textAlign:"center",fontSize:11,color:"#bbb",marginTop:22,fontStyle:"italic"}}>Certificates apply to the scope stated in each document. Original copies shared on request.</p>
         </div>
       </section>
+      {/* MOBILE: make doc grid 1 col */}
+      <style>{`@media(max-width:900px){.doc-grid-home{grid-template-columns:1fr 1fr!important}}@media(max-width:560px){.doc-grid-home{grid-template-columns:1fr!important}}`}</style>
       {/* B2B CTA */}
       <section className="sec" style={{background:C.char,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:700,height:700,background:"radial-gradient(circle,rgba(200,169,126,.06) 0%,transparent 70%)",pointerEvents:"none"}}/>
@@ -2113,13 +2143,13 @@ function AccountView({setPage}:any){
 
 /* ─── PROOF LIBRARY ──────────────────────────────────────── */
 const DOCS=[
-  {key:"oeko-tex",title:"OEKO-TEX® Certificate",file:"/assets/docs/oeko-tex-certificate.pdf"},
-  {key:"iso9001",title:"ISO 9001 Certificate",file:"/assets/docs/iso-9001-certificate.pdf"},
-  {key:"gttc",title:"GTTC Testing Report",file:"/assets/docs/gttc-testing-report.pdf"},
-  {key:"biz",title:"Business License",file:"/assets/docs/business-license.pdf"},
-  {key:"catalogue",title:"Full Product Catalogue",file:"/assets/docs/product-catalogue.pdf"},
-  {key:"mattress",title:"Mattress Catalogue",file:"/assets/docs/mattress-catalogue.pdf"},
-  {key:"profile",title:"Bingxi Company Profile",file:"/assets/docs/bingxi-company-profile.pdf"},
+  {key:"oeko-tex",title:"OEKO-TEX® Certificate",msg:"Hi XIYORA, I would like to request the OEKO-TEX® Standard 100 certificate for my review."},
+  {key:"iso9001",title:"ISO 9001 Certificate",msg:"Hi XIYORA, I would like to request the ISO 9001 Quality Management certificate."},
+  {key:"gttc",title:"GTTC Testing Report",msg:"Hi XIYORA, I would like to request the GTTC Lab Testing Report for latex content, density and safety parameters."},
+  {key:"biz",title:"Business License",msg:"Hi XIYORA, I would like to request the Bingxi Business Licence document for our import compliance."},
+  {key:"catalogue",title:"Full Product Catalogue",msg:"Hi XIYORA, please share the full Bingxi product catalogue with specifications and pricing."},
+  {key:"mattress",title:"Mattress Catalogue",msg:"Hi XIYORA, please share the Bingxi Mattress & Topper catalogue with all size and density options."},
+  {key:"profile",title:"Bingxi Company Profile",msg:"Hi XIYORA, please share the official Bingxi company profile with manufacturing and export background."},
 ];
 
 function ProofLibraryView({setPage}:any){
@@ -2199,21 +2229,16 @@ function ProofLibraryView({setPage}:any){
                 <div style={{fontSize:11.5,color:C.gold,letterSpacing:".4px",marginBottom:10}}>{c.sub}</div>
                 <p style={{fontSize:13.5,color:"#666",lineHeight:1.78,fontWeight:400,flex:1}}>{c.body}</p>
                 {doc&&(
-                  <div style={{display:"flex",gap:8,marginTop:16,flexWrap:"wrap"}}>
-                    <a href={doc.file} target="_blank" rel="noreferrer"
-                      style={{display:"inline-flex",alignItems:"center",gap:6,padding:"8px 14px",background:C.gold,color:"#fff",borderRadius:3,fontSize:11.5,textDecoration:"none",fontFamily:"'Jost',sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,transition:"background .2s"}}
-                      onMouseEnter={(e:any)=>e.currentTarget.style.background="#B89060"}
-                      onMouseLeave={(e:any)=>e.currentTarget.style.background=C.gold}>
-                      <svg width={12} height={12} fill="none" stroke="white" strokeWidth={2} viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                      View PDF
-                    </a>
-                    <a href={doc.file} download
-                      style={{display:"inline-flex",alignItems:"center",gap:6,padding:"8px 14px",border:`1px solid ${C.gold}`,color:C.gold,borderRadius:3,fontSize:11.5,textDecoration:"none",fontFamily:"'Jost',sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,transition:"all .2s"}}
-                      onMouseEnter={(e:any)=>{e.currentTarget.style.background=C.gold;e.currentTarget.style.color="#fff";}}
-                      onMouseLeave={(e:any)=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color=C.gold;}}>
-                      <svg width={12} height={12} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      Download
-                    </a>
+                  <div style={{marginTop:18}}>
+                    <button
+                      onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(doc.msg)}`,"_blank")}
+                      style={{display:"inline-flex",alignItems:"center",gap:8,padding:"11px 20px",background:"#25D366",color:"#fff",border:"none",borderRadius:3,fontSize:12,fontFamily:"'Jost',sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,cursor:"pointer",transition:"background .2s",width:"100%",justifyContent:"center"}}
+                      onMouseEnter={(e:any)=>e.currentTarget.style.background="#1ebe59"}
+                      onMouseLeave={(e:any)=>e.currentTarget.style.background="#25D366"}>
+                      <svg width={15} height={15} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                      Request via WhatsApp
+                    </button>
+                    <p style={{fontSize:10,color:"#aaa",marginTop:8,textAlign:"center",fontStyle:"italic"}}>Original shared within 24 hours</p>
                   </div>
                 )}
               </div>
