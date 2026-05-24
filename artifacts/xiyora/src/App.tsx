@@ -831,6 +831,29 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
   .hh{font-size:clamp(3.5rem,4.5vw,6rem)!important}
   .sec{padding:100px 0}
 }
+/* ── SIDEBAR DRAWER ── */
+.sdrawer{position:fixed;top:0;left:0;height:100%;width:300px;max-width:85vw;background:#1C1C1C;z-index:500;box-shadow:12px 0 60px rgba(0,0,0,.45);overflow-y:auto;transform:translateX(-100%);transition:transform .32s cubic-bezier(.23,1,.32,1)}
+.sdrawer.open{transform:translateX(0)}
+.sdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:499;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
+.sdr-link:hover{color:#C8A97E;background:rgba(200,169,126,.08);border-left-color:#C8A97E}
+.sdr-section{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#555;padding:14px 24px 4px;display:block}
+/* ── CERT CHIPS ── */
+.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid ${C.sand};border-radius:20px;font-family:'Jost',sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cert-chip:hover{border-color:#C8A97E;color:#C8A97E;background:#F5EDE0}
+/* ── PROOF CTA MOBILE ── */
+@media(max-width:680px){
+  .proof-cta{flex-direction:column!important;align-items:stretch!important;padding:28px 22px!important}
+  .proof-cta-btns{flex-direction:column!important;width:100%!important;flex-shrink:unset!important}
+  .proof-cta-btns button{width:100%!important;box-sizing:border-box}
+}
+/* ── FOOTER MOBILE ── */
+@media(max-width:768px){.fc-grid{grid-template-columns:1fr 1fr!important;gap:28px!important}}
+@media(max-width:480px){.fc-grid{grid-template-columns:1fr!important}}
+/* ── BOTTOM SAFE AREA (avoid WhatsApp FAB overlap) ── */
+.safe-bottom{padding-bottom:90px}
+/* ── MOBILE ORNAMENT ── */
+@media(max-width:480px){.nav-ornament{display:none!important}}
 `;
 
 /* ─── SMALL UI COMPONENTS ────────────────────────────────── */
@@ -840,10 +863,11 @@ const Tag=({c=C.gold,children}:{c?:string;children:React.ReactNode})=>(
 const SL=({children,dark}:{children:React.ReactNode;dark?:boolean})=>(
   <span className="sl" style={{color:dark?"#9B8B6E":"#C8A97E"}}>{children}</span>
 );
-const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>(
-  <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:size||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"}}
-    dangerouslySetInnerHTML={{__html:children as string}}/>
-);
+const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>{
+  const st:React.CSSProperties={fontFamily:"'Cormorant Garamond',serif",fontSize:size||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
+  if(typeof children==="string")return <h2 style={st} dangerouslySetInnerHTML={{__html:children}}/>;
+  return <h2 style={st}>{children}</h2>;
+};
 
 /* ─── SPINNER ────────────────────────────────────────────── */
 const Spinner=()=>(
@@ -1315,6 +1339,18 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire}:any){
               </button>
             </div>
             <button className="bo" style={{width:"100%",padding:"12px",fontSize:12}} onClick={()=>onInquire(p,"bulk")}>Contact for Bulk / B2B Order</button>
+            {/* Cert chips near product specs */}
+            <div style={{marginTop:18,padding:"12px 14px",background:C.beige,borderRadius:3,border:`1px solid ${C.sand}`}}>
+              <div style={{fontSize:9,letterSpacing:"2px",textTransform:"uppercase",color:"#aaa",marginBottom:8}}>Documents available for buyer review</div>
+              <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                {["OEKO-TEX®","ISO 9001","GTTC Report","Catalogue"].map(c=>(
+                  <span key={c} style={{padding:"4px 10px",border:`1px solid ${C.sand}`,borderRadius:20,fontSize:10,color:"#777",background:C.white,fontFamily:"'Jost',sans-serif",cursor:"pointer",transition:"all .2s"}}
+                    onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.color=C.gold;}}
+                    onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.color="#777";}}>{c}</span>
+                ))}
+              </div>
+              <p style={{fontSize:10,color:"#bbb",marginTop:7,fontStyle:"italic",lineHeight:1.5}}>Certificates apply to the scope stated in each document. Request verified copies via WhatsApp.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1514,6 +1550,27 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
           </div>
         </div>
       </section>
+      {/* CERT STRIP */}
+      <section style={{background:C.beige,borderTop:`1px solid ${C.sand}`,borderBottom:`1px solid ${C.sand}`,padding:"20px 0"}}>
+        <div className="container">
+          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:16}}>
+            <div>
+              <div style={{fontSize:10,letterSpacing:"2.5px",textTransform:"uppercase",color:"#aaa",marginBottom:10}}>Documents Available for Buyer Review</div>
+              <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+                {[["🛡","OEKO-TEX®"],["◎","ISO 9001"],["◈","GTTC Lab Report"],["◇","Business Licence"],["◉","Catalogues"]].map(([ic,lbl],i)=>(
+                  <span key={i} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"5px 12px",border:`1px solid ${C.sand}`,borderRadius:20,fontSize:10.5,letterSpacing:".6px",color:"#666",background:C.white,cursor:"pointer",whiteSpace:"nowrap",transition:"all .2s"}}
+                    onClick={()=>{window.scrollTo({top:0});}}
+                    onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.color=C.gold;}}
+                    onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.color="#666";}}>
+                    <span style={{color:C.gold,fontSize:9}}>{ic}</span>{lbl}
+                  </span>
+                ))}
+              </div>
+              <p style={{fontSize:10.5,color:"#bbb",marginTop:9,fontStyle:"italic"}}>Certificates apply to the products and scope stated in each document.</p>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* B2B CTA */}
       <section className="sec" style={{background:C.char,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:700,height:700,background:"radial-gradient(circle,rgba(200,169,126,.06) 0%,transparent 70%)",pointerEvents:"none"}}/>
@@ -1557,45 +1614,176 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
   );
 }
 
-/* ─── NAVBAR ─────────────────────────────────────────────── */
-function Navbar({page,setPage,cur,setCur,scrolled,wl,onSearch,onCatalog,onCatFilter,onCheckout,onAccount}:any){
-  const handleGoogleLogin=()=>{
-    alert("Google / Account login coming soon. For now you can save your location and preferences in your Account page.");
-    onAccount();
-  };
+/* ─── CERT CHIPS STRIP ───────────────────────────────────── */
+const CERT_CHIPS_DATA=[
+  {label:"OEKO-TEX®",icon:"🛡"},
+  {label:"ISO 9001",icon:"◎"},
+  {label:"GTTC Lab Report",icon:"◈"},
+  {label:"Business Licence",icon:"◇"},
+  {label:"Product Catalogue",icon:"◉"},
+  {label:"Mattress Catalogue",icon:"◉"},
+];
+function CertChips({onProof}:{onProof:()=>void}){
   return(
-    <nav style={{position:"sticky",top:0,zIndex:200,background:scrolled?"rgba(248,246,242,.97)":C.white,borderBottom:`1px solid ${C.sand}`,backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 28px rgba(0,0,0,.07)":"none",transition:"all .35s ease"}}>
-      <div className="container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",height:68}}>
-        <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:26,fontWeight:600,letterSpacing:7,color:C.dark,cursor:"pointer",flexShrink:0}} onClick={()=>setPage("home")}>XIYORA</div>
-        <div className="nc" style={{display:"flex",gap:24,alignItems:"center"}}>
-          {[["Home","home"],["Mattresses","Mattresses"],["Pillows","Pillows"],["Toppers","Toppers"],["Cushions","Cushions"],["Collections","catalog"],["For B2B","supplier"],["About","about"],["Contact","contact"]].map(([l,v])=>(
-            <button key={l} className="nl" onClick={()=>{
-              if(["Mattresses","Pillows","Toppers","Cushions"].includes(v))onCatFilter(v);
-              else if(v==="catalog")onCatalog();
-              else setPage(v);
-            }} style={{color:page===v?C.gold:C.dark}}>{l}</button>
+    <div style={{padding:"13px 0",borderTop:`1px solid ${C.sand}`,borderBottom:`1px solid ${C.sand}`,background:C.beige,overflowX:"auto"}}>
+      <div className="container">
+        <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
+          <span style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#aaa",flexShrink:0,whiteSpace:"nowrap"}}>Docs for buyer review:</span>
+          {CERT_CHIPS_DATA.map((c,i)=>(
+            <button key={i} className="cert-chip" onClick={onProof} title="Documents available for buyer review">
+              <span style={{color:C.gold,fontSize:9}}>{c.icon}</span>{c.label}
+            </button>
           ))}
+          <span style={{fontSize:10,color:"#ccc",marginLeft:4,fontStyle:"italic",whiteSpace:"nowrap",flexShrink:0}}>Scope per document.</span>
         </div>
-        <div style={{display:"flex",alignItems:"center",gap:8}}>
-          <div style={{display:"flex",background:C.beige,borderRadius:20,padding:"3px 3px",gap:2}}>
-            {["INR","USD"].map(c=>(
-              <button key={c} onClick={()=>setCur(c)} style={{background:cur===c?C.gold:"transparent",color:cur===c?"#fff":C.dark,border:"none",padding:"4px 11px",borderRadius:16,fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{c}</button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── SIDE DRAWER ────────────────────────────────────────── */
+function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProof}:any){
+  useEffect(()=>{
+    if(open)document.body.style.overflow="hidden";
+    else document.body.style.overflow="";
+    return()=>{document.body.style.overflow="";};
+  },[open]);
+  const go=(fn:()=>void)=>{fn();onClose();};
+  const NavLink=({label,fn}:{label:string;fn:()=>void})=>(
+    <button className="sdr-link" onClick={()=>go(fn)}>{label}</button>
+  );
+  return(
+    <>
+      {open&&<div className="sdrawer-overlay" onClick={onClose}/>}
+      <div className={`sdrawer${open?" open":""}`}>
+        {/* Header */}
+        <div style={{padding:"24px 24px 16px",borderBottom:"1px solid #2a2a2a",flexShrink:0}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,letterSpacing:6,color:"#F0EBE3"}}>XIYORA</div>
+            <button onClick={onClose} style={{background:"none",border:"1px solid #2a2a2a",color:"#888",cursor:"pointer",width:28,height:28,borderRadius:"50%",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
+              onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8A97E";e.currentTarget.style.color="#F0EBE3";}}
+              onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#2a2a2a";e.currentTarget.style.color="#888";}}>✕</button>
+          </div>
+          <div style={{fontSize:10,color:"#555",letterSpacing:"1px",textTransform:"uppercase",lineHeight:1.5}}>Official Bingxi sourcing partner for India</div>
+        </div>
+        {/* Navigation */}
+        <div style={{padding:"8px 0"}}>
+          <span className="sdr-section">Navigation</span>
+          <NavLink label="Home" fn={()=>setPage("home")}/>
+          <NavLink label="All Products" fn={()=>onCatalog()}/>
+          <span className="sdr-section">Products</span>
+          <NavLink label="Mattresses" fn={()=>onCatFilter("Mattresses")}/>
+          <NavLink label="Pillows" fn={()=>onCatFilter("Pillows")}/>
+          <NavLink label="Toppers" fn={()=>onCatFilter("Toppers")}/>
+          <NavLink label="Cushions" fn={()=>onCatFilter("Cushions")}/>
+          <NavLink label="Latex Material" fn={()=>onCatFilter("Latex Material")}/>
+          <span className="sdr-section">Partners & Trade</span>
+          <NavLink label="Bingxi Partner" fn={()=>setPage("about")}/>
+          <NavLink label="B2B / Trade Access" fn={()=>setPage("supplier")}/>
+          <NavLink label="Join XIYORA Trade" fn={()=>onInquire(null,"bulk")}/>
+          <span className="sdr-section">Documents</span>
+          <NavLink label="Documents & Certifications" fn={()=>onProof()}/>
+          <NavLink label="Request Quote" fn={()=>onInquire(null,"quote")}/>
+          <span className="sdr-section">Info</span>
+          <NavLink label="About XIYORA" fn={()=>setPage("about")}/>
+          <NavLink label="Contact" fn={()=>setPage("contact")}/>
+          <NavLink label="Shipping" fn={()=>setPage("shipping")}/>
+          <NavLink label="FAQ" fn={()=>setPage("faq")}/>
+          <NavLink label="Terms / Privacy" fn={()=>setPage("terms")}/>
+        </div>
+        {/* Cert chips */}
+        <div style={{padding:"14px 20px 16px",borderTop:"1px solid #252525",borderBottom:"1px solid #252525"}}>
+          <div style={{fontSize:9,letterSpacing:"2px",textTransform:"uppercase",color:"#555",marginBottom:10}}>Quality Documents</div>
+          <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
+            {["OEKO-TEX®","ISO 9001","GTTC Report","Business Licence","Catalogue"].map(c=>(
+              <button key={c} onClick={()=>go(onProof)}
+                style={{padding:"4px 10px",border:"1px solid #333",borderRadius:20,background:"none",color:"#777",fontSize:10,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8A97E";e.currentTarget.style.color="#C8A97E";}}
+                onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#333";e.currentTarget.style.color="#777";}}>{c}</button>
             ))}
           </div>
-          <button className="google-btn nc" onClick={handleGoogleLogin} title="Account">
-            <svg width={14} height={14} viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          <p style={{fontSize:10,color:"#444",marginTop:8,lineHeight:1.5}}>Certificates apply to the scope stated in each document.</p>
+        </div>
+        {/* Contact */}
+        <div style={{padding:"18px 24px 24px"}}>
+          <div style={{fontSize:9,letterSpacing:"2px",textTransform:"uppercase",color:"#555",marginBottom:12}}>Contact</div>
+          <a href={`https://wa.me/${BIZ.wa}`} target="_blank" rel="noreferrer"
+            style={{display:"flex",alignItems:"center",gap:9,color:"#4fd97e",fontSize:13,textDecoration:"none",marginBottom:10,fontFamily:"'Jost',sans-serif"}}>
+            <svg width={14} height={14} fill="#4fd97e" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+            +91 70283 11226
+          </a>
+          <a href={`mailto:${BIZ.email}`}
+            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:10,fontFamily:"'Jost',sans-serif"}}>
+            <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            {BIZ.email}
+          </a>
+          <a href={BIZ.ig} target="_blank" rel="noreferrer"
+            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:18,fontFamily:"'Jost',sans-serif"}}>
+            <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+            @xiyora.zi
+          </a>
+          <button className="bg" onClick={()=>go(()=>onInquire(null,"quote"))}
+            style={{width:"100%",padding:"11px",fontSize:11,letterSpacing:"2px"}}>Request Quote</button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* ─── NAVBAR ─────────────────────────────────────────────── */
+function Navbar({page,setPage,cur,setCur,scrolled,wl,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar}:any){
+  return(
+    <nav style={{position:"sticky",top:0,zIndex:200,background:scrolled?"rgba(248,246,242,.97)":C.white,borderBottom:`1px solid ${C.sand}`,backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 28px rgba(0,0,0,.07)":"none",transition:"all .35s ease"}}>
+      <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:68}}>
+        {/* Left: Hamburger + desktop nav links */}
+        <div style={{display:"flex",alignItems:"center",gap:4}}>
+          <button onClick={onSidebar} className="ib" title="Menu" aria-label="Open menu">
+            <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
-            <span>Account</span>
           </button>
+          <div className="nc" style={{display:"flex",gap:18,alignItems:"center",marginLeft:6}}>
+            {[["Mattresses","Mattresses"],["Pillows","Pillows"],["Toppers","Toppers"],["Collections","catalog"],["For B2B","supplier"]].map(([l,v])=>(
+              <button key={l} className="nl" style={{fontSize:11,color:page===v?C.gold:C.dark}} onClick={()=>{
+                if(["Mattresses","Pillows","Toppers","Cushions"].includes(v))onCatFilter(v);
+                else if(v==="catalog")onCatalog();
+                else setPage(v);
+              }}>{l}</button>
+            ))}
+          </div>
+        </div>
+        {/* Center: Indian ornaments + XIYORA */}
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,cursor:"pointer"}} onClick={()=>setPage("home")}>
+          <svg className="nav-ornament" width={36} height={22} viewBox="0 0 36 22" fill="none" style={{flexShrink:0,opacity:.75}}>
+            <path d="M34 11 C26 3, 14 1, 4 11 C14 21, 26 21, 34 11Z" stroke="#C8A97E" strokeWidth="1" fill="none"/>
+            <path d="M29 11 C22 5.5, 14 4.5, 9 11 C14 17.5, 22 16.5, 29 11Z" stroke="#C8A97E" strokeWidth=".7" fill="none" opacity=".5"/>
+            <circle cx="4" cy="11" r="1.8" fill="#C8A97E" opacity=".75"/>
+            <line x1="18" y1="1" x2="18" y2="4" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
+            <line x1="18" y1="18" x2="18" y2="21" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
+            <circle cx="18" cy="11" r="1" fill="#C8A97E" opacity=".35"/>
+          </svg>
+          <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,letterSpacing:6,color:C.dark,lineHeight:1,userSelect:"none"}}>XIYORA</div>
+          <svg className="nav-ornament" width={36} height={22} viewBox="0 0 36 22" fill="none" style={{flexShrink:0,opacity:.75}}>
+            <path d="M2 11 C10 3, 22 1, 32 11 C22 21, 10 21, 2 11Z" stroke="#C8A97E" strokeWidth="1" fill="none"/>
+            <path d="M7 11 C14 5.5, 22 4.5, 27 11 C22 17.5, 14 16.5, 7 11Z" stroke="#C8A97E" strokeWidth=".7" fill="none" opacity=".5"/>
+            <circle cx="32" cy="11" r="1.8" fill="#C8A97E" opacity=".75"/>
+            <line x1="18" y1="1" x2="18" y2="4" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
+            <line x1="18" y1="18" x2="18" y2="21" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
+            <circle cx="18" cy="11" r="1" fill="#C8A97E" opacity=".35"/>
+          </svg>
+        </div>
+        {/* Right: Currency, Search, Cart */}
+        <div style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
+          <div style={{display:"flex",background:C.beige,borderRadius:20,padding:"3px",gap:2}}>
+            {["INR","USD"].map(c=>(
+              <button key={c} onClick={()=>setCur(c)} style={{background:cur===c?C.gold:"transparent",color:cur===c?"#fff":C.dark,border:"none",padding:"4px 10px",borderRadius:16,fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{c}</button>
+            ))}
+          </div>
           <button className="ib" onClick={onSearch} title="Search">
-            <svg width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
+            <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
           <button className="ib" onClick={onCheckout} style={{position:"relative"}} title="Saved / Checkout">
-            <svg width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             {wl.length>0&&<span style={{position:"absolute",top:-5,right:-5,background:C.gold,color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
           </button>
         </div>
@@ -1607,23 +1795,27 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,onSearch,onCatalog,onCatFil
 /* ─── FOOTER ─────────────────────────────────────────────── */
 function Footer({setPage,onInquire,onSubscribe}:any){
   return(
-    <footer style={{background:"#141414",color:"#666",padding:"70px 0 36px"}}>
+    <footer style={{background:"#141414",color:"#888",padding:"70px 0 36px"}}>
       <div className="container">
         <div className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
           <div>
             <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:26,fontWeight:600,letterSpacing:7,color:"#F0EBE3",marginBottom:14,cursor:"pointer"}} onClick={()=>setPage("home")}>XIYORA</div>
-            <p style={{fontSize:13,lineHeight:1.85,color:"#555",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
-            <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" style={{fontSize:12.5,color:"#444",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:7}}>
+            <p style={{fontSize:13,lineHeight:1.85,color:"#999",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
+            <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:7,transition:"color .2s"}}
+              onMouseEnter={(e:any)=>e.currentTarget.style.color="#4fd97e"}
+              onMouseLeave={(e:any)=>e.currentTarget.style.color="#aaa"}>
               <span style={{color:"#25D366",fontSize:9}}>●</span>+91 70283 11226
             </a>
-            <a href={`mailto:${BIZ.email}`} style={{fontSize:12.5,color:"#444",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:8}}>
+            <a href={`mailto:${BIZ.email}`} style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:8,transition:"color .2s"}}
+              onMouseEnter={(e:any)=>e.currentTarget.style.color="#C8A97E"}
+              onMouseLeave={(e:any)=>e.currentTarget.style.color="#aaa"}>
               <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               {BIZ.email}
             </a>
             <a href={BIZ.ig} target="_blank" rel="noreferrer"
-              style={{fontSize:12.5,color:"#444",textDecoration:"none",display:"flex",alignItems:"center",gap:8,marginBottom:12,transition:"color .25s"}}
+              style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:8,marginBottom:12,transition:"color .25s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.color="#E1306C"}
-              onMouseLeave={(e:any)=>e.currentTarget.style.color="#444"}>
+              onMouseLeave={(e:any)=>e.currentTarget.style.color="#aaa"}>
               <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/>
                 <circle cx="17.5" cy="6.5" r="0.01" fill="currentColor" strokeWidth={2.5}/>
@@ -1665,16 +1857,18 @@ function Footer({setPage,onInquire,onSubscribe}:any){
           </div>
           <div>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Stay in Touch</div>
-            <p style={{fontSize:13,color:"#555",lineHeight:1.78,marginBottom:16}}>Product launches, B2B updates, and comfort insights.</p>
+            <p style={{fontSize:13,color:"#888",lineHeight:1.78,marginBottom:16}}>Product launches, B2B updates, and comfort insights.</p>
             <button className="bg" style={{width:"100%",padding:12,fontSize:12}} onClick={onSubscribe}>Join XIYORA</button>
-            <p style={{fontSize:11.5,color:"#333",lineHeight:1.7,marginTop:16,maxWidth:220}}>{BIZ.address}</p>
+            <p style={{fontSize:11.5,color:"#666",lineHeight:1.7,marginTop:16,maxWidth:220}}>{BIZ.address}</p>
           </div>
         </div>
         <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
-          <div style={{fontSize:12,color:"#2e2e2e"}}>© 2025 XIYORA. All prices indicative. GST invoice available where applicable.</div>
+          <div style={{fontSize:12,color:"#666"}}>© 2025 XIYORA. All prices indicative. GST invoice available where applicable.</div>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
             {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
-              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#2e2e2e",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>{l}</button>
+              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"color .2s"}}
+                onMouseEnter={(e:any)=>e.currentTarget.style.color="#C8A97E"}
+                onMouseLeave={(e:any)=>e.currentTarget.style.color="#666"}>{l}</button>
             ))}
           </div>
         </div>
@@ -2027,18 +2221,18 @@ function ProofLibraryView({setPage}:any){
           })}
         </div>
 
-        <div style={{marginTop:56,background:"linear-gradient(135deg,#2D2D2D,#1a1a1a)",borderRadius:5,padding:"40px 44px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24}}>
-          <div>
+        <div className="proof-cta" style={{marginTop:56,background:"linear-gradient(135deg,#2D2D2D,#1a1a1a)",borderRadius:5,padding:"40px 44px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24,boxSizing:"border-box"}}>
+          <div style={{flex:1,minWidth:0}}>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>Request Documentation</div>
             <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,maxWidth:480}}>Send us your company details and the specific documentation required. We will provide the relevant certificates from Bingxi's documentation library for your import/compliance team.</p>
           </div>
-          <div style={{display:"flex",gap:12,flexWrap:"wrap",flexShrink:0}}>
-            <button className="bg" style={{padding:"14px 26px",fontSize:12}}
+          <div className="proof-cta-btns" style={{display:"flex",gap:12,flexShrink:0,flexWrap:"wrap"}}>
+            <button className="bg" style={{padding:"14px 26px",fontSize:12,whiteSpace:"nowrap"}}
               onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I need certificates/documentation for import compliance. Company: [your company name]. Documents needed: [specify]")}`)}>
               Request Documents
             </button>
-            <button className="bd" style={{padding:"14px 26px",fontSize:12}} onClick={()=>setPage("supplier")}>
+            <button className="bd" style={{padding:"14px 26px",fontSize:12,whiteSpace:"nowrap"}} onClick={()=>setPage("supplier")}>
               B2B Enquiry
             </button>
           </div>
@@ -2296,6 +2490,7 @@ export default function App(){
   const [inquiry,setInquiry]=useState({show:false,product:null as any,intent:"general"});
   const [showSearch,setShowSearch]=useState(false);
   const [showSubscribe,setShowSubscribe]=useState(false);
+  const [showSidebar,setShowSidebar]=useState(false);
 
   useEffect(()=>{
     if(!document.getElementById("xiyora-css")){
@@ -2313,6 +2508,7 @@ export default function App(){
   const openCatalog=()=>{setActiveCat(null);setPage("catalog");};
   const openCatFilter=(cat:string)=>{setActiveCat(cat);setPage("catalog");};
   const openInquiry=(p:any,intent="general")=>setInquiry({show:true,product:p,intent});
+  const openProof=()=>setPage("proof");
 
   const renderView=()=>{
     if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>setPage("catalog")} onInquire={openInquiry}/>;
@@ -2335,6 +2531,9 @@ export default function App(){
 
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
+      <SideDrawer open={showSidebar} onClose={()=>setShowSidebar(false)}
+        setPage={setPage} onCatFilter={openCatFilter} onCatalog={openCatalog}
+        onInquire={openInquiry} onProof={openProof}/>
       {/* Ticker */}
       <div style={{background:C.char,color:"#D9CBB8",padding:"9px 0",overflow:"hidden"}}>
         <div style={{display:"flex",overflow:"hidden"}}>
@@ -2349,11 +2548,11 @@ export default function App(){
       </div>
       <Navbar page={page} setPage={setPage} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
-        onCheckout={()=>setPage("checkout")} onAccount={()=>setPage("account")}/>
-      <main style={{minHeight:"80vh"}}>{renderView()}</main>
+        onCheckout={()=>setPage("checkout")} onSidebar={()=>setShowSidebar(true)}/>
+      <main style={{minHeight:"80vh",paddingBottom:2}}>{renderView()}</main>
       <Footer setPage={setPage} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
-      {/* WhatsApp FAB */}
-      <div className="wb" onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")} title="Chat on WhatsApp">
+      {/* WhatsApp FAB — positioned above any potential Replit badge */}
+      <div className="wb" style={{bottom:80}} onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")} title="Chat on WhatsApp">
         <svg width={26} height={26} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
       </div>
       <InquiryModal show={inquiry.show} onClose={()=>setInquiry(i=>({...i,show:false}))} product={inquiry.product} intent={inquiry.intent} currency={cur}/>
