@@ -102,6 +102,12 @@ const PRODUCTS = [
     priceINR:"₹1,600 – ₹2,800*",priceUSD:"$19 – $34*",
     priceNote:"* Indicative range. Final price confirmed after city, quantity & shipping.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×40×8/10 cm — 80% Natural Latex",sku:"BXD-BMP-1",priceINR:"₹1,600",priceUSD:"$19"},
+      {label:"60×40×8/10 cm — 90% Natural Latex",sku:"BXD-BMP-2",priceINR:"₹2,200",priceUSD:"$27"},
+      {label:"60×40×10/12 cm — 80% Natural Latex",sku:"BXD-BMP-3",priceINR:"₹2,200",priceUSD:"$27"},
+      {label:"60×40×10/12 cm — 90% Natural Latex",sku:"BXD-BMP-4",priceINR:"₹2,800",priceUSD:"$34"},
+    ],
   },
   {
     id:"dunlop-bone-pillow",name:"Dunlop Bone Pillow",
@@ -118,6 +124,10 @@ const PRODUCTS = [
     priceINR:"₹1,200 – ₹2,000*",priceUSD:"$14 – $24*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"36×24×10 cm — 80% Natural Latex",sku:"BXD-DNB-1",priceINR:"₹1,200",priceUSD:"$14"},
+      {label:"36×24×10 cm — 90% Natural Latex",sku:"BXD-DNB-2",priceINR:"₹2,000",priceUSD:"$24"},
+    ],
   },
   {
     id:"dunlop-bread-pillow",name:"Dunlop Bread Pillow",
@@ -159,6 +169,10 @@ const PRODUCTS = [
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×33×7/11 cm — 80% Natural Latex",sku:"BXD-DBF-1",priceINR:"₹1,400",priceUSD:"$17"},
+      {label:"60×33×7/11 cm — 90% Natural Latex",sku:"BXD-DBF-2",priceINR:"₹2,400",priceUSD:"$29"},
+    ],
   },
   {
     id:"dunlop-cloud-pillow",name:"Dunlop Cloud Pillow",
@@ -175,6 +189,10 @@ const PRODUCTS = [
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×38×8 cm — 80% Natural Latex",sku:"BXD-DCP-1",priceINR:"₹1,400",priceUSD:"$17"},
+      {label:"60×38×8 cm — 90% Natural Latex",sku:"BXD-DCP-2",priceINR:"₹2,400",priceUSD:"$29"},
+    ],
   },
   {
     id:"dunlop-contour-pillow",name:"Dunlop Contour Pillow",
@@ -213,6 +231,10 @@ const PRODUCTS = [
     priceINR:"₹1,600 – ₹2,800*",priceUSD:"$19 – $34*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×40×10/14 cm — 80% Natural Latex",sku:"BXD-DCH-1",priceINR:"₹1,600",priceUSD:"$19"},
+      {label:"60×40×10/14 cm — 90% Natural Latex",sku:"BXD-DCH-2",priceINR:"₹2,800",priceUSD:"$34"},
+    ],
   },
   {
     id:"dunlop-contour-pillow-junior",name:"Dunlop Contour Pillow Junior",
@@ -229,6 +251,10 @@ const PRODUCTS = [
     priceINR:"₹1,200 – ₹2,000*",priceUSD:"$14 – $24*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"50×30×6/8 cm — 80% Natural Latex",sku:"BXD-DCJ-1",priceINR:"₹1,200",priceUSD:"$14"},
+      {label:"50×30×6/8 cm — 90% Natural Latex",sku:"BXD-DCJ-2",priceINR:"₹2,000",priceUSD:"$24"},
+    ],
   },
   {
     id:"dunlop-couples-pillow",name:"Dunlop Couples Pillow",
@@ -245,6 +271,10 @@ const PRODUCTS = [
     priceINR:"₹3,200 – ₹5,200*",priceUSD:"$38 – $62*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"120×40×10 cm — 80% Natural Latex",sku:"BXD-DCO-1",priceINR:"₹3,200",priceUSD:"$38"},
+      {label:"120×40×10 cm — 90% Natural Latex",sku:"BXD-DCO-2",priceINR:"₹5,200",priceUSD:"$63"},
+    ],
   },
   {
     id:"dunlop-cylinder-pillow",name:"Dunlop Cylinder Pillow",
@@ -261,6 +291,10 @@ const PRODUCTS = [
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×15 cm diameter — 80% Natural Latex",sku:"BXD-DCY-1",priceINR:"₹1,400",priceUSD:"$17"},
+      {label:"60×15 cm diameter — 90% Natural Latex",sku:"BXD-DCY-2",priceINR:"₹2,400",priceUSD:"$29"},
+    ],
   },
   {
     id:"dunlop-seahorse-pillow",name:"Dunlop Seahorse Pillow",
@@ -277,6 +311,10 @@ const PRODUCTS = [
     priceINR:"₹1,800 – ₹3,000*",priceUSD:"$22 – $36*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"Standard Seahorse Form — 80% Natural Latex",sku:"BXD-DSH-1",priceINR:"₹1,800",priceUSD:"$22"},
+      {label:"Standard Seahorse Form — 90% Natural Latex",sku:"BXD-DSH-2",priceINR:"₹3,000",priceUSD:"$36"},
+    ],
   },
   {
     id:"dunlop-stomach-pillow",name:"Dunlop Stomach Pillow",
@@ -293,6 +331,12 @@ const PRODUCTS = [
     priceINR:"₹1,200 – ₹2,000*",priceUSD:"$14 – $24*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×40×3 cm — 80% Natural Latex",sku:"BXD-DST-1",priceINR:"₹1,200",priceUSD:"$14"},
+      {label:"60×40×3 cm — 90% Natural Latex",sku:"BXD-DST-2",priceINR:"₹1,600",priceUSD:"$19"},
+      {label:"60×40×5 cm — 80% Natural Latex",sku:"BXD-DST-3",priceINR:"₹1,600",priceUSD:"$19"},
+      {label:"60×40×5 cm — 90% Natural Latex",sku:"BXD-DST-4",priceINR:"₹2,000",priceUSD:"$24"},
+    ],
   },
   {
     id:"dunlop-throw-pillow",name:"Dunlop Throw Pillow",
@@ -309,6 +353,10 @@ const PRODUCTS = [
     priceINR:"₹1,000 – ₹1,800*",priceUSD:"$12 – $22*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"Standard Throw Format — 80% Natural Latex",sku:"BXD-DTH-1",priceINR:"₹1,000",priceUSD:"$12"},
+      {label:"Standard Throw Format — 90% Natural Latex",sku:"BXD-DTH-2",priceINR:"₹1,800",priceUSD:"$22"},
+    ],
   },
   {
     id:"dunlop-u-pillow",name:"Dunlop U-Pillow",
@@ -325,6 +373,10 @@ const PRODUCTS = [
     priceINR:"₹1,200 – ₹2,200*",priceUSD:"$14 – $26*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"Standard U-Form — 80% Natural Latex",sku:"BXD-DUP-1",priceINR:"₹1,200",priceUSD:"$14"},
+      {label:"Standard U-Form — 90% Natural Latex",sku:"BXD-DUP-2",priceINR:"₹2,200",priceUSD:"$26"},
+    ],
   },
   {
     id:"peanut-massage-pillow",name:"Peanut Massage Pillow",
@@ -341,6 +393,10 @@ const PRODUCTS = [
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"Standard Peanut Form — 80% Natural Latex",sku:"BXD-PMP-1",priceINR:"₹1,400",priceUSD:"$17"},
+      {label:"Standard Peanut Form — 90% Natural Latex",sku:"BXD-PMP-2",priceINR:"₹2,400",priceUSD:"$29"},
+    ],
   },
   {
     id:"spiky-massage-pillow",name:"Spiky Massage Pillow",
@@ -357,6 +413,10 @@ const PRODUCTS = [
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×40×8/10 cm — 80% Natural Latex",sku:"BXD-SPK-1",priceINR:"₹1,400",priceUSD:"$17"},
+      {label:"60×40×8/10 cm — 90% Natural Latex",sku:"BXD-SPK-2",priceINR:"₹2,400",priceUSD:"$29"},
+    ],
   },
   {
     id:"talalay-latex-mattress",name:"Talalay Latex Mattress",
@@ -580,6 +640,10 @@ const PRODUCTS = [
     priceINR:"₹1,400 – ₹2,800*",priceUSD:"$17 – $34*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"40×40×5 cm — 80% Natural Latex",sku:"BXD-BSC-1",priceINR:"₹1,400",priceUSD:"$17"},
+      {label:"40×40×5 cm — 90% Natural Latex",sku:"BXD-BSC-2",priceINR:"₹2,800",priceUSD:"$34"},
+    ],
   },
   {
     id:"dunlop-bubble-seat-cushion",name:"Dunlop Bubble Seat Cushion",
@@ -596,6 +660,10 @@ const PRODUCTS = [
     priceINR:"₹1,400 – ₹2,800*",priceUSD:"$17 – $34*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"40×40×5 cm — 80% Natural Latex",sku:"BXD-BBC-1",priceINR:"₹1,400",priceUSD:"$17"},
+      {label:"40×40×5 cm — 90% Natural Latex",sku:"BXD-BBC-2",priceINR:"₹2,800",priceUSD:"$34"},
+    ],
   },
   {
     id:"dunlop-butterfly-back-cushion",name:"Dunlop Butterfly Back Cushion",
@@ -612,6 +680,10 @@ const PRODUCTS = [
     priceINR:"₹1,200 – ₹2,400*",priceUSD:"$14 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"40×30 cm — 80% Natural Latex",sku:"BXD-BFC-1",priceINR:"₹1,200",priceUSD:"$14"},
+      {label:"40×30 cm — 90% Natural Latex",sku:"BXD-BFC-2",priceINR:"₹2,400",priceUSD:"$29"},
+    ],
   },
   {
     id:"dunlop-chunk-seat-cushion",name:"Dunlop Chunk Seat Cushion",
@@ -628,6 +700,10 @@ const PRODUCTS = [
     priceINR:"₹1,600 – ₹3,000*",priceUSD:"$19 – $36*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"40×40×8 cm — 80% Natural Latex",sku:"BXD-CKC-1",priceINR:"₹1,600",priceUSD:"$19"},
+      {label:"40×40×8 cm — 90% Natural Latex",sku:"BXD-CKC-2",priceINR:"₹3,000",priceUSD:"$36"},
+    ],
   },
   {
     id:"dunlop-standard-back-cushion",name:"Dunlop Standard Back Cushion",
@@ -644,6 +720,10 @@ const PRODUCTS = [
     priceINR:"₹1,200 – ₹2,400*",priceUSD:"$14 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"40×30×8 cm — 80% Natural Latex",sku:"BXD-SBC-1",priceINR:"₹1,200",priceUSD:"$14"},
+      {label:"40×30×8 cm — 90% Natural Latex",sku:"BXD-SBC-2",priceINR:"₹2,400",priceUSD:"$29"},
+    ],
   },
   {
     id:"dunlop-standard-seat-cushion",name:"Dunlop Standard Seat Cushion",
@@ -660,6 +740,12 @@ const PRODUCTS = [
     priceINR:"₹1,200 – ₹2,400*",priceUSD:"$14 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"40×40×5 cm — 80% Natural Latex",sku:"BXD-SSC-1",priceINR:"₹1,200",priceUSD:"$14"},
+      {label:"40×40×5 cm — 90% Natural Latex",sku:"BXD-SSC-2",priceINR:"₹1,800",priceUSD:"$22"},
+      {label:"45×45×5 cm — 80% Natural Latex",sku:"BXD-SSC-3",priceINR:"₹1,500",priceUSD:"$18"},
+      {label:"45×45×5 cm — 90% Natural Latex",sku:"BXD-SSC-4",priceINR:"₹2,400",priceUSD:"$29"},
+    ],
   },
   {
     id:"dunlop-triangle-back-cushion",name:"Dunlop Triangle Back Cushion",
@@ -676,6 +762,10 @@ const PRODUCTS = [
     priceINR:"₹1,600 – ₹3,000*",priceUSD:"$19 – $36*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
+    variants:[
+      {label:"60×40×20 cm Wedge — 80% Natural Latex",sku:"BXD-TBC-1",priceINR:"₹1,600",priceUSD:"$19"},
+      {label:"60×40×20 cm Wedge — 90% Natural Latex",sku:"BXD-TBC-2",priceINR:"₹3,000",priceUSD:"$36"},
+    ],
   },
 ];
 
@@ -713,6 +803,8 @@ const lookupPincode = (pin:string) => {
 
 const C={white:"#F8F6F2",beige:"#EFE8DE",gold:"#C8A97E",dark:"#2D2D2D",sand:"#D9CBB8",lgold:"#F5EEE4",char:"#1C1C1C"};
 const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
+const parsePriceNum=(s:string):number=>{if(!s)return 0;const m=String(s).replace(/,/g,"").match(/[\d.]+/);return m?parseFloat(m[0]):0;};
+type CartItem={cartKey:string;productId:string;productName:string;sku:string;variantLabel:string;priceINR:string;priceUSD:string;priceNumINR:number;quoteRequired:boolean;image:string;quantity:number;};
 const EMPTY_FORM={name:"",company:"",email:"",phone:"",city:"",state:"",pincode:"",customerType:"Home Buyer",productName:"",selectedSize:"",quantity:"1",message:"",intent:"quote"};
 const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23EFE8DE'/%3E%3Crect x='220' y='140' width='160' height='120' rx='8' fill='%23D9CBB8'/%3E%3Ccircle cx='300' cy='165' r='22' fill='%23C8A97E' opacity='.6'/%3E%3Ctext x='300' y='290' text-anchor='middle' font-family='serif' font-size='14' fill='%23C8A97E' letter-spacing='3'%3EXIYORA%3C/text%3E%3C/svg%3E";
 
@@ -1206,18 +1298,55 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
 }
 
 /* ─── PRODUCT DETAIL ─────────────────────────────────────── */
-function ProductDetail({p,cur,wl,onWish,onBack,onInquire}:any){
+const WA_ICON=<svg width={13} height={13} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>;
+
+function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckout}:any){
   const [img,setImg]=useState(0);
   const [zoom,setZoom]=useState(false);
   const [imgErrors,setImgErrors]=useState<Record<number,boolean>>({});
   const [selVar,setSelVar]=useState<number>(-1);
-  useEffect(()=>{setImg(0);setImgErrors({});setSelVar(-1);window.scrollTo(0,0);},[p]);
+  const [qty,setQty]=useState(1);
+  const [addedMsg,setAddedMsg]=useState(false);
+
+  useEffect(()=>{setImg(0);setImgErrors({});setSelVar(-1);setQty(1);setAddedMsg(false);window.scrollTo(0,0);},[p]);
+
   const wished=wl.includes(p.id);
-  const currentSrc=imgErrors[img]?FALLBACK_IMG:p.gallery[img];
   const hasVariants=p.variants&&p.variants.length>0;
   const activeVar=hasVariants&&selVar>=0?p.variants[selVar]:null;
-  const displayPriceINR=activeVar?activeVar.priceINR:p.priceINR;
-  const displayPriceUSD=activeVar?activeVar.priceUSD:p.priceUSD;
+  const variantRequired=hasVariants&&selVar<0;
+  const isContactPrice=!hasVariants&&(String(p.priceINR||"").toLowerCase().includes("contact")||String(p.priceINR||"").startsWith("From"));
+  const isQuoteRequired=(activeVar?.quoteRequired===true)||isContactPrice;
+  const canBuy=!variantRequired&&!isQuoteRequired;
+
+  const displayPriceINR=activeVar?activeVar.priceINR:hasVariants?"Select a variant to see price":p.priceINR;
+  const displayPriceUSD=activeVar?activeVar.priceUSD:hasVariants?"Select a variant to see price":p.priceUSD;
+  const currentSrc=imgErrors[img]?FALLBACK_IMG:p.gallery[img];
+
+  const buildCartItem=():CartItem=>({
+    cartKey:`${p.id}__${activeVar?.sku||"base"}__${Date.now()}`,
+    productId:p.id,productName:p.name,
+    sku:activeVar?.sku||p.id,
+    variantLabel:activeVar?.label||p.name,
+    priceINR:activeVar?.priceINR||p.priceINR,
+    priceUSD:activeVar?.priceUSD||p.priceUSD,
+    priceNumINR:parsePriceNum(activeVar?.priceINR||p.priceINR),
+    quoteRequired:false,
+    image:p.gallery[img]||p.gallery[0],
+    quantity:qty,
+  });
+
+  const handleAddToCart=()=>{
+    if(!canBuy)return;
+    onAddToCart(buildCartItem());
+    setAddedMsg(true);
+    setTimeout(()=>setAddedMsg(false),2200);
+  };
+  const handleBuyNow=()=>{
+    if(!canBuy)return;
+    onAddToCart(buildCartItem());
+    onGoCheckout();
+  };
+
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
       {zoom&&<ImageZoom src={currentSrc} alt={p.name} onClose={()=>setZoom(false)}/>}
@@ -1238,7 +1367,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire}:any){
           {/* Images */}
           <div>
             <div style={{borderRadius:5,overflow:"hidden",background:C.beige,marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h">
-              <img src={currentSrc} alt={p.name} style={{width:"100%",height:"100%",objectFit:"cover",transition:"opacity .3s"}} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
+              <img src={currentSrc} alt={p.name} style={{width:"100%",height:"100%",objectFit:"contain",transition:"opacity .3s",background:C.beige}} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
               <div style={{position:"absolute",bottom:12,right:12,background:"rgba(248,246,242,.85)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"#888",display:"flex",alignItems:"center",gap:5}}>
                 <svg width={11} height={11} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                 Tap to zoom
@@ -1250,8 +1379,8 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire}:any){
             </div>
             {p.gallery.length>1&&<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               {p.gallery.map((im:string,i:number)=>(
-                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"transparent"}`,transition:"border-color .2s",flexShrink:0}}>
-                  <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} style={{width:"100%",height:"100%",objectFit:"cover"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
+                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"transparent"}`,transition:"border-color .2s",flexShrink:0,background:C.beige}}>
+                  <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} style={{width:"100%",height:"100%",objectFit:"contain"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
                 </div>
               ))}
             </div>}
@@ -1300,47 +1429,80 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire}:any){
                   {(p.variants as any[]).map((v:any,i:number)=>(
                     <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Jost',sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
                       <span>{v.label}</span>
-                      <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888",flexShrink:0,marginLeft:12}}>{cur==="INR"?v.priceINR:v.priceUSD}</span>
+                      <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888",flexShrink:0,marginLeft:12}}>{v.quoteRequired?"Quote req.":cur==="INR"?v.priceINR:v.priceUSD}</span>
                     </button>
                   ))}
                 </div>
+                {variantRequired&&<p style={{fontSize:12,color:"#c08840",marginTop:8,display:"flex",alignItems:"center",gap:5}}>⚠ Select a size / specification above to proceed</p>}
               </div>
             )}
             {/* Price */}
-            <div style={{background:C.lgold,padding:"16px 18px",borderRadius:3,borderLeft:`3px solid ${C.gold}`,marginBottom:18}}>
+            <div style={{background:C.lgold,padding:"16px 18px",borderRadius:3,borderLeft:`3px solid ${C.gold}`,marginBottom:16}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:5,flexWrap:"wrap",gap:8}}>
-                <span style={{fontSize:12,color:"#777"}}>{activeVar?"Selected price (indicative)":"Indicative price range"}</span>
-                <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,color:C.gold}}>{cur==="INR"?displayPriceINR:displayPriceUSD}</span>
+                <span style={{fontSize:12,color:"#777"}}>
+                  {isQuoteRequired?"Final quote required":activeVar?"Selected price (indicative)":hasVariants?"Select variant for price":"Indicative price range"}
+                </span>
+                <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
+                  {isQuoteRequired?"—":cur==="INR"?displayPriceINR:displayPriceUSD}
+                </span>
               </div>
-              {activeVar&&<div style={{fontSize:11.5,color:"#777",marginBottom:6}}>SKU: {activeVar.sku}</div>}
-              <p style={{fontSize:11.5,color:"#777",lineHeight:1.5}}>{p.priceNote}</p>
+              {activeVar&&!isQuoteRequired&&<div style={{fontSize:11.5,color:"#777",marginBottom:4}}>SKU: {activeVar.sku}</div>}
+              {isQuoteRequired&&<p style={{fontSize:12,color:"#c08840",lineHeight:1.55}}>This configuration requires a custom quote. Use Get Quote or WhatsApp below.</p>}
+              {!isQuoteRequired&&<p style={{fontSize:11.5,color:"#777",lineHeight:1.5}}>{p.priceNote}</p>}
+            </div>
+            {/* Qty stepper */}
+            {canBuy&&(
+              <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
+                <span style={{fontSize:11.5,color:"#888",letterSpacing:"1px",textTransform:"uppercase"}}>Quantity</span>
+                <div style={{display:"flex",alignItems:"center",border:`1px solid ${C.sand}`,borderRadius:3,overflow:"hidden"}}>
+                  <button onClick={()=>setQty(q=>Math.max(1,q-1))} style={{padding:"8px 14px",background:"none",border:"none",fontSize:18,cursor:"pointer",color:C.dark,lineHeight:1}}>−</button>
+                  <span style={{padding:"0 16px",fontSize:14,fontWeight:500,color:C.dark,minWidth:32,textAlign:"center"}}>{qty}</span>
+                  <button onClick={()=>setQty(q=>Math.min(99,q+1))} style={{padding:"8px 14px",background:"none",border:"none",fontSize:18,cursor:"pointer",color:C.dark,lineHeight:1}}>+</button>
+                </div>
+              </div>
+            )}
+            {/* Primary CTAs */}
+            {isQuoteRequired?(
+              <div style={{background:"#FFF8F0",border:`1px solid #F0D8B0`,borderRadius:3,padding:"13px 16px",marginBottom:14,fontSize:13,color:"#8A6400",lineHeight:1.65}}>
+                Final quote required — exact price depends on your city, quantity, and configuration. Request below.
+              </div>
+            ):(
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:12}}>
+                <button onClick={handleAddToCart} disabled={!canBuy}
+                  style={{padding:"14px",fontFamily:"'Jost',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
+                  {addedMsg?"✓ Added!":"Add to Basket"}
+                </button>
+                <button onClick={handleBuyNow} disabled={!canBuy}
+                  style={{padding:"14px",fontFamily:"'Jost',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:"none",background:canBuy?C.gold:"#ccc",color:"#fff",fontWeight:500,transition:"background .2s"}}>
+                  Buy Now →
+                </button>
+              </div>
+            )}
+            {/* Secondary actions */}
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:8}}>
+              <button onClick={()=>onWish(p.id)} style={{padding:"10px 6px",fontFamily:"'Jost',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,border:`1px solid ${wished?C.gold:C.sand}`,background:wished?C.lgold:"transparent",color:wished?C.gold:"#888",transition:"all .2s"}}>
+                {wished?"♥ Saved":"♡ Save"}
+              </button>
+              <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"quote")}>Get Quote</button>
+              <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"proforma")}>Proforma</button>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18}}>
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Jost',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
+                onClick={()=>window.open(waMsg(`Hi XIYORA, I'm interested in the ${p.name}${activeVar?` (${activeVar.label})`:""}. Can you share the landed price for my city?`),"_blank")}>
+                {WA_ICON}WhatsApp
+              </button>
+              <button className="bo" style={{padding:"11px 8px",fontSize:11}} onClick={()=>onInquire(p,"bulk")}>Bulk / B2B</button>
             </div>
             {/* Delivery */}
-            <div style={{padding:"12px 14px",background:C.beige,borderRadius:3,marginBottom:22,display:"flex",gap:10,alignItems:"flex-start"}}>
+            <div style={{padding:"12px 14px",background:C.beige,borderRadius:3,marginBottom:20,display:"flex",gap:10,alignItems:"flex-start"}}>
               <svg width={18} height={18} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24" style={{flexShrink:0,marginTop:2}}><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
               <div>
                 <p style={{fontSize:12.5,fontWeight:500,color:C.dark,marginBottom:3}}>Delivery Estimate</p>
                 <p style={{fontSize:12.5,color:"#666",lineHeight:1.6}}>Timeline confirmed after stock, city, port, and quantity review. {p.deliveryNote}</p>
               </div>
             </div>
-            {/* CTAs */}
-            <div style={{display:"flex",gap:10,flexWrap:"wrap",marginBottom:10}}>
-              <button className="bg" style={{flex:1,minWidth:120,padding:"13px 16px",fontSize:12}} onClick={()=>onInquire(p,"quote")}>Get Price Quote</button>
-              <button className="bo" style={{flex:1,minWidth:120,padding:"13px 16px",fontSize:12}} onClick={()=>onInquire(p,"proforma")}>Proforma Invoice</button>
-            </div>
-            <div style={{display:"flex",gap:10,flexWrap:"wrap",marginBottom:14}}>
-              <button style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 16px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s"}}
-                onClick={()=>window.open(waMsg(`Hi XIYORA, I'm interested in ${p.name}. Can you share the landed price for my city?`),"_blank")}>
-                <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
-                WhatsApp
-              </button>
-              <button onClick={()=>onWish(p.id)} style={{background:wished?C.lgold:"transparent",border:`1px solid ${wished?C.gold:C.sand}`,color:wished?C.gold:"#888",padding:"12px 16px",borderRadius:2,cursor:"pointer",fontSize:13,fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>
-                {wished?"♥ Saved":"♡ Save"}
-              </button>
-            </div>
-            <button className="bo" style={{width:"100%",padding:"12px",fontSize:12}} onClick={()=>onInquire(p,"bulk")}>Contact for Bulk / B2B Order</button>
-            {/* Document cards near product specs */}
-            <div style={{marginTop:20,padding:"18px",background:C.beige,borderRadius:4,border:`1px solid ${C.sand}`}}>
+            {/* Document cards */}
+            <div style={{padding:"18px",background:C.beige,borderRadius:4,border:`1px solid ${C.sand}`}}>
               <div style={{fontSize:9,letterSpacing:"2.5px",textTransform:"uppercase",color:"#aaa",marginBottom:14,fontWeight:500}}>Documents Available for Buyer Review</div>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
                 {[
@@ -1761,7 +1923,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
 }
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
-function Navbar({page,setPage,cur,setCur,scrolled,wl,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar}:any){
+function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar}:any){
   return(
     <nav style={{position:"sticky",top:0,zIndex:200,background:scrolled?"rgba(248,246,242,.97)":C.white,borderBottom:`1px solid ${C.sand}`,backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 28px rgba(0,0,0,.07)":"none",transition:"all .35s ease"}}>
       <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:68}}>
@@ -1814,7 +1976,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,onSearch,onCatalog,onCatFil
           </button>
           <button className="ib" onClick={onCheckout} style={{position:"relative"}} title="Saved / Checkout">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            {wl.length>0&&<span style={{position:"absolute",top:-5,right:-5,background:C.gold,color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
+            {cartCount>0&&<span style={{position:"absolute",top:-5,right:-5,background:C.gold,color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{cartCount}</span>}
           </button>
         </div>
       </div>
@@ -1911,8 +2073,8 @@ function Footer({setPage,onInquire,onSubscribe}:any){
 const UPI_ID = "chaitanyagaikwad022@okicici";
 const UPI_NAME = "XIYORA";
 
-function CheckoutView({wl,onWish,cur,onOpen,onInquire,onCatalog}:any){
-  const items=PRODUCTS.filter(p=>wl.includes(p.id));
+function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
+  const items:CartItem[]=cart||[];
   const [payMode,setPayMode]=useState<"upi"|"proforma"|"whatsapp"|"card">("upi");
   const [utr,setUtr]=useState("");
   const [form,setForm]=useState({name:"",phone:"",email:"",city:"",state:"",pincode:""});
@@ -1922,10 +2084,14 @@ function CheckoutView({wl,onWish,cur,onOpen,onInquire,onCatalog}:any){
   const [err,setErr]=useState("");
 
   const setF=(k:string,v:string)=>setForm((p:any)=>({...p,[k]:v}));
-  const totalLabel=items.map((p:any)=>cur==="INR"?p.priceINR:p.priceUSD).join(" + ");
-  const productNames=items.map((p:any)=>p.name).join(", ");
+  const removeItem=(cartKey:string)=>setCart((prev:CartItem[])=>prev.filter(i=>i.cartKey!==cartKey));
+  const updateQty=(cartKey:string,qty:number)=>setCart((prev:CartItem[])=>prev.map((i:CartItem)=>i.cartKey===cartKey?{...i,quantity:Math.max(1,qty)}:i));
 
-  const upiLink=`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&cu=INR&tn=${encodeURIComponent("XIYORA Order: "+productNames.slice(0,50))}`;
+  const cartTotalINR=items.reduce((s,i)=>s+(i.priceNumINR||0)*i.quantity,0);
+  const totalLabel=cartTotalINR>0?`₹${cartTotalINR.toLocaleString("en-IN")} (indicative)`:"Price on request";
+  const productNames=items.map(i=>`${i.productName}${i.variantLabel&&i.variantLabel!==i.productName?` (${i.variantLabel})`:""} ×${i.quantity}`).join(", ");
+
+  const upiLink=`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}${cartTotalINR>0?`&am=${cartTotalINR}`:""}&cu=INR&tn=${encodeURIComponent("XIYORA Order: "+productNames.slice(0,50))}`;
 
   const submitIntent=async()=>{
     if(!form.name.trim()||!form.phone.trim()){setErr("Please enter your name and phone.");return;}
@@ -1949,14 +2115,14 @@ function CheckoutView({wl,onWish,cur,onOpen,onInquire,onCatalog}:any){
     <div style={{background:C.white,minHeight:"60vh",padding:"64px 0"}}>
       <div className="container" style={{maxWidth:900}}>
         <SL>Checkout</SL>
-        <SH>Your Selected Products</SH>
+        <SH>Your Basket</SH>
 
         {!items.length?(
           <div style={{textAlign:"center",padding:"56px 0"}}>
             <div style={{width:80,height:80,background:C.beige,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
               <svg width={32} height={32} fill="none" stroke={C.gold} strokeWidth={1.4} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             </div>
-            <p style={{fontSize:16,color:"#bbb",marginBottom:18}}>Your checkout list is empty.</p>
+            <p style={{fontSize:16,color:"#bbb",marginBottom:18}}>Your basket is empty.</p>
             <button className="bg" onClick={onCatalog}>Browse Products</button>
           </div>
         ):submitted?(
@@ -1982,19 +2148,25 @@ function CheckoutView({wl,onWish,cur,onOpen,onInquire,onCatalog}:any){
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:36,marginTop:32}} className="checkout-grid">
             {/* Left: Items */}
             <div>
-              <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:20}}>
-                {items.map((p:any)=>(
-                  <div key={p.id} style={{display:"flex",gap:14,padding:"14px 16px",background:C.beige,borderRadius:4,alignItems:"center",cursor:"pointer",transition:"box-shadow .2s"}}
-                    onClick={()=>onOpen(p)}
+              <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:20}}>
+                {items.map((item:CartItem)=>(
+                  <div key={item.cartKey} style={{display:"flex",gap:14,padding:"14px 16px",background:C.beige,borderRadius:4,alignItems:"center",transition:"box-shadow .2s"}}
                     onMouseEnter={(e:any)=>e.currentTarget.style.boxShadow="0 4px 18px rgba(0,0,0,.07)"}
                     onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
-                    <img src={p.gallery[0]} alt={p.name} style={{width:70,height:70,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+                    <img src={item.image} alt={item.productName} style={{width:68,height:68,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
                     <div style={{flex:1,minWidth:0}}>
-                      <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
-                      <div style={{fontSize:11.5,color:C.gold,marginBottom:3}}>{p.latexType} · {p.category}</div>
-                      <div style={{fontSize:13,color:"#888"}}>{cur==="INR"?p.priceINR:p.priceUSD} <span style={{fontSize:10,color:"#bbb"}}>(indicative)</span></div>
+                      <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
+                      {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11.5,color:"#888",marginBottom:3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
+                      <div style={{fontSize:13,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{cur==="INR"?item.priceINR:item.priceUSD} <span style={{fontSize:10,color:"#bbb",fontFamily:"'Jost',sans-serif",fontWeight:400}}>ea.</span></div>
                     </div>
-                    <button onClick={e=>{e.stopPropagation();onWish(p.id);}} style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 12px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif",flexShrink:0}}>Remove</button>
+                    <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
+                      <div style={{display:"flex",alignItems:"center",border:`1px solid ${C.sand}`,borderRadius:3,overflow:"hidden"}}>
+                        <button onClick={()=>updateQty(item.cartKey,item.quantity-1)} style={{padding:"5px 10px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>−</button>
+                        <span style={{padding:"0 10px",fontSize:13,color:C.dark,minWidth:24,textAlign:"center"}}>{item.quantity}</span>
+                        <button onClick={()=>updateQty(item.cartKey,item.quantity+1)} style={{padding:"5px 10px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>+</button>
+                      </div>
+                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 10px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif"}}>✕</button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -2017,9 +2189,9 @@ function CheckoutView({wl,onWish,cur,onOpen,onInquire,onCatalog}:any){
             <div>
               <div style={{background:C.lgold,borderRadius:4,padding:"20px 22px",borderLeft:`3px solid ${C.gold}`,marginBottom:16}}>
                 <div style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#bbb",marginBottom:8}}>Order Summary</div>
-                <div style={{fontSize:13,color:"#888",marginBottom:6}}>Products: {productNames.length>60?productNames.slice(0,60)+"…":productNames}</div>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontWeight:600,color:C.gold,marginBottom:4}}>{totalLabel}</div>
-                <div style={{fontSize:11,color:"#bbb",lineHeight:1.6}}>Indicative range. Final price confirmed via proforma invoice before payment is collected.</div>
+                <div style={{fontSize:12,color:"#888",marginBottom:8,lineHeight:1.5}}>{items.map((i:CartItem)=>`${i.productName}${i.variantLabel&&i.variantLabel!==i.productName?` (${i.variantLabel})`:""} ×${i.quantity}`).join(" · ")}</div>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,color:C.gold,marginBottom:2}}>{totalLabel}</div>
+                <div style={{fontSize:11,color:"#bbb",lineHeight:1.6}}>{cartTotalINR>0?"Indicative total. Final price confirmed via proforma invoice.":"Price to be confirmed by quote."}</div>
               </div>
 
               <div style={{background:C.beige,borderRadius:4,padding:"20px 22px",marginBottom:16}}>
@@ -2511,6 +2683,7 @@ export default function App(){
   const [activeCat,setActiveCat]=useState<string|null>(null);
   const [cur,setCur]=useState("INR");
   const [wl,setWl]=useState<string[]>([]);
+  const [cart,setCart]=useState<CartItem[]>([]);
   const [scrolled,setScrolled]=useState(false);
   const [inquiry,setInquiry]=useState({show:false,product:null as any,intent:"general"});
   const [showSearch,setShowSearch]=useState(false);
@@ -2529,6 +2702,7 @@ export default function App(){
   useEffect(()=>{window.scrollTo(0,0);},[page]);
 
   const toggleWl=(id:string)=>setWl(p=>p.includes(id)?p.filter(x=>x!==id):[...p,id]);
+  const addToCart=(item:CartItem)=>setCart(prev=>{const idx=prev.findIndex(i=>i.productId===item.productId&&i.sku===item.sku);if(idx>=0){const n=[...prev];n[idx]={...n[idx],quantity:n[idx].quantity+item.quantity};return n;}return[...prev,item];});
   const openProd=(p:any)=>{setSelProd(p);setPage("product");};
   const openCatalog=()=>{setActiveCat(null);setPage("catalog");};
   const openCatFilter=(cat:string)=>{setActiveCat(cat);setPage("catalog");};
@@ -2536,9 +2710,9 @@ export default function App(){
   const openProof=()=>setPage("proof");
 
   const renderView=()=>{
-    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>setPage("catalog")} onInquire={openInquiry}/>;
+    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>setPage("catalog")} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>setPage("checkout")}/>;
     if(page==="catalog")return<CatalogView cat={activeCat} setCat={setActiveCat} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry}/>;
-    if(page==="checkout")return<CheckoutView wl={wl} onWish={toggleWl} cur={cur} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
+    if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
     if(page==="account")return<AccountView setPage={setPage}/>;
     if(page==="admin")return<AdminView/>;
     if(page==="proof")return<ProofLibraryView setPage={setPage}/>;
@@ -2571,7 +2745,7 @@ export default function App(){
           </div>
         </div>
       </div>
-      <Navbar page={page} setPage={setPage} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl}
+      <Navbar page={page} setPage={setPage} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl} cartCount={cart.length}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
         onCheckout={()=>setPage("checkout")} onSidebar={()=>setShowSidebar(true)}/>
       <main style={{minHeight:"80vh",paddingBottom:2}}>{renderView()}</main>
