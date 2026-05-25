@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, createContext, useContext } from "react";
 
 /* ─── BUSINESS INFO ─────────────────────────────────────── */
 const BIZ = {
@@ -802,6 +802,10 @@ const lookupPincode = (pin:string) => {
 };
 
 const C={white:"#F8F6F2",beige:"#EFE8DE",gold:"#C8A97E",dark:"#2D2D2D",sand:"#D9CBB8",lgold:"#F5EEE4",char:"#1C1C1C"};
+const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#C8A97E",dark:"#F2EDE4",sand:"#2C2825",lgold:"#1C1916",char:"#080706"};
+const DARK_CSS=`body{background:#0F0F0D!important;color:#F2EDE4!important}.nl{color:#E8E0D4!important}.nl:hover{color:#C8A97E!important}.nl::after{background:#C8A97E!important}.bg{background:#B89472!important;color:#0F0F0D!important}.bg:hover{background:#D4B896!important}.bo{color:#D4B896!important;border-color:#D4B896!important}.bo:hover{background:#C8A97E!important;color:#0F0F0D!important}.bd{color:#C8A97E!important;border-color:#3A3530!important}.pc{background:#1A1714!important;box-shadow:0 2px 16px rgba(0,0,0,.4)!important}.ib{color:#E8E0D4!important}.ib:hover{color:#C8A97E!important}.sl{color:#C8A97E!important}.fl{color:#9A9088!important}.fl:hover{color:#C8A97E!important}.inp{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input,select,textarea{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input::placeholder,textarea::placeholder{color:#665F58!important}.glass-modal{background:rgba(15,14,13,.97)!important;border-color:rgba(80,65,45,.5)!important}.sdrawer{background:#0A0908!important}.sdr-link{color:#B0A898!important}.sdr-link:hover{color:#C8A97E!important;background:rgba(200,169,126,.06)!important}.sdr-section{color:#444!important}.cert-chip{background:#1A1714!important;border-color:#2E2B27!important;color:#9A9088!important}.cert-chip:hover{border-color:#C8A97E!important;color:#C8A97E!important}::-webkit-scrollbar-track{background:#1A1714!important}::-webkit-scrollbar-thumb{background:#3A3530!important}.spec-key{color:#9A9088!important}.spec-val{color:#F2EDE4!important}.tag-pill{background:#6A5840!important}`;
+const ThemeCtx=createContext(C);
+const useC=()=>useContext(ThemeCtx);
 const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
 const parsePriceNum=(s:string):number=>{if(!s)return 0;const m=String(s).replace(/,/g,"").match(/[\d.]+/);return m?parseFloat(m[0]):0;};
 type CartItem={cartKey:string;productId:string;productName:string;sku:string;variantLabel:string;priceINR:string;priceUSD:string;priceNumINR:number;quoteRequired:boolean;image:string;quantity:number;};
@@ -956,6 +960,7 @@ const SL=({children,dark}:{children:React.ReactNode;dark?:boolean})=>(
   <span className="sl" style={{color:dark?"#9B8B6E":"#C8A97E"}}>{children}</span>
 );
 const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>{
+  const C=useC();
   const st:React.CSSProperties={fontFamily:"'Cormorant Garamond',serif",fontSize:size||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
   if(typeof children==="string")return <h2 style={st} dangerouslySetInnerHTML={{__html:children}}/>;
   return <h2 style={st}>{children}</h2>;
@@ -968,6 +973,7 @@ const Spinner=()=>(
 
 /* ─── INQUIRY MODAL ──────────────────────────────────────── */
 function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
+  const C=useC();
   const [f,setF]=useState({...EMPTY_FORM});
   const [ok,setOk]=useState(false);
   const [loading,setLoading]=useState(false);
@@ -1134,6 +1140,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
 
 /* ─── SUBSCRIBE MODAL ────────────────────────────────────── */
 function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
+  const C=useC();
   const [f,setF]=useState({email:"",name:"",whatsapp:"",city:"",customerType:"Home Buyer",interestCategory:"Pillows",subscriptionType:"Home Buyer Updates"});
   const [ok,setOk]=useState(false);
   const [loading,setLoading]=useState(false);
@@ -1219,6 +1226,7 @@ function ImageZoom({src,alt,onClose}:{src:string;alt:string;onClose:()=>void}){
 
 /* ─── SEARCH OVERLAY ─────────────────────────────────────── */
 function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
+  const C=useC();
   const [q,setQ]=useState("");
   const ref=useRef<HTMLInputElement>(null);
   useEffect(()=>{if(show)ref.current?.focus();if(!show)setQ("");},[show]);
@@ -1268,6 +1276,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
 
 /* ─── PRODUCT CARD ───────────────────────────────────────── */
 function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
+  const C=useC();
   const [imgErr,setImgErr]=useState(false);
   return(
     <div className="pc" onClick={()=>onOpen(p)}>
@@ -1300,7 +1309,8 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
 /* ─── PRODUCT DETAIL ─────────────────────────────────────── */
 const WA_ICON=<svg width={13} height={13} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>;
 
-function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckout}:any){
+function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckout,onCatFilter}:any){
+  const C=useC();
   const [img,setImg]=useState(0);
   const [zoom,setZoom]=useState(false);
   const [imgErrors,setImgErrors]=useState<Record<number,boolean>>({});
@@ -1358,7 +1368,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             onMouseLeave={(e:any)=>e.currentTarget.style.color="#888"}>
             <svg width={14} height={14} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Back
           </button>
-          <span style={{color:"#ddd"}}>·</span><span style={{color:"#bbb"}}>{p.category}</span>
+          <span style={{color:"#ddd"}}>·</span><button onClick={()=>onCatFilter&&onCatFilter(p.category)} style={{background:"none",border:"none",cursor:"pointer",color:C.gold,fontFamily:"'Jost',sans-serif",fontSize:13,padding:0,transition:"opacity .2s"}} onMouseEnter={(e:any)=>e.currentTarget.style.opacity=".7"} onMouseLeave={(e:any)=>e.currentTarget.style.opacity="1"}>{p.category}</button>
           <span style={{color:"#ddd"}}>·</span><span style={{color:C.dark,fontWeight:500}}>{p.name}</span>
         </div>
       </div>
@@ -1546,6 +1556,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
 
 /* ─── CATALOG VIEW ───────────────────────────────────────── */
 function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
+  const C=useC();
   const filtered=cat?PRODUCTS.filter(p=>p.category===cat):PRODUCTS;
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
@@ -1579,12 +1590,13 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
 
 /* ─── HOME VIEW ──────────────────────────────────────────── */
 function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire}:any){
+  const C=useC();
   const catImages:Record<string,string>={
     Mattresses:"/assets/products/talalay-latex-mattress/talalay-latex-mattress-1.jpg",
     Pillows:"/assets/products/talalay-contour-pillow/talalay-contour-pillow-1.jpg",
-    Toppers:"/assets/products/latex-topper/latex-topper-1.jpg",
+    Toppers:"/assets/categories/toppers-premium.png",
     Cushions:"/assets/products/dunlop-standard-seat-cushion/dunlop-standard-seat-cushion-1.jpg",
-    "Latex Material":"/assets/products/shredded-talalay-latex/shredded-talalay-latex-1.jpg",
+    "Latex Material":"/assets/categories/latex-material-premium.png",
   };
   return(
     <div>
@@ -1605,7 +1617,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
             </p>
             <div className="ht4" style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:22}}>
               <button className="bg" onClick={onCatalog} style={{padding:"14px 32px",fontSize:12,letterSpacing:"2.5px"}}>Explore Products</button>
-              <button className="bo" onClick={onSupplier} style={{padding:"14px 30px",fontSize:12}}>For Businesses</button>
+              <button onClick={onSupplier} style={{padding:"14px 30px",fontSize:12,fontFamily:"'Jost',sans-serif",fontWeight:600,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",background:"rgba(248,246,242,0.92)",border:"2px solid #2D2D2D",color:"#2D2D2D",borderRadius:2,transition:"all .3s"}} onMouseEnter={(e:any)=>{e.currentTarget.style.background=C.dark;e.currentTarget.style.color=C.white;}} onMouseLeave={(e:any)=>{e.currentTarget.style.background="rgba(248,246,242,0.92)";e.currentTarget.style.color="#2D2D2D";}}>For Businesses</button>
             </div>
             <p className="ht5" style={{fontSize:12,color:"#4a4a4a",letterSpacing:".8px",display:"flex",gap:18,flexWrap:"wrap",fontWeight:500}}>
               <span>✓ Indicative Prices</span><span>✓ B2B & Retail</span><span>✓ Custom Sizes</span><span>✓ WhatsApp Support</span>
@@ -1626,6 +1638,19 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+      {/* VIDEO */}
+      <section style={{background:C.white,padding:"72px 0 0"}}>
+        <div className="container">
+          <div style={{textAlign:"center",marginBottom:36}}>
+            <SL>In Focus</SL>
+            <SH center>Experience XIYORA Comfort</SH>
+            <p style={{fontSize:14.5,color:"#aaa",marginTop:10,maxWidth:540,margin:"10px auto 0",lineHeight:1.7,fontWeight:300}}>A closer look at imported latex comfort, premium sourcing, and product presentation.</p>
+          </div>
+          <div style={{borderRadius:10,overflow:"hidden",border:`1px solid ${C.sand}`,boxShadow:"0 16px 48px rgba(0,0,0,.1)",background:"#000",lineHeight:0}}>
+            <video src="/assets/videos/xiyora-showcase.mp4" autoPlay muted loop playsInline controls style={{width:"100%",display:"block",maxHeight:560,objectFit:"contain"}} onError={(e:any)=>{(e.currentTarget as HTMLVideoElement).parentElement!.style.display="none";}}/>
           </div>
         </div>
       </section>
@@ -1835,6 +1860,7 @@ function CertChips({onProof}:{onProof:()=>void}){
 
 /* ─── SIDE DRAWER ────────────────────────────────────────── */
 function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProof}:any){
+  const C=useC();
   useEffect(()=>{
     if(open)document.body.style.overflow="hidden";
     else document.body.style.overflow="";
@@ -1923,9 +1949,10 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
 }
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
-function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar}:any){
+function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar}:any){
+  const C=useC();
   return(
-    <nav style={{position:"sticky",top:0,zIndex:200,background:scrolled?"rgba(248,246,242,.97)":C.white,borderBottom:`1px solid ${C.sand}`,backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 28px rgba(0,0,0,.07)":"none",transition:"all .35s ease"}}>
+    <nav style={{position:"sticky",top:0,zIndex:200,background:scrolled?(theme==="dark"?"rgba(15,15,13,.97)":"rgba(248,246,242,.97)"):C.white,borderBottom:`1px solid ${C.sand}`,backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 28px rgba(0,0,0,.07)":"none",transition:"all .35s ease"}}>
       <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:68}}>
         {/* Left: Hamburger + desktop nav links */}
         <div style={{display:"flex",alignItems:"center",gap:4}}>
@@ -1939,7 +1966,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,onSearch,onCatalo
               <button key={l} className="nl" style={{fontSize:11,color:page===v?C.gold:C.dark}} onClick={()=>{
                 if(["Mattresses","Pillows","Toppers","Cushions"].includes(v))onCatFilter(v);
                 else if(v==="catalog")onCatalog();
-                else setPage(v);
+                else{window.history.pushState({page:v},"",`/${v}`);setPage(v);}
               }}>{l}</button>
             ))}
           </div>
@@ -1971,6 +1998,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,onSearch,onCatalo
               <button key={c} onClick={()=>setCur(c)} style={{background:cur===c?C.gold:"transparent",color:cur===c?"#fff":C.dark,border:"none",padding:"4px 10px",borderRadius:16,fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{c}</button>
             ))}
           </div>
+          <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} style={{background:C.beige,border:"none",borderRadius:16,padding:"5px 11px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",color:C.dark,transition:"all .2s",letterSpacing:".2px",whiteSpace:"nowrap"}}>{theme==="dark"?"☀ Light":"◑ Dark"}</button>
           <button className="ib" onClick={onSearch} title="Search">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
@@ -1986,6 +2014,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,onSearch,onCatalo
 
 /* ─── FOOTER ─────────────────────────────────────────────── */
 function Footer({setPage,onInquire,onSubscribe}:any){
+  const C=useC();
   return(
     <footer style={{background:"#141414",color:"#888",padding:"70px 0 36px"}}>
       <div className="container">
@@ -2074,6 +2103,7 @@ const UPI_ID = "chaitanyagaikwad022@okicici";
 const UPI_NAME = "XIYORA";
 
 function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
+  const C=useC();
   const items:CartItem[]=cart||[];
   const [payMode,setPayMode]=useState<"upi"|"proforma"|"whatsapp"|"card">("upi");
   const [utr,setUtr]=useState("");
@@ -2260,6 +2290,7 @@ function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
 
 /* ─── ACCOUNT VIEW ───────────────────────────────────────── */
 function AccountView({setPage}:any){
+  const C=useC();
   const [profile,setProfile]=useState(()=>{
     try{return JSON.parse(localStorage.getItem("xiyora_profile")||"null")||{name:"",phone:"",email:"",city:"",state:"",pincode:"",customerType:"Home Buyer"};}catch{return{name:"",phone:"",email:"",city:"",state:"",pincode:"",customerType:"Home Buyer"};}
   });
@@ -2325,6 +2356,7 @@ const DOCS=[
 ];
 
 function ProofLibraryView({setPage}:any){
+  const C=useC();
   const certs=[
     {
       icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>),
@@ -2445,6 +2477,7 @@ function ProofLibraryView({setPage}:any){
 
 /* ─── ORDER STATUS VIEW ──────────────────────────────────── */
 function OrderStatusView({setPage}:any){
+  const C=useC();
   const [ref,setRef]=useState("");
   const [result,setResult]=useState<any>(null);
   const [loading,setLoading]=useState(false);
@@ -2658,6 +2691,7 @@ function AdminView(){
 
 /* ─── SIMPLE PAGE ────────────────────────────────────────── */
 function SimplePage({title,content,setPage}:any){
+  const C=useC();
   return(
     <div style={{background:C.white}}>
       <div style={{background:"linear-gradient(135deg,#EFE8DE 0%,#F8F6F2 100%)",padding:"52px 0 44px"}}>
@@ -2689,28 +2723,58 @@ export default function App(){
   const [showSearch,setShowSearch]=useState(false);
   const [showSubscribe,setShowSubscribe]=useState(false);
   const [showSidebar,setShowSidebar]=useState(false);
+  const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"light") as "light"|"dark";}catch{return"light";}});
+  const toggleTheme=()=>setTheme(t=>{const n=t==="light"?"dark":"light";try{localStorage.setItem("xiyoraTheme",n);}catch{}return n;});
+  const tc=theme==="dark"?CD:C;
 
   useEffect(()=>{
-    if(!document.getElementById("xiyora-css")){
-      const s=document.createElement("style");s.id="xiyora-css";s.textContent=CSS;document.head.appendChild(s);
-    }
-  },[]);
+    let s=document.getElementById("xiyora-css") as HTMLStyleElement|null;
+    if(!s){s=document.createElement("style") as HTMLStyleElement;s.id="xiyora-css";document.head.appendChild(s);}
+    s.textContent=CSS;
+    let dk=document.getElementById("xiyora-dark-css") as HTMLStyleElement|null;
+    if(theme==="dark"){
+      if(!dk){dk=document.createElement("style") as HTMLStyleElement;dk.id="xiyora-dark-css";document.head.appendChild(dk);}
+      dk.textContent=DARK_CSS;
+    }else{dk?.remove();}
+  },[theme]);
   useEffect(()=>{
     const fn=()=>setScrolled(window.scrollY>55);
     window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);
   },[]);
   useEffect(()=>{window.scrollTo(0,0);},[page]);
+  useEffect(()=>{
+    window.history.replaceState({page:"home"},"",window.location.pathname||"/");
+    const onPop=(e:PopStateEvent)=>{
+      const s=e.state;
+      if(s?.page){setPage(s.page);if(s.selProd!==undefined)setSelProd(s.selProd);if(s.activeCat!==undefined)setActiveCat(s.activeCat);}
+      else setPage("home");
+    };
+    window.addEventListener("popstate",onPop);
+    return()=>window.removeEventListener("popstate",onPop);
+  },[]);
 
+  const navigateTo=(newPage:string,opts:{prod?:any;cat?:string|null}={})=>{
+    const state:any={page:newPage};
+    let url="/";
+    if(newPage==="product"&&opts.prod){state.selProd=opts.prod;url=`/product/${opts.prod.id}`;}
+    else if(newPage==="catalog"&&opts.cat!=null){state.activeCat=opts.cat;url=`/category/${opts.cat.toLowerCase().replace(/\s+/g,"-")}`;}
+    else if(newPage==="catalog"){state.activeCat=null;url="/products";}
+    else if(newPage!=="home")url=`/${newPage}`;
+    window.history.pushState(state,"",url);
+    setPage(newPage);
+    if("prod"in opts)setSelProd(opts.prod??null);
+    if("cat"in opts)setActiveCat(opts.cat??null);
+  };
   const toggleWl=(id:string)=>setWl(p=>p.includes(id)?p.filter(x=>x!==id):[...p,id]);
   const addToCart=(item:CartItem)=>setCart(prev=>{const idx=prev.findIndex(i=>i.productId===item.productId&&i.sku===item.sku);if(idx>=0){const n=[...prev];n[idx]={...n[idx],quantity:n[idx].quantity+item.quantity};return n;}return[...prev,item];});
-  const openProd=(p:any)=>{setSelProd(p);setPage("product");};
-  const openCatalog=()=>{setActiveCat(null);setPage("catalog");};
-  const openCatFilter=(cat:string)=>{setActiveCat(cat);setPage("catalog");};
+  const openProd=(p:any)=>navigateTo("product",{prod:p});
+  const openCatalog=()=>navigateTo("catalog",{cat:null});
+  const openCatFilter=(cat:string)=>navigateTo("catalog",{cat});
   const openInquiry=(p:any,intent="general")=>setInquiry({show:true,product:p,intent});
-  const openProof=()=>setPage("proof");
+  const openProof=()=>navigateTo("proof");
 
   const renderView=()=>{
-    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>setPage("catalog")} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>setPage("checkout")}/>;
+    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")}/>;
     if(page==="catalog")return<CatalogView cat={activeCat} setCat={setActiveCat} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry}/>;
     if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
     if(page==="account")return<AccountView setPage={setPage}/>;
@@ -2725,16 +2789,17 @@ export default function App(){
     if(page==="returns")return<SimplePage title="Returns & Refunds" content={[["Damaged in Transit","Document with photos within 24 hours of delivery and contact us immediately."],["Wrong Product","We arrange replacement or refund for incorrect products sent."],["Custom Orders","Non-returnable once production has started — confirm all specs before approval."],["Contact",`${BIZ.email} or WhatsApp +91 70283 11226`]]} setPage={setPage}/>;
     if(page==="privacy")return<SimplePage title="Privacy Policy" content={[["Data Collected","Name, phone, email, city from inquiry forms."],["Use","To respond to inquiries, send quotes, and process orders."],["Sharing","Not sold or shared except where required for order processing and delivery."],["Contact",BIZ.email]]} setPage={setPage}/>;
     if(page==="terms")return<SimplePage title="Terms of Use" content={[["Products","Subject to availability. Prices are indicative and subject to change."],["Orders","Confirmed after proforma invoice acceptance and advance payment."],["Pricing","Final landed price confirmed in writing before any payment is collected."],["Governing Law","Maharashtra, India."]]} setPage={setPage}/>;
-    return<HomeView cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onCatalog={openCatalog} onCatFilter={openCatFilter} onSupplier={()=>setPage("supplier")} onInquire={openInquiry}/>;
+    return<HomeView cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onCatalog={openCatalog} onCatFilter={openCatFilter} onSupplier={()=>navigateTo("supplier")} onInquire={openInquiry}/>;
   };
 
   return(
-    <div style={{background:C.white,minHeight:"100vh"}}>
+    <ThemeCtx.Provider value={tc}>
+    <div style={{background:tc.white,minHeight:"100vh",transition:"background .25s,color .25s"}}>
       <SideDrawer open={showSidebar} onClose={()=>setShowSidebar(false)}
         setPage={setPage} onCatFilter={openCatFilter} onCatalog={openCatalog}
         onInquire={openInquiry} onProof={openProof}/>
       {/* Ticker */}
-      <div style={{background:C.char,color:"#D9CBB8",padding:"9px 0",overflow:"hidden"}}>
+      <div style={{background:tc.char,color:"#D9CBB8",padding:"9px 0",overflow:"hidden"}}>
         <div style={{display:"flex",overflow:"hidden"}}>
           <div className="at">
             {[0,1].map(k=>(
@@ -2746,8 +2811,9 @@ export default function App(){
         </div>
       </div>
       <Navbar page={page} setPage={setPage} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl} cartCount={cart.length}
+        theme={theme} toggleTheme={toggleTheme}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
-        onCheckout={()=>setPage("checkout")} onSidebar={()=>setShowSidebar(true)}/>
+        onCheckout={()=>navigateTo("checkout")} onSidebar={()=>setShowSidebar(true)}/>
       <main style={{minHeight:"80vh",paddingBottom:2}}>{renderView()}</main>
       <Footer setPage={setPage} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
       {/* WhatsApp FAB — positioned above any potential Replit badge */}
@@ -2758,5 +2824,6 @@ export default function App(){
       <SubscribeModal show={showSubscribe} onClose={()=>setShowSubscribe(false)}/>
       <SearchOverlay show={showSearch} onClose={()=>setShowSearch(false)} onPickProduct={(p:any)=>{openProd(p);setShowSearch(false);}} onCatalog={openCatalog}/>
     </div>
+    </ThemeCtx.Provider>
   );
 }
