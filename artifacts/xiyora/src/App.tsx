@@ -845,7 +845,69 @@ const FX:Record<string,{symbol:string;rate:number;name:string;locale:string}>={
   AUD:{symbol:"A$",rate:1/54.5,name:"Australian Dollar",locale:"en-US"},
 };
 const CURRENCIES=Object.keys(FX);
-const CURRENCY_DISCLAIMER="Currency conversion is indicative only. Final proforma and payment are confirmed in INR unless otherwise agreed.";
+const CURRENCY_DISCLAIMER="Currency conversion is indicative only and refreshed periodically from a public reference source. Final proforma and payment are confirmed in INR unless otherwise agreed.";
+
+/* ─── LIVE FX REFRESH ──────────────────────────────────────────
+   Real INR-based rates are pulled from a free public reference API
+   (no key) and refreshed hourly / on every page load. We never invent
+   rates: if the fetch fails we keep the built-in indicative fallbacks. */
+const FX_CACHE_KEY="xiyora_fx_v1";
+const FX_TTL_MS=60*60*1000; // 1 hour
+const FX_ENDPOINT="https://open.er-api.com/v6/latest/INR";
+/** Apply an INR-based rate map ({USD:0.012,...}) onto FX. Only known, positive numeric rates are used. */
+function applyLiveRates(rates:Record<string,number>):boolean{
+  let applied=false;
+  for(const cur of CURRENCIES){
+    if(cur==="INR")continue;
+    const r=rates?.[cur];
+    if(typeof r==="number"&&isFinite(r)&&r>0){FX[cur].rate=r;applied=true;}
+  }
+  return applied;
+}
+/** Read cached rates if still fresh; returns the cached payload or null. */
+function readFxCache():{ts:number;rates:Record<string,number>}|null{
+  try{
+    const raw=localStorage.getItem(FX_CACHE_KEY);
+    if(!raw)return null;
+    const p=JSON.parse(raw);
+    if(p&&typeof p.ts==="number"&&p.rates)return p;
+  }catch{}
+  return null;
+}
+/** Fetch fresh INR-based rates and cache them. Returns true if FX was updated. */
+async function fetchLiveRates():Promise<boolean>{
+  const ctrl=new AbortController();
+  const t=setTimeout(()=>ctrl.abort(),10000);
+  try{
+    const res=await fetch(FX_ENDPOINT,{signal:ctrl.signal});
+    if(!res.ok)return false;
+    const data=await res.json();
+    if(data?.result!=="success"||!data?.rates)return false;
+    const ok=applyLiveRates(data.rates);
+    if(ok){try{localStorage.setItem(FX_CACHE_KEY,JSON.stringify({ts:Date.now(),rates:data.rates}));}catch{}}
+    return ok;
+  }catch{return false;}
+  finally{clearTimeout(t);}
+}
+/** React hook: hydrate from cache, then refresh hourly + on load. Returns a version number that bumps on every successful update so the tree re-renders with new rates. */
+function useLiveFx():number{
+  const [version,setVersion]=useState(0);
+  useEffect(()=>{
+    let alive=true;
+    const cached=readFxCache();
+    if(cached&&applyLiveRates(cached.rates)){setVersion(v=>v+1);}
+    const refresh=async()=>{
+      const fresh=readFxCache();
+      if(fresh&&Date.now()-fresh.ts<FX_TTL_MS)return; // still fresh, skip network
+      const ok=await fetchLiveRates();
+      if(ok&&alive)setVersion(v=>v+1);
+    };
+    refresh();
+    const id=setInterval(refresh,FX_TTL_MS);
+    return()=>{alive=false;clearInterval(id);};
+  },[]);
+  return version;
+}
 const fmtMoney=(cur:string,inrAmount:number):string=>{
   const f=FX[cur]||FX.INR;
   const v=Math.round(inrAmount*f.rate);
@@ -3137,6 +3199,7 @@ export default function App(){
   const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"light") as "light"|"dark";}catch{return"light";}});
   const toggleTheme=()=>setTheme(t=>{const n=t==="light"?"dark":"light";try{localStorage.setItem("xiyoraTheme",n);}catch{}return n;});
   const tc=theme==="dark"?CD:C;
+  useLiveFx(); // refresh indicative currency rates hourly / on load
 
   useEffect(()=>{
     let s=document.getElementById("xiyora-css") as HTMLStyleElement|null;
