@@ -828,7 +828,7 @@ const lookupPincode = (pin:string) => {
 
 const C={white:"#F6F3EB",beige:"#E5DFCD",gold:"#C8A97E",dark:"#1E1E1C",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141210",ink:"#4A4B46",seal:"#9E3B2E",taupe:"#BFA295"};
 const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#C8A97E",dark:"#F2EDE4",sand:"#2C2825",lgold:"#1C1916",char:"#080706",ink:"#9AA09A",seal:"#C25B4A",taupe:"#9C8B7E"};
-const DARK_CSS=`body{background:#0F0F0D!important;color:#F2EDE4!important}.nl{color:#E8E0D4!important}.nl:hover{color:#C8A97E!important}.nl::after{background:#C8A97E!important}.bg{background:#B89472!important;color:#0F0F0D!important}.bg:hover{background:#D4B896!important}.bo{color:#D4B896!important;border-color:#D4B896!important}.bo:hover{background:#C8A97E!important;color:#0F0F0D!important}.bd{color:#C8A97E!important;border-color:#3A3530!important}.pc{background:#1A1714!important;box-shadow:0 2px 16px rgba(0,0,0,.4)!important}.ib{color:#E8E0D4!important}.ib:hover{color:#C8A97E!important}.sl{color:#C8A97E!important}.fl{color:#9A9088!important}.fl:hover{color:#C8A97E!important}.inp{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input,select,textarea{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input::placeholder,textarea::placeholder{color:#665F58!important}.glass-modal{background:rgba(15,14,13,.97)!important;border-color:rgba(80,65,45,.5)!important}.sdrawer{background:#0A0908!important}.sdr-link{color:#B0A898!important}.sdr-link:hover{color:#C8A97E!important;background:rgba(200,169,126,.06)!important}.sdr-section{color:#444!important}.cert-chip{background:#1A1714!important;border-color:#2E2B27!important;color:#9A9088!important}.cert-chip:hover{border-color:#C8A97E!important;color:#C8A97E!important}::-webkit-scrollbar-track{background:#1A1714!important}::-webkit-scrollbar-thumb{background:#3A3530!important}.spec-key{color:#9A9088!important}.spec-val{color:#F2EDE4!important}.tag-pill{background:#6A5840!important}`;
+const DARK_CSS=`body{background:#0F0F0D!important;color:#F2EDE4!important}.nl{color:#E8E0D4!important}.nl:hover{color:#C8A97E!important}.nl::after{background:#C8A97E!important}.bg{background:#B89472!important;color:#0F0F0D!important}.bg:hover{background:#D4B896!important}.bo{color:#D4B896!important;border-color:#D4B896!important}.bo:hover{background:#C8A97E!important;color:#0F0F0D!important}.bd{color:#C8A97E!important;border-color:#3A3530!important}.pc{background:#1A1714!important;box-shadow:0 2px 16px rgba(0,0,0,.4)!important}.ib{color:#E8E0D4!important}.ib:hover{color:#C8A97E!important}.sl{color:#C8A97E!important}.fl{color:#9A9088!important}.fl:hover{color:#C8A97E!important}.inp{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input,select,textarea{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input::placeholder,textarea::placeholder{color:#665F58!important}.glass-modal{background:rgba(15,14,13,.97)!important;border-color:rgba(80,65,45,.5)!important}.sdrawer{background:#0A0908!important}.sdr-link{color:#B0A898!important}.sdr-link:hover{color:#C8A97E!important;background:rgba(200,169,126,.06)!important}.sdr-section{color:#444!important}.cert-chip{background:#1A1714!important;border-color:#2E2B27!important;color:#9A9088!important}.cert-chip:hover{border-color:#C8A97E!important;color:#C8A97E!important}::-webkit-scrollbar-track{background:#1A1714!important}::-webkit-scrollbar-thumb{background:#3A3530!important}.spec-key{color:#9A9088!important}.spec-val{color:#F2EDE4!important}.tag-pill{background:#6A5840!important}.paper{background-color:#0F0F0D!important;background-image:radial-gradient(circle at 18% 24%,rgba(120,95,60,.08),transparent 42%),radial-gradient(circle at 82% 76%,rgba(120,95,60,.06),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(200,169,126,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(194,91,74,.05),transparent 55%)!important}`;
 const ThemeCtx=createContext(C);
 const useC=()=>useContext(ThemeCtx);
 const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
@@ -1210,6 +1210,45 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
   .xiyora-reveal,.xiyora-premium-card,.xiyora-gold-button,.xiyora-whatsapp-popup,.ht1,.ht2,.ht3,.ht4,.ht5,.x-drift,.x-drift-slow,.x-stagger>*,.x-frame img,.x-frame .x-frame-img{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
   .wb::before{animation:none!important;opacity:0!important}
 }
+/* ── XIYORA LUX TOKENS + REUSABLE HOMEPAGE UTILITIES (v5) ── */
+:root{--xiyora-black:#0c0a08;--xiyora-charcoal:#16110b;--xiyora-ivory:#F6EFE0;--xiyora-gold:#C8A97E;--xiyora-soft-gold:#E6C89A;--xiyora-sage:#7c8270;--xiyora-muted-text:#bdae97}
+@keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}}
+@keyframes cloudDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
+@keyframes idleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.cloud-drift{animation:cloudDrift 16s ease-in-out infinite}
+.idle-bob{animation:idleBob 7s ease-in-out infinite}
+.gold-badge{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(200,169,126,.5);background:radial-gradient(circle at 50% 28%,rgba(200,169,126,.16),rgba(200,169,126,.02));box-shadow:inset 0 0 0 4px rgba(200,169,126,.06);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
+.gold-badge.round{border-radius:50%}
+.ql-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ql-card{position:relative;display:flex;align-items:center;gap:16px;padding:24px 22px;background:transparent;border:none;text-align:left;width:100%;cursor:pointer;transition:background .35s,box-shadow .35s;border-radius:6px}
+.ql-card .ql-arrow{margin-left:auto;color:#9a8a68;font-size:18px;transition:transform .4s,color .4s}
+.ql-card:hover{background:rgba(200,169,126,.06);box-shadow:inset 0 0 0 1px rgba(200,169,126,.28),0 14px 40px rgba(0,0,0,.4)}
+.ql-card:hover .ql-arrow{transform:translateX(6px);color:var(--xiyora-soft-gold)}
+.ql-card:hover .gold-badge{transform:translateY(-3px);border-color:var(--xiyora-soft-gold);background:radial-gradient(circle at 50% 28%,rgba(200,169,126,.3),rgba(200,169,126,.05))}
+.ql-cross{position:absolute;inset:0;pointer-events:none;z-index:2}
+@media(max-width:760px){.ql-grid{grid-template-columns:1fr}.ql-cross{display:none}}
+.benefit-noir{display:flex;justify-content:center;align-items:stretch;flex-wrap:nowrap;gap:0;overflow-x:auto;scrollbar-width:none}
+.benefit-noir::-webkit-scrollbar{display:none}
+.benefit-noir .bn{flex:1;min-width:130px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:6px 16px;position:relative;transition:transform .4s}
+.benefit-noir .bn:not(:last-child)::after{content:'';position:absolute;right:0;top:14%;height:72%;width:1px;background:rgba(200,169,126,.26)}
+.benefit-noir .bn:hover{transform:translateY(-4px)}
+.benefit-noir .bn .bnl{font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--xiyora-muted-text);font-weight:500;line-height:1.5}
+.benefit-noir .bn:hover .bnl{color:var(--xiyora-soft-gold)}
+@media(max-width:620px){.benefit-noir{justify-content:flex-start}.benefit-noir .bn{min-width:42%}.benefit-noir .bn:nth-child(2)::after{display:none}}
+.bt-noir{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:30px;border:1px solid rgba(200,169,126,.4);background:rgba(255,255,255,.02);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#E3D7C0;cursor:pointer;transition:all .3s;white-space:nowrap}
+.bt-noir:hover{border-color:var(--xiyora-soft-gold);color:#fff;transform:translateY(-2px)}
+.bt-noir.active{background:linear-gradient(180deg,#E8CDA0,#C9A368);border-color:var(--xiyora-soft-gold);color:#211a10;font-weight:600;box-shadow:0 10px 26px rgba(200,169,126,.32)}
+.cat-intro{position:relative;background:var(--xiyora-ivory);background-image:radial-gradient(circle at 16% 20%,rgba(200,169,126,.1),transparent 44%),radial-gradient(circle at 84% 82%,rgba(159,59,46,.05),transparent 46%);border:1px solid rgba(200,169,126,.42);border-radius:8px;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
+.cat-intro .ci-h{font-family:'Playfair Display',serif;color:#241c12;font-weight:500}
+.cat-intro .ci-sub{color:#6a5c44}
+.cat-intro .ci-label{color:#9E3B2E}
+.latex-story{position:relative;overflow:hidden;min-height:clamp(380px,52vw,520px);display:flex;align-items:center;background:var(--xiyora-black)}
+.latex-story img.ls-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.latex-story .ls-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,7,6,.93) 0%,rgba(8,7,6,.74) 42%,rgba(8,7,6,.28) 70%,transparent 100%)}
+.gold-line-btn{position:relative;overflow:hidden}
+.gold-line-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,240,205,.45) 50%,transparent 70%);background-size:220% 100%;background-position:-180% 0;pointer-events:none}
+.gold-line-btn:hover::before{animation:goldShimmer 1.1s ease}
+@media(prefers-reduced-motion:reduce){.gold-line-btn::before{display:none!important}.cloud-drift,.idle-bob{animation:none!important}.gold-badge,.ql-card,.benefit-noir .bn,.bt-noir{transition:none!important}}
 `;
 
 /* ─── SMALL UI COMPONENTS ────────────────────────────────── */
@@ -1497,7 +1536,6 @@ const LUX_HERO_FEATURES=[
 /* ─── DARK ORNATE HOME HERO ───────────────────────────────── */
 function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>void}){
   const [err,setErr]=useState(false);
-  const [rerr,setRerr]=useState(false);
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
       <Petals count={16}/>
@@ -1544,8 +1582,8 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
             <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":"/assets/lux/hero-bedroom.png"} alt="XIYORA natural latex bedroom" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
-            <img src={DECO.sakuraCluster} alt="" aria-hidden className="x-drift" style={{position:"absolute",top:-14,right:-10,width:"clamp(110px,13vw,180px)",opacity:.95,pointerEvents:"none",zIndex:3}}/>
-            {!rerr&&<img src={DECO.rabbit} alt="" aria-hidden onError={()=>setRerr(true)} style={{position:"absolute",bottom:10,right:14,width:"clamp(48px,5vw,74px)",opacity:.92,pointerEvents:"none",zIndex:3,filter:"drop-shadow(0 6px 14px rgba(0,0,0,.5))"}}/>}
+            {/* corner-only gold hairline frame — no motifs over the room photo (guardrail) */}
+            <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(200,169,126,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
           </div>
         </div>
       </div>
@@ -1620,6 +1658,113 @@ function FooterTrustStrip(){
 }
 
 /* ─── INTERACTIVE WHATSAPP POPUP (source: v3_whatsapp_popup_logic) ── */
+/* ─── REUSABLE LUX HOMEPAGE PRIMITIVES (v5) ──────────────── */
+/* Gold-outlined icon badge */
+function GoldIconBadge({name,size=24,round,className}:{name:string;size?:number;round?:boolean;className?:string}){
+  return <div className={`gold-badge${round?" round":""}${className?" "+className:""}`}><LuxIcon name={name} size={size} color="#E0BE86"/></div>;
+}
+/* Ornate frame (gold double border + corner flourishes) */
+function OrnamentalFrame({children,style,className}:{children:React.ReactNode;style?:React.CSSProperties;className?:string}){
+  return <div className={`ornate${className?" "+className:""}`} style={{position:"relative",borderRadius:8,...style}}><CornerSet/>{children}</div>;
+}
+/* SECTION 1 — premium dark quick-link / business panel */
+function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;onSupplier:()=>void;onInquire:(p:any,k:string)=>void}){
+  const links=[
+    {ic:"box",t:"Explore Products",d:"Mattresses, Toppers & More",fn:onCatalog},
+    {ic:"handshake",t:"For Businesses",d:"Solutions for Hotels, Retail & Institutions",fn:onSupplier},
+    {ic:"doc",t:"Documents",d:"Certifications & Reports",fn:()=>onInquire(null,"general")},
+    {ic:"globe",t:"B2B Portal",d:"Official Bingxi Partner for India",fn:onSupplier},
+  ];
+  return(
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
+      <Petals count={8}/>
+      <img src="/assets/lux/bonsai-darkwood.png" alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.24,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
+      <img src={DECO.sakuraCluster} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:-8,left:-14,width:"clamp(80px,9vw,120px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
+      <div className="container" style={{position:"relative",zIndex:4}}>
+        <OrnamentalFrame style={{background:"linear-gradient(160deg,#16110b,#0c0a08)",padding:"clamp(12px,2vw,20px)"}}>
+          <div className="ql-grid">
+            {links.map((q,i)=>(
+              <button key={i} type="button" onClick={q.fn} aria-label={`${q.t} — ${q.d}`} className="ql-card">
+                <GoldIconBadge name={q.ic} size={24} round/>
+                <span style={{display:"block"}}>
+                  <span style={{display:"block",fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:"#F2EADB",marginBottom:4}}>{q.t}</span>
+                  <span style={{display:"block",fontSize:11.5,color:"#9a8f7d",lineHeight:1.5,maxWidth:210}}>{q.d}</span>
+                </span>
+                <span className="ql-arrow" aria-hidden>→</span>
+              </button>
+            ))}
+          </div>
+          <div className="ql-cross" aria-hidden>
+            <span style={{position:"absolute",left:"50%",top:"15%",bottom:"15%",width:1,background:"linear-gradient(rgba(200,169,126,0),rgba(200,169,126,.34),rgba(200,169,126,0))",transform:"translateX(-.5px)"}}/>
+            <span style={{position:"absolute",top:"50%",left:"7%",right:"7%",height:1,background:"linear-gradient(90deg,rgba(200,169,126,0),rgba(200,169,126,.3),rgba(200,169,126,0))",transform:"translateY(-.5px)"}}/>
+            <span style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",display:"flex"}}><Rosette size={18}/></span>
+          </div>
+        </OrnamentalFrame>
+      </div>
+    </section>
+  );
+}
+/* SECTION 3 — dark benefit strip */
+const BENEFITS=[
+  {ic:"leaf",label:"Sustainable Sourcing"},
+  {ic:"wave",label:"Exceptional Breathability"},
+  {ic:"drop",label:"Pressure Relief"},
+  {ic:"hourglass",label:"Long-Lasting Durability"},
+  {ic:"shield",label:"Certified Quality"},
+];
+function DarkBenefitStrip(){
+  return(
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(200,169,126,.16)",borderBottom:"1px solid rgba(200,169,126,.16)"}}>
+      <div className="container" style={{position:"relative",zIndex:2}}>
+        <Stagger className="benefit-noir">
+          {BENEFITS.map((b,i)=>(
+            <div key={i} className="bn"><GoldIconBadge name={b.ic} size={22} round/><div className="bnl">{b.label}</div></div>
+          ))}
+        </Stagger>
+      </div>
+    </section>
+  );
+}
+/* SECTION 5 — ivory category intro panel (readable in both themes) */
+function CategoryIntroPanel(){
+  return(
+    <div className="cat-intro" style={{maxWidth:760,margin:"0 auto"}}>
+      <CornerSet/>
+      <img src={DECO.sakuraCorner} alt="" aria-hidden style={{position:"absolute",top:0,left:0,width:"clamp(80px,12vw,140px)",opacity:.9,pointerEvents:"none",zIndex:2}}/>
+      <img src={DECO.rabbit} alt="" aria-hidden className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}}/>
+      <GoldCloud className="cloud-drift" size={120} opacity={.12} style={{position:"absolute",bottom:18,left:18,pointerEvents:"none",zIndex:1}}/>
+      <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <Seal ch="选" title="Curated collection"/>
+        <div className="ci-label" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px"}}>Bingxi Collection</div>
+        <h2 className="ci-h" style={{fontSize:"clamp(2rem,3.6vw,2.9rem)",lineHeight:1.12,margin:0}}>Shop By Category</h2>
+        <div className="x-divider" style={{margin:"16px auto"}}>❖</div>
+        <p className="ci-sub" style={{fontSize:14.5,maxWidth:440,lineHeight:1.7}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
+      </div>
+    </div>
+  );
+}
+/* SECTION 6 — dark cinematic latex story */
+function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
+  const [err,setErr]=useState(false);
+  return(
+    <section className="latex-story">
+      <img className="ls-bg" src={err?"https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=85":"/assets/lux/latex-closeup.png"} alt="Natural latex close-up" onError={()=>setErr(true)}/>
+      <div className="ls-ov"/>
+      {/* gold hairline frame + bottom edge wave — border-only, no motifs over the photo (guardrail) */}
+      <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(200,169,126,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+      <svg aria-hidden viewBox="0 0 1200 80" preserveAspectRatio="none" style={{position:"absolute",left:0,right:0,bottom:0,width:"100%",height:60,opacity:.5,zIndex:3}}><path d="M0 60 Q150 20 300 50 T600 50 T900 50 T1200 45" fill="none" stroke="#C8A97E" strokeWidth="1.2"/><path d="M0 70 Q150 34 300 62 T600 62 T900 62 T1200 58" fill="none" stroke="#C8A97E" strokeWidth=".7" opacity=".5"/></svg>
+      <div className="container" style={{position:"relative",zIndex:4}}>
+        <Reveal style={{maxWidth:560}}>
+          <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#C9A876",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
+          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:500,lineHeight:1.14,color:"#F4ECDC",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
+          <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#C8A97E"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#C8A97E"}}/></div>
+          <p style={{fontSize:14.5,lineHeight:1.85,color:"#cabfa9",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
+          <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#C8A97E"}}>→</span></button>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 function WhatsAppPopup({page,context}:{page:string;context:any}){
   const C=useC();
   const [visible,setVisible]=useState(false);
@@ -1629,9 +1774,12 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
     return "Hello XIYORA, I want help choosing premium latex products. Please share catalogue and guidance.";
   })();
   const shownRef=useRef(false);
+  const DISMISS_KEY="xiyora_whatsapp_popup_dismissed";
   useEffect(()=>{
-    // Show at most once per page load ("web restart"). Once shown or dismissed it
-    // will not re-trigger until the page is reloaded — no sessionStorage persistence.
+    // Show at most once per session. Once the user closes it, persist the
+    // dismissal in sessionStorage so it never re-opens until a fresh page load
+    // in a new session (clears when the tab is closed).
+    try{if(sessionStorage.getItem(DISMISS_KEY))return;}catch{}
     let timer:ReturnType<typeof setTimeout>;
     const onScroll=()=>{
       const ratio=window.scrollY/Math.max(document.body.scrollHeight-window.innerHeight,1);
@@ -1643,7 +1791,7 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
     window.addEventListener("scroll",onScroll,{passive:true});
     return cleanup;
   },[]);
-  const dismiss=()=>setVisible(false);
+  const dismiss=()=>{try{sessionStorage.setItem(DISMISS_KEY,"1");}catch{}setVisible(false);};
   if(!visible)return null;
   return(
     <div className="xiyora-whatsapp-popup" role="dialog" aria-label="XIYORA WhatsApp help"
@@ -2296,37 +2444,41 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
 
 /* ─── BUYER BEST-FIT SELECTOR ────────────────────────────── */
 function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
-  const C=useC();
   const [active,setActive]=useState(BUYER_TYPES[0].key);
   const sel=BUYER_TYPES.find(b=>b.key===active)||BUYER_TYPES[0];
   const act=()=>{
-    if(sel.key==="home_buyer"&&sel.catFilter)onCatFilter(sel.catFilter);
-    else if(sel.catFilter)onCatFilter(sel.catFilter);
+    if(sel.catFilter)onCatFilter(sel.catFilter);
     else if(sel.key==="retailer"||sel.key==="trade_partner")onSupplier();
     else onCatalog();
   };
   return(
-    <section className="sec" style={{background:C.beige,paddingTop:64,paddingBottom:64}}>
-      <div className="container">
-        <Reveal style={{textAlign:"center",marginBottom:34}}>
-          <SL>Find Your Best Fit</SL>
-          <SH center>Tell Us Who You Are</SH>
-          <p style={{fontSize:14.5,color:"#999",marginTop:10,maxWidth:560,margin:"10px auto 0",lineHeight:1.7,fontWeight:300}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
-        </Reveal>
-        <Reveal style={{display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center",marginBottom:26}}>
-          {BUYER_TYPES.map(b=>(
-            <button key={b.key} className={`bt-chip${active===b.key?" active":""}`} onClick={()=>setActive(b.key)}>{b.label}</button>
-          ))}
-        </Reveal>
-        <Reveal style={{maxWidth:680,margin:"0 auto"}}>
-          <div style={{background:C.white,borderRadius:8,padding:"26px 28px",borderTop:`3px solid ${C.gold}`,boxShadow:"0 12px 40px rgba(0,0,0,.07)",textAlign:"center"}}>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:20,color:C.dark,lineHeight:1.5,marginBottom:20}}>{sel.message}</p>
-            <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
-              <button className="bg xiyora-gold-button" style={{padding:"13px 26px",fontSize:12}} onClick={act}>{sel.cta}</button>
-              <button className="bo" style={{padding:"13px 24px",fontSize:11.5}} onClick={()=>onInquire(null,"quote")}>Ask for Guidance</button>
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(40px,5vw,72px) 0"}}>
+      <Petals count={8}/>
+      <div className="container" style={{position:"relative",zIndex:4}}>
+        <OrnamentalFrame style={{background:"linear-gradient(160deg,#16110b,#0c0a08)",padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
+          <img src={DECO.crane} alt="" aria-hidden className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
+          <img src={DECO.rabbit} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}}/>
+          <img src={DECO.sakuraCluster} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:-6,right:-6,width:"clamp(90px,10vw,140px)",opacity:.6,pointerEvents:"none",zIndex:2}}/>
+          <div style={{position:"relative",zIndex:5,textAlign:"center"}}>
+            <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#C9A876",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#C8A97E"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#C8A97E"}}/></div>
+            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:500,color:"#F4ECDC",lineHeight:1.12,margin:0}}>Tell Us Who You Are</h2>
+            <p style={{fontSize:14,color:"#bdb09a",maxWidth:560,margin:"14px auto 0",lineHeight:1.7}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
+            <div style={{display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center",margin:"28px 0 24px"}}>
+              {BUYER_TYPES.map(b=>(
+                <button key={b.key} className={`bt-noir${active===b.key?" active":""}`} onClick={()=>setActive(b.key)}>
+                  {active===b.key&&<span aria-hidden style={{fontSize:11}}>❀</span>}{b.label}
+                </button>
+              ))}
+            </div>
+            <div style={{maxWidth:640,margin:"0 auto",position:"relative",border:"1px solid rgba(200,169,126,.34)",borderRadius:8,padding:"28px 30px",background:"linear-gradient(180deg,rgba(200,169,126,.06),rgba(0,0,0,.18))"}}>
+              <p className="serif" style={{fontSize:20,color:"#F1E6D2",lineHeight:1.5,marginBottom:22}}>{sel.message}</p>
+              <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
+                <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{padding:"13px 26px"}} onClick={act}>{sel.cta} <span style={{color:"#C8A97E"}}>→</span></button>
+                <button className="btn-ivory" style={{padding:"13px 24px"}} onClick={()=>onInquire(null,"quote")}>Ask For Guidance</button>
+              </div>
             </div>
           </div>
-        </Reveal>
+        </OrnamentalFrame>
       </div>
     </section>
   );
@@ -2346,64 +2498,42 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
     <div>
       {/* HERO — DARK ORNATE (reference-faithful black-lacquer + gold) */}
       <DarkHomeHero onCatalog={onCatalog} onSupplier={onSupplier}/>
-      {/* QUICK-NAV BAND (dark) */}
-      <section style={{background:C.char,position:"relative",overflow:"hidden"}}>
-        <img src="/assets/lux/bonsai-darkwood.png" alt="" aria-hidden style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.32,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)"}}/>
-        <div className="container" style={{position:"relative"}}>
-          <div className="grid-4" style={{gap:0}}>
-            {[
-              {ic:"box",t:"Explore Products",d:"Mattresses, Toppers & More",fn:onCatalog},
-              {ic:"handshake",t:"For Businesses",d:"Solutions for Hotels, Retail & Institutions",fn:onSupplier},
-              {ic:"doc",t:"Documents",d:"Certifications & Reports",fn:()=>onInquire(null,"general")},
-              {ic:"globe",t:"B2B Portal",d:"Official Bingxi Partner for India",fn:onSupplier},
-            ].map((q,i)=>(
-              <button key={i} type="button" onClick={q.fn} aria-label={`${q.t} — ${q.d}`} style={{display:"flex",alignItems:"flex-start",gap:14,padding:"30px 26px",borderRight:i<3?"1px solid #262320":"none",border:"none",borderTop:"none",borderBottom:"none",borderLeft:"none",background:"transparent",textAlign:"left",width:"100%",cursor:"pointer",transition:"background .3s"}}
-                onMouseEnter={(e:any)=>e.currentTarget.style.background="rgba(200,169,126,.05)"}
-                onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
-                <LuxIcon name={q.ic} size={24}/>
-                <div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:16,fontWeight:500,color:"#F0EBE3",marginBottom:4}}>{q.t}</div>
-                  <div style={{fontSize:11.5,color:"#8a8378",lineHeight:1.5}}>{q.d}</div>
-                </div>
-              </button>
-            ))}
+      {/* QUICK-NAV BAND (dark, ornate) */}
+      <PremiumQuickLinks onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
+      {/* OUR PROMISE — sage editorial + still-life 2-up */}
+      <section className="sec" style={{background:C.char,padding:"clamp(30px,4vw,56px) 0"}}>
+        <div className="container">
+          <div className="promise-2up" style={{display:"grid",gridTemplateColumns:"1fr 1fr",borderRadius:8,overflow:"hidden",border:"1px solid rgba(200,169,126,.4)",position:"relative"}}>
+            <CornerSet/>
+            <div style={{position:"relative",background:"#7c8270",backgroundImage:"radial-gradient(circle at 80% 16%,rgba(255,255,255,.07),transparent 42%)",display:"flex",flexDirection:"column",justifyContent:"center",padding:"clamp(36px,4vw,56px)",color:"#fff",overflow:"hidden",minHeight:360}}>
+              <img src={DECO.sakuraCluster} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:6,right:-8,width:"clamp(90px,12vw,150px)",opacity:.7,pointerEvents:"none",zIndex:1}}/>
+              <GoldCloud className="cloud-drift" size={120} opacity={.16} style={{position:"absolute",top:18,right:30,pointerEvents:"none",zIndex:1}}/>
+              <img src={DECO.rabbit} alt="" aria-hidden className="idle-bob" style={{position:"absolute",bottom:6,left:10,width:"clamp(46px,5vw,72px)",opacity:.3,pointerEvents:"none",zIndex:1}}/>
+              <div style={{position:"relative",zIndex:2}}>
+                <span style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",color:"rgba(255,255,255,.78)"}}>Our Promise</span>
+                <h3 className="serif" style={{fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:500,lineHeight:1.16,margin:"18px 0 0"}}>Elevating Everyday Rest Into an Art of Living.</h3>
+                <div style={{margin:"22px 0"}}><Seal ch="美" style={{borderColor:"rgba(255,255,255,.75)",color:"#fff"}}/></div>
+                <p style={{fontSize:13.5,color:"rgba(255,255,255,.9)",lineHeight:1.75,maxWidth:360}}><strong style={{fontWeight:600}}>Pure by Nature. Perfected by Science.</strong><br/>Responsibly sourced natural latex for unmatched comfort and durability.</p>
+              </div>
+            </div>
+            <div className="x-frame" style={{position:"relative",minHeight:360,overflow:"hidden"}}>
+              <img src="/assets/lux/vase-blossom.png" alt="Ink-wash still life with cherry blossom" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}}/>
+              <div style={{position:"absolute",inset:0,boxShadow:"inset 0 0 0 1px rgba(200,169,126,.3)",pointerEvents:"none"}}/>
+            </div>
           </div>
         </div>
       </section>
-      {/* OUR PROMISE — 3-UP (latex / sage statement / vase) */}
-      <section style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr"}} className="promise-3up">
-        <div className="x-frame" style={{position:"relative",minHeight:340,overflow:"hidden"}}>
-          <img src="/assets/lux/latex-closeup.png" alt="Natural latex close-up" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}}/>
-          <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,18,16,.7),transparent 55%)"}}/>
-          <div style={{position:"absolute",left:0,bottom:0,padding:"26px 24px"}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:19,color:"#fff",fontWeight:500}}>Pure by Nature,<br/>Perfected by Science</div>
-            <p style={{fontSize:11.5,color:"rgba(255,255,255,.78)",marginTop:8,lineHeight:1.6,maxWidth:230}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
-          </div>
-        </div>
-        <div style={{background:"#7c8270",display:"flex",flexDirection:"column",justifyContent:"center",padding:"48px 40px",color:"#fff",minHeight:340}}>
-          <span style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"rgba(255,255,255,.7)",marginBottom:18}}>Our Promise</span>
-          <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.7rem,2.6vw,2.4rem)",fontWeight:500,lineHeight:1.18}}>Elevating Everyday Rest Into an Art of Living.</h3>
-          <div style={{marginTop:22}}><Seal ch="美" style={{borderColor:"rgba(255,255,255,.7)",color:"#fff"}}/></div>
-        </div>
-        <div className="x-frame" style={{position:"relative",minHeight:340,overflow:"hidden"}}>
-          <img src="/assets/lux/vase-blossom.png" alt="Ink-wash still life" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}}/>
-        </div>
-      </section>
-      <style>{`@media(max-width:860px){.promise-3up{grid-template-columns:1fr!important}}`}</style>
-      {/* PROMISE ICON STRIP */}
-      <IconStrip items={[{name:"leaf",label:"Sustainable Sourcing"},{name:"wave",label:"Exceptional Breathability"},{name:"drop",label:"Pressure Relief"},{name:"hourglass",label:"Long-Lasting Durability"},{name:"shield",label:"Certified Quality"}]}/>
+      <style>{`@media(max-width:820px){.promise-2up{grid-template-columns:1fr!important}}`}</style>
+      {/* PROMISE BENEFIT STRIP (dark) */}
+      <DarkBenefitStrip/>
       {/* BUYER BEST-FIT SELECTOR */}
       <BuyerBestFit onCatFilter={onCatFilter} onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
       {/* CATEGORIES */}
       <section className="sec paper ink-wash" style={{position:"relative"}}>
         <GoldCloud className="x-drift-slow" size={150} opacity={.16} style={{position:"absolute",top:36,left:24,pointerEvents:"none"}}/>
         <div className="container">
-          <Reveal style={{textAlign:"center",marginBottom:52}}>
-            <div style={{display:"flex",justifyContent:"center",marginBottom:16}}><Seal ch="选" title="Curated collection"/></div>
-            <SL>Bingxi Collection</SL>
-            <SH center>Shop By Category</SH>
-            <div className="x-divider" style={{margin:"16px auto"}}>❖</div>
-            <p style={{fontSize:14.5,color:C.ink,maxWidth:440,margin:"10px auto 0",lineHeight:1.7,fontWeight:400}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
+          <Reveal style={{marginBottom:52}}>
+            <CategoryIntroPanel/>
           </Reveal>
           <Stagger className="grid-5">
             {CATS.filter(c=>c.filter).map((cat,i)=>{
@@ -2424,6 +2554,8 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
           </Stagger>
         </div>
       </section>
+      {/* LATEX STORY — dark cinematic */}
+      <LatexStoryPanel onCatalog={onCatalog}/>
       {/* FEATURED PRODUCTS */}
       <section className="sec" style={{background:C.beige,position:"relative",overflow:"hidden"}}>
         <Sakura className="x-drift-slow" size={170} color="#BFA295" style={{position:"absolute",top:0,right:-10,opacity:.4,pointerEvents:"none"}}/>
@@ -2687,10 +2819,15 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
   const NAVBG="rgba(22,19,16,.97)";
   return(
     <nav style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(200,169,126,.18)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 30px rgba(0,0,0,.32)":"none",transition:"all .35s ease"}}>
-      {/* corner ornament top-left */}
+      {/* corner ornaments — top-left + mirrored top-right */}
       <svg className="nav-ornament" width={26} height={26} viewBox="0 0 26 26" fill="none" style={{position:"absolute",top:6,left:10,opacity:.55,pointerEvents:"none"}} aria-hidden>
         <path d="M2 13c0-6 5-11 11-11" stroke="#C8A97E" strokeWidth="1"/><path d="M2 8c0-3 3-6 6-6" stroke="#C8A97E" strokeWidth=".7" opacity=".6"/><circle cx="13" cy="2" r="1.3" fill="#C8A97E"/>
       </svg>
+      <svg className="nav-ornament" width={26} height={26} viewBox="0 0 26 26" fill="none" style={{position:"absolute",top:6,right:10,opacity:.55,pointerEvents:"none",transform:"scaleX(-1)"}} aria-hidden>
+        <path d="M2 13c0-6 5-11 11-11" stroke="#C8A97E" strokeWidth="1"/><path d="M2 8c0-3 3-6 6-6" stroke="#C8A97E" strokeWidth=".7" opacity=".6"/><circle cx="13" cy="2" r="1.3" fill="#C8A97E"/>
+      </svg>
+      {/* fine gold hairline divider at the base of the bar */}
+      <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"linear-gradient(90deg,transparent,rgba(200,169,126,.55),transparent)",pointerEvents:"none"}}/>
       <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
         <div style={{display:"flex",alignItems:"center",gap:4}}>
