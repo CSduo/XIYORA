@@ -1,0 +1,42 @@
+{
+  "_note": "Prepared image manifest scaffold. Admin replaces these paths with final product/category imagery. Live product galleries currently resolve from /assets/products/<product-id>/<product-id>-N.jpg. Do not wire these placeholders into the UI until real assets are uploaded.",
+  "categories": {
+    "mattresses": "/assets/categories/category-mattresses-premium.png",
+    "pillows": "/assets/categories/category-pillows-premium.png",
+    "toppers": "/assets/categories/category-toppers-premium.png",
+    "cushions": "/assets/categories/category-cushions-premium.png",
+    "materials": "/assets/categories/category-latex-materials-premium.png"
+  },
+  "payment": {
+    "upiQr": "/assets/payment/upi-qr.png"
+  },
+  "video": {
+    "showcase": "/assets/videos/xiyora-showcase.mp4"
+  },
+  "products": {
+    "standard-mattress": { "hero": "/assets/products/product-standard-mattress.png", "gallery": [] },
+    "talalay-latex-mattress": { "hero": "/assets/products/product-talalay-latex-mattress.png", "gallery": [] },
+    "dunlop-standard-mattress": { "hero": "/assets/products/product-dunlop-standard-mattress.png", "gallery": [] },
+    "bay-window-mattress": { "hero": "/assets/products/product-bay-window-mattress.png", "gallery": [] },
+    "latex-topper": {
+      "hero": "/assets/products/latex-topper/gallery/topper-01-anchor-lifestyle.png",
+      "gallery": [
+        "/assets/products/latex-topper/gallery/topper-01-anchor-lifestyle.png",
+        "/assets/products/latex-topper/gallery/topper-02-studio-product.png",
+        "/assets/products/latex-topper/gallery/topper-03-material-detail.png",
+        "/assets/products/latex-topper/gallery/topper-04-bedroom-setup.png",
+        "/assets/products/latex-topper/gallery/topper-05-daybed-window-nook.png",
+        "/assets/products/latex-topper/gallery/topper-06-guest-bunk-bed.png",
+        "/assets/products/latex-topper/gallery/topper-07-travel-compact-space.png"
+      ]
+    }
+  },
+  "materials": {
+    "shreddedLatexFill": "/assets/materials/material-01-shredded-latex-fill.png",
+    "talalayLatexCore": "/assets/materials/material-02-talalay-latex-core.png",
+    "dunlopLatexCore": "/assets/materials/material-03-dunlop-latex-core.png",
+    "latexTopperCore": "/assets/materials/material-04-latex-topper-core.png",
+    "ergonomicContourLatex": "/assets/materials/material-05-ergonomic-contour-latex.png",
+    "latexCushionCore": "/assets/materials/material-06-latex-cushion-core.png"
+  }
+}

@@ -30,11 +30,22 @@ _Populate as you build — non-obvious choices a reader couldn't infer from the 
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+XIYORA — premium natural latex bedding ecommerce SPA (Talalay/Dunlop pillows, mattresses, toppers, cushions). Single-file React+Vite app at `artifacts/xiyora/src/App.tsx`.
+
+User-facing capabilities:
+- Video-first hero (`HeroMedia`) with image/error fallback chain.
+- Catalog + product detail with variants, currency toggle (INR/USD only).
+- Basket + wishlist, both persisted to `localStorage` (`xiyora_cart`, `xiyora_wishlist`).
+- Checkout (`CheckoutView`): "Saved for Later" wishlist with move-to-basket/remove; a "Step 1 · Confirm Details & Location" gate (validates name/phone≥10 digits/email/city/state/pincode 6-digit, draft prefilled from `xiyora_checkout_draft`); UPI payment locked until confirmed, then shows QR (`/assets/payment/upi-qr.png`) + UPI ID; editing fields after confirm forces re-confirmation. Posts to `POST /api/checkout-intents`.
+- `BuyerBestFit` selector routing buyer types to catalog/B2B/inquiry.
+- Interactive WhatsApp popup (`WhatsAppPopup`, sessionStorage `xiyora_whatsapp_popup_dismissed`, 9s/38%-scroll trigger).
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Do NOT invent pricing, delivery promises, certificate claims, payment-success states, or currency rates. Keep currency to INR/USD only (no AED/EUR/etc.).
+- Final product/category image replacement is out of scope unless explicitly asked — only prepare asset folders + manifest.
+- Verify with `pnpm --filter @workspace/xiyora run typecheck` (not `build`, which needs workflow-provided `PORT`/`BASE_PATH`).
+- Key constants in `App.tsx`: `UPI_ID="chaitanyagaikwad022@okicici"`, `UPI_NAME="XIYORA"`, `BIZ.wa="917028311226"`.
 
 ## Gotchas
 

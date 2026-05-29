@@ -950,6 +950,25 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .safe-bottom{padding-bottom:90px}
 /* ── MOBILE ORNAMENT ── */
 @media(max-width:480px){.nav-ornament{display:none!important}}
+/* ── V3 PREMIUM MOTION SYSTEM ── */
+.xiyora-reveal{opacity:0;transform:translateY(22px);filter:blur(6px);transition:opacity .76s cubic-bezier(.22,1,.36,1),transform .76s cubic-bezier(.22,1,.36,1),filter .76s cubic-bezier(.22,1,.36,1)}
+.xiyora-reveal.is-visible{opacity:1;transform:translateY(0);filter:blur(0)}
+.xiyora-premium-card{transition:transform .42s cubic-bezier(.22,1,.36,1),box-shadow .42s cubic-bezier(.22,1,.36,1),border-color .42s cubic-bezier(.22,1,.36,1);will-change:transform}
+.xiyora-premium-card:hover{transform:translateY(-7px) scale(1.012);box-shadow:0 22px 60px rgba(35,24,15,.14)}
+.xiyora-gold-button{position:relative;overflow:hidden}
+.xiyora-gold-button::after{content:'';position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(110deg,transparent,rgba(255,255,255,.28),transparent);transition:transform .68s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.xiyora-gold-button:hover::after{transform:translateX(120%)}
+.xiyora-price-pulse{animation:xiyoraPricePulse .9s cubic-bezier(.22,1,.36,1)}
+@keyframes xiyoraPricePulse{0%{box-shadow:0 0 0 rgba(201,170,120,0)}35%{box-shadow:0 0 0 7px rgba(201,170,120,.18)}100%{box-shadow:0 0 0 rgba(201,170,120,0)}}
+.xiyora-whatsapp-popup{transform-origin:bottom right;animation:xiyoraPopupIn .42s cubic-bezier(.22,1,.36,1)}
+@keyframes xiyoraPopupIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.xiyora-video-overlay{background:linear-gradient(90deg,rgba(20,17,14,.74),rgba(20,17,14,.34),rgba(20,17,14,.1)),linear-gradient(0deg,rgba(20,17,14,.5),transparent 44%)}
+.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid ${C.sand};background:#fafaf8;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
+.bt-chip:hover{border-color:#C8A97E;color:#2D2D2D;box-shadow:0 6px 18px rgba(200,169,126,.16);transform:translateY(-2px)}
+.bt-chip.active{background:#C8A97E;border-color:#C8A97E;color:#fff;box-shadow:0 8px 22px rgba(200,169,126,.3)}
+@media(prefers-reduced-motion:reduce){
+  .xiyora-reveal,.xiyora-premium-card,.xiyora-gold-button,.xiyora-whatsapp-popup,.ht1,.ht2,.ht3,.ht4,.ht5{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
+}
 `;
 
 /* ─── SMALL UI COMPONENTS ────────────────────────────────── */
@@ -970,6 +989,94 @@ const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;ce
 const Spinner=()=>(
   <div style={{width:18,height:18,border:"2px solid rgba(255,255,255,.3)",borderTop:"2px solid #fff",borderRadius:"50%",animation:"spin .7s linear infinite",display:"inline-block"}}/>
 );
+
+/* ─── BUYER BEST-FIT GUIDANCE (source: v3_customer_best_fit_product_rules) ── */
+const BUYER_TYPES=[
+  {key:"home_buyer",label:"Home Buyer",cta:"Explore Comfort Products",catFilter:"Pillows",message:"Best for personal comfort, mattress upgrades, and premium sleep products."},
+  {key:"retailer",label:"Retailer",cta:"Request Catalogue",catFilter:null,message:"Best for resale-ready catalogue review and recurring quote requests."},
+  {key:"hotel",label:"Hotel / Villa / Serviced Apartment",cta:"Request B2B Proforma",catFilter:"Mattresses",message:"Best for premium room comfort, bulk quantities, and document-backed sourcing."},
+  {key:"interior_designer",label:"Interior Designer",cta:"Discuss Custom Project",catFilter:"Cushions",message:"Best for bay windows, seating, project sizes, and custom comfort applications."},
+  {key:"trade_partner",label:"Trade / Distributor",cta:"Start Trade Enquiry",catFilter:null,message:"Best for supplier catalogue review, repeat orders, and scalable sourcing."},
+];
+
+/* ─── SCROLL REVEAL HOOK ─────────────────────────────────── */
+function useReveal<T extends HTMLElement>(){
+  const ref=useRef<T>(null);
+  useEffect(()=>{
+    const el=ref.current;if(!el)return;
+    if(typeof IntersectionObserver==="undefined"){el.classList.add("is-visible");return;}
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{if(e.isIntersecting){el.classList.add("is-visible");io.unobserve(el);}});
+    },{threshold:.14,rootMargin:"0px 0px -8% 0px"});
+    io.observe(el);
+    return()=>io.disconnect();
+  },[]);
+  return ref;
+}
+const Reveal=({children,style,className}:{children:React.ReactNode;style?:React.CSSProperties;className?:string})=>{
+  const ref=useReveal<HTMLDivElement>();
+  return <div ref={ref} className={`xiyora-reveal ${className||""}`} style={style}>{children}</div>;
+};
+
+/* ─── HERO MEDIA (video-first with image fallback) ───────── */
+function HeroMedia(){
+  const [failed,setFailed]=useState(false);
+  if(failed)return(
+    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1800&q=85" alt="Luxury latex bedroom"
+      style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 40%",animation:"heroScale 1.8s ease forwards"}}
+      onError={(e:any)=>{e.currentTarget.src="/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg";}}/>
+  );
+  return(
+    <video src="/assets/videos/xiyora-showcase.mp4" autoPlay muted loop playsInline
+      poster="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1800&q=85"
+      style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 45%"}}
+      onError={()=>setFailed(true)}/>
+  );
+}
+
+/* ─── INTERACTIVE WHATSAPP POPUP (source: v3_whatsapp_popup_logic) ── */
+function WhatsAppPopup({page,context}:{page:string;context:any}){
+  const C=useC();
+  const [visible,setVisible]=useState(false);
+  const msg=(()=>{
+    if(page==="checkout")return ["Hello XIYORA, I want to confirm my estimate.",context?.product?`Product: ${context.product}`:"",context?.city?`City: ${context.city}`:"",context?.total?`Estimated total: ${context.total}`:"","Please confirm availability and proforma."].filter(Boolean).join("\n");
+    if(page==="product")return ["Hello XIYORA, I am interested in this product.",context?.product?`Product: ${context.product}`:"","Please share details and proforma."].filter(Boolean).join("\n");
+    return "Hello XIYORA, I want help choosing premium latex products. Please share catalogue and guidance.";
+  })();
+  useEffect(()=>{
+    let dismissed=false;
+    try{dismissed=!!sessionStorage.getItem("xiyora_whatsapp_popup_dismissed");}catch{}
+    if(dismissed)return;
+    const timer=setTimeout(()=>setVisible(true),9000);
+    const onScroll=()=>{
+      const ratio=window.scrollY/Math.max(document.body.scrollHeight-window.innerHeight,1);
+      if(ratio>0.38)setVisible(true);
+    };
+    window.addEventListener("scroll",onScroll,{passive:true});
+    return()=>{clearTimeout(timer);window.removeEventListener("scroll",onScroll);};
+  },[]);
+  const dismiss=()=>{try{sessionStorage.setItem("xiyora_whatsapp_popup_dismissed","1");}catch{}setVisible(false);};
+  if(!visible)return null;
+  return(
+    <div className="xiyora-whatsapp-popup" role="dialog" aria-label="XIYORA WhatsApp help"
+      style={{position:"fixed",right:24,bottom:148,zIndex:997,width:"min(330px,calc(100vw - 36px))",background:C.white,border:`1px solid ${C.sand}`,borderRadius:14,boxShadow:"0 24px 70px rgba(0,0,0,.22)",padding:"20px 20px 18px",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:0,left:0,right:0,height:4,background:"linear-gradient(90deg,#C8A97E,#25D366)"}}/>
+      <button aria-label="Close" onClick={dismiss} style={{position:"absolute",top:10,right:12,background:"none",border:"none",fontSize:20,lineHeight:1,color:"#aaa",cursor:"pointer",padding:4}}>×</button>
+      <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
+        <div style={{width:38,height:38,borderRadius:"50%",background:"#25D366",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+          <svg width={20} height={20} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        </div>
+        <strong style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:600,color:C.dark}}>Need help choosing?</strong>
+      </div>
+      <p style={{fontSize:12.5,color:"#888",lineHeight:1.6,marginBottom:14}}>Share your size, city, and product interest — we'll help with a proforma.</p>
+      <a href={waMsg(msg)} target="_blank" rel="noreferrer"
+        style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"#25D366",color:"#fff",padding:"11px",borderRadius:8,fontSize:12.5,fontWeight:500,letterSpacing:".6px",textDecoration:"none",fontFamily:"'Jost',sans-serif"}}
+        onClick={dismiss}>
+        WhatsApp XIYORA
+      </a>
+    </div>
+  );
+}
 
 /* ─── INQUIRY MODAL ──────────────────────────────────────── */
 function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
@@ -1588,6 +1695,44 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
   );
 }
 
+/* ─── BUYER BEST-FIT SELECTOR ────────────────────────────── */
+function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
+  const C=useC();
+  const [active,setActive]=useState(BUYER_TYPES[0].key);
+  const sel=BUYER_TYPES.find(b=>b.key===active)||BUYER_TYPES[0];
+  const act=()=>{
+    if(sel.key==="home_buyer"&&sel.catFilter)onCatFilter(sel.catFilter);
+    else if(sel.catFilter)onCatFilter(sel.catFilter);
+    else if(sel.key==="retailer"||sel.key==="trade_partner")onSupplier();
+    else onCatalog();
+  };
+  return(
+    <section className="sec" style={{background:C.beige,paddingTop:64,paddingBottom:64}}>
+      <div className="container">
+        <Reveal style={{textAlign:"center",marginBottom:34}}>
+          <SL>Find Your Best Fit</SL>
+          <SH center>Tell Us Who You Are</SH>
+          <p style={{fontSize:14.5,color:"#999",marginTop:10,maxWidth:560,margin:"10px auto 0",lineHeight:1.7,fontWeight:300}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
+        </Reveal>
+        <Reveal style={{display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center",marginBottom:26}}>
+          {BUYER_TYPES.map(b=>(
+            <button key={b.key} className={`bt-chip${active===b.key?" active":""}`} onClick={()=>setActive(b.key)}>{b.label}</button>
+          ))}
+        </Reveal>
+        <Reveal style={{maxWidth:680,margin:"0 auto"}}>
+          <div style={{background:C.white,borderRadius:8,padding:"26px 28px",borderTop:`3px solid ${C.gold}`,boxShadow:"0 12px 40px rgba(0,0,0,.07)",textAlign:"center"}}>
+            <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,color:C.dark,lineHeight:1.5,marginBottom:20}}>{sel.message}</p>
+            <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
+              <button className="bg xiyora-gold-button" style={{padding:"13px 26px",fontSize:12}} onClick={act}>{sel.cta}</button>
+              <button className="bo" style={{padding:"13px 24px",fontSize:11.5}} onClick={()=>onInquire(null,"quote")}>Ask for Guidance</button>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 /* ─── HOME VIEW ──────────────────────────────────────────── */
 function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire}:any){
   const C=useC();
@@ -1600,27 +1745,25 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
   };
   return(
     <div>
-      {/* HERO */}
-      <section style={{position:"relative",height:"88vh",minHeight:580,overflow:"hidden",display:"flex",alignItems:"center"}} className="hero-h">
-        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1800&q=85" alt="Luxury latex bedroom"
-          style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 40%",animation:"heroScale 1.8s ease forwards"}}
-          onError={(e:any)=>{e.currentTarget.src="/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg";}}/>
-        <div style={{position:"absolute",inset:0,background:"linear-gradient(108deg,rgba(248,246,242,.99) 46%,rgba(248,246,242,.55) 70%,rgba(248,246,242,.08) 100%)"}}/>
+      {/* HERO — VIDEO FIRST */}
+      <section style={{position:"relative",height:"88vh",minHeight:580,overflow:"hidden",display:"flex",alignItems:"center",background:C.char}} className="hero-h">
+        <HeroMedia/>
+        <div className="xiyora-video-overlay" style={{position:"absolute",inset:0}}/>
         <div className="container" style={{position:"relative",width:"100%"}}>
-          <div style={{maxWidth:560}}>
-            <p className="sl ht1" style={{textShadow:"0 1px 4px rgba(248,246,242,.8)"}}>✦ &nbsp;Official Bingxi Partner for India</p>
-            <h1 className="ht2 hh" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(3rem,5.2vw,5.4rem)",fontWeight:500,lineHeight:1.08,color:C.dark,marginBottom:22,textShadow:"0 1px 6px rgba(248,246,242,.6)"}}>
-              Luxury Living,<br/><em>Imported.</em>
+          <div style={{maxWidth:600}}>
+            <p className="sl ht1" style={{color:"#E2C79B",textShadow:"0 2px 12px rgba(0,0,0,.5)"}}>✦ &nbsp;Official Bingxi Partner for India</p>
+            <h1 className="ht2 hh" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(3rem,5.2vw,5.4rem)",fontWeight:500,lineHeight:1.08,color:"#FCFAF6",marginBottom:22,textShadow:"0 3px 24px rgba(0,0,0,.45)"}}>
+              Premium Latex Comfort,<br/><em>Sourced for India.</em>
             </h1>
-            <p className="ht3" style={{fontSize:15.5,color:"#3a3a3a",lineHeight:1.82,marginBottom:32,fontWeight:400,maxWidth:460}}>
-              Premium natural Talalay & Dunlop latex pillows, mattresses & toppers — sourced from Bingxi, delivered across India.
+            <p className="ht3" style={{fontSize:16,color:"rgba(255,250,242,.92)",lineHeight:1.82,marginBottom:32,fontWeight:400,maxWidth:480,textShadow:"0 1px 10px rgba(0,0,0,.4)"}}>
+              The Bingxi partner catalogue of natural Talalay & Dunlop latex pillows, mattresses & toppers — available through XIYORA, delivered across India.
             </p>
-            <div className="ht4" style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:22}}>
-              <button className="bg" onClick={onCatalog} style={{padding:"14px 32px",fontSize:12,letterSpacing:"2.5px"}}>Explore Products</button>
-              <button onClick={onSupplier} style={{padding:"14px 30px",fontSize:12,fontFamily:"'Jost',sans-serif",fontWeight:600,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",background:"rgba(248,246,242,0.92)",border:"2px solid #2D2D2D",color:"#2D2D2D",borderRadius:2,transition:"all .3s"}} onMouseEnter={(e:any)=>{e.currentTarget.style.background=C.dark;e.currentTarget.style.color=C.white;}} onMouseLeave={(e:any)=>{e.currentTarget.style.background="rgba(248,246,242,0.92)";e.currentTarget.style.color="#2D2D2D";}}>For Businesses</button>
+            <div className="ht4" style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:24}}>
+              <button className="bg xiyora-gold-button" onClick={onCatalog} style={{padding:"14px 32px",fontSize:12,letterSpacing:"2.5px"}}>Explore Products</button>
+              <button className="xiyora-gold-button" onClick={onSupplier} style={{padding:"14px 30px",fontSize:12,fontFamily:"'Jost',sans-serif",fontWeight:600,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",background:"rgba(255,255,255,0.1)",border:"2px solid rgba(255,255,255,.85)",color:"#fff",borderRadius:2,backdropFilter:"blur(4px)",transition:"all .3s"}} onMouseEnter={(e:any)=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color=C.dark;}} onMouseLeave={(e:any)=>{e.currentTarget.style.background="rgba(255,255,255,0.1)";e.currentTarget.style.color="#fff";}}>For Businesses</button>
             </div>
-            <p className="ht5" style={{fontSize:12,color:"#4a4a4a",letterSpacing:".8px",display:"flex",gap:18,flexWrap:"wrap",fontWeight:500}}>
-              <span>✓ Indicative Prices</span><span>✓ B2B & Retail</span><span>✓ Custom Sizes</span><span>✓ WhatsApp Support</span>
+            <p className="ht5" style={{fontSize:12,color:"rgba(255,250,242,.82)",letterSpacing:".8px",display:"flex",gap:18,flexWrap:"wrap",fontWeight:500,textShadow:"0 1px 8px rgba(0,0,0,.4)"}}>
+              <span>✓ Documents on request</span><span>✓ Proforma before payment</span><span>✓ Domestic delivery estimate</span>
             </p>
           </div>
         </div>
@@ -1641,19 +1784,8 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
           </div>
         </div>
       </section>
-      {/* VIDEO */}
-      <section style={{background:C.white,padding:"72px 0 0"}}>
-        <div className="container">
-          <div style={{textAlign:"center",marginBottom:36}}>
-            <SL>In Focus</SL>
-            <SH center>Experience XIYORA Comfort</SH>
-            <p style={{fontSize:14.5,color:"#aaa",marginTop:10,maxWidth:540,margin:"10px auto 0",lineHeight:1.7,fontWeight:300}}>A closer look at imported latex comfort, premium sourcing, and product presentation.</p>
-          </div>
-          <div style={{borderRadius:10,overflow:"hidden",border:`1px solid ${C.sand}`,boxShadow:"0 16px 48px rgba(0,0,0,.1)",background:"#000",lineHeight:0}}>
-            <video src="/assets/videos/xiyora-showcase.mp4" autoPlay muted loop playsInline controls style={{width:"100%",display:"block",maxHeight:560,objectFit:"contain"}} onError={(e:any)=>{(e.currentTarget as HTMLVideoElement).parentElement!.style.display="none";}}/>
-          </div>
-        </div>
-      </section>
+      {/* BUYER BEST-FIT SELECTOR */}
+      <BuyerBestFit onCatFilter={onCatFilter} onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
       {/* CATEGORIES */}
       <section className="sec" style={{background:C.white}}>
         <div className="container">
@@ -2002,7 +2134,11 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           <button className="ib" onClick={onSearch} title="Search">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className="ib" onClick={onCheckout} style={{position:"relative"}} title="Saved / Checkout">
+          <button className="ib" onClick={onCheckout} style={{position:"relative"}} title="Wishlist / Saved">
+            <svg width={17} height={17} fill={wl&&wl.length?C.gold:"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            {wl&&wl.length>0&&<span style={{position:"absolute",top:-5,right:-5,background:C.gold,color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
+          </button>
+          <button className="ib" onClick={onCheckout} style={{position:"relative"}} title="Basket / Checkout">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             {cartCount>0&&<span style={{position:"absolute",top:-5,right:-5,background:C.gold,color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{cartCount}</span>}
           </button>
@@ -2102,29 +2238,62 @@ function Footer({setPage,onInquire,onSubscribe}:any){
 const UPI_ID = "chaitanyagaikwad022@okicici";
 const UPI_NAME = "XIYORA";
 
-function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
+function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,onCatalog}:any){
   const C=useC();
   const items:CartItem[]=cart||[];
+  const wishList:string[]=wl||[];
+  const wishProducts=PRODUCTS.filter(p=>wishList.includes(p.id));
   const [payMode,setPayMode]=useState<"upi"|"proforma"|"whatsapp"|"card">("upi");
   const [utr,setUtr]=useState("");
-  const [form,setForm]=useState({name:"",phone:"",email:"",city:"",state:"",pincode:""});
+  const [form,setForm]=useState(()=>{
+    try{const d=JSON.parse(localStorage.getItem("xiyora_checkout_draft")||"null");if(d&&typeof d==="object")return {name:d.name||"",phone:d.phone||"",email:d.email||"",city:d.city||"",state:d.state||"",pincode:d.pincode||""};}catch{}
+    return {name:"",phone:"",email:"",city:"",state:"",pincode:""};
+  });
+  const [confirmed,setConfirmed]=useState(false);
+  const [fieldErr,setFieldErr]=useState<Record<string,string>>({});
   const [loading,setLoading]=useState(false);
   const [submitted,setSubmitted]=useState(false);
   const [savedId,setSavedId]=useState<number|null>(null);
   const [err,setErr]=useState("");
+  const hasDraft=!!(form.name||form.phone||form.city);
 
-  const setF=(k:string,v:string)=>setForm((p:any)=>({...p,[k]:v}));
+  const setF=(k:string,v:string)=>{setForm((p:any)=>({...p,[k]:v}));if(confirmed)setConfirmed(false);};
   const removeItem=(cartKey:string)=>setCart((prev:CartItem[])=>prev.filter(i=>i.cartKey!==cartKey));
   const updateQty=(cartKey:string,qty:number)=>setCart((prev:CartItem[])=>prev.map((i:CartItem)=>i.cartKey===cartKey?{...i,quantity:Math.max(1,qty)}:i));
+
+  const moveWishToCart=(p:any)=>{
+    const v=p.variants?.[0];
+    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:p.gallery?.[0]||FALLBACK_IMG,quantity:1};
+    onAddToCart(item);onWish(p.id);
+  };
 
   const cartTotalINR=items.reduce((s,i)=>s+(i.priceNumINR||0)*i.quantity,0);
   const totalLabel=cartTotalINR>0?`₹${cartTotalINR.toLocaleString("en-IN")} (indicative)`:"Price on request";
   const productNames=items.map(i=>`${i.productName}${i.variantLabel&&i.variantLabel!==i.productName?` (${i.variantLabel})`:""} ×${i.quantity}`).join(", ");
+  const delivery=confirmed?lookupPincode(form.pincode):null;
 
   const upiLink=`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}${cartTotalINR>0?`&am=${cartTotalINR}`:""}&cu=INR&tn=${encodeURIComponent("XIYORA Order: "+productNames.slice(0,50))}`;
+  const upiUnlocked=confirmed&&items.length>0;
+
+  const validate=()=>{
+    const e:Record<string,string>={};
+    if(!form.name.trim())e.name="Full name is required.";
+    if(!form.phone.trim()||form.phone.replace(/\D/g,"").length<10)e.phone="Enter a valid WhatsApp number (10+ digits).";
+    if(form.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))e.email="Enter a valid email or leave it blank.";
+    if(!form.city.trim())e.city="City is required.";
+    if(!form.state.trim())e.state="State is required.";
+    if(!/^\d{6}$/.test(form.pincode.trim()))e.pincode="Enter a valid 6-digit Indian pincode.";
+    return e;
+  };
+  const confirmDetails=()=>{
+    const e=validate();setFieldErr(e);
+    if(Object.keys(e).length){setConfirmed(false);return;}
+    setConfirmed(true);setErr("");
+    try{localStorage.setItem("xiyora_checkout_draft",JSON.stringify(form));}catch{}
+  };
 
   const submitIntent=async()=>{
-    if(!form.name.trim()||!form.phone.trim()){setErr("Please enter your name and phone.");return;}
+    if(!confirmed){setErr("Please confirm your details & location first.");return;}
     setLoading(true);setErr("");
     const res=await apiPost("/checkout-intents",{
       name:form.name,phone:form.phone,email:form.email||undefined,
@@ -2138,8 +2307,9 @@ function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
     else setErr(res?.error||"Could not save. Please use WhatsApp instead.");
   };
 
-  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:10};
+  const inp=(k?:string):React.CSSProperties=>({width:"100%",background:"#fafaf8",border:`1px solid ${k&&fieldErr[k]?"#e0a0a0":C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:fieldErr[k||""]?3:10});
   const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
+  const ferr=(k:string)=>fieldErr[k]?<div style={{fontSize:11,color:"#cc4444",marginBottom:8}}>{fieldErr[k]}</div>:null;
 
   return(
     <div style={{background:C.white,minHeight:"60vh",padding:"64px 0"}}>
@@ -2154,6 +2324,27 @@ function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
             </div>
             <p style={{fontSize:16,color:"#bbb",marginBottom:18}}>Your basket is empty.</p>
             <button className="bg" onClick={onCatalog}>Browse Products</button>
+            {wishProducts.length>0&&(
+              <div style={{maxWidth:520,margin:"40px auto 0",textAlign:"left"}}>
+                <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:12,justifyContent:"center"}}>
+                  <svg width={14} height={14} fill={C.gold} viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                  <span style={{fontSize:12,fontWeight:500,color:C.dark,letterSpacing:".5px",textTransform:"uppercase"}}>Saved for Later ({wishProducts.length})</span>
+                </div>
+                <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                  {wishProducts.map((p:any)=>(
+                    <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.lgold,borderRadius:4,padding:"10px 12px"}}>
+                      <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
+                      <div style={{flex:1,minWidth:0}}>
+                        <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
+                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{cur==="INR"?p.priceINR:p.priceUSD}</div>
+                      </div>
+                      <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Jost',sans-serif",flexShrink:0}}>Move to Basket</button>
+                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif",flexShrink:0}}>✕</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         ):submitted?(
           <div style={{textAlign:"center",padding:"40px 0",maxWidth:520,margin:"40px auto 0"}}>
@@ -2200,17 +2391,51 @@ function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
                   </div>
                 ))}
               </div>
-              {/* Customer details */}
-              <div style={{background:C.beige,borderRadius:4,padding:"18px 20px",marginBottom:16}}>
-                <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:14,letterSpacing:".5px",textTransform:"uppercase"}}>Your Details</div>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 12px"}}>
-                  <div><label style={lbl}>Name *</label><input style={inp} value={form.name} onChange={e=>setF("name",e.target.value)} placeholder="Full name"/></div>
-                  <div><label style={lbl}>Phone / WhatsApp *</label><input style={inp} value={form.phone} onChange={e=>setF("phone",e.target.value)} placeholder="+91 XXXXX"/></div>
-                  <div><label style={lbl}>Email</label><input style={inp} type="email" value={form.email} onChange={e=>setF("email",e.target.value)} placeholder="your@email.com"/></div>
-                  <div><label style={lbl}>City</label><input style={inp} value={form.city} onChange={e=>setF("city",e.target.value)} placeholder="Mumbai"/></div>
-                  <div><label style={lbl}>State</label><input style={inp} value={form.state} onChange={e=>setF("state",e.target.value)} placeholder="Maharashtra"/></div>
-                  <div><label style={lbl}>Pincode</label><input style={inp} value={form.pincode} onChange={e=>setF("pincode",e.target.value)} placeholder="421004" maxLength={6}/></div>
+              {/* Saved / Wishlist items */}
+              {wishProducts.length>0&&(
+                <div style={{background:C.lgold,borderRadius:4,padding:"16px 18px",marginBottom:16}}>
+                  <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:12}}>
+                    <svg width={14} height={14} fill={C.gold} viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span style={{fontSize:12,fontWeight:500,color:C.dark,letterSpacing:".5px",textTransform:"uppercase"}}>Saved for Later ({wishProducts.length})</span>
+                  </div>
+                  <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                    {wishProducts.map((p:any)=>(
+                      <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.white,borderRadius:4,padding:"10px 12px"}}>
+                        <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
+                        <div style={{flex:1,minWidth:0}}>
+                          <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
+                          <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{cur==="INR"?p.priceINR:p.priceUSD}</div>
+                        </div>
+                        <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Jost',sans-serif",flexShrink:0}}>Move to Basket</button>
+                        <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif",flexShrink:0}}>✕</button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              )}
+              {/* Customer details — Step 1: Confirm Details & Location */}
+              <div style={{background:C.beige,borderRadius:4,padding:"18px 20px",marginBottom:16,borderLeft:`3px solid ${confirmed?"#3a9b6e":C.gold}`}}>
+                <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
+                  <div style={{fontSize:12,fontWeight:500,color:C.dark,letterSpacing:".5px",textTransform:"uppercase"}}>Step 1 · Confirm Details &amp; Location</div>
+                  {confirmed&&<span style={{fontSize:10.5,color:"#3a9b6e",fontWeight:600,letterSpacing:".5px",textTransform:"uppercase",display:"flex",alignItems:"center",gap:4}}><svg width={12} height={12} fill="none" stroke="#3a9b6e" strokeWidth={2.5} viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Confirmed</span>}
+                </div>
+                {hasDraft&&!confirmed&&<div style={{fontSize:11,color:"#9a8a6a",marginBottom:10,background:C.lgold,borderRadius:3,padding:"6px 10px"}}>We restored your saved details. Review and confirm to continue.</div>}
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 12px"}}>
+                  <div><label style={lbl}>Name *</label><input style={inp("name")} value={form.name} onChange={e=>setF("name",e.target.value)} placeholder="Full name"/>{ferr("name")}</div>
+                  <div><label style={lbl}>Phone / WhatsApp *</label><input style={inp("phone")} value={form.phone} onChange={e=>setF("phone",e.target.value)} placeholder="+91 XXXXX"/>{ferr("phone")}</div>
+                  <div><label style={lbl}>Email</label><input style={inp("email")} type="email" value={form.email} onChange={e=>setF("email",e.target.value)} placeholder="your@email.com"/>{ferr("email")}</div>
+                  <div><label style={lbl}>City *</label><input style={inp("city")} value={form.city} onChange={e=>setF("city",e.target.value)} placeholder="Mumbai"/>{ferr("city")}</div>
+                  <div><label style={lbl}>State *</label><input style={inp("state")} value={form.state} onChange={e=>setF("state",e.target.value)} placeholder="Maharashtra"/>{ferr("state")}</div>
+                  <div><label style={lbl}>Pincode *</label><input style={inp("pincode")} value={form.pincode} onChange={e=>setF("pincode",e.target.value.replace(/\D/g,""))} placeholder="421004" maxLength={6} inputMode="numeric"/>{ferr("pincode")}</div>
+                </div>
+                {!confirmed&&<button className="bg" onClick={confirmDetails} style={{width:"100%",padding:"12px",fontSize:11.5,marginTop:6}}>Confirm Details &amp; Location</button>}
+                {confirmed&&delivery&&(
+                  <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 14px",marginTop:12,fontSize:11.5,color:"#888",lineHeight:1.65}}>
+                    <strong style={{color:C.dark}}>{form.city}, {form.state} — {form.pincode}.</strong>{" "}
+                    Routing via {delivery.port} (Zone {delivery.zone}). Estimated transit {delivery.days} days after dispatch — final timeline confirmed in your proforma.
+                    <span style={{display:"block",marginTop:4,color:"#aaa"}}>Edit any field above to update — you'll be asked to re-confirm before payment.</span>
+                  </div>
+                )}
               </div>
               {err&&<div style={{background:"#fff0f0",border:"1px solid #ffcccc",borderRadius:3,padding:"10px 14px",marginBottom:12,fontSize:13,color:"#cc4444"}}>{err}</div>}
             </div>
@@ -2242,7 +2467,14 @@ function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
                 ))}
               </div>
 
-              {payMode==="upi"&&(
+              {payMode==="upi"&&!upiUnlocked&&(
+                <div style={{background:C.beige,border:`1px dashed ${C.sand}`,borderRadius:4,padding:"18px 20px",marginBottom:16,textAlign:"center"}}>
+                  <svg width={22} height={22} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24" style={{marginBottom:8}}><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <div style={{fontSize:12.5,color:C.dark,fontWeight:500,marginBottom:4}}>UPI Payment Locked</div>
+                  <div style={{fontSize:11.5,color:"#999",lineHeight:1.6}}>Complete <strong>Step 1 · Confirm Details &amp; Location</strong> above to unlock UPI payment and view the QR code.</div>
+                </div>
+              )}
+              {payMode==="upi"&&upiUnlocked&&(
                 <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:4,padding:"18px 20px",marginBottom:16}}>
                   <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:12}}>UPI Payment Details</div>
                   <div style={{background:C.beige,borderRadius:3,padding:"12px 14px",marginBottom:12}}>
@@ -2250,14 +2482,17 @@ function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
                     <div style={{fontSize:14,fontWeight:600,color:C.dark,letterSpacing:".5px"}}>{UPI_ID}</div>
                     <div style={{fontSize:11,color:"#aaa",marginTop:3}}>Google Pay · PhonePe · Paytm · BHIM · Any UPI app</div>
                   </div>
-                  <div style={{background:"#fff3d6",borderRadius:3,padding:"8px 12px",fontSize:11.5,color:"#8a6400",marginBottom:12,lineHeight:1.6}}>
-                    QR code image: place <code>/assets/payment/upi-qr.jpg</code> in your public folder for customers to scan directly.
+                  <div style={{display:"flex",justifyContent:"center",marginBottom:12}}>
+                    <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:6,padding:10,textAlign:"center"}}>
+                      <img src="/assets/payment/upi-qr.png" alt={`Scan to pay ${UPI_NAME} via UPI`} style={{width:170,height:170,objectFit:"contain",display:"block"}} onError={(e:any)=>{e.currentTarget.parentElement.style.display="none";}}/>
+                      <div style={{fontSize:10.5,color:"#aaa",marginTop:6,letterSpacing:".5px"}}>Scan with any UPI app</div>
+                    </div>
                   </div>
                   <a href={upiLink} style={{display:"block",textAlign:"center",background:C.gold,color:"#fff",padding:"11px",borderRadius:3,fontSize:12,textDecoration:"none",letterSpacing:"1px",textTransform:"uppercase",marginBottom:12,fontFamily:"'Jost',sans-serif",fontWeight:500}}>
                     Open UPI App to Pay
                   </a>
                   <label style={lbl}>UTR / Reference Number (after payment)</label>
-                  <input style={inp} value={utr} onChange={e=>setUtr(e.target.value)} placeholder="Enter UTR or transaction reference"/>
+                  <input style={inp()} value={utr} onChange={e=>setUtr(e.target.value)} placeholder="Enter UTR or transaction reference"/>
                   <p style={{fontSize:11.5,color:"#aaa",lineHeight:1.65}}>Payment status: <strong style={{color:"#C8860A"}}>Pending manual verification.</strong> We will confirm within 24 hours after you share the UTR.</p>
                 </div>
               )}
@@ -2272,8 +2507,8 @@ function CheckoutView({cart,setCart,cur,onOpen,onInquire,onCatalog}:any){
                 No card details are collected here. No payment is processed automatically. Final invoice confirmed before any payment is collected.
               </div>
 
-              <button className="bg" onClick={submitIntent} style={{width:"100%",padding:"14px",fontSize:12,marginBottom:10}} disabled={loading}>
-                {loading?<Spinner/>:payMode==="upi"?"Confirm UPI Payment Intent":payMode==="proforma"?"Request Proforma Invoice":payMode==="whatsapp"?"Confirm via WhatsApp":"Submit Order Intent"}
+              <button className="bg" onClick={submitIntent} style={{width:"100%",padding:"14px",fontSize:12,marginBottom:10,opacity:confirmed?1:.55,cursor:confirmed?"pointer":"not-allowed"}} disabled={loading||!confirmed}>
+                {loading?<Spinner/>:!confirmed?"Confirm Details & Location First":payMode==="upi"?"Confirm UPI Payment Intent":payMode==="proforma"?"Request Proforma Invoice":payMode==="whatsapp"?"Confirm via WhatsApp":"Submit Order Intent"}
               </button>
               <button style={{width:"100%",background:"#25D366",color:"#fff",border:"none",padding:"13px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I'd like to order: ${productNames}. Can you guide me through payment?`),"_blank")}>
@@ -2716,8 +2951,8 @@ export default function App(){
   const [selProd,setSelProd]=useState<any>(null);
   const [activeCat,setActiveCat]=useState<string|null>(null);
   const [cur,setCur]=useState("INR");
-  const [wl,setWl]=useState<string[]>([]);
-  const [cart,setCart]=useState<CartItem[]>([]);
+  const [wl,setWl]=useState<string[]>(()=>{try{return JSON.parse(localStorage.getItem("xiyora_wishlist")||"[]");}catch{return[];}});
+  const [cart,setCart]=useState<CartItem[]>(()=>{try{return JSON.parse(localStorage.getItem("xiyora_cart")||"[]");}catch{return[];}});
   const [scrolled,setScrolled]=useState(false);
   const [inquiry,setInquiry]=useState({show:false,product:null as any,intent:"general"});
   const [showSearch,setShowSearch]=useState(false);
@@ -2742,6 +2977,8 @@ export default function App(){
     window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);
   },[]);
   useEffect(()=>{window.scrollTo(0,0);},[page]);
+  useEffect(()=>{try{localStorage.setItem("xiyora_wishlist",JSON.stringify(wl));}catch{}},[wl]);
+  useEffect(()=>{try{localStorage.setItem("xiyora_cart",JSON.stringify(cart));}catch{}},[cart]);
   useEffect(()=>{
     window.history.replaceState({page:"home"},"",window.location.pathname||"/");
     const onPop=(e:PopStateEvent)=>{
@@ -2776,7 +3013,7 @@ export default function App(){
   const renderView=()=>{
     if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")}/>;
     if(page==="catalog")return<CatalogView cat={activeCat} setCat={setActiveCat} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry}/>;
-    if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
+    if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
     if(page==="account")return<AccountView setPage={setPage}/>;
     if(page==="admin")return<AdminView/>;
     if(page==="proof")return<ProofLibraryView setPage={setPage}/>;
@@ -2823,6 +3060,7 @@ export default function App(){
       <InquiryModal show={inquiry.show} onClose={()=>setInquiry(i=>({...i,show:false}))} product={inquiry.product} intent={inquiry.intent} currency={cur}/>
       <SubscribeModal show={showSubscribe} onClose={()=>setShowSubscribe(false)}/>
       <SearchOverlay show={showSearch} onClose={()=>setShowSearch(false)} onPickProduct={(p:any)=>{openProd(p);setShowSearch(false);}} onCatalog={openCatalog}/>
+      <WhatsAppPopup page={page} context={{product:page==="product"&&selProd?selProd.name:(cart.length?cart.map(i=>i.productName).join(", "):"")}}/>
     </div>
     </ThemeCtx.Provider>
   );
