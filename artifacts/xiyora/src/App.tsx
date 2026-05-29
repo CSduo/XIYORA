@@ -826,8 +826,8 @@ const lookupPincode = (pin:string) => {
   return PINCODE_ZONES[p.slice(0,3)]||{zone:"B",port:"Nearest Available Port",days:"4–10"};
 };
 
-const C={white:"#F8F6F2",beige:"#EFE8DE",gold:"#C8A97E",dark:"#2D2D2D",sand:"#D9CBB8",lgold:"#F5EEE4",char:"#1C1C1C"};
-const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#C8A97E",dark:"#F2EDE4",sand:"#2C2825",lgold:"#1C1916",char:"#080706"};
+const C={white:"#F6F3EB",beige:"#E5DFCD",gold:"#C8A97E",dark:"#1E1E1C",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141210",ink:"#4A4B46",seal:"#9E3B2E",taupe:"#BFA295"};
+const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#C8A97E",dark:"#F2EDE4",sand:"#2C2825",lgold:"#1C1916",char:"#080706",ink:"#9AA09A",seal:"#C25B4A",taupe:"#9C8B7E"};
 const DARK_CSS=`body{background:#0F0F0D!important;color:#F2EDE4!important}.nl{color:#E8E0D4!important}.nl:hover{color:#C8A97E!important}.nl::after{background:#C8A97E!important}.bg{background:#B89472!important;color:#0F0F0D!important}.bg:hover{background:#D4B896!important}.bo{color:#D4B896!important;border-color:#D4B896!important}.bo:hover{background:#C8A97E!important;color:#0F0F0D!important}.bd{color:#C8A97E!important;border-color:#3A3530!important}.pc{background:#1A1714!important;box-shadow:0 2px 16px rgba(0,0,0,.4)!important}.ib{color:#E8E0D4!important}.ib:hover{color:#C8A97E!important}.sl{color:#C8A97E!important}.fl{color:#9A9088!important}.fl:hover{color:#C8A97E!important}.inp{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input,select,textarea{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input::placeholder,textarea::placeholder{color:#665F58!important}.glass-modal{background:rgba(15,14,13,.97)!important;border-color:rgba(80,65,45,.5)!important}.sdrawer{background:#0A0908!important}.sdr-link{color:#B0A898!important}.sdr-link:hover{color:#C8A97E!important;background:rgba(200,169,126,.06)!important}.sdr-section{color:#444!important}.cert-chip{background:#1A1714!important;border-color:#2E2B27!important;color:#9A9088!important}.cert-chip:hover{border-color:#C8A97E!important;color:#C8A97E!important}::-webkit-scrollbar-track{background:#1A1714!important}::-webkit-scrollbar-thumb{background:#3A3530!important}.spec-key{color:#9A9088!important}.spec-val{color:#F2EDE4!important}.tag-pill{background:#6A5840!important}`;
 const ThemeCtx=createContext(C);
 const useC=()=>useContext(ThemeCtx);
@@ -950,10 +950,9 @@ const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
 
 /* ─── GLOBAL CSS ─────────────────────────────────────────── */
 const CSS=`
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Jost',sans-serif;background:#F8F6F2;color:#2D2D2D;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
@@ -969,17 +968,17 @@ body{font-family:'Jost',sans-serif;background:#F8F6F2;color:#2D2D2D;overflow-x:h
 .ht5{animation:fadeInUp .9s .56s ease both}
 .at{display:flex;animation:marquee 38s linear infinite}
 .sl{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#C8A97E;margin-bottom:14px;font-weight:500;display:block}
-.nl{color:#2D2D2D;font-size:12.5px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;padding:4px 0;position:relative;line-height:1}
+.nl{color:#2D2D2D;font-size:12.5px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;padding:4px 0;position:relative;line-height:1}
 .nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#C8A97E;transition:width .3s ease}
 .nl:hover{color:#C8A97E}.nl:hover::after{width:100%}
-.bg{background:#C8A97E;color:#fff;border:none;padding:13px 28px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px;position:relative;overflow:hidden}
+.bg{background:#C8A97E;color:#fff;border:none;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px;position:relative;overflow:hidden}
 .bg::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);transition:none}
 .bg:hover::before{animation:sweepBtn .5s ease forwards}
 .bg:hover{background:#B89472;transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,169,126,.32)}
 .bg:active{transform:translateY(0)}
-.bo{background:transparent;color:#C8A97E;border:1px solid #C8A97E;padding:13px 28px;font-family:'Jost',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px}
+.bo{background:transparent;color:#C8A97E;border:1px solid #C8A97E;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px}
 .bo:hover{background:#C8A97E;color:#fff;transform:translateY(-1px)}
-.bd{background:transparent;border:1px solid #3a3a3a;color:#D9CBB8;padding:13px 28px;font-family:'Jost',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px}
+.bd{background:transparent;border:1px solid #3a3a3a;color:#D9CBB8;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px}
 .bd:hover{border-color:#C8A97E;color:#C8A97E}
 .ib{background:none;border:none;cursor:pointer;color:#2D2D2D;display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
 .ib:hover{color:#C8A97E;transform:scale(1.1)}
@@ -1005,16 +1004,16 @@ body{font-family:'Jost',sans-serif;background:#F8F6F2;color:#2D2D2D;overflow-x:h
 .wb::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;z-index:-1;animation:wbPulse 2.4s cubic-bezier(.22,1,.36,1) infinite}
 @keyframes wbPulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.65);opacity:0}100%{transform:scale(1.65);opacity:0}}
 .wb:hover{transform:scale(1.14);box-shadow:0 10px 38px rgba(37,211,102,.52)}
-.fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Jost',sans-serif;padding:0}
+.fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Inter',sans-serif;padding:0}
 .fl:hover{color:#C8A97E}
 input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!important;box-shadow:0 0 0 3px rgba(200,169,126,.1)}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#C8A97E}
 .img-zoom-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(6px)}
 .img-zoom-overlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;animation:fadeInUp .25s ease}
 .glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(217,203,184,.4);border-radius:6px;box-shadow:0 32px 80px rgba(0,0,0,.22)}
-.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #E0D5C9;border-radius:20px;padding:5px 13px;font-family:'Jost',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
+.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #E0D5C9;border-radius:20px;padding:5px 13px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
 .google-btn:hover{background:#F5EEE4;border-color:#C8A97E;color:#2D2D2D;box-shadow:0 4px 12px rgba(200,169,126,.16)}
-.inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Jost',sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
+.inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Inter',sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
 .tag-pill{background:#C8A97E;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -1069,11 +1068,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .sdrawer{position:fixed;top:0;left:0;height:100%;width:300px;max-width:85vw;background:#1C1C1C;z-index:500;box-shadow:12px 0 60px rgba(0,0,0,.45);overflow-y:auto;transform:translateX(-100%);transition:transform .32s cubic-bezier(.23,1,.32,1)}
 .sdrawer.open{transform:translateX(0)}
 .sdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:499;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
-.sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
+.sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
 .sdr-link:hover{color:#C8A97E;background:rgba(200,169,126,.08);border-left-color:#C8A97E}
 .sdr-section{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#555;padding:14px 24px 4px;display:block}
 /* ── CERT CHIPS ── */
-.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid ${C.sand};border-radius:20px;font-family:'Jost',sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid ${C.sand};border-radius:20px;font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
 .cert-chip:hover{border-color:#C8A97E;color:#C8A97E;background:#F5EDE0}
 /* ── PROOF CTA MOBILE ── */
 @media(max-width:680px){
@@ -1101,11 +1100,48 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .xiyora-whatsapp-popup{transform-origin:bottom right;animation:xiyoraPopupIn .42s cubic-bezier(.22,1,.36,1)}
 @keyframes xiyoraPopupIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 .xiyora-video-overlay{background:linear-gradient(90deg,rgba(20,17,14,.74),rgba(20,17,14,.34),rgba(20,17,14,.1)),linear-gradient(0deg,rgba(20,17,14,.5),transparent 44%)}
-.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid ${C.sand};background:#fafaf8;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
+.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid ${C.sand};background:#fafaf8;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
 .bt-chip:hover{border-color:#C8A97E;color:#2D2D2D;box-shadow:0 6px 18px rgba(200,169,126,.16);transform:translateY(-2px)}
 .bt-chip.active{background:#C8A97E;border-color:#C8A97E;color:#fff;box-shadow:0 8px 22px rgba(200,169,126,.3)}
+/* ── ASIAN-LUXURY MOTIF SYSTEM (v4 redesign) ── */
+.serif{font-family:'Playfair Display',serif}
+.paper{background-color:#F6F3EB;background-image:radial-gradient(circle at 18% 24%,rgba(191,162,149,.06),transparent 42%),radial-gradient(circle at 82% 76%,rgba(212,197,161,.07),transparent 46%)}
+.ink-wash{position:relative;isolation:isolate}
+.ink-wash::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(110% 70% at 100% 0%,rgba(74,75,70,.07),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(159,59,46,.045),transparent 55%)}
+.seal{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 7px;border:1.5px solid #9E3B2E;color:#9E3B2E;border-radius:6px;font-family:'Playfair Display',serif;font-size:15px;font-weight:600;line-height:1;opacity:.9;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+.seal:hover{transform:rotate(-4deg) scale(1.06);box-shadow:0 6px 18px rgba(159,59,46,.18)}
+.x-divider{display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;color:#C8A97E;font-size:13px}
+.x-divider::before,.x-divider::after{content:'';height:1px;width:clamp(40px,8vw,80px)}
+.x-divider::before{background:linear-gradient(to right,transparent,#C8A97E)}
+.x-divider::after{background:linear-gradient(to left,transparent,#C8A97E)}
+.x-link{position:relative;display:inline-flex;align-items:center;gap:9px;color:#1E1E1C;cursor:pointer;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;background:none;border:none;font-family:'Inter',sans-serif;font-weight:500;padding:0;transition:color .3s;text-decoration:none}
+.x-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:#C8A97E;transition:width .45s cubic-bezier(.22,1,.36,1)}
+.x-link:hover{color:#C8A97E}.x-link:hover::after{width:100%}
+.x-link .ar{display:inline-block;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.x-link:hover .ar{transform:translateX(7px)}
+.x-frame{position:relative;overflow:hidden}
+.x-frame img,.x-frame .x-frame-img{transition:transform .95s cubic-bezier(.22,1,.36,1)}
+.x-frame:hover img,.x-frame:hover .x-frame-img{transform:scale(1.07)}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(7px,-11px)}}
+.x-drift{animation:drift 9s ease-in-out infinite}
+@keyframes driftSlow{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-9px,8px) rotate(2deg)}}
+.x-drift-slow{animation:driftSlow 13s ease-in-out infinite}
+.x-tag{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:5px;font-family:'Playfair Display',serif}
+.brush-edge{-webkit-mask-image:linear-gradient(to right,#000 84%,transparent 100%);mask-image:linear-gradient(to right,#000 84%,transparent 100%)}
+.x-stagger>*{opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.x-stagger.is-visible>*{opacity:1;transform:translateY(0)}
+.x-stagger.is-visible>*:nth-child(2){transition-delay:.07s}
+.x-stagger.is-visible>*:nth-child(3){transition-delay:.14s}
+.x-stagger.is-visible>*:nth-child(4){transition-delay:.21s}
+.x-stagger.is-visible>*:nth-child(5){transition-delay:.28s}
+.x-stagger.is-visible>*:nth-child(6){transition-delay:.35s}
+.cc-tag{position:absolute;top:0;right:18px;background:linear-gradient(#EFE9DC,#E5DFCD);color:#5a4a32;padding:14px 7px 11px;border-radius:0 0 4px 4px;box-shadow:0 6px 16px rgba(0,0,0,.18);font-size:14px;z-index:3}
+.feat-ic{display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.feat-ic:hover{transform:translateY(-4px)}
+.feat-ic .ring{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid ${C.sand};transition:border-color .4s,background .4s}
+.feat-ic:hover .ring{border-color:#C8A97E;background:rgba(200,169,126,.08)}
 @media(prefers-reduced-motion:reduce){
-  .xiyora-reveal,.xiyora-premium-card,.xiyora-gold-button,.xiyora-whatsapp-popup,.ht1,.ht2,.ht3,.ht4,.ht5{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
+  .xiyora-reveal,.xiyora-premium-card,.xiyora-gold-button,.xiyora-whatsapp-popup,.ht1,.ht2,.ht3,.ht4,.ht5,.x-drift,.x-drift-slow,.x-stagger>*,.x-frame img,.x-frame .x-frame-img{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
   .wb::before{animation:none!important;opacity:0!important}
 }
 `;
@@ -1119,7 +1155,7 @@ const SL=({children,dark}:{children:React.ReactNode;dark?:boolean})=>(
 );
 const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>{
   const C=useC();
-  const st:React.CSSProperties={fontFamily:"'Cormorant Garamond',serif",fontSize:size||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
+  const st:React.CSSProperties={fontFamily:"'Playfair Display',serif",fontSize:size||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
   if(typeof children==="string")return <h2 style={st} dangerouslySetInnerHTML={{__html:children}}/>;
   return <h2 style={st}>{children}</h2>;
 };
@@ -1155,6 +1191,54 @@ function useReveal<T extends HTMLElement>(){
 const Reveal=({children,style,className}:{children:React.ReactNode;style?:React.CSSProperties;className?:string})=>{
   const ref=useReveal<HTMLDivElement>();
   return <div ref={ref} className={`xiyora-reveal ${className||""}`} style={style}>{children}</div>;
+};
+const Stagger=({children,style,className}:{children:React.ReactNode;style?:React.CSSProperties;className?:string})=>{
+  const ref=useReveal<HTMLDivElement>();
+  return <div ref={ref} className={`x-stagger ${className||""}`} style={style}>{children}</div>;
+};
+
+/* ─── DECORATIVE MOTIFS (inline SVG, Asian-luxury identity) ── */
+/** Red seal stamp — accent near headings. `ch` is the glyph (Chinese char or monogram). */
+const Seal=({ch="信",title,style}:{ch?:string;title?:string;style?:React.CSSProperties})=>(
+  <span className="seal" title={title||"XIYORA seal"} style={style} aria-hidden>{ch}</span>
+);
+/** Champagne-gold cloud motif (祥云) — corner/background ornament. */
+const GoldCloud=({size=120,opacity=.5,color="#C8A97E",className,style}:{size?:number;opacity?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
+  <svg className={className} style={style} width={size} height={size*0.5} viewBox="0 0 240 120" fill="none" aria-hidden>
+    <g stroke={color} strokeWidth="2" opacity={opacity} fill="none" strokeLinecap="round">
+      <path d="M20 86c0-14 10-24 24-24 2-18 16-30 34-30 14 0 26 8 31 21 14 1 25 12 25 26"/>
+      <path d="M150 92c20 0 30-10 30-24 0-12-9-22-22-23-3-13-14-22-28-22"/>
+      <path d="M44 86c8 0 14-6 14-14M196 92c14 0 22-8 22-20"/>
+      <circle cx="92" cy="60" r="5"/><circle cx="170" cy="62" r="4"/>
+    </g>
+  </svg>
+);
+/** Sakura/plum branch sprig — soft editorial accent. */
+const Sakura=({size=140,color="#BFA295",className,style}:{size?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
+  <svg className={className} style={style} width={size} height={size} viewBox="0 0 160 160" fill="none" aria-hidden>
+    <path d="M10 150C50 120 70 90 78 50" stroke={color} strokeWidth="2.4" strokeLinecap="round"/>
+    <path d="M78 50C84 36 96 28 112 26M60 86C70 80 82 82 90 92M40 116c8-8 20-9 30-3" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    {[[112,24],[90,94],[70,4],[36,118],[126,40]].map(([cx,cy],i)=>(
+      <g key={i} opacity=".85">{[0,72,144,216,288].map(a=>(
+        <ellipse key={a} cx={cx} cy={cy-7} rx="3.4" ry="6" fill={color} opacity=".55" transform={`rotate(${a} ${cx} ${cy})`}/>
+      ))}<circle cx={cx} cy={cy} r="2" fill="#9E3B2E" opacity=".6"/></g>
+    ))}
+  </svg>
+);
+/** XIYORA monogram lockup with "Crafted Comfort" tagline. */
+const Monogram=({color,size=1,tagline=true,center}:{color?:string;size?:number;tagline?:boolean;center?:boolean})=>{
+  const c=color||"#C8A97E";
+  return(
+    <div style={{display:"flex",flexDirection:"column",alignItems:center?"center":"flex-start",gap:6*size}}>
+      <svg width={40*size} height={40*size} viewBox="0 0 48 48" fill="none" aria-hidden>
+        <circle cx="24" cy="24" r="22" stroke={c} strokeWidth="1.3"/>
+        <path d="M16 16l16 16M32 16L16 32" stroke={c} strokeWidth="1.4" strokeLinecap="round"/>
+        <circle cx="24" cy="24" r="3.4" fill={c}/>
+      </svg>
+      <div style={{fontFamily:"'Playfair Display',serif",fontSize:30*size,letterSpacing:8*size,color:c,lineHeight:1,fontWeight:500}}>XIYORA</div>
+      {tagline&&<div style={{fontFamily:"'Inter',sans-serif",fontSize:9.5*size,letterSpacing:4.5*size,textTransform:"uppercase",color:c,opacity:.8}}>Crafted Comfort</div>}
+    </div>
+  );
 };
 
 /* ─── HERO MEDIA (video-first with image fallback) ───────── */
@@ -1208,11 +1292,11 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
         <div style={{width:38,height:38,borderRadius:"50%",background:"#25D366",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
           <svg width={20} height={20} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
         </div>
-        <strong style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:600,color:C.dark}}>Need help choosing?</strong>
+        <strong style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.dark}}>Need help choosing?</strong>
       </div>
       <p style={{fontSize:12.5,color:"#888",lineHeight:1.6,marginBottom:14}}>Share your size, city, and product interest — we'll help with a proforma.</p>
       <a href={waMsg(msg)} target="_blank" rel="noreferrer"
-        style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"#25D366",color:"#fff",padding:"11px",borderRadius:8,fontSize:12.5,fontWeight:500,letterSpacing:".6px",textDecoration:"none",fontFamily:"'Jost',sans-serif"}}
+        style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"#25D366",color:"#fff",padding:"11px",borderRadius:8,fontSize:12.5,fontWeight:500,letterSpacing:".6px",textDecoration:"none",fontFamily:"'Inter',sans-serif"}}
         onClick={dismiss}>
         WhatsApp XIYORA
       </a>
@@ -1267,7 +1351,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
   };
 
   if(!show)return null;
-  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:10,transition:"border-color .2s"};
+  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,marginBottom:10,transition:"border-color .2s"};
   const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block",letterSpacing:".3px"};
 
   return(
@@ -1276,7 +1360,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
           <div>
             <SL>{f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"Enquiry"}</SL>
-            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:500,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:500,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
           </div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:22,lineHeight:1,marginLeft:16}}>✕</button>
         </div>
@@ -1284,11 +1368,11 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
         {ok?(
           <div style={{textAlign:"center",padding:"28px 0"}}>
             <div style={{width:64,height:64,background:"linear-gradient(135deg,#C8A97E,#B89472)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28}}>✓</div>
-            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:2,fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7}}>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:2,fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7}}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp Us
               </button>
@@ -1299,12 +1383,12 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
           <>
             <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:18}}>
               {[["quote","Get Quote"],["proforma","Proforma Invoice"],["bulk","Bulk Order"],["general","General"]].map(([k,v])=>(
-                <button key={k} onClick={()=>set("intent",k)} style={{background:f.intent===k?C.gold:"#EFE8DE",color:f.intent===k?"#fff":"#888",border:"none",padding:"5px 13px",borderRadius:20,fontSize:11,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{v}</button>
+                <button key={k} onClick={()=>set("intent",k)} style={{background:f.intent===k?C.gold:"#EFE8DE",color:f.intent===k?"#fff":"#888",border:"none",padding:"5px 13px",borderRadius:20,fontSize:11,cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"all .2s"}}>{v}</button>
               ))}
             </div>
             {product&&<div style={{background:C.lgold,padding:"10px 14px",borderRadius:3,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <span style={{fontSize:13,color:"#888"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
-              <span style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
+              <span style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
             </div>}
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 14px"}}>
               {([["Your Name *","name","text","Full name"],["Phone / WhatsApp *","phone","tel","+91 XXXXX"]] as const).map(([l,k,t,ph])=>(
@@ -1326,7 +1410,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
                   localStorage.setItem("xiyora_geo",JSON.stringify({lat:pos.coords.latitude,lng:pos.coords.longitude,ts:Date.now()}));
                   alert(`Location detected (${coords}). Please confirm your city and pincode below for an accurate delivery estimate.`);
                 },()=>alert("Location access denied. Please enter your city and pincode manually."));
-              }} style={{background:"#fff",border:`1px solid ${C.sand}`,color:C.dark,padding:"8px 14px",borderRadius:3,fontSize:11.5,cursor:"pointer",fontFamily:"'Jost',sans-serif",marginBottom:10,display:"flex",alignItems:"center",gap:7,transition:"border-color .2s"}}
+              }} style={{background:"#fff",border:`1px solid ${C.sand}`,color:C.dark,padding:"8px 14px",borderRadius:3,fontSize:11.5,cursor:"pointer",fontFamily:"'Inter',sans-serif",marginBottom:10,display:"flex",alignItems:"center",gap:7,transition:"border-color .2s"}}
                 onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold}
                 onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
                 <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1334,7 +1418,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               </button>
               <div style={{display:"flex",gap:8,marginBottom:10}}>
                 <input style={{...inp,marginBottom:0,flex:1}} value={f.pincode} onChange={e=>set("pincode",e.target.value)} placeholder="6-digit pincode" maxLength={6}/>
-                <button onClick={checkPin} style={{background:C.dark,color:"#fff",border:"none",padding:"10px 16px",borderRadius:2,fontSize:12,cursor:"pointer",fontFamily:"'Jost',sans-serif",whiteSpace:"nowrap",transition:"background .2s"}}
+                <button onClick={checkPin} style={{background:C.dark,color:"#fff",border:"none",padding:"10px 16px",borderRadius:2,fontSize:12,cursor:"pointer",fontFamily:"'Inter',sans-serif",whiteSpace:"nowrap",transition:"background .2s"}}
                   onMouseEnter={(e:any)=>e.currentTarget.style.background="#444"}
                   onMouseLeave={(e:any)=>e.currentTarget.style.background=C.dark}>Check Zone</button>
               </div>
@@ -1372,9 +1456,9 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               <div style={{background:"#fff7ed",border:"1px solid #f0d9b8",borderRadius:3,padding:"12px 14px",marginBottom:12}}>
                 <div style={{fontSize:12.5,color:"#9a6a2a",lineHeight:1.6,marginBottom:9}}>{apiErr} Your details are still here — send them directly and we'll respond.</div>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                  <button onClick={submit} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>Try Again</button>
-                  <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>WhatsApp</button>
-                  <a href={`mailto:${BIZ.email}?subject=${encodeURIComponent(`XIYORA ${f.intent==="proforma"?"Proforma":"Quote"} — ${f.productName||"Enquiry"}`)}&body=${encodeURIComponent(`Product: ${f.productName||"General Inquiry"}\nIntent: ${f.intent}\nName: ${f.name}\nPhone: ${f.phone}${f.company?"\nCompany: "+f.company:""}${f.city?"\nCity: "+f.city:""}${f.pincode?"\nPincode: "+f.pincode:""}${f.quantity?"\nQuantity: "+f.quantity:""}${f.selectedSize?"\nSize: "+f.selectedSize:""}${f.message?"\nMessage: "+f.message:""}`)}`} style={{background:C.beige,color:C.dark,padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Jost',sans-serif",display:"inline-flex",alignItems:"center"}}>Email</a>
+                  <button onClick={submit} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>Try Again</button>
+                  <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>WhatsApp</button>
+                  <a href={`mailto:${BIZ.email}?subject=${encodeURIComponent(`XIYORA ${f.intent==="proforma"?"Proforma":"Quote"} — ${f.productName||"Enquiry"}`)}&body=${encodeURIComponent(`Product: ${f.productName||"General Inquiry"}\nIntent: ${f.intent}\nName: ${f.name}\nPhone: ${f.phone}${f.company?"\nCompany: "+f.company:""}${f.city?"\nCity: "+f.city:""}${f.pincode?"\nPincode: "+f.pincode:""}${f.quantity?"\nQuantity: "+f.quantity:""}${f.selectedSize?"\nSize: "+f.selectedSize:""}${f.message?"\nMessage: "+f.message:""}`)}`} style={{background:C.beige,color:C.dark,padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Inter',sans-serif",display:"inline-flex",alignItems:"center"}}>Email</a>
                 </div>
               </div>
             )}
@@ -1383,7 +1467,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               <button onClick={submit} className="bg" style={{flex:1,minWidth:120,padding:"12px 14px",fontSize:12}} disabled={loading}>
                 {loading?<Spinner/>:"Send Enquiry"}
               </button>
-              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 14px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 14px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp
               </button>
@@ -1416,7 +1500,7 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
   };
 
   if(!show)return null;
-  const inp:React.CSSProperties={width:"100%",background:"#1e1e1e",border:"1px solid #2a2a2a",color:"#F0EBE3",padding:"11px 14px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",marginBottom:10};
+  const inp:React.CSSProperties={width:"100%",background:"#1e1e1e",border:"1px solid #2a2a2a",color:"#F0EBE3",padding:"11px 14px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",marginBottom:10};
   const lbl:React.CSSProperties={fontSize:11.5,color:"#666",marginBottom:5,display:"block"};
   return(
     <div style={{position:"fixed",inset:0,zIndex:900,background:"rgba(0,0,0,.72)",display:"flex",alignItems:"center",justifyContent:"center",padding:16,backdropFilter:"blur(10px)"}} onClick={onClose}>
@@ -1424,14 +1508,14 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
           <div>
             <SL dark>Stay in Touch</SL>
-            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:400,color:"#F0EBE3",marginTop:4}}>Join XIYORA</h3>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:400,color:"#F0EBE3",marginTop:4}}>Join XIYORA</h3>
           </div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#555",fontSize:22,lineHeight:1}}>✕</button>
         </div>
         {ok?(
           <div style={{textAlign:"center",padding:"20px 0"}}>
             <div style={{fontSize:48,marginBottom:14}}>✓</div>
-            <p style={{fontSize:16,color:"#F0EBE3",fontFamily:"'Cormorant Garamond',serif",marginBottom:8}}>You're on the list!</p>
+            <p style={{fontSize:16,color:"#F0EBE3",fontFamily:"'Playfair Display',serif",marginBottom:8}}>You're on the list!</p>
             <p style={{fontSize:13,color:"#666",lineHeight:1.7}}>We'll reach out with product launches, B2B updates, and exclusive offers.</p>
           </div>
         ):(
@@ -1452,7 +1536,7 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
             <label style={lbl}>Subscription Type</label>
             <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14}}>
               {["Home Buyer Updates","Retailer — B2B Access","Hotel & Interior Partner","Trade Partner"].map(t=>(
-                <button key={t} onClick={()=>set("subscriptionType",t)} style={{background:f.subscriptionType===t?C.gold:"#1e1e1e",color:f.subscriptionType===t?"#fff":"#666",border:`1px solid ${f.subscriptionType===t?C.gold:"#2a2a2a"}`,padding:"6px 12px",borderRadius:20,fontSize:11.5,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{t}</button>
+                <button key={t} onClick={()=>set("subscriptionType",t)} style={{background:f.subscriptionType===t?C.gold:"#1e1e1e",color:f.subscriptionType===t?"#fff":"#666",border:`1px solid ${f.subscriptionType===t?C.gold:"#2a2a2a"}`,padding:"6px 12px",borderRadius:20,fontSize:11.5,cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"all .2s"}}>{t}</button>
               ))}
             </div>
             {err&&<div style={{color:"#f87171",fontSize:12,marginBottom:10}}>{err}</div>}
@@ -1494,7 +1578,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
       <div style={{width:"100%",maxWidth:620,background:"rgba(248,246,242,.98)",backdropFilter:"blur(20px)",borderRadius:5,overflow:"hidden",boxShadow:"0 40px 100px rgba(0,0,0,.28)",border:`1px solid ${C.sand}`,animation:"fadeInUp .22s ease"}} onClick={e=>e.stopPropagation()}>
         <div style={{display:"flex",alignItems:"center",padding:"15px 20px",borderBottom:`1px solid ${C.sand}`,gap:12}}>
           <svg width={17} height={17} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
-          <input ref={ref} value={q} onChange={e=>setQ(e.target.value)} placeholder="Search mattresses, pillows, toppers, cushions…" style={{flex:1,background:"none",border:"none",fontSize:15,color:C.dark,fontFamily:"'Jost',sans-serif",outline:"none"}}/>
+          <input ref={ref} value={q} onChange={e=>setQ(e.target.value)} placeholder="Search mattresses, pillows, toppers, cushions…" style={{flex:1,background:"none",border:"none",fontSize:15,color:C.dark,fontFamily:"'Inter',sans-serif",outline:"none"}}/>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:20}}>✕</button>
         </div>
         {hits.length>0&&<div style={{maxHeight:400,overflowY:"auto"}}>
@@ -1505,7 +1589,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
               onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
               <img src={p.gallery[0]} alt={p.name} style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
               <div style={{flex:1,minWidth:0}}>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
                 <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
               </div>
               <div style={{fontSize:13,color:"#aaa",flexShrink:0}}>{p.priceINR}</div>
@@ -1522,7 +1606,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
           <p style={{fontSize:11,color:"#bbb",marginBottom:10,letterSpacing:"1px",textTransform:"uppercase"}}>Quick Browse</p>
           <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
             {["Mattresses","Pillows","Toppers","Cushions","Talalay","Dunlop"].map(t=>(
-              <button key={t} onClick={()=>setQ(t)} style={{background:C.beige,border:"none",padding:"7px 14px",borderRadius:20,fontSize:12.5,color:C.dark,cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>{t}</button>
+              <button key={t} onClick={()=>setQ(t)} style={{background:C.beige,border:"none",padding:"7px 14px",borderRadius:20,fontSize:12.5,color:C.dark,cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>{t}</button>
             ))}
           </div>
         </div>}
@@ -1549,11 +1633,11 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
       </div>
       <div style={{padding:"16px 18px"}}>
         <div style={{fontSize:10,letterSpacing:"1.8px",textTransform:"uppercase",color:C.gold,marginBottom:5,fontWeight:500}}>{p.latexType} · {p.category}</div>
-        <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
+        <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
         <p style={{fontSize:12.5,color:"#aaa",marginBottom:14,lineHeight:1.55,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:12,borderTop:`1px solid ${C.sand}`}}>
           <div>
-            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
             <div style={{fontSize:10,color:"#ccc",marginTop:2}}>Indicative · Quote after city</div>
           </div>
           <button className="bg" style={{padding:"9px 14px",fontSize:11,letterSpacing:"1px"}} onClick={e=>{e.stopPropagation();onInquire(p,"quote");}}>Get Quote</button>
@@ -1620,12 +1704,12 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
       {/* Breadcrumb */}
       <div style={{borderBottom:`1px solid ${C.sand}`,padding:"12px 0"}}>
         <div className="container" style={{display:"flex",gap:8,alignItems:"center",fontSize:13}}>
-          <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:"#888",fontFamily:"'Jost',sans-serif",display:"flex",alignItems:"center",gap:6,transition:"color .2s"}}
+          <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:"#888",fontFamily:"'Inter',sans-serif",display:"flex",alignItems:"center",gap:6,transition:"color .2s"}}
             onMouseEnter={(e:any)=>e.currentTarget.style.color=C.gold}
             onMouseLeave={(e:any)=>e.currentTarget.style.color="#888"}>
             <svg width={14} height={14} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Back
           </button>
-          <span style={{color:"#ddd"}}>·</span><button onClick={()=>onCatFilter&&onCatFilter(p.category)} style={{background:"none",border:"none",cursor:"pointer",color:C.gold,fontFamily:"'Jost',sans-serif",fontSize:13,padding:0,transition:"opacity .2s"}} onMouseEnter={(e:any)=>e.currentTarget.style.opacity=".7"} onMouseLeave={(e:any)=>e.currentTarget.style.opacity="1"}>{p.category}</button>
+          <span style={{color:"#ddd"}}>·</span><button onClick={()=>onCatFilter&&onCatFilter(p.category)} style={{background:"none",border:"none",cursor:"pointer",color:C.gold,fontFamily:"'Inter',sans-serif",fontSize:13,padding:0,transition:"opacity .2s"}} onMouseEnter={(e:any)=>e.currentTarget.style.opacity=".7"} onMouseLeave={(e:any)=>e.currentTarget.style.opacity="1"}>{p.category}</button>
           <span style={{color:"#ddd"}}>·</span><span style={{color:C.dark,fontWeight:500}}>{p.name}</span>
         </div>
       </div>
@@ -1659,8 +1743,8 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
               <Tag c={p.latexType==="Talalay"?"#9B8B6E":p.latexType==="Hybrid"?"#7B8F7E":"#5a7a7a"}>{p.latexType} Latex</Tag>
               <Tag c="#999">{p.category}</Tag>
             </div>
-            <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.1,marginBottom:8}}>{p.name}</h1>
-            <p style={{fontSize:16,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",marginBottom:20,lineHeight:1.4}}>{p.headline}</p>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.1,marginBottom:8}}>{p.name}</h1>
+            <p style={{fontSize:16,color:C.gold,fontFamily:"'Playfair Display',serif",fontStyle:"italic",marginBottom:20,lineHeight:1.4}}>{p.headline}</p>
             <p style={{fontSize:14.5,color:"#666",lineHeight:1.82,marginBottom:24,fontWeight:300}}>{p.description}</p>
             {p.latexContent&&<div style={{padding:"8px 14px",background:C.lgold,borderRadius:3,marginBottom:20,display:"flex",gap:8,alignItems:"center"}}>
               <span style={{color:"#777",fontSize:13}}>Latex Content:</span>
@@ -1694,9 +1778,9 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                 <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:10,fontWeight:500}}>Select Size / Specification</p>
                 <div style={{display:"flex",flexDirection:"column",gap:7}}>
                   {(p.variants as any[]).map((v:any,i:number)=>(
-                    <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Jost',sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
+                    <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Inter',sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
                       <span>{v.label}</span>
-                      <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888",flexShrink:0,marginLeft:12}}>{v.quoteRequired?"Quote req.":priceIn(cur,v.priceINR)}</span>
+                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888",flexShrink:0,marginLeft:12}}>{v.quoteRequired?"Quote req.":priceIn(cur,v.priceINR)}</span>
                     </button>
                   ))}
                 </div>
@@ -1709,7 +1793,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                 <span style={{fontSize:12,color:"#777"}}>
                   {isQuoteRequired?"Final quote required":activeVar?"Selected price (indicative)":hasVariants?"Select variant for price":"Indicative price range"}
                 </span>
-                <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
+                <span style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
                   {isQuoteRequired?"—":priceIn(cur,displayPriceINR)}
                 </span>
               </div>
@@ -1736,25 +1820,25 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             ):(
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:12}}>
                 <button onClick={handleAddToCart} disabled={!canBuy}
-                  style={{padding:"14px",fontFamily:"'Jost',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
+                  style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
                   {addedMsg?"✓ Added!":"Add to Basket"}
                 </button>
                 <button onClick={handleBuyNow} disabled={!canBuy}
-                  style={{padding:"14px",fontFamily:"'Jost',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:"none",background:canBuy?C.gold:"#ccc",color:"#fff",fontWeight:500,transition:"background .2s"}}>
+                  style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:"none",background:canBuy?C.gold:"#ccc",color:"#fff",fontWeight:500,transition:"background .2s"}}>
                   Buy Now →
                 </button>
               </div>
             )}
             {/* Secondary actions */}
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:8}}>
-              <button onClick={()=>onWish(p.id)} style={{padding:"10px 6px",fontFamily:"'Jost',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,border:`1px solid ${wished?C.gold:C.sand}`,background:wished?C.lgold:"transparent",color:wished?C.gold:"#888",transition:"all .2s"}}>
+              <button onClick={()=>onWish(p.id)} style={{padding:"10px 6px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,border:`1px solid ${wished?C.gold:C.sand}`,background:wished?C.lgold:"transparent",color:wished?C.gold:"#888",transition:"all .2s"}}>
                 {wished?"♥ Saved":"♡ Save"}
               </button>
               <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"quote")}>Get Quote</button>
               <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"proforma")}>Proforma</button>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18}}>
-              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Jost',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I'm interested in the ${p.name}${activeVar?` (${activeVar.label})`:""}. Can you share the landed price for my city?`),"_blank")}>
                 {WA_ICON}WhatsApp
               </button>
@@ -1779,7 +1863,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                   {title:"Product Catalogue",msg:"Hi XIYORA, please share the full Bingxi product catalogue with specifications and pricing."},
                 ].map((d,i)=>(
                   <button key={i} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(d.msg)}`,"_blank")}
-                    style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 12px",cursor:"pointer",textAlign:"left",transition:"all .2s",fontFamily:"'Jost',sans-serif"}}
+                    style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 12px",cursor:"pointer",textAlign:"left",transition:"all .2s",fontFamily:"'Inter',sans-serif"}}
                     onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 4px 18px rgba(200,169,126,.15)";}}
                     onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";}}>
                     <div style={{fontSize:11.5,fontWeight:500,color:C.dark,marginBottom:5}}>{d.title}</div>
@@ -1827,7 +1911,7 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
       <div style={{borderBottom:`1px solid ${C.sand}`,position:"sticky",top:68,zIndex:10,background:"rgba(248,246,242,.97)",backdropFilter:"blur(12px)"}}>
         <div className="container" style={{display:"flex",overflowX:"auto"}}>
           {CATS.map(c=>(
-            <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Jost',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:"#888",borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
+            <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:"#888",borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
               {c.name} <span style={{fontSize:10,color:"#bbb"}}>({c.name==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.category===c.filter).length})</span>
             </button>
           ))}
@@ -1871,7 +1955,7 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
         </Reveal>
         <Reveal style={{maxWidth:680,margin:"0 auto"}}>
           <div style={{background:C.white,borderRadius:8,padding:"26px 28px",borderTop:`3px solid ${C.gold}`,boxShadow:"0 12px 40px rgba(0,0,0,.07)",textAlign:"center"}}>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,color:C.dark,lineHeight:1.5,marginBottom:20}}>{sel.message}</p>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:20,color:C.dark,lineHeight:1.5,marginBottom:20}}>{sel.message}</p>
             <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
               <button className="bg xiyora-gold-button" style={{padding:"13px 26px",fontSize:12}} onClick={act}>{sel.cta}</button>
               <button className="bo" style={{padding:"13px 24px",fontSize:11.5}} onClick={()=>onInquire(null,"quote")}>Ask for Guidance</button>
@@ -1895,27 +1979,38 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
   };
   return(
     <div>
-      {/* HERO — VIDEO FIRST */}
-      <section style={{position:"relative",height:"88vh",minHeight:580,overflow:"hidden",display:"flex",alignItems:"center",background:C.char}} className="hero-h">
+      {/* HERO — VIDEO FIRST, EDITORIAL */}
+      <section style={{position:"relative",height:"92vh",minHeight:600,overflow:"hidden",display:"flex",alignItems:"center",background:C.char}} className="hero-h">
         <HeroMedia/>
         <div className="xiyora-video-overlay" style={{position:"absolute",inset:0}}/>
+        {/* floating gold cloud ornaments */}
+        <GoldCloud className="x-drift" size={180} opacity={.3} style={{position:"absolute",top:"12%",right:"6%",pointerEvents:"none"}}/>
+        <GoldCloud className="x-drift-slow" size={130} opacity={.22} style={{position:"absolute",bottom:"16%",right:"22%",pointerEvents:"none"}}/>
         <div className="container" style={{position:"relative",width:"100%"}}>
-          <div style={{maxWidth:600}}>
-            <p className="sl ht1" style={{color:"#E2C79B",textShadow:"0 2px 12px rgba(0,0,0,.5)"}}>✦ &nbsp;Official Bingxi Partner for India</p>
-            <h1 className="ht2 hh" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(3rem,5.2vw,5.4rem)",fontWeight:500,lineHeight:1.08,color:"#FCFAF6",marginBottom:22,textShadow:"0 3px 24px rgba(0,0,0,.45)"}}>
-              Premium Latex Comfort,<br/><em>Sourced for India.</em>
+          <div style={{maxWidth:620}}>
+            <div className="ht1" style={{marginBottom:24}}><Monogram color="#E9D6B4" size={1.05}/></div>
+            <p className="sl ht1" style={{color:"#E2C79B",textShadow:"0 2px 12px rgba(0,0,0,.5)",display:"flex",alignItems:"center",gap:12}}>
+              <span style={{display:"inline-block",width:28,height:1,background:"#E2C79B"}}/>Official Bingxi Partner for India
+            </p>
+            <h1 className="ht2 hh" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(3rem,5.4vw,5.6rem)",fontWeight:500,lineHeight:1.07,color:"#FCFAF6",margin:"6px 0 22px",textShadow:"0 3px 24px rgba(0,0,0,.45)"}}>
+              Premium Latex Comfort,<br/><em style={{color:"#E9D6B4"}}>Sourced for India.</em>
             </h1>
             <p className="ht3" style={{fontSize:16,color:"rgba(255,250,242,.92)",lineHeight:1.82,marginBottom:32,fontWeight:400,maxWidth:480,textShadow:"0 1px 10px rgba(0,0,0,.4)"}}>
               The Bingxi partner catalogue of natural Talalay & Dunlop latex pillows, mattresses & toppers — available through XIYORA, delivered across India.
             </p>
-            <div className="ht4" style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:24}}>
-              <button className="bg xiyora-gold-button" onClick={onCatalog} style={{padding:"14px 32px",fontSize:12,letterSpacing:"2.5px"}}>Explore Products</button>
-              <button className="xiyora-gold-button" onClick={onSupplier} style={{padding:"14px 30px",fontSize:12,fontFamily:"'Jost',sans-serif",fontWeight:600,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",background:"rgba(255,255,255,0.1)",border:"2px solid rgba(255,255,255,.85)",color:"#fff",borderRadius:2,backdropFilter:"blur(4px)",transition:"all .3s"}} onMouseEnter={(e:any)=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color=C.dark;}} onMouseLeave={(e:any)=>{e.currentTarget.style.background="rgba(255,255,255,0.1)";e.currentTarget.style.color="#fff";}}>For Businesses</button>
+            <div className="ht4" style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:26}}>
+              <button className="bg xiyora-gold-button" onClick={onCatalog} style={{padding:"15px 34px",fontSize:12,letterSpacing:"2.5px"}}>Explore Products</button>
+              <button className="xiyora-gold-button" onClick={onSupplier} style={{padding:"15px 32px",fontSize:12,fontFamily:"'Inter',sans-serif",fontWeight:600,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",background:"rgba(255,255,255,0.08)",border:"1.5px solid rgba(255,255,255,.85)",color:"#fff",borderRadius:2,backdropFilter:"blur(4px)",transition:"all .3s"}} onMouseEnter={(e:any)=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color=C.dark;}} onMouseLeave={(e:any)=>{e.currentTarget.style.background="rgba(255,255,255,0.08)";e.currentTarget.style.color="#fff";}}>For Businesses</button>
             </div>
             <p className="ht5" style={{fontSize:12,color:"rgba(255,250,242,.82)",letterSpacing:".8px",display:"flex",gap:18,flexWrap:"wrap",fontWeight:500,textShadow:"0 1px 8px rgba(0,0,0,.4)"}}>
               <span>✓ Documents on request</span><span>✓ Proforma before payment</span><span>✓ Domestic delivery estimate</span>
             </p>
           </div>
+        </div>
+        {/* scroll cue */}
+        <div className="x-drift" style={{position:"absolute",bottom:26,left:"50%",transform:"translateX(-50%)",display:"flex",flexDirection:"column",alignItems:"center",gap:7,color:"rgba(255,250,242,.7)",pointerEvents:"none"}}>
+          <span style={{fontSize:9.5,letterSpacing:"2.5px",textTransform:"uppercase"}}>Scroll</span>
+          <svg width={14} height={22} viewBox="0 0 14 22" fill="none"><rect x="1" y="1" width="12" height="20" rx="6" stroke="rgba(255,250,242,.6)"/><circle cx="7" cy="7" r="2" fill="rgba(255,250,242,.85)"/></svg>
         </div>
       </section>
       {/* FEATURE BAR */}
@@ -1937,41 +2032,49 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
       {/* BUYER BEST-FIT SELECTOR */}
       <BuyerBestFit onCatFilter={onCatFilter} onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
       {/* CATEGORIES */}
-      <section className="sec" style={{background:C.white}}>
+      <section className="sec paper ink-wash" style={{position:"relative"}}>
+        <GoldCloud className="x-drift-slow" size={150} opacity={.16} style={{position:"absolute",top:36,left:24,pointerEvents:"none"}}/>
         <div className="container">
-          <div style={{textAlign:"center",marginBottom:52}}>
+          <Reveal style={{textAlign:"center",marginBottom:52}}>
+            <div style={{display:"flex",justifyContent:"center",marginBottom:16}}><Seal ch="选" title="Curated collection"/></div>
             <SL>Bingxi Collection</SL>
             <SH center>Shop By Category</SH>
-            <p style={{fontSize:14.5,color:"#aaa",marginTop:10,maxWidth:440,margin:"10px auto 0",lineHeight:1.7,fontWeight:300}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
-          </div>
-          <div className="grid-5">
+            <div className="x-divider" style={{margin:"16px auto"}}>❖</div>
+            <p style={{fontSize:14.5,color:C.ink,maxWidth:440,margin:"10px auto 0",lineHeight:1.7,fontWeight:400}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
+          </Reveal>
+          <Stagger className="grid-5">
             {CATS.filter(c=>c.filter).map((cat,i)=>{
               const [imgErr,setImgErr]=useState(false);
               return(
-                <div key={i} className="cc" style={{aspectRatio:"2/3"}} onClick={()=>onCatFilter(cat.filter)}>
+                <div key={i} className="cc x-frame" style={{aspectRatio:"2/3"}} onClick={()=>onCatFilter(cat.filter)}>
                   <img src={imgErr?FALLBACK_IMG:catImages[cat.filter!]} alt={cat.name} className="ci" onError={()=>setImgErr(true)}/>
-                  <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(28,28,28,.82) 0%,transparent 55%)"}}/>
-                  <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"18px 16px"}}>
-                    <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:500,color:"#fff",marginBottom:4}}>{cat.name}</div>
-                    <div style={{fontSize:10.5,color:"rgba(255,255,255,.55)",letterSpacing:"1.2px",textTransform:"uppercase"}}>{PRODUCTS.filter(p=>p.category===cat.filter).length} Products</div>
+                  <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,18,16,.86) 0%,rgba(20,18,16,.1) 50%,transparent 70%)"}}/>
+                  <div className="cc-tag x-tag">{cat.name.split(" ")[0]}</div>
+                  <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"20px 16px"}}>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:"#fff",marginBottom:6}}>{cat.name}</div>
+                    <div style={{fontSize:10.5,color:"rgba(255,255,255,.6)",letterSpacing:"1.2px",textTransform:"uppercase",marginBottom:10}}>{PRODUCTS.filter(p=>p.category===cat.filter).length} Products</div>
+                    <span className="x-link" style={{color:"#fff",fontSize:10.5}}>Explore <span className="ar">→</span></span>
                   </div>
-                  <div style={{position:"absolute",top:12,right:12,background:"rgba(248,246,242,.88)",padding:"4px 9px",fontSize:10,letterSpacing:"1.2px",textTransform:"uppercase",color:C.dark,fontWeight:500,borderRadius:2}}>Explore →</div>
                 </div>
               );
             })}
-          </div>
+          </Stagger>
         </div>
       </section>
       {/* FEATURED PRODUCTS */}
-      <section className="sec" style={{background:C.beige}}>
+      <section className="sec" style={{background:C.beige,position:"relative",overflow:"hidden"}}>
+        <Sakura className="x-drift-slow" size={170} color="#BFA295" style={{position:"absolute",top:0,right:-10,opacity:.4,pointerEvents:"none"}}/>
         <div className="container">
-          <div style={{display:"flex",alignItems:"flex-end",justifyContent:"space-between",marginBottom:48,flexWrap:"wrap",gap:18}}>
-            <div><SL>Bingxi Catalogue</SL><SH>Featured Products</SH></div>
-            <div style={{display:"flex",alignItems:"center",gap:12}}>
-              <span style={{fontSize:12,color:"#888"}}>Indicative landed ranges</span>
-              <button className="bo" style={{padding:"10px 18px",fontSize:11}} onClick={onCatalog}>View All →</button>
+          <Reveal style={{display:"flex",alignItems:"flex-end",justifyContent:"space-between",marginBottom:48,flexWrap:"wrap",gap:18}}>
+            <div style={{display:"flex",alignItems:"flex-start",gap:16}}>
+              <Seal ch="品" title="Quality catalogue" style={{marginTop:4}}/>
+              <div><SL>Bingxi Catalogue</SL><SH>Featured Products</SH></div>
             </div>
-          </div>
+            <div style={{display:"flex",alignItems:"center",gap:16}}>
+              <span style={{fontSize:12,color:C.ink}}>Indicative landed ranges</span>
+              <button className="x-link" onClick={onCatalog}>View All <span className="ar">→</span></button>
+            </div>
+          </Reveal>
           <div className="grid-3">
             {PRODUCTS.slice(0,6).map(p=><PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>)}
           </div>
@@ -1981,33 +2084,36 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
         </div>
       </section>
       {/* WHY XIYORA */}
-      <section className="sec" style={{background:C.white}}>
+      <section className="sec paper ink-wash" style={{position:"relative"}}>
         <div className="container">
           <div className="grid-2" style={{gap:72}}>
-            <div>
-              <SL>Our Promise</SL>
+            <Reveal>
+              <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:6}}><Seal ch="信" title="Trust"/><SL>Our Promise</SL></div>
               <SH>Why Choose<br/><em>XIYORA?</em></SH>
-              <p style={{fontSize:15,color:"#888",lineHeight:1.85,margin:"18px 0 36px",fontWeight:300}}>We connect trusted global latex manufacturers with the Indian market — genuine comfort products with transparent pricing and dedicated support.</p>
+              <p style={{fontSize:15,color:C.ink,lineHeight:1.85,margin:"18px 0 36px",fontWeight:400,maxWidth:460}}>We connect trusted global latex manufacturers with the Indian market — genuine comfort products with transparent pricing and dedicated support.</p>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
                 {[["◈","Honest Sourcing","Official Bingxi sourcing partner. No inflated claims."],["◉","Transparent Pricing","Indicative ranges shown. Full breakdown in your quote."],["◎","B2B Focused","Hotels, retailers, designers, and manufacturers welcome."],["◇","Custom Orders","Non-standard sizes, densities, and branding available."]].map(([ic,t,d],i)=>(
-                  <div key={i} style={{padding:"18px 16px",background:C.beige,borderRadius:3,borderTop:`2px solid ${C.gold}`,transition:"box-shadow .3s"}}
-                    onMouseEnter={(e:any)=>e.currentTarget.style.boxShadow="0 8px 28px rgba(0,0,0,.09)"}
-                    onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
+                  <div key={i} style={{padding:"20px 18px",background:C.white,borderRadius:3,borderTop:`2px solid ${C.gold}`,transition:"box-shadow .3s,transform .3s",boxShadow:"0 1px 10px rgba(0,0,0,.03)"}}
+                    onMouseEnter={(e:any)=>{e.currentTarget.style.boxShadow="0 12px 32px rgba(0,0,0,.1)";e.currentTarget.style.transform="translateY(-3px)";}}
+                    onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 1px 10px rgba(0,0,0,.03)";e.currentTarget.style.transform="translateY(0)";}}>
                     <div style={{fontSize:20,color:C.gold,marginBottom:9}}>{ic}</div>
-                    <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:6}}>{t}</div>
-                    <div style={{fontSize:12.5,color:"#aaa",lineHeight:1.7}}>{d}</div>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:6}}>{t}</div>
+                    <div style={{fontSize:12.5,color:C.ink,lineHeight:1.7}}>{d}</div>
                   </div>
                 ))}
               </div>
-            </div>
-            <div style={{position:"relative"}}>
-              <img src="/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg" alt="Premium latex comfort" style={{width:"100%",height:520,objectFit:"cover",borderRadius:5}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
-              <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,animation:"glowPulse 4s ease-in-out infinite"}}>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:13,color:"#aaa",letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:28,fontWeight:600,color:C.gold}}>₹1,600</div>
-                <div style={{fontSize:11,color:"#bbb",marginTop:3}}>Indicative · Quote after your city</div>
+            </Reveal>
+            <Reveal style={{position:"relative"}}>
+              <GoldCloud className="x-drift" size={120} opacity={.5} style={{position:"absolute",top:-30,right:-12,pointerEvents:"none",zIndex:2}}/>
+              <div className="x-frame" style={{borderRadius:5}}>
+                <img src="/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg" alt="Premium latex comfort" style={{width:"100%",height:520,objectFit:"cover",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
               </div>
-            </div>
+              <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,borderLeft:`2px solid ${C.seal}`}}>
+                <div style={{fontFamily:"'Inter',sans-serif",fontSize:11,color:C.ink,letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:28,fontWeight:600,color:C.gold}}>₹1,600</div>
+                <div style={{fontSize:11,color:C.ink,marginTop:3}}>Indicative · Quote after your city</div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -2023,8 +2129,8 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
               <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:3,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
                 onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.09)";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:40,fontWeight:300,color:C.sand,marginBottom:14,lineHeight:1}}>{n}</div>
-                <h4 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontWeight:500,color:C.dark,marginBottom:10}}>{t}</h4>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:40,fontWeight:300,color:C.sand,marginBottom:14,lineHeight:1}}>{n}</div>
+                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:20,fontWeight:500,color:C.dark,marginBottom:10}}>{t}</h4>
                 <p style={{fontSize:13,color:"#888",lineHeight:1.72,fontWeight:300}}>{d}</p>
               </div>
             ))}
@@ -2055,12 +2161,12 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
                 onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";e.currentTarget.style.transform="none";}}>
                 <div style={{width:52,height:52,background:"#F5EDE0",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{d.icon}</div>
                 <div>
-                  <h4 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:500,color:C.dark,margin:"0 0 4px"}}>{d.title}</h4>
+                  <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,margin:"0 0 4px"}}>{d.title}</h4>
                   <p style={{fontSize:12,color:"#999",margin:0,lineHeight:1.5}}>{d.sub}</p>
                 </div>
                 <div style={{marginTop:"auto",paddingTop:12,borderTop:`1px solid ${C.sand}`,display:"flex",alignItems:"center",gap:7}}>
                   <svg width={13} height={13} fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
-                  <span style={{fontSize:11.5,color:"#25D366",fontFamily:"'Jost',sans-serif",fontWeight:500,letterSpacing:".3px"}}>Request via WhatsApp</span>
+                  <span style={{fontSize:11.5,color:"#25D366",fontFamily:"'Inter',sans-serif",fontWeight:500,letterSpacing:".3px"}}>Request via WhatsApp</span>
                 </div>
               </div>
             ))}
@@ -2084,7 +2190,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
           <div style={{display:"flex",gap:48,justifyContent:"center",flexWrap:"wrap"}}>
             {[["Pan-India","Delivery Network"],["Custom Sizes","& Densities"],["GST Invoice","Where Applicable"],["B2B Quote","Within 48 Hours"]].map(([l1,l2],i)=>(
               <div key={i} style={{textAlign:"center"}}>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:500,color:C.gold}}>{l1}</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.gold}}>{l1}</div>
                 <div style={{fontSize:11.5,color:"#555",marginTop:3}}>{l2}</div>
               </div>
             ))}
@@ -2101,7 +2207,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
           </div>
           <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
             <button className="bg" onClick={()=>onInquire(null,"general")} style={{padding:"14px 28px",fontSize:12}}>Send Inquiry</button>
-            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"14px 28px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.5px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
+            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"14px 28px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1.5px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
               onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp
@@ -2159,7 +2265,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
         {/* Header */}
         <div style={{padding:"24px 24px 16px",borderBottom:"1px solid #2a2a2a",flexShrink:0}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,letterSpacing:6,color:"#F0EBE3"}}>XIYORA</div>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:600,letterSpacing:6,color:"#F0EBE3"}}>XIYORA</div>
             <button onClick={onClose} style={{background:"none",border:"1px solid #2a2a2a",color:"#888",cursor:"pointer",width:28,height:28,borderRadius:"50%",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
               onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8A97E";e.currentTarget.style.color="#F0EBE3";}}
               onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#2a2a2a";e.currentTarget.style.color="#888";}}>✕</button>
@@ -2197,7 +2303,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
           <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
             {["OEKO-TEX®","ISO 9001","GTTC Report","Business Licence","Catalogue"].map(c=>(
               <button key={c} onClick={()=>go(onProof)}
-                style={{padding:"4px 10px",border:"1px solid #333",borderRadius:20,background:"none",color:"#777",fontSize:10,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}
+                style={{padding:"4px 10px",border:"1px solid #333",borderRadius:20,background:"none",color:"#777",fontSize:10,cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"all .2s"}}
                 onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8A97E";e.currentTarget.style.color="#C8A97E";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#333";e.currentTarget.style.color="#777";}}>{c}</button>
             ))}
@@ -2208,17 +2314,17 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
         <div style={{padding:"18px 24px 24px"}}>
           <div style={{fontSize:9,letterSpacing:"2px",textTransform:"uppercase",color:"#555",marginBottom:12}}>Contact</div>
           <a href={`https://wa.me/${BIZ.wa}`} target="_blank" rel="noreferrer"
-            style={{display:"flex",alignItems:"center",gap:9,color:"#4fd97e",fontSize:13,textDecoration:"none",marginBottom:10,fontFamily:"'Jost',sans-serif"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"#4fd97e",fontSize:13,textDecoration:"none",marginBottom:10,fontFamily:"'Inter',sans-serif"}}>
             <svg width={14} height={14} fill="#4fd97e" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
             +91 70283 11226
           </a>
           <a href={`mailto:${BIZ.email}`}
-            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:10,fontFamily:"'Jost',sans-serif"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:10,fontFamily:"'Inter',sans-serif"}}>
             <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             {BIZ.email}
           </a>
           <a href={BIZ.ig} target="_blank" rel="noreferrer"
-            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:18,fontFamily:"'Jost',sans-serif"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:18,fontFamily:"'Inter',sans-serif"}}>
             <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
             @xiyora.zi
           </a>
@@ -2263,7 +2369,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             <line x1="18" y1="18" x2="18" y2="21" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
             <circle cx="18" cy="11" r="1" fill="#C8A97E" opacity=".35"/>
           </svg>
-          <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,letterSpacing:6,color:C.dark,lineHeight:1,userSelect:"none"}}>XIYORA</div>
+          <div style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:600,letterSpacing:6,color:C.dark,lineHeight:1,userSelect:"none"}}>XIYORA</div>
           <svg className="nav-ornament" width={36} height={22} viewBox="0 0 36 22" fill="none" style={{flexShrink:0,opacity:.75}}>
             <path d="M2 11 C10 3, 22 1, 32 11 C22 21, 10 21, 2 11Z" stroke="#C8A97E" strokeWidth="1" fill="none"/>
             <path d="M7 11 C14 5.5, 22 4.5, 27 11 C22 17.5, 14 16.5, 7 11Z" stroke="#C8A97E" strokeWidth=".7" fill="none" opacity=".5"/>
@@ -2275,10 +2381,10 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
         </div>
         {/* Right: Currency, Search, Cart */}
         <div style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
-          <select value={cur} onChange={e=>setCur(e.target.value)} title={CURRENCY_DISCLAIMER} aria-label="Display currency" style={{background:C.beige,color:C.dark,border:"none",borderRadius:16,padding:"5px 9px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",letterSpacing:".3px"}}>
+          <select value={cur} onChange={e=>setCur(e.target.value)} title={CURRENCY_DISCLAIMER} aria-label="Display currency" style={{background:C.beige,color:C.dark,border:"none",borderRadius:16,padding:"5px 9px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px"}}>
             {CURRENCIES.map(c=>(<option key={c} value={c}>{c}</option>))}
           </select>
-          <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} style={{background:C.beige,border:"none",borderRadius:16,padding:"5px 11px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",color:C.dark,transition:"all .2s",letterSpacing:".2px",whiteSpace:"nowrap"}}>{theme==="dark"?"☀ Light":"◑ Dark"}</button>
+          <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} style={{background:C.beige,border:"none",borderRadius:16,padding:"5px 11px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",color:C.dark,transition:"all .2s",letterSpacing:".2px",whiteSpace:"nowrap"}}>{theme==="dark"?"☀ Light":"◑ Dark"}</button>
           <button className="ib" onClick={onSearch} title="Search">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
@@ -2300,11 +2406,12 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
 function Footer({setPage,onInquire,onSubscribe}:any){
   const C=useC();
   return(
-    <footer style={{background:"#141414",color:"#888",padding:"70px 0 36px"}}>
-      <div className="container">
+    <footer style={{background:"#141210",color:"#888",padding:"70px 0 36px",position:"relative",overflow:"hidden"}}>
+      <GoldCloud className="x-drift-slow" size={220} opacity={.12} style={{position:"absolute",top:30,right:40,pointerEvents:"none"}}/>
+      <div className="container" style={{position:"relative"}}>
         <div className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
           <div>
-            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:26,fontWeight:600,letterSpacing:7,color:"#F0EBE3",marginBottom:14,cursor:"pointer"}} onClick={()=>setPage("home")}>XIYORA</div>
+            <div style={{cursor:"pointer",marginBottom:16,display:"inline-block"}} onClick={()=>setPage("home")}><Monogram color="#E9D6B4" size={.95}/></div>
             <p style={{fontSize:13,lineHeight:1.85,color:"#999",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
             <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:7,transition:"color .2s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.color="#4fd97e"}
@@ -2371,7 +2478,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
           <div style={{fontSize:12,color:"#666"}}>© 2025 XIYORA. All prices indicative. GST invoice available where applicable.</div>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
             {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
-              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"color .2s"}}
+              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"color .2s"}}
                 onMouseEnter={(e:any)=>e.currentTarget.style.color="#C8A97E"}
                 onMouseLeave={(e:any)=>e.currentTarget.style.color="#666"}>{l}</button>
             ))}
@@ -2515,7 +2622,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
     w.document.write(html);w.document.close();w.focus();
   };
 
-  const inp=(k?:string):React.CSSProperties=>({width:"100%",background:"#fafaf8",border:`1px solid ${k&&fieldErr[k]?"#e0a0a0":C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:fieldErr[k||""]?3:10});
+  const inp=(k?:string):React.CSSProperties=>({width:"100%",background:"#fafaf8",border:`1px solid ${k&&fieldErr[k]?"#e0a0a0":C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,marginBottom:fieldErr[k||""]?3:10});
   const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
   const ferr=(k:string)=>fieldErr[k]?<div style={{fontSize:11,color:"#cc4444",marginBottom:8}}>{fieldErr[k]}</div>:null;
 
@@ -2543,11 +2650,11 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.lgold,borderRadius:4,padding:"10px 12px"}}>
                       <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                       <div style={{flex:1,minWidth:0}}>
-                        <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
-                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
+                        <div style={{fontFamily:"'Playfair Display',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
+                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                       </div>
-                      <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Jost',sans-serif",flexShrink:0}}>Move to Basket</button>
-                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif",flexShrink:0}}>✕</button>
+                      <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",flexShrink:0}}>Move to Basket</button>
+                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif",flexShrink:0}}>✕</button>
                     </div>
                   ))}
                 </div>
@@ -2559,7 +2666,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             <div style={{width:72,height:72,background:"linear-gradient(135deg,#C8A97E,#B89472)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
               <svg width={28} height={28} fill="none" stroke="white" strokeWidth={2.5} viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
-            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:24,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:8}}>Reference: CHK-{String(savedId).padStart(4,"0")}</p>}
             <p style={{fontSize:14,color:"#888",lineHeight:1.75,marginBottom:8}}>
               {payMode==="upi"?`UPI payment pending verification. UTR/Ref: ${utr||"not entered"}.`:""}
@@ -2568,7 +2675,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             </p>
             <p style={{fontSize:13,color:"#aaa",lineHeight:1.7,marginBottom:20}}>We will contact you within 24–48 hours to confirm and proceed with your final invoice.</p>
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 26px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 26px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I placed an order (CHK-${String(savedId).padStart(4,"0")}) for: ${productNames}. Please confirm next steps.`),"_blank")}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 Confirm on WhatsApp
@@ -2589,9 +2696,9 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
                     <img src={item.image} alt={item.productName} style={{width:68,height:68,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
                     <div style={{flex:1,minWidth:0}}>
-                      <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
+                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:16,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
                       {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11.5,color:"#888",marginBottom:3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
-                      <div style={{fontSize:13,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{priceIn(cur,item.priceINR)} <span style={{fontSize:10,color:"#bbb",fontFamily:"'Jost',sans-serif",fontWeight:400}}>ea.</span></div>
+                      <div style={{fontSize:13,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,item.priceINR)} <span style={{fontSize:10,color:"#bbb",fontFamily:"'Inter',sans-serif",fontWeight:400}}>ea.</span></div>
                     </div>
                     <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
                       <div style={{display:"flex",alignItems:"center",border:`1px solid ${C.sand}`,borderRadius:3,overflow:"hidden"}}>
@@ -2599,7 +2706,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                         <span style={{padding:"0 10px",fontSize:13,color:C.dark,minWidth:24,textAlign:"center"}}>{item.quantity}</span>
                         <button onClick={()=>updateQty(item.cartKey,item.quantity+1)} style={{padding:"5px 10px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>+</button>
                       </div>
-                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 10px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif"}}>✕</button>
+                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 10px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif"}}>✕</button>
                     </div>
                   </div>
                 ))}
@@ -2616,11 +2723,11 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                       <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.white,borderRadius:4,padding:"10px 12px"}}>
                         <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                         <div style={{flex:1,minWidth:0}}>
-                          <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
-                          <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
+                          <div style={{fontFamily:"'Playfair Display',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
+                          <div style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                         </div>
-                        <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Jost',sans-serif",flexShrink:0}}>Move to Basket</button>
-                        <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif",flexShrink:0}}>✕</button>
+                        <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",flexShrink:0}}>Move to Basket</button>
+                        <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif",flexShrink:0}}>✕</button>
                       </div>
                     ))}
                   </div>
@@ -2654,9 +2761,9 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 <div style={{background:"#fff7ed",border:"1px solid #f0d9b8",borderRadius:3,padding:"12px 14px",marginBottom:12}}>
                   <div style={{fontSize:12.5,color:"#9a6a2a",lineHeight:1.6,marginBottom:9}}>{err} Your basket is safe — confirm directly or save a proforma.</div>
                   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                    <button onClick={submitIntent} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>Try Again</button>
-                    <button onClick={checkoutWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>WhatsApp</button>
-                    {cartTotalINR>0&&<button onClick={printProforma} style={{background:C.beige,color:C.dark,border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>Save Proforma</button>}
+                    <button onClick={submitIntent} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>Try Again</button>
+                    <button onClick={checkoutWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>WhatsApp</button>
+                    {cartTotalINR>0&&<button onClick={printProforma} style={{background:C.beige,color:C.dark,border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>Save Proforma</button>}
                   </div>
                 </div>
               )}
@@ -2676,14 +2783,14 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     </div>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",borderTop:`1px solid ${C.sand}`,paddingTop:8,marginTop:2}}>
                       <span style={{fontSize:12,letterSpacing:".5px",textTransform:"uppercase",color:"#999"}}>{delivery?"Estimated total":"Subtotal"}</span>
-                      <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,color:C.gold}}>₹{(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")}</span>
+                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:600,color:C.gold}}>₹{(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")}</span>
                     </div>
                     {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"#aaa",marginTop:3}}>≈ {fmtMoney(cur,delivery?grandTotalINR:cartTotalINR)} {cur}</div>}
                     <div style={{fontSize:10.5,color:"#bbb",lineHeight:1.6,marginTop:8}}>Indicative total. Delivery {delivery?`routed via ${delivery.port} (Zone ${delivery.zone})`:"estimated after you confirm location"}. Final price confirmed via proforma invoice.{cur!=="INR"?` ${CURRENCY_DISCLAIMER}`:""}</div>
-                    <button onClick={printProforma} style={{marginTop:10,width:"100%",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>View / Print Proforma Estimate</button>
+                    <button onClick={printProforma} style={{marginTop:10,width:"100%",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>View / Print Proforma Estimate</button>
                   </div>
                 ):(
-                  <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,color:C.gold}}>Price on request</div>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:600,color:C.gold}}>Price on request</div>
                 )}
               </div>
 
@@ -2726,7 +2833,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                       <div style={{fontSize:10.5,color:"#aaa",marginTop:6,letterSpacing:".5px"}}>Scan with any UPI app</div>
                     </div>
                   </div>
-                  <a href={upiLink} style={{display:"block",textAlign:"center",background:C.gold,color:"#fff",padding:"11px",borderRadius:3,fontSize:12,textDecoration:"none",letterSpacing:"1px",textTransform:"uppercase",marginBottom:12,fontFamily:"'Jost',sans-serif",fontWeight:500}}>
+                  <a href={upiLink} style={{display:"block",textAlign:"center",background:C.gold,color:"#fff",padding:"11px",borderRadius:3,fontSize:12,textDecoration:"none",letterSpacing:"1px",textTransform:"uppercase",marginBottom:12,fontFamily:"'Inter',sans-serif",fontWeight:500}}>
                     Open UPI App to Pay
                   </a>
                   <label style={lbl}>UTR / Reference Number (after payment)</label>
@@ -2748,7 +2855,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
               <button className="bg" onClick={submitIntent} style={{width:"100%",padding:"14px",fontSize:12,marginBottom:10,opacity:confirmed?1:.55,cursor:confirmed?"pointer":"not-allowed"}} disabled={loading||!confirmed}>
                 {loading?<Spinner/>:!confirmed?"Confirm Details & Location First":payMode==="upi"?"Confirm UPI Payment Intent":payMode==="proforma"?"Request Proforma Invoice":payMode==="whatsapp"?"Confirm via WhatsApp":"Submit Order Intent"}
               </button>
-              <button style={{width:"100%",background:"#25D366",color:"#fff",border:"none",padding:"13px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}
+              <button style={{width:"100%",background:"#25D366",color:"#fff",border:"none",padding:"13px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I'd like to order: ${productNames}. Can you guide me through payment?`),"_blank")}>
                 <svg width={15} height={15} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp Support
@@ -2770,7 +2877,7 @@ function AccountView({setPage}:any){
   const [saved,setSaved]=useState(false);
   const set=(k:string,v:string)=>setProfile((p:any)=>({...p,[k]:v}));
   const save=()=>{localStorage.setItem("xiyora_profile",JSON.stringify(profile));setSaved(true);setTimeout(()=>setSaved(false),3000);};
-  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:12};
+  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,marginBottom:12};
   const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
   return(
     <div style={{background:C.white,minHeight:"70vh",padding:"56px 0"}}>
@@ -2796,7 +2903,7 @@ function AccountView({setPage}:any){
                 alert(`Location detected (${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}). Please enter your city and pincode manually for accurate delivery estimates.`);
                 localStorage.setItem("xiyora_geo",JSON.stringify({lat:pos.coords.latitude,lng:pos.coords.longitude,ts:Date.now()}));
               },()=>alert("Location access denied. Please enter your city and pincode manually."));
-            }} style={{background:C.beige,border:`1px solid ${C.sand}`,color:C.dark,padding:"10px 16px",borderRadius:3,fontSize:12,cursor:"pointer",fontFamily:"'Jost',sans-serif",display:"flex",alignItems:"center",gap:8,transition:"border-color .2s"}}
+            }} style={{background:C.beige,border:`1px solid ${C.sand}`,color:C.dark,padding:"10px 16px",borderRadius:3,fontSize:12,cursor:"pointer",fontFamily:"'Inter',sans-serif",display:"flex",alignItems:"center",gap:8,transition:"border-color .2s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold}
               onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
               <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -2902,14 +3009,14 @@ function ProofLibraryView({setPage}:any){
                 onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
                 <div style={{marginBottom:16}}>{c.icon}</div>
                 <span style={{fontSize:10,letterSpacing:"1.5px",textTransform:"uppercase",color:C.gold,fontWeight:500,background:"#F5EDE0",padding:"3px 10px",borderRadius:20,marginBottom:14,display:"inline-block"}}>{c.tag}</span>
-                <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontWeight:500,color:C.dark,margin:"10px 0 6px"}}>{c.title}</h3>
+                <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:20,fontWeight:500,color:C.dark,margin:"10px 0 6px"}}>{c.title}</h3>
                 <div style={{fontSize:11.5,color:C.gold,letterSpacing:".4px",marginBottom:10}}>{c.sub}</div>
                 <p style={{fontSize:13.5,color:"#666",lineHeight:1.78,fontWeight:400,flex:1}}>{c.body}</p>
                 {doc&&(
                   <div style={{marginTop:18}}>
                     <button
                       onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(doc.msg)}`,"_blank")}
-                      style={{display:"inline-flex",alignItems:"center",gap:8,padding:"11px 20px",background:"#25D366",color:"#fff",border:"none",borderRadius:3,fontSize:12,fontFamily:"'Jost',sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,cursor:"pointer",transition:"background .2s",width:"100%",justifyContent:"center"}}
+                      style={{display:"inline-flex",alignItems:"center",gap:8,padding:"11px 20px",background:"#25D366",color:"#fff",border:"none",borderRadius:3,fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,cursor:"pointer",transition:"background .2s",width:"100%",justifyContent:"center"}}
                       onMouseEnter={(e:any)=>e.currentTarget.style.background="#1ebe59"}
                       onMouseLeave={(e:any)=>e.currentTarget.style.background="#25D366"}>
                       <svg width={15} height={15} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
@@ -2926,7 +3033,7 @@ function ProofLibraryView({setPage}:any){
         <div className="proof-cta" style={{marginTop:56,background:"linear-gradient(135deg,#2D2D2D,#1a1a1a)",borderRadius:5,padding:"40px 44px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24,boxSizing:"border-box"}}>
           <div style={{flex:1,minWidth:0}}>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>Request Documentation</div>
-            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,maxWidth:480}}>Send us your company details and the specific documentation required. We will provide the relevant certificates from Bingxi's documentation library for your import/compliance team.</p>
           </div>
           <div className="proof-cta-btns" style={{display:"flex",gap:12,flexShrink:0,flexWrap:"wrap"}}>
@@ -2998,7 +3105,7 @@ function OrderStatusView({setPage}:any){
             <input
               value={ref} onChange={e=>setRef(e.target.value)} onKeyDown={e=>e.key==="Enter"&&lookup()}
               placeholder="e.g. EQ-0001" maxLength={12}
-              style={{flex:1,background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:15,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,letterSpacing:"1px"}}/>
+              style={{flex:1,background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:15,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,letterSpacing:"1px"}}/>
             <button className="bg" onClick={lookup} disabled={loading} style={{padding:"12px 24px",fontSize:12,letterSpacing:"1.5px",whiteSpace:"nowrap"}}>
               {loading?<Spinner/>:"Track →"}
             </button>
@@ -3020,7 +3127,7 @@ function OrderStatusView({setPage}:any){
           <div style={{border:`1px solid ${C.sand}`,borderRadius:5,overflow:"hidden",animation:"fadeInUp .3s ease"}}>
             <div style={{background:status.bg,borderBottom:`3px solid ${status.color}`,padding:"22px 26px"}}>
               <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:6}}>
-                <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:500,color:C.dark}}>{result.ref}</span>
+                <span style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:500,color:C.dark}}>{result.ref}</span>
                 <span style={{background:status.color,color:"#fff",padding:"3px 12px",borderRadius:20,fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500}}>{status.label}</span>
               </div>
               <p style={{fontSize:14,color:"#666",lineHeight:1.7,margin:0}}>{status.desc}</p>
@@ -3042,7 +3149,7 @@ function OrderStatusView({setPage}:any){
               <p style={{fontSize:12.5,color:"#aaa",marginTop:18,lineHeight:1.65}}>For the latest update or to make changes, contact us on WhatsApp with your reference number.</p>
               <div style={{display:"flex",gap:10,marginTop:14,flexWrap:"wrap"}}>
                 <a href={`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(`Hi XIYORA, I need an update on my order. Reference: ${result.ref}`)}`} target="_blank" rel="noreferrer"
-                  style={{background:"#25D366",color:"#fff",padding:"10px 18px",borderRadius:2,fontSize:12,letterSpacing:"1px",textTransform:"uppercase",textDecoration:"none",display:"flex",alignItems:"center",gap:6,fontFamily:"'Jost',sans-serif"}}>
+                  style={{background:"#25D366",color:"#fff",padding:"10px 18px",borderRadius:2,fontSize:12,letterSpacing:"1px",textTransform:"uppercase",textDecoration:"none",display:"flex",alignItems:"center",gap:6,fontFamily:"'Inter',sans-serif"}}>
                   <svg width={13} height={13} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                   WhatsApp Update
                 </a>
@@ -3110,7 +3217,7 @@ function AdminView(){
         <SL>Internal</SL>
         <SH>Admin Panel</SH>
         <p style={{fontSize:13,color:"#aaa",margin:"12px 0 24px",lineHeight:1.7}}>Enter your ADMIN_SECRET environment variable to access leads.</p>
-        <input type="password" value={pin} onChange={e=>setPin(e.target.value)} onKeyDown={e=>e.key==="Enter"&&unlock()} placeholder="Admin secret" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:14,borderRadius:3,fontFamily:"'Jost',sans-serif",marginBottom:12}}/>
+        <input type="password" value={pin} onChange={e=>setPin(e.target.value)} onKeyDown={e=>e.key==="Enter"&&unlock()} placeholder="Admin secret" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:14,borderRadius:3,fontFamily:"'Inter',sans-serif",marginBottom:12}}/>
         {err&&<p style={{color:"#cc4444",fontSize:12,marginBottom:12}}>{err}</p>}
         <button className="bg" onClick={unlock} style={{width:"100%",padding:13}} disabled={loading}>{loading?<Spinner/>:"Unlock"}</button>
       </div>
@@ -3127,7 +3234,7 @@ function AdminView(){
         </div>
         <div style={{display:"flex",gap:0,borderBottom:`1px solid ${C.sand}`,marginBottom:28}}>
           {tabs.map(([key,label])=>(
-            <button key={key} onClick={()=>setTab(key)} style={{background:"none",border:"none",padding:"12px 20px",fontSize:13,fontFamily:"'Jost',sans-serif",cursor:"pointer",color:tab===key?C.gold:"#888",borderBottom:`2px solid ${tab===key?C.gold:"transparent"}`,transition:"all .2s"}}>
+            <button key={key} onClick={()=>setTab(key)} style={{background:"none",border:"none",padding:"12px 20px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",color:tab===key?C.gold:"#888",borderBottom:`2px solid ${tab===key?C.gold:"transparent"}`,transition:"all .2s"}}>
               {label}
             </button>
           ))}
@@ -3173,7 +3280,7 @@ function SimplePage({title,content,setPage}:any){
       <div className="container" style={{maxWidth:780,padding:"52px 40px"}}>
         {content.map(([k,v]:string[],i:number)=>(
           <div key={i} style={{marginBottom:28,paddingBottom:28,borderBottom:i<content.length-1?`1px solid ${C.sand}`:"none"}}>
-            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:500,color:C.dark,marginBottom:8}}>{k}</h3>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,marginBottom:8}}>{k}</h3>
             <p style={{fontSize:14,color:"#777",lineHeight:1.82,fontWeight:300}}>{v}</p>
           </div>
         ))}

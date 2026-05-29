@@ -22,7 +22,8 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-- Storefront SPA: `artifacts/xiyora/src/App.tsx` (single file, ~3.2k lines). Global CSS/motion system is the `CSS` template string in that file; error wrapper `artifacts/xiyora/src/ErrorBoundary.tsx` wired in `main.tsx`.
+- Storefront SPA: `artifacts/xiyora/src/App.tsx` (single file, ~3.4k lines). Global CSS/motion system is the `CSS` template string in that file; error wrapper `artifacts/xiyora/src/ErrorBoundary.tsx` wired in `main.tsx`.
+- Design system (Asian-luxury editorial redesign): Playfair Display (headings) + Inter (body), loaded once via `index.html` (no CSS `@import`). Palette tokens `C`/`CD` include `ink`/`seal`/`taupe` keys. Reusable decorative components live just after `Reveal`: `Seal` (red 印 stamp), `GoldCloud`, `Sakura`, `Monogram` ("XIYORA / Crafted Comfort"), plus `Stagger` reveal wrapper. Motif CSS classes (`.serif .paper .ink-wash .seal .x-divider .x-link/.ar .x-frame .x-drift(-slow) .x-tag .brush-edge .x-stagger .cc-tag .feat-ic`) sit in the "ASIAN-LUXURY MOTIF SYSTEM" block; all animated classes are gated behind `prefers-reduced-motion`.
 - Product/category/document images: `artifacts/xiyora/public/assets/` (all 62 referenced assets present).
 - API routes: `artifacts/api-server/src/routes/{index,enquiries,subscriptions,checkoutIntents}.ts`; admin guard `artifacts/api-server/src/lib/adminAuth.ts`.
 - DB schema (source of truth): `lib/db/src/schema/{index,enquiries,subscriptions,checkoutIntents}.ts`.
