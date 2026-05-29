@@ -882,6 +882,8 @@ const DELIVERY_FEE:Record<PkgType,Record<string,number>>={
 const EXTRA_PKG_FACTOR:Record<PkgType,number>={small:0.5,medium:0.6,bulky:0.85};
 type CartItem={cartKey:string;productId:string;productName:string;sku:string;variantLabel:string;priceINR:string;priceUSD:string;priceNumINR:number;quoteRequired:boolean;image:string;quantity:number;};
 const EMPTY_FORM={name:"",company:"",email:"",phone:"",city:"",state:"",pincode:"",customerType:"Home Buyer",productName:"",selectedSize:"",quantity:"1",message:"",intent:"quote"};
+/** All 28 Indian states + 8 union territories (alphabetical). Used for state-selection dropdowns. */
+const INDIAN_STATES=["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu","Delhi (NCT)","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"];
 const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23EFE8DE'/%3E%3Crect x='220' y='140' width='160' height='120' rx='8' fill='%23D9CBB8'/%3E%3Ccircle cx='300' cy='165' r='22' fill='%23C8A97E' opacity='.6'/%3E%3Ctext x='300' y='290' text-anchor='middle' font-family='serif' font-size='14' fill='%23C8A97E' letter-spacing='3'%3EXIYORA%3C/text%3E%3C/svg%3E";
 
 /* ─── GLOBAL CSS ─────────────────────────────────────────── */
@@ -1118,19 +1120,22 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
     if(page==="product")return ["Hello XIYORA, I am interested in this product.",context?.product?`Product: ${context.product}`:"","Please share details and proforma."].filter(Boolean).join("\n");
     return "Hello XIYORA, I want help choosing premium latex products. Please share catalogue and guidance.";
   })();
+  const shownRef=useRef(false);
   useEffect(()=>{
-    let dismissed=false;
-    try{dismissed=!!sessionStorage.getItem("xiyora_whatsapp_popup_dismissed");}catch{}
-    if(dismissed)return;
-    const timer=setTimeout(()=>setVisible(true),9000);
+    // Show at most once per page load ("web restart"). Once shown or dismissed it
+    // will not re-trigger until the page is reloaded — no sessionStorage persistence.
+    let timer:ReturnType<typeof setTimeout>;
     const onScroll=()=>{
       const ratio=window.scrollY/Math.max(document.body.scrollHeight-window.innerHeight,1);
-      if(ratio>0.38)setVisible(true);
+      if(ratio>0.38)show();
     };
+    const cleanup=()=>{clearTimeout(timer);window.removeEventListener("scroll",onScroll);};
+    const show=()=>{if(shownRef.current)return;shownRef.current=true;setVisible(true);cleanup();};
+    timer=setTimeout(show,9000);
     window.addEventListener("scroll",onScroll,{passive:true});
-    return()=>{clearTimeout(timer);window.removeEventListener("scroll",onScroll);};
+    return cleanup;
   },[]);
-  const dismiss=()=>{try{sessionStorage.setItem("xiyora_whatsapp_popup_dismissed","1");}catch{}setVisible(false);};
+  const dismiss=()=>setVisible(false);
   if(!visible)return null;
   return(
     <div className="xiyora-whatsapp-popup" role="dialog" aria-label="XIYORA WhatsApp help"
@@ -1278,9 +1283,8 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
                 </div>
               )}
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 10px",marginTop:10}}>
-                {([["City","city","Mumbai"],["State","state","Maharashtra"]] as const).map(([l,k,ph])=>(
-                  <div key={k}><label style={lbl}>{l}</label><input style={inp} value={(f as any)[k]} onChange={e=>set(k,e.target.value)} placeholder={ph}/></div>
-                ))}
+                <div><label style={lbl}>City</label><input style={inp} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Mumbai"/></div>
+                <div><label style={lbl}>State</label><select style={inp} value={f.state} onChange={e=>set("state",e.target.value)}><option value="">Select state / UT…</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select></div>
               </div>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 14px"}}>
@@ -2400,6 +2404,12 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
     window.open(waMsg(msg),"_blank");
   };
 
+  const sendAddressWA=()=>{
+    const ref=savedId?`CHK-${String(savedId).padStart(4,"0")}`:"";
+    const msg=`Hi XIYORA, here is my delivery address${ref?` for order ${ref}`:""}:\n\nName: ${form.name}\nPhone: ${form.phone}${form.email?`\nEmail: ${form.email}`:""}\nDelivery to: ${form.city}, ${form.state} — ${form.pincode}\n\nItems: ${productNames}\n\nPlease confirm delivery and next steps.`;
+    window.open(waMsg(msg),"_blank");
+  };
+
   const printProforma=()=>{
     const dateStr=new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
     const ref=savedId?`CHK-${String(savedId).padStart(4,"0")}`:"DRAFT (unsaved)";
@@ -2501,8 +2511,10 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 Confirm on WhatsApp
               </button>
+              <button className="bg" onClick={sendAddressWA} style={{padding:"13px 26px",fontSize:12}}>Send Delivery Address</button>
               {cartTotalINR>0&&<button className="bo" onClick={printProforma} style={{padding:"13px 26px",fontSize:12}}>View / Print Proforma</button>}
             </div>
+            <p style={{fontSize:11.5,color:"#bbb",marginTop:14,lineHeight:1.6}}>Tap “Send Delivery Address” to share your full delivery address with us on WhatsApp so we can finalise dispatch.</p>
           </div>
         ):(
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:36,marginTop:32}} className="checkout-grid">
@@ -2564,7 +2576,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   <div><label style={lbl}>Phone / WhatsApp *</label><input style={inp("phone")} value={form.phone} onChange={e=>setF("phone",e.target.value)} placeholder="+91 XXXXX"/>{ferr("phone")}</div>
                   <div><label style={lbl}>Email</label><input style={inp("email")} type="email" value={form.email} onChange={e=>setF("email",e.target.value)} placeholder="your@email.com"/>{ferr("email")}</div>
                   <div><label style={lbl}>City *</label><input style={inp("city")} value={form.city} onChange={e=>setF("city",e.target.value)} placeholder="Mumbai"/>{ferr("city")}</div>
-                  <div><label style={lbl}>State *</label><input style={inp("state")} value={form.state} onChange={e=>setF("state",e.target.value)} placeholder="Maharashtra"/>{ferr("state")}</div>
+                  <div><label style={lbl}>State *</label><select style={inp("state")} value={form.state} onChange={e=>setF("state",e.target.value)}><option value="">Select state / UT…</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select>{ferr("state")}</div>
                   <div><label style={lbl}>Pincode *</label><input style={inp("pincode")} value={form.pincode} onChange={e=>setF("pincode",e.target.value.replace(/\D/g,""))} placeholder="421004" maxLength={6} inputMode="numeric"/>{ferr("pincode")}</div>
                 </div>
                 {!confirmed&&<button className="bg" onClick={confirmDetails} style={{width:"100%",padding:"12px",fontSize:11.5,marginTop:6}}>Confirm Details &amp; Location</button>}
