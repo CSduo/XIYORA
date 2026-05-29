@@ -1,0 +1,50 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "ZWYIXYROsApgGtyOdTA8V"
+uri = "file://artifacts/xiyora/public/assets/lux/hero-bedroom.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "iR9if7bnHtyEPv04KeKHE"
+uri = "file://artifacts/xiyora/public/assets/lux/bonsai-darkwood.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "xM6O96_2LpBwZnvDKDH2G"
+uri = "file://artifacts/xiyora/public/assets/lux/inkwash-landscape.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "JgXfwX3p3gqAvpBOb0l9q"
+uri = "file://artifacts/xiyora/public/assets/lux/vase-blossom.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "oXUsaFOYTZiqnVctEvZX-"
+uri = "file://artifacts/xiyora/public/assets/lux/latex-closeup.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "uX9N-6yTo0twzmPHWAijv"
+uri = "file://artifacts/xiyora/public/assets/lux/moongate-lounge.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "iljSTF9XS3es3AXlutdVJ"
+uri = "file://artifacts/xiyora/public/assets/lux/documents-still.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "BYkurNapmHdfZ2XRq1Uzv"
+uri = "file://artifacts/xiyora/public/assets/lux/handshake-business.png"
+type = "image"
+title = "generated_image"

@@ -1140,7 +1140,32 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .feat-ic:hover{transform:translateY(-4px)}
 .feat-ic .ring{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid ${C.sand};transition:border-color .4s,background .4s}
 .feat-ic:hover .ring{border-color:#C8A97E;background:rgba(200,169,126,.08)}
+/* ── LUX SPLIT HERO (mockup-faithful) ── */
+.lux-hero{position:relative;overflow:hidden;background:#F6F3EB}
+.lux-hero-photo{position:absolute;top:0;right:0;bottom:0;width:55%;overflow:hidden}
+.lux-hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center;animation:heroScale 2.2s cubic-bezier(.22,1,.36,1) both}
+.lux-hero-photo::before{content:'';position:absolute;top:0;bottom:0;left:-1px;width:42%;z-index:2;background:linear-gradient(to right,#F6F3EB 3%,rgba(246,243,235,.55) 46%,rgba(246,243,235,0));pointer-events:none}
+.lux-hero-photo::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(20,18,16,.16),transparent 42%);pointer-events:none}
+.lux-hero-inner{position:relative;z-index:4;min-height:82vh;display:flex;flex-direction:column;justify-content:center;max-width:560px;padding:74px 0}
+.lux-bamboo{position:absolute;top:0;left:0;height:100%;width:130px;z-index:1;opacity:.5;pointer-events:none}
+.feat-row{display:flex;gap:26px;flex-wrap:wrap}
+.feat-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;width:78px}
+.feat-item .fring{width:44px;height:44px;border-radius:50%;border:1px solid ${C.sand};display:flex;align-items:center;justify-content:center;transition:all .4s cubic-bezier(.22,1,.36,1)}
+.feat-item:hover .fring{border-color:#C8A97E;background:rgba(200,169,126,.08);transform:translateY(-3px)}
+.feat-item .flabel{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:${C.ink};line-height:1.45;font-weight:500}
+.icon-strip{display:flex;justify-content:center;align-items:flex-start;gap:0;flex-wrap:wrap}
+.icon-strip .ist{flex:1;min-width:120px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:11px;padding:10px 16px;position:relative}
+.icon-strip .ist:not(:last-child)::after{content:'';position:absolute;right:0;top:18%;height:64%;width:1px;background:${C.sand}}
+.icon-strip .ist .flabel{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#8a8378;font-weight:500;line-height:1.5}
+@media(max-width:900px){
+  .lux-hero-photo{position:relative;width:100%;height:300px}
+  .lux-hero-photo::before{background:linear-gradient(to top,#F6F3EB 1%,rgba(246,243,235,0) 40%)}
+  .lux-hero-inner{min-height:auto;padding:40px 0;max-width:none}
+  .lux-bamboo{display:none}
+}
+@media(max-width:560px){.icon-strip .ist{min-width:33%}.icon-strip .ist:nth-child(3)::after{display:none}}
 @media(prefers-reduced-motion:reduce){
+  .lux-hero-photo img{animation:none!important}
   .xiyora-reveal,.xiyora-premium-card,.xiyora-gold-button,.xiyora-whatsapp-popup,.ht1,.ht2,.ht3,.ht4,.ht5,.x-drift,.x-drift-slow,.x-stagger>*,.x-frame img,.x-frame .x-frame-img{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
   .wb::before{animation:none!important;opacity:0!important}
 }
@@ -1254,6 +1279,100 @@ function HeroMedia(){
       poster="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1800&q=85"
       style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 45%"}}
       onError={()=>setFailed(true)}/>
+  );
+}
+
+/* ─── LUX THIN-LINE ICON SET (mockup feature icons) ───────── */
+const LUX_ICONS:Record<string,React.ReactNode>={
+  leaf:<><path d="M11 20A7 7 0 019.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></>,
+  shield:<><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></>,
+  heart:<path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 00-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 000-7.8z"/>,
+  globe:<><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20a15 15 0 010-20z"/></>,
+  truck:<><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/></>,
+  clock:<><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></>,
+  headset:<><path d="M4 14v-3a8 8 0 0116 0v3"/><path d="M4 14a2 2 0 002 2h1v-5H6a2 2 0 00-2 2zM20 14a2 2 0 00-2-2h-1v5h1a2 2 0 002-2zM18 17v1a3 3 0 01-3 3h-3"/></>,
+  sliders:<><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></>,
+  check:<><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></>,
+  box:<><path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></>,
+  doc:<><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></>,
+  drop:<path d="M12 2.7s7 7.6 7 12.3a7 7 0 01-14 0c0-4.7 7-12.3 7-12.3z"/>,
+  wave:<><path d="M2 8c2.5-2 4.5-2 7 0s4.5 2 7 0M2 13c2.5-2 4.5-2 7 0s4.5 2 7 0M2 18c2.5-2 4.5-2 7 0s4.5 2 7 0"/></>,
+  hourglass:<><path d="M6 2h12M6 22h12M6 2c0 5 6 6 6 10M18 2c0 5-6 6-6 10M6 22c0-5 6-6 6-10M18 22c0-5-6-6-6-10"/></>,
+  handshake:<><path d="M11 17l2 2a1.4 1.4 0 002-2M13 19l2 2a1.4 1.4 0 002-2l1-1"/><path d="M2 12l3-3 5 5M22 12l-3-3-4 4"/><path d="M5 9V6l4-2 3 2 3-2 4 2v3"/></>,
+  craft:<><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></>,
+  bed:<><path d="M2 18v-7a2 2 0 012-2h16a2 2 0 012 2v7M2 14h20M2 18v2M22 18v2"/><path d="M6 9V7a1 1 0 011-1h3a1 1 0 011 1v2"/></>,
+};
+const LuxIcon=({name,size=22,color}:{name:string;size?:number;color?:string})=>(
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color||"#C8A97E"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>{LUX_ICONS[name]||LUX_ICONS.leaf}</svg>
+);
+/* Thin-line feature icon (vertical) used in heroes + strips */
+const FeatItem=({name,label}:{name:string;label:string})=>(
+  <div className="feat-item"><div className="fring"><LuxIcon name={name} size={20}/></div><div className="flabel">{label}</div></div>
+);
+/* Bamboo silhouette (left hero ornament) */
+const Bamboo=({className,style,color="#9aa08f"}:{className?:string;style?:React.CSSProperties;color?:string})=>(
+  <svg className={className} style={style} viewBox="0 0 120 600" fill="none" preserveAspectRatio="xMinYMin slice" aria-hidden>
+    <g stroke={color} strokeWidth="2.2" opacity=".7" fill="none">
+      <path d="M30 600V20M30 120h0M30 220h0M30 320h0"/>
+      <path d="M30 110q0 8 8 8M30 210q0 8 8 8M30 310q0 8 8 8M30 410q0 8 8 8"/>
+      <path d="M55 600V70"/>
+      <path d="M38 90q22-10 40-30M40 180q20-8 36-26M36 280q22-10 42-28M40 380q18-6 34-22" strokeWidth="1.5"/>
+      <path d="M62 130q18-12 34-34M64 230q16-10 30-30M60 330q20-12 38-30" strokeWidth="1.3" opacity=".6"/>
+    </g>
+  </svg>
+);
+
+/* ─── LUX SPLIT HERO (reusable, mockup-faithful) ──────────── */
+function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crumbs,seal,monoSize=1}:{
+  title:React.ReactNode;subtitle?:string;intro?:string;partner?:string;
+  features?:{name:string;label:string}[];ctas?:{label:string;onClick:()=>void;variant?:"primary"|"outline"|"dark"}[];
+  image:string;imageAlt:string;crumbs?:string;seal?:string;monoSize?:number;
+}){
+  const C=useC();
+  const [err,setErr]=useState(false);
+  return(
+    <section className="lux-hero paper">
+      <Bamboo className="lux-bamboo x-drift-slow"/>
+      <div className="lux-hero-photo x-frame">
+        <img src={err?"/assets/lux/hero-bedroom.png":image} alt={imageAlt} onError={()=>setErr(true)}/>
+        <GoldCloud className="x-drift" size={150} opacity={.3} style={{position:"absolute",top:"9%",right:"7%",zIndex:3,pointerEvents:"none"}}/>
+      </div>
+      <div className="container">
+        <div className="lux-hero-inner">
+          {crumbs&&<div className="ht1" style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:C.taupe,marginBottom:22}}>{crumbs}</div>}
+          <div className="ht1" style={{marginBottom:20}}><Monogram color={C.gold} size={monoSize}/></div>
+          <h1 className="ht2 serif" style={{fontSize:"clamp(2.3rem,4.4vw,3.7rem)",fontWeight:500,lineHeight:1.1,color:C.dark,margin:"4px 0 0"}}>{title}</h1>
+          {subtitle&&<div className="ht2" style={{display:"flex",alignItems:"center",gap:12,margin:"16px 0 0"}}>
+            <span style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
+            {seal&&<Seal ch={seal}/>}
+          </div>}
+          {intro&&<p className="ht3" style={{fontSize:14.5,color:C.ink,lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:400}}>{intro}</p>}
+          {partner&&<p className="ht3" style={{fontSize:12,letterSpacing:"1px",color:C.taupe,margin:"14px 0 0",display:"flex",alignItems:"center",gap:10}}><span style={{width:24,height:1,background:C.gold,display:"inline-block"}}/>{partner}</p>}
+          {features&&features.length>0&&<div className="feat-row ht4" style={{margin:"30px 0 0"}}>
+            {features.map((f,i)=><FeatItem key={i} name={f.name} label={f.label}/>)}
+          </div>}
+          {ctas&&ctas.length>0&&<div className="ht5" style={{display:"flex",gap:13,flexWrap:"wrap",margin:"34px 0 0"}}>
+            {ctas.map((c,i)=>(
+              <button key={i} onClick={c.onClick}
+                className={c.variant==="outline"?"bo xiyora-gold-button":c.variant==="dark"?"xiyora-gold-button":"bg xiyora-gold-button"}
+                style={c.variant==="dark"?{background:C.char,color:"#F0EBE3",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",cursor:"pointer",borderRadius:2,fontWeight:500}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
+            ))}
+          </div>}
+        </div>
+      </div>
+    </section>
+  );
+}
+/* Reusable thin-line icon strip (recurring promise band) */
+function IconStrip({items,bg}:{items:{name:string;label:string}[];bg?:string}){
+  return(
+    <section style={{background:bg||"#F3EFE5",borderTop:`1px solid #E5DFCD`,borderBottom:`1px solid #E5DFCD`,padding:"30px 0"}}>
+      <div className="container"><Stagger className="icon-strip">
+        {items.map((it,i)=>(
+          <div key={i} className="ist"><LuxIcon name={it.name} size={26}/><div className="flabel">{it.label}</div></div>
+        ))}
+      </Stagger></div>
+    </section>
   );
 }
 
@@ -1901,14 +2020,17 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
   const filtered=cat?PRODUCTS.filter(p=>p.category===cat):PRODUCTS;
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(135deg,#EFE8DE 0%,#F8F6F2 100%)",padding:"52px 0 44px"}}>
-        <div className="container">
-          <SL>Official Bingxi Partner Catalogue</SL>
-          <SH>Natural Latex Comfort Products</SH>
-          <p style={{fontSize:14.5,color:"#888",marginTop:12,maxWidth:540,lineHeight:1.75,fontWeight:300}}>Premium Talalay & Dunlop latex pillows, mattresses, toppers, and cushions. Indicative prices — final quotes confirmed after your city and quantity.</p>
-        </div>
-      </div>
-      <div style={{borderBottom:`1px solid ${C.sand}`,position:"sticky",top:68,zIndex:10,background:"rgba(248,246,242,.97)",backdropFilter:"blur(12px)"}}>
+      <LuxHero
+        crumbs="Home · Collections"
+        title={<>The Bingxi <em style={{color:C.gold}}>Collection</em></>}
+        subtitle="Natural Latex, Curated for India"
+        seal="选"
+        intro="Premium Talalay & Dunlop latex pillows, mattresses, toppers, and cushions. Indicative prices — final quotes confirmed after your city and quantity."
+        features={[{name:"bed",label:"Mattresses"},{name:"leaf",label:"Toppers"},{name:"heart",label:"Pillows"},{name:"craft",label:"Cushions"}]}
+        image="/assets/lux/inkwash-landscape.png"
+        imageAlt="Ink-wash mountain landscape"
+      />
+      <div style={{borderBottom:`1px solid ${C.sand}`,position:"sticky",top:62,zIndex:10,background:"rgba(248,246,242,.97)",backdropFilter:"blur(12px)"}}>
         <div className="container" style={{display:"flex",overflowX:"auto"}}>
           {CATS.map(c=>(
             <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:"#888",borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
@@ -1979,56 +2101,64 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
   };
   return(
     <div>
-      {/* HERO — VIDEO FIRST, EDITORIAL */}
-      <section style={{position:"relative",height:"92vh",minHeight:600,overflow:"hidden",display:"flex",alignItems:"center",background:C.char}} className="hero-h">
-        <HeroMedia/>
-        <div className="xiyora-video-overlay" style={{position:"absolute",inset:0}}/>
-        {/* floating gold cloud ornaments */}
-        <GoldCloud className="x-drift" size={180} opacity={.3} style={{position:"absolute",top:"12%",right:"6%",pointerEvents:"none"}}/>
-        <GoldCloud className="x-drift-slow" size={130} opacity={.22} style={{position:"absolute",bottom:"16%",right:"22%",pointerEvents:"none"}}/>
-        <div className="container" style={{position:"relative",width:"100%"}}>
-          <div style={{maxWidth:620}}>
-            <div className="ht1" style={{marginBottom:24}}><Monogram color="#E9D6B4" size={1.05}/></div>
-            <p className="sl ht1" style={{color:"#E2C79B",textShadow:"0 2px 12px rgba(0,0,0,.5)",display:"flex",alignItems:"center",gap:12}}>
-              <span style={{display:"inline-block",width:28,height:1,background:"#E2C79B"}}/>Official Bingxi Partner for India
-            </p>
-            <h1 className="ht2 hh" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(3rem,5.4vw,5.6rem)",fontWeight:500,lineHeight:1.07,color:"#FCFAF6",margin:"6px 0 22px",textShadow:"0 3px 24px rgba(0,0,0,.45)"}}>
-              Premium Latex Comfort,<br/><em style={{color:"#E9D6B4"}}>Sourced for India.</em>
-            </h1>
-            <p className="ht3" style={{fontSize:16,color:"rgba(255,250,242,.92)",lineHeight:1.82,marginBottom:32,fontWeight:400,maxWidth:480,textShadow:"0 1px 10px rgba(0,0,0,.4)"}}>
-              The Bingxi partner catalogue of natural Talalay & Dunlop latex pillows, mattresses & toppers — available through XIYORA, delivered across India.
-            </p>
-            <div className="ht4" style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:26}}>
-              <button className="bg xiyora-gold-button" onClick={onCatalog} style={{padding:"15px 34px",fontSize:12,letterSpacing:"2.5px"}}>Explore Products</button>
-              <button className="xiyora-gold-button" onClick={onSupplier} style={{padding:"15px 32px",fontSize:12,fontFamily:"'Inter',sans-serif",fontWeight:600,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",background:"rgba(255,255,255,0.08)",border:"1.5px solid rgba(255,255,255,.85)",color:"#fff",borderRadius:2,backdropFilter:"blur(4px)",transition:"all .3s"}} onMouseEnter={(e:any)=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color=C.dark;}} onMouseLeave={(e:any)=>{e.currentTarget.style.background="rgba(255,255,255,0.08)";e.currentTarget.style.color="#fff";}}>For Businesses</button>
-            </div>
-            <p className="ht5" style={{fontSize:12,color:"rgba(255,250,242,.82)",letterSpacing:".8px",display:"flex",gap:18,flexWrap:"wrap",fontWeight:500,textShadow:"0 1px 8px rgba(0,0,0,.4)"}}>
-              <span>✓ Documents on request</span><span>✓ Proforma before payment</span><span>✓ Domestic delivery estimate</span>
-            </p>
-          </div>
-        </div>
-        {/* scroll cue */}
-        <div className="x-drift" style={{position:"absolute",bottom:26,left:"50%",transform:"translateX(-50%)",display:"flex",flexDirection:"column",alignItems:"center",gap:7,color:"rgba(255,250,242,.7)",pointerEvents:"none"}}>
-          <span style={{fontSize:9.5,letterSpacing:"2.5px",textTransform:"uppercase"}}>Scroll</span>
-          <svg width={14} height={22} viewBox="0 0 14 22" fill="none"><rect x="1" y="1" width="12" height="20" rx="6" stroke="rgba(255,250,242,.6)"/><circle cx="7" cy="7" r="2" fill="rgba(255,250,242,.85)"/></svg>
-        </div>
-      </section>
-      {/* FEATURE BAR */}
-      <section style={{background:C.char}}>
-        <div className="container">
+      {/* HERO — LUX SPLIT (mockup-faithful) */}
+      <LuxHero
+        title={<>Premium Latex Comfort,<br/><em style={{color:C.gold}}>Sourced for India.</em></>}
+        partner="Official Bingxi Partner for India"
+        seal="信"
+        intro="The Bingxi partner catalogue of natural Talalay & Dunlop latex pillows, mattresses & toppers — available through XIYORA, delivered across India."
+        features={[{name:"leaf",label:"Natural Latex"},{name:"shield",label:"Premium Quality"},{name:"heart",label:"Crafted for Comfort"},{name:"globe",label:"Sourced Responsibly"}]}
+        ctas={[{label:"Explore Products",onClick:onCatalog,variant:"dark"},{label:"For Businesses",onClick:onSupplier,variant:"outline"}]}
+        image="/assets/lux/hero-bedroom.png"
+        imageAlt="XIYORA natural latex bed in a serene moon-gate bedroom"
+        monoSize={1.05}
+      />
+      {/* QUICK-NAV BAND (dark) */}
+      <section style={{background:C.char,position:"relative",overflow:"hidden"}}>
+        <img src="/assets/lux/bonsai-darkwood.png" alt="" aria-hidden style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.32,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)"}}/>
+        <div className="container" style={{position:"relative"}}>
           <div className="grid-4" style={{gap:0}}>
-            {[["◈","Natural Latex Quality","Talalay & Dunlop from Bingxi"],["◉","Certificates Available","On request before ordering"],["◎","Pan-India Delivery","Shipping & import in your quote"],["◇","B2B & Retail","Bulk pricing for trade buyers"]].map(([ic,t,d],i)=>(
-              <div key={i} style={{display:"flex",alignItems:"center",gap:14,padding:"22px 24px",borderRight:i<3?"1px solid #252525":"none"}}>
-                <span style={{fontSize:20,color:C.gold,flexShrink:0}}>{ic}</span>
+            {[
+              {ic:"box",t:"Explore Products",d:"Mattresses, Toppers & More",fn:onCatalog},
+              {ic:"handshake",t:"For Businesses",d:"Solutions for Hotels, Retail & Institutions",fn:onSupplier},
+              {ic:"doc",t:"Documents",d:"Certifications & Reports",fn:()=>onInquire(null,"general")},
+              {ic:"globe",t:"B2B Portal",d:"Official Bingxi Partner for India",fn:onSupplier},
+            ].map((q,i)=>(
+              <button key={i} type="button" onClick={q.fn} aria-label={`${q.t} — ${q.d}`} style={{display:"flex",alignItems:"flex-start",gap:14,padding:"30px 26px",borderRight:i<3?"1px solid #262320":"none",border:"none",borderTop:"none",borderBottom:"none",borderLeft:"none",background:"transparent",textAlign:"left",width:"100%",cursor:"pointer",transition:"background .3s"}}
+                onMouseEnter={(e:any)=>e.currentTarget.style.background="rgba(200,169,126,.05)"}
+                onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
+                <LuxIcon name={q.ic} size={24}/>
                 <div>
-                  <div style={{fontSize:13,fontWeight:500,color:"#F0EBE3",marginBottom:2}}>{t}</div>
-                  <div style={{fontSize:11.5,color:"#555"}}>{d}</div>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:16,fontWeight:500,color:"#F0EBE3",marginBottom:4}}>{q.t}</div>
+                  <div style={{fontSize:11.5,color:"#8a8378",lineHeight:1.5}}>{q.d}</div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
       </section>
+      {/* OUR PROMISE — 3-UP (latex / sage statement / vase) */}
+      <section style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr"}} className="promise-3up">
+        <div className="x-frame" style={{position:"relative",minHeight:340,overflow:"hidden"}}>
+          <img src="/assets/lux/latex-closeup.png" alt="Natural latex close-up" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}}/>
+          <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,18,16,.7),transparent 55%)"}}/>
+          <div style={{position:"absolute",left:0,bottom:0,padding:"26px 24px"}}>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:19,color:"#fff",fontWeight:500}}>Pure by Nature,<br/>Perfected by Science</div>
+            <p style={{fontSize:11.5,color:"rgba(255,255,255,.78)",marginTop:8,lineHeight:1.6,maxWidth:230}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
+          </div>
+        </div>
+        <div style={{background:"#7c8270",display:"flex",flexDirection:"column",justifyContent:"center",padding:"48px 40px",color:"#fff",minHeight:340}}>
+          <span style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"rgba(255,255,255,.7)",marginBottom:18}}>Our Promise</span>
+          <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.7rem,2.6vw,2.4rem)",fontWeight:500,lineHeight:1.18}}>Elevating Everyday Rest Into an Art of Living.</h3>
+          <div style={{marginTop:22}}><Seal ch="美" style={{borderColor:"rgba(255,255,255,.7)",color:"#fff"}}/></div>
+        </div>
+        <div className="x-frame" style={{position:"relative",minHeight:340,overflow:"hidden"}}>
+          <img src="/assets/lux/vase-blossom.png" alt="Ink-wash still life" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}}/>
+        </div>
+      </section>
+      <style>{`@media(max-width:860px){.promise-3up{grid-template-columns:1fr!important}}`}</style>
+      {/* PROMISE ICON STRIP */}
+      <IconStrip items={[{name:"leaf",label:"Sustainable Sourcing"},{name:"wave",label:"Exceptional Breathability"},{name:"drop",label:"Pressure Relief"},{name:"hourglass",label:"Long-Lasting Durability"},{name:"shield",label:"Certified Quality"}]}/>
       {/* BUYER BEST-FIT SELECTOR */}
       <BuyerBestFit onCatFilter={onCatFilter} onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
       {/* CATEGORIES */}
@@ -2337,64 +2467,57 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
 }
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
-function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar}:any){
-  const C=useC();
+function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar,onSupplier}:any){
+  const NAVBG="rgba(22,19,16,.97)";
   return(
-    <nav style={{position:"sticky",top:0,zIndex:200,background:scrolled?(theme==="dark"?"rgba(15,15,13,.97)":"rgba(248,246,242,.97)"):C.white,borderBottom:`1px solid ${C.sand}`,backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 28px rgba(0,0,0,.07)":"none",transition:"all .35s ease"}}>
-      <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:68}}>
+    <nav style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(200,169,126,.18)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 30px rgba(0,0,0,.32)":"none",transition:"all .35s ease"}}>
+      {/* corner ornament top-left */}
+      <svg className="nav-ornament" width={26} height={26} viewBox="0 0 26 26" fill="none" style={{position:"absolute",top:6,left:10,opacity:.55,pointerEvents:"none"}} aria-hidden>
+        <path d="M2 13c0-6 5-11 11-11" stroke="#C8A97E" strokeWidth="1"/><path d="M2 8c0-3 3-6 6-6" stroke="#C8A97E" strokeWidth=".7" opacity=".6"/><circle cx="13" cy="2" r="1.3" fill="#C8A97E"/>
+      </svg>
+      <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
         <div style={{display:"flex",alignItems:"center",gap:4}}>
-          <button onClick={onSidebar} className="ib" title="Menu" aria-label="Open menu">
+          <button onClick={onSidebar} className="ib" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8"}}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
           </button>
-          <div className="nc" style={{display:"flex",gap:18,alignItems:"center",marginLeft:6}}>
-            {[["Mattresses","Mattresses"],["Pillows","Pillows"],["Toppers","Toppers"],["Collections","catalog"],["For B2B","supplier"]].map(([l,v])=>(
-              <button key={l} className="nl" style={{fontSize:11,color:page===v?C.gold:C.dark}} onClick={()=>{
-                if(["Mattresses","Pillows","Toppers","Cushions"].includes(v))onCatFilter(v);
-                else if(v==="catalog")onCatalog();
+          <div className="nc" style={{display:"flex",gap:20,alignItems:"center",marginLeft:8}}>
+            {[["Home","home"],["Products","catalog"],["Collections","catalog"],["About XIYORA","about"],["Partnership","supplier"],["Contact","contact"]].map(([l,v],i)=>(
+              <button key={i} className="nl" style={{fontSize:11,color:page===v?"#E6C89A":"#D9CBB8",letterSpacing:"1.4px"}} onClick={()=>{
+                if(v==="catalog")onCatalog();
                 else{window.history.pushState({page:v},"",`/${v}`);setPage(v);}
               }}>{l}</button>
             ))}
           </div>
         </div>
-        {/* Center: Indian ornaments + XIYORA */}
-        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,cursor:"pointer"}} onClick={()=>setPage("home")}>
-          <svg className="nav-ornament" width={36} height={22} viewBox="0 0 36 22" fill="none" style={{flexShrink:0,opacity:.75}}>
-            <path d="M34 11 C26 3, 14 1, 4 11 C14 21, 26 21, 34 11Z" stroke="#C8A97E" strokeWidth="1" fill="none"/>
-            <path d="M29 11 C22 5.5, 14 4.5, 9 11 C14 17.5, 22 16.5, 29 11Z" stroke="#C8A97E" strokeWidth=".7" fill="none" opacity=".5"/>
-            <circle cx="4" cy="11" r="1.8" fill="#C8A97E" opacity=".75"/>
-            <line x1="18" y1="1" x2="18" y2="4" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
-            <line x1="18" y1="18" x2="18" y2="21" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
-            <circle cx="18" cy="11" r="1" fill="#C8A97E" opacity=".35"/>
+        {/* Center: circle-X monogram + XIYORA */}
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:9,cursor:"pointer"}} onClick={()=>setPage("home")} title="XIYORA — Home">
+          <svg width={26} height={26} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
+            <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/><circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
           </svg>
-          <div style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:600,letterSpacing:6,color:C.dark,lineHeight:1,userSelect:"none"}}>XIYORA</div>
-          <svg className="nav-ornament" width={36} height={22} viewBox="0 0 36 22" fill="none" style={{flexShrink:0,opacity:.75}}>
-            <path d="M2 11 C10 3, 22 1, 32 11 C22 21, 10 21, 2 11Z" stroke="#C8A97E" strokeWidth="1" fill="none"/>
-            <path d="M7 11 C14 5.5, 22 4.5, 27 11 C22 17.5, 14 16.5, 7 11Z" stroke="#C8A97E" strokeWidth=".7" fill="none" opacity=".5"/>
-            <circle cx="32" cy="11" r="1.8" fill="#C8A97E" opacity=".75"/>
-            <line x1="18" y1="1" x2="18" y2="4" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
-            <line x1="18" y1="18" x2="18" y2="21" stroke="#C8A97E" strokeWidth="1" opacity=".55"/>
-            <circle cx="18" cy="11" r="1" fill="#C8A97E" opacity=".35"/>
-          </svg>
+          <div style={{fontFamily:"'Playfair Display',serif",fontSize:23,fontWeight:600,letterSpacing:6,color:"#F2EADB",lineHeight:1,userSelect:"none"}}>XIYORA</div>
         </div>
-        {/* Right: Currency, Search, Cart */}
+        {/* Right: Currency, Search, Cart, B2B Portal */}
         <div style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
-          <select value={cur} onChange={e=>setCur(e.target.value)} title={CURRENCY_DISCLAIMER} aria-label="Display currency" style={{background:C.beige,color:C.dark,border:"none",borderRadius:16,padding:"5px 9px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px"}}>
-            {CURRENCIES.map(c=>(<option key={c} value={c}>{c}</option>))}
+          <select value={cur} onChange={e=>setCur(e.target.value)} title={CURRENCY_DISCLAIMER} aria-label="Display currency" style={{background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.25)",borderRadius:16,padding:"5px 9px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px"}}>
+            {CURRENCIES.map(c=>(<option key={c} value={c} style={{background:"#1a1714"}}>{c}</option>))}
           </select>
-          <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} style={{background:C.beige,border:"none",borderRadius:16,padding:"5px 11px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",color:C.dark,transition:"all .2s",letterSpacing:".2px",whiteSpace:"nowrap"}}>{theme==="dark"?"☀ Light":"◑ Dark"}</button>
-          <button className="ib" onClick={onSearch} title="Search">
+          <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} className="ib" style={{color:"#D9CBB8",fontSize:13,padding:"4px 6px"}}>{theme==="dark"?"☀":"◑"}</button>
+          <button className="ib" onClick={onSearch} title="Search" style={{color:"#D9CBB8"}}>
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className="ib" onClick={onCheckout} style={{position:"relative"}} title="Wishlist / Saved">
-            <svg width={17} height={17} fill={wl&&wl.length?C.gold:"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            {wl&&wl.length>0&&<span style={{position:"absolute",top:-5,right:-5,background:C.gold,color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
+          <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8"}} title="Wishlist / Saved">
+            <svg width={17} height={17} fill={wl&&wl.length?"#C8A97E":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            {wl&&wl.length>0&&<span style={{position:"absolute",top:-5,right:-5,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
           </button>
-          <button className="ib" onClick={onCheckout} style={{position:"relative"}} title="Basket / Checkout">
+          <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8"}} title="Basket / Checkout">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            {cartCount>0&&<span style={{position:"absolute",top:-5,right:-5,background:C.gold,color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{cartCount}</span>}
+            {cartCount>0&&<span style={{position:"absolute",top:-5,right:-5,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{cartCount}</span>}
+          </button>
+          <button className="nc-item" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:"#E6C89A",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
+            <LuxIcon name="globe" size={15} color="#E6C89A"/>B2B Portal
           </button>
         </div>
       </div>
@@ -2472,6 +2595,15 @@ function Footer({setPage,onInquire,onSubscribe}:any){
             <p style={{fontSize:13,color:"#888",lineHeight:1.78,marginBottom:16}}>Product launches, B2B updates, and comfort insights.</p>
             <button className="bg" style={{width:"100%",padding:12,fontSize:12}} onClick={onSubscribe}>Join XIYORA</button>
             <p style={{fontSize:11.5,color:"#666",lineHeight:1.7,marginTop:16,maxWidth:220}}>{BIZ.address}</p>
+          </div>
+        </div>
+        {/* signature bar */}
+        <div style={{textAlign:"center",padding:"6px 0 34px",position:"relative"}}>
+          <div className="x-divider" style={{margin:"0 auto 16px",color:"#C8A97E"}}>❖</div>
+          <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,letterSpacing:"3px",color:"#E9D6B4"}}>XIYORA · Crafted Comfort</div>
+          <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:10}}>
+            <span style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#8a8378"}}>Considered Luxury</span>
+            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #9E3B2E",color:"#C04A39",fontFamily:"'Playfair Display',serif",fontSize:13,borderRadius:2}}>印</span>
           </div>
         </div>
         <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
@@ -3270,21 +3402,42 @@ function AdminView(){
 }
 
 /* ─── SIMPLE PAGE ────────────────────────────────────────── */
+const SIMPLE_HERO:Record<string,{img:string;seal:string;subtitle:string;crumbs:string;features?:{name:string;label:string}[]}>={
+  "For B2B Buyers":{img:"/assets/lux/handshake-business.png",seal:"商",subtitle:"Partnership, Considered",crumbs:"Home · Partnership",features:[{name:"box",label:"Bulk Pricing"},{name:"sliders",label:"Custom Specs"},{name:"shield",label:"Private Label"},{name:"headset",label:"Dedicated Support"}]},
+  "About XIYORA":{img:"/assets/lux/inkwash-landscape.png",seal:"心",subtitle:"Crafted Comfort, Considered Luxury",crumbs:"Home · About XIYORA"},
+  "Contact XIYORA":{img:"/assets/lux/moongate-lounge.png",seal:"和",subtitle:"Let Us Guide You",crumbs:"Home · Contact",features:[{name:"headset",label:"WhatsApp"},{name:"doc",label:"Email"},{name:"clock",label:"24–48h Reply"},{name:"globe",label:"@xiyora.zi"}]},
+  "FAQ":{img:"/assets/lux/documents-still.png",seal:"问",subtitle:"Answers, Honestly",crumbs:"Home · Resources · FAQ"},
+};
 function SimplePage({title,content,setPage}:any){
   const C=useC();
+  const h=SIMPLE_HERO[title]||{img:"/assets/lux/inkwash-landscape.png",seal:"印",subtitle:"XIYORA",crumbs:`Home · ${title}`};
   return(
     <div style={{background:C.white}}>
-      <div style={{background:"linear-gradient(135deg,#EFE8DE 0%,#F8F6F2 100%)",padding:"52px 0 44px"}}>
-        <div className="container"><SH>{title}</SH></div>
-      </div>
-      <div className="container" style={{maxWidth:780,padding:"52px 40px"}}>
+      <LuxHero
+        crumbs={h.crumbs}
+        title={<span style={{color:C.dark}}>{title}</span>}
+        subtitle={h.subtitle}
+        seal={h.seal}
+        features={h.features}
+        image={h.img}
+        imageAlt={title}
+      />
+      <div className="container" style={{maxWidth:820,padding:"56px 40px"}}>
+        <div className="grid-2" style={{gap:"22px 36px",alignItems:"start"}}>
         {content.map(([k,v]:string[],i:number)=>(
-          <div key={i} style={{marginBottom:28,paddingBottom:28,borderBottom:i<content.length-1?`1px solid ${C.sand}`:"none"}}>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,marginBottom:8}}>{k}</h3>
-            <p style={{fontSize:14,color:"#777",lineHeight:1.82,fontWeight:300}}>{v}</p>
+          <div key={i} style={{padding:"22px 22px",background:C.white,borderTop:`2px solid ${C.gold}`,borderRadius:3,boxShadow:"0 1px 12px rgba(0,0,0,.04)"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:9}}>
+              <LuxIcon name={["box","sliders","shield","craft","globe","doc","clock","headset"][i%8]} size={18}/>
+              <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,margin:0}}>{k}</h3>
+            </div>
+            <p style={{fontSize:14,color:C.ink,lineHeight:1.82,fontWeight:400}}>{v}</p>
           </div>
         ))}
-        <button className="bg" onClick={()=>setPage("home")} style={{marginTop:20}}>Back to Home</button>
+        </div>
+        <div style={{display:"flex",gap:12,marginTop:32,flexWrap:"wrap"}}>
+          <button className="bg" onClick={()=>setPage("home")}>Back to Home</button>
+          <button className="bo" onClick={()=>window.open(waMsg("Hi XIYORA, I have a question."),"_blank")} style={{padding:"13px 26px",fontSize:12,letterSpacing:"1.5px"}}>Chat on WhatsApp</button>
+        </div>
       </div>
     </div>
   );
@@ -3326,7 +3479,22 @@ export default function App(){
   useEffect(()=>{try{localStorage.setItem("xiyora_wishlist",JSON.stringify(wl));}catch{}},[wl]);
   useEffect(()=>{try{localStorage.setItem("xiyora_cart",JSON.stringify(cart));}catch{}},[cart]);
   useEffect(()=>{
-    window.history.replaceState({page:"home"},"",window.location.pathname||"/");
+    const VALID=["home","catalog","checkout","account","proof","order-status","supplier","about","contact","faq","shipping","returns","privacy","terms"];
+    const segs=(window.location.pathname||"/").split("/").filter(Boolean);
+    const first=segs[0]||"home";
+    let initPage="home";const initState:any={page:"home"};
+    if(first==="products"){initPage="catalog";initState.page="catalog";initState.activeCat=null;setPage("catalog");setActiveCat(null);}
+    else if(first==="category"&&segs[1]){
+      const slug=segs[1];const match=CATS.find(c=>c.filter&&c.filter.toLowerCase().replace(/\s+/g,"-")===slug);
+      const cat=match?match.filter:null;initPage="catalog";initState.page="catalog";initState.activeCat=cat;setPage("catalog");setActiveCat(cat);
+    }
+    else if(first==="product"&&segs[1]){
+      const prod=PRODUCTS.find(p=>p.id===segs[1]);
+      if(prod){initPage="product";initState.page="product";initState.selProd=prod;setPage("product");setSelProd(prod);}
+    }
+    else if(VALID.includes(first)){initPage=first;initState.page=first;if(first!=="home")setPage(first);}
+    window.history.replaceState(initState,"",window.location.pathname||"/");
+    void initPage;
     const onPop=(e:PopStateEvent)=>{
       const s=e.state;
       if(s?.page){setPage(s.page);if(s.selProd!==undefined)setSelProd(s.selProd);if(s.activeCat!==undefined)setActiveCat(s.activeCat);}
@@ -3396,7 +3564,7 @@ export default function App(){
       <Navbar page={page} setPage={setPage} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl} cartCount={cart.length}
         theme={theme} toggleTheme={toggleTheme}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
-        onCheckout={()=>navigateTo("checkout")} onSidebar={()=>setShowSidebar(true)}/>
+        onCheckout={()=>navigateTo("checkout")} onSidebar={()=>setShowSidebar(true)} onSupplier={()=>navigateTo("supplier")}/>
       <main style={{minHeight:"80vh",paddingBottom:2}}>{renderView()}</main>
       <Footer setPage={setPage} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
       {/* WhatsApp FAB — positioned above any potential Replit badge */}
