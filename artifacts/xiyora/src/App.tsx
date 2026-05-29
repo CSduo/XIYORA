@@ -1086,7 +1086,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 /* ── BOTTOM SAFE AREA (avoid WhatsApp FAB overlap) ── */
 .safe-bottom{padding-bottom:90px}
 /* ── MOBILE ORNAMENT ── */
-@media(max-width:480px){.nav-ornament{display:none!important}}
+@media(max-width:640px){.nav-ornament{display:none!important}}
 /* ── V3 PREMIUM MOTION SYSTEM ── */
 .xiyora-reveal{opacity:0;transform:translateY(22px);filter:blur(6px);transition:opacity .76s cubic-bezier(.22,1,.36,1),transform .76s cubic-bezier(.22,1,.36,1),filter .76s cubic-bezier(.22,1,.36,1)}
 .xiyora-reveal.is-visible{opacity:1;transform:translateY(0);filter:blur(0)}
@@ -1199,6 +1199,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
   .trust-item{justify-content:flex-start}
 }
 @media(max-width:560px){.lux-feat-row{flex-wrap:wrap;gap:18px 0}.lux-feat-row .lf{flex:0 0 50%}.lux-feat-row .lf::after{display:none}.trust-grid{grid-template-columns:1fr!important}.biz-feats{grid-template-columns:1fr 1fr!important}}
+.lux-hero-copy{align-items:flex-start}.lux-brand-lock{align-self:flex-start}
+@media(max-width:900px){.lux-hero-copy{align-items:center;text-align:center}.lux-brand-lock{align-self:center}.lux-hero-copy p{margin-left:auto!important;margin-right:auto!important}.lux-bingxi{justify-content:center}.lux-cta-row{justify-content:center}.lux-feat-row{margin-left:auto!important;margin-right:auto!important}}
+.nav-cartouche{transition:background .3s}
+@media(max-width:640px){.nav-brand-sub{display:none!important}.nav-cartouche{padding:3px 12px!important}.nav-brand-x{font-size:18px!important;letter-spacing:3px!important}.nav-mono{width:20px!important;height:20px!important}.nav-right{gap:1px!important}.nav-cur{padding:4px 5px!important;font-size:10px!important}}
+@media(max-width:430px){.nav-theme{display:none!important}.nav-wish{display:none!important}}
 @media(prefers-reduced-motion:reduce){.petal{display:none!important}.deco-float{animation:none!important}}
 @media(prefers-reduced-motion:reduce){
   .lux-hero-photo img{animation:none!important}
@@ -1461,6 +1466,28 @@ const MonoMark=({size=42,color="#C8A97E"}:{size?:number;color?:string})=>(
     <circle cx="24" cy="24" r="3.2" fill={color}/>
   </svg>
 );
+/* Floral rosette (apex of arched cartouche) */
+const Rosette=({size=24}:{size?:number})=>(
+  <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden style={{display:"block"}}>
+    <g transform="translate(20 20)">
+      {[0,45,90,135,180,225,270,315].map(a=>(<ellipse key={a} cx="0" cy="-11" rx="3.6" ry="8" fill="#C8A97E" opacity=".82" transform={`rotate(${a})`}/>))}
+      <circle r="6.6" fill="none" stroke="#C8A97E" strokeWidth="1" opacity=".7"/>
+      <circle r="3.4" fill="#9E3B2E"/>
+    </g>
+  </svg>
+);
+/* Ornate open arched cartouche framing the brand lockup (2D gold linework) */
+const ArchedCartouche=({children,className}:{children:React.ReactNode;className?:string})=>(
+  <div className={className} style={{position:"relative",display:"inline-flex",flexDirection:"column",alignItems:"center",padding:"32px 42px 14px",maxWidth:"100%"}}>
+    <svg viewBox="0 0 320 150" fill="none" preserveAspectRatio="none" aria-hidden style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
+      <path d="M16 150 V62 Q16 16 84 14 H236 Q304 16 304 62 V150" stroke="#C8A97E" strokeWidth="1.4"/>
+      <path d="M24 150 V62 Q24 24 86 22 H234 Q296 24 296 62 V150" stroke="#C8A97E" strokeWidth=".7" opacity=".5"/>
+      <path d="M16 150 q-13 -1 -14 -16 M304 150 q13 -1 14 -16" stroke="#C8A97E" strokeWidth="1"/>
+    </svg>
+    <div style={{position:"absolute",top:-12,left:"50%",transform:"translateX(-50%)",zIndex:3}}><Rosette size={24}/></div>
+    <div style={{position:"relative",zIndex:2,display:"flex",flexDirection:"column",alignItems:"center",gap:5}}>{children}</div>
+  </div>
+);
 const LUX_HERO_FEATURES=[
   {name:"leaf",label:"Natural Latex"},
   {name:"shield",label:"Premium Quality"},
@@ -1470,38 +1497,43 @@ const LUX_HERO_FEATURES=[
 /* ─── DARK ORNATE HOME HERO ───────────────────────────────── */
 function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>void}){
   const [err,setErr]=useState(false);
+  const [rerr,setRerr]=useState(false);
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,4vw,46px) 0 clamp(34px,4vw,54px)"}}>
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
       <Petals count={16}/>
-      <img src={DECO.sakuraCorner} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:-18,left:-26,width:"clamp(150px,18vw,260px)",opacity:.92,pointerEvents:"none",zIndex:6}}/>
-      <img src={DECO.crane} alt="" aria-hidden className="x-drift" style={{position:"absolute",top:24,right:30,width:"clamp(80px,9vw,130px)",opacity:.85,pointerEvents:"none",zIndex:6}}/>
+      {/* section-edge framing motifs — low z-index, kept away from text */}
+      <img src={DECO.bamboo} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
           <CornerSet/>
           {/* LEFT — copy */}
-          <div style={{position:"relative",padding:"clamp(30px,4vw,62px)",display:"flex",flexDirection:"column",justifyContent:"center",overflow:"hidden"}}>
-            <img src={DECO.rabbit} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:-6,left:14,width:"clamp(66px,7vw,104px)",opacity:.5,pointerEvents:"none"}}/>
+          <div className="lux-hero-copy" style={{position:"relative",padding:"clamp(34px,4vw,60px) clamp(24px,4vw,54px)",display:"flex",flexDirection:"column",justifyContent:"center",overflow:"hidden"}}>
+            {/* decorations BEHIND text (zIndex 1) for guaranteed readability */}
+            <img src={DECO.sakuraCluster} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
+            <img src={DECO.crane} alt="" aria-hidden className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}}/>
+            <img src={DECO.rabbit} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:-4,left:8,width:"clamp(50px,5.5vw,82px)",opacity:.28,pointerEvents:"none",zIndex:1}}/>
             <Reveal>
-              <div style={{display:"flex",flexDirection:"column",gap:7,marginBottom:24,position:"relative",zIndex:2}}>
-                <MonoMark size={46}/>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:24,letterSpacing:7,color:"#E6D4B2",lineHeight:1,fontWeight:500}}>XIYORA</div>
-                <div style={{fontFamily:"'Inter',sans-serif",fontSize:9.5,letterSpacing:4.5,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
-              </div>
-              <h1 className="serif" style={{fontSize:"clamp(2.2rem,3.6vw,3.5rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:0,position:"relative",zIndex:2}}>
+              <ArchedCartouche className="lux-brand-lock">
+                <MonoMark size={38}/>
+                <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#E8D6B4",lineHeight:1,fontWeight:600}}>XIYORA</div>
+                <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
+                <Seal ch="印" style={{marginTop:2}}/>
+              </ArchedCartouche>
+              <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.5rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}}>
                 Premium Latex Comfort,<br/><span className="gold-italic">Sourced for India.</span>
               </h1>
-              <p style={{fontSize:14.5,lineHeight:1.85,color:"#C3B7A1",margin:"22px 0 0",maxWidth:440,position:"relative",zIndex:2}}>
+              <p style={{fontSize:14.5,lineHeight:1.85,color:"#C7BBA4",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
                 Pure Talalay &amp; Dunlop latex, crafted into pillows, mattresses and toppers — and brought to India with considered, document-backed sourcing.
               </p>
-              <p style={{fontSize:12,letterSpacing:"1px",color:"#C9A876",margin:"16px 0 0",display:"flex",alignItems:"center",gap:10,position:"relative",zIndex:2}}>
+              <p className="lux-bingxi" style={{fontSize:12,letterSpacing:"1px",color:"#C9A876",margin:"16px 0 0",display:"flex",alignItems:"center",gap:10,position:"relative",zIndex:3}}>
                 <span style={{width:26,height:1,background:"#C8A97E",display:"inline-block"}}/>Official Bingxi Partner for India
               </p>
-              <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:460,position:"relative",zIndex:2}}>
+              <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:470,position:"relative",zIndex:3}}>
                 {LUX_HERO_FEATURES.map((f,i)=>(
                   <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
                 ))}
               </div>
-              <div style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:2}}>
+              <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}}>
                 <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#C8A97E"}}>✦</span></button>
                 <button className="btn-ivory" onClick={onSupplier}>For Businesses <span style={{color:"#9E3B2E"}}>✦</span></button>
               </div>
@@ -1510,9 +1542,10 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
           {/* RIGHT — photo */}
           <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:540,overflow:"hidden"}}>
             <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":"/assets/lux/hero-bedroom.png"} alt="XIYORA natural latex bedroom" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
-            <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.1) 38%,transparent 60%)",pointerEvents:"none"}}/>
-            <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.4),transparent 36%)",pointerEvents:"none"}}/>
+            <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
+            <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
             <img src={DECO.sakuraCluster} alt="" aria-hidden className="x-drift" style={{position:"absolute",top:-14,right:-10,width:"clamp(110px,13vw,180px)",opacity:.95,pointerEvents:"none",zIndex:3}}/>
+            {!rerr&&<img src={DECO.rabbit} alt="" aria-hidden onError={()=>setRerr(true)} style={{position:"absolute",bottom:10,right:14,width:"clamp(48px,5vw,74px)",opacity:.92,pointerEvents:"none",zIndex:3,filter:"drop-shadow(0 6px 14px rgba(0,0,0,.5))"}}/>}
           </div>
         </div>
       </div>
@@ -2676,29 +2709,29 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           </div>
         </div>
         {/* Center: ornate cartouche — sakura garland + circle-X monogram + XIYORA + 舒适·自然·匠心 */}
-        <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0}}>
           <img src={DECO.sakuraCluster} alt="" aria-hidden className="nav-ornament" style={{position:"absolute",left:-30,top:-14,width:46,opacity:.9,pointerEvents:"none",zIndex:1}}/>
           <img src={DECO.sakuraCluster} alt="" aria-hidden className="nav-ornament" style={{position:"absolute",right:-30,top:-14,width:46,opacity:.9,transform:"scaleX(-1)",pointerEvents:"none",zIndex:1}}/>
-          <div onClick={()=>setPage("home")} title="XIYORA — Home" style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px 24px",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
+          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px 24px",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
-              <svg width={24} height={24} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
+              <svg className="nav-mono" width={24} height={24} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
                 <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/><circle cx="24" cy="24" r="17.5" stroke="#C8A97E" strokeWidth=".6" opacity=".45"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/><circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
               </svg>
-              <div style={{fontFamily:"'Playfair Display',serif",fontSize:23,fontWeight:600,letterSpacing:6,color:"#F2EADB",lineHeight:1,userSelect:"none"}}>XIYORA</div>
+              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:23,fontWeight:600,letterSpacing:6,color:"#F2EADB",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}}>XIYORA</div>
             </div>
-            <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:3,color:"#B89A6E",userSelect:"none"}}>舒适 · 自然 · 匠心</div>
+            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:3,color:"#B89A6E",userSelect:"none",whiteSpace:"nowrap"}}>舒适 · 自然 · 匠心</div>
           </div>
         </div>
         {/* Right: Currency, Search, Cart, B2B Portal */}
-        <div style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
-          <select value={cur} onChange={e=>setCur(e.target.value)} title={CURRENCY_DISCLAIMER} aria-label="Display currency" style={{background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.25)",borderRadius:16,padding:"5px 9px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px"}}>
+        <div className="nav-right" style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
+          <select className="nav-cur" value={cur} onChange={e=>setCur(e.target.value)} title={CURRENCY_DISCLAIMER} aria-label="Display currency" style={{background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.25)",borderRadius:16,padding:"5px 9px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px"}}>
             {CURRENCIES.map(c=>(<option key={c} value={c} style={{background:"#1a1714"}}>{c}</option>))}
           </select>
-          <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} className="ib" style={{color:"#D9CBB8",fontSize:13,padding:"4px 6px"}}>{theme==="dark"?"☀":"◑"}</button>
+          <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} className="ib nav-theme" style={{color:"#D9CBB8",fontSize:13,padding:"4px 6px"}}>{theme==="dark"?"☀":"◑"}</button>
           <button className="ib" onClick={onSearch} title="Search" style={{color:"#D9CBB8"}}>
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8"}} title="Wishlist / Saved">
+          <button className="ib nav-wish" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8"}} title="Wishlist / Saved">
             <svg width={17} height={17} fill={wl&&wl.length?"#C8A97E":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
             {wl&&wl.length>0&&<span style={{position:"absolute",top:-5,right:-5,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
           </button>
