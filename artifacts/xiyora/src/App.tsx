@@ -11,15 +11,40 @@ const BIZ = {
 
 const API_BASE = "/api";
 async function apiPost(endpoint: string, data: Record<string, string | undefined>) {
+  const url = `${API_BASE}${endpoint}`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
   try {
-    const res = await fetch(`${API_BASE}${endpoint}`, {
+    const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
+      signal: controller.signal,
     });
-    return await res.json();
-  } catch {
-    return { error: "Network error. Please try WhatsApp instead." };
+    clearTimeout(timer);
+    let json: any = null;
+    try {
+      json = await res.json();
+    } catch {
+      json = null;
+    }
+    if (!res.ok) {
+      console.warn("[XIYORA] API error", { url, status: res.status, body: json });
+      return (
+        json ?? {
+          success: false,
+          error: `Server unavailable (${res.status}). Please use WhatsApp or try again.`,
+        }
+      );
+    }
+    return json ?? { success: true };
+  } catch (err) {
+    clearTimeout(timer);
+    console.warn("[XIYORA] API request failed", { url, error: String(err) });
+    return {
+      success: false,
+      error: "Could not reach the server. Please use WhatsApp or try again.",
+    };
   }
 }
 
@@ -808,6 +833,53 @@ const ThemeCtx=createContext(C);
 const useC=()=>useContext(ThemeCtx);
 const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
 const parsePriceNum=(s:string):number=>{if(!s)return 0;const m=String(s).replace(/,/g,"").match(/[\d.]+/);return m?parseFloat(m[0]):0;};
+
+/* ─── CURRENCY (base INR; rates indicative, not live FX) ──── */
+const FX:Record<string,{symbol:string;rate:number;name:string;locale:string}>={
+  INR:{symbol:"₹",rate:1,name:"Indian Rupee",locale:"en-IN"},
+  USD:{symbol:"$",rate:1/83,name:"US Dollar",locale:"en-US"},
+  AED:{symbol:"AED ",rate:1/22.6,name:"UAE Dirham",locale:"en-US"},
+  EUR:{symbol:"€",rate:1/90,name:"Euro",locale:"en-US"},
+  GBP:{symbol:"£",rate:1/105,name:"British Pound",locale:"en-GB"},
+  SGD:{symbol:"S$",rate:1/61.5,name:"Singapore Dollar",locale:"en-US"},
+  AUD:{symbol:"A$",rate:1/54.5,name:"Australian Dollar",locale:"en-US"},
+};
+const CURRENCIES=Object.keys(FX);
+const CURRENCY_DISCLAIMER="Currency conversion is indicative only. Final proforma and payment are confirmed in INR unless otherwise agreed.";
+const fmtMoney=(cur:string,inrAmount:number):string=>{
+  const f=FX[cur]||FX.INR;
+  const v=Math.round(inrAmount*f.rate);
+  return `${f.symbol}${v.toLocaleString(f.locale)}`;
+};
+/** Convert a curated INR price string (single, range with "–", optional "*" / "From") to target currency. */
+const priceIn=(cur:string,inrStr?:string):string=>{
+  if(!inrStr)return "";
+  const nums=(String(inrStr).replace(/,/g,"").match(/\d+(?:\.\d+)?/g)||[]).map(Number);
+  if(!nums.length)return inrStr; // non-numeric labels (e.g. "Select a variant", "Quote req.") pass through
+  if(cur==="INR")return inrStr;  // keep hand-curated INR formatting
+  const star=/\*\s*$/.test(inrStr)?"*":"";
+  const fromPrefix=/^\s*from/i.test(inrStr)?"From ":"";
+  const parts=nums.map(n=>fmtMoney(cur,n));
+  return fromPrefix+parts.join(" – ")+star;
+};
+
+/* ─── DOMESTIC DELIVERY (indicative; confirmed in proforma) ─ */
+type PkgType="small"|"medium"|"bulky";
+const pkgTypeFor=(category?:string):PkgType=>{
+  const c=String(category||"").toLowerCase();
+  if(/mattress|bay\s*window|bay-window/.test(c))return "bulky";
+  if(/topper/.test(c))return "medium";
+  return "small"; // pillows, cushions, latex material, default
+};
+const UNITS_PER_PKG:Record<PkgType,number>={small:4,medium:2,bulky:1};
+/** Indicative first-package domestic delivery fee (INR) by package type + zone. */
+const DELIVERY_FEE:Record<PkgType,Record<string,number>>={
+  small:{A:200,B:450,C:850},
+  medium:{A:900,B:1600,C:3200},
+  bulky:{A:2600,B:4500,C:7500},
+};
+/** Extra-package multiplier (first package full, additional discounted). */
+const EXTRA_PKG_FACTOR:Record<PkgType,number>={small:0.5,medium:0.6,bulky:0.85};
 type CartItem={cartKey:string;productId:string;productName:string;sku:string;variantLabel:string;priceINR:string;priceUSD:string;priceNumINR:number;quoteRequired:boolean;image:string;quantity:number;};
 const EMPTY_FORM={name:"",company:"",email:"",phone:"",city:"",state:"",pincode:"",customerType:"Home Buyer",productName:"",selectedSize:"",quantity:"1",message:"",intent:"quote"};
 const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23EFE8DE'/%3E%3Crect x='220' y='140' width='160' height='120' rx='8' fill='%23D9CBB8'/%3E%3Ccircle cx='300' cy='165' r='22' fill='%23C8A97E' opacity='.6'/%3E%3Ctext x='300' y='290' text-anchor='middle' font-family='serif' font-size='14' fill='%23C8A97E' letter-spacing='3'%3EXIYORA%3C/text%3E%3C/svg%3E";
@@ -866,6 +938,8 @@ body{font-family:'Jost',sans-serif;background:#F8F6F2;color:#2D2D2D;overflow-x:h
 .delivery-txt{font-size:13px;color:#666;line-height:1.65}
 .card-desc{font-size:12.5px;color:#777;margin-bottom:14px;line-height:1.6}
 .wb{position:fixed;bottom:28px;right:28px;z-index:998;background:#25D366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 26px rgba(37,211,102,.42);cursor:pointer;transition:all .3s}
+.wb::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;z-index:-1;animation:wbPulse 2.4s cubic-bezier(.22,1,.36,1) infinite}
+@keyframes wbPulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.65);opacity:0}100%{transform:scale(1.65);opacity:0}}
 .wb:hover{transform:scale(1.14);box-shadow:0 10px 38px rgba(37,211,102,.52)}
 .fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Jost',sans-serif;padding:0}
 .fl:hover{color:#C8A97E}
@@ -968,6 +1042,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .bt-chip.active{background:#C8A97E;border-color:#C8A97E;color:#fff;box-shadow:0 8px 22px rgba(200,169,126,.3)}
 @media(prefers-reduced-motion:reduce){
   .xiyora-reveal,.xiyora-premium-card,.xiyora-gold-button,.xiyora-whatsapp-popup,.ht1,.ht2,.ht3,.ht4,.ht5{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
+  .wb::before{animation:none!important;opacity:0!important}
 }
 `;
 
@@ -1110,7 +1185,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
       inquiryType:f.intent||undefined,
       intentLabel:f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"General Enquiry",
       estimatedPort:zoneInfo?zoneInfo.port:undefined,
-      estimatedPriceRange:currency==="INR"?product?.priceINR:product?.priceUSD,
+      estimatedPriceRange:priceIn(currency,product?.priceINR),
       currency,
     };
     const res=await apiPost("/enquiries",payload as any);
@@ -1162,7 +1237,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
             </div>
             {product&&<div style={{background:C.lgold,padding:"10px 14px",borderRadius:3,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <span style={{fontSize:13,color:"#888"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
-              <span style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:600}}>{currency==="INR"?product.priceINR:product.priceUSD}</span>
+              <span style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
             </div>}
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 14px"}}>
               {([["Your Name *","name","text","Full name"],["Phone / WhatsApp *","phone","tel","+91 XXXXX"]] as const).map(([l,k,t,ph])=>(
@@ -1227,7 +1302,16 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
             <div><label style={lbl}>Message (optional)</label>
               <textarea style={{...inp,resize:"vertical",minHeight:70}} value={f.message} onChange={e=>set("message",e.target.value)} placeholder="Any specific requirements or questions..."/>
             </div>
-            {apiErr&&<div style={{background:"#fff0f0",border:"1px solid #ffcccc",borderRadius:3,padding:"10px 14px",marginBottom:12,fontSize:13,color:"#cc4444"}}>{apiErr}</div>}
+            {apiErr&&(
+              <div style={{background:"#fff7ed",border:"1px solid #f0d9b8",borderRadius:3,padding:"12px 14px",marginBottom:12}}>
+                <div style={{fontSize:12.5,color:"#9a6a2a",lineHeight:1.6,marginBottom:9}}>{apiErr} Your details are still here — send them directly and we'll respond.</div>
+                <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+                  <button onClick={submit} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>Try Again</button>
+                  <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>WhatsApp</button>
+                  <a href={`mailto:${BIZ.email}?subject=${encodeURIComponent(`XIYORA ${f.intent==="proforma"?"Proforma":"Quote"} — ${f.productName||"Enquiry"}`)}&body=${encodeURIComponent(`Product: ${f.productName||"General Inquiry"}\nIntent: ${f.intent}\nName: ${f.name}\nPhone: ${f.phone}${f.company?"\nCompany: "+f.company:""}${f.city?"\nCity: "+f.city:""}${f.pincode?"\nPincode: "+f.pincode:""}${f.quantity?"\nQuantity: "+f.quantity:""}${f.selectedSize?"\nSize: "+f.selectedSize:""}${f.message?"\nMessage: "+f.message:""}`)}`} style={{background:C.beige,color:C.dark,padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Jost',sans-serif",display:"inline-flex",alignItems:"center"}}>Email</a>
+                </div>
+              </div>
+            )}
             <p style={{fontSize:11.5,color:"#bbb",marginBottom:14,lineHeight:1.65}}>No payment is collected through this form. Final landed price confirmed in writing before any payment.</p>
             <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               <button onClick={submit} className="bg" style={{flex:1,minWidth:120,padding:"12px 14px",fontSize:12}} disabled={loading}>
@@ -1403,7 +1487,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
         <p style={{fontSize:12.5,color:"#aaa",marginBottom:14,lineHeight:1.55,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:12,borderTop:`1px solid ${C.sand}`}}>
           <div>
-            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:600,color:C.dark}}>{cur==="INR"?p.priceINR:p.priceUSD}</div>
+            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
             <div style={{fontSize:10,color:"#ccc",marginTop:2}}>Indicative · Quote after city</div>
           </div>
           <button className="bg" style={{padding:"9px 14px",fontSize:11,letterSpacing:"1px"}} onClick={e=>{e.stopPropagation();onInquire(p,"quote");}}>Get Quote</button>
@@ -1546,7 +1630,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                   {(p.variants as any[]).map((v:any,i:number)=>(
                     <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Jost',sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
                       <span>{v.label}</span>
-                      <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888",flexShrink:0,marginLeft:12}}>{v.quoteRequired?"Quote req.":cur==="INR"?v.priceINR:v.priceUSD}</span>
+                      <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888",flexShrink:0,marginLeft:12}}>{v.quoteRequired?"Quote req.":priceIn(cur,v.priceINR)}</span>
                     </button>
                   ))}
                 </div>
@@ -1560,7 +1644,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                   {isQuoteRequired?"Final quote required":activeVar?"Selected price (indicative)":hasVariants?"Select variant for price":"Indicative price range"}
                 </span>
                 <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
-                  {isQuoteRequired?"—":cur==="INR"?displayPriceINR:displayPriceUSD}
+                  {isQuoteRequired?"—":priceIn(cur,displayPriceINR)}
                 </span>
               </div>
               {activeVar&&!isQuoteRequired&&<div style={{fontSize:11.5,color:"#777",marginBottom:4}}>SKU: {activeVar.sku}</div>}
@@ -2125,11 +2209,9 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
         </div>
         {/* Right: Currency, Search, Cart */}
         <div style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
-          <div style={{display:"flex",background:C.beige,borderRadius:20,padding:"3px",gap:2}}>
-            {["INR","USD"].map(c=>(
-              <button key={c} onClick={()=>setCur(c)} style={{background:cur===c?C.gold:"transparent",color:cur===c?"#fff":C.dark,border:"none",padding:"4px 10px",borderRadius:16,fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",transition:"all .2s"}}>{c}</button>
-            ))}
-          </div>
+          <select value={cur} onChange={e=>setCur(e.target.value)} title={CURRENCY_DISCLAIMER} aria-label="Display currency" style={{background:C.beige,color:C.dark,border:"none",borderRadius:16,padding:"5px 9px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",letterSpacing:".3px"}}>
+            {CURRENCIES.map(c=>(<option key={c} value={c}>{c}</option>))}
+          </select>
           <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} style={{background:C.beige,border:"none",borderRadius:16,padding:"5px 11px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Jost',sans-serif",color:C.dark,transition:"all .2s",letterSpacing:".2px",whiteSpace:"nowrap"}}>{theme==="dark"?"☀ Light":"◑ Dark"}</button>
           <button className="ib" onClick={onSearch} title="Search">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
@@ -2268,11 +2350,17 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
   };
 
   const cartTotalINR=items.reduce((s,i)=>s+(i.priceNumINR||0)*i.quantity,0);
-  const totalLabel=cartTotalINR>0?`₹${cartTotalINR.toLocaleString("en-IN")} (indicative)`:"Price on request";
   const productNames=items.map(i=>`${i.productName}${i.variantLabel&&i.variantLabel!==i.productName?` (${i.variantLabel})`:""} ×${i.quantity}`).join(", ");
   const delivery=confirmed?lookupPincode(form.pincode):null;
 
-  const upiLink=`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}${cartTotalINR>0?`&am=${cartTotalINR}`:""}&cu=INR&tn=${encodeURIComponent("XIYORA Order: "+productNames.slice(0,50))}`;
+  const pkgGroups=items.reduce((acc:Record<string,number>,i:CartItem)=>{const cat=PRODUCTS.find(p=>p.id===i.productId)?.category;const t=pkgTypeFor(cat);acc[t]=(acc[t]||0)+i.quantity;return acc;},{});
+  const packageCount=Object.entries(pkgGroups).reduce((n,[t,units])=>n+Math.ceil(units/UNITS_PER_PKG[t as PkgType]),0);
+  const deliveryINR=delivery?Object.entries(pkgGroups).reduce((sum,[t,units])=>{const pt=t as PkgType;const cnt=Math.ceil(units/UNITS_PER_PKG[pt]);const base=DELIVERY_FEE[pt][delivery.zone]??DELIVERY_FEE[pt].B;return sum+base+(cnt>1?(cnt-1)*base*EXTRA_PKG_FACTOR[pt]:0);},0):0;
+  const deliveryINRr=Math.round(deliveryINR);
+  const grandTotalINR=cartTotalINR+deliveryINRr;
+  const payableINR=delivery?grandTotalINR:cartTotalINR;
+
+  const upiLink=`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}${payableINR>0?`&am=${payableINR}`:""}&cu=INR&tn=${encodeURIComponent("XIYORA Order: "+productNames.slice(0,50))}`;
   const upiUnlocked=confirmed&&items.length>0;
 
   const validate=()=>{
@@ -2299,12 +2387,60 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
       name:form.name,phone:form.phone,email:form.email||undefined,
       city:form.city||undefined,state:form.state||undefined,pincode:form.pincode||undefined,
       productName:productNames,currency:cur,
-      estimatedPriceRange:totalLabel,
+      estimatedPriceRange:cartTotalINR>0?`₹${(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")} (indicative${delivery?", incl. delivery":""})`:"Price on request",
       paymentMode:payMode==="upi"?`UPI Manual — UTR: ${utr||"pending"}`:payMode==="proforma"?"Proforma Invoice":payMode==="whatsapp"?"WhatsApp Confirmation":"Card/Gateway (pending)",
     });
     setLoading(false);
     if(res?.success){setSavedId(res.id);setSubmitted(true);}
     else setErr(res?.error||"Could not save. Please use WhatsApp instead.");
+  };
+
+  const checkoutWA=()=>{
+    const msg=`Hi XIYORA, I'd like to place an order.\n\n${productNames}\n\nName: ${form.name}\nPhone: ${form.phone}${form.city?`\nCity: ${form.city}, ${form.state} ${form.pincode}`:""}\n\nEstimated total: ₹${(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")} (indicative)`;
+    window.open(waMsg(msg),"_blank");
+  };
+
+  const printProforma=()=>{
+    const dateStr=new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
+    const ref=savedId?`CHK-${String(savedId).padStart(4,"0")}`:"DRAFT (unsaved)";
+    const esc=(s:string)=>String(s||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]||c));
+    const rows=items.map(i=>`<tr><td>${esc(i.productName)}${i.variantLabel&&i.variantLabel!==i.productName?`<br><span class="muted">${esc(i.variantLabel)}</span>`:""}<br><span class="muted">SKU: ${esc(i.sku)||"—"}</span></td><td class="c">${i.quantity}</td><td class="r">₹${(i.priceNumINR||0).toLocaleString("en-IN")}</td><td class="r">₹${((i.priceNumINR||0)*i.quantity).toLocaleString("en-IN")}</td></tr>`).join("");
+    const html=`<!doctype html><html><head><meta charset="utf-8"><title>XIYORA Proforma ${ref}</title><style>
+*{box-sizing:border-box}body{font-family:'Helvetica Neue',Arial,sans-serif;color:#2D2D2D;max-width:760px;margin:0 auto;padding:40px 32px;font-size:13px;line-height:1.6}
+h1{font-family:Georgia,serif;letter-spacing:6px;font-size:30px;margin:0 0 2px;font-weight:500}
+.tag{letter-spacing:2px;text-transform:uppercase;font-size:10px;color:#C8A97E;margin-bottom:24px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #C8A97E;padding-bottom:16px;margin-bottom:20px}
+.meta{text-align:right;font-size:12px;color:#666}
+.cols{display:flex;gap:32px;margin-bottom:22px}.col{flex:1}
+.lbl{text-transform:uppercase;letter-spacing:1px;font-size:10px;color:#999;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin-bottom:8px}
+th{text-align:left;border-bottom:1px solid #ddd;padding:8px 6px;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#999}
+td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.c{text-align:center}.r{text-align:right}.muted{color:#999;font-size:11px}
+.totals{margin-left:auto;width:280px;margin-top:8px}
+.totals div{display:flex;justify-content:space-between;padding:5px 0}
+.grand{border-top:2px solid #C8A97E;margin-top:6px;padding-top:10px!important;font-size:16px;font-family:Georgia,serif;color:#C8A97E}
+.note{margin-top:30px;padding:14px 16px;background:#F5EEE4;border-left:3px solid #C8A97E;font-size:11px;color:#777;line-height:1.7}
+@media print{body{padding:16px}.noprint{display:none}}
+</style></head><body>
+<div class="head"><div><h1>XIYORA</h1><div class="tag">Proforma / Estimate</div></div>
+<div class="meta"><strong>Ref: ${ref}</strong><br>Date: ${dateStr}<br>Currency: INR</div></div>
+<div class="cols">
+<div class="col"><div class="lbl">From</div>XIYORA<br>${esc(BIZ.address)}<br>WhatsApp: +91 ${BIZ.wa.slice(2)}<br>${esc(BIZ.email)}</div>
+<div class="col"><div class="lbl">Bill To</div>${esc(form.name)||"—"}<br>${esc(form.phone)||"—"}${form.email?`<br>${esc(form.email)}`:""}${form.city?`<br>${esc(form.city)}, ${esc(form.state)} ${esc(form.pincode)}`:""}</div>
+</div>
+<table><thead><tr><th>Item</th><th class="c">Qty</th><th class="r">Unit (₹)</th><th class="r">Amount (₹)</th></tr></thead><tbody>${rows}</tbody></table>
+<div class="totals">
+<div><span>Subtotal (indicative)</span><span>₹${cartTotalINR.toLocaleString("en-IN")}</span></div>
+<div><span>Domestic delivery${delivery?` (Zone ${delivery.zone})`:""}</span><span>${delivery?`₹${deliveryINRr.toLocaleString("en-IN")}`:"To be confirmed"}</span></div>
+<div class="grand"><span>Estimated Total</span><span>₹${(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")}</span></div>
+</div>
+<div class="note"><strong>This is a Proforma / Estimate, not a tax invoice.</strong> All prices are indicative and subject to written confirmation. ${delivery?`Delivery routed via ${esc(delivery.port)}, estimated transit ${esc(delivery.days)} days after dispatch.`:"Delivery is estimated once the destination is confirmed."} GST invoice issued where applicable after registration. No payment has been collected against this document.</div>
+<div class="noprint" style="margin-top:24px;text-align:center"><button onclick="window.print()" style="background:#2D2D2D;color:#fff;border:none;padding:11px 28px;border-radius:2px;letter-spacing:1px;cursor:pointer">Print / Save as PDF</button></div>
+</body></html>`;
+    const w=window.open("","_blank");
+    if(!w){alert("Please allow pop-ups to view your proforma.");return;}
+    w.document.write(html);w.document.close();w.focus();
   };
 
   const inp=(k?:string):React.CSSProperties=>({width:"100%",background:"#fafaf8",border:`1px solid ${k&&fieldErr[k]?"#e0a0a0":C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Jost',sans-serif",color:C.dark,marginBottom:fieldErr[k||""]?3:10});
@@ -2336,7 +2472,7 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
                       <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                       <div style={{flex:1,minWidth:0}}>
                         <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
-                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{cur==="INR"?p.priceINR:p.priceUSD}</div>
+                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                       </div>
                       <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Jost',sans-serif",flexShrink:0}}>Move to Basket</button>
                       <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif",flexShrink:0}}>✕</button>
@@ -2359,11 +2495,14 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
               {payMode==="whatsapp"?"We will confirm your order via WhatsApp shortly.":""}
             </p>
             <p style={{fontSize:13,color:"#aaa",lineHeight:1.7,marginBottom:20}}>We will contact you within 24–48 hours to confirm and proceed with your final invoice.</p>
-            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 28px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
-              onClick={()=>window.open(waMsg(`Hi XIYORA, I placed an order (CHK-${String(savedId).padStart(4,"0")}) for: ${productNames}. Please confirm next steps.`),"_blank")}>
-              <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
-              Confirm on WhatsApp
-            </button>
+            <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 26px",fontFamily:"'Jost',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
+                onClick={()=>window.open(waMsg(`Hi XIYORA, I placed an order (CHK-${String(savedId).padStart(4,"0")}) for: ${productNames}. Please confirm next steps.`),"_blank")}>
+                <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                Confirm on WhatsApp
+              </button>
+              {cartTotalINR>0&&<button className="bo" onClick={printProforma} style={{padding:"13px 26px",fontSize:12}}>View / Print Proforma</button>}
+            </div>
           </div>
         ):(
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:36,marginTop:32}} className="checkout-grid">
@@ -2378,7 +2517,7 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
                     <div style={{flex:1,minWidth:0}}>
                       <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
                       {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11.5,color:"#888",marginBottom:3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
-                      <div style={{fontSize:13,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{cur==="INR"?item.priceINR:item.priceUSD} <span style={{fontSize:10,color:"#bbb",fontFamily:"'Jost',sans-serif",fontWeight:400}}>ea.</span></div>
+                      <div style={{fontSize:13,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{priceIn(cur,item.priceINR)} <span style={{fontSize:10,color:"#bbb",fontFamily:"'Jost',sans-serif",fontWeight:400}}>ea.</span></div>
                     </div>
                     <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
                       <div style={{display:"flex",alignItems:"center",border:`1px solid ${C.sand}`,borderRadius:3,overflow:"hidden"}}>
@@ -2404,7 +2543,7 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
                         <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                         <div style={{flex:1,minWidth:0}}>
                           <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
-                          <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{cur==="INR"?p.priceINR:p.priceUSD}</div>
+                          <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                         </div>
                         <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Jost',sans-serif",flexShrink:0}}>Move to Basket</button>
                         <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Jost',sans-serif",flexShrink:0}}>✕</button>
@@ -2437,16 +2576,41 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
                   </div>
                 )}
               </div>
-              {err&&<div style={{background:"#fff0f0",border:"1px solid #ffcccc",borderRadius:3,padding:"10px 14px",marginBottom:12,fontSize:13,color:"#cc4444"}}>{err}</div>}
+              {err&&(
+                <div style={{background:"#fff7ed",border:"1px solid #f0d9b8",borderRadius:3,padding:"12px 14px",marginBottom:12}}>
+                  <div style={{fontSize:12.5,color:"#9a6a2a",lineHeight:1.6,marginBottom:9}}>{err} Your basket is safe — confirm directly or save a proforma.</div>
+                  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+                    <button onClick={submitIntent} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>Try Again</button>
+                    <button onClick={checkoutWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>WhatsApp</button>
+                    {cartTotalINR>0&&<button onClick={printProforma} style={{background:C.beige,color:C.dark,border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>Save Proforma</button>}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Right: Payment */}
             <div>
               <div style={{background:C.lgold,borderRadius:4,padding:"20px 22px",borderLeft:`3px solid ${C.gold}`,marginBottom:16}}>
                 <div style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#bbb",marginBottom:8}}>Order Summary</div>
-                <div style={{fontSize:12,color:"#888",marginBottom:8,lineHeight:1.5}}>{items.map((i:CartItem)=>`${i.productName}${i.variantLabel&&i.variantLabel!==i.productName?` (${i.variantLabel})`:""} ×${i.quantity}`).join(" · ")}</div>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,color:C.gold,marginBottom:2}}>{totalLabel}</div>
-                <div style={{fontSize:11,color:"#bbb",lineHeight:1.6}}>{cartTotalINR>0?"Indicative total. Final price confirmed via proforma invoice.":"Price to be confirmed by quote."}</div>
+                <div style={{fontSize:12,color:"#888",marginBottom:10,lineHeight:1.5}}>{items.map((i:CartItem)=>`${i.productName}${i.variantLabel&&i.variantLabel!==i.productName?` (${i.variantLabel})`:""} ×${i.quantity}`).join(" · ")}</div>
+                {cartTotalINR>0?(
+                  <div style={{borderTop:`1px solid ${C.sand}`,paddingTop:10}}>
+                    <div style={{display:"flex",justifyContent:"space-between",fontSize:12.5,color:"#888",marginBottom:6}}><span>Subtotal (indicative)</span><span>₹{cartTotalINR.toLocaleString("en-IN")}</span></div>
+                    <div style={{display:"flex",justifyContent:"space-between",fontSize:12.5,color:"#888",marginBottom:6}}>
+                      <span>Domestic delivery{packageCount>0?` · ${packageCount} ${packageCount===1?"package":"packages"}`:""}</span>
+                      <span>{delivery?`₹${deliveryINRr.toLocaleString("en-IN")}`:"Confirm location"}</span>
+                    </div>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",borderTop:`1px solid ${C.sand}`,paddingTop:8,marginTop:2}}>
+                      <span style={{fontSize:12,letterSpacing:".5px",textTransform:"uppercase",color:"#999"}}>{delivery?"Estimated total":"Subtotal"}</span>
+                      <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,color:C.gold}}>₹{(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")}</span>
+                    </div>
+                    {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"#aaa",marginTop:3}}>≈ {fmtMoney(cur,delivery?grandTotalINR:cartTotalINR)} {cur}</div>}
+                    <div style={{fontSize:10.5,color:"#bbb",lineHeight:1.6,marginTop:8}}>Indicative total. Delivery {delivery?`routed via ${delivery.port} (Zone ${delivery.zone})`:"estimated after you confirm location"}. Final price confirmed via proforma invoice.{cur!=="INR"?` ${CURRENCY_DISCLAIMER}`:""}</div>
+                    <button onClick={printProforma} style={{marginTop:10,width:"100%",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>View / Print Proforma Estimate</button>
+                  </div>
+                ):(
+                  <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,color:C.gold}}>Price on request</div>
+                )}
               </div>
 
               <div style={{background:C.beige,borderRadius:4,padding:"20px 22px",marginBottom:16}}>

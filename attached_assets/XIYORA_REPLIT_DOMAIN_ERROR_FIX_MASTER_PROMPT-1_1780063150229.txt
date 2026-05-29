@@ -1,0 +1,611 @@
+XIYORA ULTIMATE REPLIT / KIMI / AI CODING AGENT MASTER INSTRUCTION FILE
+Version: 2026-05-27
+Purpose: One complete instruction file for implementing the next major XIYORA website upgrade safely, correctly, and in a way that persists to GitHub/import/deployment.
+
+================================================================================
+A. HOW THE AI CODING AGENT MUST USE THIS FILE
+================================================================================
+
+Read this entire file before editing code.
+
+You are continuing the existing XIYORA website project. Do not restart from zero. Do not replace the project with a new template. Do not destroy working features. The project already has many completed parts, but several recent changes were shown in preview and then did not persist properly to GitHub/imported versions. Your job is to implement the required upgrades directly in the real project files, test them, commit them, push them, and verify that the final GitHub/importable project contains all source files and assets.
+
+The user will upload:
+1. Current XIYORA project files or project ZIP.
+2. This instruction text file.
+3. Image ZIPs and image mapping PDFs.
+4. Product/category/material/topper images.
+5. Catalogue PDFs.
+6. Certificate/report/license PDFs.
+7. Bingxi introduction/product documents.
+8. Mattress production/showcase video.
+9. Payment QR screenshot or payment details if needed.
+10. Any current App.jsx/src/public/package files.
+
+Your final result must be an actual completed project, not a message saying what to change.
+
+You must:
+1. Inspect the project.
+2. Create a backup branch or checkpoint.
+3. Implement changes in real files.
+4. Run install/build/test.
+5. Fix errors.
+6. Verify the website visually and logically.
+7. Push to GitHub.
+8. Confirm the GitHub repo contains assets, documents, videos, source code, README, .env.example, and buildable project files.
+9. Report exact evidence.
+
+Do not mark complete unless the actual GitHub/importable project contains the final code and assets.
+
+================================================================================
+B. PROJECT CONTEXT AND BUSINESS VISION
+================================================================================
+
+Brand: XIYORA
+
+Current business:
+XIYORA is currently a premium imported natural-latex product sourcing/ecommerce platform for India, starting with products and documents from Bingxi Home. Products include latex mattresses, Talalay latex mattresses, Dunlop latex products, pillows, toppers, cushions, inner latex materials, custom bay-window mattresses, and B2B/hotel/interior supply options.
+
+Future business:
+XIYORA is not only a mattress shop. It should be built as the beginning of an Indian import/export sourcing marketplace. Think: a premium Indian sourcing platform similar in broad marketplace concept to Alibaba, but not cheap-looking and not Chinese-focused. It starts with imports into India because India is a major market. Later it can support global sourcing, exports, more partners, more suppliers, more product categories, more currencies, trade buyer workflows, and multi-partner catalogues.
+
+Core customer types:
+- Home buyer
+- Retailer
+- Mattress reseller
+- Hotel buyer
+- Villa/serviced apartment buyer
+- Interior designer
+- Furniture/custom project buyer
+- Distributor
+- Trade partner
+- Import/export partner
+- Supplier/manufacturer partner
+
+Tone:
+Premium, honest, sophisticated, cinematic, luxury, trustworthy, document-backed, India-ready, B2B-friendly.
+
+Do not make it:
+Generic, template-looking, cheap, over-flashy, noisy, childish, emoji-heavy, or full of fake claims.
+
+Current known contact details:
+- WhatsApp: +91 7028311226
+- Email: xiyatosaanvi@gmail.com
+- Instagram: https://www.instagram.com/xiyora.zi/
+- Address: Yogesh Nagar, Section 25, Near 12 No School, Ulhasnagar -421004, Thane, Maharashtra
+- UPI placeholder currently used: chaitanyagaikwad022@okicici
+
+Important:
+Company/GST final details may not be finalized. Use “Proforma / Estimate” instead of “GST Invoice.” Do not invent fake GST or company registration data.
+
+================================================================================
+C. MAIN GOALS FOR THIS IMPLEMENTATION
+================================================================================
+
+Implement the website so that it becomes a complete, premium, scalable, import/export-ready sourcing platform.
+
+Primary goals:
+1. Fix the “Socket closed with event 4500 Internal server error” problem or at least make the project and workflow resilient against it.
+2. Fix the quotation/proforma “No network” bug with strong backend + fallback logic.
+3. Fix and correctly apply all image mapping PDFs/ZIPs.
+4. Fix dark/light theme readability.
+5. Add premium homepage video management.
+6. Add/upgrade animation, 2D/3D-style visual interaction, and premium UI polish.
+7. Fix layout issues on mobile and desktop.
+8. Fix breadcrumb and mobile/browser back navigation.
+9. Fix delivery logic for India landed prices: do NOT add China shipping again.
+10. Fix domestic delivery/location handling by package type, quantity, nearest port/region, city, pincode, and package count.
+11. Add package count and better proforma/estimate.
+12. Fix multi-currency support including INR, USD, AED, EUR, GBP, SGD, AUD.
+13. Improve admin/CMS so the website can be edited later from the web.
+14. Ensure documents/certificates/catalogues are applied correctly and visible.
+15. Ensure all changes are actually written into source files and pushed to GitHub.
+16. Ensure another account can import the repo and run/build it.
+
+================================================================================
+D. ABSOLUTE NON-NEGOTIABLE RULES
+================================================================================
+
+1. Do not restart the project.
+2. Do not replace everything with a new template.
+3. Preserve existing working logic unless broken.
+4. Do not break product variants, product pages, categories, cart, checkout, location confirmation, delivery estimate, UPI placeholder, WhatsApp flow, dark/light theme, sidebar/navigation, admin/CMS foundation, document/certificate section, or previous working fixes.
+5. Do not hardcode secrets.
+6. Do not expose supplier cost, FOB, internal landed-cost formula, commission, margin, profit, secret keys, admin secret, database URL, payment gateway secret.
+7. Do not fake payment success, GST invoice, testimonials, certificate ownership, stock confirmation, delivery guarantee, backend success.
+8. If backend/email/database fails, provide graceful fallback, not dead error.
+9. Every asset must be stored/imported in a stable project path.
+10. If uploading to GitHub, all necessary files must be included.
+11. If a file/secret is missing, list it clearly and implement fallback.
+
+================================================================================
+E. IMPORTANT NOTE ABOUT THE 4500 INTERNAL SERVER ERROR
+================================================================================
+
+The user saw: “Socket closed with event 4500 Internal server error.” Treat this seriously. Codes in the 4000–4999 WebSocket range are private/application-specific, so do not assume one universal meaning. In practice, this can be caused by an AI agent/session crash, backend runtime exception, unhandled promise rejection, server memory/time limit, invalid project state, huge prompt/context overload, WebSocket failure, deployment/platform issue, missing environment variable, build/start command failure, package install problem, or server process exiting.
+
+Coding agent actions:
+1. Do not continue blindly.
+2. Open Replit logs, browser console, build logs, and server logs.
+3. Check package.json scripts: dev, start, build, preview.
+4. Check Node version and dependencies.
+5. Check env vars and Secrets.
+6. Check if huge generated code caused syntax/build crash.
+7. Run npm install.
+8. Run npm run build.
+9. Run app locally/preview.
+10. Fix actual stack trace.
+11. Add ErrorBoundary for frontend runtime failures.
+12. Add safe API wrappers and fallback UI.
+13. Avoid massive base64 images in code.
+14. Keep assets as files in public/assets, not inline strings.
+15. Add /health route if backend exists.
+16. If the AI session times out, split into checkpoints, but final output must still satisfy this file.
+
+README troubleshooting note to add:
+“4500/WebSocket/session errors usually require checking Replit logs, build logs, environment variables, and runtime crashes. This project includes quote/proforma fallback so customer-facing quote flow remains usable if backend fails.”
+
+================================================================================
+F. REPLIT PAID PLAN, DEPLOYMENT, AND DOMAIN-READY SETUP
+================================================================================
+
+The user plans to buy Replit and a custom domain. Make the project deployment-ready.
+
+Create README.md with:
+- project overview
+- install command
+- dev command
+- build command
+- deploy command if any
+- asset folder structure
+- environment variables
+- admin route usage
+- how to upload/replace images/videos/PDFs
+- how to connect custom domain
+- how to verify build
+- how to push to GitHub
+- troubleshooting for 4500/socket/server errors
+
+Create .env.example with variable names only, no real secrets:
+ADMIN_SECRET=
+DATABASE_URL=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+EMAIL_HOST=
+EMAIL_PORT=
+EMAIL_USER=
+EMAIL_PASS=
+PUBLIC_SITE_URL=
+
+Deployment notes:
+- Static deployment is only okay if frontend-only and no backend APIs are required.
+- Autoscale/Reserved VM is better if backend/API/database/email/admin routes are required.
+- Do not store important customer data only in deployed filesystem.
+- Use database/backend storage for quote/enquiry records.
+- If backend unavailable, localStorage fallback is temporary only.
+- Add domain after publishing/deployment by following Replit domain settings and DNS instructions.
+- Test root domain, www domain, HTTPS, and mobile.
+
+================================================================================
+G. GITHUB / IMPORTABILITY / VERSION CONTROL REQUIREMENTS
+================================================================================
+
+Because previous preview changes did not appear when imported elsewhere, GitHub persistence is mandatory.
+
+Before editing:
+1. Check git status.
+2. Check branch.
+3. Check remote.
+4. Create backup branch if possible: backup-before-xiyora-ultimate-upgrade
+5. Commit current state if uncommitted changes exist.
+
+After editing:
+1. Run npm install.
+2. Run npm run build.
+3. Fix errors.
+4. Commit: “Ultimate XIYORA upgrade with assets, UX, quote fallback, delivery, video, CMS.”
+5. Push to GitHub.
+6. Verify by reading repo file tree after push.
+7. Confirm src, public/assets, videos, documents, images, package.json, README.md, .env.example, admin/CMS files are present.
+8. Report repo URL, branch, latest commit hash, build result, deployment URL/status, exact files changed, assets/documents included, env vars needed, remaining placeholders.
+
+If GitHub push is not possible, create complete final project ZIP and explain manual upload steps. Do not say “pushed” unless it actually happened.
+
+================================================================================
+H. PROJECT STRUCTURE EXPECTATION
+================================================================================
+
+If current project supports it, create/verify:
+
+public/assets/categories/
+public/assets/products/
+public/assets/products/latex-topper/gallery/
+public/assets/materials/
+public/assets/galleries/
+public/assets/hero/
+public/assets/videos/
+public/assets/documents/
+public/assets/payment/
+public/assets/icons/
+src/data/imageManifest.js
+src/data/products.js
+src/data/categories.js
+src/data/materials.js
+src/data/deliveryConfig.js
+src/data/currencyConfig.js
+src/data/documents.js
+src/data/partners.js
+src/components/HeroVideo.jsx
+src/components/PremiumHero.jsx
+src/components/CategoryGrid.jsx
+src/components/ProductCard.jsx
+src/components/ProductGallery.jsx
+src/components/MaterialEducation.jsx
+src/components/QuoteBuilder.jsx
+src/components/ProformaEstimate.jsx
+src/components/CurrencySwitcher.jsx
+src/components/ThemeToggle.jsx
+src/components/AdminPanel.jsx
+src/components/ErrorBoundary.jsx
+src/utils/delivery.js
+src/utils/currency.js
+src/utils/quote.js
+src/utils/whatsapp.js
+src/utils/proforma.js
+src/utils/routing.js
+
+If the project is one App.jsx and refactoring is risky, keep data/components inside the app carefully, but still create a clean imageManifest/config if safe.
+
+================================================================================
+I. IMAGE DEPLOYMENT AND MAPPING — ABSOLUTE PRIORITY
+================================================================================
+
+The image changes have repeatedly failed. Implement them exactly.
+
+The PDFs are guides. Do not use PDF screenshots as website images. Extract/use individual PNG/JPG/WEBP files from ZIPs/assets. If actual images are missing, stop and ask for upload. Do not reuse one image everywhere.
+
+Folders:
+public/assets/categories/
+public/assets/products/
+public/assets/materials/
+public/assets/galleries/
+public/assets/products/latex-topper/gallery/
+public/assets/hero/
+public/assets/videos/
+public/assets/documents/
+
+Create/fix src/data/imageManifest.js.
+Image priority: admin/database image -> imageManifest local asset -> safe luxury placeholder.
+
+CATEGORY MAPPING:
+Mattresses: category-mattresses-premium.png OR 01_category_mattresses_luxury.png.
+Pillows: category-pillows-premium.png OR 02_category_pillows_latex_zoom.png.
+Toppers: category-toppers-premium.png OR 03_category_toppers_lifestyle.png.
+Cushions: category-cushions-premium.png OR 04_category_cushions_premium_range.png.
+Latex Materials / Inner Materials: category-latex-materials-premium.png OR 05_category_latex_material_macro.png.
+
+Do not repeat one pillow/material image across categories. Do not use material image for mattress category. Do not use pillow image for cushions. Do not use category image as every product image.
+
+PRODUCT MAPPING:
+Standard Mattress: product-standard-mattress.png OR 06_product_standard_mattress.png.
+Talalay Latex Mattress: 07_product_talalay_latex_mattress.png.
+Latex Pillow: 08_product_latex_pillow.png.
+Latex Topper: 09_product_latex_topper.png OR topper gallery image 01.
+Specialty / Ergonomic Cushion: 10_product_specialty_cushion.png.
+Contour Pillow Alternative: 11_product_contour_pillow_alt.png.
+Mattress Core / Material Overview: 12_material_mattress_core_overview.png.
+Bay Window Mattress: product-bay-window-mattress.png, must be bay-window/custom seating visual.
+
+LATEX TOPPER GALLERY:
+Replace current gallery completely. No triptych/collage strips.
+Path: public/assets/products/latex-topper/gallery/
+Order:
+1. topper-01-anchor-lifestyle.png
+2. topper-02-studio-product.png
+3. topper-03-material-detail.png
+4. topper-04-bedroom-setup.png
+5. topper-05-daybed-window-nook.png
+6. topper-06-guest-bunk-bed.png
+7. topper-07-travel-compact-space.png
+
+Gallery behavior: one thumbnail = one image; main view = one image; zoom = one image; no 3-image strips; no black empty gallery; no old random images; mobile swipe if possible; smooth transitions.
+
+MATERIAL SECTION:
+Use six individual images:
+1. material-01-shredded-latex-fill.png
+2. material-02-talalay-latex-core.png
+3. material-03-dunlop-latex-core.png
+4. material-04-latex-topper-core.png
+5. material-05-ergonomic-contour-latex.png
+6. material-06-latex-cushion-core.png
+
+Material card: one clean image, title, short explanation, related product/category link, no collage strip, no repeated image.
+
+IMAGE TEST: category images unique/correct, product images correct, Bay Window correct, Topper gallery 7 separate images, material cards 6 separate images, no collage/triptych strips, no wrong repeated pillow/material image, no broken image icons.
+
+================================================================================
+J. DOCUMENTS / CERTIFICATES / CATALOGUES / PROOF LIBRARY
+================================================================================
+
+Upload/use documents such as Bingxi Home Introduction, Bingxi Product Catalogue, Mattress Catalogue, GTTC Testing Report, Business License, ISO Certificate, OEKO-TEX Certificate.
+
+Create/verify public/assets/documents/.
+
+Create premium section: “Proof Library,” “Documents & Certifications,” “Catalogue & Verification Centre,” or “Buyer Review Documents.”
+
+Document cards must show title, type, supplier/partner, scope note, short explanation, view PDF, download PDF, request verified copy, trust label.
+
+Use wording:
+- “Documents available for buyer review.”
+- “Certificates apply to the products and scope stated in each document.”
+- “Supplier documents are provided for sourcing confidence and buyer review.”
+
+Do not overclaim, invent certificate numbers, say all products are certified unless proven, or show broken PDF links. Layout must not overflow.
+
+================================================================================
+K. HOMEPAGE VIDEO MANAGEMENT
+================================================================================
+
+Recommended path: public/assets/videos/xiyora-showcase.mp4
+Frontend: /assets/videos/xiyora-showcase.mp4
+
+Use as first premium visual experience: hero background, video card, or split hero.
+
+Video requirements: autoplay, muted, loop, playsInline, no ugly controls, fallback poster, dark overlay, readable text, mobile optimized, no page slowdown, website works if video missing.
+
+Suggested overlay copy:
+“Premium Latex Comfort, Sourced for India”
+“Bingxi partner catalogue available through XIYORA”
+“Imported comfort. Verified documents. Location-based estimates.”
+
+Admin fields: video path, poster path, video headline, video subtitle, active/inactive toggle.
+
+================================================================================
+L. PREMIUM ANIMATIONS, 2D/3D UI, CSS EFFECTS
+================================================================================
+
+Make the site interactive and advanced without becoming noisy.
+
+Add where appropriate:
+1. Hero text fade-up.
+2. Video overlay reveal.
+3. Category card stagger reveal.
+4. Product card hover/soft 3D tilt.
+5. Product card lift/glow.
+6. Gallery active thumbnail champagne border.
+7. Smooth image zoom hover.
+8. Material cards micro-zoom.
+9. “Inside the Latex” animated layer illustration.
+10. 2D latex layer diagram.
+11. 2D India logistics map with port dots.
+12. Quote step timeline animation.
+13. Proforma total highlight pulse.
+14. Skeleton loading.
+15. Elegant empty states.
+16. Sidebar blur/slide.
+17. Mobile sticky quote/cart bar.
+18. Dark/light theme transition.
+19. Button subtle gold shimmer.
+20. Floating WhatsApp soft pulse.
+21. Document card “paper stack” hover.
+22. Supplier proof strip slow glow.
+23. B2B buyer cards reveal.
+24. Currency toggle smooth pill animation.
+25. Pricing total count-up.
+26. Trust/certificate counters.
+27. Subtle Indian luxury motif section dividers.
+28. Soft champagne light gradients.
+29. Accessibility focus states.
+30. Smooth scroll-to-top.
+
+Respect prefers-reduced-motion. Use transform/opacity animations. Avoid heavy libraries unless already installed.
+
+================================================================================
+M. DARK / LIGHT THEME FIXES
+================================================================================
+
+Dark theme readable: hero title, labels, feature chips, buttons, footer, product specs, prices, delivery notes, checkout/proforma text, document cards, admin forms.
+
+Use warm ivory/warm white, champagne/gold accents, darker gradient overlays, subtle text shadow, stronger button borders, no grey-on-black low contrast.
+
+Light theme: warm beige/ivory luxury feel, stronger body text, clear buttons.
+
+Theme toggle must update all UI, persist localStorage, and not hide any component text.
+
+================================================================================
+N. MULTI-CURRENCY FIX
+================================================================================
+
+Fix currency system. Use correct names:
+INR Indian Rupee, USD US Dollar, AED UAE Dirham, EUR Euro, GBP British Pound, SGD Singapore Dollar, AUD Australian Dollar.
+
+Requirements:
+1. Currency selector updates product cards, product detail, checkout display, proforma optional converted display.
+2. Base price remains INR unless project already uses another base.
+3. UPI/payment amount remains INR.
+4. Add note: “Currency conversion is indicative. Final proforma/payment is confirmed in INR unless otherwise stated.”
+5. Store currency in localStorage.
+6. Currency state persists across pages.
+7. If exchange rate missing, fallback to INR with note.
+8. Admin can edit exchange rates/active currencies.
+
+Suggested currency config is editable; do not claim live FX unless API exists.
+
+================================================================================
+O. ROUTING, BREADCRUMB, MOBILE BACK
+================================================================================
+
+Fix internal navigation:
+- Back returns to previous internal page.
+- Category breadcrumb opens listing.
+- Product title breadcrumb stays current.
+- Browser/mobile back navigates inside website first.
+- Product/category/cart/checkout/admin routes work.
+- State preserved in cart/localStorage.
+- Scroll to top on page change.
+
+Use React Router if already present. If state-based, implement navigateTo/page state with pushState and onpopstate. Do not break cart, variant, theme, currency, or location.
+
+================================================================================
+P. LAYOUT POLISH
+================================================================================
+
+Fix mobile hero spacing, desktop hero balance, For Businesses button readability, CTA alignment, product detail spacing, gallery blank spaces, document/proof overflow, checkout/proforma spacing, footer readability, horizontal overflow, elements outside cards, WhatsApp/Replit badge covering buttons, mobile modals/forms, tap target size, sticky bottom CTA.
+
+================================================================================
+Q. DELIVERY / LANDED INDIA-READY LOGIC
+================================================================================
+
+Displayed product price is already India landed/customer-facing estimate. It includes sourcing/import/landing estimate and business margin. Do not add China-to-India shipping again.
+
+Checkout adds only domestic India delivery/location handling after landed stock allocation.
+
+Display:
+Product price: ₹X
+Domestic delivery/location handling: ₹Y
+Estimated total: ₹X + ₹Y
+
+Replace “shipping from China” with “Domestic delivery / location handling after landed stock allocation.”
+
+Do not show FOB, supplier cost, landed formula, margin, commission, profit.
+
+Package types:
+smallParcel = pillows, small cushions, accessories
+mediumParcel = toppers, folded/rolled latex, multiple pillows
+bulkyParcel = mattresses, large toppers, custom/bay-window
+
+Config:
+SMALL: near port/local ₹100–₹300; same state ₹200–₹600; interstate city ₹400–₹1,000; interior ₹700–₹1,800; very remote quote required.
+MEDIUM: near port/local ₹500–₹1,500; same state ₹800–₹2,500; interstate city ₹1,500–₹4,500; interior ₹2,500–₹7,000; very remote quote required.
+BULKY: near port/local ₹1,500–₹4,000; same state ₹2,500–₹7,000; interstate city ₹4,000–₹12,000; interior/remote quote required.
+
+Ports: West Nhava Sheva/Mumbai, Mundra, Kandla; South Chennai/Ennore/Kattupalli/Kochi/Tuticorin; East Kolkata/Haldia/Paradip/Visakhapatnam; Northeast Kolkata/Haldia + inland.
+
+Pillow/small parcel delivery must not be absurdly high.
+
+================================================================================
+R. PACKAGE COUNT, CHECKOUT, UPI, PROFORMA
+================================================================================
+
+Each variant supports packageType, unitsPerPackage, packageWeightEstimate, packageSizeEstimate, shipsRolledOrCompressed, quoteRequiredForBulk.
+
+Package count = Math.ceil(quantity / unitsPerPackage).
+
+First package full delivery; extra small parcels 40–60%; medium configurable; bulky extra quote required.
+
+Checkout after location confirmation shows selected product, variant/SKU, quantity, package type, package count, product subtotal, domestic delivery, grand total, city/state/pincode, estimated routing, payment method.
+
+Add Generate Proforma / Estimate, Download/Print Proforma, Confirm via WhatsApp, Send via Email, Pay via UPI only if confirmed.
+
+Use “Proforma / Estimate,” not GST Invoice.
+
+UPI:
+upi://pay?pa=chaitanyagaikwad022@okicici&pn=XIYORA&am=TOTAL_AMOUNT&cu=INR&tn=XIYORA Order ORDER_ID
+
+If location changed after confirmation, mark “Needs reconfirmation” and disable payment.
+
+================================================================================
+S. QUOTATION / NO NETWORK BUG
+================================================================================
+
+Fix “No network” when sending quotation. Possible causes: localhost API, missing route, backend not running, missing env vars, CORS, email/database unavailable, serverless route error, frontend-only deployment.
+
+If backend works: save quote, send/store, generate proforma, success.
+If backend fails: no vague “No network”; show fallback message; generate local proforma; download/print; save localStorage; WhatsApp prefilled; mailto fallback; try again button; console logs API URL/status/error/fallback.
+
+================================================================================
+T. ADMIN / CMS FOUNDATION
+================================================================================
+
+Protected by ADMIN_SECRET.
+
+Routes: /admin, /admin/content, /admin/products, /admin/categories, /admin/materials, /admin/images, /admin/documents, /admin/hero, /admin/pricing, /admin/delivery, /admin/currency, /admin/quotes, /admin/settings, /admin/partners.
+
+Admin edits hero text, video path/poster/headline, CTA, footer/contact, currency rates, delivery config, package config, product visibility/featured, categories, product descriptions, image paths/URLs, document links, quote requests, FAQ, buyer sections, proforma notes.
+
+Support Cloudinary if configured; otherwise local path entry. Do not expose secret in frontend.
+
+================================================================================
+U. PAYMENT SAFETY
+================================================================================
+
+Do not collect card details manually. Do not fake payment success. Do not expose payment secrets.
+
+Payment methods: UPI/Google Pay/PhonePe/Paytm via UPI; QR optional; net banking/cards after payment gateway integration; Razorpay placeholder only unless backend keys exist.
+
+Payment enabled only after product/variant/location/delivery/total confirmed.
+
+================================================================================
+V. FINAL QA CHECKLIST
+================================================================================
+
+Check:
+- npm install and npm run build pass.
+- GitHub pushed, latest commit hash reported.
+- 4500 logs/build/runtime issues checked.
+- README and .env.example created.
+- Images mapped correctly, no collage/triptych strips, no broken images.
+- PDFs view/download work.
+- Dark/light themes readable.
+- Currency toggle works for INR/USD/AED/EUR etc.
+- Mobile/desktop layouts clean.
+- Breadcrumb/browser back works.
+- Delivery uses landed India logic; no China shipping added again.
+- Pillow delivery reasonable.
+- Package count appears.
+- Proforma/WhatsApp/email fallback works.
+- UPI amount uses INR confirmed total and disables when unconfirmed.
+- Admin protected and usable/prepared.
+- Domain/deployment instructions included.
+
+================================================================================
+W. SHORT INSTRUCTION TO SEND WITH THIS FILE
+================================================================================
+
+Please read the attached file `XIYORA_REPLIT_DOMAIN_ERROR_FIX_MASTER_PROMPT.txt` completely before coding.
+
+This file is the final master implementation plan for the XIYORA website. It includes the current project context, marketplace vision, 4500/server error troubleshooting, Replit paid/domain readiness, exact image/document/video handling, premium 2D/3D/CSS animation direction, dark/light theme fixes, multi-currency fix, delivery/location logic, package/proforma logic, quotation “No network” fallback, admin/CMS requirements, GitHub persistence requirements, and final QA checklist.
+
+Do not restart the project. Implement this on the current website files, verify the real source files changed, run build, fix errors, push to GitHub, and report repo URL, branch, latest commit hash, build/deployment status, changed files, included assets/documents, env vars needed, and remaining placeholders.
+
+================================================================================
+X. WHAT THE USER SHOULD UPLOAD
+================================================================================
+
+Upload:
+1. Current complete XIYORA project ZIP or GitHub repo import.
+2. This text file.
+3. All product image ZIPs.
+4. All image mapping PDFs.
+5. Latex Topper gallery images/ZIP.
+6. Category/product/material images.
+7. Mattress production/showcase video.
+8. Catalogue PDFs.
+9. Certificate PDFs: OEKO-TEX, ISO, GTTC report, Business license, Bingxi introduction, Product catalogue.
+10. Payment QR screenshot if UPI QR should be shown.
+11. Pricing/variant/product data files.
+12. Domain name after purchase.
+13. Secrets only through Replit Secrets, never in chat.
+
+================================================================================
+Y. USER NEXT PROCESS AFTER AI COMPLETES
+================================================================================
+
+1. Check preview manually on mobile and desktop.
+2. Check homepage, dark theme, currency toggle, product pages, topper gallery, material section, documents, checkout, quote/proforma, WhatsApp, UPI behavior.
+3. Ask for GitHub repo URL, branch, commit hash.
+4. Open GitHub yourself and confirm public/assets, documents, videos, images, README, .env.example are present.
+5. Import GitHub repo into another account or fresh Replit to verify portability.
+6. Publish/deploy from Replit.
+7. Add domain in Replit publishing/domain settings.
+8. Add DNS records at domain provider.
+9. Add secrets in Replit Secrets.
+10. Test live domain.
+11. Only then share with customers.
+
+END OF FILE
