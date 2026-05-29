@@ -6,7 +6,7 @@ const BIZ = {
   email: "xiyatosaanvi@gmail.com",
   ig: "https://www.instagram.com/xiyora.zi/",
   address: "Yogesh Nagar, Section 25, Near 12 No School, Ulhasnagar – 421004, Thane, Maharashtra, India",
-  gstNote: "GST invoice available where applicable. GST number will be updated after registration.",
+  gstNote: "Formal tax documentation can be provided where applicable once GST registration is complete.",
 };
 
 const API_BASE = "/api";
@@ -1164,6 +1164,42 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
   .lux-bamboo{display:none}
 }
 @media(max-width:560px){.icon-strip .ist{min-width:33%}.icon-strip .ist:nth-child(3)::after{display:none}}
+/* ── DARK LUX HOMEPAGE (reference-faithful black-lacquer + gold) ── */
+.lux-noir{background:#0c0a08;background-image:radial-gradient(130% 82% at 50% -12%,rgba(48,35,20,.92),transparent 56%),radial-gradient(70% 55% at 100% 0%,rgba(64,46,24,.42),transparent 60%),radial-gradient(60% 50% at 0% 100%,rgba(60,42,22,.34),transparent 60%);color:#EFE6D6}
+.ornate{position:relative;border:1px solid rgba(200,169,126,.42);box-shadow:inset 0 0 0 4px rgba(200,169,126,.07),inset 0 0 80px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.5)}
+.ornate::before{content:'';position:absolute;inset:9px;border:1px solid rgba(200,169,126,.2);border-radius:inherit;pointer-events:none;z-index:6}
+.gold-italic{font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(180deg,#F2D78C 0%,#C99A55 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#D9B485}
+.gold-grad{background:linear-gradient(180deg,#F2D78C 0%,#C99A55 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#D9B485}
+.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(200,169,126,.5);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
+.feat-circ:hover{background:rgba(200,169,126,.12);border-color:#E6C89A;transform:translateY(-3px)}
+.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,rgba(200,169,126,.16),rgba(200,169,126,.03));color:#EBD3A6;border:1px solid rgba(200,169,126,.55);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .35s;position:relative;overflow:hidden}
+.btn-gold-out:hover{background:rgba(200,169,126,.22);border-color:#E6C89A;color:#FBEFD8;transform:translateY(-2px);box-shadow:0 12px 32px rgba(200,169,126,.22)}
+.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,#F4EBD9,#E2D2B6);color:#2a2118;border:1px solid #d8c298;padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .35s}
+.btn-ivory:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.45);background:linear-gradient(180deg,#FBF4E6,#EADCC2)}
+.deco-float{animation:driftSlow 14s ease-in-out infinite}
+@keyframes petalFall{0%{transform:translateY(-12vh) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translateY(118vh) rotate(480deg);opacity:0}}
+@keyframes petalSway{0%,100%{transform:translateX(0)}50%{transform:translateX(26px)}}
+.petal-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.petal{position:absolute;top:0;will-change:transform;animation:petalFall linear infinite}
+.petal i{display:block;width:100%;height:100%;background:radial-gradient(circle at 32% 28%,#f8d3d9,#ea9faa 62%,#d77f8f);border-radius:100% 0 100% 0;box-shadow:inset -1px -1px 2px rgba(150,60,80,.22);animation:petalSway ease-in-out infinite}
+.lux-feat-row{display:flex;align-items:flex-start;gap:0}
+.lux-feat-row .lf{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:0 6px;position:relative}
+.lux-feat-row .lf:not(:last-child)::after{content:'';position:absolute;right:0;top:8px;height:42px;width:1px;background:rgba(200,169,126,.3)}
+.lux-feat-row .lf .lfl{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#bdae97;line-height:1.5;font-weight:500}
+.biz-feat{display:flex;align-items:center;gap:9px}
+.biz-feat .bft{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#bdae97;line-height:1.4;font-weight:500}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.trust-item{display:flex;align-items:center;gap:14px;justify-content:center}
+@media(max-width:900px){
+  .lux-hero-grid{grid-template-columns:1fr!important}
+  .lux-hero-photo-r{order:-1;min-height:330px!important}
+  .biz-grid{grid-template-columns:1fr!important;justify-items:center;text-align:center}
+  .biz-feats{justify-content:center}
+  .trust-grid{grid-template-columns:1fr 1fr!important;gap:22px}
+  .trust-item{justify-content:flex-start}
+}
+@media(max-width:560px){.lux-feat-row{flex-wrap:wrap;gap:18px 0}.lux-feat-row .lf{flex:0 0 50%}.lux-feat-row .lf::after{display:none}.trust-grid{grid-template-columns:1fr!important}.biz-feats{grid-template-columns:1fr 1fr!important}}
+@media(prefers-reduced-motion:reduce){.petal{display:none!important}.deco-float{animation:none!important}}
 @media(prefers-reduced-motion:reduce){
   .lux-hero-photo img{animation:none!important}
   .xiyora-reveal,.xiyora-premium-card,.xiyora-gold-button,.xiyora-whatsapp-popup,.ht1,.ht2,.ht3,.ht4,.ht5,.x-drift,.x-drift-slow,.x-stagger>*,.x-frame img,.x-frame .x-frame-img{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
@@ -1372,6 +1408,180 @@ function IconStrip({items,bg}:{items:{name:string;label:string}[];bg?:string}){
           <div key={i} className="ist"><LuxIcon name={it.name} size={26}/><div className="flabel">{it.label}</div></div>
         ))}
       </Stagger></div>
+    </section>
+  );
+}
+
+/* ─── DARK-LUXURY HOMEPAGE SYSTEM (black-lacquer + gold, reference-faithful) ── */
+const DECO={
+  sakuraCluster:"/assets/lux/deco/sakura-cluster.png",
+  sakuraCorner:"/assets/lux/deco/sakura-corner.png",
+  crane:"/assets/lux/deco/gold-crane.png",
+  rabbit:"/assets/lux/deco/gold-rabbit.png",
+  medallion:"/assets/lux/deco/crane-medallion.png",
+  bamboo:"/assets/lux/deco/gold-bamboo.png",
+};
+/* Gold corner flourish for ornate frames */
+const CornerFlourish=({style}:{style?:React.CSSProperties})=>(
+  <svg width={58} height={58} viewBox="0 0 58 58" fill="none" aria-hidden style={style}>
+    <path d="M4 4h20M4 4v20" stroke="#C8A97E" strokeWidth="1.3" strokeLinecap="round"/>
+    <path d="M4 16c0-6.6 5.4-12 12-12" stroke="#C8A97E" strokeWidth=".9" opacity=".6"/>
+    <path d="M10 10c14 0 24 10 24 24" stroke="#C8A97E" strokeWidth=".8" opacity=".4"/>
+    <circle cx="8" cy="8" r="2.1" fill="#C8A97E"/>
+    <path d="M16 6q9 2 11 11" stroke="#C8A97E" strokeWidth=".7" opacity=".4"/>
+  </svg>
+);
+const CornerSet=()=>(<>
+  <CornerFlourish style={{position:"absolute",top:4,left:4,zIndex:7}}/>
+  <CornerFlourish style={{position:"absolute",top:4,right:4,transform:"scaleX(-1)",zIndex:7}}/>
+  <CornerFlourish style={{position:"absolute",bottom:4,left:4,transform:"scaleY(-1)",zIndex:7}}/>
+  <CornerFlourish style={{position:"absolute",bottom:4,right:4,transform:"scale(-1,-1)",zIndex:7}}/>
+</>);
+/* Falling sakura petals overlay (CSS-only, reduced-motion safe) */
+function Petals({count=14,z=5}:{count?:number;z?:number}){
+  const [petals]=useState(()=>Array.from({length:count}).map(()=>({
+    left:Math.random()*100,size:7+Math.random()*9,dur:9+Math.random()*11,delay:Math.random()*14,sway:3+Math.random()*4,
+  })));
+  return(
+    <div className="petal-layer" style={{zIndex:z}} aria-hidden>
+      {petals.map((p,i)=>(
+        <span key={i} className="petal" style={{left:`${p.left}%`,width:p.size,height:p.size*0.78,animationDuration:`${p.dur}s`,animationDelay:`-${p.delay}s`}}>
+          <i style={{animationDuration:`${p.sway}s`,animationDelay:`-${p.delay}s`}}/>
+        </span>
+      ))}
+    </div>
+  );
+}
+/* Circle-X monogram mark (gold lockup) */
+const MonoMark=({size=42,color="#C8A97E"}:{size?:number;color?:string})=>(
+  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+    <circle cx="24" cy="24" r="22" stroke={color} strokeWidth="1.2"/>
+    <circle cx="24" cy="24" r="17.5" stroke={color} strokeWidth=".6" opacity=".45"/>
+    <path d="M16 16l16 16M32 16L16 32" stroke={color} strokeWidth="1.3" strokeLinecap="round"/>
+    <circle cx="24" cy="24" r="3.2" fill={color}/>
+  </svg>
+);
+const LUX_HERO_FEATURES=[
+  {name:"leaf",label:"Natural Latex"},
+  {name:"shield",label:"Premium Quality"},
+  {name:"heart",label:"Crafted for Comfort"},
+  {name:"globe",label:"Sourced Responsibly"},
+];
+/* ─── DARK ORNATE HOME HERO ───────────────────────────────── */
+function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>void}){
+  const [err,setErr]=useState(false);
+  return(
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,4vw,46px) 0 clamp(34px,4vw,54px)"}}>
+      <Petals count={16}/>
+      <img src={DECO.sakuraCorner} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:-18,left:-26,width:"clamp(150px,18vw,260px)",opacity:.92,pointerEvents:"none",zIndex:6}}/>
+      <img src={DECO.crane} alt="" aria-hidden className="x-drift" style={{position:"absolute",top:24,right:30,width:"clamp(80px,9vw,130px)",opacity:.85,pointerEvents:"none",zIndex:6}}/>
+      <div className="container" style={{position:"relative",zIndex:4}}>
+        <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
+          <CornerSet/>
+          {/* LEFT — copy */}
+          <div style={{position:"relative",padding:"clamp(30px,4vw,62px)",display:"flex",flexDirection:"column",justifyContent:"center",overflow:"hidden"}}>
+            <img src={DECO.rabbit} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:-6,left:14,width:"clamp(66px,7vw,104px)",opacity:.5,pointerEvents:"none"}}/>
+            <Reveal>
+              <div style={{display:"flex",flexDirection:"column",gap:7,marginBottom:24,position:"relative",zIndex:2}}>
+                <MonoMark size={46}/>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:24,letterSpacing:7,color:"#E6D4B2",lineHeight:1,fontWeight:500}}>XIYORA</div>
+                <div style={{fontFamily:"'Inter',sans-serif",fontSize:9.5,letterSpacing:4.5,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
+              </div>
+              <h1 className="serif" style={{fontSize:"clamp(2.2rem,3.6vw,3.5rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:0,position:"relative",zIndex:2}}>
+                Premium Latex Comfort,<br/><span className="gold-italic">Sourced for India.</span>
+              </h1>
+              <p style={{fontSize:14.5,lineHeight:1.85,color:"#C3B7A1",margin:"22px 0 0",maxWidth:440,position:"relative",zIndex:2}}>
+                Pure Talalay &amp; Dunlop latex, crafted into pillows, mattresses and toppers — and brought to India with considered, document-backed sourcing.
+              </p>
+              <p style={{fontSize:12,letterSpacing:"1px",color:"#C9A876",margin:"16px 0 0",display:"flex",alignItems:"center",gap:10,position:"relative",zIndex:2}}>
+                <span style={{width:26,height:1,background:"#C8A97E",display:"inline-block"}}/>Official Bingxi Partner for India
+              </p>
+              <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:460,position:"relative",zIndex:2}}>
+                {LUX_HERO_FEATURES.map((f,i)=>(
+                  <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
+                ))}
+              </div>
+              <div style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:2}}>
+                <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#C8A97E"}}>✦</span></button>
+                <button className="btn-ivory" onClick={onSupplier}>For Businesses <span style={{color:"#9E3B2E"}}>✦</span></button>
+              </div>
+            </Reveal>
+          </div>
+          {/* RIGHT — photo */}
+          <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:540,overflow:"hidden"}}>
+            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":"/assets/lux/hero-bedroom.png"} alt="XIYORA natural latex bedroom" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+            <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.1) 38%,transparent 60%)",pointerEvents:"none"}}/>
+            <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.4),transparent 36%)",pointerEvents:"none"}}/>
+            <img src={DECO.sakuraCluster} alt="" aria-hidden className="x-drift" style={{position:"absolute",top:-14,right:-10,width:"clamp(110px,13vw,180px)",opacity:.95,pointerEvents:"none",zIndex:3}}/>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+/* ─── DARK BUSINESS BAND ──────────────────────────────────── */
+const BIZ_FEATURES=[
+  {name:"doc",label:"Trade Pricing"},
+  {name:"box",label:"Bulk Order Support"},
+  {name:"handshake",label:"Dedicated Relationship"},
+  {name:"truck",label:"Pan India Delivery"},
+];
+function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
+  return(
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
+      <Petals count={10}/>
+      <img src={DECO.bamboo} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}}/>
+      <img src={DECO.rabbit} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}}/>
+      <div className="container" style={{position:"relative",zIndex:4}}>
+        <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"auto 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
+          <CornerSet/>
+          <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}}/></div>
+          <div>
+            <Reveal>
+              <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
+              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:500,lineHeight:1.14,color:"#F4ECDC",margin:0}}>
+                Crafted for Hotels.<br/><span className="gold-italic">Chosen by the Finest.</span>
+              </h2>
+              <p style={{fontSize:14,lineHeight:1.8,color:"#C3B7A1",margin:"18px 0 0",maxWidth:540}}>
+                Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support.
+              </p>
+              <div className="biz-feats" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"16px 28px",margin:"26px 0 0",maxWidth:540}}>
+                {BIZ_FEATURES.map((f,i)=>(
+                  <div key={i} className="biz-feat"><div className="feat-circ" style={{width:42,height:42}}><LuxIcon name={f.name} size={18} color="#D9B485"/></div><div className="bft">{f.label}</div></div>
+                ))}
+              </div>
+              <button className="btn-gold-out xiyora-gold-button" style={{marginTop:30}} onClick={onSupplier}>Partner With XIYORA <span style={{color:"#C8A97E"}}>✦</span></button>
+            </Reveal>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+/* ─── FOOTER TRUST STRIP ──────────────────────────────────── */
+const TRUST_ITEMS=[
+  {ic:"truck",t:"Pan India Delivery",d:"Safe & reliable shipping"},
+  {ic:"shield",t:"Authentic Products",d:"Official Bingxi partner"},
+  {ic:"check",t:"Premium Quality",d:"Natural Talalay & Dunlop"},
+  {ic:"headset",t:"Expert Support",d:"Here to help you choose"},
+];
+function FooterTrustStrip(){
+  return(
+    <section className="lux-noir" style={{borderTop:"1px solid rgba(200,169,126,.2)",borderBottom:"1px solid rgba(200,169,126,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
+      <div className="x-divider" style={{color:"#C8A97E",marginBottom:20}}>✦</div>
+      <div className="container">
+        <Stagger className="trust-grid">
+          {TRUST_ITEMS.map((it,i)=>(
+            <div key={i} className="trust-item">
+              <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#D9B485"/></div>
+              <div>
+                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:"#EBDCC0",fontWeight:600}}>{it.t}</div>
+                <div style={{fontSize:12,color:"#9F9279",marginTop:3}}>{it.d}</div>
+              </div>
+            </div>
+          ))}
+        </Stagger>
+      </div>
     </section>
   );
 }
@@ -2101,18 +2311,8 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
   };
   return(
     <div>
-      {/* HERO — LUX SPLIT (mockup-faithful) */}
-      <LuxHero
-        title={<>Premium Latex Comfort,<br/><em style={{color:C.gold}}>Sourced for India.</em></>}
-        partner="Official Bingxi Partner for India"
-        seal="信"
-        intro="The Bingxi partner catalogue of natural Talalay & Dunlop latex pillows, mattresses & toppers — available through XIYORA, delivered across India."
-        features={[{name:"leaf",label:"Natural Latex"},{name:"shield",label:"Premium Quality"},{name:"heart",label:"Crafted for Comfort"},{name:"globe",label:"Sourced Responsibly"}]}
-        ctas={[{label:"Explore Products",onClick:onCatalog,variant:"dark"},{label:"For Businesses",onClick:onSupplier,variant:"outline"}]}
-        image="/assets/lux/hero-bedroom.png"
-        imageAlt="XIYORA natural latex bed in a serene moon-gate bedroom"
-        monoSize={1.05}
-      />
+      {/* HERO — DARK ORNATE (reference-faithful black-lacquer + gold) */}
+      <DarkHomeHero onCatalog={onCatalog} onSupplier={onSupplier}/>
       {/* QUICK-NAV BAND (dark) */}
       <section style={{background:C.char,position:"relative",overflow:"hidden"}}>
         <img src="/assets/lux/bonsai-darkwood.png" alt="" aria-hidden style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.32,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)"}}/>
@@ -2306,27 +2506,8 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
       </section>
       {/* MOBILE: make doc grid 1 col */}
       <style>{`@media(max-width:900px){.doc-grid-home{grid-template-columns:1fr 1fr!important}}@media(max-width:560px){.doc-grid-home{grid-template-columns:1fr!important}}`}</style>
-      {/* B2B CTA */}
-      <section className="sec" style={{background:C.char,position:"relative",overflow:"hidden"}}>
-        <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:700,height:700,background:"radial-gradient(circle,rgba(200,169,126,.06) 0%,transparent 70%)",pointerEvents:"none"}}/>
-        <div className="container" style={{position:"relative",textAlign:"center"}}>
-          <SL dark>B2B Welcome</SL>
-          <SH dark center>Partner With <em>XIYORA</em></SH>
-          <p style={{fontSize:15.5,color:"#666",lineHeight:1.88,margin:"18px auto 44px",maxWidth:580,fontWeight:300}}>Bulk pricing, custom specifications, private-label options, and dedicated B2B support. Hotels, retailers, interior designers, and manufacturers welcome.</p>
-          <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap",marginBottom:52}}>
-            <button className="bg" style={{padding:"14px 36px",fontSize:12,letterSpacing:"2px"}} onClick={onSupplier}>Explore B2B Options</button>
-            <button className="bd" style={{padding:"14px 36px",fontSize:12,letterSpacing:"2px"}} onClick={()=>onInquire(null,"bulk")}>Send B2B Inquiry</button>
-          </div>
-          <div style={{display:"flex",gap:48,justifyContent:"center",flexWrap:"wrap"}}>
-            {[["Pan-India","Delivery Network"],["Custom Sizes","& Densities"],["GST Invoice","Where Applicable"],["B2B Quote","Within 48 Hours"]].map(([l1,l2],i)=>(
-              <div key={i} style={{textAlign:"center"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.gold}}>{l1}</div>
-                <div style={{fontSize:11.5,color:"#555",marginTop:3}}>{l2}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* B2B BAND — DARK ORNATE (reference-faithful) */}
+      <DarkBusinessBand onSupplier={onSupplier}/>
       {/* BOTTOM CTA */}
       <section style={{padding:"64px 0",background:C.beige}}>
         <div className="container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24}}>
@@ -2345,6 +2526,8 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
           </div>
         </div>
       </section>
+      {/* TRUST STRIP — DARK (reference-faithful) */}
+      <FooterTrustStrip/>
     </div>
   );
 }
@@ -2492,12 +2675,19 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             ))}
           </div>
         </div>
-        {/* Center: circle-X monogram + XIYORA */}
-        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:9,cursor:"pointer"}} onClick={()=>setPage("home")} title="XIYORA — Home">
-          <svg width={26} height={26} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
-            <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/><circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
-          </svg>
-          <div style={{fontFamily:"'Playfair Display',serif",fontSize:23,fontWeight:600,letterSpacing:6,color:"#F2EADB",lineHeight:1,userSelect:"none"}}>XIYORA</div>
+        {/* Center: ornate cartouche — sakura garland + circle-X monogram + XIYORA + 舒适·自然·匠心 */}
+        <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <img src={DECO.sakuraCluster} alt="" aria-hidden className="nav-ornament" style={{position:"absolute",left:-30,top:-14,width:46,opacity:.9,pointerEvents:"none",zIndex:1}}/>
+          <img src={DECO.sakuraCluster} alt="" aria-hidden className="nav-ornament" style={{position:"absolute",right:-30,top:-14,width:46,opacity:.9,transform:"scaleX(-1)",pointerEvents:"none",zIndex:1}}/>
+          <div onClick={()=>setPage("home")} title="XIYORA — Home" style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px 24px",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
+            <div style={{display:"flex",alignItems:"center",gap:9}}>
+              <svg width={24} height={24} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
+                <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/><circle cx="24" cy="24" r="17.5" stroke="#C8A97E" strokeWidth=".6" opacity=".45"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/><circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
+              </svg>
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:23,fontWeight:600,letterSpacing:6,color:"#F2EADB",lineHeight:1,userSelect:"none"}}>XIYORA</div>
+            </div>
+            <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:3,color:"#B89A6E",userSelect:"none"}}>舒适 · 自然 · 匠心</div>
+          </div>
         </div>
         {/* Right: Currency, Search, Cart, B2B Portal */}
         <div style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
@@ -2607,7 +2797,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
           </div>
         </div>
         <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
-          <div style={{fontSize:12,color:"#666"}}>© 2025 XIYORA. All prices indicative. GST invoice available where applicable.</div>
+          <div style={{fontSize:12,color:"#666"}}>© 2025 XIYORA. All prices indicative. Proforma / Estimate provided where applicable.</div>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
             {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
               <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"color .2s"}}
@@ -2746,7 +2936,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
 <div><span>Domestic delivery${delivery?` (Zone ${delivery.zone})`:""}</span><span>${delivery?`₹${deliveryINRr.toLocaleString("en-IN")}`:"To be confirmed"}</span></div>
 <div class="grand"><span>Estimated Total</span><span>₹${(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")}</span></div>
 </div>
-<div class="note"><strong>This is a Proforma / Estimate, not a tax invoice.</strong> All prices are indicative and subject to written confirmation. ${delivery?`Delivery routed via ${esc(delivery.port)}, estimated transit ${esc(delivery.days)} days after dispatch.`:"Delivery is estimated once the destination is confirmed."} GST invoice issued where applicable after registration. No payment has been collected against this document.</div>
+<div class="note"><strong>This is a Proforma / Estimate, not a tax invoice.</strong> All prices are indicative and subject to written confirmation. ${delivery?`Delivery routed via ${esc(delivery.port)}, estimated transit ${esc(delivery.days)} days after dispatch.`:"Delivery is estimated once the destination is confirmed."} Formal tax documentation provided where applicable after GST registration. No payment has been collected against this document.</div>
 <div class="noprint" style="margin-top:24px;text-align:center"><button onclick="window.print()" style="background:#2D2D2D;color:#fff;border:none;padding:11px 28px;border-radius:2px;letter-spacing:1px;cursor:pointer">Print / Save as PDF</button></div>
 </body></html>`;
     const w=window.open("","_blank");
@@ -3535,7 +3725,7 @@ export default function App(){
     if(page==="supplier")return<SimplePage title="For B2B Buyers" content={[["B2B Welcome","We welcome retailers, hotels, interior designers, mattress stores, and manufacturers. Contact us for bulk pricing, custom specifications, and private-label options."],["Our Process","Send inquiry → Receive indicative quote → Confirm specs → Proforma invoice → Payment confirmation → Production & shipping → Delivery."],["Bulk Pricing","Volume discounts available for trade buyers. Minimum order quantities vary by product."],["Custom Options","Custom sizes, densities, cover fabrics, and private-label branding available for most products on request."],["Contact",`WhatsApp: +91 70283 11226 | Email: ${BIZ.email}`]]} setPage={setPage}/>;
     if(page==="about")return<SimplePage title="About XIYORA" content={[["Our Mission","To make genuine premium natural latex comfort accessible in India — with transparent pricing, honest sourcing, and dedicated support."],["Bingxi Partnership","XIYORA is the official sourcing partner for Bingxi products in India. Bingxi is a Chinese premium latex manufacturer with a broad portfolio of Talalay, Dunlop, and hybrid latex products."],["Our Address",BIZ.address],["GST",BIZ.gstNote]]} setPage={setPage}/>;
     if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={setPage}/>;
-    if(page==="faq")return<SimplePage title="FAQ" content={[["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],["Do you offer GST invoices?",BIZ.gstNote],["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]]} setPage={setPage}/>;
+    if(page==="faq")return<SimplePage title="FAQ" content={[["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],["Do you provide tax documentation?",BIZ.gstNote],["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]]} setPage={setPage}/>;
     if(page==="shipping")return<SimplePage title="Shipping & Delivery" content={[["Origin","Imported from Bingxi, China via sea freight."],["Indian Ports","Mumbai (Nhava Sheva), Mundra, Chennai, Kolkata, Cochin — based on buyer location."],["Sea Freight","~25–40 days from order confirmation, depending on product and quantity."],["Inland Delivery","3–10 days after port clearance depending on your zone."],["Costs","Shipping, customs, IGST, and inland delivery are included in your final quoted price."]]} setPage={setPage}/>;
     if(page==="returns")return<SimplePage title="Returns & Refunds" content={[["Damaged in Transit","Document with photos within 24 hours of delivery and contact us immediately."],["Wrong Product","We arrange replacement or refund for incorrect products sent."],["Custom Orders","Non-returnable once production has started — confirm all specs before approval."],["Contact",`${BIZ.email} or WhatsApp +91 70283 11226`]]} setPage={setPage}/>;
     if(page==="privacy")return<SimplePage title="Privacy Policy" content={[["Data Collected","Name, phone, email, city from inquiry forms."],["Use","To respond to inquiries, send quotes, and process orders."],["Sharing","Not sold or shared except where required for order processing and delivery."],["Contact",BIZ.email]]} setPage={setPage}/>;
@@ -3550,7 +3740,7 @@ export default function App(){
         setPage={setPage} onCatFilter={openCatFilter} onCatalog={openCatalog}
         onInquire={openInquiry} onProof={openProof}/>
       {/* Ticker */}
-      <div style={{background:tc.char,color:"#D9CBB8",padding:"9px 0",overflow:"hidden"}}>
+      <div style={{background:"#0c0a08",color:"#C9A876",padding:"9px 0",overflow:"hidden",borderBottom:"1px solid rgba(200,169,126,.14)"}}>
         <div style={{display:"flex",overflow:"hidden"}}>
           <div className="at">
             {[0,1].map(k=>(

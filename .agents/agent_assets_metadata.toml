@@ -48,3 +48,39 @@ id = "BYkurNapmHdfZ2XRq1Uzv"
 uri = "file://artifacts/xiyora/public/assets/lux/handshake-business.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "3ehapbyPXWpXrXBagRuk3"
+uri = "file://artifacts/xiyora/public/assets/lux/deco/sakura-cluster.png"
+type = "image"
+title = "sakura cluster"
+
+[[generated]]
+id = "AZJnYW_UmcBbAxcL-bZb-"
+uri = "file://artifacts/xiyora/public/assets/lux/deco/sakura-corner.png"
+type = "image"
+title = "sakura corner"
+
+[[generated]]
+id = "_s2Czd68dnzokA3xoJE9i"
+uri = "file://artifacts/xiyora/public/assets/lux/deco/gold-crane.png"
+type = "image"
+title = "gold crane"
+
+[[generated]]
+id = "J1l7ctslF77ZeLVx10hXi"
+uri = "file://artifacts/xiyora/public/assets/lux/deco/gold-rabbit.png"
+type = "image"
+title = "gold rabbit"
+
+[[generated]]
+id = "zc6jh8iZdJHuRcDXgcwof"
+uri = "file://artifacts/xiyora/public/assets/lux/deco/crane-medallion.png"
+type = "image"
+title = "crane medallion"
+
+[[generated]]
+id = "V6RneurZrAUrLmJ1Hv8aH"
+uri = "file://artifacts/xiyora/public/assets/lux/deco/gold-bamboo.png"
+type = "image"
+title = "gold bamboo"

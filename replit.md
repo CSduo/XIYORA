@@ -24,6 +24,8 @@ _Replace the heading above with the project's name, and this line with one sente
 
 - Storefront SPA: `artifacts/xiyora/src/App.tsx` (single file, ~3.4k lines). Global CSS/motion system is the `CSS` template string in that file; error wrapper `artifacts/xiyora/src/ErrorBoundary.tsx` wired in `main.tsx`.
 - Design system (Asian-luxury editorial redesign): Playfair Display (headings) + Inter (body), loaded once via `index.html` (no CSS `@import`). Palette tokens `C`/`CD` include `ink`/`seal`/`taupe` keys. Reusable decorative components live just after `Reveal`: `Seal` (red 印 stamp), `GoldCloud`, `Sakura`, `Monogram` ("XIYORA / Crafted Comfort"), plus `Stagger` reveal wrapper. Motif CSS classes (`.serif .paper .ink-wash .seal .x-divider .x-link/.ar .x-frame .x-drift(-slow) .x-tag .brush-edge .x-stagger .cc-tag .feat-ic`) sit in the "ASIAN-LUXURY MOTIF SYSTEM" block; all animated classes are gated behind `prefers-reduced-motion`.
+- Dark-luxury HOMEPAGE redesign (black-lacquer + ivory + soft gold, Chinese/Japanese maximalist ornamentation): components live after `IconStrip` — `DECO` (path constants for gold motifs), `CornerFlourish`/`CornerSet`, `Petals` (CSS-only floating petals, stable `useState` initializer), `MonoMark`, `DarkHomeHero`, `DarkBusinessBand`, `FooterTrustStrip`. Dark-lux CSS classes (`.lux-noir .ornate .gold-italic .gold-grad .feat-circ .btn-gold-out .btn-ivory .deco-float .petal .petal-layer .lux-feat-row .biz-feat .trust-grid .trust-item`) sit after the icon-strip mobile media query in the global `CSS` string; all motion gated behind `prefers-reduced-motion`. HomeView uses `DarkHomeHero`/`DarkBusinessBand`/`FooterTrustStrip` (LuxHero remains for catalog/other pages). Navbar center is an ornate cartouche (circle-X monogram + XIYORA serif + 舒适·自然·匠心 + flanking sakura). Ticker is gold-on-near-black.
+- Decorative gold motifs (transparent PNG): `artifacts/xiyora/public/assets/lux/deco/` — sakura-cluster, sakura-corner, gold-crane, gold-rabbit, crane-medallion, gold-bamboo.
 - Product/category/document images: `artifacts/xiyora/public/assets/` (all 62 referenced assets present).
 - API routes: `artifacts/api-server/src/routes/{index,enquiries,subscriptions,checkoutIntents}.ts`; admin guard `artifacts/api-server/src/lib/adminAuth.ts`.
 - DB schema (source of truth): `lib/db/src/schema/{index,enquiries,subscriptions,checkoutIntents}.ts`.
@@ -51,7 +53,7 @@ User-facing capabilities:
 
 ## User preferences
 
-- Do NOT invent pricing, delivery promises, certificate claims, or payment-success states. Currency rates are explicitly indicative (labelled via `CURRENCY_DISCLAIMER`); supported currencies are INR/USD/AED/EUR/GBP/SGD/AUD (INR base). Use "Proforma/Estimate" language, never "GST Invoice".
+- Do NOT invent pricing, delivery promises, certificate claims, or payment-success states. Currency rates are explicitly indicative (labelled via `CURRENCY_DISCLAIMER`); supported currencies are INR/USD/AED/EUR/GBP/SGD/AUD (INR base). Use "Proforma/Estimate" language, never "GST Invoice" — `BIZ.gstNote` and all user-facing copy now say "formal tax documentation … after GST registration" (honest/conditional), never claim a GST invoice is issued.
 - Final product/category image replacement is out of scope unless explicitly asked — only prepare asset folders + manifest.
 - Verify with `pnpm --filter @workspace/xiyora run typecheck` (not `build`, which needs workflow-provided `PORT`/`BASE_PATH`).
 - Key constants in `App.tsx`: `UPI_ID="chaitanyagaikwad022@okicici"`, `UPI_NAME="XIYORA"`, `BIZ.wa="917028311226"`.
