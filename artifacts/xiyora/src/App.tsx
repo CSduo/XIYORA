@@ -1249,6 +1249,29 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .gold-line-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,240,205,.45) 50%,transparent 70%);background-size:220% 100%;background-position:-180% 0;pointer-events:none}
 .gold-line-btn:hover::before{animation:goldShimmer 1.1s ease}
 @media(prefers-reduced-motion:reduce){.gold-line-btn::before{display:none!important}.cloud-drift,.idle-bob{animation:none!important}.gold-badge,.ql-card,.benefit-noir .bn,.bt-noir{transition:none!important}}
+/* ── SHOP-BY-CATEGORY PREMIUM CARD GRID (3 + 2 layout) ── */
+.cat-grid6{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.cat-grid6 .sp2{grid-column:span 2}
+.cat-grid6 .sp3{grid-column:span 3}
+.cat-card{position:relative;display:block;width:100%;height:392px;border:none;padding:0;margin:0;cursor:pointer;border-radius:7px;overflow:hidden;background:#16110b;box-shadow:0 0 0 1px rgba(200,169,126,.45),0 16px 38px rgba(0,0,0,.16);transition:box-shadow .45s ease,transform .45s ease;text-align:left;-webkit-tap-highlight-color:transparent}
+.cat-card.cat-card-wide{height:340px}
+.cat-card:hover,.cat-card:focus-visible{outline:none;box-shadow:0 0 0 1px rgba(200,169,126,.95),0 0 24px rgba(200,169,126,.34),0 22px 48px rgba(0,0,0,.28);transform:translateY(-4px)}
+.cat-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:scale(1.07)}
+.cat-card-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(16,13,10,.92) 0%,rgba(16,13,10,.5) 32%,rgba(16,13,10,.05) 60%,transparent 78%);pointer-events:none}
+.cat-card-body{position:absolute;left:0;right:0;bottom:0;padding:24px 22px 24px;z-index:4}
+.cat-card-title{font-family:'Playfair Display',serif;font-size:23px;font-weight:600;color:#F4ECDC;letter-spacing:.3px;margin:0 0 5px;line-height:1.1}
+.cat-card-sub{font-size:12px;color:rgba(244,236,220,.74);letter-spacing:.2px;margin:0 0 13px;line-height:1.5;max-width:88%}
+.cat-card-explore{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#E8C893;font-weight:600}
+.cat-card-arr{display:inline-block;transition:transform .35s ease}
+.cat-card:hover .cat-card-arr,.cat-card:focus-visible .cat-card-arr{transform:translateX(6px)}
+.cat-vtag{position:absolute;top:52px;right:0;writing-mode:vertical-rl;text-orientation:upright;background:linear-gradient(180deg,rgba(214,184,138,.96),rgba(158,124,82,.94));color:#1a140d;font-size:11px;letter-spacing:4px;padding:11px 5px;border-radius:4px 0 0 4px;font-weight:700;z-index:4;box-shadow:0 5px 14px rgba(0,0,0,.28)}
+.cat-corner{position:absolute;width:26px;height:26px;z-index:4;pointer-events:none;border-color:rgba(232,200,147,.85)}
+.cat-corner.tl{top:13px;left:13px;border-top:1.5px solid;border-left:1.5px solid;border-top-left-radius:3px}
+.cat-corner.tr{top:13px;right:13px;border-top:1.5px solid;border-right:1.5px solid;border-top-right-radius:3px}
+@media(max-width:900px){.cat-grid6{grid-template-columns:1fr 1fr;gap:16px}.cat-grid6 .sp2,.cat-grid6 .sp3{grid-column:auto}.cat-card,.cat-card.cat-card-wide{height:320px}}
+@media(max-width:600px){.cat-grid6{grid-template-columns:1fr;gap:16px}.cat-card,.cat-card.cat-card-wide{height:300px}}
+@media(prefers-reduced-motion:reduce){.cat-card,.cat-card-img,.cat-card-arr{transition:none!important}.cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:none!important}}
 `;
 
 /* ─── SMALL UI COMPONENTS ────────────────────────────────── */
@@ -2484,16 +2507,58 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
   );
 }
 
+/* Premium Shop-By-Category card — image background + gold accents + ornamental corners */
+function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub:string;cn?:string;wide?:boolean;onClick:()=>void}){
+  const [imgErr,setImgErr]=useState(false);
+  return(
+    <button type="button" onClick={onClick} aria-label={`${name} — ${sub}`} className={"cat-card"+(wide?" cat-card-wide":"")}>
+      <img src={imgErr?FALLBACK_IMG:img} alt={name} className="cat-card-img" loading="lazy" onError={()=>setImgErr(true)}/>
+      <div className="cat-card-grad"/>
+      <span className="cat-corner tl" aria-hidden/>
+      <span className="cat-corner tr" aria-hidden/>
+      {cn&&<span className="cat-vtag" aria-hidden>{cn}</span>}
+      <div className="cat-card-body">
+        <div className="cat-card-title">{name}</div>
+        <div className="cat-card-sub">{sub}</div>
+        <span className="cat-card-explore">Explore <span className="cat-card-arr">→</span></span>
+      </div>
+    </button>
+  );
+}
 /* ─── HOME VIEW ──────────────────────────────────────────── */
 function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire}:any){
   const C=useC();
   const catImages:Record<string,string>={
-    Mattresses:"/assets/products/talalay-latex-mattress/talalay-latex-mattress-1.jpg",
-    Pillows:"/assets/products/talalay-contour-pillow/talalay-contour-pillow-1.jpg",
-    Toppers:"/assets/categories/toppers-premium.png",
-    Cushions:"/assets/products/dunlop-standard-seat-cushion/dunlop-standard-seat-cushion-1.jpg",
-    "Latex Material":"/assets/categories/latex-material-premium.png",
+    Mattresses:"/assets/categories/category-mattresses-premium-asian-luxury.png",
+    Pillows:"/assets/categories/category-pillows-premium-asian-luxury.png",
+    Toppers:"/assets/categories/category-toppers-premium-asian-luxury.png",
+    Cushions:"/assets/categories/category-cushions-premium-asian-luxury.png",
+    "Latex Material":"/assets/categories/category-latex-material-premium-asian-luxury.png",
   };
+  const CAT_CARDS=[
+    {filter:"Mattresses",name:"Mattresses",sub:"Premium Latex Mattresses",cn:"床垫",wide:false},
+    {filter:"Pillows",name:"Pillows",sub:"Natural Comfort & Support",cn:"枕头",wide:false},
+    {filter:"Toppers",name:"Toppers",sub:"Enhance Your Sleep Experience",cn:"床垫层",wide:false},
+    {filter:"Cushions",name:"Cushions",sub:"Specialty Cushions for Everyday Comfort",cn:"坐垫",wide:true},
+    {filter:"Latex Material",name:"Latex Material",sub:"Natural Latex Materials & Covers",cn:"乳胶",wide:true},
+  ];
+  const CatSection=(
+    <section className="sec paper ink-wash" style={{position:"relative"}}>
+      <GoldCloud className="x-drift-slow" size={150} opacity={.16} style={{position:"absolute",top:36,left:24,pointerEvents:"none"}}/>
+      <div className="container">
+        <Reveal style={{marginBottom:52}}>
+          <CategoryIntroPanel/>
+        </Reveal>
+        <Stagger className="cat-grid6">
+          {CAT_CARDS.map((cat)=>(
+            <div key={cat.filter} className={cat.wide?"sp3":"sp2"}>
+              <CategoryCard img={catImages[cat.filter]} name={cat.name} sub={cat.sub} cn={cat.cn} wide={cat.wide} onClick={()=>onCatFilter(cat.filter)}/>
+            </div>
+          ))}
+        </Stagger>
+      </div>
+    </section>
+  );
   return(
     <div>
       {/* HERO — DARK ORNATE (reference-faithful black-lacquer + gold) */}
@@ -2529,31 +2594,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
       {/* BUYER BEST-FIT SELECTOR */}
       <BuyerBestFit onCatFilter={onCatFilter} onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
       {/* CATEGORIES */}
-      <section className="sec paper ink-wash" style={{position:"relative"}}>
-        <GoldCloud className="x-drift-slow" size={150} opacity={.16} style={{position:"absolute",top:36,left:24,pointerEvents:"none"}}/>
-        <div className="container">
-          <Reveal style={{marginBottom:52}}>
-            <CategoryIntroPanel/>
-          </Reveal>
-          <Stagger className="grid-5">
-            {CATS.filter(c=>c.filter).map((cat,i)=>{
-              const [imgErr,setImgErr]=useState(false);
-              return(
-                <div key={i} className="cc x-frame" style={{aspectRatio:"2/3"}} onClick={()=>onCatFilter(cat.filter)}>
-                  <img src={imgErr?FALLBACK_IMG:catImages[cat.filter!]} alt={cat.name} className="ci" onError={()=>setImgErr(true)}/>
-                  <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,18,16,.86) 0%,rgba(20,18,16,.1) 50%,transparent 70%)"}}/>
-                  <div className="cc-tag x-tag">{cat.name.split(" ")[0]}</div>
-                  <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"20px 16px"}}>
-                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:"#fff",marginBottom:6}}>{cat.name}</div>
-                    <div style={{fontSize:10.5,color:"rgba(255,255,255,.6)",letterSpacing:"1.2px",textTransform:"uppercase",marginBottom:10}}>{PRODUCTS.filter(p=>p.category===cat.filter).length} Products</div>
-                    <span className="x-link" style={{color:"#fff",fontSize:10.5}}>Explore <span className="ar">→</span></span>
-                  </div>
-                </div>
-              );
-            })}
-          </Stagger>
-        </div>
-      </section>
+      {CatSection}
       {/* LATEX STORY — dark cinematic */}
       <LatexStoryPanel onCatalog={onCatalog}/>
       {/* FEATURED PRODUCTS */}

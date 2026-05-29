@@ -84,3 +84,33 @@ id = "V6RneurZrAUrLmJ1Hv8aH"
 uri = "file://artifacts/xiyora/public/assets/lux/deco/gold-bamboo.png"
 type = "image"
 title = "gold bamboo"
+
+[[generated]]
+id = "7zcl7iXnQT1oMBYW15FJo"
+uri = "file://artifacts/xiyora/public/assets/categories/category-mattresses-premium-asian-luxury.png"
+type = "image"
+title = "mattresses category"
+
+[[generated]]
+id = "ESZB71FY4HxJ3_qpJ0JJ3"
+uri = "file://artifacts/xiyora/public/assets/categories/category-pillows-premium-asian-luxury.png"
+type = "image"
+title = "pillows category"
+
+[[generated]]
+id = "50X1FeVLkzwSKwm37SilT"
+uri = "file://artifacts/xiyora/public/assets/categories/category-toppers-premium-asian-luxury.png"
+type = "image"
+title = "toppers category"
+
+[[generated]]
+id = "bDAHhMGe6doFFtMn9Bgq1"
+uri = "file://artifacts/xiyora/public/assets/categories/category-cushions-premium-asian-luxury.png"
+type = "image"
+title = "cushions category"
+
+[[generated]]
+id = "DkXik8XRihJnZeXXIS9C5"
+uri = "file://artifacts/xiyora/public/assets/categories/category-latex-material-premium-asian-luxury.png"
+type = "image"
+title = "latex material category"
