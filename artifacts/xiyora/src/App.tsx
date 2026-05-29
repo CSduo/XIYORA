@@ -61,7 +61,8 @@ const PRODUCTS = [
     specs:{"Process":"Talalay","Latex Content":"93% natural latex","Sizes":"60×40×14 cm | 70×40×14 cm | 85×40×15 cm","Weight":"1.0 – 1.6 kg by size","Custom Sizes":"Available on request","Certificates":"Available on request"},
     sizes:["60×40×14 cm (1.0 kg)","70×40×14 cm (1.25 kg)","85×40×15 cm (1.6 kg)"],
     useCases:["Premium hotel pillow collections","Home bedroom upgrades","B2B retail & wholesale"],
-    gallery:["/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-2.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-3.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-4.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-5.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-6.jpg","/assets/products/talalay-bread-pillow/talalay-bread-pillow-7.jpg"],
+    heroImage:"/assets/products/talalay-bread-pillow/product-talalay-bread-pillow-hero.png",
+    gallery:["/assets/products/talalay-bread-pillow/gallery-talalay-bread-pillow-01-premium-talalay-latex-core.png","/assets/products/talalay-bread-pillow/gallery-talalay-bread-pillow-02-ergonomic-bread-shape-side-profile.png","/assets/products/talalay-bread-pillow/gallery-talalay-bread-pillow-03-responsive-pressure-relief-hand-test.png","/assets/products/talalay-bread-pillow/gallery-talalay-bread-pillow-04-open-cell-breathability-macro.png","/assets/products/talalay-bread-pillow/gallery-talalay-bread-pillow-05-airflow-cooler-sleep.png","/assets/products/talalay-bread-pillow/gallery-talalay-bread-pillow-06-lifestyle-sleep-style.png"],
     priceINR:"₹3,200 – ₹4,600*",priceUSD:"$39 – $56*",
     priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight from China: ~25–35 days.",
@@ -1008,8 +1009,9 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 .fl:hover{color:#C8A97E}
 input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!important;box-shadow:0 0 0 3px rgba(200,169,126,.1)}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#C8A97E}
-.img-zoom-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(6px)}
+.img-zoom-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.96);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(8px)}
 .img-zoom-overlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;animation:fadeInUp .25s ease}
+@keyframes galleryFade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 .glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(217,203,184,.4);border-radius:6px;box-shadow:0 32px 80px rgba(0,0,0,.22)}
 .google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #E0D5C9;border-radius:20px;padding:5px 13px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
 .google-btn:hover{background:#F5EEE4;border-color:#C8A97E;color:#2D2D2D;box-shadow:0 4px 12px rgba(200,169,126,.16)}
@@ -2120,7 +2122,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
               onClick={()=>{onPickProduct(p);onClose();}}
               onMouseEnter={(e:any)=>e.currentTarget.style.background=C.beige}
               onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
-              <img src={p.gallery[0]} alt={p.name} style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+              <img src={p.heroImage||p.gallery[0]} alt={p.name} style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
               <div style={{flex:1,minWidth:0}}>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
                 <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
@@ -2155,7 +2157,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   return(
     <div className="pc" onClick={()=>onOpen(p)}>
       <div style={{position:"relative",overflow:"hidden",height:240}}>
-        <img src={imgErr?FALLBACK_IMG:p.gallery[0]} alt={p.name} className="pi" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%"}}/>
+        <img src={imgErr?FALLBACK_IMG:(p.heroImage||p.gallery[0])} alt={p.name} className="pi" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
         <div style={{position:"absolute",top:10,left:10}}>
           <Tag>{p.tag}</Tag>
         </div>
@@ -2194,6 +2196,8 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
 
   useEffect(()=>{setImg(0);setImgErrors({});setSelVar(-1);setQty(1);setAddedMsg(false);window.scrollTo(0,0);},[p]);
 
+  const displayImages:string[]=p.heroImage?[p.heroImage,...p.gallery]:p.gallery;
+
   const wished=wl.includes(p.id);
   const hasVariants=p.variants&&p.variants.length>0;
   const activeVar=hasVariants&&selVar>=0?p.variants[selVar]:null;
@@ -2204,7 +2208,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
 
   const displayPriceINR=activeVar?activeVar.priceINR:hasVariants?"Select a variant to see price":p.priceINR;
   const displayPriceUSD=activeVar?activeVar.priceUSD:hasVariants?"Select a variant to see price":p.priceUSD;
-  const currentSrc=imgErrors[img]?FALLBACK_IMG:p.gallery[img];
+  const currentSrc=imgErrors[img]?FALLBACK_IMG:displayImages[img];
 
   const buildCartItem=():CartItem=>({
     cartKey:`${p.id}__${activeVar?.sku||"base"}__${Date.now()}`,
@@ -2215,7 +2219,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
     priceUSD:activeVar?.priceUSD||p.priceUSD,
     priceNumINR:parsePriceNum(activeVar?.priceINR||p.priceINR),
     quoteRequired:false,
-    image:p.gallery[img]||p.gallery[0],
+    image:displayImages[img]||displayImages[0],
     quantity:qty,
   });
 
@@ -2250,21 +2254,21 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
         <div className="grid-2" style={{gap:56}}>
           {/* Images */}
           <div>
-            <div style={{borderRadius:5,overflow:"hidden",background:C.beige,marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h">
-              <img src={currentSrc} alt={p.name} style={{width:"100%",height:"100%",objectFit:"contain",transition:"opacity .3s",background:C.beige}} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
-              <div style={{position:"absolute",bottom:12,right:12,background:"rgba(248,246,242,.85)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"#888",display:"flex",alignItems:"center",gap:5}}>
+            <div style={{borderRadius:5,overflow:"hidden",background:"#111",marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h">
+              <img key={img} src={currentSrc} alt={p.name} style={{width:"100%",height:"100%",objectFit:"contain",animation:"galleryFade .32s ease",background:"#111"}} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
+              <div style={{position:"absolute",bottom:12,right:12,background:"rgba(20,16,10,.75)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"rgba(200,169,126,.85)",display:"flex",alignItems:"center",gap:5,border:"1px solid rgba(200,169,126,.2)"}}>
                 <svg width={11} height={11} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                 Tap to zoom
               </div>
-              {p.gallery.length>1&&<>
-                <button onClick={e=>{e.stopPropagation();setImg(i=>(i-1+p.gallery.length)%p.gallery.length);}} style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",background:"rgba(248,246,242,.88)",border:"none",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 8px rgba(0,0,0,.12)"}}>‹</button>
-                <button onClick={e=>{e.stopPropagation();setImg(i=>(i+1)%p.gallery.length);}} style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"rgba(248,246,242,.88)",border:"none",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 8px rgba(0,0,0,.12)"}}>›</button>
+              {displayImages.length>1&&<>
+                <button onClick={e=>{e.stopPropagation();setImg(i=>(i-1+displayImages.length)%displayImages.length);}} style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",background:"rgba(20,16,10,.72)",border:"1px solid rgba(200,169,126,.3)",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:"#C8A97E",boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>‹</button>
+                <button onClick={e=>{e.stopPropagation();setImg(i=>(i+1)%displayImages.length);}} style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"rgba(20,16,10,.72)",border:"1px solid rgba(200,169,126,.3)",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:"#C8A97E",boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>›</button>
               </>}
             </div>
-            {p.gallery.length>1&&<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-              {p.gallery.map((im:string,i:number)=>(
-                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"transparent"}`,transition:"border-color .2s",flexShrink:0,background:C.beige}}>
-                  <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} style={{width:"100%",height:"100%",objectFit:"contain"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
+            {displayImages.length>1&&<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+              {displayImages.map((im:string,i:number)=>(
+                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"rgba(60,50,35,.5)"}`,boxShadow:img===i?"0 0 0 1px rgba(200,169,126,.35),0 4px 14px rgba(200,169,126,.18)":"none",transition:"border-color .22s,box-shadow .22s",flexShrink:0,background:"#111"}}>
+                  <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} style={{width:"100%",height:"100%",objectFit:"cover"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
                 </div>
               ))}
             </div>}
@@ -3051,7 +3055,7 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
 
   const moveWishToCart=(p:any)=>{
     const v=p.variants?.[0];
-    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:p.gallery?.[0]||FALLBACK_IMG,quantity:1};
+    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:p.heroImage||p.gallery?.[0]||FALLBACK_IMG,quantity:1};
     onAddToCart(item);onWish(p.id);
   };
 
