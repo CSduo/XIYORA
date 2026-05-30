@@ -2,21 +2,24 @@ import { useState, useEffect, useRef, useCallback, createContext, useContext, us
 import { imageManifest } from "./data/imageManifest";
 import AdminPanel from "./components/AdminPanel";
 
-const resolveHero=(id:string,fallback?:string):string=>{
-  return imageManifest.products[id]?.hero||fallback||"";
+const resolveHero=(id:string,apiValue?:string):string=>{
+  if(apiValue&&apiValue.trim())return apiValue;
+  return imageManifest.products[id]?.hero||"";
 };
-const resolveGallery=(id:string,fallback:string[]):string[]=>{
+const resolveGallery=(id:string,apiValue:string[]):string[]=>{
+  if(apiValue&&apiValue.length>0)return apiValue;
   const m=imageManifest.products[id];
-  return m?.gallery?.length?m.gallery:fallback;
+  return m?.gallery?.length?m.gallery:[];
 };
 
 /* ─── BUSINESS INFO ─────────────────────────────────────── */
-const BIZ = {
+let BIZ = {
   wa: "917028311226",
   email: "xiyatosaanvi@gmail.com",
   ig: "https://www.instagram.com/xiyora.zi/",
   address: "Yogesh Nagar, Section 25, Near 12 No School, Ulhasnagar – 421004, Thane, Maharashtra, India",
   gstNote: "Formal tax documentation can be provided where applicable once GST registration is complete.",
+  heroImage: "",
 };
 
 const API_BASE = "/api";
@@ -994,6 +997,7 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 @keyframes sweepBtn{0%{left:-60%}100%{left:120%}}
 @keyframes revealUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
 .ht1{animation:fadeInUp .9s ease both}
 .ht2{animation:fadeInUp .9s .14s ease both}
 .ht3{animation:fadeInUp .9s .28s ease both}
@@ -2478,7 +2482,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
 }
 
 /* ─── CATALOG VIEW ───────────────────────────────────────── */
-function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
+function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire,loading}:any){
   const C=useC();
   const filtered=cat?PRODUCTS.filter(p=>p.category===cat):PRODUCTS;
   return(
@@ -2503,9 +2507,23 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
         </div>
       </div>
       <div className="container" style={{padding:"44px 40px"}}>
+        {loading?(
+          <div className="grid-3">
+            {Array.from({length:9}).map((_,i)=>(
+              <div key={i} style={{borderRadius:4,overflow:"hidden",background:C.lgold,animation:"pulse 1.4s ease-in-out infinite",animationDelay:`${i*0.07}s`}}>
+                <div style={{width:"100%",paddingBottom:"75%",background:C.sand,opacity:.5}}/>
+                <div style={{padding:"16px"}}>
+                  <div style={{height:14,background:C.sand,borderRadius:2,marginBottom:8,width:"70%"}}/>
+                  <div style={{height:12,background:C.sand,borderRadius:2,width:"45%",opacity:.6}}/>
+                </div>
+              </div>
+            ))}
+          </div>
+        ):(
         <div className="grid-3">
           {filtered.map(p=><PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>)}
         </div>
+        )}
         <div style={{marginTop:44,padding:"16px 20px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2}}>
           <p style={{fontSize:13,color:"#888",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> Indicative prices include estimated import costs. Shipping, customs, IGST, and local delivery confirmed in your final quote. {BIZ.gstNote}</p>
         </div>
@@ -4015,7 +4033,9 @@ export default function App(){
   const tc=theme==="dark"?CD:C;
   useLiveFx(); // refresh indicative currency rates hourly / on load
   const [,forceProductRefresh]=useReducer((x:number)=>x+1,0);
+  const [productsLoading,setProductsLoading]=useState(true);
   useEffect(()=>{
+    setProductsLoading(true);
     fetch("/api/products").then(r=>r.ok?r.json():null).then((data:any)=>{
       if(Array.isArray(data)&&data.length>0){
         PRODUCTS=data.map((p:any)=>({
@@ -4024,6 +4044,21 @@ export default function App(){
           heroImage:resolveHero(p.slug,p.heroImage??""),
           gallery:resolveGallery(p.slug,p.gallery??[]),
         }));
+        forceProductRefresh();
+      }
+    }).catch(()=>{}).finally(()=>setProductsLoading(false));
+  },[]);
+  useEffect(()=>{
+    fetch("/api/site-content").then(r=>r.ok?r.json():null).then((data:any)=>{
+      if(data&&typeof data==="object"){
+        BIZ={
+          wa:data.wa||BIZ.wa,
+          email:data.email||BIZ.email,
+          ig:data.ig||BIZ.ig,
+          address:data.address||BIZ.address,
+          gstNote:data.gstNote||BIZ.gstNote,
+          heroImage:data.heroImage||BIZ.heroImage,
+        };
         forceProductRefresh();
       }
     }).catch(()=>{});
@@ -4095,7 +4130,7 @@ export default function App(){
 
   const renderView=()=>{
     if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")}/>;
-    if(page==="catalog")return<CatalogView cat={activeCat} setCat={setActiveCat} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry}/>;
+    if(page==="catalog")return<CatalogView cat={activeCat} setCat={setActiveCat} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry} loading={productsLoading}/>;
     if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
     if(page==="account")return<AccountView setPage={setPage}/>;
     if(page==="admin")return<AdminView/>;
