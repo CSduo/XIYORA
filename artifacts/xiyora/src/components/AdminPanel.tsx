@@ -111,6 +111,8 @@ function ImageUploader({ token, slug, context, label, value, onChange }: { token
 function GalleryUploader({ token, slug, context, value, onChange }: { token:string; slug:string; context:string; value:string[]; onChange:(urls:string[])=>void }) {
   const [uploading, setUploading] = useState(false);
   const [err, setErr] = useState("");
+  const [dragOver, setDragOver] = useState<number|null>(null);
+  const dragSrc = useRef<number|null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = async (file: File) => {
@@ -137,13 +139,34 @@ function GalleryUploader({ token, slug, context, value, onChange }: { token:stri
     onChange(arr);
   };
 
+  const onDragStart = (i: number) => { dragSrc.current = i; };
+  const onDragEnter = (i: number) => { if (dragSrc.current !== null && dragSrc.current !== i) setDragOver(i); };
+  const onDragEnd = () => { setDragOver(null); dragSrc.current = null; };
+  const onDrop = (i: number) => {
+    if (dragSrc.current === null || dragSrc.current === i) { onDragEnd(); return; }
+    const arr = [...(value||[])];
+    const [item] = arr.splice(dragSrc.current, 1);
+    arr.splice(i, 0, item);
+    onChange(arr);
+    onDragEnd();
+  };
+
   return (
     <div style={{ marginBottom:12 }}>
-      <Label>Gallery Images</Label>
+      <Label>Gallery Images <span style={{ fontSize:10, color:"#aaa", fontWeight:400 }}>(drag to reorder)</span></Label>
       <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:8 }}>
         {(value||[]).map((url,i) => (
-          <div key={i} style={{ position:"relative", display:"flex", flexDirection:"column", alignItems:"center", gap:2 }}>
-            <img src={url} alt="" style={{ width:70, height:52, objectFit:"cover", borderRadius:3, border:`1px solid ${BEIGE}` }} onError={e => { (e.target as HTMLImageElement).style.display="none"; }} />
+          <div
+            key={url+i}
+            draggable
+            onDragStart={() => onDragStart(i)}
+            onDragEnter={() => onDragEnter(i)}
+            onDragOver={e => e.preventDefault()}
+            onDrop={() => onDrop(i)}
+            onDragEnd={onDragEnd}
+            style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:2, cursor:"grab", opacity: dragOver===i ? 0.5 : 1, outline: dragOver===i ? `2px dashed ${GOLD}` : "none", borderRadius:3 }}
+          >
+            <img src={url} alt="" style={{ width:70, height:52, objectFit:"cover", borderRadius:3, border:`1px solid ${BEIGE}`, pointerEvents:"none" }} onError={e => { (e.target as HTMLImageElement).style.display="none"; }} />
             <div style={{ display:"flex", gap:2 }}>
               <button onClick={() => moveImage(i, -1)} disabled={i===0} title="Move left" style={{ background:"none", border:`1px solid ${BEIGE}`, borderRadius:2, cursor:"pointer", color:i===0?"#ddd":GOLD, fontSize:10, padding:"0 4px", lineHeight:"16px" }}>◀</button>
               <button onClick={() => moveImage(i, 1)} disabled={i===(value||[]).length-1} title="Move right" style={{ background:"none", border:`1px solid ${BEIGE}`, borderRadius:2, cursor:"pointer", color:i===(value||[]).length-1?"#ddd":GOLD, fontSize:10, padding:"0 4px", lineHeight:"16px" }}>▶</button>

@@ -31,10 +31,16 @@ export const productsTable = pgTable("products", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
-export const insertProductSchema = createInsertSchema(productsTable).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
+export const insertProductSchema = createInsertSchema(productsTable)
+  .omit({ id: true, createdAt: true, updatedAt: true })
+  .superRefine((data, ctx) => {
+    if (!data.priceINR && !data.priceUSD) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "At least one of priceINR or priceUSD is required.",
+        path: ["priceINR"],
+      });
+    }
+  });
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type Product = typeof productsTable.$inferSelect;

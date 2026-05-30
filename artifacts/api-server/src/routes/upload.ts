@@ -17,10 +17,15 @@ router.post("/admin/upload", requireAdmin, upload.single("file"), async (req, re
       res.status(503).json({ success: false, error: "Object storage not configured" });
       return;
     }
-    const { context = "products", slug = "misc" } = req.body ?? {};
+    const ALLOWED_CONTEXTS = ["products", "categories", "homepage", "site"] as const;
+    const rawContext = (req.body?.context || "products") as string;
+    const context = ALLOWED_CONTEXTS.includes(rawContext as any) ? rawContext : "products";
+    const slug = (req.body?.slug || "misc").replace(/[^a-z0-9_-]/gi, "-");
     const ext = req.file.originalname.split(".").pop()?.toLowerCase() || "png";
     const timestamp = Date.now();
-    const objectName = `admin-uploads/${context}/${slug}/${timestamp}.${ext}`;
+    const objectName = context === "homepage" || context === "site"
+      ? `homepage/${timestamp}.${ext}`
+      : `${context}/${slug}/${timestamp}.${ext}`;
 
     const bucket = objectStorageClient.bucket(bucketId);
     const gcsFile = bucket.file(objectName);
