@@ -2897,9 +2897,26 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
   );
 }
 
+/* ─── CURRENCY FLAGS ──────────────────────────────────────── */
+const CURRENCY_FLAGS:Record<string,string>={
+  INR:"🇮🇳",USD:"🇺🇸",AED:"🇦🇪",EUR:"🇪🇺",GBP:"🇬🇧",SGD:"🇸🇬",AUD:"🇦🇺",
+};
+
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar,onSupplier}:any){
   const NAVBG="rgba(22,19,16,.97)";
+  const [curOpen,setCurOpen]=useState(false);
+  const curRef=useRef<HTMLDivElement>(null);
+
+  useEffect(()=>{
+    if(!curOpen)return;
+    const handler=(e:MouseEvent)=>{
+      if(curRef.current&&!curRef.current.contains(e.target as Node))setCurOpen(false);
+    };
+    document.addEventListener("mousedown",handler);
+    return()=>document.removeEventListener("mousedown",handler);
+  },[curOpen]);
+
   return(
     <nav style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(200,169,126,.18)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 30px rgba(0,0,0,.32)":"none",transition:"all .35s ease"}}>
       {/* corner ornaments — top-left + mirrored top-right */}
@@ -2914,7 +2931,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
       <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
         <div style={{display:"flex",alignItems:"center",gap:4}}>
-          <button onClick={onSidebar} className="ib" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8"}}>
+          <button onClick={onSidebar} className="ib" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8",padding:"8px",minWidth:36,minHeight:36}}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
@@ -2942,22 +2959,57 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:3,color:"#B89A6E",userSelect:"none",whiteSpace:"nowrap"}}>舒适 · 自然 · 匠心</div>
           </div>
         </div>
-        {/* Right: Currency, Search, Cart, B2B Portal */}
+        {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
         <div className="nav-right" style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
-          <select className="nav-cur" value={cur} onChange={e=>setCur(e.target.value)} title={CURRENCY_DISCLAIMER} aria-label="Display currency" style={{background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.25)",borderRadius:16,padding:"5px 9px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px"}}>
-            {CURRENCIES.map(c=>(<option key={c} value={c} style={{background:"#1a1714"}}>{c}</option>))}
-          </select>
-          <button onClick={toggleTheme} title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"} className="ib nav-theme" style={{color:"#D9CBB8",fontSize:13,padding:"4px 6px"}}>{theme==="dark"?"☀":"◑"}</button>
-          <button className="ib" onClick={onSearch} title="Search" style={{color:"#D9CBB8"}}>
+          {/* ── Custom currency dropdown ── */}
+          <div ref={curRef} style={{position:"relative"}}>
+            <button
+              onClick={()=>setCurOpen(o=>!o)}
+              title={CURRENCY_DISCLAIMER}
+              aria-label="Display currency"
+              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.28)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
+            >
+              <span style={{fontSize:14,lineHeight:1}}>{CURRENCY_FLAGS[cur]||""}</span>
+              <span>{cur}</span>
+              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#C8A97E" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
+                <path d="M2 3.5l3 3 3-3"/>
+              </svg>
+            </button>
+            {curOpen&&(
+              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:120,background:"rgba(18,14,10,.97)",border:"1px solid rgba(200,169,126,.32)",borderRadius:10,boxShadow:"0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(200,169,126,.08)",overflow:"hidden",zIndex:300}}>
+                {CURRENCIES.map(c=>(
+                  <button key={c} onClick={()=>{setCur(c);setCurOpen(false);}}
+                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(200,169,126,.13)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#E6C89A":"#D9CBB8",fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(200,169,126,.08)"}}
+                    onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(200,169,126,.07)";}}
+                    onMouseLeave={(e:any)=>{if(c!==cur)e.currentTarget.style.background="transparent";}}
+                  >
+                    <span style={{fontSize:16,lineHeight:1,flexShrink:0}}>{CURRENCY_FLAGS[c]||""}</span>
+                    <span style={{fontWeight:c===cur?600:400}}>{c}</span>
+                    {c===cur&&<svg width={10} height={10} viewBox="0 0 12 12" fill="none" stroke="#C8A97E" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{marginLeft:"auto"}}><path d="M2 6l3 3 5-5"/></svg>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          {/* ── Theme toggle ── */}
+          <button
+            onClick={toggleTheme}
+            title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
+            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(200,169,126,.14)":"rgba(200,169,126,.22)",border:"1px solid rgba(200,169,126,.38)",cursor:"pointer",color:"#E6C89A",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
+            aria-label={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
+          >
+            {theme==="dark"?"☀️":"🌙"}
+          </button>
+          <button className="ib" onClick={onSearch} title="Search" style={{color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}}>
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className="ib nav-wish" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8"}} title="Wishlist / Saved">
+          <button className="ib nav-wish" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
             <svg width={17} height={17} fill={wl&&wl.length?"#C8A97E":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            {wl&&wl.length>0&&<span style={{position:"absolute",top:-5,right:-5,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
+            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
           </button>
-          <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8"}} title="Basket / Checkout">
+          <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}} title="Basket / Checkout">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            {cartCount>0&&<span style={{position:"absolute",top:-5,right:-5,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{cartCount}</span>}
+            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{cartCount}</span>}
           </button>
           <button className="nc-item" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:"#E6C89A",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
             <LuxIcon name="globe" size={15} color="#E6C89A"/>B2B Portal

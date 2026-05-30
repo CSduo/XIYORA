@@ -1,14 +1,8 @@
 const B = "/assets/xiyora-products/final";
-const M = "/assets/xiyora-products/final/materials";
 
 const p = (slug, ...g) => ({
   hero: `${B}/${slug}/hero.png`,
   gallery: g.map(n => `${B}/${slug}/${n}.png`),
-});
-
-const mat = (n) => ({
-  hero: `${M}/xiyora_material_section_0${n}.webp`,
-  gallery: [],
 });
 
 export const imageManifest = {
@@ -17,7 +11,7 @@ export const imageManifest = {
     Pillows:          `${B}/categories/pillows.png`,
     Toppers:          `${B}/categories/toppers.png`,
     Cushions:         `${B}/categories/cushions.png`,
-    "Latex Material": `${M}/xiyora_material_section_06.webp`,
+    "Latex Material": `${B}/categories/starting-from.png`,
     startingFrom:     `${B}/categories/starting-from.png`,
   },
   products: {
@@ -36,42 +30,69 @@ export const imageManifest = {
     "dunlop-contour-pillow-junior": p("dunlop-contour-pillow-junior", "g01","g02","g03","g04","g05","g06"),
     "dunlop-couples-pillow":        p("dunlop-couples-pillow",        "g01","g02","g03","g04","g05","g06"),
     "dunlop-cylinder-pillow":       p("dunlop-cylinder-pillow",       "g01","g02","g03","g04","g05","g06"),
-    "dunlop-stomach-pillow":        p("dunlop-stomach-pillow",        "g01"),
-    "dunlop-throw-pillow":          p("dunlop-throw-pillow",          "g01"),
-    "dunlop-u-pillow":              p("dunlop-u-pillow",              "g01"),
+
+    // ── Pillows with v2 replacement images ────────────────────────────────
+    "dunlop-seahorse-pillow":  p("dunlop-seahorse-pillow",  "g01","g02"),
+    "peanut-massage-pillow":   p("peanut-massage-pillow",   "g01","g02"),
+    "spiky-massage-pillow":    p("spiky-massage-pillow",    "g01","g02"),
+    "dunlop-stomach-pillow":   p("dunlop-stomach-pillow",   "g01"),
+    "dunlop-throw-pillow":     p("dunlop-throw-pillow",     "g01"),
+    "dunlop-u-pillow":         p("dunlop-u-pillow",         "g01"),
 
     // ── Specialty / massage pillows ────────────────────────────────────────
-    "bumpy-massage-pillow":         p("bumpy-massage-pillow",         "g01","g02","g03","g04","g05","g06","g07"),
-    "dunlop-seahorse-pillow":       p("dunlop-seahorse-pillow"),
-    "peanut-massage-pillow":        p("peanut-massage-pillow"),
-    "spiky-massage-pillow":         p("spiky-massage-pillow"),
+    "bumpy-massage-pillow": p("bumpy-massage-pillow", "g01","g02","g03","g04","g05","g06","g07"),
 
     // ── Mattresses ─────────────────────────────────────────────────────────
-    "talalay-latex-mattress":       p("talalay-latex-mattress",       "g01","g02","g03"),
-    "dunlop-bay-window-mattress":   p("dunlop-bay-window-mattress",   "g01"),
-    "dunlop-standard-mattress":     p("dunlop-standard-mattress",     "g01"),
+    // v2 fix: Talalay and Standard were switched — now using correct folder per product
+    "talalay-latex-mattress":     p("talalay-latex-mattress",     "g01","g02"),
+    "dunlop-standard-mattress":   p("dunlop-standard-mattress",   "g01","g02","g03","g04"),
+    "dunlop-bay-window-mattress": p("dunlop-bay-window-mattress", "g01","g02"),
 
     // ── Toppers ────────────────────────────────────────────────────────────
-    "latex-topper":                 p("latex-topper",                 "g01","g02","g03"),
+    // v2 fix: only topper images; EXCLUDED bay-window measurement panel removed
+    "latex-topper": p("latex-topper", "g01","g02","g03"),
 
-    // ── Latex materials — 1:1 sequential mapping from material ZIP ─────────
-    // Each product gets its own dedicated image. Only 1 image per product
-    // available from the ZIP; gallery intentionally empty (no fake 3-image set).
-    "shredded-talalay-latex":                         mat(1),
-    "hybrid-latex-with-bamboo":                       mat(2),
-    "hybrid-latex-with-gel":                          mat(3),
-    "hybrid-latex-with-graphene":                     mat(4),
-    "hybrid-latex-with-lavender":                     mat(5),
-    "hybrid-latex-with-negative-oxygen-ion":          mat(6),
-    "hybrid-latex-with-traditional-chinese-medicine": mat(7),
+    // ── Latex materials — v2 fix: 3 split gallery panels per product ───────
+    // hero = panel 1; gallery = panels 2 & 3 (source strip is reference only)
+    "shredded-talalay-latex": {
+      hero: `${B}/shredded-talalay-latex/mat_p1.png`,
+      gallery: [`${B}/shredded-talalay-latex/mat_p2.png`, `${B}/shredded-talalay-latex/mat_p3.png`],
+    },
+    "hybrid-latex-with-bamboo": {
+      hero: `${B}/hybrid-latex-with-bamboo/mat_p1.png`,
+      gallery: [`${B}/hybrid-latex-with-bamboo/mat_p2.png`, `${B}/hybrid-latex-with-bamboo/mat_p3.png`],
+    },
+    "hybrid-latex-with-gel": {
+      hero: `${B}/hybrid-latex-with-gel/mat_p1.png`,
+      gallery: [`${B}/hybrid-latex-with-gel/mat_p2.png`, `${B}/hybrid-latex-with-gel/mat_p3.png`],
+    },
+    "hybrid-latex-with-graphene": {
+      hero: `${B}/hybrid-latex-with-graphene/mat_p1.png`,
+      gallery: [`${B}/hybrid-latex-with-graphene/mat_p2.png`, `${B}/hybrid-latex-with-graphene/mat_p3.png`],
+    },
+    "hybrid-latex-with-lavender": {
+      hero: `${B}/hybrid-latex-with-lavender/mat_p1.png`,
+      gallery: [`${B}/hybrid-latex-with-lavender/mat_p2.png`, `${B}/hybrid-latex-with-lavender/mat_p3.png`],
+    },
+    "hybrid-latex-with-negative-oxygen-ion": {
+      hero: `${B}/hybrid-latex-with-negative-oxygen-ion/mat_p1.png`,
+      gallery: [`${B}/hybrid-latex-with-negative-oxygen-ion/mat_p2.png`, `${B}/hybrid-latex-with-negative-oxygen-ion/mat_p3.png`],
+    },
+    "hybrid-latex-with-traditional-chinese-medicine": {
+      hero: `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p1.png`,
+      gallery: [
+        `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p2.png`,
+        `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p3.png`,
+      ],
+    },
 
-    // ── Cushions ───────────────────────────────────────────────────────────
-    "dunlop-chunk-seat-cushion":    p("dunlop-chunk-seat-cushion",    "g01"),
-    "dunlop-bottom-seat-cushion":   p("dunlop-bottom-seat-cushion",   "g01"),
-    "dunlop-bubble-seat-cushion":   p("dunlop-bubble-seat-cushion",   "g01"),
-    "dunlop-butterfly-back-cushion":p("dunlop-butterfly-back-cushion","g01"),
-    "dunlop-standard-back-cushion": p("dunlop-standard-back-cushion", "g01"),
-    "dunlop-standard-seat-cushion": p("dunlop-standard-seat-cushion", "g01"),
-    "dunlop-triangle-back-cushion": p("dunlop-triangle-back-cushion", "g01"),
+    // ── Cushions — v2 fix: product-specific images, no repeated wedge ──────
+    "dunlop-standard-seat-cushion":  p("dunlop-standard-seat-cushion",  "g01","g02","g03","g04"),
+    "dunlop-bottom-seat-cushion":    p("dunlop-bottom-seat-cushion",    "g01","g02"),
+    "dunlop-bubble-seat-cushion":    p("dunlop-bubble-seat-cushion",    "g01","g02"),
+    "dunlop-chunk-seat-cushion":     p("dunlop-chunk-seat-cushion",     "g01","g02"),
+    "dunlop-butterfly-back-cushion": p("dunlop-butterfly-back-cushion", "g01","g02"),
+    "dunlop-standard-back-cushion":  p("dunlop-standard-back-cushion",  "g01","g02"),
+    "dunlop-triangle-back-cushion":  p("dunlop-triangle-back-cushion",  "g01","g02","g03"),
   },
 };

@@ -1,0 +1,208 @@
+XIYORA WEBSITE IMAGE + MOBILE UI FIX - STRICT IMPLEMENTATION PROMPT
+
+You are working on the XIYORA website. Use the provided asset pack exactly as instructed. Do not randomly upload images or auto-map them. The current website has wrong images, repeated images, uncropped gallery strips, poor mobile image cropping, and mobile header/currency UI issues.
+
+FILES PROVIDED
+1. xiyora_final_corrected_assets_v2_master.zip - complete corrected asset pack.
+2. Optional section-only ZIPs:
+   - xiyora_latex_materials_v2_gallery_ready.zip
+   - xiyora_cushions_v2_gallery_ready.zip
+   - xiyora_mattresses_toppers_v2_gallery_ready.zip
+   - xiyora_pillows_v2_gallery_ready.zip
+   - xiyora_mobile_ui_header_currency_fix_v2.zip
+3. PDF brief: xiyora_web_fix_mindmap_brief_v2.pdf
+
+CRITICAL RULES
+- Do not use the old wrongly applied images as truth.
+- Do not reuse one image across unrelated products.
+- Do not use source strip images as gallery images unless explicitly stated.
+- For any file named 00_source_*, treat it as a reference only.
+- Use the 01_, 02_, 03_ gallery files as product carousel/gallery images.
+- If a product has a file marked EXCLUDED, do not place it in that product gallery.
+- If the asset pack says a product needs review or assets are missing, do not fake it with unrelated images.
+- The final website must show product-specific image galleries only.
+
+STEP 1 - INSPECT THE CURRENT CODE FIRST
+Before editing, inspect the project structure. Search for:
+- product data
+- product images
+- image arrays
+- gallery components
+- carousel components
+- product detail page
+- category pages
+- header / navbar / mobile header
+- currency selector
+- theme toggle
+
+Search terms:
+material, latex, cushion, pillow, topper, mattress, talalay, dunlop, gallery, images, image, currency, INR, USD, theme, dark, light, header, navbar.
+
+STEP 2 - EXTRACT AND READ THE ASSET PACK
+Extract xiyora_final_corrected_assets_v2_master.zip.
+Read these files before changing code:
+- README_FIRST.txt
+- MANIFEST.csv
+- VALIDATION_SUMMARY.csv
+- NEEDS_REVIEW_OR_MISSING_ASSETS.csv
+- 05_mobile_ui_header_currency_fix/UI_REQUIREMENTS.txt
+
+Use the folder structure as the source of truth:
+- 01_latex_materials/
+- 02_cushions/
+- 03_mattresses_and_toppers/
+- 04_pillows/
+- 05_mobile_ui_header_currency_fix/
+
+STEP 3 - FIX LATEX MATERIAL SECTION
+Current problem:
+The latex material pages show wrong images, and the source images were shown as 3 combined panels instead of separate gallery slides.
+
+Correct requirement:
+Each material product must use its own folder. Each folder contains exactly three split gallery panels.
+
+Use these folders:
+- 01_latex_materials/shredded_talalay_latex/
+- 01_latex_materials/hybrid_latex_with_bamboo/
+- 01_latex_materials/hybrid_latex_with_gel/
+- 01_latex_materials/hybrid_latex_with_graphene/
+- 01_latex_materials/hybrid_latex_with_lavender/
+- 01_latex_materials/hybrid_latex_with_negative_oxygen_ion/
+- 01_latex_materials/hybrid_latex_with_traditional_chinese_medicine/
+
+For each material product, use:
+- 01_gallery_panel_1.png
+- 02_gallery_panel_2.png
+- 03_gallery_panel_3.png
+
+Do not use 00_source_3_panel_strip.webp as the visible gallery image. That file is only for reference.
+
+STEP 4 - FIX CUSHION SECTION
+Current problem:
+The cushion section is completely wrong because the same wedge/triangle image is being applied to multiple different cushion products. Product cards and product pages are not product-specific.
+
+Correct requirement:
+Use only the matching cushion folder for each cushion product.
+
+Use these folders:
+- 02_cushions/dunlop_standard_seat_cushion/
+- 02_cushions/dunlop_bottom_seat_cushion/
+- 02_cushions/dunlop_bubble_seat_cushion/
+- 02_cushions/dunlop_chunk_seat_cushion/
+- 02_cushions/dunlop_butterfly_back_cushion/
+- 02_cushions/dunlop_standard_back_cushion/
+- 02_cushions/dunlop_triangle_back_cushion_or_reading_wedge/
+
+Important:
+- Do not use the wedge/triangle cushion image for all cushion products.
+- If the website has both Bubble Seat Cushion and Chunk Seat Cushion as separate products, check NEEDS_REVIEW_OR_MISSING_ASSETS.csv. The provided source has one chunky/bubble visual. Do not pretend they are two distinct unique image sets unless the business accepts that.
+- The old file name "dunlop-chunk-seat-cushion" was visually a wedge/triangle cushion. The V2 pack renamed it correctly under triangle/reading wedge to prevent wrong mapping.
+
+STEP 5 - FIX MATTRESS AND TOPPER SECTION
+Current problems:
+- Talalay Latex Mattress and Dunlop Standard Mattress images appear switched.
+- Dunlop Bay Window Mattress has bad cropping / visible white divider.
+- Latex Topper gallery contains unrelated images.
+
+Correct folders:
+- 03_mattresses_and_toppers/talalay_latex_mattress_USE_FOR_TALALAY_PAGE/
+- 03_mattresses_and_toppers/dunlop_standard_mattress_USE_FOR_DUNLOP_STANDARD_PAGE/
+- 03_mattresses_and_toppers/dunlop_bay_window_mattress/
+- 03_mattresses_and_toppers/latex_topper_ONLY_TOPPER_IMAGES/
+
+For Talalay / Standard:
+The user identified that the two pages are switched. Apply the assets from the V2 folder names. After applying, verify visually against product titles.
+
+For Bay Window:
+Use the split gallery files from dunlop_bay_window_mattress. Do not show the unsplit pair or a crop with a white divider.
+
+For Latex Topper:
+Use only topper images from latex_topper_ONLY_TOPPER_IMAGES.
+Do not use the file marked EXCLUDED_not_topper_panel_2_bay_window_measurement.png. It is included only as a warning/reference because the user specifically complained unrelated images were appearing in the topper gallery.
+
+STEP 6 - FIX PILLOW SECTION
+Current problems:
+- Seahorse, Peanut Massage, and Spiky Massage pages show duplicate/repeated images.
+- Stomach, Throw, and U-Pillow pages have wrong images applied.
+
+Use these folders:
+- 04_pillows/dunlop_seahorse_pillow_REPLACE_DUPLICATES/
+- 04_pillows/peanut_massage_pillow_REPLACE_DUPLICATES/
+- 04_pillows/spiky_massage_pillow_REPLACE_DUPLICATES/
+- 04_pillows/dunlop_stomach_pillow_WRONG_IMAGE_FIX/
+- 04_pillows/dunlop_throw_pillow_WRONG_IMAGE_FIX/
+- 04_pillows/dunlop_u_pillow_WRONG_IMAGE_FIX/
+
+Also keep the existing product crop folders under 04_pillows/ for other pillow products if they are already correct.
+
+Important:
+If a product has only 1-2 supplied images, do not fill the gallery with unrelated images just to reach 3. It is better to have 1-2 correct images than 3 wrong images.
+
+STEP 7 - IMAGE DISPLAY / CSS RULES
+For product images and gallery images:
+- Use object-fit: contain when the full product must be visible.
+- Do not stretch images.
+- Do not crop product edges.
+- Do not show one-sided white lines or vertical dividers.
+- Do not use a combined 2-panel or 3-panel source strip as a carousel slide.
+- Make thumbnails correspond to the actual selected image.
+- Make swiping left/right show only images belonging to the same product.
+
+For decorative hero banners only:
+- object-fit: cover is acceptable if the crop looks intentional and premium.
+
+STEP 8 - MOBILE HEADER / CURRENCY / THEME UI FIX
+Current problems:
+- XIYORA logo/name alignment on mobile feels cramped and not elegant.
+- Currency selector opens as a large ugly popup/modal.
+- Currency selector should show real country flags.
+- Theme toggle is not visible enough.
+
+Implement:
+1. Move / size the XIYORA brand block so it sits more elegantly on mobile, slightly more left if needed, with better spacing around icons.
+2. Replace the big currency popup with a compact inline dropdown anchored below the currency pill.
+3. Closed state should show flag + currency code, e.g. India flag + INR.
+4. Dropdown items should show real flags + currency codes:
+   - 🇮🇳 INR
+   - 🇺🇸 USD
+   - 🇦🇪 AED
+   - 🇪🇺 EUR
+   - 🇬🇧 GBP
+   - 🇸🇬 SGD
+   - 🇦🇺 AUD
+5. Dropdown should match XIYORA style: dark/black premium background, gold/tan borders, soft shadow, rounded corners, elegant spacing.
+6. It should not cover the whole screen.
+7. It should close when selecting a currency or clicking outside.
+8. Make the light/dark theme toggle more visible by improving size, contrast, hit area, and spacing.
+9. Test on mobile width first.
+
+STEP 9 - FINAL QUALITY CHECK
+After implementation, manually test:
+- All Latex Material products: 3 correct split images each.
+- All Cushion products: no repeated wrong wedge image across unrelated products.
+- Mattress pages: Talalay and Dunlop Standard not switched anymore.
+- Bay Window page: no bad crop / divider line.
+- Latex Topper: no non-topper images in gallery.
+- Pillow pages: no duplicates where unique assets exist; no wrong product images.
+- Product cards: correct image per product.
+- Product details: correct carousel per product.
+- Thumbnails: correct and not duplicated wrongly.
+- Mobile header: brand alignment better.
+- Currency dropdown: compact, elegant, with flags.
+- Theme toggle: visible and usable.
+
+STEP 10 - FINAL REPORT REQUIRED
+When finished, provide a report with:
+1. All files changed in the repo.
+2. All image folders uploaded.
+3. Product-by-product mapping table:
+   - product name
+   - old image path removed
+   - new image path added
+   - gallery images used
+4. Any products still missing source images.
+5. Confirmation that no unrelated product images are reused.
+6. Confirmation that the website was tested on mobile.
+7. Screenshots of the fixed pages if possible.
+
+DO NOT GUESS. If a product-specific image is missing, say it is missing instead of applying the wrong image.
