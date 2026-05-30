@@ -4113,6 +4113,12 @@ export default function App(){
     return<HomeView cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onCatalog={openCatalog} onCatFilter={openCatFilter} onSupplier={()=>navigateTo("supplier")} onInquire={openInquiry}/>;
   };
 
+  if(page==="xiyora-admin")return(
+    <ThemeCtx.Provider value={tc}>
+      <AdminPanel/>
+    </ThemeCtx.Provider>
+  );
+
   return(
     <ThemeCtx.Provider value={tc}>
     <div style={{background:tc.white,minHeight:"100vh",transition:"background .25s,color .25s"}}>

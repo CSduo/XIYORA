@@ -1,0 +1,1 @@
+- [XIYORA Admin Panel](xiyora-admin.md) — Admin panel at /xiyora-admin, JWT auth, products in PostgreSQL, all key architecture decisions.
