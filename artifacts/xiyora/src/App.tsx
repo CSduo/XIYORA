@@ -2188,7 +2188,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   return(
     <div className="pc" onClick={()=>onOpen(p)}>
       <div style={{position:"relative",overflow:"hidden",height:240}}>
-        <img src={imgErr?FALLBACK_IMG:resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} className="pi" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+        <img src={imgErr?FALLBACK_IMG:resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} className="pi" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#1a1814":undefined,padding:p.category==="Latex Material"?"8px":undefined}}/>
         <div style={{position:"absolute",top:10,left:10}}>
           <Tag>{p.tag}</Tag>
         </div>

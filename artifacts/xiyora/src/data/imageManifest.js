@@ -1,7 +1,14 @@
 const B = "/assets/xiyora-products/final";
+const M = "/assets/xiyora-products/final/materials";
+
 const p = (slug, ...g) => ({
   hero: `${B}/${slug}/hero.png`,
   gallery: g.map(n => `${B}/${slug}/${n}.png`),
+});
+
+const mat = (n) => ({
+  hero: `${M}/xiyora_material_section_0${n}.webp`,
+  gallery: [],
 });
 
 export const imageManifest = {
@@ -10,7 +17,7 @@ export const imageManifest = {
     Pillows:          `${B}/categories/pillows.png`,
     Toppers:          `${B}/categories/toppers.png`,
     Cushions:         `${B}/categories/cushions.png`,
-    "Latex Material": `${B}/categories/latex-material.png`,
+    "Latex Material": `${M}/xiyora_material_section_06.webp`,
     startingFrom:     `${B}/categories/starting-from.png`,
   },
   products: {
@@ -47,14 +54,16 @@ export const imageManifest = {
     // ── Toppers ────────────────────────────────────────────────────────────
     "latex-topper":                 p("latex-topper",                 "g01","g02","g03"),
 
-    // ── Latex materials ────────────────────────────────────────────────────
-    "shredded-talalay-latex":                     p("shredded-talalay-latex"),
-    "hybrid-latex-with-bamboo":                   p("hybrid-latex-with-bamboo"),
-    "hybrid-latex-with-gel":                      p("hybrid-latex-with-gel"),
-    "hybrid-latex-with-graphene":                 p("hybrid-latex-with-graphene"),
-    "hybrid-latex-with-lavender":                 p("hybrid-latex-with-lavender"),
-    "hybrid-latex-with-negative-oxygen-ion":      p("hybrid-latex-with-negative-oxygen-ion"),
-    "hybrid-latex-with-traditional-chinese-medicine": p("hybrid-latex-with-traditional-chinese-medicine"),
+    // ── Latex materials — 1:1 sequential mapping from material ZIP ─────────
+    // Each product gets its own dedicated image. Only 1 image per product
+    // available from the ZIP; gallery intentionally empty (no fake 3-image set).
+    "shredded-talalay-latex":                         mat(1),
+    "hybrid-latex-with-bamboo":                       mat(2),
+    "hybrid-latex-with-gel":                          mat(3),
+    "hybrid-latex-with-graphene":                     mat(4),
+    "hybrid-latex-with-lavender":                     mat(5),
+    "hybrid-latex-with-negative-oxygen-ion":          mat(6),
+    "hybrid-latex-with-traditional-chinese-medicine": mat(7),
 
     // ── Cushions ───────────────────────────────────────────────────────────
     "dunlop-chunk-seat-cushion":    p("dunlop-chunk-seat-cushion",    "g01"),
