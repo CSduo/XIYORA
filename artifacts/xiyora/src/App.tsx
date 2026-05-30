@@ -83,7 +83,8 @@ const PRODUCTS = [
     specs:{"Process":"Talalay","Latex Content":"93% natural latex","Sizes":"60×40×8/10 cm | 60×40×10/12 cm","Custom Sizes":"Available on request"},
     sizes:["60×40×8/10 cm (0.9 kg)","60×40×10/12 cm (1.0 kg)"],
     useCases:["Side and back sleepers","Ergonomic bedding collections","Hotel premium bedding"],
-    gallery:["/assets/products/talalay-contour-pillow/talalay-contour-pillow-1.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-2.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-3.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-4.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-5.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-6.jpg","/assets/products/talalay-contour-pillow/talalay-contour-pillow-7.jpg"],
+    heroImage:"/assets/products/talalay-contour-pillow/product-talalay-contour-pillow-hero.png",
+    gallery:["/assets/products/talalay-contour-pillow/gallery-talalay-contour-pillow-01-premium-talalay-latex-core.png","/assets/products/talalay-contour-pillow/gallery-talalay-contour-pillow-02-ergonomic-contour-neck-support-profile.png","/assets/products/talalay-contour-pillow/gallery-talalay-contour-pillow-03-responsive-pressure-relief-hand-test.png","/assets/products/talalay-contour-pillow/gallery-talalay-contour-pillow-04-open-cell-breathability-macro.png","/assets/products/talalay-contour-pillow/gallery-talalay-contour-pillow-05-airflow-cooler-sleep.png","/assets/products/talalay-contour-pillow/gallery-talalay-contour-pillow-06-lifestyle-sleep-style.png"],
     priceINR:"₹3,200 – ₹3,600*",priceUSD:"$39 – $44*",
     priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -124,7 +125,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×8/10 cm | 60×40×10/12 cm"},
     sizes:["60×40×8/10 cm","60×40×10/12 cm"],
     useCases:["Texture-loving buyers","Ergonomic pillow pages","Premium specialty pillow range"],
-    gallery:["/assets/products/bumpy-massage-pillow/bumpy-massage-pillow-1.jpg"],
+    heroImage:"/assets/products/bumpy-massage-pillow/product-bumpy-massage-pillow-hero.png",
+    gallery:["/assets/products/bumpy-massage-pillow/gallery-bumpy-massage-pillow-01.png","/assets/products/bumpy-massage-pillow/gallery-bumpy-massage-pillow-02.png","/assets/products/bumpy-massage-pillow/gallery-bumpy-massage-pillow-03.png","/assets/products/bumpy-massage-pillow/gallery-bumpy-massage-pillow-04.png","/assets/products/bumpy-massage-pillow/gallery-bumpy-massage-pillow-05.png","/assets/products/bumpy-massage-pillow/gallery-bumpy-massage-pillow-06.png","/assets/products/bumpy-massage-pillow/gallery-bumpy-massage-pillow-07.png"],
     priceINR:"₹1,600 – ₹2,800*",priceUSD:"$19 – $34*",
     priceNote:"* Indicative range. Final price confirmed after city, quantity & shipping.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -146,7 +148,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"36×24×10 cm"},
     sizes:["36×24×10 cm"],
     useCases:["Travel support","Sofa accessories","Compact comfort products"],
-    gallery:["/assets/products/dunlop-bone-pillow/dunlop-bone-pillow-1.jpg"],
+    heroImage:"/assets/products/dunlop-bone-pillow/product-dunlop-bone-pillow-hero.png",
+    gallery:["/assets/products/dunlop-bone-pillow/gallery-dunlop-bone-pillow-01.png","/assets/products/dunlop-bone-pillow/gallery-dunlop-bone-pillow-02.png","/assets/products/dunlop-bone-pillow/gallery-dunlop-bone-pillow-03.png","/assets/products/dunlop-bone-pillow/gallery-dunlop-bone-pillow-04.png","/assets/products/dunlop-bone-pillow/gallery-dunlop-bone-pillow-05.png","/assets/products/dunlop-bone-pillow/gallery-dunlop-bone-pillow-06.png","/assets/products/dunlop-bone-pillow/gallery-dunlop-bone-pillow-07.png"],
     priceINR:"₹1,200 – ₹2,000*",priceUSD:"$14 – $24*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -166,7 +169,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×5 cm | 60×40×10 cm | 70×40×10 cm | 70×40×13 cm"},
     sizes:["60×40×5 cm","60×40×10 cm","70×40×10 cm","70×40×13 cm"],
     useCases:["Hotel guest rooms","Value-premium home bedding","Retail pillow collections"],
-    gallery:["/assets/products/dunlop-bread-pillow/dunlop-bread-pillow-1.jpg"],
+    heroImage:"/assets/products/dunlop-bread-pillow/product-dunlop-bread-pillow-hero.png",
+    gallery:["/assets/products/dunlop-bread-pillow/gallery-dunlop-bread-pillow-01.png","/assets/products/dunlop-bread-pillow/gallery-dunlop-bread-pillow-02.png","/assets/products/dunlop-bread-pillow/gallery-dunlop-bread-pillow-03.png","/assets/products/dunlop-bread-pillow/gallery-dunlop-bread-pillow-04.png","/assets/products/dunlop-bread-pillow/gallery-dunlop-bread-pillow-05.png","/assets/products/dunlop-bread-pillow/gallery-dunlop-bread-pillow-06.png"],
     priceINR:"₹1,900 – ₹3,500*",priceUSD:"$23 – $43*",
     priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -191,7 +195,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×33×7/11 cm"},
     sizes:["60×33×7/11 cm"],
     useCases:["Ergonomic pillow buyers","Customers who want shaped support"],
-    gallery:["/assets/products/dunlop-butterfly-pillow/dunlop-butterfly-pillow-1.jpg"],
+    heroImage:"/assets/products/dunlop-butterfly-pillow/product-dunlop-butterfly-pillow-hero.png",
+    gallery:["/assets/products/dunlop-butterfly-pillow/gallery-dunlop-butterfly-pillow-01.png","/assets/products/dunlop-butterfly-pillow/gallery-dunlop-butterfly-pillow-02.png","/assets/products/dunlop-butterfly-pillow/gallery-dunlop-butterfly-pillow-03.png","/assets/products/dunlop-butterfly-pillow/gallery-dunlop-butterfly-pillow-04.png","/assets/products/dunlop-butterfly-pillow/gallery-dunlop-butterfly-pillow-05.png","/assets/products/dunlop-butterfly-pillow/gallery-dunlop-butterfly-pillow-06.png","/assets/products/dunlop-butterfly-pillow/gallery-dunlop-butterfly-pillow-07.png"],
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -211,7 +216,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×38×8 cm"},
     sizes:["60×38×8 cm"],
     useCases:["Massage feel seekers","Back/side comfort buyers","Unique product pages"],
-    gallery:["/assets/products/dunlop-cloud-pillow/dunlop-cloud-pillow-1.jpg"],
+    heroImage:"/assets/products/dunlop-cloud-pillow/product-dunlop-cloud-pillow-hero.png",
+    gallery:["/assets/products/dunlop-cloud-pillow/gallery-dunlop-cloud-pillow-01.png","/assets/products/dunlop-cloud-pillow/gallery-dunlop-cloud-pillow-02.png","/assets/products/dunlop-cloud-pillow/gallery-dunlop-cloud-pillow-03.png","/assets/products/dunlop-cloud-pillow/gallery-dunlop-cloud-pillow-04.png","/assets/products/dunlop-cloud-pillow/gallery-dunlop-cloud-pillow-05.png","/assets/products/dunlop-cloud-pillow/gallery-dunlop-cloud-pillow-06.png","/assets/products/dunlop-cloud-pillow/gallery-dunlop-cloud-pillow-07.png"],
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -231,7 +237,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×8/10 cm | 60×40×10/12 cm"},
     sizes:["60×40×8/10 cm","60×40×10/12 cm"],
     useCases:["Side and back sleepers","Ergonomic bedding retail","Hotel collections"],
-    gallery:["/assets/products/dunlop-contour-pillow/dunlop-contour-pillow-1.jpg"],
+    heroImage:"/assets/products/dunlop-contour-pillow/product-dunlop-contour-pillow-hero.png",
+    gallery:["/assets/products/dunlop-contour-pillow/gallery-dunlop-contour-pillow-01.png","/assets/products/dunlop-contour-pillow/gallery-dunlop-contour-pillow-02.png","/assets/products/dunlop-contour-pillow/gallery-dunlop-contour-pillow-03.png","/assets/products/dunlop-contour-pillow/gallery-dunlop-contour-pillow-04.png","/assets/products/dunlop-contour-pillow/gallery-dunlop-contour-pillow-05.png","/assets/products/dunlop-contour-pillow/gallery-dunlop-contour-pillow-06.png"],
     priceINR:"₹1,900 – ₹2,800*",priceUSD:"$23 – $34*",
     priceNote:"* Indicative landed price. Final confirmed after city, quantity & live freight.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -253,7 +260,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×40×10/14 cm"},
     sizes:["60×40×10/14 cm"],
     useCases:["Shoulder-width sleepers","Firmer support seekers"],
-    gallery:["/assets/products/dunlop-contour-pillow-high/dunlop-contour-pillow-high-1.jpg"],
+    heroImage:"/assets/products/dunlop-contour-pillow-high/product-dunlop-contour-pillow-high-hero.png",
+    gallery:["/assets/products/dunlop-contour-pillow-high/gallery-dunlop-contour-pillow-high-01.png","/assets/products/dunlop-contour-pillow-high/gallery-dunlop-contour-pillow-high-02.png","/assets/products/dunlop-contour-pillow-high/gallery-dunlop-contour-pillow-high-03.png","/assets/products/dunlop-contour-pillow-high/gallery-dunlop-contour-pillow-high-04.png","/assets/products/dunlop-contour-pillow-high/gallery-dunlop-contour-pillow-high-05.png","/assets/products/dunlop-contour-pillow-high/gallery-dunlop-contour-pillow-high-06.png","/assets/products/dunlop-contour-pillow-high/gallery-dunlop-contour-pillow-high-07.png"],
     priceINR:"₹1,600 – ₹2,800*",priceUSD:"$19 – $34*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -273,7 +281,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"50×30×6/8 cm"},
     sizes:["50×30×6/8 cm"],
     useCases:["Kids' bedding","Junior sleep collections"],
-    gallery:["/assets/products/dunlop-contour-pillow-junior/dunlop-contour-pillow-junior-1.jpg"],
+    heroImage:"/assets/products/dunlop-contour-pillow-junior/product-dunlop-contour-pillow-junior-hero.png",
+    gallery:["/assets/products/dunlop-contour-pillow-junior/gallery-dunlop-contour-pillow-junior-01.png","/assets/products/dunlop-contour-pillow-junior/gallery-dunlop-contour-pillow-junior-02.png","/assets/products/dunlop-contour-pillow-junior/gallery-dunlop-contour-pillow-junior-03.png","/assets/products/dunlop-contour-pillow-junior/gallery-dunlop-contour-pillow-junior-04.png","/assets/products/dunlop-contour-pillow-junior/gallery-dunlop-contour-pillow-junior-05.png","/assets/products/dunlop-contour-pillow-junior/gallery-dunlop-contour-pillow-junior-06.png"],
     priceINR:"₹1,200 – ₹2,000*",priceUSD:"$14 – $24*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -293,7 +302,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"120×40×10 cm or custom"},
     sizes:["120×40×10 cm","Custom width available"],
     useCases:["Couples gifting","Lifestyle bedding collections"],
-    gallery:["/assets/products/dunlop-couples-pillow/dunlop-couples-pillow-1.jpg"],
+    heroImage:"/assets/products/dunlop-couples-pillow/product-dunlop-couples-pillow-hero.png",
+    gallery:["/assets/products/dunlop-couples-pillow/gallery-dunlop-couples-pillow-01.png","/assets/products/dunlop-couples-pillow/gallery-dunlop-couples-pillow-02.png","/assets/products/dunlop-couples-pillow/gallery-dunlop-couples-pillow-03.png","/assets/products/dunlop-couples-pillow/gallery-dunlop-couples-pillow-04.png","/assets/products/dunlop-couples-pillow/gallery-dunlop-couples-pillow-05.png","/assets/products/dunlop-couples-pillow/gallery-dunlop-couples-pillow-06.png"],
     priceINR:"₹3,200 – ₹5,200*",priceUSD:"$38 – $62*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -313,7 +323,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"60×15 cm diameter or custom"},
     sizes:["60×15 cm diameter","Custom available"],
     useCases:["Back support","Leg elevation","Decorative bedroom styling"],
-    gallery:["/assets/products/dunlop-cylinder-pillow/dunlop-cylinder-pillow-1.jpg"],
+    heroImage:"/assets/products/dunlop-cylinder-pillow/product-dunlop-cylinder-pillow-hero.png",
+    gallery:["/assets/products/dunlop-cylinder-pillow/gallery-dunlop-cylinder-pillow-01.png","/assets/products/dunlop-cylinder-pillow/gallery-dunlop-cylinder-pillow-02.png","/assets/products/dunlop-cylinder-pillow/gallery-dunlop-cylinder-pillow-03.png","/assets/products/dunlop-cylinder-pillow/gallery-dunlop-cylinder-pillow-04.png","/assets/products/dunlop-cylinder-pillow/gallery-dunlop-cylinder-pillow-05.png","/assets/products/dunlop-cylinder-pillow/gallery-dunlop-cylinder-pillow-06.png"],
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -333,7 +344,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"Custom seahorse form"},
     sizes:["Standard seahorse form"],
     useCases:["Premium gifting","Specialty collections"],
-    gallery:["/assets/products/dunlop-seahorse-pillow/dunlop-seahorse-pillow-1.jpg"],
+    heroImage:"/assets/products/dunlop-seahorse-pillow/product-dunlop-seahorse-pillow-hero.png",
+    gallery:["/assets/products/dunlop-seahorse-pillow/product-dunlop-seahorse-pillow-hero.png"],
     priceINR:"₹1,800 – ₹3,000*",priceUSD:"$22 – $36*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -415,7 +427,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"Peanut ergonomic form"},
     sizes:["Standard peanut form"],
     useCases:["Relaxation seekers","Massage pillow buyers"],
-    gallery:["/assets/products/peanut-massage-pillow/peanut-massage-pillow-1.jpg"],
+    heroImage:"/assets/products/peanut-massage-pillow/product-peanut-massage-pillow-hero.png",
+    gallery:["/assets/products/peanut-massage-pillow/product-peanut-massage-pillow-hero.png"],
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -435,7 +448,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Sizes":"60×40×8/10 cm"},
     sizes:["60×40×8/10 cm"],
     useCases:["Wellness and recovery seekers","Specialty massage pillow range"],
-    gallery:["/assets/products/spiky-massage-pillow/spiky-massage-pillow-1.jpg"],
+    heroImage:"/assets/products/spiky-massage-pillow/product-spiky-massage-pillow-hero.png",
+    gallery:["/assets/products/spiky-massage-pillow/product-spiky-massage-pillow-hero.png"],
     priceINR:"₹1,400 – ₹2,400*",priceUSD:"$17 – $29*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -455,7 +469,8 @@ const PRODUCTS = [
     specs:{"Process":"Talalay","Density Options":"D60 / D70 / D80","Sizes":"150×200 cm | 180×200 cm | Custom","Height":"10 cm standard | Custom available","Private Label":"Available on request"},
     sizes:["150×200×10 cm","180×200×10 cm","Custom — contact for quote"],
     useCases:["Luxury home bedrooms","Premium hotels & resorts","Interior design projects","Private-label mattress brands"],
-    gallery:["/assets/products/talalay-latex-mattress/talalay-latex-mattress-1.jpg","/assets/products/talalay-latex-mattress/talalay-latex-mattress-2.jpg"],
+    heroImage:"/assets/products/talalay-latex-mattress/product-talalay-latex-mattress-hero.png",
+    gallery:["/assets/products/talalay-latex-mattress/gallery-talalay-latex-mattress-01.png","/assets/products/talalay-latex-mattress/gallery-talalay-latex-mattress-02.png","/assets/products/talalay-latex-mattress/gallery-talalay-latex-mattress-03.png"],
     priceINR:"₹52,000 – ₹83,000*",priceUSD:"$632 – $1,010*",
     priceNote:"* Indicative landed price. Final confirmed after city, quantity, density & specs.",
     deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days for custom/bulk.",
@@ -479,7 +494,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Format":"Custom to specification"},
     sizes:["Custom to specification"],
     useCases:["Bay window seating","Reading nooks","Custom interior furniture"],
-    gallery:["/assets/products/dunlop-bay-window-mattress/dunlop-bay-window-mattress-1.jpg"],
+    heroImage:"/assets/products/dunlop-bay-window-mattress/product-dunlop-bay-window-mattress-hero.png",
+    gallery:["/assets/products/dunlop-bay-window-mattress/gallery-dunlop-bay-window-mattress-01.png"],
     priceINR:"From ₹12,000*",priceUSD:"From $145*",
     priceNote:"* Indicative starting range.",
     deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
@@ -495,7 +511,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Height Options":"5 / 7.5 / 10 / 15 cm","Common Sizes":"90×200 | 120×200 | 150×200 | 180×200 cm"},
     sizes:["90×200 cm","120×200 cm","150×200 cm","180×200 cm","Custom"],
     useCases:["B2B mattress buyers","Hotel and interior projects"],
-    gallery:["/assets/products/dunlop-standard-mattress/dunlop-standard-mattress-1.jpg"],
+    heroImage:"/assets/products/dunlop-standard-mattress/product-dunlop-standard-mattress-hero.png",
+    gallery:["/assets/products/dunlop-standard-mattress/gallery-dunlop-standard-mattress-01.png","/assets/products/dunlop-standard-mattress/gallery-dunlop-standard-mattress-02.png"],
     priceINR:"₹18,000 – ₹52,000*",priceUSD:"$219 – $633*",
     priceNote:"* Indicative landed price. Final confirmed after city, quantity & specs.",
     deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
@@ -522,7 +539,8 @@ const PRODUCTS = [
     specs:{"Material":"Natural latex","Thickness":"1 / 2 / 3 / 4 / 5 cm","Sizes":"150×200 cm | 180×200 cm | Custom","Density":"D60 / D70 / D80 available"},
     sizes:["150×200 cm","180×200 cm","Custom size — contact for quote"],
     useCases:["Customers upgrading existing mattresses","Hotel bed upgrades"],
-    gallery:["/assets/products/latex-topper/latex-topper-1.jpg","/assets/products/latex-topper/latex-topper-2.jpg","/assets/products/latex-topper/latex-topper-3.jpg"],
+    heroImage:"/assets/products/latex-topper/product-latex-topper-hero.png",
+    gallery:["/assets/products/latex-topper/gallery-latex-topper-01.png","/assets/products/latex-topper/gallery-latex-topper-02.png"],
     priceINR:"₹17,500 – ₹43,000*",priceUSD:"$213 – $523*",
     priceNote:"* Indicative landed price. Final confirmed after city, quantity, thickness & density.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -550,7 +568,8 @@ const PRODUCTS = [
     specs:{"Type":"Shredded Talalay Latex","Unit":"Per kilogram","Applications":"Pillows, cushions, sofas, bedding, upholstery"},
     sizes:["Per kg — custom quantity"],
     useCases:["Pillow manufacturers","Custom furniture brands"],
-    gallery:["/assets/products/shredded-talalay-latex/shredded-talalay-latex-1.jpg","/assets/products/shredded-talalay-latex/shredded-talalay-latex-2.jpg"],
+    heroImage:"/assets/products/shredded-talalay-latex/product-shredded-talalay-latex-hero.png",
+    gallery:["/assets/products/shredded-talalay-latex/product-shredded-talalay-latex-hero.png"],
     priceINR:"Contact for price*",priceUSD:"Contact for price*",
     priceNote:"* Price per kg depends on quantity, grade, and shipping terms.",
     deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
@@ -566,7 +585,8 @@ const PRODUCTS = [
     specs:{"Type":"Hybrid Latex + Bamboo","Applications":"Pillows, toppers, mattress layers"},
     sizes:["Per specification"],
     useCases:["Eco bedding brands","Sustainable retail collections"],
-    gallery:["/assets/products/hybrid-latex-with-bamboo/hybrid-latex-with-bamboo-1.png"],
+    heroImage:"/assets/products/hybrid-latex-with-bamboo/product-hybrid-latex-with-bamboo-hero.png",
+    gallery:["/assets/products/hybrid-latex-with-bamboo/product-hybrid-latex-with-bamboo-hero.png"],
     priceINR:"Contact for price*",priceUSD:"Contact for price*",
     priceNote:"* Price confirmed after specifications and quantity.",
     deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
@@ -582,7 +602,8 @@ const PRODUCTS = [
     specs:{"Type":"Hybrid Latex + Gel","Applications":"Pillows, mattress toppers, mattress layers"},
     sizes:["Per specification"],
     useCases:["Warm climate bedding","Hot sleepers"],
-    gallery:["/assets/products/hybrid-latex-with-gel/hybrid-latex-with-gel-1.png"],
+    heroImage:"/assets/products/hybrid-latex-with-gel/product-hybrid-latex-with-gel-hero.png",
+    gallery:["/assets/products/hybrid-latex-with-gel/product-hybrid-latex-with-gel-hero.png"],
     priceINR:"Contact for price*",priceUSD:"Contact for price*",
     priceNote:"* Price confirmed after specifications and quantity.",
     deliveryNote:"Estimated 4–10 days inland after port clearance. Sea freight: ~30–40 days.",
@@ -722,7 +743,8 @@ const PRODUCTS = [
     specs:{"Process":"Dunlop","Latex Content":"80%/90% options","Size":"40×40×8 cm or custom"},
     sizes:["40×40×8 cm","Custom available"],
     useCases:["Extended sitting comfort","Office ergonomics"],
-    gallery:["/assets/products/dunlop-chunk-seat-cushion/dunlop-chunk-seat-cushion-1.jpg"],
+    heroImage:"/assets/products/dunlop-chunk-seat-cushion/product-dunlop-chunk-seat-cushion-hero.png",
+    gallery:["/assets/products/dunlop-chunk-seat-cushion/gallery-dunlop-chunk-seat-cushion-01.png"],
     priceINR:"₹1,600 – ₹3,000*",priceUSD:"$19 – $36*",
     priceNote:"* Indicative range.",
     deliveryNote:"Estimated 3–10 days inland after port clearance. Sea freight: ~25–35 days.",
@@ -2193,10 +2215,21 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
   const [selVar,setSelVar]=useState<number>(-1);
   const [qty,setQty]=useState(1);
   const [addedMsg,setAddedMsg]=useState(false);
+  const touchStartX=useRef<number|null>(null);
 
   useEffect(()=>{setImg(0);setImgErrors({});setSelVar(-1);setQty(1);setAddedMsg(false);window.scrollTo(0,0);},[p]);
 
   const displayImages:string[]=p.heroImage?[p.heroImage,...p.gallery]:p.gallery;
+
+  const handleTouchStart=(e:React.TouchEvent)=>{touchStartX.current=e.touches[0].clientX;};
+  const handleTouchEnd=(e:React.TouchEvent)=>{
+    if(touchStartX.current===null)return;
+    const dx=e.changedTouches[0].clientX-touchStartX.current;
+    touchStartX.current=null;
+    if(Math.abs(dx)<40)return;
+    if(dx<0)setImg(i=>(i+1)%displayImages.length);
+    else setImg(i=>(i-1+displayImages.length)%displayImages.length);
+  };
 
   const wished=wl.includes(p.id);
   const hasVariants=p.variants&&p.variants.length>0;
@@ -2254,8 +2287,8 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
         <div className="grid-2" style={{gap:56}}>
           {/* Images */}
           <div>
-            <div style={{borderRadius:5,overflow:"hidden",background:"#111",marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h">
-              <img key={img} src={currentSrc} alt={p.name} style={{width:"100%",height:"100%",objectFit:"contain",animation:"galleryFade .32s ease",background:"#111"}} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
+            <div style={{borderRadius:5,overflow:"hidden",background:"#111",marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+              <img key={img} src={currentSrc} alt={p.name} style={{width:"100%",height:"100%",objectFit:"contain",animation:"galleryFade .32s ease",background:"#111",userSelect:"none",WebkitUserSelect:"none"} as any} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
               <div style={{position:"absolute",bottom:12,right:12,background:"rgba(20,16,10,.75)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"rgba(200,169,126,.85)",display:"flex",alignItems:"center",gap:5,border:"1px solid rgba(200,169,126,.2)"}}>
                 <svg width={11} height={11} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                 Tap to zoom
