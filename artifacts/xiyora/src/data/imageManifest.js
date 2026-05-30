@@ -63,12 +63,12 @@ export const imageManifest = {
       gallery: [`${B}/hybrid-latex-with-bamboo/mat_p2.png`, `${B}/hybrid-latex-with-bamboo/mat_p3.png`],
     },
     "hybrid-latex-with-gel": {
-      hero: `${B}/hybrid-latex-with-gel/mat_p1.png`,
-      gallery: [`${B}/hybrid-latex-with-gel/mat_p2.png`, `${B}/hybrid-latex-with-gel/mat_p3.png`],
-    },
-    "hybrid-latex-with-graphene": {
       hero: `${B}/hybrid-latex-with-graphene/mat_p1.png`,
       gallery: [`${B}/hybrid-latex-with-graphene/mat_p2.png`, `${B}/hybrid-latex-with-graphene/mat_p3.png`],
+    },
+    "hybrid-latex-with-graphene": {
+      hero: `${B}/hybrid-latex-with-gel/mat_p1.png`,
+      gallery: [`${B}/hybrid-latex-with-gel/mat_p2.png`, `${B}/hybrid-latex-with-gel/mat_p3.png`],
     },
     "hybrid-latex-with-lavender": {
       hero: `${B}/hybrid-latex-with-lavender/mat_p1.png`,

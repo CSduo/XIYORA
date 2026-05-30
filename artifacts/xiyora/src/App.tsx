@@ -2492,11 +2492,11 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire}:any){
         image="/assets/lux/inkwash-landscape.png"
         imageAlt="Ink-wash mountain landscape"
       />
-      <div style={{borderBottom:`1px solid ${C.sand}`,position:"sticky",top:62,zIndex:10,background:"rgba(248,246,242,.97)",backdropFilter:"blur(12px)"}}>
+      <div style={{borderBottom:`1px solid ${C.sand}`,position:"sticky",top:62,zIndex:10,background:`${C.white}F5`,backdropFilter:"blur(12px)"}}>
         <div className="container" style={{display:"flex",overflowX:"auto"}}>
           {CATS.map(c=>(
-            <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:"#888",borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
-              {c.name} <span style={{fontSize:10,color:"#bbb"}}>({c.name==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.category===c.filter).length})</span>
+            <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:C.ink,borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
+              {c.name} <span style={{fontSize:10,color:C.sand}}>({c.name==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.category===c.filter).length})</span>
             </button>
           ))}
         </div>
@@ -2684,7 +2684,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
             <Reveal style={{position:"relative"}}>
               <GoldCloud className="x-drift" size={120} opacity={.5} style={{position:"absolute",top:-30,right:-12,pointerEvents:"none",zIndex:2}}/>
               <div className="x-frame" style={{borderRadius:5}}>
-                <img src="/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.jpg" alt="Premium latex comfort" style={{width:"100%",height:520,objectFit:"cover",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
+                <img src="/assets/xiyora-products/final/starting-from-hero.png" alt="Premium latex comfort" style={{width:"100%",height:520,objectFit:"cover",objectPosition:"center 30%",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
               </div>
               <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,borderLeft:`2px solid ${C.seal}`}}>
                 <div style={{fontFamily:"'Inter',sans-serif",fontSize:11,color:C.ink,letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
@@ -2897,13 +2897,70 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
   );
 }
 
+/* ─── WISHLIST DRAWER ────────────────────────────────────── */
+function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
+  const C=useC();
+  const wishProducts=PRODUCTS.filter((p:any)=>wl.includes(p.id));
+  const moveToCart=(p:any)=>{
+    const v=p.variants?.[0];
+    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:resolveHero(p.id,p.heroImage||p.gallery?.[0]||FALLBACK_IMG),quantity:1};
+    onAddToCart(item);
+  };
+  if(!open)return null;
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:1100,display:"flex"}}>
+      <div style={{flex:1,background:"rgba(0,0,0,.42)"}} onClick={onClose}/>
+      <div style={{width:390,maxWidth:"94vw",background:C.white,boxShadow:"-6px 0 48px rgba(0,0,0,.22)",display:"flex",flexDirection:"column",overflow:"hidden"}}>
+        <div style={{padding:"20px 22px 16px",borderBottom:`1px solid ${C.sand}`,display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
+          <div style={{display:"flex",alignItems:"center",gap:9}}>
+            <svg width={17} height={17} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            <span style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark}}>Wishlist</span>
+            {wl.length>0&&<span style={{background:C.gold,color:"#fff",borderRadius:"50%",width:20,height:20,fontSize:10.5,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
+          </div>
+          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:C.ink,fontSize:22,lineHeight:1,padding:"2px 6px"}}>✕</button>
+        </div>
+        <div style={{flex:1,overflowY:"auto",padding:"16px"}}>
+          {wishProducts.length===0?(
+            <div style={{textAlign:"center",padding:"72px 24px",color:C.ink}}>
+              <svg width={42} height={42} fill="none" stroke={C.sand} strokeWidth={1.2} viewBox="0 0 24 24" style={{marginBottom:16,display:"block",margin:"0 auto 16px"}}><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,color:C.dark,marginBottom:8}}>Your wishlist is empty</div>
+              <div style={{fontSize:13,color:C.ink,lineHeight:1.7}}>Tap the heart ♡ on any product to save it here.</div>
+            </div>
+          ):(
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              {wishProducts.map((p:any)=>(
+                <div key={p.id} style={{background:C.beige,borderRadius:4,padding:"13px 14px",display:"flex",gap:12,alignItems:"center"}}>
+                  <img src={resolveHero(p.id,p.heroImage||p.gallery?.[0])} alt={p.name} style={{width:58,height:58,objectFit:"cover",borderRadius:3,flexShrink:0,cursor:"pointer",background:C.lgold}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>{onOpen(p);onClose();}}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:14,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer",marginBottom:4}} onClick={()=>{onOpen(p);onClose();}}>{p.name}</div>
+                    <div style={{fontSize:12,color:C.gold,fontWeight:500,fontFamily:"'Playfair Display',serif"}}>{priceIn(cur,p.priceINR)}</div>
+                  </div>
+                  <div style={{display:"flex",flexDirection:"column",gap:5,flexShrink:0}}>
+                    <button onClick={()=>moveToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"6px 11px",cursor:"pointer",borderRadius:3,fontSize:10,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",whiteSpace:"nowrap"}}>Add to Basket</button>
+                    <button onClick={()=>onWish(p.id)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 11px",cursor:"pointer",borderRadius:3,fontSize:10,color:C.ink,fontFamily:"'Inter',sans-serif",textAlign:"center"}}>Remove</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        {wishProducts.length>0&&(
+          <div style={{padding:"13px 16px",borderTop:`1px solid ${C.sand}`,flexShrink:0,background:C.beige,textAlign:"center"}}>
+            <div style={{fontSize:11.5,color:C.ink}}>{wishProducts.length} item{wishProducts.length!==1?"s":""} saved · <strong style={{color:C.dark}}>Add to Basket</strong> to move to checkout</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* ─── CURRENCY FLAGS ──────────────────────────────────────── */
 const CURRENCY_FLAGS:Record<string,string>={
   INR:"🇮🇳",USD:"🇺🇸",AED:"🇦🇪",EUR:"🇪🇺",GBP:"🇬🇧",SGD:"🇸🇬",AUD:"🇦🇺",
 };
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
-function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme,onSearch,onCatalog,onCatFilter,onCheckout,onSidebar,onSupplier}:any){
+function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme,onSearch,onCatalog,onCatFilter,onCheckout,onWishlist,onSidebar,onSupplier}:any){
   const NAVBG="rgba(22,19,16,.97)";
   const [curOpen,setCurOpen]=useState(false);
   const curRef=useRef<HTMLDivElement>(null);
@@ -3003,7 +3060,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           <button className="ib" onClick={onSearch} title="Search" style={{color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}}>
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className="ib nav-wish" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
+          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
             <svg width={17} height={17} fill={wl&&wl.length?"#C8A97E":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
             {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
           </button>
@@ -3951,6 +4008,7 @@ export default function App(){
   const [showSearch,setShowSearch]=useState(false);
   const [showSubscribe,setShowSubscribe]=useState(false);
   const [showSidebar,setShowSidebar]=useState(false);
+  const [showWishlist,setShowWishlist]=useState(false);
   const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"light") as "light"|"dark";}catch{return"light";}});
   const toggleTheme=()=>setTheme(t=>{const n=t==="light"?"dark":"light";try{localStorage.setItem("xiyoraTheme",n);}catch{}return n;});
   const tc=theme==="dark"?CD:C;
@@ -4059,13 +4117,14 @@ export default function App(){
       <Navbar page={page} setPage={setPage} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl} cartCount={cart.length}
         theme={theme} toggleTheme={toggleTheme}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
-        onCheckout={()=>navigateTo("checkout")} onSidebar={()=>setShowSidebar(true)} onSupplier={()=>navigateTo("supplier")}/>
+        onCheckout={()=>navigateTo("checkout")} onWishlist={()=>setShowWishlist(true)} onSidebar={()=>setShowSidebar(true)} onSupplier={()=>navigateTo("supplier")}/>
       <main style={{minHeight:"80vh",paddingBottom:2}}>{renderView()}</main>
       <Footer setPage={setPage} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
       {/* WhatsApp FAB — positioned above any potential Replit badge */}
       <div className="wb" style={{bottom:80}} onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")} title="Chat on WhatsApp">
         <svg width={26} height={26} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
       </div>
+      <WishlistDrawer open={showWishlist} onClose={()=>setShowWishlist(false)} wl={wl} onWish={toggleWl} cur={cur} onOpen={(p:any)=>{openProd(p);setShowWishlist(false);}} onAddToCart={addToCart}/>
       <InquiryModal show={inquiry.show} onClose={()=>setInquiry(i=>({...i,show:false}))} product={inquiry.product} intent={inquiry.intent} currency={cur}/>
       <SubscribeModal show={showSubscribe} onClose={()=>setShowSubscribe(false)}/>
       <SearchOverlay show={showSearch} onClose={()=>setShowSearch(false)} onPickProduct={(p:any)=>{openProd(p);setShowSearch(false);}} onCatalog={openCatalog}/>

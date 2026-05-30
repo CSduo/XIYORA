@@ -114,3 +114,63 @@ id = "DkXik8XRihJnZeXXIS9C5"
 uri = "file://artifacts/xiyora/public/assets/categories/category-latex-material-premium-asian-luxury.png"
 type = "image"
 title = "latex material category"
+
+[[generated]]
+id = "AQFICRnR7KNCXSWOc2sbz"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/categories/mattresses.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "fxaCFq7echs1M0wnFJZAe"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/categories/toppers.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "jiDTUS1cg-z_CPIMPgV5B"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/categories/pillows.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "yO0xRW28zHBcFb8Mupdqx"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/categories/cushions.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "RRiu15zlTyeKg6DRoo4Ch"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/categories/starting-from.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "2h-vfrCKD-cV87GHzV3X9"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/categories/latex-material.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "OyyCB3JSt01kDMO5h2bwM"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/talalay-latex-mattress/hero.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "PoL_S0AVSzhvzha9PYr3p"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/talalay-latex-mattress/g01.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "zeaErhfNgyMN_U-BNKxIo"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/talalay-latex-mattress/g02.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "8gxNFNGXBEMHtCCAIbccd"
+uri = "file://artifacts/xiyora/public/assets/xiyora-products/final/dunlop-standard-mattress/hero.png"
+type = "image"
+title = "generated_image"
