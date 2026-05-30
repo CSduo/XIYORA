@@ -129,15 +129,26 @@ function GalleryUploader({ token, slug, context, value, onChange }: { token:stri
   };
 
   const removeAt = (i: number) => onChange((value||[]).filter((_, idx) => idx !== i));
+  const moveImage = (i: number, dir: -1|1) => {
+    const arr = [...(value||[])];
+    const j = i + dir;
+    if (j < 0 || j >= arr.length) return;
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+    onChange(arr);
+  };
 
   return (
     <div style={{ marginBottom:12 }}>
       <Label>Gallery Images</Label>
       <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:8 }}>
         {(value||[]).map((url,i) => (
-          <div key={i} style={{ position:"relative" }}>
+          <div key={i} style={{ position:"relative", display:"flex", flexDirection:"column", alignItems:"center", gap:2 }}>
             <img src={url} alt="" style={{ width:70, height:52, objectFit:"cover", borderRadius:3, border:`1px solid ${BEIGE}` }} onError={e => { (e.target as HTMLImageElement).style.display="none"; }} />
-            <button onClick={() => removeAt(i)} style={{ position:"absolute", top:-6, right:-6, background:RED, color:"#fff", border:"none", borderRadius:"50%", width:18, height:18, fontSize:10, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>✕</button>
+            <div style={{ display:"flex", gap:2 }}>
+              <button onClick={() => moveImage(i, -1)} disabled={i===0} title="Move left" style={{ background:"none", border:`1px solid ${BEIGE}`, borderRadius:2, cursor:"pointer", color:i===0?"#ddd":GOLD, fontSize:10, padding:"0 4px", lineHeight:"16px" }}>◀</button>
+              <button onClick={() => moveImage(i, 1)} disabled={i===(value||[]).length-1} title="Move right" style={{ background:"none", border:`1px solid ${BEIGE}`, borderRadius:2, cursor:"pointer", color:i===(value||[]).length-1?"#ddd":GOLD, fontSize:10, padding:"0 4px", lineHeight:"16px" }}>▶</button>
+              <button onClick={() => removeAt(i)} title="Remove" style={{ background:RED, color:"#fff", border:"none", borderRadius:2, width:18, height:18, fontSize:10, cursor:"pointer", lineHeight:"16px" }}>✕</button>
+            </div>
           </div>
         ))}
         <Btn variant="secondary" onClick={() => inputRef.current?.click()} disabled={uploading} style={{ fontSize:11, padding:"7px 14px", alignSelf:"center" }}>
@@ -164,6 +175,7 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
   const save = async () => {
     setSaving(true); setErr("");
     if (!form.slug || !form.name || !form.category) { setErr("Slug, Name and Category are required."); setSaving(false); return; }
+    if (!form.priceINR && !form.priceUSD) { setErr("At least one price (INR or USD) is required."); setSaving(false); return; }
     try {
       const url = isNew ? "/admin/products" : `/admin/products/${form.slug}`;
       const method = isNew ? "POST" : "PUT";
@@ -317,21 +329,17 @@ function ProductsPanel({ token }: { token: string }) {
   const moveSort = async (slug: string, dir: -1|1) => {
     const idx = products.findIndex(p => p.slug===slug);
     if (idx < 0) return;
-    const other = products[idx + dir];
-    if (!other) return;
-    const updated = products.map((p, i) => {
-      if (i===idx) return { ...p, sortOrder: other.sortOrder };
-      if (i===idx+dir) return { ...p, sortOrder: p.sortOrder };
-      return p;
-    });
-    const swapped = [...updated];
-    const temp = swapped[idx].sortOrder;
-    swapped[idx] = { ...swapped[idx], sortOrder: swapped[idx+dir].sortOrder };
-    swapped[idx+dir] = { ...swapped[idx+dir], sortOrder: temp };
-    setProducts(swapped.sort((a,b) => a.sortOrder - b.sortOrder));
+    const j = idx + dir;
+    if (j < 0 || j >= products.length) return;
+    const arr = [...products];
+    const aOrder = arr[idx].sortOrder;
+    const bOrder = arr[j].sortOrder;
+    arr[idx] = { ...arr[idx], sortOrder: bOrder };
+    arr[j]   = { ...arr[j],   sortOrder: aOrder };
+    setProducts([...arr].sort((a,b) => a.sortOrder - b.sortOrder));
     await apiFetch("/admin/products/reorder", { method:"POST", body:JSON.stringify([
-      { slug:swapped[idx].slug, sortOrder:swapped[idx].sortOrder },
-      { slug:swapped[idx+dir].slug, sortOrder:swapped[idx+dir].sortOrder },
+      { slug: arr[idx].slug, sortOrder: arr[idx].sortOrder },
+      { slug: arr[j].slug,   sortOrder: arr[j].sortOrder },
     ]) }, token);
   };
 

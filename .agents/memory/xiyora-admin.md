@@ -1,42 +1,30 @@
 ---
 name: XIYORA Admin Panel
-description: Architecture and key decisions for the /xiyora-admin panel and product DB migration.
+description: Key decisions and non-obvious constraints for the /xiyora-admin panel and product DB migration.
 ---
 
 # XIYORA Admin Panel
 
-## Route
-`/xiyora-admin` — renders `AdminPanel` component fullscreen (bypasses public nav/footer via early-return in App.tsx before the ThemeCtx/Navbar/Footer tree).
+## Auth — fail-closed
+`adminAuth.ts` throws if `ADMIN_SECRET` is missing — no hardcoded fallback allowed. JWT signed with this secret; token stored in `localStorage` as `xiyora_admin_token`. Also accepts legacy `x-admin-secret` header for backward compat.
 
-## Auth
-- JWT-based: `POST /api/admin/login` verifies `ADMIN_USERNAME` + `ADMIN_PASSWORD` env secrets, returns JWT signed with `ADMIN_SECRET`.
-- Middleware `requireAdmin` in `adminAuth.ts` accepts JWT Bearer token OR legacy `x-admin-secret` header.
-- Token stored in `localStorage` under key `xiyora_admin_token`.
+**Why:** A hardcoded fallback would allow token forgery in any misconfigured environment.
 
-## DB
-- New tables: `products` (37 seeded), `site_content` (6 keys seeded).
-- Schema in `lib/db/src/schema/products.ts` and `siteContent.ts`.
-- Seed script: `pnpm --filter @workspace/db run seed`.
+## Admin panel renders fullscreen
+`App.tsx` early-returns `<AdminPanel/>` wrapped in `ThemeCtx.Provider` before the public nav/footer tree when `page==="xiyora-admin"`. The `renderView()` switch also has the case but it is unreachable — the early-return is the live path.
 
-## API routes (all under `/api`)
-- `POST /admin/login` — JWT login
-- `GET /products` — public visible products
-- `GET /admin/products` — all products (admin)
-- `POST /admin/products` — create product
-- `PUT /admin/products/:slug` — update product
-- `DELETE /admin/products/:slug` — delete product
-- `POST /admin/products/reorder` — bulk sort order update
-- `GET /admin/site-content` — get all site content
-- `PUT /admin/site-content` — update site content keys
-- `POST /admin/upload` — multer image upload to GCS, returns public URL
+**Why:** The panel was initially rendered inside the public nav/footer shell; the early-return was added to fix that.
 
-## Frontend product loading
-Products load from `/api/products` on mount, overwrite the hardcoded `PRODUCTS` let-array, and call `forceProductRefresh()` (useReducer) to re-render. Hardcoded array serves as fallback if API is down.
+## Product reorder — correct swap pattern
+`moveSort` in `ProductsPanel` must copy the array, read both sortOrder values, then set them in a single pass. The original map-then-mutate approach produced duplicate sort orders.
 
-## Image uploads
-Uses `multer` + `@google-cloud/storage` in `routes/upload.ts`. Uploads to GCS bucket (`DEFAULT_OBJECT_STORAGE_BUCKET_ID`), makes object public, returns `https://storage.googleapis.com/...` URL.
+**How to apply:** Always do `[arr[i], arr[j]] = [arr[j], arr[i]]` pattern (or explicit temp-swap on pre-copied array), never use `.map()` with partial conditional assignment for a two-element swap.
 
-## zod import
-API server routes must import from `"zod"` (not `"zod/v4"`) — zod is not a direct dep of api-server, so use `insertProductSchema` from `@workspace/db` for validation and avoid importing zod directly in api-server routes.
+## Route contract — slug-or-id
+PUT/DELETE `/admin/products/:slugOrId` accepts either a numeric id or a slug string. Numeric strings resolve via `eq(productsTable.id, parseInt(...))`, others via `eq(productsTable.slug, ...)`. This keeps the frontend simple (always passes slug) while allowing future ID-based clients.
 
-**Why:** esbuild bundles the api-server and cannot resolve `zod/v4` subpath or bare `zod` unless it's a direct dep. The workspace uses zod v3-style imports.
+## Price validation
+`save()` in `ProductEditor` requires at least one of `priceINR` or `priceUSD` to be non-empty before calling the API. Backend `insertProductSchema` does not enforce price at the DB level (fields are nullable text), so the UI is the enforcement point.
+
+## zod in api-server
+Do NOT import `zod` directly in api-server routes — it's not a direct dep and esbuild will fail. Use schemas from `@workspace/db` (`insertProductSchema` etc.) or plain JS validation.

@@ -35,18 +35,20 @@ router.post("/admin/products", requireAdmin, async (req, res): Promise<void> => 
   res.status(201).json({ success: true, product: row });
 });
 
-router.put("/admin/products/:slug", requireAdmin, async (req, res): Promise<void> => {
-  const { slug } = req.params;
+router.put("/admin/products/:slugOrId", requireAdmin, async (req, res): Promise<void> => {
+  const { slugOrId } = req.params;
   const updateSchema = insertProductSchema.partial();
   const parsed = updateSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ success: false, error: parsed.error.message });
     return;
   }
+  const isId = /^\d+$/.test(slugOrId);
+  const condition = isId ? eq(productsTable.id, parseInt(slugOrId)) : eq(productsTable.slug, slugOrId);
   const [row] = await db
     .update(productsTable)
     .set({ ...parsed.data, updatedAt: new Date() })
-    .where(eq(productsTable.slug, slug))
+    .where(condition)
     .returning();
   if (!row) {
     res.status(404).json({ success: false, error: "Product not found" });
@@ -55,9 +57,11 @@ router.put("/admin/products/:slug", requireAdmin, async (req, res): Promise<void
   res.json({ success: true, product: row });
 });
 
-router.delete("/admin/products/:slug", requireAdmin, async (req, res): Promise<void> => {
-  const { slug } = req.params;
-  await db.delete(productsTable).where(eq(productsTable.slug, slug));
+router.delete("/admin/products/:slugOrId", requireAdmin, async (req, res): Promise<void> => {
+  const { slugOrId } = req.params;
+  const isId = /^\d+$/.test(slugOrId);
+  const condition = isId ? eq(productsTable.id, parseInt(slugOrId)) : eq(productsTable.slug, slugOrId);
+  await db.delete(productsTable).where(condition);
   res.json({ success: true });
 });
 

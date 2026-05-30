@@ -2,7 +2,9 @@ import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 function getJwtSecret(): string {
-  return process.env.ADMIN_SECRET || "xiyora-admin-dev-secret-change-in-production";
+  const secret = process.env.ADMIN_SECRET;
+  if (!secret) throw new Error("ADMIN_SECRET environment variable is not set.");
+  return secret;
 }
 
 export function requireAdmin(
