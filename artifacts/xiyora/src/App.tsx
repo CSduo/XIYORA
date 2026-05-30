@@ -1,4 +1,13 @@
 import { useState, useEffect, useRef, useCallback, createContext, useContext } from "react";
+import { imageManifest } from "./data/imageManifest";
+
+const resolveHero=(id:string,fallback?:string):string=>{
+  return imageManifest.products[id]?.hero||fallback||"";
+};
+const resolveGallery=(id:string,fallback:string[]):string[]=>{
+  const m=imageManifest.products[id];
+  return m?.gallery?.length?m.gallery:fallback;
+};
 
 /* ─── BUSINESS INFO ─────────────────────────────────────── */
 const BIZ = {
@@ -2144,7 +2153,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
               onClick={()=>{onPickProduct(p);onClose();}}
               onMouseEnter={(e:any)=>e.currentTarget.style.background=C.beige}
               onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
-              <img src={p.heroImage||p.gallery[0]} alt={p.name} style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+              <img src={resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
               <div style={{flex:1,minWidth:0}}>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
                 <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
@@ -2179,7 +2188,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   return(
     <div className="pc" onClick={()=>onOpen(p)}>
       <div style={{position:"relative",overflow:"hidden",height:240}}>
-        <img src={imgErr?FALLBACK_IMG:(p.heroImage||p.gallery[0])} alt={p.name} className="pi" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+        <img src={imgErr?FALLBACK_IMG:resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} className="pi" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
         <div style={{position:"absolute",top:10,left:10}}>
           <Tag>{p.tag}</Tag>
         </div>
@@ -2219,7 +2228,9 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
 
   useEffect(()=>{setImg(0);setImgErrors({});setSelVar(-1);setQty(1);setAddedMsg(false);window.scrollTo(0,0);},[p]);
 
-  const displayImages:string[]=p.heroImage?[p.heroImage,...p.gallery]:p.gallery;
+  const _hero=resolveHero(p.id,p.heroImage||"");
+  const _gallery=resolveGallery(p.id,p.gallery||[]);
+  const displayImages:string[]=_hero?[_hero,..._gallery]:_gallery;
 
   const handleTouchStart=(e:React.TouchEvent)=>{touchStartX.current=e.touches[0].clientX;};
   const handleTouchEnd=(e:React.TouchEvent)=>{
@@ -2565,13 +2576,7 @@ function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub
 /* ─── HOME VIEW ──────────────────────────────────────────── */
 function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire}:any){
   const C=useC();
-  const catImages:Record<string,string>={
-    Mattresses:"/assets/categories/category-mattresses-premium-asian-luxury.png",
-    Pillows:"/assets/categories/category-pillows-premium-asian-luxury.png",
-    Toppers:"/assets/categories/category-toppers-premium-asian-luxury.png",
-    Cushions:"/assets/categories/category-cushions-premium-asian-luxury.png",
-    "Latex Material":"/assets/categories/category-latex-material-premium-asian-luxury.png",
-  };
+  const catImages:Record<string,string>=imageManifest.categories as Record<string,string>;
   const CAT_CARDS=[
     {filter:"Mattresses",name:"Mattresses",sub:"Premium Latex Mattresses",cn:"床垫",wide:false},
     {filter:"Pillows",name:"Pillows",sub:"Natural Comfort & Support",cn:"枕头",wide:false},
@@ -3088,7 +3093,7 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
 
   const moveWishToCart=(p:any)=>{
     const v=p.variants?.[0];
-    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:p.heroImage||p.gallery?.[0]||FALLBACK_IMG,quantity:1};
+    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:resolveHero(p.id,p.heroImage||p.gallery?.[0]||FALLBACK_IMG),quantity:1};
     onAddToCart(item);onWish(p.id);
   };
 
