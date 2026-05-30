@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef, useCallback, createContext, useContext } from "react";
+import { useState, useEffect, useRef, useCallback, createContext, useContext, useReducer } from "react";
 import { imageManifest } from "./data/imageManifest";
+import AdminPanel from "./components/AdminPanel";
 
 const resolveHero=(id:string,fallback?:string):string=>{
   return imageManifest.products[id]?.hero||fallback||"";
@@ -58,7 +59,7 @@ async function apiPost(endpoint: string, data: Record<string, string | undefined
 }
 
 /* ─── PRODUCTS ───────────────────────────────────────────── */
-const PRODUCTS = [
+let PRODUCTS: any[] = [
   {
     id:"talalay-bread-pillow",name:"Talalay Bread Pillow",
     category:"Pillows",latexType:"Talalay",latexContent:"93% natural latex",
@@ -4013,6 +4014,20 @@ export default function App(){
   const toggleTheme=()=>setTheme(t=>{const n=t==="light"?"dark":"light";try{localStorage.setItem("xiyoraTheme",n);}catch{}return n;});
   const tc=theme==="dark"?CD:C;
   useLiveFx(); // refresh indicative currency rates hourly / on load
+  const [,forceProductRefresh]=useReducer((x:number)=>x+1,0);
+  useEffect(()=>{
+    fetch("/api/products").then(r=>r.ok?r.json():null).then((data:any)=>{
+      if(Array.isArray(data)&&data.length>0){
+        PRODUCTS=data.map((p:any)=>({
+          ...p,
+          id:p.slug,
+          heroImage:resolveHero(p.slug,p.heroImage??""),
+          gallery:resolveGallery(p.slug,p.gallery??[]),
+        }));
+        forceProductRefresh();
+      }
+    }).catch(()=>{});
+  },[]);
 
   useEffect(()=>{
     let s=document.getElementById("xiyora-css") as HTMLStyleElement|null;
@@ -4032,7 +4047,7 @@ export default function App(){
   useEffect(()=>{try{localStorage.setItem("xiyora_wishlist",JSON.stringify(wl));}catch{}},[wl]);
   useEffect(()=>{try{localStorage.setItem("xiyora_cart",JSON.stringify(cart));}catch{}},[cart]);
   useEffect(()=>{
-    const VALID=["home","catalog","checkout","account","proof","order-status","supplier","about","contact","faq","shipping","returns","privacy","terms"];
+    const VALID=["home","catalog","checkout","account","proof","order-status","supplier","about","contact","faq","shipping","returns","privacy","terms","xiyora-admin"];
     const segs=(window.location.pathname||"/").split("/").filter(Boolean);
     const first=segs[0]||"home";
     let initPage="home";const initState:any={page:"home"};
@@ -4063,6 +4078,7 @@ export default function App(){
     if(newPage==="product"&&opts.prod){state.selProd=opts.prod;url=`/product/${opts.prod.id}`;}
     else if(newPage==="catalog"&&opts.cat!=null){state.activeCat=opts.cat;url=`/category/${opts.cat.toLowerCase().replace(/\s+/g,"-")}`;}
     else if(newPage==="catalog"){state.activeCat=null;url="/products";}
+    else if(newPage==="xiyora-admin"){url="/xiyora-admin";}
     else if(newPage!=="home")url=`/${newPage}`;
     window.history.pushState(state,"",url);
     setPage(newPage);
@@ -4083,6 +4099,7 @@ export default function App(){
     if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
     if(page==="account")return<AccountView setPage={setPage}/>;
     if(page==="admin")return<AdminView/>;
+    if(page==="xiyora-admin")return<AdminPanel/>;
     if(page==="proof")return<ProofLibraryView setPage={setPage}/>;
     if(page==="order-status")return<OrderStatusView setPage={setPage}/>;
     if(page==="supplier")return<SimplePage title="For B2B Buyers" content={[["B2B Welcome","We welcome retailers, hotels, interior designers, mattress stores, and manufacturers. Contact us for bulk pricing, custom specifications, and private-label options."],["Our Process","Send inquiry → Receive indicative quote → Confirm specs → Proforma invoice → Payment confirmation → Production & shipping → Delivery."],["Bulk Pricing","Volume discounts available for trade buyers. Minimum order quantities vary by product."],["Custom Options","Custom sizes, densities, cover fabrics, and private-label branding available for most products on request."],["Contact",`WhatsApp: +91 70283 11226 | Email: ${BIZ.email}`]]} setPage={setPage}/>;
