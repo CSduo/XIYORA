@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
-const API = "/api";
+const API = (import.meta.env.VITE_API_BASE as string) || "/api";
 const TOKEN_KEY = "xiyora_admin_token";
 
 const GOLD = "#C8A97E";

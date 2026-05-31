@@ -22,7 +22,7 @@ let BIZ = {
   heroImage: "",
 };
 
-const API_BASE = "/api";
+const API_BASE = (import.meta.env.VITE_API_BASE as string) || "/api";
 async function apiPost(endpoint: string, data: Record<string, string | undefined>) {
   const url = `${API_BASE}${endpoint}`;
   const controller = new AbortController();

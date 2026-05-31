@@ -6,6 +6,16 @@ import { logger } from "./lib/logger";
 
 const app: Express = express();
 
+const STATIC_ALLOWED_ORIGINS = [
+  "https://xiyora-home.pages.dev",
+];
+
+const extraOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim()).filter(Boolean)
+  : [];
+
+const allowedOrigins = new Set([...STATIC_ALLOWED_ORIGINS, ...extraOrigins]);
+
 app.use(
   pinoHttp({
     logger,
@@ -25,7 +35,18 @@ app.use(
     },
   }),
 );
-app.use(cors());
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.has(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS: origin not allowed — ${origin}`));
+      }
+    },
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
