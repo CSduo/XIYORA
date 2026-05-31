@@ -1411,7 +1411,7 @@ const Monogram=({color,size=1,tagline=true,center}:{color?:string;size?:number;t
 function HeroMedia(){
   const [failed,setFailed]=useState(false);
   if(failed)return(
-    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1800&q=85" alt="Luxury latex bedroom"
+    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1800&q=85" alt="Luxury latex bedroom" fetchPriority="high" decoding="async"
       style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 40%",animation:"heroScale 1.8s ease forwards"}}
       onError={(e:any)=>{e.currentTarget.src="/assets/products/talalay-bread-pillow/talalay-bread-pillow-1.webp";}}/>
   );
@@ -1475,7 +1475,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
     <section className="lux-hero paper">
       <Bamboo className="lux-bamboo x-drift-slow"/>
       <div className="lux-hero-photo x-frame">
-        <img src={err?"/assets/lux/hero-bedroom.webp":image} alt={imageAlt} onError={()=>setErr(true)}/>
+        <img src={err?"/assets/lux/hero-bedroom.webp":image} alt={imageAlt} decoding="async" onError={()=>setErr(true)}/>
         <GoldCloud className="x-drift" size={150} opacity={.3} style={{position:"absolute",top:"9%",right:"7%",zIndex:3,pointerEvents:"none"}}/>
       </div>
       <div className="container">
@@ -1601,16 +1601,16 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
       <Petals count={16}/>
       {/* section-edge framing motifs — low z-index, kept away from text */}
-      <img src={DECO.bamboo} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
+      <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
           <CornerSet/>
           {/* LEFT — copy */}
           <div className="lux-hero-copy" style={{position:"relative",padding:"clamp(34px,4vw,60px) clamp(24px,4vw,54px)",display:"flex",flexDirection:"column",justifyContent:"center",overflow:"hidden"}}>
             {/* decorations BEHIND text (zIndex 1) for guaranteed readability */}
-            <img src={DECO.sakuraCluster} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
-            <img src={DECO.crane} alt="" aria-hidden className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}}/>
-            <img src={DECO.rabbit} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:-4,left:8,width:"clamp(50px,5.5vw,82px)",opacity:.28,pointerEvents:"none",zIndex:1}}/>
+            <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
+            <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}}/>
+            <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-4,left:8,width:"clamp(50px,5.5vw,82px)",opacity:.28,pointerEvents:"none",zIndex:1}}/>
             <Reveal>
               <ArchedCartouche className="lux-brand-lock">
                 <MonoMark size={38}/>
@@ -1640,7 +1640,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
           </div>
           {/* RIGHT — photo */}
           <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:540,overflow:"hidden"}}>
-            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":"/assets/lux/hero-bedroom.webp"} alt="XIYORA natural latex bedroom" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":"/assets/lux/hero-bedroom.webp"} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
             {/* corner-only gold hairline frame — no motifs over the room photo (guardrail) */}
@@ -1662,12 +1662,12 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
       <Petals count={10}/>
-      <img src={DECO.bamboo} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}}/>
-      <img src={DECO.rabbit} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}}/>
+      <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}}/>
+      <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"auto 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
           <CornerSet/>
-          <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}}/></div>
+          <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}}/></div>
           <div>
             <Reveal>
               <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
@@ -1739,8 +1739,8 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
       <Petals count={8}/>
-      <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.24,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
-      <img src={DECO.sakuraCluster} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:-8,left:-14,width:"clamp(80px,9vw,120px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
+      <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.24,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
+      <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-8,left:-14,width:"clamp(80px,9vw,120px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <OrnamentalFrame style={{background:"linear-gradient(160deg,#16110b,#0c0a08)",padding:"clamp(12px,2vw,20px)"}}>
           <div className="ql-grid">
@@ -1791,8 +1791,8 @@ function CategoryIntroPanel(){
   return(
     <div className="cat-intro" style={{maxWidth:760,margin:"0 auto"}}>
       <CornerSet/>
-      <img src={DECO.sakuraCorner} alt="" aria-hidden style={{position:"absolute",top:0,left:0,width:"clamp(80px,12vw,140px)",opacity:.9,pointerEvents:"none",zIndex:2}}/>
-      <img src={DECO.rabbit} alt="" aria-hidden className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}}/>
+      <img src={DECO.sakuraCorner} alt="" aria-hidden loading="lazy" decoding="async" style={{position:"absolute",top:0,left:0,width:"clamp(80px,12vw,140px)",opacity:.9,pointerEvents:"none",zIndex:2}}/>
+      <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}}/>
       <GoldCloud className="cloud-drift" size={120} opacity={.12} style={{position:"absolute",bottom:18,left:18,pointerEvents:"none",zIndex:1}}/>
       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Seal ch="选" title="Curated collection"/>
@@ -1809,7 +1809,7 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
   const [err,setErr]=useState(false);
   return(
     <section className="latex-story">
-      <img className="ls-bg" src={err?"https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=85":"/assets/lux/latex-closeup.webp"} alt="Natural latex close-up" onError={()=>setErr(true)}/>
+      <img className="ls-bg" src={err?"https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=85":"/assets/lux/latex-closeup.webp"} alt="Natural latex close-up" loading="lazy" decoding="async" onError={()=>setErr(true)}/>
       <div className="ls-ov"/>
       {/* gold hairline frame + bottom edge wave — border-only, no motifs over the photo (guardrail) */}
       <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(200,169,126,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
@@ -2130,7 +2130,7 @@ function ImageZoom({src,alt,onClose}:{src:string;alt:string;onClose:()=>void}){
   },[onClose]);
   return(
     <div className="img-zoom-overlay" onClick={onClose}>
-      <img src={src} alt={alt} onClick={e=>e.stopPropagation()}/>
+      <img src={src} alt={alt} decoding="async" onClick={e=>e.stopPropagation()}/>
       <button onClick={onClose} style={{position:"absolute",top:24,right:28,background:"none",border:"none",color:"#fff",fontSize:28,cursor:"pointer",opacity:.6}}>✕</button>
     </div>
   );
@@ -2158,7 +2158,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
               onClick={()=>{onPickProduct(p);onClose();}}
               onMouseEnter={(e:any)=>e.currentTarget.style.background=C.beige}
               onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
-              <img src={resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+              <img src={resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} loading="lazy" decoding="async" style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
               <div style={{flex:1,minWidth:0}}>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
                 <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
@@ -2193,7 +2193,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   return(
     <div className="pc" onClick={()=>onOpen(p)}>
       <div style={{position:"relative",overflow:"hidden",height:240}}>
-        <img src={imgErr?FALLBACK_IMG:resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} className="pi" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#1a1814":undefined,padding:p.category==="Latex Material"?"8px":undefined}}/>
+        <img src={imgErr?FALLBACK_IMG:resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} className="pi" loading="lazy" decoding="async" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#1a1814":undefined,padding:p.category==="Latex Material"?"8px":undefined}}/>
         <div style={{position:"absolute",top:10,left:10}}>
           <Tag>{p.tag}</Tag>
         </div>
@@ -2304,7 +2304,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
           {/* Images */}
           <div>
             <div style={{borderRadius:5,overflow:"hidden",background:"#111",marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-              <img key={img} src={currentSrc} alt={p.name} style={{width:"100%",height:"100%",objectFit:"contain",animation:"galleryFade .32s ease",background:"#111",userSelect:"none",WebkitUserSelect:"none"} as any} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
+              <img key={img} src={currentSrc} alt={p.name} decoding="async" style={{width:"100%",height:"100%",objectFit:"contain",animation:"galleryFade .32s ease",background:"#111",userSelect:"none",WebkitUserSelect:"none"} as any} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
               <div style={{position:"absolute",bottom:12,right:12,background:"rgba(20,16,10,.75)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"rgba(200,169,126,.85)",display:"flex",alignItems:"center",gap:5,border:"1px solid rgba(200,169,126,.2)"}}>
                 <svg width={11} height={11} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                 Tap to zoom
@@ -2317,7 +2317,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             {displayImages.length>1&&<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               {displayImages.map((im:string,i:number)=>(
                 <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"rgba(60,50,35,.5)"}`,boxShadow:img===i?"0 0 0 1px rgba(200,169,126,.35),0 4px 14px rgba(200,169,126,.18)":"none",transition:"border-color .22s,box-shadow .22s",flexShrink:0,background:"#111"}}>
-                  <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} style={{width:"100%",height:"100%",objectFit:"cover"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
+                  <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} loading="lazy" decoding="async" style={{width:"100%",height:"100%",objectFit:"cover"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
                 </div>
               ))}
             </div>}
@@ -2546,9 +2546,9 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
       <Petals count={8}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <OrnamentalFrame style={{background:"linear-gradient(160deg,#16110b,#0c0a08)",padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
-          <img src={DECO.crane} alt="" aria-hidden className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
-          <img src={DECO.rabbit} alt="" aria-hidden className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}}/>
-          <img src={DECO.sakuraCluster} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:-6,right:-6,width:"clamp(90px,10vw,140px)",opacity:.6,pointerEvents:"none",zIndex:2}}/>
+          <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
+          <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}}/>
+          <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-6,right:-6,width:"clamp(90px,10vw,140px)",opacity:.6,pointerEvents:"none",zIndex:2}}/>
           <div style={{position:"relative",zIndex:5,textAlign:"center"}}>
             <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#C9A876",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#C8A97E"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#C8A97E"}}/></div>
             <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:500,color:"#F4ECDC",lineHeight:1.12,margin:0}}>Tell Us Who You Are</h2>
@@ -2579,7 +2579,7 @@ function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub
   const [imgErr,setImgErr]=useState(false);
   return(
     <button type="button" onClick={onClick} aria-label={`${name} — ${sub}`} className={"cat-card"+(wide?" cat-card-wide":"")}>
-      <img src={imgErr?FALLBACK_IMG:img} alt={name} className="cat-card-img" loading="lazy" onError={()=>setImgErr(true)}/>
+      <img src={imgErr?FALLBACK_IMG:img} alt={name} className="cat-card-img" loading="lazy" decoding="async" onError={()=>setImgErr(true)}/>
       <div className="cat-card-grad"/>
       <span className="cat-corner tl" aria-hidden/>
       <span className="cat-corner tr" aria-hidden/>
@@ -2632,9 +2632,9 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
           <div className="promise-2up" style={{display:"grid",gridTemplateColumns:"1fr 1fr",borderRadius:8,overflow:"hidden",border:"1px solid rgba(200,169,126,.4)",position:"relative"}}>
             <CornerSet/>
             <div style={{position:"relative",background:"#7c8270",backgroundImage:"radial-gradient(circle at 80% 16%,rgba(255,255,255,.07),transparent 42%)",display:"flex",flexDirection:"column",justifyContent:"center",padding:"clamp(36px,4vw,56px)",color:"#fff",overflow:"hidden",minHeight:360}}>
-              <img src={DECO.sakuraCluster} alt="" aria-hidden className="deco-float" style={{position:"absolute",top:6,right:-8,width:"clamp(90px,12vw,150px)",opacity:.7,pointerEvents:"none",zIndex:1}}/>
+              <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:6,right:-8,width:"clamp(90px,12vw,150px)",opacity:.7,pointerEvents:"none",zIndex:1}}/>
               <GoldCloud className="cloud-drift" size={120} opacity={.16} style={{position:"absolute",top:18,right:30,pointerEvents:"none",zIndex:1}}/>
-              <img src={DECO.rabbit} alt="" aria-hidden className="idle-bob" style={{position:"absolute",bottom:6,left:10,width:"clamp(46px,5vw,72px)",opacity:.3,pointerEvents:"none",zIndex:1}}/>
+              <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:6,left:10,width:"clamp(46px,5vw,72px)",opacity:.3,pointerEvents:"none",zIndex:1}}/>
               <div style={{position:"relative",zIndex:2}}>
                 <span style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",color:"rgba(255,255,255,.78)"}}>Our Promise</span>
                 <h3 className="serif" style={{fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:500,lineHeight:1.16,margin:"18px 0 0"}}>Elevating Everyday Rest Into an Art of Living.</h3>
@@ -2643,7 +2643,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
               </div>
             </div>
             <div className="x-frame" style={{position:"relative",minHeight:360,overflow:"hidden"}}>
-              <img src="/assets/lux/vase-blossom.webp" alt="Ink-wash still life with cherry blossom" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}}/>
+              <img src="/assets/lux/vase-blossom.webp" alt="Ink-wash still life with cherry blossom" loading="lazy" decoding="async" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}}/>
               <div style={{position:"absolute",inset:0,boxShadow:"inset 0 0 0 1px rgba(200,169,126,.3)",pointerEvents:"none"}}/>
             </div>
           </div>
@@ -2703,7 +2703,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
             <Reveal style={{position:"relative"}}>
               <GoldCloud className="x-drift" size={120} opacity={.5} style={{position:"absolute",top:-30,right:-12,pointerEvents:"none",zIndex:2}}/>
               <div className="x-frame" style={{borderRadius:5}}>
-                <img src="/assets/xiyora-products/final/starting-from-hero.webp" alt="Premium latex comfort" style={{width:"100%",height:520,objectFit:"cover",objectPosition:"center 30%",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
+                <img src="/assets/xiyora-products/final/starting-from-hero.webp" alt="Premium latex comfort" loading="lazy" decoding="async" style={{width:"100%",height:520,objectFit:"cover",objectPosition:"center 30%",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
               </div>
               <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,borderLeft:`2px solid ${C.seal}`}}>
                 <div style={{fontFamily:"'Inter',sans-serif",fontSize:11,color:C.ink,letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
@@ -2949,7 +2949,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
               {wishProducts.map((p:any)=>(
                 <div key={p.id} style={{background:C.beige,borderRadius:4,padding:"13px 14px",display:"flex",gap:12,alignItems:"center"}}>
-                  <img src={resolveHero(p.id,p.heroImage||p.gallery?.[0])} alt={p.name} style={{width:58,height:58,objectFit:"cover",borderRadius:3,flexShrink:0,cursor:"pointer",background:C.lgold}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>{onOpen(p);onClose();}}/>
+                  <img src={resolveHero(p.id,p.heroImage||p.gallery?.[0])} alt={p.name} loading="lazy" decoding="async" style={{width:58,height:58,objectFit:"cover",borderRadius:3,flexShrink:0,cursor:"pointer",background:C.lgold}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>{onOpen(p);onClose();}}/>
                   <div style={{flex:1,minWidth:0}}>
                     <div style={{fontFamily:"'Playfair Display',serif",fontSize:14,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer",marginBottom:4}} onClick={()=>{onOpen(p);onClose();}}>{p.name}</div>
                     <div style={{fontSize:12,color:C.gold,fontWeight:500,fontFamily:"'Playfair Display',serif"}}>{priceIn(cur,p.priceINR)}</div>
@@ -3023,8 +3023,8 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
         </div>
         {/* Center: ornate cartouche — sakura garland + circle-X monogram + XIYORA + 舒适·自然·匠心 */}
         <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0}}>
-          <img src={DECO.sakuraCluster} alt="" aria-hidden className="nav-ornament" style={{position:"absolute",left:-30,top:-14,width:46,opacity:.9,pointerEvents:"none",zIndex:1}}/>
-          <img src={DECO.sakuraCluster} alt="" aria-hidden className="nav-ornament" style={{position:"absolute",right:-30,top:-14,width:46,opacity:.9,transform:"scaleX(-1)",pointerEvents:"none",zIndex:1}}/>
+          <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",left:-30,top:-14,width:46,opacity:.9,pointerEvents:"none",zIndex:1}}/>
+          <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",right:-30,top:-14,width:46,opacity:.9,transform:"scaleX(-1)",pointerEvents:"none",zIndex:1}}/>
           <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px 24px",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg className="nav-mono" width={24} height={24} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
@@ -3351,7 +3351,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 <div style={{display:"flex",flexDirection:"column",gap:8}}>
                   {wishProducts.map((p:any)=>(
                     <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.lgold,borderRadius:4,padding:"10px 12px"}}>
-                      <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
+                      <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                       <div style={{flex:1,minWidth:0}}>
                         <div style={{fontFamily:"'Playfair Display',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
                         <div style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
@@ -3397,7 +3397,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   <div key={item.cartKey} style={{display:"flex",gap:14,padding:"14px 16px",background:C.beige,borderRadius:4,alignItems:"center",transition:"box-shadow .2s"}}
                     onMouseEnter={(e:any)=>e.currentTarget.style.boxShadow="0 4px 18px rgba(0,0,0,.07)"}
                     onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
-                    <img src={item.image} alt={item.productName} style={{width:68,height:68,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+                    <img src={item.image} alt={item.productName} loading="lazy" decoding="async" style={{width:68,height:68,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
                     <div style={{flex:1,minWidth:0}}>
                       <div style={{fontFamily:"'Playfair Display',serif",fontSize:16,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
                       {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11.5,color:"#888",marginBottom:3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
@@ -3424,7 +3424,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   <div style={{display:"flex",flexDirection:"column",gap:8}}>
                     {wishProducts.map((p:any)=>(
                       <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.white,borderRadius:4,padding:"10px 12px"}}>
-                        <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
+                        <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                         <div style={{flex:1,minWidth:0}}>
                           <div style={{fontFamily:"'Playfair Display',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
                           <div style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
@@ -3532,7 +3532,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   </div>
                   <div style={{display:"flex",justifyContent:"center",marginBottom:12}}>
                     <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:6,padding:10,textAlign:"center"}}>
-                      <img src="/assets/payment/upi-qr.webp" alt={`Scan to pay ${UPI_NAME} via UPI`} style={{width:170,height:170,objectFit:"contain",display:"block"}} onError={(e:any)=>{e.currentTarget.parentElement.style.display="none";}}/>
+                      <img src="/assets/payment/upi-qr.webp" alt={`Scan to pay ${UPI_NAME} via UPI`} loading="lazy" decoding="async" style={{width:170,height:170,objectFit:"contain",display:"block"}} onError={(e:any)=>{e.currentTarget.parentElement.style.display="none";}}/>
                       <div style={{fontSize:10.5,color:"#aaa",marginTop:6,letterSpacing:".5px"}}>Scan with any UPI app</div>
                     </div>
                   </div>
