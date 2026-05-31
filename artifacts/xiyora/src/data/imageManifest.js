@@ -1,18 +1,18 @@
 const B = "/assets/xiyora-products/final";
 
 const p = (slug, ...g) => ({
-  hero: `${B}/${slug}/hero.png`,
-  gallery: g.map(n => `${B}/${slug}/${n}.png`),
+  hero: `${B}/${slug}/hero.webp`,
+  gallery: g.map(n => `${B}/${slug}/${n}.webp`),
 });
 
 export const imageManifest = {
   categories: {
-    Mattresses:       `${B}/categories/mattresses.png`,
-    Pillows:          `${B}/categories/pillows.png`,
-    Toppers:          `${B}/categories/toppers.png`,
-    Cushions:         `${B}/categories/cushions.png`,
-    "Latex Material": `${B}/categories/starting-from.png`,
-    startingFrom:     `${B}/categories/starting-from.png`,
+    Mattresses:       `${B}/categories/mattresses.webp`,
+    Pillows:          `${B}/categories/pillows.webp`,
+    Toppers:          `${B}/categories/toppers.webp`,
+    Cushions:         `${B}/categories/cushions.webp`,
+    "Latex Material": `${B}/categories/starting-from.webp`,
+    startingFrom:     `${B}/categories/starting-from.webp`,
   },
   products: {
     // ── Talalay pillows ────────────────────────────────────────────────────
@@ -55,34 +55,34 @@ export const imageManifest = {
     // ── Latex materials — v2 fix: 3 split gallery panels per product ───────
     // hero = panel 1; gallery = panels 2 & 3 (source strip is reference only)
     "shredded-talalay-latex": {
-      hero: `${B}/shredded-talalay-latex/mat_p1.png`,
-      gallery: [`${B}/shredded-talalay-latex/mat_p2.png`, `${B}/shredded-talalay-latex/mat_p3.png`],
+      hero: `${B}/shredded-talalay-latex/mat_p1.webp`,
+      gallery: [`${B}/shredded-talalay-latex/mat_p2.webp`, `${B}/shredded-talalay-latex/mat_p3.webp`],
     },
     "hybrid-latex-with-bamboo": {
-      hero: `${B}/hybrid-latex-with-bamboo/mat_p1.png`,
-      gallery: [`${B}/hybrid-latex-with-bamboo/mat_p2.png`, `${B}/hybrid-latex-with-bamboo/mat_p3.png`],
+      hero: `${B}/hybrid-latex-with-bamboo/mat_p1.webp`,
+      gallery: [`${B}/hybrid-latex-with-bamboo/mat_p2.webp`, `${B}/hybrid-latex-with-bamboo/mat_p3.webp`],
     },
     "hybrid-latex-with-gel": {
-      hero: `${B}/hybrid-latex-with-graphene/mat_p1.png`,
-      gallery: [`${B}/hybrid-latex-with-graphene/mat_p2.png`, `${B}/hybrid-latex-with-graphene/mat_p3.png`],
+      hero: `${B}/hybrid-latex-with-graphene/mat_p1.webp`,
+      gallery: [`${B}/hybrid-latex-with-graphene/mat_p2.webp`, `${B}/hybrid-latex-with-graphene/mat_p3.webp`],
     },
     "hybrid-latex-with-graphene": {
-      hero: `${B}/hybrid-latex-with-gel/mat_p1.png`,
-      gallery: [`${B}/hybrid-latex-with-gel/mat_p2.png`, `${B}/hybrid-latex-with-gel/mat_p3.png`],
+      hero: `${B}/hybrid-latex-with-gel/mat_p1.webp`,
+      gallery: [`${B}/hybrid-latex-with-gel/mat_p2.webp`, `${B}/hybrid-latex-with-gel/mat_p3.webp`],
     },
     "hybrid-latex-with-lavender": {
-      hero: `${B}/hybrid-latex-with-lavender/mat_p1.png`,
-      gallery: [`${B}/hybrid-latex-with-lavender/mat_p2.png`, `${B}/hybrid-latex-with-lavender/mat_p3.png`],
+      hero: `${B}/hybrid-latex-with-lavender/mat_p1.webp`,
+      gallery: [`${B}/hybrid-latex-with-lavender/mat_p2.webp`, `${B}/hybrid-latex-with-lavender/mat_p3.webp`],
     },
     "hybrid-latex-with-negative-oxygen-ion": {
-      hero: `${B}/hybrid-latex-with-negative-oxygen-ion/mat_p1.png`,
-      gallery: [`${B}/hybrid-latex-with-negative-oxygen-ion/mat_p2.png`, `${B}/hybrid-latex-with-negative-oxygen-ion/mat_p3.png`],
+      hero: `${B}/hybrid-latex-with-negative-oxygen-ion/mat_p1.webp`,
+      gallery: [`${B}/hybrid-latex-with-negative-oxygen-ion/mat_p2.webp`, `${B}/hybrid-latex-with-negative-oxygen-ion/mat_p3.webp`],
     },
     "hybrid-latex-with-traditional-chinese-medicine": {
-      hero: `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p1.png`,
+      hero: `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p1.webp`,
       gallery: [
-        `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p2.png`,
-        `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p3.png`,
+        `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p2.webp`,
+        `${B}/hybrid-latex-with-traditional-chinese-medicine/mat_p3.webp`,
       ],
     },
 

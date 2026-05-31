@@ -52,3 +52,19 @@ Thumbs.db
 # These are never part of the deployable app; actual assets live in
 # artifacts/xiyora/public/assets/
 attached_assets/
+raw-assets/
+exports/
+large-media/
+
+# Build outputs
+.cache
+
+# Large media files (should never be committed)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.zip
+*.rar
+*.psd
+*.ai
