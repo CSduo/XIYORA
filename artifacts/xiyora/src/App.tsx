@@ -4030,6 +4030,8 @@ export default function App(){
   const [showWishlist,setShowWishlist]=useState(false);
   const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"light") as "light"|"dark";}catch{return"light";}});
   const toggleTheme=()=>setTheme(t=>{const n=t==="light"?"dark":"light";try{localStorage.setItem("xiyoraTheme",n);}catch{}return n;});
+  // tracks whether the last page change was triggered by browser Back/Forward
+  const isPopRef=useRef(false);
   const tc=theme==="dark"?CD:C;
   useLiveFx(); // refresh indicative currency rates hourly / on load
   const [,forceProductRefresh]=useReducer((x:number)=>x+1,0);
@@ -4078,7 +4080,12 @@ export default function App(){
     const fn=()=>setScrolled(window.scrollY>55);
     window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);
   },[]);
-  useEffect(()=>{window.scrollTo(0,0);},[page]);
+  useEffect(()=>{
+    // Skip auto-scroll-to-top on Back/Forward; scroll restoration is handled
+    // by the popstate handler which already read scrollY from the history state.
+    if(isPopRef.current){isPopRef.current=false;return;}
+    window.scrollTo(0,0);
+  },[page]);
   useEffect(()=>{try{localStorage.setItem("xiyora_wishlist",JSON.stringify(wl));}catch{}},[wl]);
   useEffect(()=>{try{localStorage.setItem("xiyora_cart",JSON.stringify(cart));}catch{}},[cart]);
   useEffect(()=>{
@@ -4100,7 +4107,14 @@ export default function App(){
     void initPage;
     const onPop=(e:PopStateEvent)=>{
       const s=e.state;
-      if(s?.page){setPage(s.page);if(s.selProd!==undefined)setSelProd(s.selProd);if(s.activeCat!==undefined)setActiveCat(s.activeCat);}
+      if(s?.page){
+        isPopRef.current=true;
+        setPage(s.page);
+        if(s.selProd!==undefined)setSelProd(s.selProd);
+        if(s.activeCat!==undefined)setActiveCat(s.activeCat);
+        // Restore catalog scroll position saved when the product was opened
+        if(s.scrollY!=null){setTimeout(()=>window.scrollTo({top:s.scrollY,behavior:"instant"}),60);}
+      }
       else setPage("home");
     };
     window.addEventListener("popstate",onPop);
@@ -4122,7 +4136,13 @@ export default function App(){
   };
   const toggleWl=(id:string)=>setWl(p=>p.includes(id)?p.filter(x=>x!==id):[...p,id]);
   const addToCart=(item:CartItem)=>setCart(prev=>{const idx=prev.findIndex(i=>i.productId===item.productId&&i.sku===item.sku);if(idx>=0){const n=[...prev];n[idx]={...n[idx],quantity:n[idx].quantity+item.quantity};return n;}return[...prev,item];});
-  const openProd=(p:any)=>navigateTo("product",{prod:p});
+  const openProd=(p:any)=>{
+    // Save the current scroll position into the current history state so Back
+    // can restore exactly where the user was in the catalog.
+    const cur=window.history.state;
+    if(cur)window.history.replaceState({...cur,scrollY:Math.round(window.scrollY)},"");
+    navigateTo("product",{prod:p});
+  };
   const openCatalog=()=>navigateTo("catalog",{cat:null});
   const openCatFilter=(cat:string)=>navigateTo("catalog",{cat});
   const openInquiry=(p:any,intent="general")=>setInquiry({show:true,product:p,intent});
@@ -4130,7 +4150,7 @@ export default function App(){
 
   const renderView=()=>{
     if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")}/>;
-    if(page==="catalog")return<CatalogView cat={activeCat} setCat={setActiveCat} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry} loading={productsLoading}/>;
+    if(page==="catalog")return<CatalogView cat={activeCat} setCat={(cat:string|null)=>navigateTo("catalog",{cat})} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry} loading={productsLoading}/>;
     if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
     if(page==="account")return<AccountView setPage={setPage}/>;
     if(page==="admin")return<AdminView/>;

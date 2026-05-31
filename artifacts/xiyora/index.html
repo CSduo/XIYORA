@@ -16,6 +16,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Critical: drawer is off-canvas BEFORE JavaScript loads.
+         Without this, the drawer flashes open for ~1-2 s on hard refresh
+         because the JS-injected CSS arrives after first paint. */
+      .sdrawer{
+        position:fixed;top:0;left:0;height:100%;width:300px;max-width:85vw;
+        background:#1C1C1C;z-index:500;overflow-y:auto;
+        transform:translateX(-100%);
+        transition:transform .32s cubic-bezier(.23,1,.32,1);
+      }
+      .sdrawer-overlay{display:none}
+      /* Body dark background prevents white flash before theme CSS injects */
+      body{background:#0F0F0D;color:#F2EDE4;margin:0}
+      #root{min-height:100vh}
+    </style>
   </head>
   <body>
     <div id="root"></div>
