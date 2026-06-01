@@ -563,47 +563,102 @@ function LeadsPanel({ token }: { token: string }) {
   );
 }
 
+function humaniseLoginError(status: number, serverMsg?: string): string {
+  if (status === 0) return "Backend not reachable — VITE_API_BASE is missing or the backend is not deployed.";
+  if (status === 503) return "Backend is missing ADMIN_PASSWORD secret. Set it in Replit Secrets and redeploy.";
+  if (status === 401) return "Invalid username or password.";
+  if (status === 403) return "Access forbidden. Try logging out and back in.";
+  if (status >= 500) return `Backend server error (HTTP ${status}). Check deployment logs.`;
+  return serverMsg || "Login failed.";
+}
+
+function AdminDiagnostics() {
+  const [health, setHealth] = useState<"checking"|"ok"|"error">("checking");
+  useEffect(() => {
+    const base = API.replace(/\/api$/, "");
+    fetch(`${base}/api/health`, { signal: AbortSignal.timeout(5000) })
+      .then(r => setHealth(r.ok ? "ok" : "error"))
+      .catch(() => setHealth("error"));
+  }, []);
+  const dot = health === "ok" ? "#3a9b6e" : health === "error" ? RED : "#aaa";
+  const label = health === "ok" ? "Backend reachable" : health === "error" ? "Backend unreachable" : "Checking…";
+  return (
+    <div style={{ marginTop:18, background:"#f0ece0", borderRadius:3, padding:"10px 14px", textAlign:"left", fontSize:11, color:"#888", lineHeight:1.8 }}>
+      <div style={{ fontWeight:600, color:DARK, marginBottom:4, letterSpacing:".5px", textTransform:"uppercase", fontSize:10 }}>Diagnostics</div>
+      <div><span style={{ color:"#aaa" }}>API base:</span> <code style={{ fontSize:10, wordBreak:"break-all" }}>{API}</code></div>
+      <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+        <span style={{ width:7, height:7, borderRadius:"50%", background:dot, display:"inline-block", flexShrink:0 }}/>
+        <span>{label}</span>
+      </div>
+      {health === "error" && (
+        <div style={{ color:RED, marginTop:4 }}>
+          Set <code>VITE_API_BASE=https://your-backend.replit.app/api</code> in Cloudflare Pages → Environment variables, then redeploy.
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminPanel() {
   const [token, setToken] = useState<string|null>(() => { try { return localStorage.getItem(TOKEN_KEY); } catch { return null; } });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginErr, setLoginErr] = useState("");
+  const [lastStatus, setLastStatus] = useState<number>(0);
   const [section, setSection] = useState<"products"|"site"|"leads">("products");
+
+  const logout = () => {
+    try { localStorage.removeItem(TOKEN_KEY); } catch {}
+    setToken(null);
+    setLoginErr("");
+  };
 
   const login = async () => {
     if (!username || !password) { setLoginErr("Enter username and password."); return; }
     setLoginLoading(true); setLoginErr("");
     try {
       const res = await apiFetch("/admin/login", { method:"POST", body:JSON.stringify({ username, password }) });
-      const data = await res.json();
-      if (data.success && data.token) {
+      setLastStatus(res.status);
+      let data: any = {};
+      try { data = await res.json(); } catch {}
+      if (res.ok && data.success && data.token) {
         try { localStorage.setItem(TOKEN_KEY, data.token); } catch {}
         setToken(data.token);
-      } else setLoginErr(data.error || "Login failed");
-    } catch { setLoginErr("Network error"); }
-    setLoginLoading(false);
+        return;
+      }
+      setLoginErr(humaniseLoginError(res.status, data.error));
+    } catch {
+      setLastStatus(0);
+      setLoginErr("Backend not reachable — VITE_API_BASE is missing or the backend is not deployed.");
+    } finally {
+      setLoginLoading(false);
+    }
   };
 
-  const logout = () => {
-    try { localStorage.removeItem(TOKEN_KEY); } catch {}
-    setToken(null);
-  };
+  useEffect(() => {
+    if (!token) return;
+    apiFetch("/admin/products", {}, token).then(r => {
+      if (r.status === 401 || r.status === 403) logout();
+    }).catch(() => {});
+  }, [token]);
 
   if (!token) {
     return (
-      <div style={{ background:BG, minHeight:"60vh", display:"flex", alignItems:"center", justifyContent:"center" }}>
+      <div style={{ background:BG, minHeight:"60vh", display:"flex", alignItems:"center", justifyContent:"center", padding:"20px 16px" }}>
         <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
-        <div style={{ background:BEIGE, borderRadius:4, padding:"40px 48px", maxWidth:400, width:"100%", textAlign:"center" }}>
+        <div style={{ background:BEIGE, borderRadius:4, padding:"40px 48px", maxWidth:420, width:"100%", textAlign:"center" }}>
           <p style={{ fontSize:11, letterSpacing:"4px", textTransform:"uppercase", color:GOLD, marginBottom:8 }}>Private</p>
           <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:26, color:DARK, marginBottom:8 }}>Admin Panel</h2>
           <p style={{ fontSize:13, color:"#aaa", margin:"0 0 24px", lineHeight:1.7 }}>XIYORA internal management console.</p>
-          <input type="text" value={username} onChange={e=>setUsername(e.target.value)} placeholder="Username" autoComplete="username" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter',sans-serif", marginBottom:10, outline:"none" }} onKeyDown={e=>e.key==="Enter"&&login()} />
-          <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter',sans-serif", marginBottom:10, outline:"none" }} onKeyDown={e=>e.key==="Enter"&&login()} />
-          {loginErr && <p style={{ color:RED, fontSize:12, marginBottom:10 }}>{loginErr}</p>}
+          <input type="text" value={username} onChange={e=>setUsername(e.target.value)} placeholder="Username" autoComplete="username" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter',sans-serif", marginBottom:10, outline:"none", boxSizing:"border-box" }} onKeyDown={e=>e.key==="Enter"&&login()} />
+          <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter',sans-serif", marginBottom:10, outline:"none", boxSizing:"border-box" }} onKeyDown={e=>e.key==="Enter"&&login()} />
+          {loginErr && <p style={{ color:RED, fontSize:12, marginBottom:10, textAlign:"left", lineHeight:1.6 }}>{loginErr}</p>}
+          {lastStatus > 0 && <p style={{ fontSize:10, color:"#bbb", marginBottom:8 }}>Last HTTP status: {lastStatus}</p>}
           <button onClick={login} disabled={loginLoading} style={{ width:"100%", background:GOLD, color:"#fff", border:"none", padding:"13px", fontSize:12, letterSpacing:"2px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter',sans-serif", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
             {loginLoading ? <Spinner/> : "Sign In"}
           </button>
+          <AdminDiagnostics />
         </div>
       </div>
     );

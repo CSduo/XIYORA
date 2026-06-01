@@ -987,8 +987,9 @@ const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
 /* ─── GLOBAL CSS ─────────────────────────────────────────── */
 const CSS=`
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+#root{max-width:100%;overflow-x:hidden}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
@@ -2000,7 +2001,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
                 </div>
               )}
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 10px",marginTop:10}}>
-                <div><label style={lbl}>City</label><input style={inp} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Mumbai"/></div>
+                <div><label style={lbl}>City</label><input style={inp} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Your city"/></div>
                 <div><label style={lbl}>State</label><select style={inp} value={f.state} onChange={e=>set("state",e.target.value)}><option value="">Select state / UT…</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select></div>
               </div>
             </div>
@@ -2097,7 +2098,7 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
               <div><label style={lbl}>WhatsApp</label><input style={inp} value={f.whatsapp} onChange={e=>set("whatsapp",e.target.value)} placeholder="+91 XXXXX"/></div>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 12px"}}>
-              <div><label style={lbl}>City</label><input style={inp} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Mumbai"/></div>
+              <div><label style={lbl}>City</label><input style={inp} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Your city"/></div>
               <div><label style={lbl}>I am a</label>
                 <select style={inp} value={f.customerType} onChange={e=>set("customerType",e.target.value)}>
                   {["Home Buyer","Hotel / Resort","Interior Designer","Retailer","Manufacturer"].map(o=><option key={o} value={o}>{o}</option>)}
@@ -3447,9 +3448,9 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   <div><label style={lbl}>Name *</label><input style={inp("name")} value={form.name} onChange={e=>setF("name",e.target.value)} placeholder="Full name"/>{ferr("name")}</div>
                   <div><label style={lbl}>Phone / WhatsApp *</label><input style={inp("phone")} value={form.phone} onChange={e=>setF("phone",e.target.value)} placeholder="+91 XXXXX"/>{ferr("phone")}</div>
                   <div><label style={lbl}>Email</label><input style={inp("email")} type="email" value={form.email} onChange={e=>setF("email",e.target.value)} placeholder="your@email.com"/>{ferr("email")}</div>
-                  <div><label style={lbl}>City *</label><input style={inp("city")} value={form.city} onChange={e=>setF("city",e.target.value)} placeholder="Mumbai"/>{ferr("city")}</div>
+                  <div><label style={lbl}>City *</label><input style={inp("city")} value={form.city} onChange={e=>setF("city",e.target.value)} placeholder="Your city"/>{ferr("city")}</div>
                   <div><label style={lbl}>State *</label><select style={inp("state")} value={form.state} onChange={e=>setF("state",e.target.value)}><option value="">Select state / UT…</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select>{ferr("state")}</div>
-                  <div><label style={lbl}>Pincode *</label><input style={inp("pincode")} value={form.pincode} onChange={e=>setF("pincode",e.target.value.replace(/\D/g,""))} placeholder="421004" maxLength={6} inputMode="numeric"/>{ferr("pincode")}</div>
+                  <div><label style={lbl}>Pincode *</label><input style={inp("pincode")} value={form.pincode} onChange={e=>setF("pincode",e.target.value.replace(/\D/g,""))} placeholder="6-digit pincode" maxLength={6} inputMode="numeric"/>{ferr("pincode")}</div>
                 </div>
                 {!confirmed&&<button className="bg" onClick={confirmDetails} style={{width:"100%",padding:"12px",fontSize:11.5,marginTop:6}}>Confirm Details &amp; Location</button>}
                 {confirmed&&delivery&&(
