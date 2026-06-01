@@ -577,7 +577,12 @@ function AdminDiagnostics() {
   useEffect(() => {
     const base = API.replace(/\/api$/, "");
     fetch(`${base}/api/health`, { signal: AbortSignal.timeout(5000) })
-      .then(r => setHealth(r.ok ? "ok" : "error"))
+      .then(async r => {
+        const ct = r.headers.get("content-type") || "";
+        if (!r.ok || !ct.includes("application/json")) { setHealth("error"); return; }
+        const j = await r.json().catch(() => null);
+        setHealth(j?.status === "ok" ? "ok" : "error");
+      })
       .catch(() => setHealth("error"));
   }, []);
   const dot = health === "ok" ? "#3a9b6e" : health === "error" ? RED : "#aaa";

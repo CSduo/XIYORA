@@ -8,6 +8,7 @@ const app: Express = express();
 
 const STATIC_ALLOWED_ORIGINS = [
   "https://xiyora-home.pages.dev",
+  "https://xiyora--xiyora52.replit.app",
 ];
 
 const extraOrigins = process.env.ALLOWED_ORIGINS
