@@ -7,6 +7,7 @@ import productsRouter from "./products";
 import siteContentRouter from "./siteContent";
 import adminLoginRouter from "./adminLogin";
 import uploadRouter from "./upload";
+import seedRouter from "./seed";
 
 const router: IRouter = Router();
 
@@ -18,5 +19,6 @@ router.use(productsRouter);
 router.use(siteContentRouter);
 router.use(adminLoginRouter);
 router.use(uploadRouter);
+router.use(seedRouter);
 
 export default router;

@@ -322,17 +322,37 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
 function ProductsPanel({ token }: { token: string }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadErr, setLoadErr] = useState("");
   const [editing, setEditing] = useState<Partial<Product>|null|"new">(null);
   const [deleting, setDeleting] = useState<string|null>(null);
   const [msg, setMsg] = useState("");
+  const [seeding, setSeeding] = useState(false);
 
   const load = useCallback(async () => {
-    setLoading(true);
-    const res = await apiFetch("/admin/products", {}, token);
-    const data = await res.json();
-    setProducts(Array.isArray(data) ? data : []);
+    setLoading(true); setLoadErr("");
+    try {
+      const res = await apiFetch("/admin/products", {}, token);
+      if (!res.ok) { setLoadErr(`Products failed to load. Server returned HTTP ${res.status}. Check backend/database.`); setLoading(false); return; }
+      const data = await res.json();
+      setProducts(Array.isArray(data) ? data : []);
+    } catch {
+      setLoadErr("Products failed to load. Network error — check that the backend is running.");
+    }
     setLoading(false);
   }, [token]);
+
+  const seedProducts = async () => {
+    if (!confirm("This will insert all 37 XIYORA products into the database (skips existing ones). Proceed?")) return;
+    setSeeding(true);
+    try {
+      const res = await apiFetch("/admin/seed", { method:"POST" }, token);
+      const data = await res.json();
+      if (data.success) { setMsg(`Seeded: ${data.products.inserted} inserted, ${data.products.updated} updated.`); await load(); }
+      else setMsg("Seed failed: " + (data.error || "unknown error"));
+    } catch { setMsg("Seed failed: network error"); }
+    setSeeding(false);
+    setTimeout(() => setMsg(""), 5000);
+  };
 
   useEffect(() => { load(); }, [load]);
 
@@ -387,15 +407,29 @@ function ProductsPanel({ token }: { token: string }) {
       )}
       <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:20, flexWrap:"wrap", gap:12 }}>
         <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, color:DARK }}>Products</h2>
-        <Btn onClick={() => setEditing("new")}>+ New Product</Btn>
+        <div style={{ display:"flex", gap:8 }}>
+          <Btn variant="secondary" onClick={seedProducts} disabled={seeding} style={{ fontSize:11 }}>{seeding ? <Spinner size={12}/> : "Seed Products"}</Btn>
+          <Btn onClick={() => setEditing("new")}>+ New Product</Btn>
+        </div>
       </div>
-      {msg && <p style={{ color:"green", fontSize:13, marginBottom:12 }}>{msg}</p>}
+      {msg && <p style={{ color: msg.startsWith("Seed failed") ? RED : "green", fontSize:13, marginBottom:12 }}>{msg}</p>}
+      {loadErr && (
+        <div style={{ background:"#fff3f3", border:`1px solid ${RED}`, borderRadius:4, padding:"14px 18px", marginBottom:16 }}>
+          <p style={{ color:RED, fontSize:13, margin:0 }}>{loadErr}</p>
+          <button onClick={load} style={{ marginTop:8, color:GOLD, background:"none", border:"none", cursor:"pointer", fontSize:12, padding:0, fontFamily:"'Inter',sans-serif" }}>Retry</button>
+        </div>
+      )}
       <div style={{ display:"flex", gap:8, marginBottom:16, flexWrap:"wrap" }}>
         {CATS.map(c => (
           <button key={c} onClick={() => setCatFilter(c)} style={{ background:catFilter===c?GOLD:"transparent", color:catFilter===c?"#fff":"#888", border:`1px solid ${catFilter===c?GOLD:BEIGE}`, padding:"5px 14px", fontSize:12, borderRadius:20, cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>{c}</button>
         ))}
       </div>
-      {loading ? <div style={{ textAlign:"center", padding:40 }}><Spinner/></div> : (
+      {loading ? <div style={{ textAlign:"center", padding:40 }}><Spinner/></div> : loadErr ? null : products.length === 0 ? (
+        <div style={{ textAlign:"center", padding:40, background:"#FAF8F4", borderRadius:6 }}>
+          <p style={{ color:"#888", fontSize:14, marginBottom:16 }}>No products found in database.</p>
+          <Btn onClick={seedProducts} disabled={seeding}>{seeding ? <Spinner size={14}/> : "Seed All 37 Products Now"}</Btn>
+        </div>
+      ) : (
         <div style={{ overflowX:"auto" }}>
           <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12.5 }}>
             <thead>
