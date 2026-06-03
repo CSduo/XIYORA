@@ -30,6 +30,8 @@ type SiteContent = {
   heroImage: string;
   heroTitle: string; heroSubtitle: string; heroBody: string;
   promiseImage: string; supplierHeroImage: string;
+  catImg_Mattresses: string; catImg_Pillows: string; catImg_Toppers: string;
+  catImg_Cushions: string; catImg_LatexMaterial: string;
 };
 
 const CATEGORIES = ["Pillows", "Mattresses", "Toppers", "Cushions", "Latex Material"];
@@ -560,7 +562,7 @@ function ProductsPanel({ token }: { token: string }) {
 }
 
 function SiteContentPanel({ token }: { token: string }) {
-  const [form, setForm] = useState<SiteContent>({ wa:"", email:"", ig:"", address:"", gstNote:"", heroImage:"", heroTitle:"", heroSubtitle:"", heroBody:"", promiseImage:"", supplierHeroImage:"" });
+  const [form, setForm] = useState<SiteContent>({ wa:"", email:"", ig:"", address:"", gstNote:"", heroImage:"", heroTitle:"", heroSubtitle:"", heroBody:"", promiseImage:"", supplierHeroImage:"", catImg_Mattresses:"", catImg_Pillows:"", catImg_Toppers:"", catImg_Cushions:"", catImg_LatexMaterial:"" });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
@@ -617,6 +619,28 @@ function SiteContentPanel({ token }: { token: string }) {
         <Label>Hero Body Text</Label>
         <Textarea value={form.heroBody} onChange={set("heroBody")} rows={3} placeholder="Pure Talalay & Dunlop latex…" />
         <ImageUploader token={token} slug="homepage" context="site" label="Hero Background Image" value={form.heroImage} onChange={set("heroImage")} />
+      </Section>
+
+      <Section title="Category Section Images">
+        <p style={{ fontSize:12, color:"#888", marginBottom:16, lineHeight:1.65 }}>
+          These images appear on the homepage "Shop By Category" grid. Upload a photo for each category — if left empty, the default image is used automatically.
+        </p>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))", gap:16 }}>
+          {([
+            ["catImg_Mattresses","Mattresses","mattresses"],
+            ["catImg_Pillows","Pillows","pillows"],
+            ["catImg_Toppers","Toppers","toppers"],
+            ["catImg_Cushions","Cushions","cushions"],
+            ["catImg_LatexMaterial","Latex Material","latex-material"],
+          ] as const).map(([key,label,slug])=>(
+            <div key={key} style={{ background:"#FAF8F4", borderRadius:4, padding:"14px 14px 10px", border:`1px solid ${BEIGE}` }}>
+              {form[key] && (
+                <img src={form[key]} alt={label} style={{ width:"100%", height:100, objectFit:"cover", borderRadius:3, marginBottom:10, display:"block" }} onError={(e)=>{ (e.target as HTMLImageElement).style.display="none"; }}/>
+              )}
+              <ImageUploader token={token} slug={slug} context="category" label={label} value={form[key]} onChange={set(key)}/>
+            </div>
+          ))}
+        </div>
       </Section>
 
       <Section title="Homepage Promise Section">
@@ -826,25 +850,47 @@ export default function AdminPanel() {
 
   return (
     <div style={{ background:BG, minHeight:"100vh" }}>
-      <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
-      <div style={{ background:DARK, padding:"0 40px", display:"flex", alignItems:"center", justifyContent:"space-between", height:56 }}>
-        <div style={{ display:"flex", alignItems:"center", gap:24 }}>
-          <span style={{ color:GOLD, fontFamily:"'Playfair Display',serif", fontSize:16, letterSpacing:"2px" }}>XIYORA</span>
-          <span style={{ color:"#666", fontSize:11, letterSpacing:"2px", textTransform:"uppercase" }}>Admin</span>
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg) } }
+        @media(max-width:640px){
+          .adm-layout{ flex-direction:column!important }
+          .adm-sidebar{ width:100%!important; flex-direction:row!important; border-right:none!important; border-bottom:1px solid ${BEIGE}!important; padding:0!important; overflow-x:auto!important; flex-shrink:0!important }
+          .adm-sidebar button{ border-left:none!important; border-bottom:3px solid transparent!important; padding:14px 16px!important; white-space:nowrap!important; flex-shrink:0 }
+          .adm-sidebar button.active{ border-bottom-color:${GOLD}!important; background:#FAF8F4!important }
+          .adm-main{ padding:20px 16px!important }
+          .adm-topbar{ padding:0 16px!important; height:48px!important }
+          .adm-topbar .brand-label{ display:none }
+        }
+      `}</style>
+      {/* Top bar */}
+      <div className="adm-topbar" style={{ background:DARK, padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", height:56 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:16 }}>
+          <span style={{ color:GOLD, fontFamily:"'Playfair Display',serif", fontSize:17, letterSpacing:"2px" }}>XIYORA</span>
+          <span className="brand-label" style={{ color:"#555", fontSize:11, letterSpacing:"2px", textTransform:"uppercase" }}>Admin</span>
         </div>
-        <button onClick={logout} style={{ background:"none", border:`1px solid #444`, color:"#aaa", padding:"6px 16px", fontSize:11, letterSpacing:"1px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter',sans-serif", transition:"all .2s" }} onMouseEnter={e=>(e.target as HTMLElement).style.borderColor=GOLD} onMouseLeave={e=>(e.target as HTMLElement).style.borderColor="#444"}>
-          Sign Out
-        </button>
+        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+          <span style={{ color:"#555", fontSize:11 }}>Section: <strong style={{ color:GOLD }}>{NAV.find(n=>n.key===section)?.label}</strong></span>
+          <button onClick={logout} style={{ background:"none", border:`1px solid #444`, color:"#aaa", padding:"7px 16px", fontSize:11, letterSpacing:"1px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter',sans-serif" }}>
+            Sign Out
+          </button>
+        </div>
       </div>
-      <div style={{ display:"flex", minHeight:"calc(100vh - 56px)" }}>
-        <aside style={{ width:200, background:"#fff", borderRight:`1px solid ${BEIGE}`, padding:"24px 0", flexShrink:0 }}>
+      {/* Body */}
+      <div className="adm-layout" style={{ display:"flex", minHeight:"calc(100vh - 56px)" }}>
+        <aside className="adm-sidebar" style={{ width:210, background:"#fff", borderRight:`1px solid ${BEIGE}`, padding:"20px 0", flexShrink:0, display:"flex", flexDirection:"column" }}>
           {NAV.map(n => (
-            <button key={n.key} onClick={() => setSection(n.key)} style={{ width:"100%", background:section===n.key?"#FAF8F4":"none", border:"none", borderLeft:`3px solid ${section===n.key?GOLD:"transparent"}`, padding:"12px 20px", fontSize:13, fontFamily:"'Inter',sans-serif", cursor:"pointer", color:section===n.key?DARK:"#888", textAlign:"left", display:"flex", alignItems:"center", gap:10, transition:"all .15s" }}>
-              <span>{n.icon}</span>{n.label}
+            <button key={n.key} onClick={() => setSection(n.key)} className={section===n.key?"active":""} style={{ width:"100%", background:section===n.key?"#FAF8F4":"none", border:"none", borderLeft:`3px solid ${section===n.key?GOLD:"transparent"}`, padding:"14px 20px", fontSize:13.5, fontFamily:"'Inter',sans-serif", cursor:"pointer", color:section===n.key?DARK:"#888", textAlign:"left", display:"flex", alignItems:"center", gap:12, transition:"all .15s", fontWeight:section===n.key?500:400 }}>
+              <span style={{ fontSize:18 }}>{n.icon}</span>
+              <div>
+                <div>{n.label}</div>
+                <div style={{ fontSize:10, color:section===n.key?"#aaa":"#bbb", marginTop:1 }}>
+                  {n.key==="products"?"Manage listings":n.key==="site"?"Homepage & images":"Enquiries & leads"}
+                </div>
+              </div>
             </button>
           ))}
         </aside>
-        <main style={{ flex:1, padding:"32px 40px", overflowY:"auto" }}>
+        <main className="adm-main" style={{ flex:1, padding:"28px 36px", overflowY:"auto" }}>
           {section==="products" && <ProductsPanel token={token} />}
           {section==="site" && <SiteContentPanel token={token} />}
           {section==="leads" && <LeadsPanel token={token} />}

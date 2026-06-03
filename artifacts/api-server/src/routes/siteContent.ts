@@ -23,6 +23,8 @@ const ALLOWED_KEYS = [
   "wa", "email", "ig", "address", "gstNote", "heroImage",
   "heroTitle", "heroSubtitle", "heroBody",
   "promiseImage", "supplierHeroImage",
+  "catImg_Mattresses", "catImg_Pillows", "catImg_Toppers",
+  "catImg_Cushions", "catImg_LatexMaterial",
 ];
 
 async function getAllSiteContent(): Promise<Record<string, string>> {

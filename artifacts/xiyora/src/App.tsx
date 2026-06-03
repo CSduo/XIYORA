@@ -27,6 +27,11 @@ let BIZ = {
   heroBody: "Pure Talalay & Dunlop latex, crafted into pillows, mattresses and toppers — and brought to India with considered, document-backed sourcing.",
   promiseImage: "",
   supplierHeroImage: "",
+  catImg_Mattresses: "",
+  catImg_Pillows: "",
+  catImg_Toppers: "",
+  catImg_Cushions: "",
+  catImg_LatexMaterial: "",
 };
 
 const API_BASE = (import.meta.env.VITE_API_BASE as string) || "/api";
@@ -2798,6 +2803,11 @@ function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub
 function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire}:any){
   const C=useC();
   const catImages:Record<string,string>=imageManifest.categories as Record<string,string>;
+  // Admin-uploaded image takes priority; falls back to imageManifest, then empty
+  const getCatImg=(filter:string)=>{
+    const key=`catImg_${filter.replace(/\s+/g,"")}` as keyof typeof BIZ;
+    return BIZ[key]||catImages[filter]||"";
+  };
   const CAT_CARDS=[
     {filter:"Mattresses",name:"Mattresses",sub:"Premium Latex Mattresses",cn:"床垫",wide:false},
     {filter:"Pillows",name:"Pillows",sub:"Natural Comfort & Support",cn:"枕头",wide:false},
@@ -2815,7 +2825,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
         <Stagger className="cat-grid6">
           {CAT_CARDS.map((cat)=>(
             <div key={cat.filter} className={cat.wide?"sp3":"sp2"}>
-              <CategoryCard img={catImages[cat.filter]} name={cat.name} sub={cat.sub} cn={cat.cn} wide={cat.wide} onClick={()=>onCatFilter(cat.filter)}/>
+              <CategoryCard img={getCatImg(cat.filter)} name={cat.name} sub={cat.sub} cn={cat.cn} wide={cat.wide} onClick={()=>onCatFilter(cat.filter)}/>
             </div>
           ))}
         </Stagger>
@@ -4377,6 +4387,11 @@ export default function App(){
           heroBody:data.heroBody??BIZ.heroBody,
           promiseImage:data.promiseImage??BIZ.promiseImage,
           supplierHeroImage:data.supplierHeroImage??BIZ.supplierHeroImage,
+          catImg_Mattresses:data.catImg_Mattresses??BIZ.catImg_Mattresses,
+          catImg_Pillows:data.catImg_Pillows??BIZ.catImg_Pillows,
+          catImg_Toppers:data.catImg_Toppers??BIZ.catImg_Toppers,
+          catImg_Cushions:data.catImg_Cushions??BIZ.catImg_Cushions,
+          catImg_LatexMaterial:data.catImg_LatexMaterial??BIZ.catImg_LatexMaterial,
         };
         forceProductRefresh();
       }
