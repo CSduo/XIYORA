@@ -55,6 +55,11 @@ Upload returns `https://xiyora--xiyora52.replit.app/api/uploads/<objectName>` (r
 
 **Why:** Nominatim is used server-side to avoid CORS. City field uses municipality → town → city_district → village → state_district fallback chain (Mumbai returns `municipality`, not `city`).
 
+## WhatsApp enquiry notifications
+`sendWhatsAppNotification()` in `artifacts/api-server/src/lib/whatsappNotify.ts`. Called fire-and-forget after enquiry saved in `routes/enquiries.ts`. Required env vars: `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_NOTIFY_TO` (recipient number with country code, no +). If any env var is missing, logs WARN and returns without breaking the save. Uses Meta Graph API v20.0 free-form text message.
+
+**Why:** Free-form text (not template) works for sending to own/admin number. Template required only for user-initiated marketing. Notification must be non-blocking — enquiry DB save must not fail if WA is down.
+
 ## FX rates backend endpoint
 `GET /api/fx-rates` — in-memory 24 hr cache, fetches from `open.er-api.com/v6/latest/INR`, hardcoded INR-based fallback rates if fetch fails. Frontend `useLiveFx` tries backend first, then falls back to direct external fetch. DB `push-force` run after schema change.
 

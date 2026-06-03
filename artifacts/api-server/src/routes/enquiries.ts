@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 import { desc, inArray } from "drizzle-orm";
 import { db, enquiriesTable, insertEnquirySchema } from "@workspace/db";
 import { requireAdmin } from "../lib/adminAuth";
+import { sendWhatsAppNotification } from "../lib/whatsappNotify";
 
 const router: IRouter = Router();
 
@@ -15,8 +16,12 @@ router.post("/enquiries", async (req, res): Promise<void> => {
   const [row] = await db
     .insert(enquiriesTable)
     .values(parsed.data)
-    .returning({ id: enquiriesTable.id });
+    .returning();
+
   res.status(201).json({ success: true, id: row.id });
+
+  // Non-blocking — enquiry is already saved, WA failure must not affect the response
+  sendWhatsAppNotification(row, req.log).catch(() => {});
 });
 
 router.get("/enquiries", requireAdmin, async (_req, res): Promise<void> => {

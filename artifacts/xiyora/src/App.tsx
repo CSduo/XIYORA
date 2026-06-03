@@ -1126,6 +1126,15 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .co-sum-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12.5px;color:#888;margin-bottom:6px}
 .co-sum-row .co-label{flex:1;min-width:0;word-break:break-word}
 .co-sum-row .co-amt{flex-shrink:0;white-space:nowrap;padding-left:6px}
+/* ── CART ITEM ROW ── */
+@media(max-width:500px){
+  .ci-row{flex-wrap:wrap!important;gap:8px!important;padding:10px 12px!important;align-items:flex-start!important}
+  .ci-ctrl{width:100%!important;flex-shrink:1!important;justify-content:flex-end;margin-top:2px}
+}
+/* ── INQUIRY MODAL ── */
+@media(max-width:540px){
+  .glass-modal{padding:20px 18px!important;margin:8px!important}
+}
 /* ── PROOF LIBRARY ── */
 .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media(max-width:900px){.proof-grid{grid-template-columns:1fr 1fr!important}}
@@ -1916,15 +1925,50 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
   const [ok,setOk]=useState(false);
   const [loading,setLoading]=useState(false);
   const [apiErr,setApiErr]=useState("");
-  const [zoneInfo,setZoneInfo]=useState<any>(null);
+  const [geoLoading,setGeoLoading]=useState(false);
+  const [geoMsg,setGeoMsg]=useState("");
   const [savedId,setSavedId]=useState<number|null>(null);
 
   useEffect(()=>{
-    if(show){setF({...EMPTY_FORM,productName:product?.name||"",intent:initIntent||"quote"});setOk(false);setApiErr("");setZoneInfo(null);setSavedId(null);}
+    if(show){setF({...EMPTY_FORM,productName:product?.name||"",intent:initIntent||"quote"});setOk(false);setApiErr("");setGeoMsg("");setSavedId(null);}
   },[show,product,initIntent]);
 
   const set=(k:string,v:string)=>setF((p:any)=>({...p,[k]:v}));
-  const checkPin=()=>{const z=lookupPincode(f.pincode);if(!z){alert("Enter a valid 6-digit Indian pincode");return;}setZoneInfo(z);};
+  const zoneInfo=/^\d{6}$/.test(f.pincode)?lookupPincode(f.pincode):null;
+
+  const detectInquiryLocation=()=>{
+    if(!navigator.geolocation){setGeoMsg("Geolocation not supported by your browser.");return;}
+    setGeoLoading(true);setGeoMsg("");
+    navigator.geolocation.getCurrentPosition(
+      async pos=>{
+        try{
+          const r=await fetch(`${API_BASE}/location/reverse?lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`);
+          const data=await r.json();
+          if(data?.success){
+            const updates:Record<string,string>={};
+            if(data.state)updates.state=data.state;
+            if(data.city)updates.city=data.city;
+            if(data.pincode&&/^\d{6}$/.test(data.pincode))updates.pincode=data.pincode;
+            setF((p:any)=>({...p,...updates}));
+            if(updates.pincode)setGeoMsg("Location detected — state, city and pincode filled.");
+            else if(updates.state||updates.city)setGeoMsg("State and city filled. Enter your 6-digit pincode for a delivery estimate.");
+            else setGeoMsg("Location detected. Please enter state, city and pincode manually.");
+          }else{
+            setGeoMsg("Could not detect location. Please enter delivery details manually.");
+          }
+        }catch{
+          setGeoMsg("Could not detect location. Please enter delivery details manually.");
+        }
+        setGeoLoading(false);
+      },
+      e=>{
+        setGeoLoading(false);
+        if(e.code===1)setGeoMsg("Location permission denied. Enter state, city and pincode manually.");
+        else setGeoMsg("Could not detect location. Please enter delivery details manually.");
+      },
+      {timeout:10000,enableHighAccuracy:false}
+    );
+  };
 
   const submit=async()=>{
     if(!f.name.trim()||!f.phone.trim()){alert("Please enter your name and phone number.");return;}
@@ -1940,7 +1984,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
       message:f.message||undefined,
       inquiryType:f.intent||undefined,
       intentLabel:f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"General Enquiry",
-      estimatedPort:zoneInfo?zoneInfo.port:undefined,
+      estimatedPort:zoneInfo?`Zone ${zoneInfo.zone} via ${zoneInfo.port} — est. ${zoneInfo.days} days`:undefined,
       estimatedPriceRange:priceIn(currency,product?.priceINR),
       currency,
     };
@@ -1995,7 +2039,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               <span style={{fontSize:13,color:"#888"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
               <span style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
             </div>}
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 14px"}}>
+            <div className="co-form-grid">
               {([["Your Name *","name","text","Full name"],["Phone / WhatsApp *","phone","tel","+91 XXXXX"]] as const).map(([l,k,t,ph])=>(
                 <div key={k}><label style={lbl}>{l}</label><input style={inp} type={t} value={(f as any)[k]} onChange={e=>set(k,e.target.value)} placeholder={ph}/></div>
               ))}
@@ -2004,41 +2048,37 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               ))}
             </div>
             <div style={{background:C.beige,borderRadius:3,padding:"14px",marginBottom:12}}>
-              <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:10,letterSpacing:".3px",display:"flex",alignItems:"center",gap:6}}>
+              <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:8,letterSpacing:".3px",display:"flex",alignItems:"center",gap:6}}>
                 <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Your Location
+                Your Location &amp; Delivery
               </div>
-              <button onClick={()=>{
-                if(!navigator.geolocation){alert("Geolocation not supported by your browser.");return;}
-                navigator.geolocation.getCurrentPosition(pos=>{
-                  const coords=`${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
-                  localStorage.setItem("xiyora_geo",JSON.stringify({lat:pos.coords.latitude,lng:pos.coords.longitude,ts:Date.now()}));
-                  alert(`Location detected (${coords}). Please confirm your city and pincode below for an accurate delivery estimate.`);
-                },()=>alert("Location access denied. Please enter your city and pincode manually."));
-              }} style={{background:"#fff",border:`1px solid ${C.sand}`,color:C.dark,padding:"8px 14px",borderRadius:3,fontSize:11.5,cursor:"pointer",fontFamily:"'Inter',sans-serif",marginBottom:10,display:"flex",alignItems:"center",gap:7,transition:"border-color .2s"}}
-                onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold}
-                onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
-                <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Use my current location
-              </button>
-              <div style={{display:"flex",gap:8,marginBottom:10}}>
-                <input style={{...inp,marginBottom:0,flex:1}} value={f.pincode} onChange={e=>set("pincode",e.target.value)} placeholder="6-digit pincode" maxLength={6}/>
-                <button onClick={checkPin} style={{background:C.dark,color:"#fff",border:"none",padding:"10px 16px",borderRadius:2,fontSize:12,cursor:"pointer",fontFamily:"'Inter',sans-serif",whiteSpace:"nowrap",transition:"background .2s"}}
-                  onMouseEnter={(e:any)=>e.currentTarget.style.background="#444"}
-                  onMouseLeave={(e:any)=>e.currentTarget.style.background=C.dark}>Check Zone</button>
+              <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",marginBottom:10}}>
+                <button type="button" disabled={geoLoading} onClick={detectInquiryLocation} style={{background:"#fff",border:`1px solid ${C.sand}`,color:C.dark,padding:"7px 13px",borderRadius:3,fontSize:11.5,cursor:geoLoading?"wait":"pointer",fontFamily:"'Inter',sans-serif",display:"flex",alignItems:"center",gap:7,flexShrink:0,whiteSpace:"nowrap"}}
+                  onMouseEnter={(e:any)=>!geoLoading&&(e.currentTarget.style.borderColor=C.gold)}
+                  onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
+                  {geoLoading?<Spinner/>:<svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
+                  Use my current location
+                </button>
+                <span style={{fontSize:11,color:"#aaa",flex:1,minWidth:0,lineHeight:1.4}}>Auto-fill state, city and pincode.</span>
               </div>
-              {zoneInfo&&(
-                <div style={{background:ZONE_INFO[zoneInfo.zone]?.bg||"#f5f5f5",border:`1px solid ${ZONE_INFO[zoneInfo.zone]?.col||"#ccc"}`,borderRadius:3,padding:"10px 14px"}}>
-                  <div style={{fontSize:12.5,fontWeight:500,color:ZONE_INFO[zoneInfo.zone]?.col}}>{ZONE_INFO[zoneInfo.zone]?.label}</div>
-                  <div style={{fontSize:12,color:"#888",marginTop:3}}>Nearest Port: {zoneInfo.port} · Inland delivery: {zoneInfo.days} days</div>
-                </div>
-              )}
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 10px",marginTop:10}}>
-                <div><label style={lbl}>City</label><input style={inp} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Your city"/></div>
-                <div><label style={lbl}>State</label><select style={inp} value={f.state} onChange={e=>set("state",e.target.value)}><option value="">Select state / UT…</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select></div>
+              {geoMsg&&<div style={{fontSize:11.5,padding:"6px 10px",borderRadius:3,marginBottom:8,background:geoMsg.includes("denied")||geoMsg.includes("Could not")?"#fff8f0":"#edfaf5",color:geoMsg.includes("denied")||geoMsg.includes("Could not")?"#9a6a2a":"#2a7a4e",lineHeight:1.5,wordBreak:"break-word"}}>{geoMsg}</div>}
+              <div className="co-form-grid" style={{marginBottom:10}}>
+                <div><label style={lbl}>State</label><select style={{...inp,marginBottom:0}} value={f.state} onChange={e=>set("state",e.target.value)}><option value="">Select state / UT…</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select></div>
+                <div><label style={lbl}>City</label><input style={{...inp,marginBottom:0}} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Your city"/></div>
+              </div>
+              <div>
+                <label style={lbl}>Pincode</label>
+                <input style={{...inp,marginBottom:4}} value={f.pincode} onChange={e=>set("pincode",e.target.value.replace(/\D/g,""))} placeholder="6-digit pincode" maxLength={6} inputMode="numeric"/>
+                {/^\d{6}$/.test(f.pincode)&&(zoneInfo
+                  ?<div style={{fontSize:11.5,color:"#2a7a4e",background:"#edfaf5",border:"1px solid #b8e2ca",borderRadius:3,padding:"7px 10px",lineHeight:1.5}}>
+                      <svg width={11} height={11} fill="none" stroke="#2a7a4e" strokeWidth={2.5} viewBox="0 0 24 24" style={{verticalAlign:"middle",marginRight:4}}><polyline points="20 6 9 17 4 12"/></svg>
+                      <strong>Zone {zoneInfo.zone}</strong> · {zoneInfo.days} days via {zoneInfo.port}
+                    </div>
+                  :<div style={{fontSize:11,color:"#9a6a2a",background:"#fff8f0",border:"1px solid #f0d8b0",borderRadius:3,padding:"6px 10px",lineHeight:1.5}}>Pincode not in our express zone — delivery timeline confirmed separately.</div>
+                )}
               </div>
             </div>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 14px"}}>
+            <div className="co-form-grid">
               <div><label style={lbl}>Customer Type</label>
                 <select style={inp} value={f.customerType} onChange={e=>set("customerType",e.target.value)}>
                   {["Home Buyer","Hotel / Resort","Interior Designer","Retailer","Manufacturer","Other"].map(o=><option key={o} value={o}>{o}</option>)}
@@ -3470,22 +3510,22 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             <div>
               <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:20}}>
                 {items.map((item:CartItem)=>(
-                  <div key={item.cartKey} style={{display:"flex",gap:14,padding:"14px 16px",background:C.beige,borderRadius:4,alignItems:"center",transition:"box-shadow .2s"}}
+                  <div key={item.cartKey} className="ci-row" style={{display:"flex",gap:14,padding:"14px 16px",background:C.beige,borderRadius:4,alignItems:"center",transition:"box-shadow .2s",minWidth:0,width:"100%",boxSizing:"border-box"}}
                     onMouseEnter={(e:any)=>e.currentTarget.style.boxShadow="0 4px 18px rgba(0,0,0,.07)"}
                     onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
-                    <img src={item.image} alt={item.productName} loading="lazy" decoding="async" style={{width:68,height:68,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
-                    <div style={{flex:1,minWidth:0}}>
-                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:16,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
-                      {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11.5,color:"#888",marginBottom:3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
+                    <img src={item.image} alt={item.productName} loading="lazy" decoding="async" style={{width:60,height:60,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+                    <div style={{flex:1,minWidth:0,overflow:"hidden"}}>
+                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
+                      {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11,color:"#888",marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
                       <div style={{fontSize:13,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,item.priceINR)} <span style={{fontSize:10,color:"#bbb",fontFamily:"'Inter',sans-serif",fontWeight:400}}>ea.</span></div>
                     </div>
-                    <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
+                    <div className="ci-ctrl" style={{display:"flex",alignItems:"center",gap:6,flexShrink:0}}>
                       <div style={{display:"flex",alignItems:"center",border:`1px solid ${C.sand}`,borderRadius:3,overflow:"hidden"}}>
-                        <button onClick={()=>updateQty(item.cartKey,item.quantity-1)} style={{padding:"5px 10px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>−</button>
-                        <span style={{padding:"0 10px",fontSize:13,color:C.dark,minWidth:24,textAlign:"center"}}>{item.quantity}</span>
-                        <button onClick={()=>updateQty(item.cartKey,item.quantity+1)} style={{padding:"5px 10px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>+</button>
+                        <button onClick={()=>updateQty(item.cartKey,item.quantity-1)} style={{padding:"5px 9px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>−</button>
+                        <span style={{padding:"0 8px",fontSize:13,color:C.dark,minWidth:20,textAlign:"center"}}>{item.quantity}</span>
+                        <button onClick={()=>updateQty(item.cartKey,item.quantity+1)} style={{padding:"5px 9px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>+</button>
                       </div>
-                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 10px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif"}}>✕</button>
+                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif"}}>✕</button>
                     </div>
                   </div>
                 ))}
