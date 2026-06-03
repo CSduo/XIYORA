@@ -108,26 +108,58 @@ function ImageUploader({ token, slug, context, label, value, onChange }: { token
   );
 }
 
+type FileUploadState = { name: string; status: "uploading" | "done" | "error"; url?: string; error?: string };
+
 function GalleryUploader({ token, slug, context, value, onChange }: { token:string; slug:string; context:string; value:string[]; onChange:(urls:string[])=>void }) {
-  const [uploading, setUploading] = useState(false);
-  const [err, setErr] = useState("");
+  const [uploads, setUploads] = useState<FileUploadState[]>([]);
   const [dragOver, setDragOver] = useState<number|null>(null);
   const dragSrc = useRef<number|null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = async (file: File) => {
-    setUploading(true); setErr("");
+  const uploading = uploads.some(u => u.status === "uploading");
+
+  const uploadFile = async (file: File): Promise<string> => {
     const fd = new FormData();
     fd.append("file", file);
     fd.append("context", context);
     fd.append("slug", slug || "misc");
-    try {
-      const res = await fetch(`${API}/admin/upload`, { method:"POST", headers:{ Authorization:`Bearer ${token}` }, body:fd });
-      const data = await res.json();
-      if (data.success) onChange([...(value||[]), data.url]);
-      else setErr(data.error || "Upload failed");
-    } catch { setErr("Upload failed"); }
-    setUploading(false);
+    const res = await fetch(`${API}/admin/upload`, { method:"POST", headers:{ Authorization:`Bearer ${token}` }, body:fd });
+    const data = await res.json();
+    if (data.success && data.url) return data.url as string;
+    throw new Error(data.error || "Upload failed");
+  };
+
+  const handleFiles = async (files: FileList | File[]) => {
+    const fileArr = Array.from(files);
+    if (!fileArr.length) return;
+
+    const ALLOWED = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    const MAX_SIZE = 10 * 1024 * 1024;
+
+    const newStates: FileUploadState[] = fileArr.map(f => {
+      if (!ALLOWED.includes(f.type)) return { name: f.name, status: "error" as const, error: "Not an allowed type (jpg/png/webp)" };
+      if (f.size > MAX_SIZE) return { name: f.name, status: "error" as const, error: "File exceeds 10 MB limit" };
+      return { name: f.name, status: "uploading" as const };
+    });
+    setUploads(newStates);
+
+    const validFiles = fileArr.filter((_, i) => newStates[i].status === "uploading");
+    const results = await Promise.allSettled(validFiles.map(f => uploadFile(f)));
+
+    let validIdx = 0;
+    const finalStates = newStates.map(s => {
+      if (s.status !== "uploading") return s;
+      const result = results[validIdx++];
+      if (result.status === "fulfilled") return { ...s, status: "done" as const, url: result.value };
+      return { ...s, status: "error" as const, error: (result.reason as Error)?.message || "Failed" };
+    });
+    setUploads(finalStates);
+
+    const newUrls = finalStates.filter(s => s.status === "done" && s.url).map(s => s.url!);
+    if (newUrls.length) onChange([...(value||[]), ...newUrls]);
+
+    // Clear progress after 4 seconds
+    setTimeout(() => setUploads([]), 4000);
   };
 
   const removeAt = (i: number) => onChange((value||[]).filter((_, idx) => idx !== i));
@@ -151,9 +183,13 @@ function GalleryUploader({ token, slug, context, value, onChange }: { token:stri
     onDragEnd();
   };
 
+  const doneCount = uploads.filter(u => u.status === "done").length;
+  const errorCount = uploads.filter(u => u.status === "error").length;
+  const uploadingCount = uploads.filter(u => u.status === "uploading").length;
+
   return (
     <div style={{ marginBottom:12 }}>
-      <Label>Gallery Images <span style={{ fontSize:10, color:"#aaa", fontWeight:400 }}>(drag to reorder)</span></Label>
+      <Label>Gallery Images <span style={{ fontSize:10, color:"#aaa", fontWeight:400 }}>(drag to reorder · select multiple)</span></Label>
       <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:8 }}>
         {(value||[]).map((url,i) => (
           <div
@@ -175,11 +211,37 @@ function GalleryUploader({ token, slug, context, value, onChange }: { token:stri
           </div>
         ))}
         <Btn variant="secondary" onClick={() => inputRef.current?.click()} disabled={uploading} style={{ fontSize:11, padding:"7px 14px", alignSelf:"center" }}>
-          {uploading ? <Spinner size={14}/> : "+ Add Image"}
+          {uploading ? <><Spinner size={14}/> Uploading {uploadingCount}…</> : "+ Add Images"}
         </Btn>
       </div>
-      {err && <p style={{ color:RED, fontSize:11 }}>{err}</p>}
-      <input ref={inputRef} type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f = e.target.files?.[0]; if(f) handleFile(f); e.target.value = ""; }} />
+
+      {/* Upload progress */}
+      {uploads.length > 0 && (
+        <div style={{ background:"#f9f7f3", border:`1px solid ${BEIGE}`, borderRadius:3, padding:"10px 12px", marginBottom:8, fontSize:11 }}>
+          {uploadingCount > 0 && <p style={{ color:"#666", marginBottom:4 }}>Uploading {uploadingCount} of {uploads.length} images…</p>}
+          {(doneCount > 0 || errorCount > 0) && uploadingCount === 0 && (
+            <p style={{ color: errorCount > 0 ? RED : "#2a7a4e", marginBottom:4, fontWeight:500 }}>
+              {doneCount > 0 && `✓ ${doneCount} uploaded`}{doneCount > 0 && errorCount > 0 && " · "}{errorCount > 0 && `${errorCount} failed`}
+            </p>
+          )}
+          {uploads.map((u, i) => (
+            <div key={i} style={{ display:"flex", alignItems:"center", gap:6, marginBottom:2, color: u.status==="error" ? RED : u.status==="done" ? "#2a7a4e" : "#888" }}>
+              <span>{u.status==="uploading" ? "⏳" : u.status==="done" ? "✓" : "✕"}</span>
+              <span style={{ flex:1, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{u.name}</span>
+              {u.error && <span style={{ color:RED }}>{u.error}</span>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <input
+        ref={inputRef}
+        type="file"
+        accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+        multiple
+        style={{ display:"none" }}
+        onChange={e => { const files = e.target.files; if(files?.length) handleFiles(files); e.target.value = ""; }}
+      />
     </div>
   );
 }
