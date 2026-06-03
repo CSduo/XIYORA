@@ -42,10 +42,18 @@ App.tsx fetches `${API_BASE}/products` and `${API_BASE}/site-content`. `API_BASE
 ## Image upload — must return absolute backend URLs
 Upload returns `https://xiyora--xiyora52.replit.app/api/uploads/<objectName>` (reconstructed from `x-forwarded-host` header). Images are served via `GET /api/uploads/:bucket/:slug/:filename` which proxies from GCS — NOT public GCS URLs (makePublic() silently fails with sidecar auth). Stored URLs must be absolute because the Cloudflare frontend loads images via `<img src>`, not through the API proxy.
 
-## Checkout form — new fields (June 2026)
-`checkoutIntentsTable` now has `fullAddress`, `landmark`, `company`, `gstNumber` text columns. Form field order: name → phone → email → **state → city** → pincode → fullAddress (required textarea) → landmark / company (optional, 2-col). CSS class `.co-form-grid` collapses to 1 col at ≤600px. The confirmed summary always shows (not gated on delivery lookup). All new fields flow into WA messages and proforma "Bill To" section.
+## Checkout form — fields and layout (June 2026)
+`checkoutIntentsTable` has `fullAddress`, `landmark`, `company`, `gstNumber` text columns. Form order: Name+Phone (2-col) → **"Use my current location" button block** → State+City (2-col) → Pincode (with live delivery hint) → Full Address (textarea, required) → Landmark+Email (2-col optional) → Company (optional). CSS class `.co-form-grid` collapses at ≤600px. `.co-sum-row` class handles mobile-safe flex rows in order summary.
 
-**Why:** Previous form had no full address; mobile layout overflowed because inner form grid used inline `gridTemplateColumns:"1fr 1fr"` with no media-query override.
+## Checkout delivery — live (not gated on confirm)
+`delivery = /^\d{6}$/.test(form.pincode) ? lookupPincode(form.pincode) : null` — delivery estimate updates as user types pincode. Order summary shows zone, days, price, and estimated total **before** confirming.
+
+**Why:** Users need to see shipping cost before they commit to confirming all details.
+
+## Checkout location detection
+`detectLocation()` calls `navigator.geolocation.getCurrentPosition`, proxies to `GET /api/location/reverse?lat=...&lng=...` (Nominatim/OSM, free, no key). Returns `{state, city, pincode, area}`. Auto-fills only reliable values; if pincode is not 6 digits it is not filled. Three user-facing messages: detected+filled / detected+no-pincode / permission denied.
+
+**Why:** Nominatim is used server-side to avoid CORS. City field uses municipality → town → city_district → village → state_district fallback chain (Mumbai returns `municipality`, not `city`).
 
 ## FX rates backend endpoint
 `GET /api/fx-rates` — in-memory 24 hr cache, fetches from `open.er-api.com/v6/latest/INR`, hardcoded INR-based fallback rates if fetch fails. Frontend `useLiveFx` tries backend first, then falls back to direct external fetch. DB `push-force` run after schema change.

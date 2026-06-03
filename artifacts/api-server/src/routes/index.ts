@@ -9,6 +9,7 @@ import adminLoginRouter from "./adminLogin";
 import uploadRouter from "./upload";
 import seedRouter from "./seed";
 import fxRatesRouter from "./fxRates";
+import locationRouter from "./location";
 
 const router: IRouter = Router();
 
@@ -22,5 +23,6 @@ router.use(adminLoginRouter);
 router.use(uploadRouter);
 router.use(seedRouter);
 router.use(fxRatesRouter);
+router.use(locationRouter);
 
 export default router;
