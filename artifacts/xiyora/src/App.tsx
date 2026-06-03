@@ -936,7 +936,20 @@ async function fetchLiveRates():Promise<boolean>{
   }catch{return false;}
   finally{clearTimeout(t);}
 }
-/** React hook: hydrate from cache, then refresh hourly + on load. Returns a version number that bumps on every successful update so the tree re-renders with new rates. */
+/** Try backend /api/fx-rates first (server-side cached, no CORS issues); fallback to direct external fetch. */
+async function fetchBackendRates():Promise<boolean>{
+  try{
+    const res=await fetch(`${API_BASE}/fx-rates`,{signal:AbortSignal.timeout(6000)});
+    if(!res.ok)return false;
+    const data=await res.json();
+    if(data?.rates&&typeof data.rates==="object"){
+      const ok=applyLiveRates(data.rates);
+      if(ok){try{localStorage.setItem(FX_CACHE_KEY,JSON.stringify({ts:Date.now(),rates:data.rates}));}catch{}}
+      return ok;
+    }
+  }catch{}
+  return false;
+}
 function useLiveFx():number{
   const [version,setVersion]=useState(0);
   useEffect(()=>{
@@ -945,7 +958,9 @@ function useLiveFx():number{
     if(cached&&applyLiveRates(cached.rates)){setVersion(v=>v+1);}
     const refresh=async()=>{
       const fresh=readFxCache();
-      if(fresh&&Date.now()-fresh.ts<FX_TTL_MS)return; // still fresh, skip network
+      if(fresh&&Date.now()-fresh.ts<FX_TTL_MS)return;
+      const fromBackend=await fetchBackendRates();
+      if(fromBackend&&alive){setVersion(v=>v+1);return;}
       const ok=await fetchLiveRates();
       if(ok&&alive)setVersion(v=>v+1);
     };
@@ -1104,6 +1119,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 /* ── CHECKOUT GRID ── */
 .checkout-grid{grid-template-columns:1fr 1fr!important}
 @media(max-width:900px){.checkout-grid{grid-template-columns:1fr!important}}
+/* ── CHECKOUT INNER FORM ── */
+.co-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media(max-width:600px){.co-form-grid{grid-template-columns:1fr!important}}
 /* ── PROOF LIBRARY ── */
 .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media(max-width:900px){.proof-grid{grid-template-columns:1fr 1fr!important}}
@@ -3216,8 +3234,8 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
   const [payMode,setPayMode]=useState<"upi"|"proforma"|"whatsapp"|"card">("upi");
   const [utr,setUtr]=useState("");
   const [form,setForm]=useState(()=>{
-    try{const d=JSON.parse(localStorage.getItem("xiyora_checkout_draft")||"null");if(d&&typeof d==="object")return {name:d.name||"",phone:d.phone||"",email:d.email||"",city:d.city||"",state:d.state||"",pincode:d.pincode||""};}catch{}
-    return {name:"",phone:"",email:"",city:"",state:"",pincode:""};
+    try{const d=JSON.parse(localStorage.getItem("xiyora_checkout_draft")||"null");if(d&&typeof d==="object")return {name:d.name||"",phone:d.phone||"",email:d.email||"",state:d.state||"",city:d.city||"",pincode:d.pincode||"",fullAddress:d.fullAddress||"",landmark:d.landmark||"",company:d.company||""};}catch{}
+    return {name:"",phone:"",email:"",state:"",city:"",pincode:"",fullAddress:"",landmark:"",company:""};
   });
   const [confirmed,setConfirmed]=useState(false);
   const [fieldErr,setFieldErr]=useState<Record<string,string>>({});
@@ -3256,9 +3274,10 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
     if(!form.name.trim())e.name="Full name is required.";
     if(!form.phone.trim()||form.phone.replace(/\D/g,"").length<10)e.phone="Enter a valid WhatsApp number (10+ digits).";
     if(form.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))e.email="Enter a valid email or leave it blank.";
-    if(!form.city.trim())e.city="City is required.";
     if(!form.state.trim())e.state="State is required.";
+    if(!form.city.trim())e.city="City is required.";
     if(!/^\d{6}$/.test(form.pincode.trim()))e.pincode="Enter a valid 6-digit Indian pincode.";
+    if(!form.fullAddress.trim())e.fullAddress="Full delivery address is required.";
     return e;
   };
   const confirmDetails=()=>{
@@ -3273,7 +3292,9 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
     setLoading(true);setErr("");
     const res=await apiPost("/checkout-intents",{
       name:form.name,phone:form.phone,email:form.email||undefined,
-      city:form.city||undefined,state:form.state||undefined,pincode:form.pincode||undefined,
+      state:form.state||undefined,city:form.city||undefined,pincode:form.pincode||undefined,
+      fullAddress:form.fullAddress||undefined,landmark:form.landmark||undefined,
+      company:form.company||undefined,
       productName:productNames,currency:cur,
       estimatedPriceRange:cartTotalINR>0?`₹${(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")} (indicative${delivery?", incl. delivery":""})`:"Price on request",
       paymentMode:payMode==="upi"?`UPI Manual — UTR: ${utr||"pending"}`:payMode==="proforma"?"Proforma Invoice":payMode==="whatsapp"?"WhatsApp Confirmation":"Card/Gateway (pending)",
@@ -3284,13 +3305,14 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
   };
 
   const checkoutWA=()=>{
-    const msg=`Hi XIYORA, I'd like to place an order.\n\n${productNames}\n\nName: ${form.name}\nPhone: ${form.phone}${form.city?`\nCity: ${form.city}, ${form.state} ${form.pincode}`:""}\n\nEstimated total: ₹${(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")} (indicative)`;
+    const addrLine=form.fullAddress?`\nAddress: ${form.fullAddress}${form.landmark?`, ${form.landmark}`:""}`:""
+    const msg=`Hi XIYORA, I'd like to place an order.\n\n${productNames}\n\nName: ${form.name}\nPhone: ${form.phone}${form.city?`\n${form.city}, ${form.state} ${form.pincode}`:""}${addrLine}${form.company?`\nCompany: ${form.company}`:""}\n\nEstimated total: ₹${(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")} (indicative)`;
     window.open(waMsg(msg),"_blank");
   };
 
   const sendAddressWA=()=>{
     const ref=savedId?`CHK-${String(savedId).padStart(4,"0")}`:"";
-    const msg=`Hi XIYORA, here is my delivery address${ref?` for order ${ref}`:""}:\n\nName: ${form.name}\nPhone: ${form.phone}${form.email?`\nEmail: ${form.email}`:""}\nDelivery to: ${form.city}, ${form.state} — ${form.pincode}\n\nItems: ${productNames}\n\nPlease confirm delivery and next steps.`;
+    const msg=`Hi XIYORA, here is my delivery address${ref?` for order ${ref}`:""}:\n\nName: ${form.name}\nPhone: ${form.phone}${form.email?`\nEmail: ${form.email}`:""}\n${form.fullAddress?`Address: ${form.fullAddress}\n`:""}${form.landmark?`Landmark: ${form.landmark}\n`:""}${form.city}, ${form.state} — ${form.pincode}${form.company?`\nCompany: ${form.company}`:""}\n\nItems: ${productNames}\n\nPlease confirm delivery and next steps.`;
     window.open(waMsg(msg),"_blank");
   };
 
@@ -3321,7 +3343,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
 <div class="meta"><strong>Ref: ${ref}</strong><br>Date: ${dateStr}<br>Currency: INR</div></div>
 <div class="cols">
 <div class="col"><div class="lbl">From</div>XIYORA<br>${esc(BIZ.address)}<br>WhatsApp: +91 ${BIZ.wa.slice(2)}<br>${esc(BIZ.email)}</div>
-<div class="col"><div class="lbl">Bill To</div>${esc(form.name)||"—"}<br>${esc(form.phone)||"—"}${form.email?`<br>${esc(form.email)}`:""}${form.city?`<br>${esc(form.city)}, ${esc(form.state)} ${esc(form.pincode)}`:""}</div>
+<div class="col"><div class="lbl">Bill To</div>${esc(form.name)||"—"}<br>${esc(form.phone)||"—"}${form.email?`<br>${esc(form.email)}`:""}${form.fullAddress?`<br>${esc(form.fullAddress)}`:""}${form.landmark?`<br>${esc(form.landmark)}`:""}${form.city?`<br>${esc(form.city)}, ${esc(form.state)} ${esc(form.pincode)}`:""}</div>
 </div>
 <table><thead><tr><th>Item</th><th class="c">Qty</th><th class="r">Unit (₹)</th><th class="r">Amount (₹)</th></tr></thead><tbody>${rows}</tbody></table>
 <div class="totals">
@@ -3455,19 +3477,27 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   {confirmed&&<span style={{fontSize:10.5,color:"#3a9b6e",fontWeight:600,letterSpacing:".5px",textTransform:"uppercase",display:"flex",alignItems:"center",gap:4}}><svg width={12} height={12} fill="none" stroke="#3a9b6e" strokeWidth={2.5} viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Confirmed</span>}
                 </div>
                 {hasDraft&&!confirmed&&<div style={{fontSize:11,color:"#9a8a6a",marginBottom:10,background:C.lgold,borderRadius:3,padding:"6px 10px"}}>We restored your saved details. Review and confirm to continue.</div>}
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 12px"}}>
+                <div className="co-form-grid">
                   <div><label style={lbl}>Name *</label><input style={inp("name")} value={form.name} onChange={e=>setF("name",e.target.value)} placeholder="Full name"/>{ferr("name")}</div>
                   <div><label style={lbl}>Phone / WhatsApp *</label><input style={inp("phone")} value={form.phone} onChange={e=>setF("phone",e.target.value)} placeholder="+91 XXXXX"/>{ferr("phone")}</div>
-                  <div><label style={lbl}>Email</label><input style={inp("email")} type="email" value={form.email} onChange={e=>setF("email",e.target.value)} placeholder="your@email.com"/>{ferr("email")}</div>
+                  <div><label style={lbl}>Email <span style={{color:"#bbb",fontSize:10}}>(optional)</span></label><input style={inp("email")} type="email" value={form.email} onChange={e=>setF("email",e.target.value)} placeholder="your@email.com"/>{ferr("email")}</div>
+                  <div><label style={lbl}>State *</label><select style={inp("state")} value={form.state} onChange={e=>setF("state",e.target.value)}><option value="">Select state / UT</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select>{ferr("state")}</div>
                   <div><label style={lbl}>City *</label><input style={inp("city")} value={form.city} onChange={e=>setF("city",e.target.value)} placeholder="Your city"/>{ferr("city")}</div>
-                  <div><label style={lbl}>State *</label><select style={inp("state")} value={form.state} onChange={e=>setF("state",e.target.value)}><option value="">Select state / UT…</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select>{ferr("state")}</div>
                   <div><label style={lbl}>Pincode *</label><input style={inp("pincode")} value={form.pincode} onChange={e=>setF("pincode",e.target.value.replace(/\D/g,""))} placeholder="6-digit pincode" maxLength={6} inputMode="numeric"/>{ferr("pincode")}</div>
                 </div>
+                <div style={{marginTop:4}}><label style={lbl}>Full Delivery Address *</label><textarea style={{...inp("fullAddress"),resize:"vertical",minHeight:68,lineHeight:1.55}} value={form.fullAddress} onChange={e=>setF("fullAddress",e.target.value)} placeholder="Flat / building / street / area"/>{ferr("fullAddress")}</div>
+                <div className="co-form-grid">
+                  <div><label style={lbl}>Landmark <span style={{color:"#bbb",fontSize:10}}>(optional)</span></label><input style={inp()} value={form.landmark} onChange={e=>setF("landmark",e.target.value)} placeholder="Landmark or area"/></div>
+                  <div><label style={lbl}>Company / Brand <span style={{color:"#bbb",fontSize:10}}>(optional)</span></label><input style={inp()} value={form.company} onChange={e=>setF("company",e.target.value)} placeholder="Company or brand name"/></div>
+                </div>
                 {!confirmed&&<button className="bg" onClick={confirmDetails} style={{width:"100%",padding:"12px",fontSize:11.5,marginTop:6}}>Confirm Details &amp; Location</button>}
-                {confirmed&&delivery&&(
+                {confirmed&&(
                   <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 14px",marginTop:12,fontSize:11.5,color:"#888",lineHeight:1.65}}>
-                    <strong style={{color:C.dark}}>{form.city}, {form.state} — {form.pincode}.</strong>{" "}
-                    Routing via {delivery.port} (Zone {delivery.zone}). Estimated transit {delivery.days} days after dispatch — final timeline confirmed in your proforma.
+                    <strong style={{color:C.dark,display:"block",marginBottom:2}}>{form.name} · {form.phone}</strong>
+                    {form.fullAddress&&<span style={{display:"block",color:C.dark}}>{form.fullAddress}{form.landmark?`, ${form.landmark}`:""}</span>}
+                    <strong style={{color:C.dark}}>{form.city}, {form.state} — {form.pincode}</strong>
+                    {form.company&&<span style={{display:"block",color:"#999",marginTop:1}}>{form.company}</span>}
+                    {delivery&&<span style={{display:"block",marginTop:4}}>Routing via {delivery.port} (Zone {delivery.zone}). Est. transit {delivery.days} days after dispatch.</span>}
                     <span style={{display:"block",marginTop:4,color:"#aaa"}}>Edit any field above to update — you'll be asked to re-confirm before payment.</span>
                   </div>
                 )}

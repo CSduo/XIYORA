@@ -42,6 +42,14 @@ App.tsx fetches `${API_BASE}/products` and `${API_BASE}/site-content`. `API_BASE
 ## Image upload — must return absolute backend URLs
 Upload returns `https://xiyora--xiyora52.replit.app/api/uploads/<objectName>` (reconstructed from `x-forwarded-host` header). Images are served via `GET /api/uploads/:bucket/:slug/:filename` which proxies from GCS — NOT public GCS URLs (makePublic() silently fails with sidecar auth). Stored URLs must be absolute because the Cloudflare frontend loads images via `<img src>`, not through the API proxy.
 
+## Checkout form — new fields (June 2026)
+`checkoutIntentsTable` now has `fullAddress`, `landmark`, `company`, `gstNumber` text columns. Form field order: name → phone → email → **state → city** → pincode → fullAddress (required textarea) → landmark / company (optional, 2-col). CSS class `.co-form-grid` collapses to 1 col at ≤600px. The confirmed summary always shows (not gated on delivery lookup). All new fields flow into WA messages and proforma "Bill To" section.
+
+**Why:** Previous form had no full address; mobile layout overflowed because inner form grid used inline `gridTemplateColumns:"1fr 1fr"` with no media-query override.
+
+## FX rates backend endpoint
+`GET /api/fx-rates` — in-memory 24 hr cache, fetches from `open.er-api.com/v6/latest/INR`, hardcoded INR-based fallback rates if fetch fails. Frontend `useLiveFx` tries backend first, then falls back to direct external fetch. DB `push-force` run after schema change.
+
 ## Seed endpoint
 `POST /api/admin/seed` upserts all 37 products into the DB. Production DB is separate from dev DB. After any new deployment, seed may need to be re-run if production DB was reset. 37 products confirmed in production as of June 3 2026.
 

@@ -8,6 +8,7 @@ import siteContentRouter from "./siteContent";
 import adminLoginRouter from "./adminLogin";
 import uploadRouter from "./upload";
 import seedRouter from "./seed";
+import fxRatesRouter from "./fxRates";
 
 const router: IRouter = Router();
 
@@ -20,5 +21,6 @@ router.use(siteContentRouter);
 router.use(adminLoginRouter);
 router.use(uploadRouter);
 router.use(seedRouter);
+router.use(fxRatesRouter);
 
 export default router;
