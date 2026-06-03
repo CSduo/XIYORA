@@ -11,6 +11,8 @@ const resolveGallery=(id:string,apiValue:string[]):string[]=>{
   const m=imageManifest.products[id];
   return m?.gallery?.length?m.gallery:[];
 };
+// resolveHero/resolveGallery are ONLY for the static PRODUCTS fallback array below.
+// When API products are loaded they use DB values directly — no manifest override.
 
 /* ─── BUSINESS INFO ─────────────────────────────────────── */
 let BIZ = {
@@ -829,6 +831,15 @@ let PRODUCTS: any[] = [
     ],
   },
 ];
+
+// Apply manifest fallback images to the static PRODUCTS array ONCE at startup.
+// This runs only here, before the API fetch. After API loads, PRODUCTS is replaced
+// with raw DB values and these resolve functions are never called on API data.
+PRODUCTS = PRODUCTS.map(p => ({
+  ...p,
+  heroImage: resolveHero(p.id, p.heroImage),
+  gallery: resolveGallery(p.id, p.gallery ?? []),
+}));
 
 const CATS = [
   {name:"All Products",filter:null},
@@ -2159,7 +2170,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
               onClick={()=>{onPickProduct(p);onClose();}}
               onMouseEnter={(e:any)=>e.currentTarget.style.background=C.beige}
               onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
-              <img src={resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} loading="lazy" decoding="async" style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
+              <img src={p.heroImage||p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
               <div style={{flex:1,minWidth:0}}>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
                 <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
@@ -2194,7 +2205,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   return(
     <div className="pc" onClick={()=>onOpen(p)}>
       <div style={{position:"relative",overflow:"hidden",height:240}}>
-        <img src={imgErr?FALLBACK_IMG:resolveHero(p.id,p.heroImage||p.gallery[0])} alt={p.name} className="pi" loading="lazy" decoding="async" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#1a1814":undefined,padding:p.category==="Latex Material"?"8px":undefined}}/>
+        <img src={imgErr?FALLBACK_IMG:(p.heroImage||p.gallery?.[0]||FALLBACK_IMG)} alt={p.name} className="pi" loading="lazy" decoding="async" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#1a1814":undefined,padding:p.category==="Latex Material"?"8px":undefined}}/>
         <div style={{position:"absolute",top:10,left:10}}>
           <Tag>{p.tag}</Tag>
         </div>
@@ -2234,8 +2245,8 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
 
   useEffect(()=>{setImg(0);setImgErrors({});setSelVar(-1);setQty(1);setAddedMsg(false);window.scrollTo(0,0);},[p]);
 
-  const _hero=resolveHero(p.id,p.heroImage||"");
-  const _gallery=resolveGallery(p.id,p.gallery||[]);
+  const _hero=p.heroImage||"";
+  const _gallery=Array.isArray(p.gallery)?p.gallery:[];
   const displayImages:string[]=_hero?[_hero,..._gallery]:_gallery;
 
   const handleTouchStart=(e:React.TouchEvent)=>{touchStartX.current=e.touches[0].clientX;};
@@ -2923,7 +2934,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
   const wishProducts=PRODUCTS.filter((p:any)=>wl.includes(p.id));
   const moveToCart=(p:any)=>{
     const v=p.variants?.[0];
-    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:resolveHero(p.id,p.heroImage||p.gallery?.[0]||FALLBACK_IMG),quantity:1};
+    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:p.heroImage||p.gallery?.[0]||FALLBACK_IMG,quantity:1};
     onAddToCart(item);
   };
   if(!open)return null;
@@ -2950,7 +2961,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
               {wishProducts.map((p:any)=>(
                 <div key={p.id} style={{background:C.beige,borderRadius:4,padding:"13px 14px",display:"flex",gap:12,alignItems:"center"}}>
-                  <img src={resolveHero(p.id,p.heroImage||p.gallery?.[0])} alt={p.name} loading="lazy" decoding="async" style={{width:58,height:58,objectFit:"cover",borderRadius:3,flexShrink:0,cursor:"pointer",background:C.lgold}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>{onOpen(p);onClose();}}/>
+                  <img src={p.heroImage||p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:58,height:58,objectFit:"cover",borderRadius:3,flexShrink:0,cursor:"pointer",background:C.lgold}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>{onOpen(p);onClose();}}/>
                   <div style={{flex:1,minWidth:0}}>
                     <div style={{fontFamily:"'Playfair Display',serif",fontSize:14,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer",marginBottom:4}} onClick={()=>{onOpen(p);onClose();}}>{p.name}</div>
                     <div style={{fontSize:12,color:C.gold,fontWeight:500,fontFamily:"'Playfair Display',serif"}}>{priceIn(cur,p.priceINR)}</div>
@@ -3222,7 +3233,7 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
 
   const moveWishToCart=(p:any)=>{
     const v=p.variants?.[0];
-    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:resolveHero(p.id,p.heroImage||p.gallery?.[0]||FALLBACK_IMG),quantity:1};
+    const item:CartItem={cartKey:`${p.id}__${v?v.sku:"base"}`,productId:p.id,productName:p.name,sku:v?v.sku:"",variantLabel:v?v.label:p.name,priceINR:v?v.priceINR:p.priceINR,priceUSD:v?v.priceUSD:p.priceUSD,priceNumINR:parsePriceNum(v?v.priceINR:p.priceINR),quoteRequired:false,image:p.heroImage||p.gallery?.[0]||FALLBACK_IMG,quantity:1};
     onAddToCart(item);onWish(p.id);
   };
 
@@ -4044,23 +4055,33 @@ export default function App(){
         PRODUCTS=data.map((p:any)=>({
           ...p,
           id:p.slug,
-          heroImage:resolveHero(p.slug,p.heroImage??""),
-          gallery:resolveGallery(p.slug,p.gallery??[]),
+          // Use DB values DIRECTLY — do NOT apply resolveHero/resolveGallery.
+          // resolveHero/resolveGallery use imageManifest fallbacks which silently
+          // override intentionally-cleared values (heroImage:"" or gallery:[]).
+          heroImage:typeof p.heroImage==="string"?p.heroImage:"",
+          gallery:Array.isArray(p.gallery)?p.gallery:[],
         }));
         forceProductRefresh();
+        // If a product detail page is open, refresh it with the latest DB data.
+        setSelProd((prev:any)=>{
+          if(!prev)return prev;
+          const updated=PRODUCTS.find(x=>x.id===prev.id);
+          return updated||prev;
+        });
       }
     }).catch(()=>{}).finally(()=>setProductsLoading(false));
   },[]);
   useEffect(()=>{
     fetch(`${API_BASE}/site-content`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
       if(data&&typeof data==="object"){
+        // Use ?? not || so that intentionally-empty strings ("") from DB are respected.
         BIZ={
-          wa:data.wa||BIZ.wa,
-          email:data.email||BIZ.email,
-          ig:data.ig||BIZ.ig,
-          address:data.address||BIZ.address,
-          gstNote:data.gstNote||BIZ.gstNote,
-          heroImage:data.heroImage||BIZ.heroImage,
+          wa:data.wa??BIZ.wa,
+          email:data.email??BIZ.email,
+          ig:data.ig??BIZ.ig,
+          address:data.address??BIZ.address,
+          gstNote:data.gstNote??BIZ.gstNote,
+          heroImage:data.heroImage??BIZ.heroImage,
         };
         forceProductRefresh();
       }

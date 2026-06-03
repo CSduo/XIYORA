@@ -196,18 +196,25 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
   const textToArr = (s: string) => s.split("\n").map(x=>x.trim()).filter(Boolean);
 
   const save = async () => {
-    setSaving(true); setErr("");
+    setSaving(true); setErr(""); setVariantsErr("");
     if (!form.slug || !form.name || !form.category) { setErr("Slug, Name and Category are required."); setSaving(false); return; }
     if (!form.priceINR && !form.priceUSD) { setErr("At least one price (INR or USD) is required."); setSaving(false); return; }
+    const parsedVariants = textToVariants(variantsText);
+    if (parsedVariants === null) { setVariantsErr("Variants JSON is invalid — fix the JSON syntax before saving."); setSaving(false); return; }
+    if (!Array.isArray(parsedVariants)) { setVariantsErr("Variants must be a JSON array [ … ]."); setSaving(false); return; }
     try {
       const url = isNew ? "/admin/products" : `/admin/products/${form.slug}`;
       const method = isNew ? "POST" : "PUT";
-      const payload = { ...form };
+      const payload = { ...form, variants: parsedVariants };
       const res = await apiFetch(url, { method, body: JSON.stringify(payload) }, token);
-      const data = await res.json();
-      if (data.success) onSave(data.product);
-      else setErr(data.error || "Save failed");
-    } catch { setErr("Network error"); }
+      let data: any = {};
+      try { data = await res.json(); } catch {}
+      if (res.ok && data.success) {
+        onSave(data.product);
+      } else {
+        setErr(`HTTP ${res.status}: ${data.error || "Save failed — check backend logs."}`);
+      }
+    } catch { setErr("Network error — backend unreachable."); }
     setSaving(false);
   };
 
@@ -218,7 +225,8 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
     return r;
   };
   const variantsToText = (v?: any[]) => JSON.stringify(v||[], null, 2);
-  const textToVariants = (t: string) => { try { return JSON.parse(t); } catch { return []; } };
+  const textToVariants = (t: string) => { try { return JSON.parse(t); } catch { return null; } };
+  const [variantsErr, setVariantsErr] = useState("");
 
   const [specsText, setSpecsText] = useState(specsToText(form.specs));
   const [variantsText, setVariantsText] = useState(variantsToText(form.variants));
@@ -300,7 +308,8 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
         <GalleryUploader token={token} slug={form.slug||"misc"} context="products" value={form.gallery||[]} onChange={set("gallery")} />
 
         <Label>Variants (JSON array)</Label>
-        <Textarea value={variantsText} onChange={(v: string) => { setVariantsText(v); set("variants")(textToVariants(v)); }} rows={6} style={{ fontFamily:"monospace", fontSize:12 }} />
+        <Textarea value={variantsText} onChange={(v: string) => { setVariantsText(v); setVariantsErr(""); }} rows={6} style={{ fontFamily:"monospace", fontSize:12, borderColor: variantsErr ? RED : undefined }} />
+        {variantsErr && <p style={{ color:RED, fontSize:12, marginTop:-8, marginBottom:12 }}>{variantsErr}</p>}
 
         <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:24 }}>
           <label style={{ display:"flex", alignItems:"center", gap:8, cursor:"pointer", fontSize:13, color:DARK }}>
@@ -342,12 +351,12 @@ function ProductsPanel({ token }: { token: string }) {
   }, [token]);
 
   const seedProducts = async () => {
-    if (!confirm("This will insert all 37 XIYORA products into the database (skips existing ones). Proceed?")) return;
+    if (!confirm("This will insert any missing products into the database. Existing products are NOT changed — your admin edits are preserved. Proceed?")) return;
     setSeeding(true);
     try {
       const res = await apiFetch("/admin/seed", { method:"POST" }, token);
       const data = await res.json();
-      if (data.success) { setMsg(`Seeded: ${data.products.inserted} inserted, ${data.products.updated} updated.`); await load(); }
+      if (data.success) { setMsg(`Seeded: ${data.products.inserted} inserted, ${data.products.skipped ?? data.products.updated} already existed (unchanged).`); await load(); }
       else setMsg("Seed failed: " + (data.error || "unknown error"));
     } catch { setMsg("Seed failed: network error"); }
     setSeeding(false);

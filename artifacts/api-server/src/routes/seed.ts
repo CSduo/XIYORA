@@ -53,7 +53,9 @@ router.post("/admin/seed", requireAdmin, async (_req, res): Promise<void> => {
     const p = PRODUCTS[i] as any;
     const existing = await db.select({ slug: productsTable.slug }).from(productsTable).where(eq(productsTable.slug, p.slug));
     if (existing.length > 0) {
-      await db.update(productsTable).set({ ...p, sortOrder: i, updatedAt: new Date() }).where(eq(productsTable.slug, p.slug));
+      // SKIP — never overwrite admin edits with static seed data.
+      // Admin panel changes (heroImage, gallery, price, visibility, etc.)
+      // are stored in the DB and would be lost if we UPDATE here.
       skipped++;
     } else {
       await db.insert(productsTable).values({ ...p, sortOrder: i, updatedAt: new Date() });
