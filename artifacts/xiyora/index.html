@@ -4,23 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>XIYORA — Premium Natural Latex Bedding</title>
-    <meta name="description" content="XIYORA — Premium Natural Latex Bedding — built on Replit. Update this description to reflect the app." />
+    <meta name="description" content="XIYORA — Official Bingxi sourcing partner for India. Premium natural latex pillows, mattresses, toppers and cushions." />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="XIYORA — Premium Natural Latex Bedding" />
-    <meta property="og:description" content="XIYORA — Premium Natural Latex Bedding — built on Replit. Update this description to reflect the app." />
+    <meta property="og:description" content="XIYORA — Official Bingxi sourcing partner for India. Premium natural latex pillows, mattresses, toppers and cushions." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="XIYORA — Premium Natural Latex Bedding" />
-    <meta name="twitter:description" content="XIYORA — Premium Natural Latex Bedding — built on Replit. Update this description to reflect the app." />
+    <meta name="twitter:description" content="XIYORA — Official Bingxi sourcing partner for India. Premium natural latex pillows, mattresses, toppers and cushions." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" as="image" type="image/webp" href="/assets/lux/hero-bedroom.webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      /* Critical: drawer is off-canvas BEFORE JavaScript loads.
-         Without this, the drawer flashes open for ~1-2 s on hard refresh
-         because the JS-injected CSS arrives after first paint. */
+      /* ── CRITICAL CSS — loaded synchronously before React renders ──────────────
+         These rules prevent layout flash by applying mobile layout from first paint.
+         They are intentionally duplicated from the JS-injected CSS so they arrive
+         before React's useEffect fires and injects the full stylesheet. */
+
+      /* Body dark background prevents white flash before theme CSS injects */
+      *,*::before,*::after{box-sizing:border-box}
+      body{background:#0F0F0D;color:#F2EDE4;margin:0;font-family:'Inter',sans-serif}
+      #root{min-height:100vh}
+
+      /* Side drawer: off-canvas BEFORE JavaScript loads */
       .sdrawer{
         position:fixed;top:0;left:0;height:100%;width:300px;max-width:85vw;
         background:#1C1C1C;z-index:500;overflow-y:auto;
@@ -28,12 +36,58 @@
         transition:transform .32s cubic-bezier(.23,1,.32,1);
       }
       .sdrawer-overlay{display:none}
-      /* Body dark background prevents white flash before theme CSS injects */
-      body{background:#0F0F0D;color:#F2EDE4;margin:0}
-      #root{min-height:100vh}
+
+      /* ── LUX SPLIT HERO — mobile stacked layout from first paint ── */
+      @media(max-width:900px){
+        /* Light cream hero (LuxHero component — category / collection pages) */
+        .lux-hero-photo{position:relative!important;width:100%!important;height:280px!important;overflow:hidden}
+        .lux-hero-inner{min-height:auto!important;padding:36px 0!important;max-width:none!important}
+        .lux-bamboo{display:none!important}
+
+        /* Dark hero grid (DarkHomeHero / SupplierView) */
+        .lux-hero-grid{grid-template-columns:1fr!important}
+        .lux-hero-photo-r{order:-1!important;min-height:280px!important}
+
+        /* B2B band */
+        .biz-grid{grid-template-columns:1fr!important;justify-items:center!important;text-align:center!important}
+        .biz-feats{grid-template-columns:1fr 1fr!important;justify-content:center!important}
+        .biz-medallion{display:none!important}
+      }
+      @media(max-width:560px){
+        .lux-hero-photo{height:220px!important}
+        .lux-hero-photo-r{min-height:220px!important}
+        .lux-hero-inner{padding:28px 0!important}
+      }
+
+      /* App loading screen — shown immediately before React renders content */
+      #xi-loader{
+        position:fixed;inset:0;background:#0c0a08;
+        display:flex;flex-direction:column;align-items:center;justify-content:center;
+        gap:20px;z-index:99999;
+        transition:opacity .4s ease;
+      }
+      #xi-loader.xi-fade{opacity:0;pointer-events:none}
+      @keyframes xi-pulse{0%,100%{opacity:.55;transform:scale(.97)}50%{opacity:1;transform:scale(1.02)}}
+      @keyframes xi-bar{0%{width:0}100%{width:100%}}
+      #xi-loader svg{animation:xi-pulse 2s ease-in-out infinite}
+      #xi-loader .xi-bar-wrap{width:64px;height:1px;background:rgba(200,169,126,.2);border-radius:1px;overflow:hidden;margin-top:4px}
+      #xi-loader .xi-bar-fill{height:100%;background:linear-gradient(90deg,transparent,#C8A97E,transparent);animation:xi-bar 1.8s ease-in-out infinite}
     </style>
   </head>
   <body>
+    <!-- Loading screen: visible immediately, React dismisses it once ready -->
+    <div id="xi-loader" aria-hidden="true">
+      <svg width="52" height="52" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" stroke="#C8A97E" stroke-width="1.2"/>
+        <circle cx="24" cy="24" r="17.5" stroke="#C8A97E" stroke-width=".6" opacity=".45"/>
+        <path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" stroke-width="1.3" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
+      </svg>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:22px;letter-spacing:8px;color:#E8D6B4;font-weight:600">XIYORA</div>
+      <div style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#6b5c42">Crafted Comfort</div>
+      <div class="xi-bar-wrap"><div class="xi-bar-fill"></div></div>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

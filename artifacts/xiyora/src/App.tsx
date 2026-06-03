@@ -22,6 +22,11 @@ let BIZ = {
   address: "Yogesh Nagar, Section 25, Near 12 No School, Ulhasnagar – 421004, Thane, Maharashtra, India",
   gstNote: "Formal tax documentation can be provided where applicable once GST registration is complete.",
   heroImage: "",
+  heroTitle: "Premium Latex Comfort,",
+  heroSubtitle: "Sourced for India.",
+  heroBody: "Pure Talalay & Dunlop latex, crafted into pillows, mattresses and toppers — and brought to India with considered, document-backed sourcing.",
+  promiseImage: "",
+  supplierHeroImage: "",
 };
 
 const API_BASE = (import.meta.env.VITE_API_BASE as string) || "/api";
@@ -1662,10 +1667,10 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
                 <Seal ch="印" style={{marginTop:2}}/>
               </ArchedCartouche>
               <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.5rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}}>
-                Premium Latex Comfort,<br/><span className="gold-italic">Sourced for India.</span>
+                {BIZ.heroTitle||"Premium Latex Comfort,"}<br/><span className="gold-italic">{BIZ.heroSubtitle||"Sourced for India."}</span>
               </h1>
               <p style={{fontSize:14.5,lineHeight:1.85,color:"#C7BBA4",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
-                Pure Talalay &amp; Dunlop latex, crafted into pillows, mattresses and toppers — and brought to India with considered, document-backed sourcing.
+                {BIZ.heroBody||"Pure Talalay & Dunlop latex, crafted into pillows, mattresses and toppers — and brought to India with considered, document-backed sourcing."}
               </p>
               <p className="lux-bingxi" style={{fontSize:12,letterSpacing:"1px",color:"#C9A876",margin:"16px 0 0",display:"flex",alignItems:"center",gap:10,position:"relative",zIndex:3}}>
                 <span style={{width:26,height:1,background:"#C8A97E",display:"inline-block"}}/>Official Bingxi Partner for India
@@ -1683,7 +1688,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
           </div>
           {/* RIGHT — photo */}
           <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:540,overflow:"hidden"}}>
-            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":"/assets/lux/hero-bedroom.webp"} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":(BIZ.heroImage||"/assets/lux/hero-bedroom.webp")} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
             {/* corner-only gold hairline frame — no motifs over the room photo (guardrail) */}
@@ -1733,6 +1738,129 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
     </section>
   );
 }
+/* ─── SUPPLIER / B2B VIEW ─────────────────────────────────── */
+const SUPPLIER_FEATURES=[
+  {name:"doc",label:"Bulk Pricing"},
+  {name:"box",label:"Custom Specs"},
+  {name:"tag",label:"Private Label"},
+  {name:"handshake",label:"Dedicated Support"},
+];
+const SUPPLIER_PROCESS=[
+  ["01","Send Enquiry","WhatsApp or fill the contact form with your product requirements, quantity, and city."],
+  ["02","Receive Quote","We reply with an indicative landed price including freight, customs, and IGST."],
+  ["03","Confirm & Pay","Review proforma invoice, confirm specs, and approve before any payment is collected."],
+  ["04","Delivery","Shipped from China via sea freight. 3–10 days inland after port clearance."],
+];
+function SupplierView({onCatalog,onInquire,setPage}:{onCatalog:()=>void;onInquire:(p:any,i:string)=>void;setPage:(p:string)=>void}){
+  const C=useC();
+  const [err,setErr]=useState(false);
+  const heroImg=BIZ.supplierHeroImage||"https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80";
+  return(
+    <div style={{background:C.white,minHeight:"100vh"}}>
+      {/* HERO */}
+      <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
+        <Petals count={14}/>
+        <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
+        <div className="container" style={{position:"relative",zIndex:4}}>
+          <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
+            <CornerSet/>
+            {/* LEFT — copy */}
+            <div className="lux-hero-copy" style={{position:"relative",padding:"clamp(34px,4vw,60px) clamp(24px,4vw,54px)",display:"flex",flexDirection:"column",justifyContent:"center",overflow:"hidden"}}>
+              <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
+              <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}}/>
+              <Reveal>
+                <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>Home · Partnership</div>
+                <ArchedCartouche className="lux-brand-lock">
+                  <MonoMark size={38}/>
+                  <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#E8D6B4",lineHeight:1,fontWeight:600}}>XIYORA</div>
+                  <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
+                  <Seal ch="印" style={{marginTop:2}}/>
+                </ArchedCartouche>
+                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}}>
+                  For B2B Buyers<br/><span className="gold-italic">Partnership, Considered.</span>
+                </h1>
+                <p style={{fontSize:14.5,lineHeight:1.85,color:"#C7BBA4",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
+                  Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support.
+                </p>
+                <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:470,position:"relative",zIndex:3}}>
+                  {SUPPLIER_FEATURES.map((f,i)=>(
+                    <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
+                  ))}
+                </div>
+                <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}}>
+                  <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send B2B Enquiry <span style={{color:"#C8A97E"}}>✦</span></button>
+                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"#9E3B2E"}}>✦</span></button>
+                </div>
+              </Reveal>
+            </div>
+            {/* RIGHT — photo */}
+            <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:520,overflow:"hidden"}}>
+              <img src={err?"/assets/lux/hero-bedroom.webp":heroImg} alt="XIYORA B2B Partnership" loading="eager" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+              <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
+              <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
+              <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(200,169,126,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* PROCESS */}
+      <section style={{background:C.beige,padding:"clamp(40px,5vw,70px) 0"}}>
+        <div className="container">
+          <div style={{textAlign:"center",marginBottom:44}}>
+            <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>How It Works</div>
+            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.5rem)",fontWeight:500,color:C.dark,margin:0}}>The B2B Process</h2>
+          </div>
+          <div className="grid-4">
+            {SUPPLIER_PROCESS.map(([n,t,d])=>(
+              <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:3,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.09)";}}
+                onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:38,fontWeight:300,color:C.sand,marginBottom:12,lineHeight:1}}>{n}</div>
+                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,marginBottom:8}}>{t}</h4>
+                <p style={{fontSize:13,color:"#888",lineHeight:1.72,fontWeight:300}}>{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* B2B DETAILS */}
+      <section style={{background:C.white,padding:"clamp(40px,5vw,70px) 0"}}>
+        <div className="container">
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:24}}>
+            {[
+              ["Bulk & Trade Pricing","Volume discounts for trade buyers. MOQ varies by product. Contact us for a private price list."],
+              ["Custom Specifications","Custom sizes, densities, cover fabrics, and construction available on most Bingxi products."],
+              ["Private Label","White-label and private-label branding available. Ask for details with your enquiry."],
+              ["Documentation","Full compliance documents: OEKO-TEX®, ISO 9001, GTTC lab reports, business licence."],
+              ["Hotels & Resorts","Dedicated support for hospitality procurement including custom sizing and bulk mattress orders."],
+              ["Retailers & Distributors","Wholesale pricing available. Contact us for distributor partnership terms."],
+            ].map(([t,d],i)=>(
+              <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:3,borderLeft:`3px solid ${C.gold}`}}>
+                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:8}}>{t}</h4>
+                <p style={{fontSize:13,color:C.ink,lineHeight:1.72}}>{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* CTA */}
+      <section style={{background:"linear-gradient(135deg,#16110b,#0c0a08)",padding:"clamp(40px,5vw,64px) 0"}}>
+        <div className="container" style={{textAlign:"center"}}>
+          <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14}}>Get in Touch</div>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#F4ECDC",margin:"0 0 16px",fontWeight:500}}>Start Your B2B Partnership</h2>
+          <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>WhatsApp us with your requirements — product type, quantity, and city. We respond within 24 hours.</p>
+          <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
+            <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#C8A97E"}}>✦</span></button>
+            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"'Inter',sans-serif",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,fontWeight:500}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
+          </div>
+          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:"#7a6b52",fontSize:12,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:"1px",textTransform:"uppercase"}}>← Back to Home</button>
+        </div>
+      </section>
+      <FooterTrustStrip/>
+    </div>
+  );
+}
+
 /* ─── FOOTER TRUST STRIP ──────────────────────────────────── */
 const TRUST_ITEMS=[
   {ic:"truck",t:"Pan India Delivery",d:"Safe & reliable shipping"},
@@ -2777,7 +2905,7 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
             <Reveal style={{position:"relative"}}>
               <GoldCloud className="x-drift" size={120} opacity={.5} style={{position:"absolute",top:-30,right:-12,pointerEvents:"none",zIndex:2}}/>
               <div className="x-frame" style={{borderRadius:5}}>
-                <img src="/assets/xiyora-products/final/starting-from-hero.webp" alt="Premium latex comfort" loading="lazy" decoding="async" style={{width:"100%",height:520,objectFit:"cover",objectPosition:"center 30%",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
+                <img src={BIZ.promiseImage||"/assets/xiyora-products/final/starting-from-hero.webp"} alt="Premium latex comfort" loading="lazy" decoding="async" style={{width:"100%",height:520,objectFit:"cover",objectPosition:"center 30%",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
               </div>
               <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,borderLeft:`2px solid ${C.seal}`}}>
                 <div style={{fontFamily:"'Inter',sans-serif",fontSize:11,color:C.ink,letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
@@ -3090,7 +3218,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             {[["Home","home"],["Products","catalog"],["Collections","catalog"],["About XIYORA","about"],["Partnership","supplier"],["Contact","contact"]].map(([l,v],i)=>(
               <button key={i} className="nl" style={{fontSize:11,color:page===v?"#E6C89A":"#D9CBB8",letterSpacing:"1.4px"}} onClick={()=>{
                 if(v==="catalog")onCatalog();
-                else{window.history.pushState({page:v},"",`/${v}`);setPage(v);}
+                else setPage(v);
               }}>{l}</button>
             ))}
           </div>
@@ -3099,7 +3227,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
         <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0}}>
           <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",left:-30,top:-14,width:46,opacity:.9,pointerEvents:"none",zIndex:1}}/>
           <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",right:-30,top:-14,width:46,opacity:.9,transform:"scaleX(-1)",pointerEvents:"none",zIndex:1}}/>
-          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px 24px",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
+          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px 24px",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg className="nav-mono" width={24} height={24} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
                 <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/><circle cx="24" cy="24" r="17.5" stroke="#C8A97E" strokeWidth=".6" opacity=".45"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/><circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
@@ -4208,6 +4336,8 @@ export default function App(){
   useLiveFx(); // refresh indicative currency rates hourly / on load
   const [,forceProductRefresh]=useReducer((x:number)=>x+1,0);
   const [productsLoading,setProductsLoading]=useState(true);
+  const [siteLoading,setSiteLoading]=useState(true);
+  const [appReady,setAppReady]=useState(false);
   useEffect(()=>{
     setProductsLoading(true);
     fetch(`${API_BASE}/products`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
@@ -4242,11 +4372,29 @@ export default function App(){
           address:data.address??BIZ.address,
           gstNote:data.gstNote??BIZ.gstNote,
           heroImage:data.heroImage??BIZ.heroImage,
+          heroTitle:data.heroTitle??BIZ.heroTitle,
+          heroSubtitle:data.heroSubtitle??BIZ.heroSubtitle,
+          heroBody:data.heroBody??BIZ.heroBody,
+          promiseImage:data.promiseImage??BIZ.promiseImage,
+          supplierHeroImage:data.supplierHeroImage??BIZ.supplierHeroImage,
         };
         forceProductRefresh();
       }
-    }).catch(()=>{});
+    }).catch(()=>{}).finally(()=>setSiteLoading(false));
   },[]);
+  // Set app ready once both products and site content have resolved
+  useEffect(()=>{
+    if(!productsLoading&&!siteLoading)setAppReady(true);
+  },[productsLoading,siteLoading]);
+  // Safety timeout: always show app after 6 s even if a fetch stalls
+  useEffect(()=>{const t=setTimeout(()=>setAppReady(true),6000);return()=>clearTimeout(t);},[]);
+  // Dismiss the HTML loading screen (#xi-loader in index.html) once data is ready
+  useEffect(()=>{
+    if(appReady){
+      const el=document.getElementById("xi-loader");
+      if(el){el.classList.add("xi-fade");setTimeout(()=>{try{el.remove();}catch{}},500);}
+    }
+  },[appReady]);
 
   useEffect(()=>{
     let s=document.getElementById("xiyora-css") as HTMLStyleElement|null;
@@ -4330,23 +4478,27 @@ export default function App(){
   const openInquiry=(p:any,intent="general")=>setInquiry({show:true,product:p,intent});
   const openProof=()=>navigateTo("proof");
 
+  // URL-synced navigation wrapper — every setPage call from child components
+  // must go through navigateTo so the browser URL always matches the visible page.
+  const nav=(p:string)=>navigateTo(p);
+
   const renderView=()=>{
     if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")}/>;
     if(page==="catalog")return<CatalogView cat={activeCat} setCat={(cat:string|null)=>navigateTo("catalog",{cat})} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry} loading={productsLoading}/>;
     if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
-    if(page==="account")return<AccountView setPage={setPage}/>;
+    if(page==="account")return<AccountView setPage={nav}/>;
     if(page==="admin")return<AdminView/>;
     if(page==="xiyora-admin")return<AdminPanel/>;
-    if(page==="proof")return<ProofLibraryView setPage={setPage}/>;
-    if(page==="order-status")return<OrderStatusView setPage={setPage}/>;
-    if(page==="supplier")return<SimplePage title="For B2B Buyers" content={[["B2B Welcome","We welcome retailers, hotels, interior designers, mattress stores, and manufacturers. Contact us for bulk pricing, custom specifications, and private-label options."],["Our Process","Send inquiry → Receive indicative quote → Confirm specs → Proforma invoice → Payment confirmation → Production & shipping → Delivery."],["Bulk Pricing","Volume discounts available for trade buyers. Minimum order quantities vary by product."],["Custom Options","Custom sizes, densities, cover fabrics, and private-label branding available for most products on request."],["Contact",`WhatsApp: +91 70283 11226 | Email: ${BIZ.email}`]]} setPage={setPage}/>;
-    if(page==="about")return<SimplePage title="About XIYORA" content={[["Our Mission","To make genuine premium natural latex comfort accessible in India — with transparent pricing, honest sourcing, and dedicated support."],["Bingxi Partnership","XIYORA is the official sourcing partner for Bingxi products in India. Bingxi is a Chinese premium latex manufacturer with a broad portfolio of Talalay, Dunlop, and hybrid latex products."],["Our Address",BIZ.address],["GST",BIZ.gstNote]]} setPage={setPage}/>;
-    if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={setPage}/>;
-    if(page==="faq")return<SimplePage title="FAQ" content={[["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],["Do you provide tax documentation?",BIZ.gstNote],["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]]} setPage={setPage}/>;
-    if(page==="shipping")return<SimplePage title="Shipping & Delivery" content={[["Origin","Imported from Bingxi, China via sea freight."],["Indian Ports","Mumbai (Nhava Sheva), Mundra, Chennai, Kolkata, Cochin — based on buyer location."],["Sea Freight","~25–40 days from order confirmation, depending on product and quantity."],["Inland Delivery","3–10 days after port clearance depending on your zone."],["Costs","Shipping, customs, IGST, and inland delivery are included in your final quoted price."]]} setPage={setPage}/>;
-    if(page==="returns")return<SimplePage title="Returns & Refunds" content={[["Damaged in Transit","Document with photos within 24 hours of delivery and contact us immediately."],["Wrong Product","We arrange replacement or refund for incorrect products sent."],["Custom Orders","Non-returnable once production has started — confirm all specs before approval."],["Contact",`${BIZ.email} or WhatsApp +91 70283 11226`]]} setPage={setPage}/>;
-    if(page==="privacy")return<SimplePage title="Privacy Policy" content={[["Data Collected","Name, phone, email, city from inquiry forms."],["Use","To respond to inquiries, send quotes, and process orders."],["Sharing","Not sold or shared except where required for order processing and delivery."],["Contact",BIZ.email]]} setPage={setPage}/>;
-    if(page==="terms")return<SimplePage title="Terms of Use" content={[["Products","Subject to availability. Prices are indicative and subject to change."],["Orders","Confirmed after proforma invoice acceptance and advance payment."],["Pricing","Final landed price confirmed in writing before any payment is collected."],["Governing Law","Maharashtra, India."]]} setPage={setPage}/>;
+    if(page==="proof")return<ProofLibraryView setPage={nav}/>;
+    if(page==="order-status")return<OrderStatusView setPage={nav}/>;
+    if(page==="supplier")return<SupplierView onCatalog={openCatalog} onInquire={openInquiry} setPage={nav}/>;
+    if(page==="about")return<SimplePage title="About XIYORA" content={[["Our Mission","To make genuine premium natural latex comfort accessible in India — with transparent pricing, honest sourcing, and dedicated support."],["Bingxi Partnership","XIYORA is the official sourcing partner for Bingxi products in India. Bingxi is a Chinese premium latex manufacturer with a broad portfolio of Talalay, Dunlop, and hybrid latex products."],["Our Address",BIZ.address],["GST",BIZ.gstNote]]} setPage={nav}/>;
+    if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={nav}/>;
+    if(page==="faq")return<SimplePage title="FAQ" content={[["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],["Do you provide tax documentation?",BIZ.gstNote],["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]]} setPage={nav}/>;
+    if(page==="shipping")return<SimplePage title="Shipping & Delivery" content={[["Origin","Imported from Bingxi, China via sea freight."],["Indian Ports","Mumbai (Nhava Sheva), Mundra, Chennai, Kolkata, Cochin — based on buyer location."],["Sea Freight","~25–40 days from order confirmation, depending on product and quantity."],["Inland Delivery","3–10 days after port clearance depending on your zone."],["Costs","Shipping, customs, IGST, and inland delivery are included in your final quoted price."]]} setPage={nav}/>;
+    if(page==="returns")return<SimplePage title="Returns & Refunds" content={[["Damaged in Transit","Document with photos within 24 hours of delivery and contact us immediately."],["Wrong Product","We arrange replacement or refund for incorrect products sent."],["Custom Orders","Non-returnable once production has started — confirm all specs before approval."],["Contact",`${BIZ.email} or WhatsApp +91 70283 11226`]]} setPage={nav}/>;
+    if(page==="privacy")return<SimplePage title="Privacy Policy" content={[["Data Collected","Name, phone, email, city from inquiry forms."],["Use","To respond to inquiries, send quotes, and process orders."],["Sharing","Not sold or shared except where required for order processing and delivery."],["Contact",BIZ.email]]} setPage={nav}/>;
+    if(page==="terms")return<SimplePage title="Terms of Use" content={[["Products","Subject to availability. Prices are indicative and subject to change."],["Orders","Confirmed after proforma invoice acceptance and advance payment."],["Pricing","Final landed price confirmed in writing before any payment is collected."],["Governing Law","Maharashtra, India."]]} setPage={nav}/>;
     return<HomeView cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onCatalog={openCatalog} onCatFilter={openCatFilter} onSupplier={()=>navigateTo("supplier")} onInquire={openInquiry}/>;
   };
 
@@ -4360,7 +4512,7 @@ export default function App(){
     <ThemeCtx.Provider value={tc}>
     <div style={{background:tc.white,minHeight:"100vh",transition:"background .25s,color .25s"}}>
       <SideDrawer open={showSidebar} onClose={()=>setShowSidebar(false)}
-        setPage={setPage} onCatFilter={openCatFilter} onCatalog={openCatalog}
+        setPage={nav} onCatFilter={openCatFilter} onCatalog={openCatalog}
         onInquire={openInquiry} onProof={openProof}/>
       {/* Ticker */}
       <div style={{background:"#0c0a08",color:"#C9A876",padding:"9px 0",overflow:"hidden",borderBottom:"1px solid rgba(200,169,126,.14)"}}>
@@ -4374,12 +4526,12 @@ export default function App(){
           </div>
         </div>
       </div>
-      <Navbar page={page} setPage={setPage} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl} cartCount={cart.length}
+      <Navbar page={page} setPage={nav} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl} cartCount={cart.length}
         theme={theme} toggleTheme={toggleTheme}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
         onCheckout={()=>navigateTo("checkout")} onWishlist={()=>setShowWishlist(true)} onSidebar={()=>setShowSidebar(true)} onSupplier={()=>navigateTo("supplier")}/>
       <main style={{minHeight:"80vh",paddingBottom:2}}>{renderView()}</main>
-      <Footer setPage={setPage} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
+      <Footer setPage={nav} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
       {/* WhatsApp FAB — positioned above any potential Replit badge */}
       <div className="wb" style={{bottom:80}} onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")} title="Chat on WhatsApp">
         <svg width={26} height={26} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>

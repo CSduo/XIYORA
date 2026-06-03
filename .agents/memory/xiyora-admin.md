@@ -70,6 +70,22 @@ Upload returns `https://xiyora--xiyora52.replit.app/api/uploads/<objectName>` (r
 - ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_SECRET, SESSION_SECRET, DATABASE_URL, DEFAULT_OBJECT_STORAGE_BUCKET_ID: all PRESENT
 - NODE_ENV, PORT: MISSING from secrets (injected by Replit runtime — healthz confirms `"env":"production"`)
 
+## Homepage content is admin-controlled via BIZ object + siteContent API
+`BIZ` in `App.tsx` has 11 fields: the original 6 contact/social fields PLUS `heroTitle`, `heroSubtitle`, `heroBody`, `promiseImage`, `supplierHeroImage`. All 11 are returned by `GET /site-content` (public) and editable via `PUT /admin/site-content`. `DEFAULT_SITE_CONTENT` in `siteContent.ts` mirrors the BIZ defaults. Admin SiteContentPanel is sectioned: Homepage Hero, Promise Section, Partnership/Supplier, Contact & Business Info.
+
+**Why:** Owners need to change homepage text and images without code deploys.
+
+## Loading screen — HTML-first loader pattern
+`#xi-loader` in `index.html` shows immediately (before React loads). React dismisses it when `appReady=true` (both `productsLoading` and `siteLoading` become false). Safety timeout: 6 s. This prevents layout flash and white-screen between HTML parse and React first paint.
+
+**How to apply:** `appReady` state gates loader dismissal only. Main app content always renders — the loader overlay just covers it until ready.
+
+## URL routing — always use navigateTo(), never setPage() directly in child components
+`navigateTo(page, opts)` is the only function that does `pushState + setPage`. All child components (SideDrawer, child views in renderView, Footer, etc.) receive `setPage={nav}` where `nav=(p)=>navigateTo(p)`. Passing raw `setPage` to children causes URL mismatch (state changes but URL doesn't). Navbar previously did its own `pushState` + `setPage` — this caused double-push; fixed by removing Navbar's manual `pushState` and letting `nav` handle it.
+
+## SupplierView — dedicated B2B page component
+`SupplierView` replaces `SimplePage` for the `/supplier` route. It's a full dark split-hero matching the home hero structure (`lux-hero-grid`, `lux-hero-photo-r`). Hero image comes from `BIZ.supplierHeroImage` (admin-controllable) with Unsplash fallback. Has process strip, B2B features grid, and CTA section.
+
 ## Cloudflare deployment (xiyora-home.pages.dev)
 Separate deployment from Replit. Must set `VITE_API_BASE=https://xiyora--xiyora52.replit.app/api` in Cloudflare Pages env vars and redeploy for:
 - Products, site content to load from Replit backend

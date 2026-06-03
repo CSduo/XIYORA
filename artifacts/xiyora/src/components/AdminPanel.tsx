@@ -25,7 +25,12 @@ type Product = {
   variants?: any[]; visible: boolean; sortOrder: number;
 };
 
-type SiteContent = { wa: string; email: string; ig: string; address: string; gstNote: string; heroImage: string; };
+type SiteContent = {
+  wa: string; email: string; ig: string; address: string; gstNote: string;
+  heroImage: string;
+  heroTitle: string; heroSubtitle: string; heroBody: string;
+  promiseImage: string; supplierHeroImage: string;
+};
 
 const CATEGORIES = ["Pillows", "Mattresses", "Toppers", "Cushions", "Latex Material"];
 const EMPTY_PRODUCT: Partial<Product> = {
@@ -555,7 +560,7 @@ function ProductsPanel({ token }: { token: string }) {
 }
 
 function SiteContentPanel({ token }: { token: string }) {
-  const [form, setForm] = useState<SiteContent>({ wa:"", email:"", ig:"", address:"", gstNote:"", heroImage:"" });
+  const [form, setForm] = useState<SiteContent>({ wa:"", email:"", ig:"", address:"", gstNote:"", heroImage:"", heroTitle:"", heroSubtitle:"", heroBody:"", promiseImage:"", supplierHeroImage:"" });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
@@ -581,24 +586,63 @@ function SiteContentPanel({ token }: { token: string }) {
     setSaving(false);
   };
 
+  const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+    <div style={{ marginBottom: 32 }}>
+      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:18 }}>
+        <div style={{ height:1, background:BEIGE, flex:1 }}/>
+        <span style={{ fontSize:10, letterSpacing:"2px", textTransform:"uppercase", color:GOLD, fontWeight:600, whiteSpace:"nowrap" }}>{title}</span>
+        <div style={{ height:1, background:BEIGE, flex:1 }}/>
+      </div>
+      {children}
+    </div>
+  );
+
   if (loading) return <div style={{ textAlign:"center", padding:40 }}><Spinner/></div>;
   return (
-    <div style={{ maxWidth:600 }}>
-      <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, color:DARK, marginBottom:24 }}>Site Content</h2>
-      <Label>WhatsApp Number (with country code, no +)</Label>
-      <Input value={form.wa} onChange={set("wa")} placeholder="917028311226" />
-      <Label>Email</Label>
-      <Input value={form.email} onChange={set("email")} />
-      <Label>Instagram URL</Label>
-      <Input value={form.ig} onChange={set("ig")} />
-      <Label>Address</Label>
-      <Textarea value={form.address} onChange={set("address")} rows={2} />
-      <Label>GST Note</Label>
-      <Textarea value={form.gstNote} onChange={set("gstNote")} rows={2} />
-      <ImageUploader token={token} slug="homepage" context="site" label="Homepage Hero Image" value={form.heroImage} onChange={set("heroImage")} />
-      {msg && <p style={{ color:"green", fontSize:13, marginBottom:12 }}>{msg}</p>}
-      {err && <p style={{ color:RED, fontSize:13, marginBottom:12 }}>{err}</p>}
-      <Btn onClick={save} disabled={saving}>{saving ? <Spinner size={14}/> : "Save Changes"}</Btn>
+    <div style={{ maxWidth:640 }}>
+      <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:28 }}>
+        <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, color:DARK, margin:0 }}>Site Content</h2>
+        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+          {msg && <span style={{ color:"#3a9b6e", fontSize:12, fontWeight:500 }}>{msg}</span>}
+          {err && <span style={{ color:RED, fontSize:12 }}>{err}</span>}
+          <Btn onClick={save} disabled={saving}>{saving ? <Spinner size={14}/> : "Save Changes"}</Btn>
+        </div>
+      </div>
+
+      <Section title="Homepage Hero">
+        <Label>Hero Headline (first line)</Label>
+        <Input value={form.heroTitle} onChange={set("heroTitle")} placeholder="Premium Latex Comfort," />
+        <Label>Hero Subline (gold italic, second line)</Label>
+        <Input value={form.heroSubtitle} onChange={set("heroSubtitle")} placeholder="Sourced for India." />
+        <Label>Hero Body Text</Label>
+        <Textarea value={form.heroBody} onChange={set("heroBody")} rows={3} placeholder="Pure Talalay & Dunlop latex…" />
+        <ImageUploader token={token} slug="homepage" context="site" label="Hero Background Image" value={form.heroImage} onChange={set("heroImage")} />
+      </Section>
+
+      <Section title="Homepage Promise Section">
+        <ImageUploader token={token} slug="homepage-promise" context="site" label="Promise Section Image (right panel)" value={form.promiseImage} onChange={set("promiseImage")} />
+      </Section>
+
+      <Section title="Partnership / Supplier Page">
+        <ImageUploader token={token} slug="supplier-hero" context="site" label="Supplier Page Hero Image (right panel)" value={form.supplierHeroImage} onChange={set("supplierHeroImage")} />
+      </Section>
+
+      <Section title="Contact & Business Info">
+        <Label>WhatsApp Number (with country code, no +)</Label>
+        <Input value={form.wa} onChange={set("wa")} placeholder="917028311226" />
+        <Label>Email Address</Label>
+        <Input value={form.email} onChange={set("email")} placeholder="xiyatosaanvi@gmail.com" />
+        <Label>Instagram URL</Label>
+        <Input value={form.ig} onChange={set("ig")} placeholder="https://www.instagram.com/xiyora.zi/" />
+        <Label>Business Address</Label>
+        <Textarea value={form.address} onChange={set("address")} rows={2} />
+        <Label>GST Note</Label>
+        <Textarea value={form.gstNote} onChange={set("gstNote")} rows={2} />
+      </Section>
+
+      <div style={{ paddingTop:8 }}>
+        <Btn onClick={save} disabled={saving}>{saving ? <Spinner size={14}/> : "Save All Changes"}</Btn>
+      </div>
     </div>
   );
 }

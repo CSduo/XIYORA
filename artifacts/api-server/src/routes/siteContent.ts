@@ -11,8 +11,19 @@ const DEFAULT_SITE_CONTENT: Record<string, string> = {
   ig: "https://www.instagram.com/xiyora.zi/",
   address: "Yogesh Nagar, Section 25, Near 12 No School, Ulhasnagar – 421004, Thane, Maharashtra, India",
   gstNote: "Formal tax documentation can be provided where applicable once GST registration is complete.",
-  heroImage: "/assets/xiyora-products/final/categories/starting-from.png",
+  heroImage: "",
+  heroTitle: "Premium Latex Comfort,",
+  heroSubtitle: "Sourced for India.",
+  heroBody: "Pure Talalay & Dunlop latex, crafted into pillows, mattresses and toppers — and brought to India with considered, document-backed sourcing.",
+  promiseImage: "",
+  supplierHeroImage: "",
 };
+
+const ALLOWED_KEYS = [
+  "wa", "email", "ig", "address", "gstNote", "heroImage",
+  "heroTitle", "heroSubtitle", "heroBody",
+  "promiseImage", "supplierHeroImage",
+];
 
 async function getAllSiteContent(): Promise<Record<string, string>> {
   const rows = await db.select().from(siteContentTable);
@@ -25,8 +36,7 @@ async function getAllSiteContent(): Promise<Record<string, string>> {
 
 router.get("/site-content", async (_req, res): Promise<void> => {
   const content = await getAllSiteContent();
-  const { wa, email, ig, address, gstNote, heroImage } = content;
-  res.json({ wa, email, ig, address, gstNote, heroImage });
+  res.json(content);
 });
 
 router.get("/admin/site-content", requireAdmin, async (_req, res): Promise<void> => {
@@ -40,8 +50,7 @@ router.put("/admin/site-content", requireAdmin, async (req, res): Promise<void> 
     res.status(400).json({ success: false, error: "Invalid body" });
     return;
   }
-  const allowedKeys = ["wa", "email", "ig", "address", "gstNote", "heroImage"];
-  for (const key of allowedKeys) {
+  for (const key of ALLOWED_KEYS) {
     if (key in updates && typeof updates[key] === "string") {
       const existing = await db.select().from(siteContentTable).where(eq(siteContentTable.key, key));
       if (existing.length > 0) {
