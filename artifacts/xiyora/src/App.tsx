@@ -4039,7 +4039,7 @@ export default function App(){
   const [productsLoading,setProductsLoading]=useState(true);
   useEffect(()=>{
     setProductsLoading(true);
-    fetch("/api/products").then(r=>r.ok?r.json():null).then((data:any)=>{
+    fetch(`${API_BASE}/products`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
       if(Array.isArray(data)&&data.length>0){
         PRODUCTS=data.map((p:any)=>({
           ...p,
@@ -4052,7 +4052,7 @@ export default function App(){
     }).catch(()=>{}).finally(()=>setProductsLoading(false));
   },[]);
   useEffect(()=>{
-    fetch("/api/site-content").then(r=>r.ok?r.json():null).then((data:any)=>{
+    fetch(`${API_BASE}/site-content`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
       if(data&&typeof data==="object"){
         BIZ={
           wa:data.wa||BIZ.wa,

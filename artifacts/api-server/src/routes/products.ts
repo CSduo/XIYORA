@@ -6,6 +6,7 @@ import { requireAdmin } from "../lib/adminAuth";
 const router: IRouter = Router();
 
 router.get("/products", async (_req, res): Promise<void> => {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
   const rows = await db
     .select()
     .from(productsTable)
