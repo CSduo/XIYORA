@@ -1,6 +1,2 @@
 User-agent: *
 Allow: /
-Disallow: /xiyora-admin
-Disallow: /admin
-
-Sitemap: https://xiyora-home.pages.dev/sitemap.xml

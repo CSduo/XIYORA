@@ -2396,217 +2396,6 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
   );
 }
 
-/* ─── SCROLL TO TOP ──────────────────────────────────────── */
-function ScrollToTop(){
-  const [v,setV]=useState(false);
-  useEffect(()=>{const h=()=>setV(window.scrollY>320);window.addEventListener("scroll",h,{passive:true});h();return()=>window.removeEventListener("scroll",h);},[]);
-  if(!v)return null;
-  return(
-    <button aria-label="Scroll to top" onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}
-      style={{position:"fixed",bottom:164,right:20,width:44,height:44,borderRadius:"50%",background:"#0F0F0D",border:"1px solid rgba(200,169,126,.4)",color:"#C8A97E",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:998,boxShadow:"0 4px 22px rgba(0,0,0,.35)",transition:"opacity .2s"}}>↑</button>
-  );
-}
-
-/* ─── MOBILE BOTTOM NAV ──────────────────────────────────── */
-function MobileBottomNav({page,onHome,onCatalog,onQuiz,onCart,cartCount}:any){
-  return(
-    <div className="mob-nav" style={{position:"fixed",bottom:0,left:0,right:0,background:"#0A0907",borderTop:"1px solid rgba(200,169,126,.18)",zIndex:200,paddingBottom:"env(safe-area-inset-bottom,0px)"}}>
-      <div style={{display:"flex",justifyContent:"space-around",alignItems:"center",padding:"6px 4px"}}>
-        {[
-          {icon:<svg width={20} height={20} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>,label:"Home",active:page==="home",fn:onHome},
-          {icon:<svg width={20} height={20} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>,label:"Products",active:page==="catalog",fn:onCatalog},
-          {icon:<svg width={20} height={20} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>,label:"Quiz",active:page==="quiz",fn:onQuiz},
-          {icon:<svg width={20} height={20} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.99-1.73l1.38-9H6"/></svg>,label:"Cart",active:page==="checkout",fn:onCart,badge:cartCount},
-        ].map(item=>(
-          <button key={item.label} onClick={item.fn} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:4,background:"none",border:"none",cursor:"pointer",padding:"6px 10px",position:"relative",minWidth:52,color:item.active?"#C8A97E":"#666",transition:"color .18s"}}>
-            {(item as any).badge>0&&<span style={{position:"absolute",top:2,right:4,background:"#C8A97E",color:"#0F0F0D",fontSize:8,fontWeight:700,borderRadius:"50%",width:13,height:13,display:"flex",alignItems:"center",justifyContent:"center"}}>{(item as any).badge}</span>}
-            {item.icon}
-            <span style={{fontSize:9,letterSpacing:"1px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif"}}>{item.label}</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ─── CROSS-SELL STRIP ───────────────────────────────────── */
-function CrossSellStrip({currentId,category,cur,wl,onWish,onOpen,onInquire}:any){
-  const C=useC();
-  const related=PRODUCTS.filter((p:any)=>p.id!==currentId&&p.category===category&&p.visible).slice(0,3);
-  if(!related.length)return null;
-  return(
-    <div style={{background:C.beige,padding:"44px 0"}}>
-      <div className="container">
-        <p style={{fontSize:10,letterSpacing:"3px",textTransform:"uppercase",color:"#888",marginBottom:6,fontWeight:500}}>You May Also Like</p>
-        <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.3rem,2vw,1.8rem)",fontWeight:400,color:C.dark,marginBottom:28}}>More in {category}</h3>
-        <div className="grid-3" style={{gap:18}}>
-          {related.map((p:any)=><PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>)}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── NATURAL LATEX ACCORDION ────────────────────────────── */
-function NaturalLatexAccordion(){
-  const C=useC();
-  const [open,setOpen]=useState<number|null>(0);
-  const items=[
-    {q:"What makes natural latex different from synthetic?",a:"Natural latex is tapped from rubber trees (Hevea brasiliensis). Synthetic latex uses petroleum-based compounds. Natural latex is biodegradable, more durable (15–25 year lifespan), naturally hypoallergenic, and has a distinctive spring-back feel that synthetic cannot replicate."},
-    {q:"Is latex safe? What about allergies?",a:"The manufacturing process (Talalay or Dunlop) removes most of the natural latex proteins responsible for allergies. OEKO-TEX® certified products are additionally tested for 100+ harmful substances. People with severe latex allergies (Type I) should consult a physician, but most users with latex sensitivity have no reaction to processed latex bedding."},
-    {q:"How long does latex last?",a:"Quality natural latex typically lasts 15–25 years — significantly longer than memory foam (5–8 years) or spring mattresses (7–10 years). Dunlop latex is slightly more durable than Talalay due to its denser structure. Our products come with full material disclosure so you know exactly what you're buying."},
-    {q:"What does ILD / density mean?",a:"ILD (Indentation Load Deflection) measures firmness — how many pounds compress the latex by 25%. Higher ILD = firmer. Typical ranges: Soft 14–24 ILD, Medium 24–34 ILD, Firm 36–44 ILD. Density (kg/m³) measures weight — higher density = more durable and more natural rubber content."},
-    {q:"Can I get custom sizes or firmness?",a:"Yes. We work directly with Bingxi factory, which means custom dimensions, custom ILD blends, and non-standard thicknesses are available for B2B and hotel orders. Contact us with your specs for a quote."},
-  ];
-  return(
-    <div>
-      {items.map((item,i)=>(
-        <div key={i} style={{borderBottom:`1px solid ${C.beige}`,overflow:"hidden"}}>
-          <button onClick={()=>setOpen(open===i?null:i)}
-            style={{width:"100%",background:"none",border:"none",cursor:"pointer",padding:"20px 0",display:"flex",justifyContent:"space-between",alignItems:"center",gap:16,fontFamily:"'Playfair Display',serif",fontSize:"clamp(15px,1.6vw,18px)",color:open===i?C.gold:C.dark,textAlign:"left",transition:"color .2s"}}>
-            <span>{item.q}</span>
-            <span style={{fontSize:20,color:C.gold,flexShrink:0,transform:open===i?"rotate(45deg)":"none",transition:"transform .25s",display:"inline-block"}}>+</span>
-          </button>
-          <div style={{maxHeight:open===i?400:0,overflow:"hidden",transition:"max-height .35s ease"}}>
-            <p style={{fontSize:14,color:"#666",lineHeight:1.85,padding:"0 0 20px",margin:0}}>{item.a}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ─── TALALAY VS DUNLOP COMPARE VIEW ─────────────────────── */
-function CompareView({onCatalog,onInquire,onQuiz}:any){
-  const C=useC();
-  const rows=[
-    ["Process","Vacuum-poured then flash-frozen","Bake-washed in open mold"],
-    ["Cell Structure","Open, consistent, uniform","Denser at base, graduated"],
-    ["Breathability","★★★★★ — excellent airflow","★★★★"],
-    ["Pressure Relief","★★★★★","★★★★"],
-    ["Support / Firmness","★★★★ — medium-range only","★★★★★ — full firmness range"],
-    ["Weight","Lighter","Heavier"],
-    ["Durability","15–20+ years","20–25+ years"],
-    ["Natural Content","80–100%","85–100%"],
-    ["Best For","Pillows, toppers, side sleepers","Mattress cores, back/stomach sleepers"],
-    ["Price Range (XIYORA)","₹2,200 – ₹18,000","₹1,600 – ₹22,000"],
-  ];
-  return(
-    <div style={{background:C.white,minHeight:"80vh"}}>
-      <div style={{background:"#0F0F0D",padding:"64px 0",textAlign:"center",position:"relative",overflow:"hidden"}}>
-        <div style={{position:"absolute",inset:0,backgroundImage:"radial-gradient(circle at 70% 30%,rgba(200,169,126,.07),transparent 55%)",pointerEvents:"none"}}/>
-        <div className="container" style={{position:"relative",zIndex:1}}>
-          <div style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:C.gold,marginBottom:14}}>Side by Side</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,4vw,3rem)",fontWeight:400,color:"#F2EDE4",lineHeight:1.1,margin:"0 0 14px"}}>Talalay <em style={{color:C.gold}}>vs</em> Dunlop</h1>
-          <p style={{color:"rgba(242,237,228,.6)",fontSize:13,maxWidth:460,margin:"0 auto",lineHeight:1.7}}>Both are natural latex. The difference is how they're made — and that changes everything about the feel.</p>
-        </div>
-      </div>
-      <div className="container" style={{padding:"52px 40px",maxWidth:900}}>
-        <div style={{background:C.white,border:`1px solid ${C.beige}`,borderRadius:5,overflow:"auto",marginBottom:32}}>
-          <div style={{display:"grid",gridTemplateColumns:"2fr 1.5fr 1.5fr",minWidth:540,background:C.dark}}>
-            {["Characteristic","Talalay","Dunlop"].map((h,i)=>(
-              <div key={h} style={{padding:"14px 18px",fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:i===0?"#666":i===1?"#C8A97E":"#999",fontWeight:600}}>{h}</div>
-            ))}
-          </div>
-          {rows.map(([prop,tal,dun],i)=>(
-            <div key={prop} style={{display:"grid",gridTemplateColumns:"2fr 1.5fr 1.5fr",minWidth:540,background:i%2===0?C.white:C.lgold,borderTop:`1px solid ${C.beige}`}}>
-              <div style={{padding:"13px 18px",fontSize:13,color:C.dark,fontWeight:500,borderRight:`1px solid ${C.beige}`}}>{prop}</div>
-              <div style={{padding:"13px 18px",fontSize:13,color:"#555",lineHeight:1.5,borderRight:`1px solid ${C.beige}`}}>{tal}</div>
-              <div style={{padding:"13px 18px",fontSize:13,color:"#555",lineHeight:1.5}}>{dun}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:28}}>
-          <div style={{padding:"22px 20px",background:C.lgold,border:`2px solid ${C.gold}`,borderRadius:4}}>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,color:C.dark,marginBottom:10}}>Choose Talalay if…</h3>
-            <ul style={{fontSize:13,color:"#666",lineHeight:2.1,paddingLeft:18,margin:0}}>
-              {["You sleep on your side","You sleep hot","You want a pillow or topper","You value pressure relief","You prefer a lighter, bouncier feel"].map(l=><li key={l}>{l}</li>)}
-            </ul>
-          </div>
-          <div style={{padding:"22px 20px",background:C.beige,border:`1px solid ${C.sand}`,borderRadius:4}}>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,color:C.dark,marginBottom:10}}>Choose Dunlop if…</h3>
-            <ul style={{fontSize:13,color:"#666",lineHeight:2.1,paddingLeft:18,margin:0}}>
-              {["You sleep on your back or stomach","You need firm support","You want a mattress core","Durability is your top priority","You prefer a denser, heavier feel"].map(l=><li key={l}>{l}</li>)}
-            </ul>
-          </div>
-        </div>
-        <div style={{textAlign:"center",padding:"28px 20px",border:`1px solid ${C.beige}`,borderRadius:4}}>
-          <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:400,color:C.dark,marginBottom:8}}>Still not sure? Take the 5-minute Sleep Quiz.</h3>
-          <p style={{color:"#888",fontSize:13,marginBottom:20,lineHeight:1.7}}>Answer 5 questions and we'll recommend the right product for your sleep style and budget.</p>
-          <div style={{display:"inline-flex",gap:10,flexWrap:"wrap",justifyContent:"center"}}>
-            <button className="bg" style={{padding:"12px 24px"}} onClick={onQuiz}>Take the Quiz →</button>
-            <button className="bo" style={{padding:"12px 24px"}} onClick={onCatalog}>Browse Products</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── SIZE GUIDE VIEW ────────────────────────────────────── */
-function SizesView({onCatalog,onInquire}:any){
-  const C=useC();
-  const MATTRESS=[
-    {name:"Single",dim:`72" × 36"`,cm:"183 × 91 cm",note:"1 person — children, guestroom"},
-    {name:"Double",dim:`72" × 48"`,cm:"183 × 122 cm",note:"Couple — standard Indian"},
-    {name:"Queen",dim:`78" × 60"`,cm:"198 × 152 cm",note:"Couple — premium comfort"},
-    {name:"King",dim:`78" × 72"`,cm:"198 × 183 cm",note:"Spacious couple bed"},
-    {name:"Diwan",dim:`72" × 42"`,cm:"183 × 107 cm",note:"Indian sofa-bed"},
-    {name:"Custom","dim":"Any",cm:"Any",note:"B2B / Hotel orders — contact us"},
-  ];
-  const PILLOW=[
-    {name:"Standard",dim:`18" × 26"`,cm:"46 × 66 cm",note:"Most common India size"},
-    {name:"Large",dim:`20" × 28"`,cm:"51 × 71 cm",note:"Hotel standard"},
-    {name:"Contour",dim:`22" × 14"`,cm:"56 × 36 cm",note:"Ergonomic neck support"},
-    {name:"Body Pillow",dim:`54" × 20"`,cm:"137 × 51 cm",note:"Full-length support"},
-  ];
-  const Row=({rows}:{rows:typeof MATTRESS})=>(
-    <div style={{border:`1px solid ${C.beige}`,borderRadius:4,overflow:"auto",marginBottom:8}}>
-      <div style={{display:"grid",gridTemplateColumns:"1.2fr 1.5fr 1.5fr 2fr",minWidth:500,background:C.dark}}>
-        {["Name","Inches","Centimetres","Use"].map(h=><div key={h} style={{padding:"11px 14px",fontSize:10,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",fontWeight:600}}>{h}</div>)}
-      </div>
-      {rows.map((r,i)=>(
-        <div key={r.name} style={{display:"grid",gridTemplateColumns:"1.2fr 1.5fr 1.5fr 2fr",minWidth:500,background:i%2===0?C.white:C.lgold,borderTop:`1px solid ${C.beige}`}}>
-          <div style={{padding:"12px 14px",fontFamily:"'Playfair Display',serif",fontSize:14,color:C.dark,fontWeight:500}}>{r.name}</div>
-          <div style={{padding:"12px 14px",fontSize:12,color:"#555",fontFamily:"monospace"}}>{r.dim}</div>
-          <div style={{padding:"12px 14px",fontSize:12,color:"#555",fontFamily:"monospace"}}>{r.cm}</div>
-          <div style={{padding:"12px 14px",fontSize:12,color:"#888",lineHeight:1.5}}>{r.note}</div>
-        </div>
-      ))}
-    </div>
-  );
-  return(
-    <div style={{background:C.white,minHeight:"80vh"}}>
-      <div style={{background:"#1a1410",padding:"64px 0",textAlign:"center"}}>
-        <div className="container">
-          <div style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:C.gold,marginBottom:14}}>Reference Guide</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,4vw,3rem)",fontWeight:400,color:"#F2EDE4",lineHeight:1.1,margin:"0 0 14px"}}>Indian <em style={{color:C.gold}}>Size Guide</em></h1>
-          <p style={{color:"rgba(242,237,228,.6)",fontSize:13,maxWidth:440,margin:"0 auto",lineHeight:1.7}}>Standard Indian mattress and pillow sizes. All products available in custom dimensions on request.</p>
-        </div>
-      </div>
-      <div className="container" style={{padding:"52px 40px",maxWidth:840}}>
-        <div style={{padding:"14px 18px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2,marginBottom:32,fontSize:13,color:"#777",lineHeight:1.7}}>
-          ✓ All standard sizes can be ordered. Custom dimensions available for B2B and hotel orders — MOQ applies.
-        </div>
-        <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:20,fontWeight:500,color:C.dark,marginBottom:14}}>Mattress Sizes</h3>
-        <Row rows={MATTRESS}/>
-        <p style={{fontSize:12,color:"#aaa",marginBottom:32,lineHeight:1.6}}>Heights available: 4", 5", 6", 7", 8" (10–20 cm). Custom heights available for latex mattresses.</p>
-        <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:20,fontWeight:500,color:C.dark,marginBottom:14}}>Pillow Sizes</h3>
-        <Row rows={PILLOW}/>
-        <p style={{fontSize:12,color:"#aaa",marginBottom:32,lineHeight:1.6}}>Custom contour shapes available for hospital, hotel, and therapeutic orders.</p>
-        <div style={{textAlign:"center",padding:"28px 20px",border:`1px solid ${C.beige}`,borderRadius:4}}>
-          <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:400,color:C.dark,marginBottom:8}}>Need a custom size?</h3>
-          <p style={{color:"#888",fontSize:13,marginBottom:20}}>We accept non-standard dimensions for B2B, hotel, and therapeutic orders.</p>
-          <div style={{display:"inline-flex",gap:10,flexWrap:"wrap",justifyContent:"center"}}>
-            <button className="bg" style={{padding:"12px 24px"}} onClick={onCatalog}>Browse Products →</button>
-            <button className="bo" style={{padding:"12px 24px"}} onClick={()=>onInquire(null,"bulk")}>Custom Size Enquiry</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* ─── RECENTLY VIEWED STRIP ──────────────────────────────── */
 function RecentlyViewedStrip({cur,wl,onWish,onOpen,onInquire}:any){
   const C=useC();
@@ -2675,7 +2464,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
 /* ─── PRODUCT DETAIL ─────────────────────────────────────── */
 const WA_ICON=<svg width={13} height={13} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>;
 
-function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckout,onCatFilter,onOpen}:any){
+function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckout,onCatFilter}:any){
   const C=useC();
   const [img,setImg]=useState(0);
   const [zoom,setZoom]=useState(false);
@@ -2932,7 +2721,6 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
           </div>
         </div>
       )}
-      <CrossSellStrip currentId={p.id} category={p.category} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>
     </div>
   );
 }
@@ -2940,14 +2728,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
 /* ─── CATALOG VIEW ───────────────────────────────────────── */
 function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire,loading}:any){
   const C=useC();
-  const [sort,setSort]=useState("default");
-  const rawFiltered=cat?PRODUCTS.filter((p:any)=>p.category===cat):PRODUCTS;
-  const filtered=[...rawFiltered].sort((a:any,b:any)=>{
-    if(sort==="price_asc"){return parsePriceNum(a.priceINR)-parsePriceNum(b.priceINR);}
-    if(sort==="price_desc"){return parsePriceNum(b.priceINR)-parsePriceNum(a.priceINR);}
-    if(sort==="name_az")return a.name.localeCompare(b.name);
-    return(a.sortOrder||0)-(b.sortOrder||0);
-  });
+  const filtered=cat?PRODUCTS.filter(p=>p.category===cat):PRODUCTS;
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
       <LuxHero
@@ -2961,30 +2742,15 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire,loading}:any){
         imageAlt="Ink-wash mountain landscape"
       />
       <div style={{borderBottom:`1px solid ${C.sand}`,position:"sticky",top:62,zIndex:10,background:`${C.white}F5`,backdropFilter:"blur(12px)"}}>
-        <div className="container" style={{display:"flex",alignItems:"center",overflowX:"auto"}}>
-          <div style={{display:"flex",flex:1,overflowX:"auto"}}>
-            {CATS.map(c=>(
-              <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:C.ink,borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
-                {c.name} <span style={{fontSize:10,color:C.sand}}>({c.name==="All Products"?PRODUCTS.length:PRODUCTS.filter((p:any)=>p.category===c.filter).length})</span>
-              </button>
-            ))}
-          </div>
-          <div style={{flexShrink:0,padding:"0 16px",display:"flex",alignItems:"center",gap:10,borderLeft:`1px solid ${C.sand}`}}>
-            <span style={{fontSize:11,color:"#aaa",whiteSpace:"nowrap"}}>Sort:</span>
-            <select value={sort} onChange={e=>setSort(e.target.value)} style={{fontSize:12,color:C.dark,background:"transparent",border:"none",cursor:"pointer",fontFamily:"'Inter',sans-serif",outline:"none",padding:"4px 0"}}>
-              <option value="default">Default</option>
-              <option value="price_asc">Price: Low → High</option>
-              <option value="price_desc">Price: High → Low</option>
-              <option value="name_az">Name A → Z</option>
-            </select>
-          </div>
+        <div className="container" style={{display:"flex",overflowX:"auto"}}>
+          {CATS.map(c=>(
+            <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:C.ink,borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
+              {c.name} <span style={{fontSize:10,color:C.sand}}>({c.name==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.category===c.filter).length})</span>
+            </button>
+          ))}
         </div>
       </div>
-      <div className="container" style={{padding:"32px 40px 44px"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
-          <span style={{fontSize:12,color:"#aaa"}}>Showing <strong style={{color:C.dark}}>{filtered.length}</strong> of <strong style={{color:C.dark}}>{PRODUCTS.length}</strong> products{cat?` in ${cat}`:""}</span>
-          {cat&&<button onClick={()=>setCat(null)} style={{fontSize:11,color:C.gold,background:"none",border:"none",cursor:"pointer",letterSpacing:".5px"}}>✕ Clear filter</button>}
-        </div>
+      <div className="container" style={{padding:"44px 40px"}}>
         {loading?(
           <div className="grid-3">
             {Array.from({length:9}).map((_,i)=>(
@@ -3293,22 +3059,6 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
       <style>{`@media(max-width:820px){.promise-2up{grid-template-columns:1fr!important}}`}</style>
       {/* PROMISE BENEFIT STRIP (dark) */}
       <DarkBenefitStrip/>
-      {/* TRUST BADGES */}
-      <section style={{background:C.white,padding:"22px 0",borderBottom:`1px solid ${C.beige}`}}>
-        <div className="container">
-          <div style={{display:"flex",justifyContent:"center",gap:"clamp(16px,3vw,48px)",flexWrap:"wrap",alignItems:"center"}}>
-            {[["🏆","OEKO-TEX® Certified","No harmful substances"],["✓","ISO 9001","Quality management"],["🔬","GTTC Lab Tested","Independent testing"],["🇮🇳","India Import Ready","GST compliant"],["🤝","Bingxi Exclusive","Direct factory pricing"]].map(([ic,t,s])=>(
-              <div key={t} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0"}}>
-                <span style={{fontSize:19,lineHeight:1,flexShrink:0}}>{ic}</span>
-                <div>
-                  <div style={{fontSize:12,fontWeight:600,color:C.dark,fontFamily:"'Inter',sans-serif",letterSpacing:".2px"}}>{t}</div>
-                  <div style={{fontSize:10,color:"#aaa",marginTop:1}}>{s}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       {/* BUYER BEST-FIT SELECTOR */}
       <BuyerBestFit onCatFilter={onCatFilter} onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
       {/* CATEGORIES */}
@@ -3368,19 +3118,6 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
                 <div style={{fontSize:11,color:C.ink,marginTop:3}}>Indicative · Quote after your city</div>
               </div>
             </Reveal>
-          </div>
-        </div>
-      </section>
-      {/* WHY NATURAL LATEX? ACCORDION */}
-      <section className="sec" style={{background:C.white}}>
-        <div className="container" style={{maxWidth:720}}>
-          <div style={{textAlign:"center",marginBottom:40}}>
-            <SL>The Science</SL>
-            <SH>Why Natural <em>Latex?</em></SH>
-          </div>
-          <NaturalLatexAccordion/>
-          <div style={{marginTop:32,textAlign:"center"}}>
-            <button className="bo" style={{padding:"12px 28px",fontSize:13}} onClick={onCatalog}>Explore Products →</button>
           </div>
         </div>
       </section>
@@ -3529,8 +3266,6 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
           <NavLink label="All Products" fn={()=>onCatalog()}/>
           <NavLink label="🛏 Sleep Quiz — Find Your Match" fn={()=>setPage("quiz")}/>
           <NavLink label="🏭 Our Source — Bingxi Factory" fn={()=>setPage("sourcing")}/>
-          <NavLink label="⚖️ Talalay vs Dunlop Guide" fn={()=>setPage("compare")}/>
-          <NavLink label="📐 Indian Size Guide" fn={()=>setPage("sizes")}/>
           <span className="sdr-section">Products</span>
           <NavLink label="Mattresses" fn={()=>onCatFilter("Mattresses")}/>
           <NavLink label="Pillows" fn={()=>onCatFilter("Pillows")}/>
@@ -4896,7 +4631,7 @@ export default function App(){
   useEffect(()=>{try{localStorage.setItem("xiyora_wishlist",JSON.stringify(wl));}catch{}},[wl]);
   useEffect(()=>{try{localStorage.setItem("xiyora_cart",JSON.stringify(cart));}catch{}},[cart]);
   useEffect(()=>{
-    const VALID=["home","catalog","checkout","account","proof","order-status","supplier","about","contact","faq","shipping","returns","privacy","terms","xiyora-admin","quiz","sourcing","compare","sizes"];
+    const VALID=["home","catalog","checkout","account","proof","order-status","supplier","about","contact","faq","shipping","returns","privacy","terms","xiyora-admin","quiz","sourcing"];
     const segs=(window.location.pathname||"/").split("/").filter(Boolean);
     const first=segs[0]||"home";
     let initPage="home";const initState:any={page:"home"};
@@ -4961,7 +4696,7 @@ export default function App(){
   const nav=(p:string)=>navigateTo(p);
 
   const renderView=()=>{
-    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")} onOpen={openProd}/>;
+    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")}/>;
     if(page==="catalog")return<CatalogView cat={activeCat} setCat={(cat:string|null)=>navigateTo("catalog",{cat})} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry} loading={productsLoading}/>;
     if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
     if(page==="account")return<AccountView setPage={nav}/>;
@@ -4971,8 +4706,6 @@ export default function App(){
     if(page==="order-status")return<OrderStatusView setPage={nav}/>;
     if(page==="quiz")return<SleepQuizView cur={cur} onOpen={openProd} onCatalog={openCatalog}/>;
     if(page==="sourcing")return<SourcingView onCatalog={openCatalog} onInquire={openInquiry}/>;
-    if(page==="compare")return<CompareView onCatalog={openCatalog} onInquire={openInquiry} onQuiz={()=>navigateTo("quiz")}/>;
-    if(page==="sizes")return<SizesView onCatalog={openCatalog} onInquire={openInquiry}/>;
     if(page==="supplier")return<SupplierView onCatalog={openCatalog} onInquire={openInquiry} setPage={nav}/>;
     if(page==="about")return<SimplePage title="About XIYORA" content={[["Our Mission","To make genuine premium natural latex comfort accessible in India — with transparent pricing, honest sourcing, and dedicated support."],["Bingxi Partnership","XIYORA is the official sourcing partner for Bingxi products in India. Bingxi is a Chinese premium latex manufacturer with a broad portfolio of Talalay, Dunlop, and hybrid latex products."],["Our Address",BIZ.address],["GST",BIZ.gstNote]]} setPage={nav}/>;
     if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={nav}/>;
@@ -5023,9 +4756,6 @@ export default function App(){
       <SubscribeModal show={showSubscribe} onClose={()=>setShowSubscribe(false)}/>
       <SearchOverlay show={showSearch} onClose={()=>setShowSearch(false)} onPickProduct={(p:any)=>{openProd(p);setShowSearch(false);}} onCatalog={openCatalog}/>
       <WhatsAppPopup page={page} context={{product:page==="product"&&selProd?selProd.name:(cart.length?cart.map(i=>i.productName).join(", "):"")}}/>
-      <ScrollToTop/>
-      <MobileBottomNav page={page} cartCount={cart.length} onHome={()=>navigateTo("home")} onCatalog={openCatalog} onQuiz={()=>navigateTo("quiz")} onCart={()=>navigateTo("checkout")}/>
-      <style>{`.mob-nav{display:none!important}@media(max-width:640px){.mob-nav{display:flex!important}}`}</style>
     </div>
     </ThemeCtx.Provider>
   );
