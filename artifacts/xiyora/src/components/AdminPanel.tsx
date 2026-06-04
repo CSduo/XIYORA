@@ -89,12 +89,30 @@ function ImageUploader({ token, slug, context, label, value, onChange }: { token
     fd.append("file", file);
     fd.append("context", context);
     fd.append("slug", slug || "misc");
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 30000);
     try {
-      const res = await fetch(`${API}/admin/upload`, { method:"POST", headers:{ Authorization:`Bearer ${token}` }, body:fd });
-      const data = await res.json();
-      if (data.success) { onChange(data.url); }
-      else setErr(data.error || "Upload failed");
-    } catch { setErr("Upload failed"); }
+      const res = await fetch(`${API}/admin/upload`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: fd,
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        let msg = "Upload failed";
+        try { msg = JSON.parse(txt).error || msg; } catch { if (txt) msg = txt.slice(0, 120); }
+        setErr(`Error ${res.status}: ${msg}`);
+      } else {
+        const data = await res.json();
+        if (data.success) { onChange(data.url); }
+        else setErr(data.error || "Upload failed");
+      }
+    } catch (e: any) {
+      clearTimeout(timer);
+      setErr(e?.name === "AbortError" ? "Upload timed out — try a smaller image" : "Network error — check connection");
+    }
     setUploading(false);
   };
 
