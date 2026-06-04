@@ -46,13 +46,8 @@ app.use(
       }
     },
     credentials: true,
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
-    exposedHeaders: ["Content-Length", "Content-Type"],
-    optionsSuccessStatus: 204,
   }),
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
