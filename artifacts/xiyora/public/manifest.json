@@ -1,0 +1,16 @@
+{
+  "name": "XIYORA — Premium Natural Latex Bedding",
+  "short_name": "XIYORA",
+  "description": "Official Bingxi sourcing partner for India. Premium natural latex pillows, mattresses, toppers and cushions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F0F0D",
+  "theme_color": "#C8A97E",
+  "orientation": "portrait-primary",
+  "categories": ["shopping", "lifestyle"],
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "screenshots": [],
+  "related_applications": []
+}
