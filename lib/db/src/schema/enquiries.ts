@@ -22,8 +22,7 @@ export const enquiriesTable = pgTable("enquiries", {
   estimatedPort: text("estimated_port"),
   estimatedPriceRange: text("estimated_price_range"),
   currency: text("currency"),
-  status: text("status").notNull().default("new"),
-  adminNotes: text("admin_notes"),
+  status: text("status").notNull().default("pending"),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),

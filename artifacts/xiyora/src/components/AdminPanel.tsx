@@ -22,7 +22,7 @@ type Product = {
   highlights?: string[]; specs?: Record<string,string>; sizes?: string[];
   useCases?: string[]; heroImage?: string; gallery?: string[];
   priceINR?: string; priceUSD?: string; priceNote?: string; deliveryNote?: string;
-  variants?: any[]; visible: boolean; sortOrder: number; stockStatus?: string;
+  variants?: any[]; visible: boolean; sortOrder: number;
 };
 
 type SiteContent = {
@@ -40,7 +40,7 @@ const EMPTY_PRODUCT: Partial<Product> = {
   tag: "", badge: "", headline: "", shortDesc: "", description: "",
   highlights: [], specs: {}, sizes: [], useCases: [],
   heroImage: "", gallery: [], priceINR: "", priceUSD: "", priceNote: "",
-  deliveryNote: "", variants: [], visible: true, sortOrder: 0, stockStatus: "in_stock",
+  deliveryNote: "", variants: [], visible: true, sortOrder: 0,
 };
 
 function Spinner({ size = 18 }: { size?: number }) {
@@ -353,10 +353,6 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
           <div>
             <Label>Badge</Label>
             <Input value={form.badge} onChange={set("badge")} placeholder="2nd-Generation Talalay" />
-          </div>
-          <div>
-            <Label>Stock Status</Label>
-            <Select value={form.stockStatus||"in_stock"} onChange={set("stockStatus")} options={[{value:"in_stock",label:"✓ In Stock"},{value:"low_stock",label:"⚠ Low Stock"},{value:"out_of_stock",label:"✗ Out of Stock"},{value:"made_to_order",label:"⏳ Made to Order"}]}/>
           </div>
           <div>
             <Label>Price INR</Label>
@@ -693,92 +689,6 @@ function SiteContentPanel({ token }: { token: string }) {
   );
 }
 
-function AnalyticsPanel({ token }: { token: string }) {
-  const [stats, setStats] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    apiFetch("/admin/analytics", {}, token).then(r => r.json()).then(d => setStats(d)).catch(() => {}).finally(() => setLoading(false));
-  }, [token]);
-  if (loading) return <div style={{ textAlign:"center", padding:40 }}><Spinner/></div>;
-  if (!stats) return <p style={{ textAlign:"center", padding:40, color:"#bbb" }}>No data available.</p>;
-  const TYPE_LABELS: Record<string,string> = { general:"General", quote:"Quote Request", proforma:"Proforma", bulk:"Bulk / B2B", docs:"Documents" };
-  const STATUS_COLORS: Record<string,string> = { new:"#3a9b6e", pending:"#C8A97E", contacted:"#4a8fc0", closed:"#888" };
-  return (
-    <div>
-      <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, color:DARK, marginBottom:24 }}>Analytics</h2>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(150px,1fr))", gap:16, marginBottom:28 }}>
-        {[
-          { label:"Total Leads", value:stats.total, color:GOLD },
-          { label:"This Month", value:stats.thisMonth, color:"#3a9b6e" },
-          { label:"Quote Requests", value:stats.byType?.quote||0, color:"#C8A97E" },
-          { label:"Bulk / B2B", value:stats.byType?.bulk||0, color:"#7B8F7E" },
-        ].map(s => (
-          <div key={s.label} style={{ padding:"18px 16px", background:"#fff", border:`1px solid ${BEIGE}`, borderRadius:4, borderTop:`3px solid ${s.color}` }}>
-            <div style={{ fontSize:26, fontFamily:"'Playfair Display',serif", fontWeight:600, color:DARK, marginBottom:4 }}>{s.value}</div>
-            <div style={{ fontSize:10, color:"#888", textTransform:"uppercase", letterSpacing:"1px" }}>{s.label}</div>
-          </div>
-        ))}
-      </div>
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:20, marginBottom:24 }}>
-        <div style={{ background:"#fff", border:`1px solid ${BEIGE}`, borderRadius:4, padding:"20px" }}>
-          <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:16, color:DARK, marginBottom:16 }}>Leads by Type</h3>
-          {Object.entries(stats.byType||{}).length ? Object.entries(stats.byType||{}).map(([type, count]: any) => {
-            const pct = stats.total ? Math.round((count/stats.total)*100) : 0;
-            return (
-              <div key={type} style={{ marginBottom:12 }}>
-                <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4, fontSize:12 }}>
-                  <span style={{ color:DARK }}>{TYPE_LABELS[type]||type}</span>
-                  <span style={{ color:GOLD, fontWeight:600 }}>{count} ({pct}%)</span>
-                </div>
-                <div style={{ height:4, background:BEIGE, borderRadius:2, overflow:"hidden" }}>
-                  <div style={{ width:`${pct}%`, height:"100%", background:GOLD, borderRadius:2 }}/>
-                </div>
-              </div>
-            );
-          }) : <p style={{ color:"#bbb", fontSize:12 }}>No data yet.</p>}
-        </div>
-        <div style={{ background:"#fff", border:`1px solid ${BEIGE}`, borderRadius:4, padding:"20px" }}>
-          <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:16, color:DARK, marginBottom:16 }}>Top Products by Enquiry</h3>
-          {stats.topProducts?.length ? stats.topProducts.map((p: any, i: number) => (
-            <div key={p.name} style={{ display:"flex", alignItems:"center", gap:10, marginBottom:10, padding:"6px 0", borderBottom:`1px solid ${BEIGE}` }}>
-              <span style={{ fontSize:13, fontFamily:"'Playfair Display',serif", fontWeight:600, color:GOLD, width:18, flexShrink:0 }}>#{i+1}</span>
-              <div style={{ flex:1, fontSize:12, color:DARK, lineHeight:1.3 }}>{p.name}</div>
-              <span style={{ fontSize:10, background:BEIGE, padding:"2px 7px", borderRadius:8, color:"#666", fontWeight:600 }}>{p.count}</span>
-            </div>
-          )) : <p style={{ color:"#bbb", fontSize:12 }}>No enquiries yet.</p>}
-        </div>
-      </div>
-      <div style={{ background:"#fff", border:`1px solid ${BEIGE}`, borderRadius:4, padding:"20px", marginBottom:24 }}>
-        <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:16, color:DARK, marginBottom:14 }}>Lead Status Breakdown</h3>
-        <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
-          {Object.entries(stats.byStatus||{}).map(([status, count]: any) => (
-            <div key={status} style={{ display:"flex", alignItems:"center", gap:8, padding:"8px 14px", background:BEIGE, borderRadius:20 }}>
-              <span style={{ width:8, height:8, borderRadius:"50%", background:STATUS_COLORS[status]||"#aaa", display:"inline-block" }}/>
-              <span style={{ fontSize:12, color:DARK, textTransform:"capitalize" }}>{status}</span>
-              <span style={{ fontSize:12, fontWeight:600, color:GOLD }}>{count}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      {stats.trend&&stats.trend.length>0&&(
-        <div style={{ background:"#fff", border:`1px solid ${BEIGE}`, borderRadius:4, padding:"20px" }}>
-          <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:16, color:DARK, marginBottom:16 }}>Last 30 Days</h3>
-          <div style={{ display:"flex", alignItems:"flex-end", gap:2, height:72 }}>
-            {stats.trend.map((d: any) => {
-              const max=Math.max(...stats.trend.map((x: any) => x.count),1);
-              const h=Math.max(3,Math.round((d.count/max)*64));
-              return <div key={d.date} title={`${d.date}: ${d.count}`} style={{ flex:1, height:h, background:d.count>0?GOLD:BEIGE, borderRadius:"2px 2px 0 0", minWidth:2 }}/>;
-            })}
-          </div>
-          <div style={{ display:"flex", justifyContent:"space-between", marginTop:6, fontSize:9, color:"#bbb" }}>
-            <span>30 days ago</span><span>Today</span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 function LeadsPanel({ token }: { token: string }) {
   const [tab, setTab] = useState<"enquiries"|"subscriptions"|"quotes"|"checkouts">("enquiries");
   const [data, setData] = useState<any[]>([]);
@@ -892,7 +802,7 @@ export default function AdminPanel() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginErr, setLoginErr] = useState("");
   const [lastStatus, setLastStatus] = useState<number>(0);
-  const [section, setSection] = useState<"products"|"site"|"leads"|"analytics">("products");
+  const [section, setSection] = useState<"products"|"site"|"leads">("products");
 
   const logout = () => {
     try { localStorage.removeItem(TOKEN_KEY); } catch {}
@@ -954,7 +864,6 @@ export default function AdminPanel() {
     { key:"products", label:"Products", icon:"📦" },
     { key:"site", label:"Site Content", icon:"🖼" },
     { key:"leads", label:"Leads", icon:"📋" },
-    { key:"analytics", label:"Analytics", icon:"📊" },
   ] as const;
 
   return (
@@ -993,7 +902,7 @@ export default function AdminPanel() {
               <div>
                 <div>{n.label}</div>
                 <div style={{ fontSize:10, color:section===n.key?"#aaa":"#bbb", marginTop:1 }}>
-                  {n.key==="products"?"Manage listings":n.key==="site"?"Homepage & images":n.key==="analytics"?"Stats & insights":"Enquiries & leads"}
+                  {n.key==="products"?"Manage listings":n.key==="site"?"Homepage & images":"Enquiries & leads"}
                 </div>
               </div>
             </button>
@@ -1003,7 +912,6 @@ export default function AdminPanel() {
           {section==="products" && <ProductsPanel token={token} />}
           {section==="site" && <SiteContentPanel token={token} />}
           {section==="leads" && <LeadsPanel token={token} />}
-          {section==="analytics" && <AnalyticsPanel token={token} />}
         </main>
       </div>
     </div>

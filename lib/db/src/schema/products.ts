@@ -27,7 +27,6 @@ export const productsTable = pgTable("products", {
   variants: jsonb("variants").$type<Array<{label:string;sku?:string;priceINR:string;priceUSD:string}>>().default([]),
   visible: boolean("visible").notNull().default(true),
   sortOrder: integer("sort_order").notNull().default(0),
-  stockStatus: text("stock_status").notNull().default("in_stock"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });

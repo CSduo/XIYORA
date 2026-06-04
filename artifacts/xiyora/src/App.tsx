@@ -882,9 +882,6 @@ const lookupPincode = (pin:string) => {
   if(p.length!==6||!/^\d+$/.test(p))return null;
   return PINCODE_ZONES[p.slice(0,3)]||{zone:"B",port:"Nearest Available Port",days:"4–10"};
 };
-const RV_KEY="xiyora_rv";
-const getRV=():string[]=>{try{return JSON.parse(sessionStorage.getItem(RV_KEY)||"[]");}catch{return[];}};
-const addRV=(id:string)=>{try{const rv=[id,...getRV().filter(x=>x!==id)].slice(0,6);sessionStorage.setItem(RV_KEY,JSON.stringify(rv));}catch{}};
 
 const C={white:"#F6F3EB",beige:"#E5DFCD",gold:"#C8A97E",dark:"#1E1E1C",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141210",ink:"#4A4B46",seal:"#9E3B2E",taupe:"#BFA295"};
 const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#C8A97E",dark:"#F2EDE4",sand:"#2C2825",lgold:"#1C1916",char:"#080706",ink:"#9AA09A",seal:"#C25B4A",taupe:"#9C8B7E"};
@@ -2396,28 +2393,6 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
   );
 }
 
-/* ─── RECENTLY VIEWED STRIP ──────────────────────────────── */
-function RecentlyViewedStrip({cur,wl,onWish,onOpen,onInquire}:any){
-  const C=useC();
-  const [rvProds,setRvProds]=useState<any[]>([]);
-  useEffect(()=>{
-    const ids=getRV();
-    const prods=ids.map((id:string)=>PRODUCTS.find((prod:any)=>String(prod.id)===id)).filter(Boolean);
-    setRvProds(prods);
-  },[]);
-  if(!rvProds.length)return null;
-  return(
-    <div style={{marginTop:48,paddingTop:36,borderTop:`1px solid ${C.beige}`}}>
-      <p style={{fontSize:10,letterSpacing:"2.5px",textTransform:"uppercase",color:"#aaa",marginBottom:18,fontWeight:500}}>Recently Viewed</p>
-      <div className="grid-3" style={{gap:16}}>
-        {rvProds.slice(0,3).map((p:any)=>(
-          <PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /* ─── PRODUCT CARD ───────────────────────────────────────── */
 function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   const C=useC();
@@ -2429,13 +2404,6 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
         <div style={{position:"absolute",top:10,left:10}}>
           <Tag>{p.tag}</Tag>
         </div>
-        {p.stockStatus&&p.stockStatus!=="in_stock"&&(
-          <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"5px 10px",background:p.stockStatus==="out_of_stock"?"rgba(90,15,15,.88)":p.stockStatus==="made_to_order"?"rgba(30,70,50,.88)":"rgba(110,70,0,.88)"}}>
-            <span style={{fontSize:9,letterSpacing:"1.5px",textTransform:"uppercase",color:"#fff",fontWeight:500}}>
-              {p.stockStatus==="out_of_stock"?"Out of Stock":p.stockStatus==="low_stock"?"Low Stock":"Made to Order"}
-            </span>
-          </div>
-        )}
         <button style={{position:"absolute",top:10,right:10,background:"rgba(248,246,242,.92)",border:"none",width:34,height:34,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all .2s"}}
           onClick={e=>{e.stopPropagation();onWish(p.id);}}>
           <svg width={15} height={15} fill={wl.includes(p.id)?C.gold:"none"} stroke={wl.includes(p.id)?C.gold:"#999"} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -2445,10 +2413,6 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
         <div style={{fontSize:10,letterSpacing:"1.8px",textTransform:"uppercase",color:C.gold,marginBottom:5,fontWeight:500}}>{p.latexType} · {p.category}</div>
         <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
         <p style={{fontSize:12.5,color:"#aaa",marginBottom:14,lineHeight:1.55,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
-        {p.sizes&&p.sizes.length>0&&<div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:10}}>
-          {(p.sizes as string[]).slice(0,3).map((s:string)=><span key={s} style={{fontSize:10,padding:"3px 8px",border:`1px solid ${C.sand}`,borderRadius:2,color:"#888"}}>{s}</span>)}
-          {p.sizes.length>3&&<span style={{fontSize:10,color:C.gold}}>+{p.sizes.length-3} more</span>}
-        </div>}
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:12,borderTop:`1px solid ${C.sand}`}}>
           <div>
             <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
@@ -2666,13 +2630,12 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
               <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"quote")}>Get Quote</button>
               <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"proforma")}>Proforma</button>
             </div>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:18}}>
-              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 6px",fontFamily:"'Inter',sans-serif",fontSize:10,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:4}}
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18}}>
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I'm interested in the ${p.name}${activeVar?` (${activeVar.label})`:""}. Can you share the landed price for my city?`),"_blank")}>
                 {WA_ICON}WhatsApp
               </button>
-              <button className="bo" style={{padding:"11px 6px",fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",gap:4}} onClick={async()=>{const url=`${window.location.origin}/product/${p.id}`;try{if((navigator as any).share){await(navigator as any).share({title:p.name,text:p.shortDesc||p.name,url});}else{await navigator.clipboard.writeText(url);}}catch{}}}>🔗 Share</button>
-              <button className="bo" style={{padding:"11px 6px",fontSize:10}} onClick={()=>onInquire(p,"bulk")}>Bulk / B2B</button>
+              <button className="bo" style={{padding:"11px 8px",fontSize:11}} onClick={()=>onInquire(p,"bulk")}>Bulk / B2B</button>
             </div>
             {/* Delivery */}
             <div style={{padding:"12px 14px",background:C.beige,borderRadius:3,marginBottom:20,display:"flex",gap:10,alignItems:"flex-start"}}>
@@ -2770,164 +2733,6 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire,loading}:any){
         )}
         <div style={{marginTop:44,padding:"16px 20px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2}}>
           <p style={{fontSize:13,color:"#888",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> Indicative prices include estimated import costs. Shipping, customs, IGST, and local delivery confirmed in your final quote. {BIZ.gstNote}</p>
-        </div>
-        <RecentlyViewedStrip cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>
-      </div>
-    </div>
-  );
-}
-
-/* ─── SLEEP QUIZ VIEW ────────────────────────────────────── */
-const QUIZ_Qs=[
-  {id:"use",q:"What are you shopping for?",icon:"🛏️",opts:[{l:"A Pillow",v:"Pillows"},{l:"A Mattress",v:"Mattresses"},{l:"A Topper",v:"Toppers"},{l:"A Cushion",v:"Cushions"},{l:"Not sure yet",v:"any"}]},
-  {id:"position",q:"How do you usually sleep?",icon:"💤",opts:[{l:"On my side",v:"side"},{l:"On my back",v:"back"},{l:"On my stomach",v:"stomach"},{l:"I change positions",v:"mixed"}]},
-  {id:"pain",q:"Do you have back or neck pain?",icon:"💆",opts:[{l:"Yes, often",v:"yes"},{l:"Sometimes",v:"sometimes"},{l:"Rarely / No",v:"no"}]},
-  {id:"temp",q:"Do you sleep hot?",icon:"🌡️",opts:[{l:"I get hot easily",v:"hot"},{l:"I sleep cool",v:"cool"},{l:"Varies by season",v:"varies"}]},
-  {id:"budget",q:"What's your rough budget?",icon:"💰",opts:[{l:"Under ₹2,000",v:"low"},{l:"₹2,000–₹8,000",v:"mid"},{l:"₹8,000–₹25,000",v:"high"},{l:"₹25,000+",v:"premium"}]},
-];
-function scoreProds(ans:Record<string,string>):any[]{
-  const scored=PRODUCTS.filter(p=>p.visible).map(p=>{
-    let s=10;
-    const cat=ans.use;
-    if(cat&&cat!=="any"&&p.category!==cat)s-=200;
-    if(ans.position==="side"&&p.latexType==="Talalay")s+=14;
-    if((ans.position==="back"||ans.position==="stomach")&&p.latexType==="Dunlop")s+=12;
-    if(ans.pain==="yes"&&p.latexType==="Talalay")s+=10;
-    if(ans.temp==="hot"&&p.latexType==="Talalay")s+=8;
-    if(p.badge)s+=3;
-    return{...p,_score:s};
-  });
-  return scored.filter((p:any)=>p._score>-50).sort((a:any,b:any)=>b._score-a._score).slice(0,3);
-}
-function SleepQuizView({cur,onOpen,onCatalog}:any){
-  const C=useC();
-  const [step,setStep]=useState(0);
-  const [ans,setAns]=useState<Record<string,string>>({});
-  const [recs,setRecs]=useState<any[]|null>(null);
-  const q=QUIZ_Qs[step];
-  const pick=(v:string)=>{const next={...ans,[q.id]:v};setAns(next);if(step<QUIZ_Qs.length-1)setStep(s=>s+1);else setRecs(scoreProds(next));};
-  const reset=()=>{setStep(0);setAns({});setRecs(null);};
-  return(
-    <div style={{background:C.white,minHeight:"80vh"}}>
-      <div style={{background:"#0F0F0D",padding:"60px 0 64px",textAlign:"center",position:"relative",overflow:"hidden"}}>
-        <div style={{position:"absolute",inset:0,backgroundImage:"radial-gradient(circle at 30% 50%,rgba(200,169,126,.08),transparent 60%)",pointerEvents:"none"}}/>
-        <div className="container" style={{position:"relative",zIndex:1}}>
-          <div style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:C.gold,marginBottom:14}}>Find Your Perfect Match</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,4vw,3rem)",fontWeight:400,color:"#F2EDE4",lineHeight:1.1,margin:"0 0 14px"}}>Sleep <em style={{color:C.gold}}>Quiz</em></h1>
-          <p style={{color:"rgba(242,237,228,.6)",fontSize:13,maxWidth:400,margin:"0 auto",lineHeight:1.7}}>5 quick questions — we'll find the right latex product for your sleep style.</p>
-        </div>
-      </div>
-      <div className="container" style={{maxWidth:620,padding:"48px 20px"}}>
-        {recs===null?(
-          <>
-            <div style={{display:"flex",gap:5,marginBottom:36}}>
-              {QUIZ_Qs.map((_,i)=><div key={i} style={{flex:1,height:3,borderRadius:2,background:i<=step?C.gold:C.beige,transition:"background .3s"}}/>)}
-            </div>
-            <div style={{textAlign:"center",marginBottom:32}}>
-              <div style={{fontSize:30,marginBottom:10}}>{q.icon}</div>
-              <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:C.gold,marginBottom:8}}>Question {step+1} of {QUIZ_Qs.length}</p>
-              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.4rem,2.5vw,2rem)",fontWeight:400,color:C.dark,lineHeight:1.2}}>{q.q}</h2>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",gap:10}}>
-              {q.opts.map(o=>(
-                <button key={o.v} onClick={()=>pick(o.v)}
-                  style={{padding:"15px 20px",borderRadius:4,border:`2px solid ${C.beige}`,background:"transparent",cursor:"pointer",fontFamily:"'Inter',sans-serif",fontSize:14,color:C.dark,textAlign:"left",transition:"all .18s",display:"flex",justifyContent:"space-between",alignItems:"center"}}
-                  onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.background=C.lgold;}}
-                  onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.beige;e.currentTarget.style.background="transparent";}}>
-                  <span>{o.l}</span><span style={{color:C.gold}}>→</span>
-                </button>
-              ))}
-            </div>
-            {step>0&&<button onClick={()=>setStep(s=>s-1)} style={{marginTop:20,background:"none",border:"none",cursor:"pointer",color:"#aaa",fontSize:13,fontFamily:"'Inter',sans-serif"}}>← Back</button>}
-          </>
-        ):(
-          <div>
-            <div style={{textAlign:"center",marginBottom:32}}>
-              <div style={{fontSize:32,marginBottom:10}}>✨</div>
-              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.6rem,3vw,2.2rem)",fontWeight:400,color:C.dark,marginBottom:8}}>Your Perfect Matches</h2>
-              <p style={{color:"#888",fontSize:13,lineHeight:1.7}}>Based on your sleep profile — our top picks for you.</p>
-            </div>
-            {recs.length>0?(
-              <div style={{display:"flex",flexDirection:"column",gap:14,marginBottom:28}}>
-                {recs.map((p:any,i:number)=>(
-                  <div key={p.id} onClick={()=>onOpen(p)} style={{display:"flex",gap:14,padding:14,border:`2px solid ${i===0?C.gold:C.beige}`,borderRadius:5,background:i===0?C.lgold:C.white,cursor:"pointer",position:"relative",overflow:"hidden"}}>
-                    {i===0&&<div style={{position:"absolute",top:0,right:0,background:C.gold,color:"#fff",fontSize:9,letterSpacing:"1.5px",padding:"4px 10px",textTransform:"uppercase",fontWeight:600}}>Best Match</div>}
-                    <img src={p.heroImage||FALLBACK_IMG} alt={p.name} style={{width:76,height:76,objectFit:"cover",borderRadius:3,flexShrink:0}}/>
-                    <div style={{flex:1,minWidth:0}}>
-                      <div style={{fontSize:10,letterSpacing:"1.5px",textTransform:"uppercase",color:C.gold,marginBottom:3}}>{p.latexType} · {p.category}</div>
-                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:16,color:C.dark,fontWeight:500,marginBottom:3}}>{p.name}</div>
-                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:15,color:C.gold,fontWeight:600}}>{priceIn(cur,p.priceINR)}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ):(
-              <p style={{textAlign:"center",color:"#888",padding:"24px 0"}}>No close match found — <button onClick={onCatalog} style={{color:C.gold,background:"none",border:"none",cursor:"pointer",fontSize:14}}>browse all products →</button></p>
-            )}
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-              <button onClick={reset} className="bo" style={{padding:"13px"}}>Retake Quiz</button>
-              <button onClick={onCatalog} className="bg" style={{padding:"13px"}}>Browse All →</button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* ─── OUR SOURCE / FACTORY VIEW ──────────────────────────── */
-function SourcingView({onCatalog,onInquire}:any){
-  const C=useC();
-  return(
-    <div style={{background:C.white,minHeight:"100vh"}}>
-      <div style={{background:"#1a1410",padding:"72px 0 64px",position:"relative",overflow:"hidden"}}>
-        <div style={{position:"absolute",inset:0,backgroundImage:"radial-gradient(circle at 60% 40%,rgba(200,169,126,.06),transparent 55%)",pointerEvents:"none"}}/>
-        <div className="container" style={{position:"relative",zIndex:1,textAlign:"center"}}>
-          <div style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:C.gold,marginBottom:14}}>Transparency First</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.2rem,4vw,3.4rem)",fontWeight:400,color:"#F2EDE4",lineHeight:1.1,margin:"0 0 18px"}}>Where Our Latex <em style={{color:C.gold}}>Comes From</em></h1>
-          <p style={{color:"rgba(242,237,228,.65)",fontSize:14,maxWidth:520,margin:"0 auto 28px",lineHeight:1.8}}>Every XIYORA product is sourced directly from Bingxi — a certified latex specialist in China — with full documentation available on request.</p>
-          <div style={{display:"inline-flex",gap:16,flexWrap:"wrap",justifyContent:"center"}}>
-            {["OEKO-TEX® Certified","ISO 9001 Verified","GTTC Lab Tested"].map(c=>(
-              <span key={c} style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:C.gold,border:`1px solid rgba(200,169,126,.35)`,padding:"6px 14px",borderRadius:2}}>{c}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="container" style={{padding:"60px 40px",maxWidth:820}}>
-        <div style={{marginBottom:52}}>
-          <p style={{fontSize:10,letterSpacing:"3px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>Our Partner</p>
-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.5rem,2.8vw,2.2rem)",fontWeight:400,color:C.dark,marginBottom:18,lineHeight:1.2}}>Bingxi — China's Premium Latex Specialist</h2>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:24}}>
-            <p style={{fontSize:14.5,color:"#555",lineHeight:1.9,margin:0}}>Bingxi is a dedicated natural latex manufacturer with over a decade of experience producing Talalay, Dunlop, and hybrid latex products for international markets. Their factory holds multiple international certifications and serves buyers in 30+ countries.</p>
-            <p style={{fontSize:14.5,color:"#555",lineHeight:1.9,margin:0}}>XIYORA is Bingxi's exclusive sourcing partner for India — meaning you get factory-direct pricing, real-time stock access, and complete documentation that independent distributors simply cannot provide.</p>
-          </div>
-        </div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:20,marginBottom:52}}>
-          {[
-            {t:"Talalay Process",b:"Vacuum-poured latex for consistent cell structure, superior breathability, and precise firmness control across every batch."},
-            {t:"Dunlop Process",b:"Traditional bake-wash method — denser, firmer latex ideal for support layers, mattresses, and high-durability applications."},
-            {t:"Natural Rubber",b:"Products range from 80–100% natural rubber content. Lab reports confirm content — no synthetic fillers without disclosure."},
-            {t:"QC at Source",b:"Every batch is tested at the factory before shipment. We receive and share lab reports with serious buyers on request."},
-          ].map(p=>(
-            <div key={p.t} style={{padding:"22px 18px",border:`1px solid ${C.beige}`,borderRadius:4,background:C.lgold}}>
-              <div style={{width:3,height:18,background:C.gold,marginBottom:10,borderRadius:1}}/>
-              <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:15.5,fontWeight:500,color:C.dark,marginBottom:8}}>{p.t}</h3>
-              <p style={{fontSize:13,color:"#666",lineHeight:1.75,margin:0}}>{p.b}</p>
-            </div>
-          ))}
-        </div>
-        <div style={{padding:"30px 34px",background:"#0F0F0D",borderRadius:5,marginBottom:48}}>
-          <p style={{fontSize:10,letterSpacing:"3px",textTransform:"uppercase",color:C.gold,marginBottom:14}}>Why Import from China?</p>
-          <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.2rem,2vw,1.7rem)",fontWeight:400,color:"#F2EDE4",marginBottom:14,lineHeight:1.2}}>Honest answer: China leads the world in latex processing technology.</h3>
-          <p style={{fontSize:13.5,color:"rgba(242,237,228,.7)",lineHeight:1.85,margin:0}}>Southeast Asia grows the rubber. China perfects the processing. Bingxi has invested in Talalay vacuum technology, precision density tooling, and batch consistency that most Indian manufacturers cannot match at any price point. We import with full customs documentation, IGST compliance, and buyer-accessible lab reports — there is no mystery in this supply chain.</p>
-        </div>
-        <div style={{textAlign:"center",padding:"32px 20px",border:`1px solid ${C.beige}`,borderRadius:5}}>
-          <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.2rem,2vw,1.7rem)",fontWeight:400,color:C.dark,marginBottom:10}}>Want to See the Documents?</h3>
-          <p style={{color:"#888",fontSize:13,marginBottom:22,lineHeight:1.7}}>We share OEKO-TEX certificates, ISO 9001 documents, and GTTC lab reports with serious buyers on request.</p>
-          <div style={{display:"inline-flex",gap:10,flexWrap:"wrap",justifyContent:"center"}}>
-            <button className="bg" style={{padding:"13px 26px"}} onClick={()=>onInquire(null,"general")}>Request Documents</button>
-            <button className="bo" style={{padding:"13px 26px"}} onClick={onCatalog}>Browse Products →</button>
-          </div>
         </div>
       </div>
     </div>
@@ -3264,8 +3069,6 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
           <span className="sdr-section">Navigation</span>
           <NavLink label="Home" fn={()=>setPage("home")}/>
           <NavLink label="All Products" fn={()=>onCatalog()}/>
-          <NavLink label="🛏 Sleep Quiz — Find Your Match" fn={()=>setPage("quiz")}/>
-          <NavLink label="🏭 Our Source — Bingxi Factory" fn={()=>setPage("sourcing")}/>
           <span className="sdr-section">Products</span>
           <NavLink label="Mattresses" fn={()=>onCatFilter("Mattresses")}/>
           <NavLink label="Pillows" fn={()=>onCatFilter("Pillows")}/>
@@ -4631,7 +4434,7 @@ export default function App(){
   useEffect(()=>{try{localStorage.setItem("xiyora_wishlist",JSON.stringify(wl));}catch{}},[wl]);
   useEffect(()=>{try{localStorage.setItem("xiyora_cart",JSON.stringify(cart));}catch{}},[cart]);
   useEffect(()=>{
-    const VALID=["home","catalog","checkout","account","proof","order-status","supplier","about","contact","faq","shipping","returns","privacy","terms","xiyora-admin","quiz","sourcing"];
+    const VALID=["home","catalog","checkout","account","proof","order-status","supplier","about","contact","faq","shipping","returns","privacy","terms","xiyora-admin"];
     const segs=(window.location.pathname||"/").split("/").filter(Boolean);
     const first=segs[0]||"home";
     let initPage="home";const initState:any={page:"home"};
@@ -4683,7 +4486,6 @@ export default function App(){
     // can restore exactly where the user was in the catalog.
     const cur=window.history.state;
     if(cur)window.history.replaceState({...cur,scrollY:Math.round(window.scrollY)},"");
-    addRV(String(p.id));
     navigateTo("product",{prod:p});
   };
   const openCatalog=()=>navigateTo("catalog",{cat:null});
@@ -4704,8 +4506,6 @@ export default function App(){
     if(page==="xiyora-admin")return<AdminPanel/>;
     if(page==="proof")return<ProofLibraryView setPage={nav}/>;
     if(page==="order-status")return<OrderStatusView setPage={nav}/>;
-    if(page==="quiz")return<SleepQuizView cur={cur} onOpen={openProd} onCatalog={openCatalog}/>;
-    if(page==="sourcing")return<SourcingView onCatalog={openCatalog} onInquire={openInquiry}/>;
     if(page==="supplier")return<SupplierView onCatalog={openCatalog} onInquire={openInquiry} setPage={nav}/>;
     if(page==="about")return<SimplePage title="About XIYORA" content={[["Our Mission","To make genuine premium natural latex comfort accessible in India — with transparent pricing, honest sourcing, and dedicated support."],["Bingxi Partnership","XIYORA is the official sourcing partner for Bingxi products in India. Bingxi is a Chinese premium latex manufacturer with a broad portfolio of Talalay, Dunlop, and hybrid latex products."],["Our Address",BIZ.address],["GST",BIZ.gstNote]]} setPage={nav}/>;
     if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={nav}/>;
