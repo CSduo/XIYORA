@@ -3,28 +3,8 @@
   "version": 2,
 
   "installCommand": "npm install -g pnpm@9 && pnpm install --no-frozen-lockfile",
-
-  "builds": [
-    {
-      "src": "artifacts/xiyora/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "pnpm --filter @workspace/xiyora run build",
-        "distDir": "dist/public"
-      }
-    },
-    {
-      "src": "api/server.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "artifacts/api-server/src/**",
-          "lib/**",
-          "node_modules/**"
-        ]
-      }
-    }
-  ],
+  "buildCommand": "pnpm --filter @workspace/xiyora run build",
+  "outputDirectory": "artifacts/xiyora/dist/public",
 
   "rewrites": [
     {
