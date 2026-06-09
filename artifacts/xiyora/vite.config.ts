@@ -9,13 +9,14 @@ export default defineConfig(async ({ command }) => {
 
   // PORT is only needed for the dev/preview server — not during `vite build`
   const rawPort = process.env.PORT;
+  // Only enforce PORT during serve (dev/preview), never during build (Vercel, CI, etc.)
   if (isServe && !rawPort) {
     throw new Error(
       "PORT environment variable is required but was not provided.",
     );
   }
   const port = rawPort ? Number(rawPort) : 3000;
-  if (isServe && (Number.isNaN(port) || port <= 0)) {
+  if (isServe && rawPort && (Number.isNaN(port) || port <= 0)) {
     throw new Error(`Invalid PORT value: "${rawPort}"`);
   }
 
