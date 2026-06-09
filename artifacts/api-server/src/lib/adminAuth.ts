@@ -1,10 +1,17 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 function getJwtSecret(): string {
   const secret = process.env.ADMIN_SECRET;
   if (!secret) throw new Error("ADMIN_SECRET environment variable is not set.");
   return secret;
+}
+
+export function timingSafeCompare(a: string, b: string): boolean {
+  const aHash = crypto.createHash("sha256").update(a).digest();
+  const bHash = crypto.createHash("sha256").update(b).digest();
+  return crypto.timingSafeEqual(aHash, bHash);
 }
 
 export function requireAdmin(
@@ -14,7 +21,7 @@ export function requireAdmin(
 ): void {
   const expected = process.env.ADMIN_SECRET;
   const provided = req.header("x-admin-secret");
-  if (expected && provided && provided === expected) {
+  if (expected && provided && timingSafeCompare(provided, expected)) {
     next();
     return;
   }

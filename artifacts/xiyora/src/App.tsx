@@ -1942,7 +1942,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
           </div>
           {/* RIGHT — photo */}
           <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:540,overflow:"hidden"}}>
-            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":(BIZ.heroImage||"/assets/lux/hero-bedroom.webp")} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":(BIZ.heroImage||imageManifest.categories.heroNew)} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
             {/* corner-only gold hairline frame — no motifs over the room photo (guardrail) */}
@@ -2657,7 +2657,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   const discInfo = getFakeDiscountInfo(p.id, p.priceINR, cur);
 
   return(
-    <div className="pc-luxe" onClick={()=>onOpen(p)}>
+    <div className="pc-luxe glass-card" onClick={()=>onOpen(p)}>
       <div style={{position:"relative",overflow:"hidden",height:240}}>
         <img src={imgErr?FALLBACK_IMG:(p.heroImage||p.gallery?.[0]||FALLBACK_IMG)} alt={p.name} className="pi" loading="lazy" decoding="async" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#1a1814":undefined,padding:p.category==="Latex Material"?"8px":undefined}}/>
         <div style={{position:"absolute",top:10,left:10,display:"flex",flexDirection:"column",gap:6,zIndex:5}}>
@@ -2708,11 +2708,70 @@ function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose
     onClose();
   };
 
+  const detectByIP = async () => {
+    setGeoLoading(true);
+    setGeoMsg("Detecting location via IP...");
+    try {
+      const res = await fetch("https://ipapi.co/json/");
+      if (!res.ok) throw new Error("ipapi failed");
+      const data = await res.json();
+      const stateVal = data.region || "";
+      const cityVal = data.city || "";
+      const pincodeVal = (data.postal || "").replace(/\D/g, "").slice(0, 6);
+      
+      if (stateVal) {
+        const matchedState = INDIAN_STATES.find((s: string) => s.toLowerCase() === stateVal.toLowerCase() || stateVal.toLowerCase().includes(s.toLowerCase()));
+        if (matchedState) setState(matchedState);
+        else setState(stateVal);
+      }
+      if (cityVal) setCity(cityVal);
+      if (pincodeVal && /^\d{6}$/.test(pincodeVal)) {
+        setPincode(pincodeVal);
+        setGeoMsg("Location detected via IP!");
+      } else {
+        setGeoMsg("State and City detected via IP. Please enter pincode.");
+      }
+    } catch (err) {
+      console.warn("IP Geolocation via ipapi failed, trying backup...", err);
+      try {
+        const res2 = await fetch("https://ip-api.com/json/");
+        const data2 = await res2.json();
+        if (data2.status === "success") {
+          const stateVal = data2.regionName || "";
+          const cityVal = data2.city || "";
+          const pincodeVal = (data2.zip || "").replace(/\D/g, "").slice(0, 6);
+          
+          if (stateVal) {
+            const matchedState = INDIAN_STATES.find((s: string) => s.toLowerCase() === stateVal.toLowerCase() || stateVal.toLowerCase().includes(s.toLowerCase()));
+            if (matchedState) setState(matchedState);
+            else setState(stateVal);
+          }
+          if (cityVal) setCity(cityVal);
+          if (pincodeVal && /^\d{6}$/.test(pincodeVal)) {
+            setPincode(pincodeVal);
+            setGeoMsg("Location detected via IP!");
+          } else {
+            setGeoMsg("Location detected via IP. Please enter pincode.");
+          }
+        } else {
+          setGeoMsg("Could not detect location. Please enter manually.");
+        }
+      } catch {
+        setGeoMsg("Could not detect location. Please enter manually.");
+      }
+    }
+    setGeoLoading(false);
+  };
+
   const detect = () => {
-    if (!navigator.geolocation) { setGeoMsg("Geolocation is not supported by your browser."); return; }
+    if (!navigator.geolocation) {
+      detectByIP();
+      return;
+    }
     setGeoLoading(true); setGeoMsg("");
     navigator.geolocation.getCurrentPosition(
       async pos => {
+        let success = false;
         try {
           const r = await fetch(`${API_BASE}/location/reverse?lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`);
           const data = await r.json();
@@ -2722,22 +2781,45 @@ function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose
             if (data.pincode && /^\d{6}$/.test(data.pincode)) {
               setPincode(data.pincode);
               setGeoMsg("Location detected successfully!");
-            } else {
-              setGeoMsg("State and City detected. Please enter your pincode.");
+              success = true;
             }
-          } else {
-            setGeoMsg(data?.error || "Could not detect location. Please enter manually.");
           }
-        } catch {
-          setGeoMsg("Could not detect location. Please enter manually.");
+        } catch (e) {
+          console.warn("Backend geocode failed, trying frontend fallback...", e);
+        }
+
+        if (!success) {
+          try {
+            const rFallback = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&localityLanguage=en`);
+            const data = await rFallback.json();
+            const stateVal = data.principalSubdivision || "";
+            const cityVal = data.city || data.locality || "";
+            const pincodeVal = (data.postcode || "").replace(/\D/g, "").slice(0, 6);
+            
+            if (stateVal) {
+              const matchedState = INDIAN_STATES.find((s: string) => s.toLowerCase() === stateVal.toLowerCase() || stateVal.toLowerCase().includes(s.toLowerCase()));
+              if (matchedState) setState(matchedState);
+              else setState(stateVal);
+            }
+            if (cityVal) setCity(cityVal);
+            if (pincodeVal && /^\d{6}$/.test(pincodeVal)) {
+              setPincode(pincodeVal);
+              setGeoMsg("Location detected successfully!");
+            } else {
+              setGeoMsg("Location detected. Please review state and enter pincode.");
+            }
+          } catch (err) {
+            console.error("Client fallback geocode failed:", err);
+            setGeoMsg("Could not resolve location. Please enter manually.");
+          }
         }
         setGeoLoading(false);
       },
       e => {
-        setGeoLoading(false);
-        setGeoMsg("Location permission denied. Please enter manually.");
+        console.warn("Browser geolocation failed, falling back to IP...", e);
+        detectByIP();
       },
-      { timeout: 10000, enableHighAccuracy: false }
+      { timeout: 8000, enableHighAccuracy: false }
     );
   };
 
@@ -3388,20 +3470,72 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
   );
 }
 
-/* Premium Shop-By-Category card — image background + gold accents + ornamental corners */
 function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub:string;cn?:string;wide?:boolean;onClick:()=>void}){
   const [imgErr,setImgErr]=useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Calculate rotation (-12 to 12 degrees)
+    const rotateX = ((y / rect.height) - 0.5) * -16; 
+    const rotateY = ((x / rect.width) - 0.5) * 16;
+    
+    setTilt({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setTilt({ x: 0, y: 0 });
+  };
+
+  const transformStyle = isHovered 
+    ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(1.02, 1.02, 1.02)` 
+    : 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+
   return(
-    <button type="button" onClick={onClick} aria-label={`${name} — ${sub}`} className={"cat-card"+(wide?" cat-card-wide":"")}>
-      <img src={imgErr?FALLBACK_IMG:img} alt={name} className="cat-card-img" loading="lazy" decoding="async" onError={()=>setImgErr(true)}/>
-      <div className="cat-card-grad"/>
-      <span className="cat-corner tl" aria-hidden/>
-      <span className="cat-corner tr" aria-hidden/>
-      {cn&&<span className="cat-vtag" aria-hidden>{cn}</span>}
-      <div className="cat-card-body">
-        <div className="cat-card-title">{name}</div>
-        <div className="cat-card-sub">{sub}</div>
-        <span className="cat-card-explore">Explore <span className="cat-card-arr">→</span></span>
+    <button 
+      type="button" 
+      onClick={onClick} 
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      aria-label={`${name} — ${sub}`} 
+      className={"cat-card glass-card tilt-3d"+(wide?" cat-card-wide":"")}
+      style={{
+        transform: transformStyle,
+        transformStyle: 'preserve-3d',
+        transition: isHovered ? 'transform 0.08s ease-out' : 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
+      }}
+    >
+      <img 
+        src={imgErr?FALLBACK_IMG:img} 
+        alt={name} 
+        className="cat-card-img" 
+        loading="lazy" 
+        decoding="async" 
+        onError={()=>setImgErr(true)}
+        style={{
+          transform: isHovered ? 'translateZ(10px) scale(1.05)' : 'translateZ(0px) scale(1)',
+          transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'
+        }}
+      />
+      <div className="cat-card-grad" style={{ transform: 'translateZ(15px)' }}/>
+      <span className="cat-corner tl" aria-hidden style={{ transform: 'translateZ(25px)' }}/>
+      <span className="cat-corner tr" aria-hidden style={{ transform: 'translateZ(25px)' }}/>
+      {cn&&<span className="cat-vtag" aria-hidden style={{ transform: 'translateZ(30px)' }}>{cn}</span>}
+      <div className="cat-card-body" style={{ transform: 'translateZ(45px)', transformStyle: 'preserve-3d' }}>
+        <div className="cat-card-title" style={{ transform: 'translateZ(20px)' }}>{name}</div>
+        <div className="cat-card-sub" style={{ transform: 'translateZ(10px)' }}>{sub}</div>
+        <span className="cat-card-explore" style={{ transform: 'translateZ(15px)' }}>Explore <span className="cat-card-arr">→</span></span>
       </div>
     </button>
   );
