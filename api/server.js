@@ -8,4 +8,4 @@
  * Built by: pnpm --filter @workspace/api-server run build
  * Output:   artifacts/api-server/dist/app.mjs
  */
-export { default } from "../artifacts/api-server/dist/app.mjs";
+export { default } from "./dist/app.mjs";
