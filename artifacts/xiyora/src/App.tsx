@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, createContext, useContext, useReducer } from "react";
+import "./styles/luxe.css";
 import { imageManifest } from "./data/imageManifest";
 import AdminPanel from "./components/AdminPanel";
 
@@ -1020,6 +1021,215 @@ const EMPTY_FORM={name:"",company:"",email:"",phone:"",city:"",state:"",pincode:
 const INDIAN_STATES=["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu","Delhi (NCT)","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"];
 const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23EFE8DE'/%3E%3Crect x='220' y='140' width='160' height='120' rx='8' fill='%23D9CBB8'/%3E%3Ccircle cx='300' cy='165' r='22' fill='%23C8A97E' opacity='.6'/%3E%3Ctext x='300' y='290' text-anchor='middle' font-family='serif' font-size='14' fill='%23C8A97E' letter-spacing='3'%3EXIYORA%3C/text%3E%3C/svg%3E";
 
+/* ─── LUXURY COMPONENTS (v6 visual upgrade) ─────────────── */
+
+/* ── Loading Screen ── */
+function LoadingScreen({onDone}:{onDone:()=>void}){
+  const [exit,setExit]=useState(false);
+  const [num,setNum]=useState(0);
+  useEffect(()=>{
+    const t=setTimeout(()=>{setExit(true);setTimeout(onDone,700);},2600);
+    return()=>clearTimeout(t);
+  },[onDone]);
+  useEffect(()=>{
+    let frame=0;
+    const tick=()=>{frame++;setNum(Math.min(37,Math.floor(frame*1.2)));if(frame<31)requestAnimationFrame(tick);};
+    const id=setTimeout(()=>requestAnimationFrame(tick),1100);
+    return()=>clearTimeout(id);
+  },[]);
+  return(
+    <div className={`xiyora-loader${exit?" loader-exit":""}`} aria-hidden>
+      <div className="xl-line"/>
+      <div className="x-orb x-orb-gold"  style={{width:360,height:360,top:"20%",left:"15%",opacity:.12}}/>
+      <div className="x-orb x-orb-seal"  style={{width:260,height:260,bottom:"18%",right:"20%",opacity:.08}}/>
+      <div className="xl-monogram">
+        <svg width={52} height={52} viewBox="0 0 48 48" fill="none" aria-hidden>
+          <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/>
+          <circle cx="24" cy="24" r="17" stroke="#C8A97E" strokeWidth=".5" opacity=".4"/>
+          <path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/>
+          <circle cx="24" cy="24" r="3.4" fill="#C8A97E"/>
+        </svg>
+        <div className="xl-brand">XIYORA</div>
+        <div className="xl-sub">Crafted Comfort · Sourced for India</div>
+      </div>
+      <div className="xl-count-row">
+        <div className="xl-count-item"><div className="xl-count-num">{num}+</div><div className="xl-count-label">Products</div></div>
+        <div className="xl-count-item"><div className="xl-count-num" style={{fontSize:18,marginTop:4}}>🇨🇳→🇮🇳</div><div className="xl-count-label">Direct Sourcing</div></div>
+        <div className="xl-count-item"><div className="xl-count-num">93%</div><div className="xl-count-label">Natural Latex</div></div>
+      </div>
+      <div className="xl-progress"/>
+    </div>
+  );
+}
+
+/* ── Gold Magnetic Cursor ── */
+function GoldCursor(){
+  const ringRef=useRef<HTMLDivElement>(null);
+  const dotRef=useRef<HTMLDivElement>(null);
+  const pos=useRef({x:0,y:0});
+  const ringPos=useRef({x:0,y:0});
+  useEffect(()=>{
+    // skip on touch devices
+    if(typeof window==="undefined"||window.matchMedia("(pointer:coarse)").matches)return;
+    const onMove=(e:MouseEvent)=>{pos.current={x:e.clientX,y:e.clientY};};
+    const onDown=()=>{ringRef.current?.classList.add("cursor-click");};
+    const onUp=()=>{ringRef.current?.classList.remove("cursor-click");};
+    const onEnter=(e:Event)=>{const t=e.target as Element;if(t.matches("button,a,[role='button'],.pc,.pc-luxe,.cat-card"))ringRef.current?.classList.add("cursor-hover");};
+    const onLeave=()=>{ringRef.current?.classList.remove("cursor-hover");};
+    document.addEventListener("mousemove",onMove,{passive:true});
+    document.addEventListener("mousedown",onDown);
+    document.addEventListener("mouseup",onUp);
+    document.addEventListener("mouseover",onEnter);
+    document.addEventListener("mouseout",onLeave);
+    let raf=0;
+    const lerp=(a:number,b:number,t:number)=>a+(b-a)*t;
+    const tick=()=>{
+      ringPos.current.x=lerp(ringPos.current.x,pos.current.x,0.12);
+      ringPos.current.y=lerp(ringPos.current.y,pos.current.y,0.12);
+      if(ringRef.current)ringRef.current.style.transform=`translate(${ringPos.current.x}px,${ringPos.current.y}px) translate(-50%,-50%)`;
+      if(dotRef.current)dotRef.current.style.transform=`translate(${pos.current.x}px,${pos.current.y}px) translate(-50%,-50%)`;
+      raf=requestAnimationFrame(tick);
+    };
+    raf=requestAnimationFrame(tick);
+    return()=>{
+      document.removeEventListener("mousemove",onMove);document.removeEventListener("mousedown",onDown);
+      document.removeEventListener("mouseup",onUp);document.removeEventListener("mouseover",onEnter);
+      document.removeEventListener("mouseout",onLeave);cancelAnimationFrame(raf);
+    };
+  },[]);
+  return(<><div ref={ringRef} className="xiyora-cursor"/><div ref={dotRef} className="xiyora-cursor-dot"/></>);
+}
+
+/* ── Gold Particle Canvas (hero) ── */
+function HeroCanvas({height=620}:{height?:number}){
+  const canvasRef=useRef<HTMLCanvasElement>(null);
+  useEffect(()=>{
+    const canvas=canvasRef.current;if(!canvas)return;
+    const ctx=canvas.getContext("2d");if(!ctx)return;
+    const resize=()=>{canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;};
+    resize();
+    const ro=new ResizeObserver(resize);ro.observe(canvas);
+    type P={x:number;y:number;vx:number;vy:number;r:number;a:number;va:number;};
+    const N=55;
+    const pts:P[]=Array.from({length:N},()=>({
+      x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+      vx:(Math.random()-.5)*0.28,vy:-(0.12+Math.random()*0.22),
+      r:0.6+Math.random()*1.8,a:Math.random(),va:(Math.random()-.5)*0.006,
+    }));
+    let alive=true;
+    const draw=()=>{
+      if(!alive||!ctx)return;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(const p of pts){
+        p.x+=p.vx;p.y+=p.vy;p.a+=p.va;
+        if(p.a<0){p.a=0;p.va*=-1;}if(p.a>0.9){p.a=0.9;p.va*=-1;}
+        if(p.y<-10){p.y=canvas.height+10;p.x=Math.random()*canvas.width;}
+        if(p.x<-10)p.x=canvas.width+10;if(p.x>canvas.width+10)p.x=-10;
+        const grad=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.5);
+        grad.addColorStop(0,`rgba(242,215,140,${p.a})`);
+        grad.addColorStop(1,`rgba(200,169,126,0)`);
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r*2,0,Math.PI*2);ctx.fillStyle=grad;ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    };
+    draw();
+    return()=>{alive=false;ro.disconnect();};
+  },[]);
+  return <canvas ref={canvasRef} className="hero-particle-canvas" style={{height}} aria-hidden/>;
+}
+
+/* ── Scroll Progress Bar ── */
+function ScrollProgress(){
+  const barRef=useRef<HTMLDivElement>(null);
+  useEffect(()=>{
+    const onScroll=()=>{
+      const el=barRef.current;if(!el)return;
+      const sc=window.scrollY;const max=document.body.scrollHeight-window.innerHeight;
+      el.style.transform=`scaleX(${max>0?sc/max:0})`;
+    };
+    window.addEventListener("scroll",onScroll,{passive:true});
+    return()=>window.removeEventListener("scroll",onScroll);
+  },[]);
+  return <div ref={barRef} className="x-scroll-progress" style={{width:"100%",transformOrigin:"left"}} aria-hidden/>;
+}
+
+/* ── CountUp number animation ── */
+function CountUp({to,suffix="",prefix=""}:{to:number;suffix?:string;prefix?:string}){
+  const [val,setVal]=useState(0);
+  const ref=useRef<HTMLSpanElement>(null);
+  useEffect(()=>{
+    const el=ref.current;if(!el)return;
+    const io=new IntersectionObserver(entries=>{
+      if(entries[0].isIntersecting){
+        io.disconnect();
+        let start=0;const dur=1400;const t0=performance.now();
+        const tick=(now:number)=>{
+          const p=Math.min((now-t0)/dur,1);
+          setVal(Math.floor(p*to));
+          if(p<1)requestAnimationFrame(tick);else setVal(to);
+        };requestAnimationFrame(tick);
+      }
+    },{threshold:0.5});
+    io.observe(el);return()=>io.disconnect();
+  },[to]);
+  return <span ref={ref} className="count-up">{prefix}{val}{suffix}</span>;
+}
+
+/* ── useLuxeReveal (directional reveal hook) ── */
+function useLuxeReveal<T extends HTMLElement>(cls:"reveal-left"|"reveal-right"|"reveal-scale"|"reveal-blur",delay=0){
+  const ref=useRef<T>(null);
+  useEffect(()=>{
+    const el=ref.current;if(!el)return;
+    el.classList.add(cls);
+    if(delay)el.style.transitionDelay=`${delay}ms`;
+    if(typeof IntersectionObserver==="undefined"){el.classList.add("is-visible");return;}
+    const io=new IntersectionObserver(entries=>{
+      if(entries[0].isIntersecting){el.classList.add("is-visible");io.unobserve(el);}
+    },{threshold:0.12,rootMargin:"0px 0px -6% 0px"});
+    io.observe(el);return()=>io.disconnect();
+  },[cls,delay]);
+  return ref;
+}
+
+/* ── Dual-direction Premium Marquee ── */
+const MARQUEE_ITEMS_TOP=[
+  "2nd-Generation Talalay","93% Natural Latex","China → India Direct","Premium Latex Collection",
+  "Document-Backed Sourcing","37 Premium Products","Talalay & Dunlop Latex","Custom Sizes Available",
+  "Hotel & Retail Supply","Certified Quality","Bingxi Partner India","B2B Pricing Available",
+];
+const MARQUEE_ITEMS_BTM=[
+  "Breathable Open-Cell Latex","Free Consultation","Mattresses · Pillows · Toppers","Premium Comfort",
+  "Pan-India Delivery","Natural & Eco-Conscious","5-Star Hotel Quality","Private Label Available",
+  "Dunlop & Talalay Processes","100% Latex Comfort","Ergonomic Sleep Products","Made with Integrity",
+];
+function LuxMarquee({dark=true}:{dark?:boolean}){
+  const bg=dark?"#070605":"#F3EFE5";
+  const borderColor=dark?"rgba(200,169,126,0.18)":"rgba(200,169,126,0.32)";
+  const double=(arr:string[])=>[...arr,...arr];
+  return(
+    <div style={{background:bg,borderTop:`1px solid ${borderColor}`,borderBottom:`1px solid ${borderColor}`,overflow:"hidden",padding:"11px 0",userSelect:"none"}} aria-hidden>
+      <div style={{overflow:"hidden",marginBottom:4}}>
+        <div className="lux-marquee-track">
+          {double(MARQUEE_ITEMS_TOP).map((item,i)=>(
+            <span key={i} className="lux-marquee-item">
+              {item}<span className="lm-diamond">◆</span>
+            </span>
+          ))}
+        </div>
+      </div>
+      <div style={{overflow:"hidden"}}>
+        <div className="lux-marquee-track-r">
+          {double(MARQUEE_ITEMS_BTM).map((item,i)=>(
+            <span key={i} className={`lux-marquee-item ${dark?"":"lux-marquee-item-light"}`}>
+              <span className="lm-diamond">◆</span>{item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── GLOBAL CSS ─────────────────────────────────────────── */
 const CSS=`
 *{box-sizing:border-box;margin:0;padding:0}
@@ -1655,6 +1865,11 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
       <Petals count={16}/>
       {/* section-edge framing motifs — low z-index, kept away from text */}
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
+      <HeroCanvas height={520}/>
+      {/* Ambient depth orbs */}
+      <div className="x-orb x-orb-gold"  style={{width:500,height:500,top:"-10%",left:"30%",zIndex:0,position:"absolute"}}/>
+      <div className="x-orb x-orb-seal"  style={{width:380,height:380,bottom:"-5%",right:"8%",zIndex:0,position:"absolute",animationDelay:"-4s"}}/>
+      <div className="x-orb x-orb-ivory" style={{width:300,height:300,top:"20%",left:"-5%",zIndex:0,position:"absolute",animationDelay:"-8s"}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
           <CornerSet/>
@@ -4338,7 +4553,7 @@ export default function App(){
   const [showSubscribe,setShowSubscribe]=useState(false);
   const [showSidebar,setShowSidebar]=useState(false);
   const [showWishlist,setShowWishlist]=useState(false);
-  const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"light") as "light"|"dark";}catch{return"light";}});
+  const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"dark") as "light"|"dark";}catch{return"dark";}});
   const toggleTheme=()=>setTheme(t=>{const n=t==="light"?"dark":"light";try{localStorage.setItem("xiyoraTheme",n);}catch{}return n;});
   // tracks whether the last page change was triggered by browser Back/Forward
   const isPopRef=useRef(false);
@@ -4348,6 +4563,7 @@ export default function App(){
   const [productsLoading,setProductsLoading]=useState(true);
   const [siteLoading,setSiteLoading]=useState(true);
   const [appReady,setAppReady]=useState(false);
+  const [loaderDone,setLoaderDone]=useState(false);
   useEffect(()=>{
     setProductsLoading(true);
     fetch(`${API_BASE}/products`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
@@ -4529,18 +4745,7 @@ export default function App(){
       <SideDrawer open={showSidebar} onClose={()=>setShowSidebar(false)}
         setPage={nav} onCatFilter={openCatFilter} onCatalog={openCatalog}
         onInquire={openInquiry} onProof={openProof}/>
-      {/* Ticker */}
-      <div style={{background:"#0c0a08",color:"#C9A876",padding:"9px 0",overflow:"hidden",borderBottom:"1px solid rgba(200,169,126,.14)"}}>
-        <div style={{display:"flex",overflow:"hidden"}}>
-          <div className="at">
-            {[0,1].map(k=>(
-              <span key={k} style={{fontSize:11,letterSpacing:"2.5px",textTransform:"uppercase",whiteSpace:"nowrap",paddingRight:80}}>
-                Premium Natural Latex Products &nbsp;✦&nbsp; Official Bingxi Partner for India &nbsp;✦&nbsp; WhatsApp: +91 70283 11226 &nbsp;✦&nbsp; {PRODUCTS.length}+ Products Available &nbsp;✦&nbsp; 3–10 Days Inland After Port Clearance &nbsp;✦&nbsp;
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
+      <LuxMarquee dark/>
       <Navbar page={page} setPage={nav} cur={cur} setCur={setCur} scrolled={scrolled} wl={wl} cartCount={cart.length}
         theme={theme} toggleTheme={toggleTheme}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
@@ -4557,6 +4762,10 @@ export default function App(){
       <SearchOverlay show={showSearch} onClose={()=>setShowSearch(false)} onPickProduct={(p:any)=>{openProd(p);setShowSearch(false);}} onCatalog={openCatalog}/>
       <WhatsAppPopup page={page} context={{product:page==="product"&&selProd?selProd.name:(cart.length?cart.map(i=>i.productName).join(", "):"")}}/>
     </div>
+    {/* Premium overlay components — rendered outside main layout */}
+    {!loaderDone&&<LoadingScreen onDone={()=>setLoaderDone(true)}/>}
+    <GoldCursor/>
+    <ScrollProgress/>
     </ThemeCtx.Provider>
   );
 }
