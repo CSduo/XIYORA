@@ -23,9 +23,9 @@ let BIZ = {
   address: "Yogesh Nagar, Section 25, Near 12 No School, Ulhasnagar – 421004, Thane, Maharashtra, India",
   gstNote: "Formal tax documentation can be provided where applicable once GST registration is complete.",
   heroImage: "",
-  heroTitle: "Premium Latex Comfort,",
-  heroSubtitle: "Sourced for India.",
-  heroBody: "Pure Talalay & Dunlop latex, crafted into pillows, mattresses and toppers — and brought to India with considered, document-backed sourcing.",
+  heroTitle: "Global Luxury B2B Sourcing Hub,",
+  heroSubtitle: "Connecting India with World-Class Brands.",
+  heroBody: "XIYORA is a premium international B2B importing platform. We connect Indian hospitality brands, designers, and retailers directly with certified global manufacturers—beginning with premier natural latex from Bingxi.",
   promiseImage: "",
   supplierHeroImage: "",
   catImg_Mattresses: "",
@@ -996,6 +996,34 @@ const priceIn=(cur:string,inrStr?:string):string=>{
   const fromPrefix=/^\s*from/i.test(inrStr)?"From ":"";
   const parts=nums.map(n=>fmtMoney(cur,n));
   return fromPrefix+parts.join(" – ")+star;
+};
+
+/** Calculate deterministic fake discount (Amazon-style). Actual DB price is the discounted price. */
+const getFakeDiscountInfo = (id: string, inrStr?: string, cur: string = "INR") => {
+  if (!inrStr) return null;
+  const lower = String(inrStr).toLowerCase();
+  if (lower.includes("contact") || lower.includes("quote") || lower.includes("request") || lower.includes("select")) {
+    return null;
+  }
+  let hash = 0;
+  const strId = String(id || "default");
+  for (let i = 0; i < strId.length; i++) {
+    hash = strId.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const discountPct = 12 + Math.abs(hash % 13); // 12% to 24%
+  const nums = (String(inrStr).replace(/,/g, "").match(/\d+(?:\.\d+)?/g) || []).map(Number);
+  if (!nums.length) return null;
+  const star = /\*\s*$/.test(inrStr) ? "*" : "";
+  const fromPrefix = /^\s*from/i.test(inrStr) ? "From " : "";
+  const origNums = nums.map(n => Math.round((n * (1 + discountPct / 100)) / 100) * 100);
+  const origInrStr = fromPrefix + origNums.map(n => `₹${n.toLocaleString("en-IN")}`).join(" – ") + star;
+  const originalPriceStr = priceIn(cur, origInrStr);
+  const discountedPriceStr = priceIn(cur, inrStr);
+  let savedAmtStr: string | null = null;
+  if (nums.length === 1) {
+    savedAmtStr = priceIn(cur, `₹${origNums[0] - nums[0]}`);
+  }
+  return { discountPct, originalPriceStr, discountedPriceStr, savedAmtStr };
 };
 
 /* ─── DOMESTIC DELIVERY (indicative; confirmed in proforma) ─ */
@@ -2612,14 +2640,17 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
 function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   const C=useC();
   const [imgErr,setImgErr]=useState(false);
+  const discInfo = getFakeDiscountInfo(p.id, p.priceINR, cur);
+
   return(
-    <div className="pc" onClick={()=>onOpen(p)}>
+    <div className="pc-luxe" onClick={()=>onOpen(p)}>
       <div style={{position:"relative",overflow:"hidden",height:240}}>
         <img src={imgErr?FALLBACK_IMG:(p.heroImage||p.gallery?.[0]||FALLBACK_IMG)} alt={p.name} className="pi" loading="lazy" decoding="async" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#1a1814":undefined,padding:p.category==="Latex Material"?"8px":undefined}}/>
-        <div style={{position:"absolute",top:10,left:10}}>
-          <Tag>{p.tag}</Tag>
+        <div style={{position:"absolute",top:10,left:10,display:"flex",flexDirection:"column",gap:6,zIndex:5}}>
+          {p.tag && <Tag>{p.tag}</Tag>}
+          {discInfo && <span className="x-discount-badge">{discInfo.discountPct}% OFF</span>}
         </div>
-        <button style={{position:"absolute",top:10,right:10,background:"rgba(248,246,242,.92)",border:"none",width:34,height:34,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all .2s"}}
+        <button style={{position:"absolute",top:10,right:10,background:"rgba(24,20,16,.85)",border:"none",width:34,height:34,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all .2s",zIndex:6}}
           onClick={e=>{e.stopPropagation();onWish(p.id);}}>
           <svg width={15} height={15} fill={wl.includes(p.id)?C.gold:"none"} stroke={wl.includes(p.id)?C.gold:"#999"} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </button>
@@ -2630,7 +2661,14 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
         <p style={{fontSize:12.5,color:"#aaa",marginBottom:14,lineHeight:1.55,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:12,borderTop:`1px solid ${C.sand}`}}>
           <div>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
+            {discInfo ? (
+              <div>
+                <span className="x-original-price-strike">{discInfo.originalPriceStr}</span>
+                <span style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.gold}}>{discInfo.discountedPriceStr}</span>
+              </div>
+            ) : (
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
+            )}
             <div style={{fontSize:10,color:"#ccc",marginTop:2}}>Indicative · Quote after city</div>
           </div>
           <button className="bg" style={{padding:"9px 14px",fontSize:11,letterSpacing:"1px"}} onClick={e=>{e.stopPropagation();onInquire(p,"quote");}}>Get Quote</button>
@@ -2785,30 +2823,59 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
               <div style={{marginBottom:18}}>
                 <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:10,fontWeight:500}}>Select Size / Specification</p>
                 <div style={{display:"flex",flexDirection:"column",gap:7}}>
-                  {(p.variants as any[]).map((v:any,i:number)=>(
-                    <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Inter',sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
-                      <span>{v.label}</span>
-                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888",flexShrink:0,marginLeft:12}}>{v.quoteRequired?"Quote req.":priceIn(cur,v.priceINR)}</span>
-                    </button>
-                  ))}
+                  {(p.variants as any[]).map((v:any,i:number)=>{
+                    const vDisc = getFakeDiscountInfo(v.sku || p.id, v.priceINR, cur);
+                    return (
+                      <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Inter',sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
+                        <span>{v.label}</span>
+                        <span style={{display:"flex",alignItems:"center",gap:6,flexShrink:0,marginLeft:12}}>
+                          {v.quoteRequired ? (
+                            <span style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:600,color:"#888"}}>Quote req.</span>
+                          ) : vDisc ? (
+                            <>
+                              <span style={{textDecoration:"line-through",fontSize:11,color:"#888"}}>{vDisc.originalPriceStr}</span>
+                              <span style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:600,color:C.gold}}>{vDisc.discountedPriceStr}</span>
+                              <span style={{fontSize:9,background:"rgba(158,59,46,.15)",color:"#9E3B2E",padding:"1px 4px",borderRadius:2,fontWeight:700}}>{vDisc.discountPct}% OFF</span>
+                            </>
+                          ) : (
+                            <span style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888"}}>{priceIn(cur,v.priceINR)}</span>
+                          )}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
                 {variantRequired&&<p style={{fontSize:12,color:"#c08840",marginTop:8,display:"flex",alignItems:"center",gap:5}}>⚠ Select a size / specification above to proceed</p>}
               </div>
             )}
             {/* Price */}
-            <div style={{background:C.lgold,padding:"16px 18px",borderRadius:3,borderLeft:`3px solid ${C.gold}`,marginBottom:16}}>
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:5,flexWrap:"wrap",gap:8}}>
-                <span style={{fontSize:12,color:"#777"}}>
-                  {isQuoteRequired?"Final quote required":activeVar?"Selected price (indicative)":hasVariants?"Select variant for price":"Indicative price range"}
-                </span>
-                <span style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
-                  {isQuoteRequired?"—":priceIn(cur,displayPriceINR)}
-                </span>
-              </div>
-              {activeVar&&!isQuoteRequired&&<div style={{fontSize:11.5,color:"#777",marginBottom:4}}>SKU: {activeVar.sku}</div>}
-              {isQuoteRequired&&<p style={{fontSize:12,color:"#c08840",lineHeight:1.55}}>This configuration requires a custom quote. Use Get Quote or WhatsApp below.</p>}
-              {!isQuoteRequired&&<p style={{fontSize:11.5,color:"#777",lineHeight:1.5}}>{p.priceNote}</p>}
-            </div>
+            {(() => {
+              const detailDisc = getFakeDiscountInfo(activeVar?.sku || p.id, displayPriceINR, cur);
+              return (
+                <div style={{background:C.lgold,padding:"16px 18px",borderRadius:3,borderLeft:`3px solid ${C.gold}`,marginBottom:16}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:5,flexWrap:"wrap",gap:8}}>
+                    <span style={{fontSize:12,color:"#777"}}>
+                      {isQuoteRequired?"Final quote required":activeVar?"Selected price (indicative)":hasVariants?"Select variant for price":"Indicative price range"}
+                    </span>
+                    {!isQuoteRequired && detailDisc ? (
+                      <span style={{display:"flex",alignItems:"center",gap:10}}>
+                        <span style={{textDecoration:"line-through",fontSize:15,color:"#888"}}>{detailDisc.originalPriceStr}</span>
+                        <span style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:600,color:C.gold}}>{detailDisc.discountedPriceStr}</span>
+                        <span style={{fontSize:11,background:"#9E3B2E",color:"#fff",padding:"2px 7px",borderRadius:2,fontWeight:700}}>{detailDisc.discountPct}% OFF</span>
+                      </span>
+                    ) : (
+                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
+                        {isQuoteRequired?"—":priceIn(cur,displayPriceINR)}
+                      </span>
+                    )}
+                  </div>
+                  {activeVar&&!isQuoteRequired&&<div style={{fontSize:11.5,color:"#777",marginBottom:4}}>SKU: {activeVar.sku}</div>}
+                  {detailDisc?.savedAmtStr && <div style={{fontSize:12,color:"#9E3B2E",fontWeight:600,marginBottom:6}}>You Save: {detailDisc.savedAmtStr}</div>}
+                  {isQuoteRequired&&<p style={{fontSize:12,color:"#c08840",lineHeight:1.55}}>This configuration requires a custom quote. Use Get Quote or WhatsApp below.</p>}
+                  {!isQuoteRequired&&<p style={{fontSize:11.5,color:"#777",lineHeight:1.5}}>{p.priceNote}</p>}
+                </div>
+              );
+            })()}
             {/* Qty stepper */}
             {canBuy&&(
               <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
@@ -3014,8 +3081,232 @@ function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub
     </button>
   );
 }
+/* ─── B2B STATS BAND ─────────────────────────────────────── */
+function B2BStatsBand() {
+  const C = useC();
+  return (
+    <section className="sec" style={{background: "#0c0a08", padding: "30px 0", borderBottom: `1px solid rgba(200, 169, 126, 0.16)`}}>
+      <div className="container">
+        <div className="stats-grid">
+          {[
+            {num: 37, suffix: "+", label: "Verified B2B SKUs"},
+            {num: 93, suffix: "%", label: "Natural Latex Purity"},
+            {num: 5, suffix: "★", label: "Hotel Standard Quality"},
+            {num: 24, suffix: "h", label: "Specs Dispatch Response"}
+          ].map((s, i) => (
+            <div key={i} className="stat-badge" style={{display: "flex", width: "100%", boxSizing: "border-box"}}>
+              <div className="sb-num">
+                <CountUp to={s.num} suffix={s.suffix}/>
+              </div>
+              <div className="sb-label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── GLOBAL BRAND PARTNERS NETWORK ───────────────────────── */
+function SourcingNetwork({onCatalog, setPage}: any) {
+  const C = useC();
+  return (
+    <section className="sec" style={{background: C.beige, position: "relative", overflow: "hidden", padding: "64px 0"}}>
+      <Sakura className="x-drift-slow" size={160} color="#BFA295" style={{position: "absolute", top: 10, left: -20, opacity: .3, pointerEvents: "none"}}/>
+      <div className="container">
+        <div style={{textAlign: "center", marginBottom: 40}}>
+          <SL>Global Sourcing Platform</SL>
+          <SH center>Our Brand Partners</SH>
+          <p style={{fontSize: 14.5, color: "#888", maxWidth: 580, margin: "12px auto 0", lineHeight: 1.75}}>
+            Connecting Indian hospitality buyers, retailers, and developers directly with vetted premium global manufacturers — starting with certified latex from Bingxi.
+          </p>
+        </div>
+        
+        <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24}}>
+          {/* Active Partner: Bingxi */}
+          <div style={{background: C.white, border: `1px solid ${C.sand}`, borderRadius: 4, padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between", transition: "all .3s"}}
+            onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 12px 32px rgba(200,169,126,.12)";}}
+            onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";}}>
+            <div>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12}}>
+                <span style={{background: "#c8a97e", color: "#0f0f0d", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Active Partner</span>
+                <span style={{fontSize: 11, color: "#aaa"}}>Est. 2024</span>
+              </div>
+              <h3 className="serif" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>Bingxi Latex</h3>
+              <p style={{fontSize: 13, color: "#666", lineHeight: 1.7, marginBottom: 16}}>
+                Premier manufacturer of 2nd-generation Talalay and Dunlop natural latex. Specializing in high-purity pillows, mattresses, toppers, and industrial latex sheets.
+              </p>
+              <div style={{display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16}}>
+                {["93% Pure Latex", "Dunlop & Talalay", "OEKO-TEX® Certified"].map(t => (
+                  <span key={t} style={{fontSize: 10.5, background: C.lgold, color: C.gold, padding: "2px 8px", borderRadius: 2}}>{t}</span>
+                ))}
+              </div>
+            </div>
+            <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog} style={{width: "100%", padding: "10px 0", fontSize: 12}}>Explore Products →</button>
+          </div>
+
+          {/* Coming Soon Partner: European Linens */}
+          <div style={{background: "rgba(255,255,255,.4)", border: `1px dashed ${C.sand}`, borderRadius: 4, padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between", opacity: .75}}>
+            <div>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12}}>
+                <span style={{background: "#2a2a2a", color: "#fff", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Coming Soon</span>
+                <span style={{fontSize: 11, color: "#aaa"}}>Phase II</span>
+              </div>
+              <h3 className="serif" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>European Flax &amp; Linens</h3>
+              <p style={{fontSize: 13, color: "#888", lineHeight: 1.7, marginBottom: 16}}>
+                Sourcing premium organic flax linens and long-staple cotton weaves from traditional Belgian and French mills. Curated for Indian heritage hotels and retail.
+              </p>
+              <div style={{display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16}}>
+                {["Belgian Flax", "Hotel Grade Sheets", "GOTS Certified Organic"].map(t => (
+                  <span key={t} style={{fontSize: 10.5, background: "#f2f2f2", color: "#888", padding: "2px 8px", borderRadius: 2}}>{t}</span>
+                ))}
+              </div>
+            </div>
+            <button disabled style={{width: "100%", padding: "10px 0", background: "none", border: `1px solid ${C.sand}`, color: "#aaa", fontSize: 12, cursor: "not-allowed"}}>Sourcing In Progress</button>
+          </div>
+
+          {/* Coming Soon Partner: Heritage Silks */}
+          <div style={{background: "rgba(255,255,255,.4)", border: `1px dashed ${C.sand}`, borderRadius: 4, padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between", opacity: .75}}>
+            <div>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12}}>
+                <span style={{background: "#2a2a2a", color: "#fff", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Coming Soon</span>
+                <span style={{fontSize: 11, color: "#aaa"}}>Phase II</span>
+              </div>
+              <h3 className="serif" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>Heritage Weaves</h3>
+              <p style={{fontSize: 13, color: "#888", lineHeight: 1.7, marginBottom: 16}}>
+                High-thread-count organic jacquards, draperies, and premium upholstery fabrics. Connecting developers and architects with leading global fabric weavers.
+              </p>
+              <div style={{display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16}}>
+                {["Jacquard Weaving", "Custom Drapery", "B2B Bulk Direct"].map(t => (
+                  <span key={t} style={{fontSize: 10.5, background: "#f2f2f2", color: "#888", padding: "2px 8px", borderRadius: 2}}>{t}</span>
+                ))}
+              </div>
+            </div>
+            <button disabled style={{width: "100%", padding: "10px 0", background: "none", border: `1px solid ${C.sand}`, color: "#aaa", fontSize: 12, cursor: "not-allowed"}}>Sourcing In Progress</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── LATEX SOURCING GUIDE VIEW (Talalay vs Dunlop) ───────── */
+function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
+  const C = useC();
+  const talalayProds = PRODUCTS.filter(p => p.latexType === "Talalay").slice(0, 3);
+  const dunlopProds = PRODUCTS.filter(p => p.latexType === "Dunlop" || p.latexType === "Hybrid").slice(0, 3);
+
+  return (
+    <div style={{background: C.white}}>
+      <LuxHero
+        crumbs="Home · Resources · Sourcing Guide"
+        title={<>Talalay vs Dunlop <em style={{color: C.gold}}>Latex</em></>}
+        subtitle="The Science of Premium Support & Comfort"
+        seal="源"
+        intro="An editorial guide to understanding the two premier manufacturing methods of natural latex comfort cores. Helping B2B buyers, retailers, and hospitality brands make informed specifications."
+        image="/assets/lux/inkwash-landscape.webp"
+        imageAlt="Latex Guide Banner"
+        features={[
+          {name: "sliders", label: "Density Specs"},
+          {name: "wave", label: "Cell Structure"},
+          {name: "shield", label: "Purity Audits"},
+          {name: "craft", label: "Feel Profiles"}
+        ]}
+      />
+      
+      <div className="container" style={{maxWidth: 1000, padding: "56px 40px"}}>
+        <Reveal style={{marginBottom: 44}}>
+          <h2 className="serif" style={{fontSize: 28, color: C.dark, marginBottom: 14}}>Comparison Matrix</h2>
+          <p style={{fontSize: 14.5, color: "#666", lineHeight: 1.75}}>Both manufacturing techniques start with 93% pure organic liquid latex harvested from rubber trees. However, the subsequent processing creates distinct physical properties suitable for different comfort requirements.</p>
+        </Reveal>
+
+        <div style={{overflowX: "auto", marginBottom: 56, border: `1px solid ${C.sand}`, borderRadius: 4}}>
+          <table style={{width: "100%", borderCollapse: "collapse", minWidth: 600}}>
+            <thead>
+              <tr style={{background: C.lgold, borderBottom: `1px solid ${C.sand}`}}>
+                <th style={{padding: "16px 20px", textAlign: "left", fontSize: 13, textTransform: "uppercase", letterSpacing: "1px", color: C.dark}}>Feature</th>
+                <th style={{padding: "16px 20px", textAlign: "left", fontSize: 13, textTransform: "uppercase", letterSpacing: "1px", color: C.dark}}>Talalay Latex</th>
+                <th style={{padding: "16px 20px", textAlign: "left", fontSize: 13, textTransform: "uppercase", letterSpacing: "1px", color: C.dark}}>Dunlop Latex</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["Process Method", "Liquid latex is poured, vacuum-expanded to fill the mold, flash-frozen at -28°C to lock structure, then vulcanized.", "Liquid latex is whipped, poured directly into the mold, gelled, and baked. A simpler, time-tested heritage method."],
+                ["Cellular Structure", "Highly open-cell, uniform, round cell matrix. Outstanding air permeability.", "Denser, interlocking cellular structure. Sturdy, reliable, and slightly less breathable than Talalay."],
+                ["Density & Weight", "Lighter and highly uniform from top to bottom. Weight varies between 1.0kg - 1.6kg for pillows.", "Denser and heavier. Subtle density gradient due to gravity settling during baking (firmer at the bottom)."],
+                ["Comfort Feel", "Highly springy, plush, bouncy, luxurious pressure-relief. Floats under pressure.", "Supportive, firm, yielding, solid. Excellent contouring for heavier structural support."],
+                ["Best Applied For", "Pillows, plush mattress toppers, premium hotel top-layers.", "Mattress cores, firm cushions, supportive base blocks, latex sheets."]
+              ].map(([f, t, d], idx) => (
+                <tr key={idx} style={{borderBottom: idx < 4 ? `1px solid ${C.beige}` : "none"}}>
+                  <td style={{padding: "16px 20px", fontSize: 13, fontWeight: 600, color: C.dark, width: "20%"}}>{f}</td>
+                  <td style={{padding: "16px 20px", fontSize: 13.5, color: "#555", lineHeight: 1.6}}>{t}</td>
+                  <td style={{padding: "16px 20px", fontSize: 13.5, color: "#555", lineHeight: 1.6}}>{d}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="grid-2" style={{gap: 48, marginBottom: 56}}>
+          <Reveal>
+            <div style={{display: "flex", gap: 14, alignItems: "flex-start", marginBottom: 12}}>
+              <span style={{fontSize: 24, color: C.gold}}>◈</span>
+              <h3 className="serif" style={{fontSize: 22, color: C.dark, margin: 0}}>The Talalay Experience</h3>
+            </div>
+            <p style={{fontSize: 14, color: "#555", lineHeight: 1.8}}>By introducing a vacuum expansion step and flash-freezing before baking, the Talalay process creates a perfectly uniform round-cell matrix. The bubble structure allows heat to escape instantly. When used in pillows and topper pads, it feels like floating on air—responsive contouring that rebounds instantly as you move.</p>
+            <div style={{marginTop: 20}}>
+              <h4 style={{fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", marginBottom: 10}}>Featured Talalay Products</h4>
+              <div style={{display: "flex", flexDirection: "column", gap: 8}}>
+                {talalayProds.map(p => (
+                  <div key={p.id} onClick={() => onOpen(p)} style={{display: "flex", gap: 12, alignItems: "center", padding: 8, background: C.lgold, borderRadius:3, cursor: "pointer", border: `1px solid transparent`}} onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold} onMouseLeave={(e:any)=>e.currentTarget.style.borderColor="transparent"}>
+                    <img src={p.heroImage || FALLBACK_IMG} style={{width: 44, height: 44, objectFit: "cover", borderRadius: 2}} alt={p.name}/>
+                    <div style={{flex: 1}}>
+                      <div style={{fontSize: 12.5, fontWeight: 600, color: C.dark}}>{p.name}</div>
+                      <div style={{fontSize: 11, color: C.gold}}>{priceIn(cur, p.priceINR)}</div>
+                    </div>
+                    <span style={{fontSize: 14, color: C.gold}}>→</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div style={{display: "flex", gap: 14, alignItems: "flex-start", marginBottom: 12}}>
+              <span style={{fontSize: 24, color: C.gold}}>◉</span>
+              <h3 className="serif" style={{fontSize: 22, color: C.dark, margin: 0}}>The Dunlop Strength</h3>
+            </div>
+            <p style={{fontSize: 14, color: "#555", lineHeight: 1.8}}>Since 1929, Dunlop latex has been the benchmark for supportive sleep systems. Poured directly as liquid foam and baked, it develops a denser, more cohesive structure. The natural gravity settling creates a firmer bottom base and slightly softer top, providing the ideal gradient for heavy-load spinal alignment. It is the gold standard for full mattresses.</p>
+            <div style={{marginTop: 20}}>
+              <h4 style={{fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", marginBottom: 10}}>Featured Dunlop Products</h4>
+              <div style={{display: "flex", flexDirection: "column", gap: 8}}>
+                {dunlopProds.map(p => (
+                  <div key={p.id} onClick={() => onOpen(p)} style={{display: "flex", gap: 12, alignItems: "center", padding: 8, background: C.lgold, borderRadius:3, cursor: "pointer", border: `1px solid transparent`}} onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold} onMouseLeave={(e:any)=>e.currentTarget.style.borderColor="transparent"}>
+                    <img src={p.heroImage || FALLBACK_IMG} style={{width: 44, height: 44, objectFit: "cover", borderRadius: 2}} alt={p.name}/>
+                    <div style={{flex: 1}}>
+                      <div style={{fontSize: 12.5, fontWeight: 600, color: C.dark}}>{p.name}</div>
+                      <div style={{fontSize: 11, color: C.gold}}>{priceIn(cur, p.priceINR)}</div>
+                    </div>
+                    <span style={{fontSize: 14, color: C.gold}}>→</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+        <div style={{display: "flex", gap: 12, marginTop: 44, flexWrap: "wrap", justifyContent: "center"}}>
+          <button className="bg" onClick={() => setPage("home")}>Back to Sourcing Gateway</button>
+          <button className="bo" onClick={() => setPage("catalog")}>Browse Full Catalog</button>
+          <button className="bo" onClick={() => onInquire(null, "general")} style={{padding: "13px 26px"}}>Request B2B Specs</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── HOME VIEW ──────────────────────────────────────────── */
-function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire}:any){
+function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire,setPage}:any){
   const C=useC();
   const catImages:Record<string,string>=imageManifest.categories as Record<string,string>;
   // Admin-uploaded image takes priority; falls back to imageManifest, then empty
@@ -3053,6 +3344,42 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
       <DarkHomeHero onCatalog={onCatalog} onSupplier={onSupplier}/>
       {/* QUICK-NAV BAND (dark, ornate) */}
       <PremiumQuickLinks onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
+      
+      {/* B2B STATS BAND */}
+      <B2BStatsBand />
+
+      {/* CATEGORIES */}
+      {CatSection}
+
+      {/* GLOBAL BRAND PARTNERS */}
+      <SourcingNetwork onCatalog={onCatalog} setPage={setPage}/>
+
+      {/* FEATURED PRODUCTS */}
+      <section className="sec" style={{background:C.beige,position:"relative",overflow:"hidden"}}>
+        <Sakura className="x-drift-slow" size={170} color="#BFA295" style={{position:"absolute",top:0,right:-10,opacity:.4,pointerEvents:"none"}}/>
+        <div className="container">
+          <Reveal style={{display:"flex",alignItems:"flex-end",justifyContent:"space-between",marginBottom:48,flexWrap:"wrap",gap:18}}>
+            <div style={{display:"flex",alignItems:"flex-start",gap:16}}>
+              <Seal ch="品" title="Quality catalogue" style={{marginTop:4}}/>
+              <div><SL>Bingxi Catalogue</SL><SH>Featured Products</SH></div>
+            </div>
+            <div style={{display:"flex",alignItems:"center",gap:16}}>
+              <span style={{fontSize:12,color:C.ink}}>Indicative landed ranges</span>
+              <button className="x-link" onClick={onCatalog}>View All <span className="ar">→</span></button>
+            </div>
+          </Reveal>
+          <div className="grid-3">
+            {PRODUCTS.slice(0,6).map(p=><PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>)}
+          </div>
+          <div style={{marginTop:32,padding:"14px 20px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2}}>
+            <p style={{fontSize:13,color:"#888",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> All indicative prices include estimated import costs. Final landed price confirmed in your quote. {BIZ.gstNote}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* BUYER BEST-FIT SELECTOR */}
+      <BuyerBestFit onCatFilter={onCatFilter} onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
+
       {/* OUR PROMISE — sage editorial + still-life 2-up */}
       <section className="sec" style={{background:C.char,padding:"clamp(30px,4vw,56px) 0"}}>
         <div className="container">
@@ -3077,36 +3404,13 @@ function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInqui
         </div>
       </section>
       <style>{`@media(max-width:820px){.promise-2up{grid-template-columns:1fr!important}}`}</style>
+      
       {/* PROMISE BENEFIT STRIP (dark) */}
       <DarkBenefitStrip/>
-      {/* BUYER BEST-FIT SELECTOR */}
-      <BuyerBestFit onCatFilter={onCatFilter} onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
-      {/* CATEGORIES */}
-      {CatSection}
+
       {/* LATEX STORY — dark cinematic */}
       <LatexStoryPanel onCatalog={onCatalog}/>
-      {/* FEATURED PRODUCTS */}
-      <section className="sec" style={{background:C.beige,position:"relative",overflow:"hidden"}}>
-        <Sakura className="x-drift-slow" size={170} color="#BFA295" style={{position:"absolute",top:0,right:-10,opacity:.4,pointerEvents:"none"}}/>
-        <div className="container">
-          <Reveal style={{display:"flex",alignItems:"flex-end",justifyContent:"space-between",marginBottom:48,flexWrap:"wrap",gap:18}}>
-            <div style={{display:"flex",alignItems:"flex-start",gap:16}}>
-              <Seal ch="品" title="Quality catalogue" style={{marginTop:4}}/>
-              <div><SL>Bingxi Catalogue</SL><SH>Featured Products</SH></div>
-            </div>
-            <div style={{display:"flex",alignItems:"center",gap:16}}>
-              <span style={{fontSize:12,color:C.ink}}>Indicative landed ranges</span>
-              <button className="x-link" onClick={onCatalog}>View All <span className="ar">→</span></button>
-            </div>
-          </Reveal>
-          <div className="grid-3">
-            {PRODUCTS.slice(0,6).map(p=><PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>)}
-          </div>
-          <div style={{marginTop:32,padding:"14px 20px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2}}>
-            <p style={{fontSize:13,color:"#888",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> All indicative prices include estimated import costs. Final landed price confirmed in your quote. {BIZ.gstNote}</p>
-          </div>
-        </div>
-      </section>
+
       {/* WHY XIYORA */}
       <section className="sec paper ink-wash" style={{position:"relative"}}>
         <div className="container">
@@ -3299,6 +3603,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
           <NavLink label="Request Quote" fn={()=>onInquire(null,"quote")}/>
           <span className="sdr-section">Info</span>
           <NavLink label="About XIYORA" fn={()=>setPage("about")}/>
+          <NavLink label="Latex Sourcing Guide" fn={()=>setPage("latex-guide")}/>
           <NavLink label="Contact" fn={()=>setPage("contact")}/>
           <NavLink label="Shipping" fn={()=>setPage("shipping")}/>
           <NavLink label="FAQ" fn={()=>setPage("faq")}/>
@@ -3440,7 +3745,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             </svg>
           </button>
           <div className="nc" style={{display:"flex",gap:20,alignItems:"center",marginLeft:8}}>
-            {[["Home","home"],["Products","catalog"],["Collections","catalog"],["About XIYORA","about"],["Partnership","supplier"],["Contact","contact"]].map(([l,v],i)=>(
+            {[["Home","home"],["Products","catalog"],["Latex Guide","latex-guide"],["About XIYORA","about"],["Partnership","supplier"],["Contact","contact"]].map(([l,v],i)=>(
               <button key={i} className="nl" style={{fontSize:11,color:page===v?"#E6C89A":"#D9CBB8",letterSpacing:"1.4px"}} onClick={()=>{
                 if(v==="catalog")onCatalog();
                 else setPage(v);
@@ -3578,7 +3883,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
           </div>
           <div>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Company</div>
-            {[["About XIYORA","about"],["For B2B","supplier"],["Contact","contact"],["FAQ","faq"],["Certificates & Proof","proof"]].map(([l,v])=>(
+            {[["About XIYORA","about"],["Latex Sourcing Guide","latex-guide"],["For B2B","supplier"],["Contact","contact"],["FAQ","faq"],["Certificates & Proof","proof"]].map(([l,v])=>(
               <button key={l} className="fl" onClick={()=>setPage(v)}>{l}</button>
             ))}
           </div>
@@ -3655,6 +3960,14 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
   };
 
   const cartTotalINR=items.reduce((s,i)=>s+(i.priceNumINR||0)*i.quantity,0);
+  const cartOriginalTotalINR = items.reduce((s,i)=>{
+    const info = getFakeDiscountInfo(i.sku || i.productId, i.priceINR, "INR");
+    if (info) {
+      const origPriceNum = parsePriceNum(info.originalPriceStr);
+      return s + (origPriceNum || i.priceNumINR) * i.quantity;
+    }
+    return s + Math.round((i.priceNumINR * 1.18) / 100) * 100 * i.quantity;
+  }, 0);
   const productNames=items.map(i=>`${i.productName}${i.variantLabel&&i.variantLabel!==i.productName?` (${i.variantLabel})`:""} ×${i.quantity}`).join(", ");
   const delivery=/^\d{6}$/.test(form.pincode)?lookupPincode(form.pincode):null;
 
@@ -3870,7 +4183,23 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     <div style={{flex:1,minWidth:0,overflow:"hidden"}}>
                       <div style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
                       {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11,color:"#888",marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
-                      <div style={{fontSize:13,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,item.priceINR)} <span style={{fontSize:10,color:"#bbb",fontFamily:"'Inter',sans-serif",fontWeight:400}}>ea.</span></div>
+                      {(() => {
+                        const itemDisc = getFakeDiscountInfo(item.sku || item.productId, item.priceINR, cur);
+                        return (
+                          <div style={{fontSize:13,fontFamily:"'Playfair Display',serif",fontWeight:500}}>
+                            {itemDisc ? (
+                              <>
+                                <span className="x-original-price-strike">{itemDisc.originalPriceStr}</span>
+                                <span style={{color:C.gold}}>{itemDisc.discountedPriceStr}</span>
+                                <span style={{fontSize:9,background:"rgba(158,59,46,.12)",color:"#9E3B2E",padding:"1px 4px",borderRadius:2,marginLeft:6,fontWeight:700}}>{itemDisc.discountPct}% OFF</span>
+                              </>
+                            ) : (
+                              <span style={{color:C.gold}}>{priceIn(cur,item.priceINR)}</span>
+                            )}
+                            <span style={{fontSize:10,color:"#bbb",fontFamily:"'Inter',sans-serif",fontWeight:400,marginLeft:4}}>ea.</span>
+                          </div>
+                        );
+                      })()}
                     </div>
                     <div className="ci-ctrl" style={{display:"flex",alignItems:"center",gap:6,flexShrink:0}}>
                       <div style={{display:"flex",alignItems:"center",border:`1px solid ${C.sand}`,borderRadius:3,overflow:"hidden"}}>
@@ -4001,6 +4330,12 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 </div>
                 {cartTotalINR>0?(
                   <div>
+                    {cartOriginalTotalINR > cartTotalINR && (
+                      <>
+                        <div className="co-sum-row" style={{textDecoration:"line-through",opacity:.65}}><span className="co-label" style={{color:"#888"}}>Original Subtotal</span><span className="co-amt">₹{cartOriginalTotalINR.toLocaleString("en-IN")}</span></div>
+                        <div className="co-sum-row" style={{color:"#9E3B2E",fontWeight:600}}><span className="co-label" style={{color:"#9E3B2E"}}>Savings Discount</span><span className="co-amt">-₹{(cartOriginalTotalINR - cartTotalINR).toLocaleString("en-IN")}</span></div>
+                      </>
+                    )}
                     <div className="co-sum-row"><span className="co-label">Subtotal (indicative)</span><span className="co-amt">₹{cartTotalINR.toLocaleString("en-IN")}</span></div>
                     <div className="co-sum-row">
                       <span className="co-label">Delivery{delivery?` · Zone ${delivery.zone}`:""}
@@ -4715,6 +5050,7 @@ export default function App(){
 
   const renderView=()=>{
     if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")}/>;
+    if(page==="latex-guide")return<LatexGuideView setPage={nav} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry}/>;
     if(page==="catalog")return<CatalogView cat={activeCat} setCat={(cat:string|null)=>navigateTo("catalog",{cat})} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry} loading={productsLoading}/>;
     if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
     if(page==="account")return<AccountView setPage={nav}/>;
