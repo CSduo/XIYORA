@@ -120,13 +120,18 @@ pnpm run typecheck
    Header: x-admin-secret: YOUR_ADMIN_SECRET
    ```
 
-### ⚠️ Image Uploads on Vercel
+### Image Uploads on Vercel
 
-The `/api/admin/upload` endpoint uses **Replit Object Storage** (a GCS sidecar at `127.0.0.1:1106`). This sidecar is only available inside Replit containers.
+The upload system uses **Cloudinary** as the primary storage provider (works on Vercel, Replit, and anywhere). To enable admin image uploads:
 
-**On Vercel, image uploads will fail.** To enable uploads:
-- Replace `artifacts/api-server/src/lib/objectStorage.ts` with a Cloudinary / S3 / R2 client
-- Set the corresponding storage credentials as env vars
+1. Create a free account at [cloudinary.com](https://cloudinary.com)
+2. Go to your Cloudinary **Dashboard** → copy the Cloud Name, API Key, and API Secret
+3. Add to Vercel → Project Settings → Environment Variables:
+   - `CLOUDINARY_CLOUD_NAME`
+   - `CLOUDINARY_API_KEY`
+   - `CLOUDINARY_API_SECRET`
+
+If Cloudinary vars are **not set**, uploads automatically fall back to Replit Object Storage (which only works inside Replit containers). On Vercel without Cloudinary, the upload endpoint returns an error.
 
 ---
 
