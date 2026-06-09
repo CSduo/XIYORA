@@ -39,11 +39,30 @@ app.use(
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.has(origin)) {
+      if (!origin) {
         callback(null, true);
-      } else {
-        callback(new Error(`CORS: origin not allowed — ${origin}`));
+        return;
       }
+      if (allowedOrigins.has(origin)) {
+        callback(null, true);
+        return;
+      }
+      // Allow localhost and local IP development
+      if (/^https?:\/\/localhost(:\d+)?$/.test(origin) || /^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) {
+        callback(null, true);
+        return;
+      }
+      // Allow Vercel and Cloudflare Pages preview/production domains
+      if (
+        origin.endsWith(".vercel.app") ||
+        origin.endsWith(".pages.dev") ||
+        /\.vercel\.app$/.test(origin) ||
+        /\.pages\.dev$/.test(origin)
+      ) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error(`CORS: origin not allowed — ${origin}`));
     },
     credentials: true,
   }),

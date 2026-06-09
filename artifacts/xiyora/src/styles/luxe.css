@@ -7,9 +7,7 @@
 @media (pointer: coarse) {
   .xiyora-cursor, .xiyora-cursor-dot { display: none !important; }
 }
-@media (pointer: fine) {
-  html, body, * { cursor: none !important; }
-}
+/* Native cursor is preserved. Custom cursor provides a luxury trailing effect. */
 .xiyora-cursor {
   position: fixed;
   top: 0; left: 0;
@@ -646,4 +644,59 @@
 .ambient-glow-glow {
   animation: ambientPulse 8s ease-in-out infinite;
 }
+
+/* ── 23. RESPONSIVE NAVBAR LAYOUT OVERHAUL ─────────────────── */
+.nav-hamburger {
+  display: block;
+}
+
+@media (min-width: 1200px) {
+  /* Hide hamburger menu button on wide desktop screens */
+  .nav-hamburger {
+    display: none !important;
+  }
+  
+  /* Show horizontal navigation links */
+  .nc {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 1199px) {
+  /* Hide horizontal navigation links on smaller viewports */
+  .nc {
+    display: none !important;
+  }
+  
+  /* Show hamburger menu button */
+  .nav-hamburger {
+    display: block !important;
+  }
+  
+  /* Reduce logo size or gaps if necessary to fit mobile/tablet */
+  .nav-brand-x {
+    font-size: 20px !important;
+    letter-spacing: 4px !important;
+  }
+  .nav-brand-sub {
+    font-size: 8px !important;
+    letter-spacing: 2px !important;
+  }
+  
+  /* Let the right container take up less space on small screens */
+  .nav-b2b-text {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* On mobile, make sure the grid fits without overlapping */
+  .nav-cartouche {
+    padding: 4px 12px !important;
+  }
+  .nav-right {
+    gap: 4px !important;
+  }
+}
+
 

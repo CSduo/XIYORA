@@ -1132,30 +1132,56 @@ function humaniseLoginError(status: number, serverMsg?: string): string {
 
 function AdminDiagnostics() {
   const [health, setHealth] = useState<"checking"|"ok"|"error">("checking");
+  const [dbOk, setDbOk] = useState<boolean|null>(null);
+
   useEffect(() => {
     const base = API.replace(/\/api$/, "");
-    fetch(`${base}/api/health`, { signal: AbortSignal.timeout(5000) })
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 6000);
+
+    fetch(`${base}/api/health`, { signal: ctrl.signal })
       .then(async r => {
+        clearTimeout(t);
         const ct = r.headers.get("content-type") || "";
         if (!r.ok || !ct.includes("application/json")) { setHealth("error"); return; }
         const j = await r.json().catch(() => null);
-        setHealth(j?.status === "ok" ? "ok" : "error");
+        if (j?.status === "ok") {
+          setHealth("ok");
+          setDbOk(!!j.dbConnected);
+        } else {
+          setHealth("error");
+        }
       })
-      .catch(() => setHealth("error"));
+      .catch(() => {
+        clearTimeout(t);
+        setHealth("error");
+      });
   }, []);
-  const dot = health === "ok" ? "#3a9b6e" : health === "error" ? RED : "#aaa";
-  const label = health === "ok" ? "Backend reachable" : health === "error" ? "Backend unreachable" : "Checking…";
+
+  const dot = health === "ok" 
+    ? (dbOk ? "#3a9b6e" : "#d4a72d") 
+    : health === "error" ? RED : "#aaa";
+
+  const label = health === "ok" 
+    ? (dbOk ? "Backend reachable & DB connected" : "Backend reachable, DB missing") 
+    : health === "error" ? "Backend unreachable" : "Checking…";
+
   return (
     <div style={{ marginTop:18, background:"#f0ece0", borderRadius:3, padding:"10px 14px", textAlign:"left", fontSize:11, color:"#888", lineHeight:1.8 }}>
       <div style={{ fontWeight:600, color:DARK, marginBottom:4, letterSpacing:".5px", textTransform:"uppercase", fontSize:10 }}>Diagnostics</div>
       <div><span style={{ color:"#aaa" }}>API base:</span> <code style={{ fontSize:10, wordBreak:"break-all" }}>{API}</code></div>
       <div style={{ display:"flex", alignItems:"center", gap:6 }}>
         <span style={{ width:7, height:7, borderRadius:"50%", background:dot, display:"inline-block", flexShrink:0 }}/>
-        <span>{label}</span>
+        <span style={{ color: health === "ok" && !dbOk ? "#a07c1e" : undefined, fontWeight: health === "ok" && !dbOk ? 600 : undefined }}>{label}</span>
       </div>
       {health === "error" && (
         <div style={{ color:RED, marginTop:4 }}>
-          Set <code>VITE_API_BASE=https://your-backend.replit.app/api</code> in Cloudflare Pages → Environment variables, then redeploy.
+          Backend API server is not responding. Ensure your Vercel backend deployment is running, and verify <code>VITE_API_BASE</code> is set correctly.
+        </div>
+      )}
+      {health === "ok" && dbOk === false && (
+        <div style={{ color:"#9E3B2E", marginTop:4, fontWeight:500 }}>
+          ⚠️ DATABASE_URL is missing. Please set <code>DATABASE_URL</code> in your Vercel project environment variables and redeploy to connect the database!
         </div>
       )}
     </div>

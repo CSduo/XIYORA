@@ -10,6 +10,7 @@ function healthPayload() {
     uptime: Math.floor((Date.now() - startedAt) / 1000),
     timestamp: new Date().toISOString(),
     env: process.env.NODE_ENV ?? "unknown",
+    dbConnected: !!process.env.DATABASE_URL,
   };
 }
 

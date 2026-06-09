@@ -4203,7 +4203,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
       <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
         <div style={{display:"flex",alignItems:"center",gap:4}}>
-          <button onClick={onSidebar} className="ib" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8",padding:"8px",minWidth:36,minHeight:36}}>
+          <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8",padding:"8px",minWidth:36,minHeight:36}}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
@@ -4283,8 +4283,8 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{cartCount}</span>}
           </button>
-          <button className="nc-item" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:"#E6C89A",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
-            <LuxIcon name="globe" size={15} color="#E6C89A"/>B2B Portal
+          <button className="nc-item nav-b2b-btn" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:"#E6C89A",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
+            <LuxIcon name="globe" size={15} color="#E6C89A"/><span className="nav-b2b-text">B2B Portal</span>
           </button>
         </div>
       </div>
