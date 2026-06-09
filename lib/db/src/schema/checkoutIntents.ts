@@ -26,6 +26,6 @@ export const checkoutIntentsTable = pgTable("checkout_intents", {
 
 export const insertCheckoutIntentSchema = createInsertSchema(
   checkoutIntentsTable,
-).omit({ id: true, status: true, createdAt: true });
+).omit({ id: true, status: true, createdAt: true }) as any;
 export type InsertCheckoutIntent = z.infer<typeof insertCheckoutIntentSchema>;
 export type CheckoutIntent = typeof checkoutIntentsTable.$inferSelect;

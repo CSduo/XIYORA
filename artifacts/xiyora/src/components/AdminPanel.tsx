@@ -253,10 +253,313 @@ function GalleryUploader({ token, slug, context, value, onChange }: { token:stri
   );
 }
 
+const FALLBACK_IMG = "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600&auto=format&fit=crop&q=80";
+const sessionFluctuation = 1.012; // simulated rate
+
+const FX_RATES: Record<string, { rate: number; symbol: string; locale: string }> = {
+  USD: { rate: 1 / 83.5, symbol: "$", locale: "en-US" },
+  INR: { rate: 1.0, symbol: "₹", locale: "en-IN" },
+};
+
+function fmtMoney(cur: string, inrAmount: number): string {
+  const f = FX_RATES[cur] || FX_RATES.INR;
+  let rate = f.rate;
+  if (cur !== "INR") {
+    rate = rate * sessionFluctuation;
+  }
+  const v = Math.round(inrAmount * rate);
+  return `${f.symbol}${v.toLocaleString(f.locale)}`;
+}
+
+function priceIn(cur: string, inrStr?: string): string {
+  if (!inrStr) return "";
+  const nums = (String(inrStr).replace(/,/g, "").match(/\d+(?:\.\d+)?/g) || []).map(Number);
+  if (!nums.length) return inrStr;
+  if (cur === "INR") return inrStr;
+  const star = /\*\s*$/.test(inrStr) ? "*" : "";
+  const fromPrefix = /^\s*from/i.test(inrStr) ? "From " : "";
+  const parts = nums.map(n => fmtMoney(cur, n));
+  return fromPrefix + parts.join(" – ") + star;
+}
+
+function getFakeDiscountInfo(id: string | number, inrStr?: string, cur: string = "INR") {
+  if (!inrStr) return null;
+  const lower = String(inrStr).toLowerCase();
+  if (lower.includes("contact") || lower.includes("quote") || lower.includes("request") || lower.includes("select")) {
+    return null;
+  }
+  let hash = 0;
+  const strId = String(id || "default");
+  for (let i = 0; i < strId.length; i++) {
+    hash = strId.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const discountPct = 12 + Math.abs(hash % 13); // 12% to 24%
+  const nums = (String(inrStr).replace(/,/g, "").match(/\d+(?:\.\d+)?/g) || []).map(Number);
+  if (!nums.length) return null;
+  const star = /\*\s*$/.test(inrStr) ? "*" : "";
+  const fromPrefix = /^\s*from/i.test(inrStr) ? "From " : "";
+  const origNums = nums.map(n => Math.round((n * (1 + discountPct / 100)) / 100) * 100);
+  const origInrStr = fromPrefix + origNums.map(n => `₹${n.toLocaleString("en-IN")}`).join(" – ") + star;
+  const originalPriceStr = priceIn(cur, origInrStr);
+  const discountedPriceStr = priceIn(cur, inrStr);
+  let savedAmtStr: string | null = null;
+  if (nums.length === 1) {
+    savedAmtStr = priceIn(cur, `₹${origNums[0] - nums[0]}`);
+  }
+  return { discountPct, originalPriceStr, discountedPriceStr, savedAmtStr };
+}
+
+function PCardMock({ p, cur }: { p: Partial<Product>; cur: string }) {
+  const [imgErr, setImgErr] = useState(false);
+  const heroImg = p.heroImage || p.gallery?.[0] || "";
+  const basePrice = cur === "USD" ? p.priceUSD : p.priceINR;
+  const discInfo = getFakeDiscountInfo(p.id || "mock", basePrice || "", cur);
+  const displayPrice = basePrice || (cur === "USD" ? "$0*" : "₹0*");
+
+  return (
+    <div style={{ background: "#fff", border: `1px solid ${BEIGE}`, borderRadius: 4, overflow: "hidden", color: DARK, boxShadow: "0 4px 20px rgba(0,0,0,.15)" }}>
+      <div style={{ position: "relative", overflow: "hidden", height: 180, background: "#f6f3eb" }}>
+        {heroImg && !imgErr ? (
+          <img src={heroImg} alt={p.name} style={{ width: "100%", height: "100%", objectFit: p.category === "Latex Material" ? "contain" : "cover" }} onError={() => setImgErr(true)} />
+        ) : (
+          <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#aaa", fontSize: 11 }}>
+            No image uploaded
+          </div>
+        )}
+        <div style={{ position: "absolute", top: 10, left: 10, display: "flex", flexDirection: "column", gap: 6, zIndex: 5 }}>
+          {p.tag && <span style={{ background: GOLD, color: "#fff", padding: "3px 8px", borderRadius: 2, fontSize: 9, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase" }}>{p.tag}</span>}
+          {discInfo && <span style={{ background: RED, color: "#fff", padding: "3px 8px", borderRadius: 2, fontSize: 9, fontWeight: 700 }}>{discInfo.discountPct}% OFF</span>}
+        </div>
+      </div>
+      <div style={{ padding: 16 }}>
+        <div style={{ fontSize: 9, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD, marginBottom: 4, fontWeight: 500 }}>
+          {p.latexType || "Pure"} · {p.category}
+        </div>
+        <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 16, fontWeight: 500, color: DARK, marginBottom: 6, lineHeight: 1.2, height: 38, overflow: "hidden" }}>
+          {p.name || "Product Name"}
+        </h3>
+        <p style={{ fontSize: 11, color: "#aaa", marginBottom: 12, lineHeight: 1.45, height: 32, overflow: "hidden" }}>
+          {p.shortDesc || "Short description will appear here when written."}
+        </p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 10, borderTop: `1px solid ${BEIGE}` }}>
+          <div>
+            {discInfo ? (
+              <div>
+                <span style={{ textDecoration: "line-through", fontSize: 10, color: "#999", marginRight: 4 }}>{discInfo.originalPriceStr}</span>
+                <span style={{ fontFamily: "'Playfair Display',serif", fontSize: 14, fontWeight: 600, color: GOLD }}>{discInfo.discountedPriceStr}</span>
+              </div>
+            ) : (
+              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 14, fontWeight: 600, color: DARK }}>
+                {displayPrice}
+              </div>
+            )}
+            <div style={{ fontSize: 8, color: "#ccc", marginTop: 2 }}>Indicative · FOB Port</div>
+          </div>
+          <button style={{ background: GOLD, border: "none", color: "#fff", padding: "6px 12px", fontSize: 9, letterSpacing: ".5px", textTransform: "uppercase", borderRadius: 2, cursor: "pointer" }}>Inquire</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductDetailMock({ p, cur }: { p: Partial<Product>; cur: string }) {
+  const [activeImg, setActiveImg] = useState(0);
+  const [selVar, setSelVar] = useState(-1);
+  const [volume, setVolume] = useState(5);
+  
+  const heroImg = p.heroImage || "";
+  const gallery = Array.isArray(p.gallery) ? p.gallery : [];
+  const images = heroImg ? [heroImg, ...gallery] : gallery;
+  const currentImg = images[activeImg] || "";
+
+  const hasVariants = Array.isArray(p.variants) && p.variants.length > 0;
+  const activeVar = hasVariants && selVar >= 0 ? p.variants?.[selVar] : null;
+
+  const displayPrice = activeVar
+    ? (cur === "USD" ? activeVar.priceUSD : activeVar.priceINR)
+    : hasVariants
+      ? "Select size below"
+      : (cur === "USD" ? p.priceUSD : p.priceINR);
+
+  const discInfo = getFakeDiscountInfo(activeVar?.sku || p.id || "mock", displayPrice || "", cur);
+
+  // Simple freight logic
+  const isPillow = String(p.category).toLowerCase().includes("pillow");
+  const mult = isPillow ? 0.85 : 1.25;
+  const baseRate = 90; // Shanghai rate
+  const inlandRate = 40; // Nhava Sheva inland
+  const oceanFreight = volume * baseRate * mult;
+  const customs = 250;
+  const inland = volume * inlandRate;
+  const portHandling = 120;
+  const materialValueUSD = hasVariants && activeVar 
+    ? (parseFloat(String(activeVar.priceUSD).replace(/[^0-9.]/g, "")) || 300) 
+    : (parseFloat(String(p.priceUSD).replace(/[^0-9.]/g, "")) || 3000);
+  const igst = materialValueUSD * 0.18;
+  const totalLandedUSD = materialValueUSD + oceanFreight + customs + inland + portHandling + igst;
+
+  const formatLanded = (valUsd: number) => {
+    if (cur === "INR") {
+      return `₹${Math.round(valUsd * 83.5).toLocaleString("en-IN")}`;
+    }
+    return `$${Math.round(valUsd).toLocaleString("en-US")}`;
+  };
+
+  useEffect(() => {
+    if (activeImg >= images.length) setActiveImg(0);
+  }, [images, activeImg]);
+
+  return (
+    <div style={{ background: "#fff", border: `1px solid ${BEIGE}`, borderRadius: 6, padding: "20px", color: DARK, boxShadow: "0 4px 25px rgba(0,0,0,.08)", textAlign: "left" }}>
+      <div style={{ fontSize: 10, color: "#888", marginBottom: 12, display: "flex", gap: 4 }}>
+        <span>B2B Portal</span> <span>/</span> <span>{p.category}</span> <span>/</span> <span style={{ color: GOLD }}>{p.name || "Product Name"}</span>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 20 }}>
+        {/* Images */}
+        <div>
+          <div style={{ borderRadius: 4, overflow: "hidden", background: "#1E1E1C", height: 180, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 8 }}>
+            {currentImg ? (
+              <img src={currentImg} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+            ) : (
+              <span style={{ color: "#666", fontSize: 11 }}>No media uploaded</span>
+            )}
+          </div>
+          {images.length > 1 && (
+            <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4 }}>
+              {images.map((img, i) => (
+                <button key={img + i} onClick={() => setActiveImg(i)} style={{ width: 34, height: 34, padding: 0, border: `1px solid ${activeImg === i ? GOLD : BEIGE}`, background: "none", cursor: "pointer", flexShrink: 0 }}>
+                  <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Info */}
+        <div>
+          <div style={{ display: "flex", gap: 4, marginBottom: 6, flexWrap: "wrap" }}>
+            {p.tag && <span style={{ background: GOLD, color: "#fff", padding: "2px 5px", fontSize: 8, fontWeight: 600, borderRadius: 2 }}>{p.tag}</span>}
+            {p.latexType && <span style={{ border: `1px solid ${GOLD}`, color: GOLD, padding: "1px 4px", fontSize: 8, fontWeight: 600, borderRadius: 2 }}>{p.latexType} Latex</span>}
+          </div>
+
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 18, color: DARK, margin: "0 0 4px", fontWeight: 500, lineHeight: 1.2 }}>{p.name || "Listing Name"}</h2>
+          <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", color: GOLD, fontSize: 12, margin: "0 0 10px" }}>{p.headline || "Tagline/Headline"}</p>
+          <p style={{ fontSize: 11, color: "#666", lineHeight: 1.5, margin: "0 0 12px", maxHeight: 60, overflowY: "auto" }}>{p.shortDesc || "Listing summary text."}</p>
+
+          {p.latexContent && (
+            <div style={{ background: "#fbf9f4", padding: "5px 8px", borderRadius: 3, fontSize: 10, color: DARK, borderLeft: `2.5px solid ${GOLD}`, marginBottom: 10 }}>
+              Latex Content: <strong>{p.latexContent}</strong>
+            </div>
+          )}
+
+          <div style={{ padding: 10, border: `1px solid ${BEIGE}`, background: "#FAF8F4", borderRadius: 4, marginBottom: 10 }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 6, flexWrap: "wrap" }}>
+              {discInfo ? (
+                <>
+                  <span style={{ textDecoration: "line-through", color: "#999", fontSize: 11 }}>{discInfo.originalPriceStr}</span>
+                  <span style={{ fontSize: 16, fontWeight: 700, color: GOLD, fontFamily: "'Playfair Display',serif" }}>{discInfo.discountedPriceStr}</span>
+                  <span style={{ background: "rgba(158,59,46,.12)", color: RED, fontSize: 8, fontWeight: 700, padding: "1px 4px", borderRadius: 2 }}>{discInfo.discountPct}% OFF</span>
+                </>
+              ) : (
+                <span style={{ fontSize: 16, fontWeight: 700, color: DARK, fontFamily: "'Playfair Display',serif" }}>{displayPrice}</span>
+              )}
+            </div>
+            {p.priceNote && <div style={{ fontSize: 8, color: GOLD, fontStyle: "italic", marginTop: 2 }}>{p.priceNote}</div>}
+          </div>
+        </div>
+      </div>
+
+      {/* Variants */}
+      {hasVariants && (
+        <div style={{ marginTop: 12 }}>
+          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#888", margin: "0 0 6px" }}>Select Size (Interactive)</h4>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            {(p.variants || []).map((v: any, i: number) => {
+              const vPrice = cur === "USD" ? v.priceUSD : v.priceINR;
+              const vDisc = getFakeDiscountInfo(v.sku || "v", vPrice || "", cur);
+              return (
+                <button key={i} onClick={() => setSelVar(i === selVar ? -1 : i)} style={{ textAlign: "left", padding: "6px 10px", borderRadius: 3, border: `1px solid ${selVar === i ? GOLD : BEIGE}`, background: selVar === i ? "#FCFAF2" : "transparent", cursor: "pointer", fontSize: 11, display: "flex", justifyContent: "space-between", alignItems: "center", color: selVar === i ? DARK : "#555" }}>
+                  <span>{v.label}</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    {vDisc ? (
+                      <>
+                        <span style={{ textDecoration: "line-through", fontSize: 10, color: "#999" }}>{vDisc.originalPriceStr}</span>
+                        <span style={{ fontWeight: 600, color: GOLD }}>{vDisc.discountedPriceStr}</span>
+                      </>
+                    ) : (
+                      <span style={{ fontWeight: 600 }}>{vPrice}</span>
+                    )}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Specs & Highlights */}
+      <div style={{ marginTop: 14, borderTop: `1px solid ${BEIGE}`, paddingTop: 12, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+        <div>
+          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#888", margin: "0 0 6px" }}>Specifications</h4>
+          {p.specs && Object.keys(p.specs).length > 0 ? (
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10.5 }}>
+              <tbody>
+                {Object.entries(p.specs).map(([k, v]) => (
+                  <tr key={k} style={{ borderBottom: `1px solid #FAF8F4` }}>
+                    <td style={{ padding: "4px 0", color: "#888", fontWeight: 500 }}>{k}</td>
+                    <td style={{ padding: "4px 0", color: DARK }}>{String(v)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <span style={{ fontSize: 10, color: "#aaa" }}>No specs</span>
+          )}
+        </div>
+        <div>
+          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#888", margin: "0 0 6px" }}>Highlights</h4>
+          {p.highlights && p.highlights.length > 0 ? (
+            p.highlights.map((h, i) => (
+              <div key={i} style={{ display: "flex", gap: 5, fontSize: 10.5, color: "#555", marginBottom: 3 }}>
+                <span style={{ color: GOLD }}>◈</span>
+                <span>{h}</span>
+              </div>
+            ))
+          ) : (
+            <span style={{ fontSize: 10, color: "#aaa" }}>No highlights</span>
+          )}
+        </div>
+      </div>
+
+      {/* Freight calculator preview */}
+      <div style={{ marginTop: 18, background: "#1E1E1C", border: `1px solid rgba(200,169,126,.2)`, borderRadius: 4, padding: 12, color: "#F2EDE4" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+          <span style={{ fontSize: 8, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD }}>Landed Shipping Simulator</span>
+          <span style={{ fontSize: 9, color: "#aaa" }}>Shanghai ➔ Nhava Sheva</span>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 10, marginBottom: 8 }}>
+          <span>Volume: <strong>{volume} CBM</strong></span>
+          <input type="range" min="1" max="40" value={volume} onChange={e => setVolume(parseInt(e.target.value) || 1)} style={{ width: "60%", accentColor: GOLD, height: 4 }} />
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #332d29", paddingTop: 8 }}>
+          <div>
+            <div style={{ fontSize: 8, color: "#8a8378" }}>EST. DDP LANDED COST</div>
+            <div style={{ color: GOLD, fontSize: 13, fontWeight: 600 }}>{formatLanded(totalLandedUSD)}</div>
+          </div>
+          <span style={{ fontSize: 8, border: `1px solid ${GOLD}`, color: GOLD, padding: "1px 4px", borderRadius: 2 }}>Calculator Preview</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ProductEditor({ product, token, onSave, onClose }: { product: Partial<Product>|null; token:string; onSave:(p:Product)=>void; onClose:()=>void }) {
   const [form, setForm] = useState<Partial<Product>>(product ? { ...product } : { ...EMPTY_PRODUCT });
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState("");
+  const [previewTab, setPreviewTab] = useState<"detail" | "card">("detail");
+  const [previewCur, setPreviewCur] = useState<"USD" | "INR">("USD");
 
   const isNew = !product?.id;
   const set = (key: keyof Product) => (val: any) => setForm(f => ({ ...f, [key]: val }));
@@ -300,97 +603,179 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
   const [specsText, setSpecsText] = useState(specsToText(form.specs));
   const [variantsText, setVariantsText] = useState(variantsToText(form.variants));
 
+  // Live parsed variants for real-time preview
+  let liveVariants: any[] = [];
+  try {
+    liveVariants = JSON.parse(variantsText);
+  } catch {
+    liveVariants = form.variants || [];
+  }
+  const previewForm = { ...form, variants: liveVariants };
+
   return (
-    <div style={{ position:"fixed", inset:0, zIndex:2000, background:"rgba(0,0,0,.5)", overflowY:"auto", display:"flex", alignItems:"flex-start", justifyContent:"center", padding:"24px 16px" }}>
-      <div style={{ background:BG, borderRadius:6, width:"100%", maxWidth:700, padding:"32px", position:"relative" }}>
-        <button onClick={onClose} style={{ position:"absolute", top:16, right:16, background:"none", border:"none", fontSize:20, cursor:"pointer", color:"#888" }}>✕</button>
-        <p style={{ fontSize:11, letterSpacing:"3px", textTransform:"uppercase", color:GOLD, marginBottom:6 }}>Admin</p>
-        <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, color:DARK, marginBottom:24 }}>{isNew ? "New Product" : "Edit Product"}</h2>
+    <div style={{ position: "fixed", inset: 0, zIndex: 2000, background: "rgba(0,0,0,.6)", overflowY: "auto", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
+      <div style={{ background: BG, borderRadius: 8, width: "95vw", maxWidth: 1350, height: "90vh", display: "flex", flexDirection: "column", position: "relative", boxShadow: "0 10px 40px rgba(0,0,0,.35)", border: `1px solid ${GOLD}` }}>
+        <style>{`
+          @media (min-width: 1025px) {
+            .editor-split {
+              flex-direction: row !important;
+            }
+          }
+          @media (max-width: 1024px) {
+            .editor-split {
+              flex-direction: column !important;
+              overflow-y: auto !important;
+            }
+            .editor-split > div {
+              overflow-y: visible !important;
+              height: auto !important;
+              flex: none !important;
+              border-right: none !important;
+              border-bottom: 1px solid ${BEIGE};
+              padding: 16px !important;
+            }
+          }
+        `}</style>
 
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0 20px" }}>
+        {/* Header */}
+        <div style={{ padding: "16px 24px", borderBottom: `1px solid ${BEIGE}`, display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff", borderRadius: "8px 8px 0 0" }}>
           <div>
-            <Label>Slug (URL ID) *</Label>
-            <Input value={form.slug} onChange={(v: string) => set("slug")(v.toLowerCase().replace(/\s+/g,"-"))} placeholder="e.g. talalay-bread-pillow" />
+            <p style={{ fontSize: 10, letterSpacing: "3px", textTransform: "uppercase", color: GOLD, margin: 0 }}>Sourcing Gateway Admin</p>
+            <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 20, color: DARK, margin: 0 }}>{isNew ? "New B2B Product Listing" : `Edit B2B Product: ${form.name}`}</h2>
           </div>
-          <div>
-            <Label>Name *</Label>
-            <Input value={form.name} onChange={set("name")} />
-          </div>
-          <div>
-            <Label>Category *</Label>
-            <Select value={form.category} onChange={set("category")} options={CATEGORIES} />
-          </div>
-          <div>
-            <Label>Latex Type</Label>
-            <Input value={form.latexType} onChange={set("latexType")} placeholder="Talalay / Dunlop / Hybrid" />
-          </div>
-          <div>
-            <Label>Latex Content</Label>
-            <Input value={form.latexContent} onChange={set("latexContent")} placeholder="93% natural latex" />
-          </div>
-          <div>
-            <Label>Tag (badge top)</Label>
-            <Input value={form.tag} onChange={set("tag")} placeholder="Most Popular" />
-          </div>
-          <div>
-            <Label>Badge</Label>
-            <Input value={form.badge} onChange={set("badge")} placeholder="2nd-Generation Talalay" />
-          </div>
-          <div>
-            <Label>Price INR</Label>
-            <Input value={form.priceINR} onChange={set("priceINR")} placeholder="₹3,200 – ₹4,600*" />
-          </div>
-          <div>
-            <Label>Price USD</Label>
-            <Input value={form.priceUSD} onChange={set("priceUSD")} placeholder="$39 – $56*" />
-          </div>
-          <div>
-            <Label>Sort Order</Label>
-            <Input type="number" value={String(form.sortOrder ?? 0)} onChange={(v: string) => set("sortOrder")(parseInt(v)||0)} />
-          </div>
+          <button onClick={onClose} style={{ background: "none", border: "none", fontSize: 22, cursor: "pointer", color: "#888" }}>✕</button>
         </div>
 
-        <Label>Headline</Label>
-        <Input value={form.headline} onChange={set("headline")} />
-        <Label>Short Description</Label>
-        <Textarea value={form.shortDesc} onChange={set("shortDesc")} rows={2} />
-        <Label>Full Description</Label>
-        <Textarea value={form.description} onChange={set("description")} rows={3} />
-        <Label>Price Note</Label>
-        <Input value={form.priceNote} onChange={set("priceNote")} />
-        <Label>Delivery Note</Label>
-        <Input value={form.deliveryNote} onChange={set("deliveryNote")} />
+        {/* Content Split */}
+        <div style={{ display: "flex", flex: 1, overflow: "hidden" }} className="editor-split">
+          
+          {/* Left: Scrollable Edit Form */}
+          <div style={{ flex: 1, overflowY: "auto", padding: "24px 32px", borderRight: `1px solid ${BEIGE}` }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 16px" }}>
+              <div>
+                <Label>Slug (URL ID) *</Label>
+                <Input value={form.slug} onChange={(v: string) => set("slug")(v.toLowerCase().replace(/\s+/g, "-"))} placeholder="e.g. talalay-bread-pillow" />
+              </div>
+              <div>
+                <Label>Name *</Label>
+                <Input value={form.name} onChange={set("name")} />
+              </div>
+              <div>
+                <Label>Category *</Label>
+                <Select value={form.category} onChange={set("category")} options={CATEGORIES} />
+              </div>
+              <div>
+                <Label>Latex Type</Label>
+                <Input value={form.latexType} onChange={set("latexType")} placeholder="Talalay / Dunlop / Hybrid" />
+              </div>
+              <div>
+                <Label>Latex Content</Label>
+                <Input value={form.latexContent} onChange={set("latexContent")} placeholder="93% natural latex" />
+              </div>
+              <div>
+                <Label>Tag (badge top)</Label>
+                <Input value={form.tag} onChange={set("tag")} placeholder="Most Popular" />
+              </div>
+              <div>
+                <Label>Badge</Label>
+                <Input value={form.badge} onChange={set("badge")} placeholder="2nd-Generation Talalay" />
+              </div>
+              <div>
+                <Label>Price INR</Label>
+                <Input value={form.priceINR} onChange={set("priceINR")} placeholder="₹3,200 – ₹4,600*" />
+              </div>
+              <div>
+                <Label>Price USD</Label>
+                <Input value={form.priceUSD} onChange={set("priceUSD")} placeholder="$39 – $56*" />
+              </div>
+              <div>
+                <Label>Sort Order</Label>
+                <Input type="number" value={String(form.sortOrder ?? 0)} onChange={(v: string) => set("sortOrder")(parseInt(v)||0)} />
+              </div>
+            </div>
 
-        <Label>Highlights (one per line)</Label>
-        <Textarea value={arrToText(form.highlights)} onChange={(v: string) => set("highlights")(textToArr(v))} rows={3} placeholder="Open-cell Talalay structure&#10;Naturally springy latex" />
+            <Label>Headline</Label>
+            <Input value={form.headline} onChange={set("headline")} />
+            <Label>Short Description</Label>
+            <Textarea value={form.shortDesc} onChange={set("shortDesc")} rows={2} />
+            <Label>Full Description</Label>
+            <Textarea value={form.description} onChange={set("description")} rows={3} />
+            <Label>Price Note</Label>
+            <Input value={form.priceNote} onChange={set("priceNote")} />
+            <Label>Delivery Note</Label>
+            <Input value={form.deliveryNote} onChange={set("deliveryNote")} />
 
-        <Label>Specs (one per line, format "Key: Value")</Label>
-        <Textarea value={specsText} onChange={(v: string) => { setSpecsText(v); set("specs")(textToSpecs(v)); }} rows={4} placeholder="Process: Talalay&#10;Latex Content: 93%" />
+            <Label>Highlights (one per line)</Label>
+            <Textarea value={arrToText(form.highlights)} onChange={(v: string) => set("highlights")(textToArr(v))} rows={3} placeholder="Open-cell Talalay structure&#10;Naturally springy latex" />
 
-        <Label>Sizes (one per line)</Label>
-        <Textarea value={arrToText(form.sizes)} onChange={(v: string) => set("sizes")(textToArr(v))} rows={2} />
+            <Label>Specs (one per line, format "Key: Value")</Label>
+            <Textarea value={specsText} onChange={(v: string) => { setSpecsText(v); set("specs")(textToSpecs(v)); }} rows={4} placeholder="Process: Talalay&#10;Latex Content: 93%" />
 
-        <Label>Use Cases (one per line)</Label>
-        <Textarea value={arrToText(form.useCases)} onChange={(v: string) => set("useCases")(textToArr(v))} rows={2} />
+            <Label>Sizes (one per line)</Label>
+            <Textarea value={arrToText(form.sizes)} onChange={(v: string) => set("sizes")(textToArr(v))} rows={2} />
 
-        <ImageUploader token={token} slug={form.slug||"misc"} context="products" label="Hero Image" value={form.heroImage||""} onChange={set("heroImage")} />
-        <GalleryUploader token={token} slug={form.slug||"misc"} context="products" value={form.gallery||[]} onChange={set("gallery")} />
+            <Label>Use Cases (one per line)</Label>
+            <Textarea value={arrToText(form.useCases)} onChange={(v: string) => set("useCases")(textToArr(v))} rows={2} />
 
-        <Label>Variants (JSON array)</Label>
-        <Textarea value={variantsText} onChange={(v: string) => { setVariantsText(v); setVariantsErr(""); }} rows={6} style={{ fontFamily:"monospace", fontSize:12, borderColor: variantsErr ? RED : undefined }} />
-        {variantsErr && <p style={{ color:RED, fontSize:12, marginTop:-8, marginBottom:12 }}>{variantsErr}</p>}
+            <ImageUploader token={token} slug={form.slug||"misc"} context="products" label="Hero Image" value={form.heroImage||""} onChange={set("heroImage")} />
+            <GalleryUploader token={token} slug={form.slug||"misc"} context="products" value={form.gallery||[]} onChange={set("gallery")} />
 
-        <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:24 }}>
-          <label style={{ display:"flex", alignItems:"center", gap:8, cursor:"pointer", fontSize:13, color:DARK }}>
-            <input type="checkbox" checked={form.visible ?? true} onChange={e => set("visible")(e.target.checked)} style={{ accentColor:GOLD, width:16, height:16 }} />
-            Visible to customers
-          </label>
+            <Label>Variants (JSON array)</Label>
+            <Textarea value={variantsText} onChange={(v: string) => { setVariantsText(v); setVariantsErr(""); }} rows={6} style={{ fontFamily: "monospace", fontSize: 12, borderColor: variantsErr ? RED : undefined }} />
+            {variantsErr && <p style={{ color: RED, fontSize: 12, marginTop: -8, marginBottom: 12 }}>{variantsErr}</p>}
+
+            <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
+              <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: 13, color: DARK }}>
+                <input type="checkbox" checked={form.visible ?? true} onChange={e => set("visible")(e.target.checked)} style={{ accentColor: GOLD, width: 16, height: 16 }} />
+                Visible to customers
+              </label>
+            </div>
+          </div>
+
+          {/* Right: Scrollable Visual Preview Panel */}
+          <div style={{ flex: 1, overflowY: "auto", padding: "24px 32px", background: "#FAF8F4", display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${BEIGE}`, paddingBottom: 12, marginBottom: 16 }}>
+              <span style={{ fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", color: GOLD, fontWeight: 600 }}>Visual Live Preview</span>
+              <div style={{ display: "flex", gap: 6 }}>
+                <button onClick={() => setPreviewTab("detail")} style={{ background: previewTab === "detail" ? GOLD : "transparent", color: previewTab === "detail" ? "#fff" : "#888", border: `1px solid ${previewTab === "detail" ? GOLD : BEIGE}`, padding: "5px 12px", fontSize: 11, borderRadius: 3, cursor: "pointer", fontFamily: "'Inter',sans-serif", fontWeight: 500 }}>Detail Page</button>
+                <button onClick={() => setPreviewTab("card")} style={{ background: previewTab === "card" ? GOLD : "transparent", color: previewTab === "card" ? "#fff" : "#888", border: `1px solid ${previewTab === "card" ? GOLD : BEIGE}`, padding: "5px 12px", fontSize: 11, borderRadius: 3, cursor: "pointer", fontFamily: "'Inter',sans-serif", fontWeight: 500 }}>Product Card</button>
+              </div>
+            </div>
+
+            {/* Currency toggle for preview */}
+            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <span style={{ fontSize: 10, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>Preview Currency:</span>
+              <div style={{ display: "flex", background: "#fff", border: `1px solid ${BEIGE}`, borderRadius: 3, overflow: "hidden" }}>
+                <button onClick={() => setPreviewCur("USD")} style={{ border: "none", padding: "4px 10px", fontSize: 10, background: previewCur === "USD" ? GOLD : "transparent", color: previewCur === "USD" ? "#fff" : "#888", cursor: "pointer", fontWeight: 600 }}>USD</button>
+                <button onClick={() => setPreviewCur("INR")} style={{ border: "none", padding: "4px 10px", fontSize: 10, background: previewCur === "INR" ? GOLD : "transparent", color: previewCur === "INR" ? "#fff" : "#888", cursor: "pointer", fontWeight: 600 }}>INR</button>
+              </div>
+            </div>
+
+            {/* Render Preview Content */}
+            <div style={{ flex: 1 }}>
+              {previewTab === "card" ? (
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "40px 0", background: "#1E1E1C", borderRadius: 6, border: "1px solid #332d29" }}>
+                  <div style={{ width: 280 }}>
+                    <PCardMock p={previewForm} cur={previewCur} />
+                  </div>
+                </div>
+              ) : (
+                <ProductDetailMock p={previewForm} cur={previewCur} />
+              )}
+            </div>
+          </div>
+
         </div>
 
-        {err && <p style={{ color:RED, fontSize:13, marginBottom:12 }}>{err}</p>}
-        <div style={{ display:"flex", gap:12 }}>
-          <Btn onClick={save} disabled={saving}>{saving ? <Spinner size={14}/> : "Save Product"}</Btn>
-          <Btn variant="secondary" onClick={onClose}>Cancel</Btn>
+        {/* Footer */}
+        <div style={{ padding: "16px 24px", borderTop: `1px solid ${BEIGE}`, display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff", borderRadius: "0 0 8px 8px" }}>
+          <div>
+            {err && <span style={{ color: RED, fontSize: 13, fontWeight: 500 }}>{err}</span>}
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            <Btn variant="secondary" onClick={onClose}>Cancel</Btn>
+            <Btn onClick={save} disabled={saving}>{saving ? <Spinner size={14}/> : "Save Listing"}</Btn>
+          </div>
         </div>
       </div>
     </div>
@@ -814,6 +1199,64 @@ export default function AdminPanel() {
     }
   };
 
+  const handleGoogleCredentialResponse = useCallback(async (response: any) => {
+    setLoginLoading(true); setLoginErr("");
+    try {
+      const res = await apiFetch("/admin/google-login", { method:"POST", body:JSON.stringify({ credential: response.credential }) });
+      setLastStatus(res.status);
+      let data: any = {};
+      try { data = await res.json(); } catch {}
+      if (res.ok && data.success && data.token) {
+        try { localStorage.setItem(TOKEN_KEY, data.token); } catch {}
+        setToken(data.token);
+        return;
+      }
+      setLoginErr(humaniseLoginError(res.status, data.error));
+    } catch {
+      setLastStatus(0);
+      setLoginErr("Google Authentication failed to reach backend.");
+    } finally {
+      setLoginLoading(false);
+    }
+  }, []);
+
+  const initializeGoogleSignIn = useCallback(() => {
+    const google = (window as any).google;
+    if (google) {
+      const client_id = (import.meta.env.VITE_GOOGLE_CLIENT_ID as string) || "878235252872-9l7h560kchc3eopvpe623q3461234.apps.googleusercontent.com";
+      google.accounts.id.initialize({
+        client_id,
+        callback: handleGoogleCredentialResponse,
+      });
+      const btnParent = document.getElementById("google-signin-btn");
+      if (btnParent) {
+        google.accounts.id.renderButton(btnParent, {
+          theme: "outline",
+          size: "large",
+          width: 324,
+        });
+      }
+    }
+  }, [handleGoogleCredentialResponse]);
+
+  useEffect(() => {
+    if (token) return;
+    const scriptId = "google-gsi-client";
+    if (document.getElementById(scriptId)) {
+      initializeGoogleSignIn();
+      return;
+    }
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      initializeGoogleSignIn();
+    };
+    document.body.appendChild(script);
+  }, [token, initializeGoogleSignIn]);
+
   useEffect(() => {
     if (!token) return;
     apiFetch("/admin/products", {}, token).then(r => {
@@ -833,14 +1276,21 @@ export default function AdminPanel() {
           <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter',sans-serif", marginBottom:10, outline:"none", boxSizing:"border-box" }} onKeyDown={e=>e.key==="Enter"&&login()} />
           {loginErr && <p style={{ color:RED, fontSize:12, marginBottom:10, textAlign:"left", lineHeight:1.6 }}>{loginErr}</p>}
           {lastStatus > 0 && <p style={{ fontSize:10, color:"#bbb", marginBottom:8 }}>Last HTTP status: {lastStatus}</p>}
-          <button onClick={login} disabled={loginLoading} style={{ width:"100%", background:GOLD, color:"#fff", border:"none", padding:"13px", fontSize:12, letterSpacing:"2px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter',sans-serif", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+          <button onClick={login} disabled={loginLoading} style={{ width:"100%", background:GOLD, color:"#fff", border:"none", padding:"13px", fontSize:12, letterSpacing:"2px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter',sans-serif", display:"flex", alignItems:"center", justifyContent:"center", gap:8, marginBottom:12 }}>
             {loginLoading ? <Spinner/> : "Sign In"}
           </button>
+          <div style={{ display:"flex", alignItems:"center", margin:"16px 0", gap:10 }}>
+            <div style={{ flex:1, height:1, background:BEIGE }} />
+            <span style={{ fontSize:11, color:"#bbb", textTransform:"uppercase", letterSpacing:"1px" }}>or</span>
+            <div style={{ flex:1, height:1, background:BEIGE }} />
+          </div>
+          <div id="google-signin-btn" style={{ display:"flex", justifyContent:"center", marginBottom:20 }} />
           <AdminDiagnostics />
         </div>
       </div>
     );
   }
+
 
   const NAV = [
     { key:"products", label:"Products", icon:"📦" },

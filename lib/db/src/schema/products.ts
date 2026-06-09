@@ -31,7 +31,7 @@ export const productsTable = pgTable("products", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
-export const insertProductSchema = createInsertSchema(productsTable)
+export const insertProductSchema = (createInsertSchema(productsTable)
   .omit({ id: true, createdAt: true, updatedAt: true })
   .superRefine((data, ctx) => {
     if (!data.priceINR && !data.priceUSD) {
@@ -41,6 +41,6 @@ export const insertProductSchema = createInsertSchema(productsTable)
         path: ["priceINR"],
       });
     }
-  });
+  })) as any;
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type Product = typeof productsTable.$inferSelect;

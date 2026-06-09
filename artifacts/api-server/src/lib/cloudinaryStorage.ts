@@ -63,7 +63,7 @@ export async function uploadToCloudinary(
 
   // Build multipart form
   const formData = new FormData();
-  formData.append("file", new Blob([buffer], { type: options.mimetype }), options.filename);
+  formData.append("file", new Blob([buffer as any], { type: options.mimetype }), options.filename);
   formData.append("api_key", apiKey);
   formData.append("timestamp", String(timestamp));
   formData.append("folder", folder);

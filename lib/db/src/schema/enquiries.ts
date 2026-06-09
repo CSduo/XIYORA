@@ -32,6 +32,6 @@ export const insertEnquirySchema = createInsertSchema(enquiriesTable).omit({
   id: true,
   status: true,
   createdAt: true,
-});
+}) as any;
 export type InsertEnquiry = z.infer<typeof insertEnquirySchema>;
 export type Enquiry = typeof enquiriesTable.$inferSelect;

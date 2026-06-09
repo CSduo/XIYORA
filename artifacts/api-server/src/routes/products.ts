@@ -37,7 +37,7 @@ router.post("/admin/products", requireAdmin, async (req, res): Promise<void> => 
 });
 
 router.put("/admin/products/:slugOrId", requireAdmin, async (req, res): Promise<void> => {
-  const { slugOrId } = req.params;
+  const slugOrId = req.params.slugOrId as string;
   const updateSchema = insertProductSchema.partial();
   const parsed = updateSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -59,7 +59,7 @@ router.put("/admin/products/:slugOrId", requireAdmin, async (req, res): Promise<
 });
 
 router.delete("/admin/products/:slugOrId", requireAdmin, async (req, res): Promise<void> => {
-  const { slugOrId } = req.params;
+  const slugOrId = req.params.slugOrId as string;
   const isId = /^\d+$/.test(slugOrId);
   const condition = isId ? eq(productsTable.id, parseInt(slugOrId)) : eq(productsTable.slug, slugOrId);
   await db.delete(productsTable).where(condition);

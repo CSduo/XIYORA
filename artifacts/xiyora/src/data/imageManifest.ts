@@ -1,6 +1,6 @@
 const B = "/assets/xiyora-products/final";
 
-const p = (slug, ...g) => ({
+const p = (slug: string, ...g: string[]) => ({
   hero: `${B}/${slug}/hero.webp`,
   gallery: g.map(n => `${B}/${slug}/${n}.webp`),
 });

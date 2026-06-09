@@ -5,11 +5,11 @@ import AdminPanel from "./components/AdminPanel";
 
 const resolveHero=(id:string,apiValue?:string):string=>{
   if(apiValue&&apiValue.trim())return apiValue;
-  return imageManifest.products[id]?.hero||"";
+  return (imageManifest.products as any)[id]?.hero||"";
 };
 const resolveGallery=(id:string,apiValue:string[]):string[]=>{
   if(apiValue&&apiValue.length>0)return apiValue;
-  const m=imageManifest.products[id];
+  const m=(imageManifest.products as any)[id];
   return m?.gallery?.length?m.gallery:[];
 };
 // resolveHero/resolveGallery are ONLY for the static PRODUCTS fallback array below.
@@ -981,9 +981,15 @@ function useLiveFx():number{
   },[]);
   return version;
 }
+const sessionFluctuation = 0.985 + Math.random() * 0.03;
+
 const fmtMoney=(cur:string,inrAmount:number):string=>{
   const f=FX[cur]||FX.INR;
-  const v=Math.round(inrAmount*f.rate);
+  let rate = f.rate;
+  if (cur !== "INR") {
+    rate = rate * sessionFluctuation;
+  }
+  const v=Math.round(inrAmount*rate);
   return `${f.symbol}${v.toLocaleString(f.locale)}`;
 };
 /** Convert a curated INR price string (single, range with "–", optional "*" / "From") to target currency. */
@@ -1999,7 +2005,7 @@ const SUPPLIER_PROCESS=[
   ["03","Confirm & Pay","Review proforma invoice, confirm specs, and approve before any payment is collected."],
   ["04","Delivery","Shipped from China via sea freight. 3–10 days inland after port clearance."],
 ];
-function SupplierView({onCatalog,onInquire,setPage}:{onCatalog:()=>void;onInquire:(p:any,i:string)=>void;setPage:(p:string)=>void}){
+function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onInquire:(p:any,i:string)=>void;setPage:(p:string)=>void;cur:string}){
   const C=useC();
   const [err,setErr]=useState(false);
   const heroImg=BIZ.supplierHeroImage||"https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80";
@@ -2091,6 +2097,14 @@ function SupplierView({onCatalog,onInquire,setPage}:{onCatalog:()=>void;onInquir
           </div>
         </div>
       </section>
+
+      {/* Global Freight Calculator */}
+      <section style={{ padding: "40px 0", background: C.white }}>
+        <div className="container">
+          <GlobalFreightCalculator cur={cur} />
+        </div>
+      </section>
+
       {/* CTA */}
       <section style={{background:"linear-gradient(135deg,#16110b,#0c0a08)",padding:"clamp(40px,5vw,64px) 0"}}>
         <div className="container" style={{textAlign:"center"}}>
@@ -2678,10 +2692,254 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
   );
 }
 
-/* ─── PRODUCT DETAIL ─────────────────────────────────────── */
+/* ─── LOCATION PROMPT MODAL ────────────────────────────── */
+function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose: () => void; onSave: (loc: any) => void }) {
+  const C = useC();
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [geoLoading, setGeoLoading] = useState(false);
+  const [geoMsg, setGeoMsg] = useState("");
+
+  const handleSave = () => {
+    if (!state.trim()) { alert("Please select a state."); return; }
+    if (!/^\d{6}$/.test(pincode.trim())) { alert("Please enter a valid 6-digit Indian pincode."); return; }
+    onSave({ state, city: city.trim() || "Local Hub", pincode: pincode.trim() });
+    onClose();
+  };
+
+  const detect = () => {
+    if (!navigator.geolocation) { setGeoMsg("Geolocation is not supported by your browser."); return; }
+    setGeoLoading(true); setGeoMsg("");
+    navigator.geolocation.getCurrentPosition(
+      async pos => {
+        try {
+          const r = await fetch(`${API_BASE}/location/reverse?lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`);
+          const data = await r.json();
+          if (data?.success) {
+            if (data.state) setState(data.state);
+            if (data.city) setCity(data.city);
+            if (data.pincode && /^\d{6}$/.test(data.pincode)) {
+              setPincode(data.pincode);
+              setGeoMsg("Location detected successfully!");
+            } else {
+              setGeoMsg("State and City detected. Please enter your pincode.");
+            }
+          } else {
+            setGeoMsg(data?.error || "Could not detect location. Please enter manually.");
+          }
+        } catch {
+          setGeoMsg("Could not detect location. Please enter manually.");
+        }
+        setGeoLoading(false);
+      },
+      e => {
+        setGeoLoading(false);
+        setGeoMsg("Location permission denied. Please enter manually.");
+      },
+      { timeout: 10000, enableHighAccuracy: false }
+    );
+  };
+
+  if (!show) return null;
+
+  return (
+    <div className="glass-modal" style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(10,8,7,0.88)", backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10000, padding: 20 }}>
+      <div style={{ background: C.beige, borderRadius: 8, padding: "32px 36px", maxWidth: 460, width: "100%", textAlign: "center", border: `1px solid ${C.sand}`, boxShadow: "0 10px 40px rgba(0,0,0,0.3)", position: "relative" }}>
+        <button onClick={onClose} style={{ position: "absolute", top: 16, right: 16, background: "none", border: "none", fontSize: 18, color: "#888", cursor: "pointer" }}>✕</button>
+        <span style={{ fontSize: 10, letterSpacing: "3px", textTransform: "uppercase", color: C.gold, fontWeight: 600, display: "block", marginBottom: 6 }}>Welcome to XIYORA Sourcing</span>
+        <h3 className="serif" style={{ fontSize: 22, color: C.dark, margin: "0 0 10px" }}>Set Delivery Destination</h3>
+        <p style={{ fontSize: 12.5, color: "#777", lineHeight: 1.6, marginBottom: 20 }}>We customize landed sea-freight, customs, local taxation, and transit estimates based on your delivery hub.</p>
+
+        <button type="button" disabled={geoLoading} onClick={detect} style={{ width: "100%", background: C.white, border: `1px solid ${C.sand}`, color: C.dark, padding: "11px", borderRadius: 4, fontSize: 13, cursor: geoLoading ? "wait" : "pointer", fontFamily: "'Inter',sans-serif", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 16, fontWeight: 500 }}>
+          {geoLoading ? <Spinner /> : <svg width={14} height={14} fill="none" stroke={C.gold} strokeWidth={2} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
+          <span>Auto-Detect Current Location</span>
+        </button>
+
+        {geoMsg && <div style={{ fontSize: 12, padding: "6px 8px", borderRadius: 3, background: geoMsg.includes("denied") || geoMsg.includes("Could not") ? "#fff0f0" : "#edfaf5", color: geoMsg.includes("denied") || geoMsg.includes("Could not") ? "#a84444" : "#2a7a4e", marginBottom: 12, lineHeight: 1.4 }}>{geoMsg}</div>}
+
+        <div style={{ textAlign: "left", marginBottom: 16 }}>
+          <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>State / Union Territory *</label>
+          <select value={state} onChange={e => setState(e.target.value)} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter',sans-serif" }}>
+            <option value="">Select state / UT</option>
+            {INDIAN_STATES.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, textAlign: "left", marginBottom: 20 }}>
+          <div>
+            <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>City (Optional)</label>
+            <input value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Mumbai" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter',sans-serif" }} />
+          </div>
+          <div>
+            <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>Pincode *</label>
+            <input value={pincode} onChange={e => setPincode(e.target.value.replace(/\D/g, ""))} placeholder="6-digit PIN" maxLength={6} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter',sans-serif" }} />
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 10 }}>
+          <button className="bo" onClick={onClose} style={{ flex: 1, padding: 12, fontSize: 12 }}>Cancel</button>
+          <button className="bg" onClick={handleSave} style={{ flex: 1, padding: 12, fontSize: 12 }}>Confirm Hub</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── GLOBAL PORT SOURCING & FREIGHT CALCULATOR ────────── */
+function GlobalFreightCalculator({ cur }: { cur: string }) {
+  const C = useC();
+  const [origin, setOrigin] = useState("Shanghai");
+  const [destination, setDestination] = useState("Nhava Sheva");
+  const [material, setMaterial] = useState("mattress");
+  const [volume, setVolume] = useState(5); // CBM
+  const [materialValue, setMaterialValue] = useState(3000); // USD base material value
+
+  const ORIGINS = [
+    { key: "Shanghai", name: "Shanghai Port (China) - Latex Hub", rate: 90 },
+    { key: "Rotterdam", name: "Rotterdam Port (Netherlands) - Linens", rate: 140 },
+    { key: "Ningbo", name: "Ningbo Port (China) - Silk & Textiles", rate: 85 },
+    { key: "Hamburg", name: "Hamburg Port (Germany) - Bedding", rate: 150 }
+  ];
+
+  const DESTINATIONS = [
+    { key: "Nhava Sheva", name: "Nhava Sheva (Mumbai, India)", customsFlat: 250, inlandRate: 40 },
+    { key: "Mundra", name: "Mundra Port (Gujarat, India)", customsFlat: 240, inlandRate: 45 },
+    { key: "Chennai", name: "Chennai Port (Tamil Nadu, India)", customsFlat: 260, inlandRate: 38 },
+    { key: "Cochin", name: "Cochin Port (Kerala, India)", customsFlat: 280, inlandRate: 42 },
+    { key: "Kolkata", name: "Kolkata Port (West Bengal, India)", customsFlat: 300, inlandRate: 55 },
+    { key: "Visakhapatnam", name: "Visakhapatnam Port (Andhra, India)", customsFlat: 270, inlandRate: 48 }
+  ];
+
+  const MATERIALS = [
+    { key: "mattress", name: "Latex Mattress Cores (Bulky)", mult: 1.25 },
+    { key: "pillow", name: "Latex Pillows (Volumetric)", mult: 0.85 },
+    { key: "topper", name: "Latex Mattress Toppers", mult: 1.0 },
+    { key: "linen", name: "Linen Fabrics & Covers", mult: 0.75 }
+  ];
+
+  const selOrigin = ORIGINS.find(o => o.key === origin) || ORIGINS[0];
+  const selDest = DESTINATIONS.find(d => d.key === destination) || DESTINATIONS[0];
+  const selMat = MATERIALS.find(m => m.key === material) || MATERIALS[0];
+
+  const oceanFreightUSD = volume * selOrigin.rate * selMat.mult;
+  const customsClearanceUSD = selDest.customsFlat;
+  const importDutyIGSTUSD = materialValue * 0.18;
+  const inlandHaulageUSD = volume * selDest.inlandRate;
+  const portHandlingUSD = 120; // flat local port fees
+
+  const totalUSD = materialValue + oceanFreightUSD + customsClearanceUSD + importDutyIGSTUSD + inlandHaulageUSD + portHandlingUSD;
+
+  const formatCost = (usdVal: number) => {
+    if (cur === "INR") {
+      return `₹${Math.round(usdVal * 83.5).toLocaleString("en-IN")}`;
+    }
+    const rate = FX[cur]?.rate || (1 / 83.5);
+    const valInTarget = Math.round(usdVal * 83.5 * rate * sessionFluctuation);
+    const sym = FX[cur]?.symbol || "$";
+    const loc = FX[cur]?.locale || "en-US";
+    return `${sym}${valInTarget.toLocaleString(loc)}`;
+  };
+
+  return (
+    <div style={{ background: "linear-gradient(135deg, #1C1916 0%, #0F0F0D 100%)", border: `1px solid rgba(200,169,126,.2)`, borderRadius: 6, padding: "32px 36px", color: "#F2EDE4", maxWidth: 900, margin: "40px auto 0", boxShadow: "0 15px 45px rgba(0,0,0,0.4)" }}>
+      <div style={{ textAlign: "center", marginBottom: 28 }}>
+        <span style={{ fontSize: 10, letterSpacing: "3px", textTransform: "uppercase", color: C.gold, fontWeight: 600, display: "block", marginBottom: 4 }}>B2B Freight Calculator</span>
+        <h3 className="serif" style={{ fontSize: 24, color: "#FAF6EE", margin: 0 }}>Global Sourcing &amp; Landed Cost Estimate</h3>
+        <p style={{ fontSize: 13, color: "#8a8378", marginTop: 8 }}>Select route, material volume, and valuation to calculate estimated sea freight and port clearance fees.</p>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 32 }} className="checkout-grid">
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div>
+            <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#8a8378", display: "block", marginBottom: 6 }}>Origin Loading Port</label>
+            <select value={origin} onChange={e => setOrigin(e.target.value)} style={{ width: "100%", background: "#171513", border: "1px solid #332d29", color: "#fff", padding: "10px 12px", fontSize: 13, borderRadius: 3 }}>
+              {ORIGINS.map(o => <option key={o.key} value={o.key}>{o.name}</option>)}
+            </select>
+          </div>
+
+          <div>
+            <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#8a8378", display: "block", marginBottom: 6 }}>Destination Discharge Port</label>
+            <select value={destination} onChange={e => setDestination(e.target.value)} style={{ width: "100%", background: "#171513", border: "1px solid #332d29", color: "#fff", padding: "10px 12px", fontSize: 13, borderRadius: 3 }}>
+              {DESTINATIONS.map(d => <option key={d.key} value={d.key}>{d.name}</option>)}
+            </select>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div>
+              <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#8a8378", display: "block", marginBottom: 6 }}>Material Category</label>
+              <select value={material} onChange={e => setMaterial(e.target.value)} style={{ width: "100%", background: "#171513", border: "1px solid #332d29", color: "#fff", padding: "10px 12px", fontSize: 13, borderRadius: 3 }}>
+                {MATERIALS.map(m => <option key={m.key} value={m.key}>{m.name}</option>)}
+              </select>
+            </div>
+            <div>
+              <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#8a8378", display: "block", marginBottom: 6 }}>Est. Material Value (USD)</label>
+              <input type="number" value={materialValue} onChange={e => setMaterialValue(Math.max(100, parseInt(e.target.value) || 0))} style={{ width: "100%", background: "#171513", border: "1px solid #332d29", color: "#fff", padding: "9px 12px", fontSize: 13, borderRadius: 3 }} />
+            </div>
+          </div>
+
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+              <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#8a8378" }}>Cargo Volume: <strong>{volume} CBM</strong></label>
+              <span style={{ fontSize: 11, color: C.gold }}>{Math.ceil(volume * (selMat.key === "pillow" ? 12 : 1.5))} packages approx</span>
+            </div>
+            <input type="range" min="1" max="100" value={volume} onChange={e => setVolume(parseInt(e.target.value) || 1)} style={{ width: "100%", accentColor: C.gold }} />
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#555", marginTop: 4 }}>
+              <span>1 CBM (LCL Shared Container)</span>
+              <span>100 CBM (40' HQ Container)</span>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ background: "rgba(200, 169, 126, 0.03)", border: `1px solid rgba(200,169,126,.15)`, borderRadius: 4, padding: "20px 24px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div>
+            <div style={{ fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", color: "#8a8378", borderBottom: `1px solid rgba(200,169,126,.15)`, paddingBottom: 8, marginBottom: 12 }}>Freight Breakdown</div>
+            
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
+                <span style={{ color: "#aaa" }}>Material Value (FOB)</span>
+                <span>{formatCost(materialValue)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
+                <span style={{ color: "#aaa" }}>Ocean Freight ({volume} CBM)</span>
+                <span>{formatCost(oceanFreightUSD)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
+                <span style={{ color: "#aaa" }}>Customs Clearance &amp; Port Entry</span>
+                <span>{formatCost(customsClearanceUSD)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
+                <span style={{ color: "#aaa" }}>Import Duty &amp; IGST (18% est.)</span>
+                <span>{formatCost(importDutyIGSTUSD)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
+                <span style={{ color: "#aaa" }}>Local Port Handling &amp; Docs</span>
+                <span>{formatCost(portHandlingUSD)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
+                <span style={{ color: "#aaa" }}>Inland Haulage to {selDest.key}</span>
+                <span>{formatCost(inlandHaulageUSD)}</span>
+              </div>
+            </div>
+
+            <div style={{ borderTop: `1px dashed rgba(200,169,126,.2)`, marginTop: 18, paddingTop: 18 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>Est. Total Landed Cost (CIF)</span>
+                <span style={{ fontSize: 22, fontWeight: 700, color: C.gold, fontFamily: "'Playfair Display', serif" }}>{formatCost(totalUSD)}</span>
+              </div>
+              <p style={{ fontSize: 10, color: "#8a8378", marginTop: 8, lineHeight: 1.4 }}>* Calculated at base rate. Actual B2B invoice may vary depending on active custom duties, container availability, and shipping line charges.</p>
+            </div>
+          </div>
+          <button className="bg" onClick={() => window.open(waMsg(`Hi XIYORA, I used the B2B Freight Calculator and want a proforma quote. Origin: ${origin}, Destination: ${destination}, Material: ${selMat.name}, Volume: ${volume} CBM, Est Value: ${materialValue} USD.`), "_blank")} style={{ width: "100%", padding: 12, fontSize: 12, marginTop: 16 }}>Request B2B Proforma Quote</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const WA_ICON=<svg width={13} height={13} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>;
 
-function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckout,onCatFilter}:any){
+function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckout,onCatFilter,userLoc,showLocationPrompt}:any){
   const C=useC();
   const [img,setImg]=useState(0);
   const [zoom,setZoom]=useState(false);
@@ -2893,6 +3151,73 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                 Final quote required — exact price depends on your city, quantity, and configuration. Request below.
               </div>
             ):(
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:12}}>
+                <button onClick={handleAddToCart} disabled={!canBuy}
+                  style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
+                  {addedMsg?"✓ Added!":"Add to Basket"}
+                </button>
+                <button onClick={handleBuyNow} disabled={!canBuy}
+                  style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:"none",background:canBuy?C.gold:"#fff",color:C.gold,fontWeight:500,transition:"background .2s"}}>
+                  Buy Now →
+                </button>
+              </div>
+            )}
+            {/* Secondary actions */}
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:8}}>
+              <button onClick={()=>onWish(p.id)} style={{padding:"10px 6px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,border:`1px solid ${wished?C.gold:C.sand}`,background:wished?C.lgold:"transparent",color:wished?C.gold:"#888",transition:"all .2s"}}>
+                {wished?"♥ Saved":"♡ Save"}
+              </button>
+              <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"quote")}>Get Quote</button>
+              <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"proforma")}>Proforma</button>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18}}>
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
+                onClick={()=>window.open(waMsg(`Hi XIYORA, I'm interested in the ${p.name}${activeVar?` (${activeVar.label})`:""}. Can you share the landed price for my city?`),"_blank")}>
+                {WA_ICON}WhatsApp
+              </button>
+              <button className="bo" style={{padding:"11px 8px",fontSize:11}} onClick={()=>onInquire(p,"bulk")}>Bulk / B2B</button>
+            </div>
+            {/* Landed Pricing & Delivery */}
+            <div style={{padding:"16px 18px",background:C.beige,borderRadius:4,marginBottom:20,borderLeft:`3px solid ${C.gold}`}}>
+              <div style={{display:"flex",gap:10,alignItems:"flex-start"}}>
+                <svg width={18} height={18} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24" style={{flexShrink:0,marginTop:2}}><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+                <div style={{flex:1}}>
+                  <p style={{fontSize:12.5,fontWeight:600,color:C.dark,marginBottom:4}}>Landed Destination Sourcing</p>
+                  
+                  {userLoc && userLoc.state ? (
+                    (() => {
+                      const zoneInfo = lookupPincode(userLoc.pincode);
+                      const cat = p.category;
+                      const pt = pkgTypeFor(cat);
+                      const deliveryInr = DELIVERY_FEE[pt][zoneInfo?.zone || "B"] ?? DELIVERY_FEE[pt].B;
+                      const deliveryStr = priceIn(cur, `₹${deliveryInr}`);
+                      
+                      return (
+                        <div style={{fontSize:12.5,color:"#555",lineHeight:1.65}}>
+                          <div>Destination Hub: <strong>{userLoc.city || "Local Hub"}, {userLoc.state} ({userLoc.pincode})</strong></div>
+                          <div>Routing Port: <strong>{zoneInfo?.port || "Nearest Port"}</strong></div>
+                          <div>Estimated Transit: <strong>{zoneInfo?.days || "4-8"} days</strong> inland after customs clearance.</div>
+                          <div style={{marginTop:4,color:C.gold,fontWeight:500}}>Est. Local Delivery Charge: {deliveryStr} per unit package</div>
+                        </div>
+                      );
+                    })()
+                  ) : (
+                    <div style={{fontSize:12.5,color:"#888",lineHeight:1.6}}>
+                      Configure your delivery pincode to calculate domestic inland shipping, routing ports, and transit schedules.
+                      <button onClick={showLocationPrompt} style={{background:"none",border:"none",color:C.gold,textDecoration:"underline",cursor:"pointer",display:"block",padding:"4px 0 0",fontSize:12,fontWeight:600}}>📍 Set Delivery Destination</button>
+                    </div>
+                  )}
+                  <p style={{fontSize:11,color:"#888",marginTop:8,lineHeight:1.4}}>{p.deliveryNote}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Primary CTAs */}
+            {isQuoteRequired ? (
+              <div style={{background:"#FFF8F0",border:`1px solid #F0D8B0`,borderRadius:3,padding:"13px 16px",marginBottom:14,fontSize:13,color:"#8A6400",lineHeight:1.65}}>
+                Final quote required — exact price depends on your city, quantity, and configuration. Request below.
+              </div>
+            ) : (
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:12}}>
                 <button onClick={handleAddToCart} disabled={!canBuy}
                   style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
@@ -3231,7 +3556,7 @@ function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
             </thead>
             <tbody>
               {[
-                ["Process Method", "Liquid latex is poured, vacuum-expanded to fill the mold, flash-frozen at -28°C to lock structure, then vulcanized.", "Liquid latex is whipped, poured directly into the mold, gelled, and baked. A simpler, time-tested heritage method."],
+                ["Process Method", "Liquid latex is vacuum-expanded to fill the mold, flash-frozen at -30°C (-22°F) to lock structure, then vulcanized at 110°C to 115°C (230°F to 240°F).", "Liquid latex is whipped, poured directly into the mold, gelled, and baked. A simpler, time-tested heritage method."],
                 ["Cellular Structure", "Highly open-cell, uniform, round cell matrix. Outstanding air permeability.", "Denser, interlocking cellular structure. Sturdy, reliable, and slightly less breathable than Talalay."],
                 ["Density & Weight", "Lighter and highly uniform from top to bottom. Weight varies between 1.0kg - 1.6kg for pillows.", "Denser and heavier. Subtle density gradient due to gravity settling during baking (firmer at the bottom)."],
                 ["Comfort Feel", "Highly springy, plush, bouncy, luxurious pressure-relief. Floats under pressure.", "Supportive, firm, yielding, solid. Excellent contouring for heavier structural support."],
@@ -3293,6 +3618,11 @@ function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
               </div>
             </div>
           </Reveal>
+        </div>
+
+        {/* Global Freight Calculator */}
+        <div style={{ marginTop: 40, marginBottom: 40 }}>
+          <GlobalFreightCalculator cur={cur} />
         </div>
 
         <div style={{display: "flex", gap: 12, marginTop: 44, flexWrap: "wrap", justifyContent: "center"}}>
@@ -4879,7 +5209,29 @@ export default function App(){
   const [page,setPage]=useState("home");
   const [selProd,setSelProd]=useState<any>(null);
   const [activeCat,setActiveCat]=useState<string|null>(null);
-  const [cur,setCur]=useState("INR");
+  const [cur,setCur]=useState("USD");
+  const [userLoc, setUserLoc] = useState(() => {
+    try {
+      const saved = localStorage.getItem("xiyora_user_location");
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return { name: "", phone: "", email: "", state: "", city: "", pincode: "", fullAddress: "", landmark: "", company: "" };
+  });
+  const [showLocationPrompt, setShowLocationPrompt] = useState(false);
+  
+  useEffect(() => {
+    let timer: any;
+    try {
+      const saved = localStorage.getItem("xiyora_user_location");
+      if (!saved) {
+        timer = setTimeout(() => setShowLocationPrompt(true), 2500);
+      }
+    } catch {}
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
+
   const [wl,setWl]=useState<string[]>(()=>{try{return JSON.parse(localStorage.getItem("xiyora_wishlist")||"[]");}catch{return[];}});
   const [cart,setCart]=useState<CartItem[]>(()=>{try{return JSON.parse(localStorage.getItem("xiyora_cart")||"[]");}catch{return[];}});
   const [scrolled,setScrolled]=useState(false);
@@ -5044,21 +5396,27 @@ export default function App(){
   const openInquiry=(p:any,intent="general")=>setInquiry({show:true,product:p,intent});
   const openProof=()=>navigateTo("proof");
 
-  // URL-synced navigation wrapper — every setPage call from child components
-  // must go through navigateTo so the browser URL always matches the visible page.
   const nav=(p:string)=>navigateTo(p);
 
+  const updateUserLoc = (updatedFields: any) => {
+    setUserLoc((prev: any) => {
+      const next = { ...prev, ...updatedFields };
+      try { localStorage.setItem("xiyora_user_location", JSON.stringify(next)); } catch {}
+      return next;
+    });
+  };
+
   const renderView=()=>{
-    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")}/>;
+    if(page==="product"&&selProd)return<ProductDetail p={selProd} cur={cur} wl={wl} onWish={toggleWl} onBack={()=>window.history.back()} onCatFilter={openCatFilter} onInquire={openInquiry} onAddToCart={addToCart} onGoCheckout={()=>navigateTo("checkout")} userLoc={userLoc} showLocationPrompt={() => setShowLocationPrompt(true)}/>;
     if(page==="latex-guide")return<LatexGuideView setPage={nav} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry}/>;
     if(page==="catalog")return<CatalogView cat={activeCat} setCat={(cat:string|null)=>navigateTo("catalog",{cat})} cur={cur} wl={wl} onWish={toggleWl} onOpen={openProd} onInquire={openInquiry} loading={productsLoading}/>;
-    if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog}/>;
+    if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog} userLoc={userLoc} setUserLoc={updateUserLoc}/>;
     if(page==="account")return<AccountView setPage={nav}/>;
     if(page==="admin")return<AdminView/>;
     if(page==="xiyora-admin")return<AdminPanel/>;
     if(page==="proof")return<ProofLibraryView setPage={nav}/>;
     if(page==="order-status")return<OrderStatusView setPage={nav}/>;
-    if(page==="supplier")return<SupplierView onCatalog={openCatalog} onInquire={openInquiry} setPage={nav}/>;
+    if(page==="supplier")return<SupplierView onCatalog={openCatalog} onInquire={openInquiry} setPage={nav} cur={cur}/>;
     if(page==="about")return<SimplePage title="About XIYORA" content={[["Our Mission","To make genuine premium natural latex comfort accessible in India — with transparent pricing, honest sourcing, and dedicated support."],["Bingxi Partnership","XIYORA is the official sourcing partner for Bingxi products in India. Bingxi is a Chinese premium latex manufacturer with a broad portfolio of Talalay, Dunlop, and hybrid latex products."],["Our Address",BIZ.address],["GST",BIZ.gstNote]]} setPage={nav}/>;
     if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={nav}/>;
     if(page==="faq")return<SimplePage title="FAQ" content={[["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],["Do you provide tax documentation?",BIZ.gstNote],["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]]} setPage={nav}/>;
@@ -5086,9 +5444,14 @@ export default function App(){
         theme={theme} toggleTheme={toggleTheme}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
         onCheckout={()=>navigateTo("checkout")} onWishlist={()=>setShowWishlist(true)} onSidebar={()=>setShowSidebar(true)} onSupplier={()=>navigateTo("supplier")}/>
+      {userLoc.state && (
+        <div style={{ background: tc.lgold, borderBottom: `1px solid ${tc.sand}`, padding: "10px 0", fontSize: "12px", color: tc.ink, display: "flex", justifyContent: "center", alignItems: "center", gap: 10, position: "relative", zIndex: 9, flexWrap: "wrap" }}>
+          <span>📍 Landed sourcing pricing configured for: <strong>{userLoc.city || "Local Hub"}, {userLoc.state} ({userLoc.pincode})</strong></span>
+          <button onClick={() => setShowLocationPrompt(true)} style={{ background: "none", border: "none", color: tc.gold, textDecoration: "underline", cursor: "pointer", fontSize: "12px", padding: 0, fontWeight: 600 }}>Change Location</button>
+        </div>
+      )}
       <main style={{minHeight:"80vh",paddingBottom:2}}>{renderView()}</main>
       <Footer setPage={nav} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
-      {/* WhatsApp FAB — positioned above any potential Replit badge */}
       <div className="wb" style={{bottom:80}} onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")} title="Chat on WhatsApp">
         <svg width={26} height={26} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
       </div>
@@ -5097,8 +5460,8 @@ export default function App(){
       <SubscribeModal show={showSubscribe} onClose={()=>setShowSubscribe(false)}/>
       <SearchOverlay show={showSearch} onClose={()=>setShowSearch(false)} onPickProduct={(p:any)=>{openProd(p);setShowSearch(false);}} onCatalog={openCatalog}/>
       <WhatsAppPopup page={page} context={{product:page==="product"&&selProd?selProd.name:(cart.length?cart.map(i=>i.productName).join(", "):"")}}/>
+      <LocationPromptModal show={showLocationPrompt} onClose={() => setShowLocationPrompt(false)} onSave={(l: any) => updateUserLoc(l)} />
     </div>
-    {/* Premium overlay components — rendered outside main layout */}
     {!loaderDone&&<LoadingScreen onDone={()=>setLoaderDone(true)}/>}
     <GoldCursor/>
     <ScrollProgress/>

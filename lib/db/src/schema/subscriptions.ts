@@ -18,6 +18,6 @@ export const subscriptionsTable = pgTable("subscriptions", {
 
 export const insertSubscriptionSchema = createInsertSchema(
   subscriptionsTable,
-).omit({ id: true, createdAt: true });
+).omit({ id: true, createdAt: true }) as any;
 export type InsertSubscription = z.infer<typeof insertSubscriptionSchema>;
 export type Subscription = typeof subscriptionsTable.$inferSelect;
