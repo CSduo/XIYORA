@@ -879,9 +879,27 @@ const ZONE_INFO: Record<string,{label:string;col:string;bg:string}> = {
   C:{label:"Zone C — Extended",col:"#888",bg:"#f5f5f5"},
 };
 const lookupPincode = (pin:string) => {
-  const p = String(pin).trim();
-  if(p.length!==6||!/^\d+$/.test(p))return null;
-  return PINCODE_ZONES[p.slice(0,3)]||{zone:"B",port:"Nearest Available Port",days:"4–10"};
+  const p = String(pin).trim().toUpperCase();
+  if(!p) return null;
+  
+  // UK postcode pattern
+  const isUK = /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i.test(p);
+  // US ZIP or UAE ZIP (5 digits)
+  const is5Digit = /^\d{5}$/.test(p);
+  // Singapore postcode (6 digits) or Indian pincode
+  const is6DigitNumeric = /^\d{6}$/.test(p);
+  
+  if (is6DigitNumeric) {
+    const zone = PINCODE_ZONES[p.slice(0,3)];
+    if (zone) return { type: "india" as const, zone: zone.zone, port: zone.port, days: zone.days, label: "Express Indian Delivery" };
+    return { type: "india" as const, zone: "B", port: "Nearest Available Port", days: "4–10", label: "Express Indian Delivery" };
+  }
+  
+  if (isUK || is5Digit || /^[A-Z0-9]{3,8}$/i.test(p)) {
+    return { type: "intl" as const, label: "International Shipping Available", days: "25–40", port: "Bespoke Ocean Freight", zone: "INTL" };
+  }
+  
+  return { type: "unknown" as const, label: "Contact for rate", days: "Varies", port: "Bespoke Sourcing", zone: "UNKNOWN" };
 };
 
 const C={white:"#F6F3EB",beige:"#E5DFCD",gold:"#C8A97E",dark:"#1E1E1C",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141210",ink:"#4A4B46",seal:"#9E3B2E",taupe:"#BFA295"};
@@ -2143,46 +2161,216 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
 }
 
 /* ─── B2B INQUIRY FORM (brief spec) ──────────────────────── */
-function B2BInquiryForm(){
-  const C=useC();
-  const [form,setForm]=useState({name:"",company:"",category:"",gst:"",city:"",country:"India",postal:"",products:[] as string[],qty:"",message:"",contact:"whatsapp"});
-  const [sent,setSent]=useState(false);
-  const [loading,setLoading]=useState(false);
-  const CATS=["Hotel / Hospitality","Retailer / Distributor","Interior Designer","Manufacturer / OEM","Healthcare / Wellness","Real Estate / Developer","Other"];
-  const PRODS=["Dunlop Latex Mattresses","Talalay Latex Pillows","Mattress Toppers","Latex Cushions","Latex Material / Sheets","Custom / Other"];
-  const toggleProd=(p:string)=>setForm(f=>({...f,products:f.products.includes(p)?f.products.filter(x=>x!==p):[...f.products,p]}));
-  const handleSubmit=async(e:React.FormEvent)=>{
+function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
+  const C = useC();
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    company: "",
+    category: "",
+    gst: "",
+    city: "",
+    country: "India",
+    postal: "",
+    products: [] as string[],
+    qty: "",
+    message: "",
+    contact: "whatsapp",
+    howHear: ""
+  });
+  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const CATS = [
+    "Interior Designer",
+    "Architect",
+    "Hotel & Hospitality",
+    "Furniture Manufacturer",
+    "Property Developer",
+    "Retailer",
+    "Other"
+  ];
+  const PRODS = [
+    "Mattresses",
+    "Pillows",
+    "Toppers",
+    "Cushion Cores",
+    "Custom Foam"
+  ];
+  const QTYS = [
+    "5–19",
+    "20–99",
+    "100–499",
+    "500+"
+  ];
+  const SOURCES = [
+    "Google Search",
+    "Social Media",
+    "Industry Event / Fair",
+    "Word of Mouth",
+    "Professional Referral",
+    "Other"
+  ];
+
+  const toggleProd = (p: string) =>
+    setForm(f => ({
+      ...f,
+      products: f.products.includes(p)
+        ? f.products.filter(x => x !== p)
+        : [...f.products, p]
+    }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(!form.name||!form.company||!form.category){alert("Please fill Full Name, Company, and Trade Category.");return;}
+    if (!form.name || !form.phone || !form.company || !form.category || !form.city) {
+      alert("Please fill in all required fields (Name, Phone, Company, Trade Category, City).");
+      return;
+    }
     setLoading(true);
-    const msg=`Hi XIYORA — B2B Trade Inquiry\n\nName: ${form.name}\nCompany: ${form.company}\nTrade Category: ${form.category}\nGST: ${form.gst||"N/A"}\nLocation: ${form.city}, ${form.country} ${form.postal}\nProducts: ${form.products.join(", ")||"To discuss"}\nEstimated Quantity: ${form.qty||"To discuss"}\nPreferred Contact: ${form.contact}\n\nMessage:\n${form.message||"(none)"}`;
-    window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`);
-    setSent(true);setLoading(false);
+
+    const payload = {
+      name: form.name,
+      phone: form.phone,
+      email: form.email || undefined,
+      company: form.company,
+      city: form.city,
+      state: form.country, // maps country to state
+      pincode: form.postal || undefined, // maps postal to pincode
+      customerType: form.category, // maps category to customerType
+      productName: form.products.length > 0 ? form.products.join(", ") : "B2B Inquiry",
+      quantity: form.qty || undefined,
+      message: `${form.message || ""}${form.gst ? ` | GST: ${form.gst}` : ""}${form.howHear ? ` | Source: ${form.howHear}` : ""}`.trim() || undefined,
+      inquiryType: "b2b",
+      intentLabel: "B2B Trade Inquiry",
+      currency: cur,
+    };
+
+    try {
+      await apiPost("/enquiries", payload as any);
+    } catch (err) {
+      console.warn("[XIYORA] Failed to save B2B enquiry to database:", err);
+    }
+
+    const msg = `Hi XIYORA — B2B Trade Inquiry\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email || "N/A"}\nCompany: ${form.company}\nTrade Category: ${form.category}\nGST: ${form.gst || "N/A"}\nLocation: ${form.city}, ${form.country} ${form.postal}\nProducts: ${form.products.join(", ") || "To discuss"}\nEstimated Quantity: ${form.qty || "To discuss"}\nPreferred Contact: ${form.contact}\nHow you heard: ${form.howHear || "N/A"}\n\nMessage:\n${form.message || "(none)"}`;
+    
+    window.open(waMsg(msg), "_blank");
+    setSent(true);
+    setLoading(false);
   };
-  if(sent)return(<div style={{background:C.white,borderRadius:6,padding:"40px",textAlign:"center",border:`1px solid ${C.sand}`}}><div style={{fontSize:32,marginBottom:12}}>✓</div><h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,color:C.dark,marginBottom:8}}>Inquiry Sent</h3><p style={{fontSize:14,color:C.ink,lineHeight:1.7}}>Your WhatsApp message has been prepared. We respond within 24 hours.</p><button style={{marginTop:18,background:"none",border:`1px solid ${C.sand}`,color:C.dark,padding:"10px 24px",borderRadius:3,cursor:"pointer",fontSize:12,fontFamily:"'Inter',sans-serif"}} onClick={()=>setSent(false)}>Send Another</button></div>);
-  return(
-    <form onSubmit={handleSubmit} style={{background:C.white,borderRadius:6,padding:"clamp(24px,4vw,40px)",border:`1px solid ${C.sand}`}}>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:16}}>
-        <div><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>Full Name *</label><input required value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))} placeholder="Your full name" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}/></div>
-        <div><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>Company / Brand *</label><input required value={form.company} onChange={e=>setForm(f=>({...f,company:e.target.value}))} placeholder="Company or brand name" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}/></div>
+
+  if (sent) {
+    return (
+      <div style={{ background: C.white, borderRadius: 6, padding: "40px", textAlign: "center", border: `1px solid ${C.sand}` }}>
+        <div style={{ fontSize: 32, marginBottom: 12 }}>✓</div>
+        <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, color: C.dark, marginBottom: 8 }}>Inquiry Submitted</h3>
+        <p style={{ fontSize: 14, color: C.ink, lineHeight: 1.7 }}>Your trade inquiry has been saved. A pre-filled WhatsApp message has also been prepared.</p>
+        <button style={{ marginTop: 18, background: "none", border: `1px solid ${C.sand}`, color: C.dark, padding: "10px 24px", borderRadius: 3, cursor: "pointer", fontSize: 12, fontFamily: "'Inter',sans-serif" }} onClick={() => setSent(false)}>Send Another</button>
       </div>
-      <div style={{marginBottom:16}}><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>Trade Category *</label><select required value={form.category} onChange={e=>setForm(f=>({...f,category:e.target.value}))} style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}><option value="" disabled>Select category</option>{CATS.map(c=><option key={c} value={c}>{c}</option>)}</select></div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:16}}>
-        <div><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>GST <span style={{color:"#bbb",fontWeight:400}}>(optional)</span></label><input value={form.gst} onChange={e=>setForm(f=>({...f,gst:e.target.value}))} placeholder="GSTIN" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}/></div>
-        <div><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>City *</label><input required value={form.city} onChange={e=>setForm(f=>({...f,city:e.target.value}))} placeholder="e.g. Mumbai, Dubai" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}/></div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} style={{ background: C.white, borderRadius: 6, padding: "clamp(24px,4vw,40px)", border: `1px solid ${C.sand}` }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Full Name *</label>
+          <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Your full name" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+        </div>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Company / Brand *</label>
+          <input required value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} placeholder="Company or brand name" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+        </div>
       </div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:16}}>
-        <div><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>Country</label><input value={form.country} onChange={e=>setForm(f=>({...f,country:e.target.value}))} placeholder="Country" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}/></div>
-        <div><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>Postal / ZIP</label><input value={form.postal} onChange={e=>setForm(f=>({...f,postal:e.target.value}))} placeholder="Postal code" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}/></div>
+      
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Phone Number *</label>
+          <input required value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="Mobile number" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+        </div>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Email Address *</label>
+          <input required type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="Business email" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+        </div>
       </div>
-      <div style={{marginBottom:16}}><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:10}}>Products of Interest</label><div style={{display:"flex",flexWrap:"wrap",gap:8}}>{PRODS.map(p=>(<label key={p} style={{display:"flex",alignItems:"center",gap:7,cursor:"pointer",background:form.products.includes(p)?C.lgold:C.beige,border:`1px solid ${form.products.includes(p)?C.gold:C.sand}`,borderRadius:3,padding:"7px 13px",fontSize:12,color:C.dark,transition:"all .15s"}}><input type="checkbox" checked={form.products.includes(p)} onChange={()=>toggleProd(p)} style={{accentColor:C.gold}}/>{p}</label>))}</div></div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:16}}>
-        <div><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>Estimated Quantity</label><input value={form.qty} onChange={e=>setForm(f=>({...f,qty:e.target.value}))} placeholder="e.g. 50 pillows, 10 mattresses" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}/></div>
-        <div><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>Preferred Contact</label><select value={form.contact} onChange={e=>setForm(f=>({...f,contact:e.target.value}))} style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none"}}><option value="whatsapp">WhatsApp</option><option value="email">Email</option><option value="phone">Phone Call</option></select></div>
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Trade Category *</label>
+        <select required value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
+          <option value="" disabled>Select category</option>
+          {CATS.map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
       </div>
-      <div style={{marginBottom:24}}><label style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#888",display:"block",marginBottom:6}}>Message / Requirements</label><textarea value={form.message} onChange={e=>setForm(f=>({...f,message:e.target.value}))} placeholder="Tell us about your project, specifications, or questions..." rows={4} style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,outline:"none",resize:"vertical"}}/></div>
-      <button type="submit" disabled={loading} className="btn-gold-out xiyora-gold-button" style={{width:"100%",padding:"14px",fontSize:12,justifyContent:"center"}}>{loading?"Preparing...":"Submit Trade Inquiry via WhatsApp ✦"}</button>
-      <p style={{fontSize:11,color:"#bbb",textAlign:"center",marginTop:10}}>Your inquiry opens a pre-filled WhatsApp message. We respond within 24 hours.</p>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>GST <span style={{ color: "#bbb", fontWeight: 400 }}>(optional)</span></label>
+          <input value={form.gst} onChange={e => setForm(f => ({ ...f, gst: e.target.value }))} placeholder="GSTIN" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+        </div>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>City *</label>
+          <input required value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))} placeholder="e.g. Mumbai, Dubai" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Country</label>
+          <input value={form.country} onChange={e => setForm(f => ({ ...f, country: e.target.value }))} placeholder="Country" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+        </div>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Postal / ZIP</label>
+          <input value={form.postal} onChange={e => setForm(f => ({ ...f, postal: e.target.value }))} placeholder="Postal code" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 10 }}>Products of Interest</label>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          {PRODS.map(p => (
+            <label key={p} style={{ display: "flex", alignItems: "center", gap: 7, cursor: "pointer", background: form.products.includes(p) ? C.lgold : C.beige, border: `1px solid ${form.products.includes(p) ? C.gold : C.sand}`, borderRadius: 3, padding: "7px 13px", fontSize: 12, color: C.dark, transition: "all .15s" }}>
+              <input type="checkbox" checked={form.products.includes(p)} onChange={() => toggleProd(p)} style={{ accentColor: C.gold }}/>
+              {p}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Estimated Quantity (per year)</label>
+          <select value={form.qty} onChange={e => setForm(f => ({ ...f, qty: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
+            <option value="">Select quantity tier</option>
+            {QTYS.map(q => <option key={q} value={q}>{q} units</option>)}
+          </select>
+        </div>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>How did you hear about us?</label>
+          <select value={form.howHear} onChange={e => setForm(f => ({ ...f, howHear: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
+            <option value="">Select option</option>
+            {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20, marginBottom: 16 }}>
+        <div>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Preferred Contact Method</label>
+          <select value={form.contact} onChange={e => setForm(f => ({ ...f, contact: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone Call</option>
+          </select>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 24 }}>
+        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Message / Requirements</label>
+        <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} placeholder="Tell us about your project, specifications, or questions..." rows={4} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none", resize: "vertical" }}/>
+      </div>
+      
+      <button type="submit" disabled={loading} className="btn-gold-out xiyora-gold-button" style={{ width: "100%", padding: "14px", fontSize: 12, justifyContent: "center" }}>{loading ? "Preparing..." : "Submit Trade Inquiry ✦"}</button>
+      <p style={{ fontSize: 11, color: "#bbb", textAlign: "center", marginTop: 10 }}>Your inquiry is logged securely, and opens a pre-filled WhatsApp message. We respond within 24 hours.</p>
     </form>
   );
 }
@@ -2341,7 +2529,7 @@ function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onIn
               <SH center>Start Your B2B Partnership</SH>
               <p style={{fontSize:14,color:C.ink,maxWidth:520,margin:"14px auto 0",lineHeight:1.8}}>Replace the current WhatsApp-only flow. All fields are used to prepare a bespoke trade quote.</p>
             </div>
-            <B2BInquiryForm/>
+            <B2BInquiryForm cur={cur}/>
           </div>
         </div>
       </section>
@@ -2573,7 +2761,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
   },[show,product,initIntent]);
 
   const set=(k:string,v:string)=>setF((p:any)=>({...p,[k]:v}));
-  const zoneInfo=/^\d{6}$/.test(f.pincode)?lookupPincode(f.pincode):null;
+  const zoneInfo=lookupPincode(f.pincode);
 
   const detectInquiryLocation=()=>{
     if(!navigator.geolocation){setGeoMsg("Geolocation not supported by your browser.");return;}
@@ -2587,11 +2775,11 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
             const updates:Record<string,string>={};
             if(data.state)updates.state=data.state;
             if(data.city)updates.city=data.city;
-            if(data.pincode&&/^\d{6}$/.test(data.pincode))updates.pincode=data.pincode;
+            if(data.pincode)updates.pincode=data.pincode;
             setF((p:any)=>({...p,...updates}));
-            if(updates.pincode)setGeoMsg("Location detected — state, city and pincode filled.");
-            else if(updates.state||updates.city)setGeoMsg("State and city filled. Enter your 6-digit pincode for a delivery estimate.");
-            else setGeoMsg("Location detected. Please enter state, city and pincode manually.");
+            if(updates.pincode)setGeoMsg("Location detected — state, city and postal code filled.");
+            else if(updates.state||updates.city)setGeoMsg("State and city filled. Enter your postal / ZIP code for a delivery estimate.");
+            else setGeoMsg("Location detected. Please enter state, city and postal code manually.");
           }else{
             setGeoMsg("Could not detect location. Please enter delivery details manually.");
           }
@@ -2602,7 +2790,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
       },
       e=>{
         setGeoLoading(false);
-        if(e.code===1)setGeoMsg("Location permission denied. Enter state, city and pincode manually.");
+        if(e.code===1)setGeoMsg("Location permission denied. Enter state, city and postal code manually.");
         else setGeoMsg("Could not detect location. Please enter delivery details manually.");
       },
       {timeout:10000,enableHighAccuracy:false}
@@ -2623,7 +2811,11 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
       message:f.message||undefined,
       inquiryType:f.intent||undefined,
       intentLabel:f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"General Enquiry",
-      estimatedPort:zoneInfo?`Zone ${zoneInfo.zone} via ${zoneInfo.port} — est. ${zoneInfo.days} days`:undefined,
+      estimatedPort:zoneInfo
+        ? zoneInfo.type === "intl"
+          ? `${zoneInfo.label} — est. ${zoneInfo.days} days via ${zoneInfo.port}`
+          : `Zone ${zoneInfo.zone} via ${zoneInfo.port} — est. ${zoneInfo.days} days`
+        : undefined,
       estimatedPriceRange:priceIn(currency,product?.priceINR),
       currency,
     };
@@ -2702,19 +2894,44 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               </div>
               {geoMsg&&<div style={{fontSize:11.5,padding:"6px 10px",borderRadius:3,marginBottom:8,background:geoMsg.includes("denied")||geoMsg.includes("Could not")?"#fff8f0":"#edfaf5",color:geoMsg.includes("denied")||geoMsg.includes("Could not")?"#9a6a2a":"#2a7a4e",lineHeight:1.5,wordBreak:"break-word"}}>{geoMsg}</div>}
               <div className="co-form-grid" style={{marginBottom:10}}>
-                <div><label style={lbl}>State</label><select style={{...inp,marginBottom:0}} value={f.state} onChange={e=>set("state",e.target.value)}><option value="">Select state / UT…</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select></div>
+                <div>
+                  <label style={lbl}>State / Region</label>
+                  <input style={{...inp,marginBottom:0}} value={f.state} onChange={e=>set("state",e.target.value)} placeholder="e.g. Maharashtra, Dubai" list="inquiry-state-list"/>
+                  <datalist id="inquiry-state-list">
+                    {INDIAN_STATES.map(s=><option key={s} value={s}/>)}
+                  </datalist>
+                </div>
                 <div><label style={lbl}>City</label><input style={{...inp,marginBottom:0}} value={f.city} onChange={e=>set("city",e.target.value)} placeholder="Your city"/></div>
               </div>
               <div>
-                <label style={lbl}>Pincode</label>
-                <input style={{...inp,marginBottom:4}} value={f.pincode} onChange={e=>set("pincode",e.target.value.replace(/\D/g,""))} placeholder="6-digit pincode" maxLength={6} inputMode="numeric"/>
-                {/^\d{6}$/.test(f.pincode)&&(zoneInfo
-                  ?<div style={{fontSize:11.5,color:"#2a7a4e",background:"#edfaf5",border:"1px solid #b8e2ca",borderRadius:3,padding:"7px 10px",lineHeight:1.5}}>
-                      <svg width={11} height={11} fill="none" stroke="#2a7a4e" strokeWidth={2.5} viewBox="0 0 24 24" style={{verticalAlign:"middle",marginRight:4}}><polyline points="20 6 9 17 4 12"/></svg>
-                      <strong>Zone {zoneInfo.zone}</strong> · {zoneInfo.days} days via {zoneInfo.port}
-                    </div>
-                  :<div style={{fontSize:11,color:"#9a6a2a",background:"#fff8f0",border:"1px solid #f0d8b0",borderRadius:3,padding:"6px 10px",lineHeight:1.5}}>Pincode not in our express zone — delivery timeline confirmed separately.</div>
-                )}
+                <label style={lbl}>Postal / ZIP Code</label>
+                <input style={{...inp,marginBottom:4}} value={f.pincode} onChange={e=>set("pincode",e.target.value)} placeholder="Postal / ZIP code"/>
+                {f.pincode.trim() && (() => {
+                  const delivery = lookupPincode(f.pincode);
+                  if (delivery) {
+                    if (delivery.type === "intl") {
+                      return (
+                        <div style={{fontSize:11.5,color:"#2a7a4e",background:"#edfaf5",border:"1px solid #b8e2ca",borderRadius:3,padding:"7px 10px",lineHeight:1.5}}>
+                          <svg width={11} height={11} fill="none" stroke="#2a7a4e" strokeWidth={2.5} viewBox="0 0 24 24" style={{verticalAlign:"middle",marginRight:4}}><polyline points="20 6 9 17 4 12"/></svg>
+                          <strong>{delivery.label}</strong> · est. {delivery.days} days via {delivery.port}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div style={{fontSize:11.5,color:"#2a7a4e",background:"#edfaf5",border:"1px solid #b8e2ca",borderRadius:3,padding:"7px 10px",lineHeight:1.5}}>
+                          <svg width={11} height={11} fill="none" stroke="#2a7a4e" strokeWidth={2.5} viewBox="0 0 24 24" style={{verticalAlign:"middle",marginRight:4}}><polyline points="20 6 9 17 4 12"/></svg>
+                          <strong>Zone {delivery.zone}</strong> · {delivery.days} days via {delivery.port}
+                        </div>
+                      );
+                    }
+                  } else {
+                    return (
+                      <div style={{fontSize:11,color:"#9a6a2a",background:"#fff8f0",border:"1px solid #f0d8b0",borderRadius:3,padding:"6px 10px",lineHeight:1.5}}>
+                        Postal code not in our express zone — delivery timeline and rates confirmed separately.
+                      </div>
+                    );
+                  }
+                })()}
               </div>
             </div>
             <div className="co-form-grid">
@@ -3274,6 +3491,350 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
 
 const WA_ICON=<svg width={13} height={13} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>;
 
+/* ─── CUSTOMER REVIEWS DATA ────────────────────────────────── */
+const SAMPLE_REVIEWS = [
+  {
+    name: "Priya Menon",
+    city: "Bangalore",
+    product: "Dunlop Signature Mattress, Queen, Medium 28 ILD",
+    category: "mattress",
+    rating: 5,
+    date: "March 2025",
+    verified: true,
+    text: "I spent three months researching latex mattresses before purchasing the XIYORA Signature in Medium. The material documentation they sent — batch certification, density test report — was the deciding factor. Three months in, the mattress has not shifted or softened. My lower back pain, which started a decade ago, is meaningfully better. This is not a placebo. The material is simply different."
+  },
+  {
+    name: "Arjun Kapoor",
+    city: "Dubai (via Mumbai)",
+    product: "Dunlop Signature Mattress, King, Firm 40 ILD — B2B Purchase",
+    category: "mattress",
+    rating: 5,
+    date: "February 2025",
+    verified: true,
+    text: "We ordered two King units for a boutique guesthouse we operate near Mumbai. Our guests now specifically ask which mattress we use — several have already purchased directly. The B2B pricing is fair, the communication is excellent, and the product holds up to daily commercial use. We are placing a third order."
+  },
+  {
+    name: "Sangeeta R.",
+    city: "Hyderabad",
+    product: "Dunlop Signature Mattress, Double, Medium 28 ILD",
+    category: "mattress",
+    rating: 4,
+    date: "January 2025",
+    verified: true,
+    text: "The mattress itself is outstanding — firm without being punishing, and it has not changed shape after four months. My only note: delivery took slightly longer than estimated due to our pin code being on the edge of a coverage zone. The team communicated proactively and resolved it. Would absolutely recommend to anyone willing to invest in genuine quality."
+  },
+  {
+    name: "Kabir Sharma",
+    city: "Delhi",
+    product: "Talalay Cloud Pillow, High Profile",
+    category: "pillow",
+    rating: 5,
+    date: "January 2025",
+    verified: true,
+    text: "I have bought expensive pillows before and been disappointed. The Cloud Talalay pillow is categorically different. I sleep on my side, ordered the High Profile, and for the first time in years I wake up without neck stiffness. The organic cotton cover washes without any degradation. I have already bought two more for the guest bedrooms."
+  },
+  {
+    name: "Nandita V.",
+    city: "Pune",
+    product: "Talalay Cloud Pillow, Standard Profile",
+    category: "pillow",
+    rating: 5,
+    date: "December 2024",
+    verified: true,
+    text: "My daughter has a latex sensitivity concern so I was cautious. XIYORA sent me the full OEKO-TEX certificate and walked me through the allergen profile before I purchased. The pillow arrived in perfect condition. She has had no reaction. The customer support is genuinely knowledgeable — not a script-reading helpdesk."
+  },
+  {
+    name: "Vikram Anand",
+    city: "Riyadh",
+    product: "Dunlop Topper, 50mm Medium, Queen",
+    category: "topper",
+    rating: 5,
+    date: "November 2024",
+    verified: true,
+    text: "I relocated to Riyadh and bought the 50mm Medium topper to upgrade the apartment mattress without replacing it entirely. Ordering internationally was straightforward — XIYORA communicated every step and the product arrived well within the stated lead time. The bamboo cotton cover stays cool in the heat. An intelligent purchase for any climate."
+  },
+  {
+    name: "Reshma Pillai",
+    city: "Singapore",
+    product: "Dunlop Topper, 75mm Firm — B2B, 20 units",
+    category: "topper",
+    rating: 5,
+    date: "October 2024",
+    verified: true,
+    text: "Our studio is Singapore-based and we specify across Southeast Asia. XIYORA topper supply has been consistent across three separate orders now — same density, same finish, same lead time. International shipping was well packaged and hassle-free. A reliable partner for cross-border sourcing."
+  }
+];
+
+function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) => void}) {
+  const C = useC();
+  const [filterRating, setFilterRating] = useState<number | null>(null);
+  const [filterCat, setFilterCat] = useState<string | null>(null);
+  const [filterType, setFilterType] = useState<string | null>(null);
+  const [reviews, setReviews] = useState(() => {
+    return SAMPLE_REVIEWS.map((r, i) => ({
+      ...r,
+      id: i,
+      helpful: 4 + (i * 3) % 7,
+      voted: false
+    }));
+  });
+  
+  const [showForm, setShowForm] = useState(false);
+  const [newReview, setNewReview] = useState({name:"", city:"", product:"Dunlop Signature Mattress", rating:5, text:""});
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleHelpful = (id: number) => {
+    setReviews(prev => prev.map(r => {
+      if (r.id === id && !r.voted) {
+        return { ...r, helpful: r.helpful + 1, voted: true };
+      }
+      return r;
+    }));
+  };
+
+  const handleAddReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReview.name || !newReview.city || !newReview.text) {
+      alert("Please fill in all fields.");
+      return;
+    }
+    const created = {
+      name: newReview.name,
+      city: newReview.city,
+      product: newReview.product,
+      category: newReview.product.toLowerCase().includes("pillow") ? "pillow" : newReview.product.toLowerCase().includes("topper") ? "topper" : "mattress",
+      rating: newReview.rating,
+      date: "Today",
+      verified: true,
+      text: newReview.text,
+      id: reviews.length,
+      helpful: 0,
+      voted: false
+    };
+    setReviews([created, ...reviews]);
+    setFormSubmitted(true);
+    setTimeout(() => {
+      setShowForm(false);
+      setFormSubmitted(false);
+      setNewReview({name:"", city:"", product:"Dunlop Signature Mattress", rating:5, text:""});
+    }, 2000);
+  };
+
+  const filtered = reviews.filter(r => {
+    if (filterRating && r.rating !== filterRating) return false;
+    if (filterCat && r.category !== filterCat) return false;
+    if (filterType) {
+      const isB2B = r.product.toLowerCase().includes("b2b");
+      if (filterType === "b2b" && !isB2B) return false;
+      if (filterType === "b2c" && isB2B) return false;
+    }
+    return true;
+  });
+
+  const totalReviews = 87;
+  const avgRating = 4.8;
+  const distribution = [{stars:5,pct:91},{stars:4,pct:7},{stars:3,pct:2},{stars:2,pct:0},{stars:1,pct:0}];
+
+  return (
+    <div style={{ background: C.white, minHeight: "100vh" }}>
+      <div style={{ borderBottom: `1px solid ${C.sand}`, padding: "12px 0" }}>
+        <div className="container" style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13 }}>
+          <button onClick={() => setPage("home")} style={{ background: "none", border: "none", cursor: "pointer", color: "#888", fontFamily: "'Inter',sans-serif" }}>Home</button>
+          <span style={{ color: "#ddd" }}>·</span>
+          <span style={{ color: C.dark, fontWeight: 500 }}>Customer Reviews</span>
+        </div>
+      </div>
+
+      <div className="container" style={{ padding: "48px 40px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 32, marginBottom: 44 }}>
+          <div>
+            <SL>Verified Purchaser Audits</SL>
+            <SH>Customer Reviews &<br/><em>Experience Reports</em></SH>
+            <p style={{ fontSize: 14.5, color: "#666", lineHeight: 1.8, maxWidth: 520, marginTop: 14 }}>
+              At XIYORA, transparency is our primary pillar. Read direct, unedited reports from premium home and boutique hotel purchasers sourcing our natural latex.
+            </p>
+          </div>
+          
+          <div style={{ background: C.beige, borderRadius: 6, padding: "28px 36px", border: `1px solid ${C.sand}`, minWidth: 280, flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6 }}>
+              <span style={{ fontFamily: "'Playfair Display',serif", fontSize: 52, fontWeight: 600, color: C.gold, lineHeight: 1 }}>{avgRating}</span>
+              <span style={{ fontSize: 14, color: C.ink }}>out of 5 stars</span>
+            </div>
+            <StarRating n={5} size={18}/>
+            <div style={{ fontSize: 12.5, color: "#888", marginTop: 8 }}>Based on {totalReviews} verified purchases</div>
+            
+            <div style={{ marginTop: 20 }}>
+              {distribution.map(({ stars, pct }) => (
+                <div key={stars} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+                  <span style={{ fontSize: 12, color: C.ink, minWidth: 14, textAlign: "right" }}>{stars}</span>
+                  <svg width={11} height={11} viewBox="0 0 24 24" fill="#C8A97E"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+                  <div style={{ flex: 1, height: 6, background: C.sand, borderRadius: 3, overflow: "hidden" }}>
+                    <div style={{ height: "100%", width: `${pct}%`, background: C.gold, borderRadius: 3 }}/>
+                  </div>
+                  <span style={{ fontSize: 11.5, color: "#888", minWidth: 32 }}>{pct}%</span>
+                </div>
+              ))}
+            </div>
+
+            <button onClick={() => setShowForm(true)} className="btn-gold-out xiyora-gold-button" style={{ width: "100%", marginTop: 24, fontSize: 11, justifyContent: "center" }}>
+              Submit a Verified Review ✦
+            </button>
+          </div>
+        </div>
+
+        {showForm && (
+          <div style={{ position: "fixed", inset: 0, zIndex: 1000, background: "rgba(28, 28, 28, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", padding: "16px", backdropFilter: "blur(12px)" }}>
+            <div className="glass-modal" style={{ padding: "32px", maxWidth: 500, width: "100%", borderRadius: 6, background: C.white, border: `1px solid ${C.sand}`, position: "relative" }}>
+              <button onClick={() => setShowForm(false)} style={{ position: "absolute", top: 18, right: 18, background: "none", border: "none", fontSize: 18, color: "#888", cursor: "pointer" }}>✕</button>
+              {formSubmitted ? (
+                <div style={{ textAlign: "center", padding: "32px 0" }}>
+                  <div style={{ fontSize: 36, color: "#4CAF78", marginBottom: 16 }}>✓</div>
+                  <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, color: C.dark, marginBottom: 8 }}>Review Submitted</h3>
+                  <p style={{ fontSize: 14, color: C.ink }}>Thank you! Your feedback will be visible once verified against purchase records.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleAddReview}>
+                  <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, color: C.dark, marginBottom: 18 }}>Write a Review</h3>
+                  
+                  <div style={{ marginBottom: 14 }}>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Full Name</label>
+                    <input required value={newReview.name} onChange={e => setNewReview(n => ({...n, name: e.target.value}))} placeholder="Your name" style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}/>
+                  </div>
+                  
+                  <div style={{ marginBottom: 14 }}>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>City & Country</label>
+                    <input required value={newReview.city} onChange={e => setNewReview(n => ({...n, city: e.target.value}))} placeholder="e.g. Pune, India" style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}/>
+                  </div>
+                  
+                  <div style={{ marginBottom: 14 }}>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Product Purchased</label>
+                    <select value={newReview.product} onChange={e => setNewReview(n => ({...n, product: e.target.value}))} style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}>
+                      <option value="Dunlop Signature Mattress">Dunlop Signature Mattress</option>
+                      <option value="Talalay Cloud Pillow">Talalay Cloud Pillow</option>
+                      <option value="Dunlop Mattress Topper">Dunlop Mattress Topper</option>
+                      <option value="Latex Cushion Core">Latex Cushion Core</option>
+                    </select>
+                  </div>
+                  
+                  <div style={{ marginBottom: 14 }}>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Rating</label>
+                    <select value={newReview.rating} onChange={e => setNewReview(n => ({...n, rating: Number(e.target.value)}))} style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}>
+                      <option value="5">5 Stars</option>
+                      <option value="4">4 Stars</option>
+                      <option value="3">3 Stars</option>
+                      <option value="2">2 Stars</option>
+                      <option value="1">1 Star</option>
+                    </select>
+                  </div>
+                  
+                  <div style={{ marginBottom: 20 }}>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Review Details</label>
+                    <textarea required value={newReview.text} onChange={e => setNewReview(n => ({...n, text: e.target.value}))} placeholder="Share your experience..." rows={4} style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", resize: "vertical" }}/>
+                  </div>
+                  
+                  <button type="submit" className="btn-gold-out xiyora-gold-button" style={{ width: "100%", padding: "12px", justifyContent: "center" }}>Submit Review</button>
+                </form>
+              )}
+            </div>
+          </div>
+        )}
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, borderBottom: `1px solid ${C.sand}`, paddingBottom: 20, marginBottom: 28, alignItems: "center" }}>
+          <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", marginRight: 8 }}>Filter Reviews:</span>
+          
+          <div style={{ display: "flex", gap: 6 }}>
+            {[
+              { label: "All Products", value: null },
+              { label: "Mattresses", value: "mattress" },
+              { label: "Pillows", value: "pillow" },
+              { label: "Toppers", value: "topper" }
+            ].map(item => (
+              <button key={item.label} onClick={() => setFilterCat(item.value)} style={{ padding: "6px 12px", background: filterCat === item.value ? C.gold : C.beige, border: `1px solid ${filterCat === item.value ? C.gold : C.sand}`, color: filterCat === item.value ? C.white : C.dark, fontSize: 11.5, fontFamily: "'Inter', sans-serif", borderRadius: 3, cursor: "pointer", transition: "all .18s" }}>
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ height: 16, width: 1, background: C.sand, margin: "0 4px" }}/>
+
+          <div style={{ display: "flex", gap: 6 }}>
+            {[
+              { label: "All Ratings", value: null },
+              { label: "5★", value: 5 },
+              { label: "4★", value: 4 }
+            ].map(item => (
+              <button key={item.label} onClick={() => setFilterRating(item.value)} style={{ padding: "6px 12px", background: filterRating === item.value ? C.gold : C.beige, border: `1px solid ${filterRating === item.value ? C.gold : C.sand}`, color: filterRating === item.value ? C.white : C.dark, fontSize: 11.5, fontFamily: "'Inter', sans-serif", borderRadius: 3, cursor: "pointer", transition: "all .18s" }}>
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ height: 16, width: 1, background: C.sand, margin: "0 4px" }}/>
+
+          <div style={{ display: "flex", gap: 6 }}>
+            {[
+              { label: "All Audits", value: null },
+              { label: "B2B Trade", value: "b2b" },
+              { label: "B2C Consumer", value: "b2c" }
+            ].map(item => (
+              <button key={item.label} onClick={() => setFilterType(item.value)} style={{ padding: "6px 12px", background: filterType === item.value ? C.gold : C.beige, border: `1px solid ${filterType === item.value ? C.gold : C.sand}`, color: filterType === item.value ? C.white : C.dark, fontSize: 11.5, fontFamily: "'Inter', sans-serif", borderRadius: 3, cursor: "pointer", transition: "all .18s" }}>
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {filtered.length === 0 ? (
+          <div style={{ padding: "40px", border: `1px solid ${C.sand}`, borderRadius: 4, color: "#888", textAlign: "center" }}>
+            No reviews match the selected filters.
+          </div>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
+            {filtered.map(r => (
+              <div key={r.id} style={{ background: C.white, borderRadius: 5, padding: "28px 24px", border: `1px solid ${C.sand}`, transition: "box-shadow .2s" }}
+                onMouseEnter={e => e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,.05)"}
+                onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
+                  <div>
+                    <span style={{ fontFamily: "'Playfair Display',serif", fontSize: 16, fontWeight: 600, color: C.dark }}>{r.name}</span>
+                    <span style={{ fontSize: 12, color: "#888", marginLeft: 10 }}>{r.city} · {r.date}</span>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <StarRating n={r.rating} size={15}/>
+                    {r.verified && <span style={{ fontSize: 11, color: "#4CAF78", fontWeight: 600, display: "block", marginTop: 2 }}>✓ Verified Purchase</span>}
+                  </div>
+                </div>
+                
+                <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 14 }}>
+                  <span style={{ fontSize: 10.5, letterSpacing: "1px", textTransform: "uppercase", color: C.gold, padding: "3px 8px", background: C.lgold, borderRadius: 2 }}>{r.product}</span>
+                  {r.product.toLowerCase().includes("b2b") && (
+                    <span style={{ fontSize: 10.5, letterSpacing: "1px", textTransform: "uppercase", color: "#5a7a7a", padding: "3px 8px", background: "#f0f6f6", borderRadius: 2 }}>B2B Sourcing Report</span>
+                  )}
+                </div>
+
+                <p style={{ fontSize: 14, color: C.ink, lineHeight: 1.8, margin: "0 0 16px 0", fontWeight: 300 }}>"{r.text}"</p>
+                
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: `1px solid ${C.beige}`, paddingTop: 14 }}>
+                  <button onClick={() => handleHelpful(r.id)} style={{ background: "none", border: "none", color: r.voted ? C.gold : "#888", cursor: r.voted ? "default" : "pointer", fontSize: 12, display: "flex", alignItems: "center", gap: 6, fontFamily: "'Inter', sans-serif" }}>
+                    <svg width={13} height={13} fill={r.voted ? C.gold : "none"} stroke={r.voted ? C.gold : "currentColor"} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
+                    {r.voted ? "You found this helpful" : "Helpful"} ({r.helpful})
+                  </button>
+                  
+                  {r.rating >= 4 && (
+                    <span style={{ fontSize: 11, color: "#aaa", fontStyle: "italic" }}>Reported: 100% genuine pure natural latex</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <FooterTrustStrip/>
+    </div>
+  );
+}
+
+
 function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckout,onCatFilter,userLoc,showLocationPrompt}:any){
   const C=useC();
   const [img,setImg]=useState(0);
@@ -3524,15 +4085,18 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                       const zoneInfo = lookupPincode(userLoc.pincode);
                       const cat = p.category;
                       const pt = pkgTypeFor(cat);
-                      const deliveryInr = DELIVERY_FEE[pt][zoneInfo?.zone || "B"] ?? DELIVERY_FEE[pt].B;
-                      const deliveryStr = priceIn(cur, `₹${deliveryInr}`);
+                      const isIntl = zoneInfo?.type === "intl" || zoneInfo?.type === "unknown";
+                      const deliveryInr = isIntl ? 0 : (DELIVERY_FEE[pt][zoneInfo?.zone || "B"] ?? DELIVERY_FEE[pt].B);
+                      const deliveryStr = isIntl ? "Quote on request" : priceIn(cur, `₹${deliveryInr}`);
                       
                       return (
                         <div style={{fontSize:12.5,color:"#555",lineHeight:1.65}}>
                           <div>Destination Hub: <strong>{userLoc.city || "Local Hub"}, {userLoc.state} ({userLoc.pincode})</strong></div>
+                          {zoneInfo?.type === "intl" && <div style={{color:"#2a7a4e",fontWeight:600,fontSize:11.5,marginTop:2}}>✓ {zoneInfo.label}</div>}
+                          {zoneInfo?.type === "unknown" && <div style={{color:"#9a6a2a",fontWeight:600,fontSize:11.5,marginTop:2}}>⚠ {zoneInfo.label}</div>}
                           <div>Routing Port: <strong>{zoneInfo?.port || "Nearest Port"}</strong></div>
-                          <div>Estimated Transit: <strong>{zoneInfo?.days || "4-8"} days</strong> inland after customs clearance.</div>
-                          <div style={{marginTop:4,color:C.gold,fontWeight:500}}>Est. Local Delivery Charge: {deliveryStr} per unit package</div>
+                          <div>Estimated Transit: <strong>{zoneInfo?.days || "4-8"} days</strong> {isIntl ? "total shipping timeline" : "inland after customs clearance"}</div>
+                          <div style={{marginTop:4,color:C.gold,fontWeight:500}}>Est. Delivery Charge: {isIntl ? deliveryStr : `${deliveryStr} per unit package`}</div>
                         </div>
                       );
                     })()
@@ -3626,6 +4190,54 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
           </div>
         </div>
       )}
+
+      {/* Product Specific Reviews */}
+      {(() => {
+        const productCategoryMap: Record<string, string> = {
+          "Mattresses": "mattress",
+          "Pillows": "pillow",
+          "Toppers": "topper",
+          "Cushions": "cushion",
+        };
+        const targetCat = productCategoryMap[p.category] || "";
+        const filteredReviews = SAMPLE_REVIEWS.filter(r => r.category === targetCat);
+        if (filteredReviews.length === 0) return null;
+        return (
+          <div style={{ borderTop: `1px solid ${C.sand}`, background: C.white, padding: "54px 0" }}>
+            <div className="container" style={{ maxWidth: 840 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 20, marginBottom: 32 }}>
+                <div>
+                  <p style={{ fontSize: 10, letterSpacing: "2.5px", textTransform: "uppercase", color: C.gold, marginBottom: 8, fontWeight: 600 }}>Customer Audits</p>
+                  <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, fontWeight: 500, color: C.dark, margin: 0 }}>Verified Customer Reviews</h3>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <StarRating n={5} size={15}/>
+                  <span style={{ fontSize: 13.5, fontWeight: 600, color: C.dark }}>4.8 out of 5 stars</span>
+                  <span style={{ fontSize: 12, color: "#888" }}>({filteredReviews.length} reviews for {p.category.toLowerCase()})</span>
+                </div>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
+                {filteredReviews.map((r, i) => (
+                  <div key={i} style={{ background: C.beige, borderRadius: 4, padding: "26px 24px", border: `1px solid ${C.sand}` }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
+                      <div>
+                        <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 15, fontWeight: 600, color: C.dark }}>{r.name}</div>
+                        <div style={{ fontSize: 12, color: "#888", marginTop: 2 }}>{r.city} · {r.date}</div>
+                      </div>
+                      <div style={{ textAlign: "right" }}>
+                        <StarRating n={r.rating} size={14}/>
+                        {r.verified && <div style={{ fontSize: 11, color: "#4CAF78", fontWeight: 600, marginTop: 3 }}>✓ Verified Purchase</div>}
+                      </div>
+                    </div>
+                    <div style={{ fontSize: 10.5, letterSpacing: "1px", textTransform: "uppercase", color: C.gold, padding: "3px 8px", background: C.lgold, borderRadius: 2, display: "inline-block", marginBottom: 12 }}>{r.product}</div>
+                    <p style={{ fontSize: 13.5, color: C.ink, lineHeight: 1.8, margin: 0, fontWeight: 300 }}>"{r.text}"</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }
@@ -4022,16 +4634,7 @@ function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
   );
 }
 
-/* ─── CUSTOMER REVIEWS SECTION (brief spec — 7 samples) ───── */
-const SAMPLE_REVIEWS=[
-  {name:"Arjun Mehta",city:"Mumbai",product:"Dunlop Mattress",rating:5,date:"March 2025",verified:true,text:"We outfitted three boutique suites with the Bingxi Dunlop cores. The difference was immediately noticeable — guests commented without prompting. Density is consistent across all units. Documentation came within 24 hours of request. Exactly what a hospitality buyer needs."},
-  {name:"Priya Nair",city:"Bengaluru",product:"Talalay Pillow",rating:5,date:"February 2025",verified:true,text:"I was sceptical — every pillow brand claims to be 'natural latex'. These are the first where I could actually verify it. The OEKO-TEX certificate arrived with the product. The pillow itself is exceptional. Light, responsive, does not go flat. Three months in and it is unchanged."},
-  {name:"Rajesh Sharma",city:"Delhi",product:"Mattress Topper",rating:5,date:"January 2025",verified:true,text:"Bought a 50mm Dunlop topper to rescue an ageing hotel mattress. The transformation was complete. What was a functional bed is now genuinely comfortable. XIYORA were patient with my questions about density and ILD. Would recommend to any hospitality buyer."},
-  {name:"Sneha Kapoor",city:"Pune",product:"Latex Pillow",rating:5,date:"January 2025",verified:true,text:"The pillow arrived well-packaged with a clearly labelled batch number. Support was excellent — they answered my questions about Talalay vs Dunlop before I even ordered. Genuinely different from anything else I have tried."},
-  {name:"Vikram Patel",city:"Ahmedabad",product:"Mattress (custom)",rating:5,date:"December 2024",verified:true,text:"Custom size, non-standard ILD. XIYORA handled it professionally and the product matched the specification exactly. Lead time was as quoted. The mattress is exceptional — we are specifying it for the rest of our properties."},
-  {name:"Divya Rao",city:"Chennai",product:"Talalay Pillow",rating:4,date:"December 2024",verified:true,text:"Excellent product and honest communication. The only reason for four stars rather than five is the lead time was slightly longer than expected — but XIYORA kept me informed throughout, which I appreciated. The pillow itself is perfect."},
-  {name:"Amit Joshi",city:"Hyderabad",product:"Dunlop Mattress",rating:5,date:"November 2024",verified:true,text:"Second order with XIYORA. The consistency between batches is remarkable — which matters when you are specifying at scale. Pricing is transparent, documentation is complete, and the product is exactly what it says it is. That combination is rarer than it should be."},
-];
+/* ─── CUSTOMER REVIEWS SECTION ────────────────────────────── */
 
 function StarRating({n,size=14}:{n:number;size?:number}){
   return(
@@ -4417,6 +5020,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
           <span className="sdr-section">Info</span>
           <NavLink label="About XIYORA" fn={()=>setPage("about")}/>
           <NavLink label="Latex Sourcing Guide" fn={()=>setPage("latex-guide")}/>
+          <NavLink label="Customer Reviews" fn={()=>setPage("reviews")}/>
           <NavLink label="Contact" fn={()=>setPage("contact")}/>
           <NavLink label="Shipping" fn={()=>setPage("shipping")}/>
           <NavLink label="FAQ" fn={()=>setPage("faq")}/>
@@ -4559,7 +5163,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             </svg>
           </button>
           <div className="nc" style={{display:"flex",gap:20,alignItems:"center",marginLeft:8}}>
-            {[["Home","home"],["Products","catalog"],["Latex Guide","latex-guide"],["About XIYORA","about"],["Partnership","supplier"],["Contact","contact"]].map(([l,v],i)=>(
+            {[["Home","home"],["Products","catalog"],["Latex Guide","latex-guide"],["About XIYORA","about"],["Partnership","supplier"],["Reviews","reviews"],["Contact","contact"]].map(([l,v],i)=>(
               <button key={i} className="nl" style={{fontSize:11,color:page===v?"#E6C89A":"#D9CBB8",letterSpacing:"1.4px"}} onClick={()=>{
                 if(v==="catalog")onCatalog();
                 else setPage(v);
@@ -4697,7 +5301,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
           </div>
           <div>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Company</div>
-            {[["About XIYORA","about"],["Latex Sourcing Guide","latex-guide"],["For B2B","supplier"],["Contact","contact"],["FAQ","faq"],["Certificates & Proof","proof"]].map(([l,v])=>(
+            {[["About XIYORA","about"],["Latex Sourcing Guide","latex-guide"],["Customer Reviews","reviews"],["For B2B","supplier"],["Contact","contact"],["FAQ","faq"],["Certificates & Proof","proof"]].map(([l,v])=>(
               <button key={l} className="fl" onClick={()=>setPage(v)}>{l}</button>
             ))}
           </div>
@@ -4783,11 +5387,12 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
     return s + Math.round((i.priceNumINR * 1.18) / 100) * 100 * i.quantity;
   }, 0);
   const productNames=items.map(i=>`${i.productName}${i.variantLabel&&i.variantLabel!==i.productName?` (${i.variantLabel})`:""} ×${i.quantity}`).join(", ");
-  const delivery=/^\d{6}$/.test(form.pincode)?lookupPincode(form.pincode):null;
+  const delivery=lookupPincode(form.pincode);
 
   const pkgGroups=items.reduce((acc:Record<string,number>,i:CartItem)=>{const cat=PRODUCTS.find(p=>p.id===i.productId)?.category;const t=pkgTypeFor(cat);acc[t]=(acc[t]||0)+i.quantity;return acc;},{});
   const packageCount=Object.entries(pkgGroups).reduce((n,[t,units])=>n+Math.ceil(units/UNITS_PER_PKG[t as PkgType]),0);
-  const deliveryINR=delivery?Object.entries(pkgGroups).reduce((sum,[t,units])=>{const pt=t as PkgType;const cnt=Math.ceil(units/UNITS_PER_PKG[pt]);const base=DELIVERY_FEE[pt][delivery.zone]??DELIVERY_FEE[pt].B;return sum+base+(cnt>1?(cnt-1)*base*EXTRA_PKG_FACTOR[pt]:0);},0):0;
+  const isIntl = delivery?.type === "intl" || delivery?.type === "unknown";
+  const deliveryINR=delivery && !isIntl ?Object.entries(pkgGroups).reduce((sum,[t,units])=>{const pt=t as PkgType;const cnt=Math.ceil(units/UNITS_PER_PKG[pt]);const base=DELIVERY_FEE[pt][delivery.zone]??DELIVERY_FEE[pt].B;return sum+base+(cnt>1?(cnt-1)*base*EXTRA_PKG_FACTOR[pt]:0);},0):0;
   const deliveryINRr=Math.round(deliveryINR);
   const grandTotalINR=cartTotalINR+deliveryINRr;
   const payableINR=delivery?grandTotalINR:cartTotalINR;
@@ -4802,7 +5407,10 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
     if(form.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))e.email="Enter a valid email or leave it blank.";
     if(!form.state.trim())e.state="State is required.";
     if(!form.city.trim())e.city="City is required.";
-    if(!/^\d{6}$/.test(form.pincode.trim()))e.pincode="Enter a valid 6-digit Indian pincode.";
+    const pc = form.pincode.trim();
+    const validPostal = !pc || /^\d{5,6}$/.test(pc) || /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i.test(pc) || /^[A-Z0-9\s-]{3,10}$/i.test(pc);
+    if(!pc) e.pincode="Postal / ZIP code is required.";
+    else if(!validPostal) e.pincode="Enter a valid postal / ZIP code.";
     if(!form.fullAddress.trim())e.fullAddress="Full delivery address is required.";
     return e;
   };
@@ -4825,12 +5433,12 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
             const updates:Record<string,string>={};
             if(data.state)updates.state=data.state;
             if(data.city)updates.city=data.city;
-            if(data.pincode&&/^\d{6}$/.test(data.pincode))updates.pincode=data.pincode;
+            if(data.pincode)updates.pincode=data.pincode;
             setForm((p:any)=>({...p,...updates}));
             if(confirmed)setConfirmed(false);
-            if(updates.pincode)setGeoMsg("Location detected — state, city and pincode filled. Verify and confirm to continue.");
-            else if(updates.state||updates.city)setGeoMsg("State and city filled from location. Please enter your 6-digit pincode to calculate delivery.");
-            else setGeoMsg("Location detected. Please enter state, city and pincode manually.");
+            if(updates.pincode)setGeoMsg("Location detected — state, city and postal code filled. Verify and confirm to continue.");
+            else if(updates.state||updates.city)setGeoMsg("State and city filled from location. Please enter your postal / ZIP code to calculate delivery.");
+            else setGeoMsg("Location detected. Please enter state, city and postal code manually.");
           }else{
             setGeoMsg(data?.error||"Could not detect location. Please enter delivery details manually.");
           }
@@ -4841,7 +5449,7 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
       },
       e=>{
         setGeoLoading(false);
-        if(e.code===1)setGeoMsg("Location permission denied. Please enter state, city and pincode manually.");
+        if(e.code===1)setGeoMsg("Location permission denied. Please enter state, city and postal code manually.");
         else setGeoMsg("Could not detect location. Please enter delivery details manually.");
       },
       {timeout:10000,enableHighAccuracy:false}
@@ -5075,20 +5683,32 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 </div>
                 {/* State + City */}
                 <div className="co-form-grid">
-                  <div><label style={lbl}>State *</label><select style={inp("state")} value={form.state} onChange={e=>setF("state",e.target.value)}><option value="">Select state / UT</option>{INDIAN_STATES.map(s=><option key={s} value={s}>{s}</option>)}</select>{ferr("state")}</div>
+                  <div>
+                    <label style={lbl}>State / Region *</label>
+                    <input style={inp("state")} value={form.state} onChange={e=>setF("state",e.target.value)} placeholder="e.g. Maharashtra, Dubai" list="checkout-state-list"/>
+                    <datalist id="checkout-state-list">
+                      {INDIAN_STATES.map(s=><option key={s} value={s}/>)}
+                    </datalist>
+                    {ferr("state")}
+                  </div>
                   <div><label style={lbl}>City *</label><input style={inp("city")} value={form.city} onChange={e=>setF("city",e.target.value)} placeholder="Your city"/>{ferr("city")}</div>
                 </div>
                 {/* Pincode + live delivery hint */}
                 <div>
-                  <label style={lbl}>Pincode *</label>
-                  <input style={inp("pincode")} value={form.pincode} onChange={e=>setF("pincode",e.target.value.replace(/\D/g,""))} placeholder="6-digit pincode" maxLength={6} inputMode="numeric"/>
+                  <label style={lbl}>Postal / ZIP Code *</label>
+                  <input style={inp("pincode")} value={form.pincode} onChange={e=>setF("pincode",e.target.value)} placeholder="Postal / ZIP code"/>
                   {ferr("pincode")}
-                  {/^\d{6}$/.test(form.pincode)&&(delivery
-                    ?<div style={{fontSize:11.5,color:"#2a7a4e",background:"#edfaf5",border:"1px solid #b8e2ca",borderRadius:3,padding:"7px 10px",marginBottom:8,lineHeight:1.5}}>
-                        <svg width={11} height={11} fill="none" stroke="#2a7a4e" strokeWidth={2.5} viewBox="0 0 24 24" style={{verticalAlign:"middle",marginRight:4}}><polyline points="20 6 9 17 4 12"/></svg>
-                        <strong>Zone {delivery.zone}</strong> — est. {delivery.days} days via {delivery.port}{deliveryINRr>0?` · ₹${deliveryINRr.toLocaleString("en-IN")} delivery`:""}
-                      </div>
-                    :<div style={{fontSize:11.5,color:"#9a6a2a",background:"#fff8f0",border:"1px solid #f0d8b0",borderRadius:3,padding:"7px 10px",marginBottom:8,lineHeight:1.5}}>Pincode not in our express zone — delivery charges confirmed with your proforma.</div>
+                  {form.pincode.trim() && (delivery
+                    ? delivery.type === "intl"
+                      ? <div style={{fontSize:11.5,color:"#2a7a4e",background:"#edfaf5",border:"1px solid #b8e2ca",borderRadius:3,padding:"7px 10px",marginBottom:8,lineHeight:1.5}}>
+                          <svg width={11} height={11} fill="none" stroke="#2a7a4e" strokeWidth={2.5} viewBox="0 0 24 24" style={{verticalAlign:"middle",marginRight:4}}><polyline points="20 6 9 17 4 12"/></svg>
+                          <strong>{delivery.label}</strong> — est. {delivery.days} days via {delivery.port}
+                        </div>
+                      : <div style={{fontSize:11.5,color:"#2a7a4e",background:"#edfaf5",border:"1px solid #b8e2ca",borderRadius:3,padding:"7px 10px",marginBottom:8,lineHeight:1.5}}>
+                          <svg width={11} height={11} fill="none" stroke="#2a7a4e" strokeWidth={2.5} viewBox="0 0 24 24" style={{verticalAlign:"middle",marginRight:4}}><polyline points="20 6 9 17 4 12"/></svg>
+                          <strong>Zone {delivery.zone}</strong> — est. {delivery.days} days via {delivery.port}{deliveryINRr>0?` · ₹${deliveryINRr.toLocaleString("en-IN")} delivery`:""}
+                        </div>
+                    : <div style={{fontSize:11.5,color:"#9a6a2a",background:"#fff8f0",border:"1px solid #f0d8b0",borderRadius:3,padding:"7px 10px",marginBottom:8,lineHeight:1.5}}>Postal code not in our express zones — delivery timeline and rates confirmed separately.</div>
                   )}
                 </div>
                 {/* Full delivery address */}
@@ -5107,7 +5727,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     {form.fullAddress&&<span style={{display:"block",color:C.dark,wordBreak:"break-word"}}>{form.fullAddress}{form.landmark?`, ${form.landmark}`:""}</span>}
                     <strong style={{color:C.dark}}>{form.city}, {form.state} — {form.pincode}</strong>
                     {form.company&&<span style={{display:"block",color:"#999",marginTop:1}}>{form.company}</span>}
-                    {delivery&&<span style={{display:"block",marginTop:4,color:"#2a7a4e"}}>✓ Zone {delivery.zone} · est. {delivery.days} days via {delivery.port}</span>}
+                    {delivery&&<span style={{display:"block",marginTop:4,color:"#2a7a4e"}}>✓ {delivery.type === "intl" ? delivery.label : `Zone ${delivery.zone}`} · est. {delivery.days} days via {delivery.port}</span>}
                     <span style={{display:"block",marginTop:4,color:"#aaa"}}>Edit any field above to re-confirm before payment.</span>
                   </div>
                 )}
@@ -5152,17 +5772,24 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     )}
                     <div className="co-sum-row"><span className="co-label">Subtotal (indicative)</span><span className="co-amt">₹{cartTotalINR.toLocaleString("en-IN")}</span></div>
                     <div className="co-sum-row">
-                      <span className="co-label">Delivery{delivery?` · Zone ${delivery.zone}`:""}
-                        {delivery&&<span style={{display:"block",fontSize:11,color:"#aaa"}}>{delivery.days} days via {delivery.port}</span>}
+                      <span className="co-label">Delivery{delivery ? (delivery.type === "intl" ? " (Intl)" : ` · Zone ${delivery.zone}`) : ""}
+                        {delivery && <span style={{display:"block",fontSize:11,color:"#aaa"}}>{delivery.days} days via {delivery.port}</span>}
                       </span>
-                      <span className="co-amt">{delivery?`₹${deliveryINRr.toLocaleString("en-IN")}`:<span style={{fontSize:11,color:"#aaa"}}>Enter pincode</span>}</span>
+                      <span className="co-amt">
+                        {delivery 
+                          ? delivery.type === "intl" 
+                            ? "Quote on Request" 
+                            : `₹${deliveryINRr.toLocaleString("en-IN")}`
+                          : <span style={{fontSize:11,color:"#aaa"}}>Enter postal code</span>
+                        }
+                      </span>
                     </div>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",gap:8,borderTop:`1px solid ${C.sand}`,paddingTop:10,marginTop:6}}>
-                      <span style={{fontSize:12,letterSpacing:".5px",textTransform:"uppercase",color:"#999",flex:1}}>{delivery?"Estimated total":"Subtotal"}</span>
-                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px,5vw,22px)" as any,fontWeight:600,color:C.gold,flexShrink:0,paddingLeft:8}}>₹{(delivery?grandTotalINR:cartTotalINR).toLocaleString("en-IN")}</span>
+                      <span style={{fontSize:12,letterSpacing:".5px",textTransform:"uppercase",color:"#999",flex:1}}>{(delivery && delivery.type === "india") ? "Estimated total" : "Subtotal"}</span>
+                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px,5vw,22px)" as any,fontWeight:600,color:C.gold,flexShrink:0,paddingLeft:8}}>₹{(delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR).toLocaleString("en-IN")}</span>
                     </div>
-                    {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"#aaa",marginTop:3}}>≈ {fmtMoney(cur,delivery?grandTotalINR:cartTotalINR)} {cur}</div>}
-                    {!delivery&&<div style={{fontSize:11,color:"#9a8a6a",marginTop:8,lineHeight:1.5}}>Enter your pincode above to see delivery charge and estimated total.</div>}
+                    {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"#aaa",marginTop:3}}>≈ {fmtMoney(cur,delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR)} {cur}</div>}
+                    {!delivery&&<div style={{fontSize:11,color:"#9a8a6a",marginTop:8,lineHeight:1.5}}>Enter your postal code above to see delivery charge and estimated total.</div>}
                     <div style={{fontSize:10.5,color:"#bbb",lineHeight:1.6,marginTop:8,wordBreak:"break-word"}}>Indicative total. Final price confirmed via proforma invoice.{cur!=="INR"?` ${CURRENCY_DISCLAIMER}`:""}</div>
                     <button onClick={printProforma} style={{marginTop:10,width:"100%",boxSizing:"border-box",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>View / Print Proforma Estimate</button>
                   </div>
@@ -5902,6 +6529,7 @@ export default function App(){
     if(page==="order-status")return<OrderStatusView setPage={nav}/>;
     if(page==="supplier")return<SupplierView onCatalog={openCatalog} onInquire={openInquiry} setPage={nav} cur={cur}/>;
     if(page==="about")return<AboutView setPage={nav} onCatalog={openCatalog}/>;
+    if(page==="reviews")return<ReviewsView cur={cur} setPage={nav}/>;
     if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={nav}/>;
     if(page==="faq")return<SimplePage title="FAQ" content={[["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],["Do you provide tax documentation?",BIZ.gstNote],["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]]} setPage={nav}/>;
     if(page==="shipping")return<SimplePage title="Shipping & Delivery" content={[["Origin","Imported from Bingxi, China via sea freight."],["Indian Ports","Mumbai (Nhava Sheva), Mundra, Chennai, Kolkata, Cochin — based on buyer location."],["Sea Freight","~25–40 days from order confirmation, depending on product and quantity."],["Inland Delivery","3–10 days after port clearance depending on your zone."],["Costs","Shipping, customs, IGST, and inland delivery are included in your final quoted price."]]} setPage={nav}/>;

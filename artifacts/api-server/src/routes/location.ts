@@ -90,8 +90,9 @@ router.get("/location/reverse", async (req, res): Promise<void> => {
       addr["state_district"] ??
       addr["district"] ??
       "";
-    const rawPin = addr["postcode"] ?? "";
-    const pincode = rawPin.replace(/\D/g, "").slice(0, 6);
+    const rawPin = (addr["postcode"] ?? "").trim();
+    const validPostal = /^\d{5,6}$/.test(rawPin) || /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i.test(rawPin) || /^[A-Z0-9\s-]{3,10}$/i.test(rawPin);
+    const pincode = validPostal ? rawPin : "";
     const area =
       addr["suburb"] ??
       addr["neighbourhood"] ??
@@ -103,7 +104,7 @@ router.get("/location/reverse", async (req, res): Promise<void> => {
       success: true,
       state,
       city,
-      pincode: pincode.length === 6 ? pincode : "",
+      pincode,
       area,
     });
   } catch {
