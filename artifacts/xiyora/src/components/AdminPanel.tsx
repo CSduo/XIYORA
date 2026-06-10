@@ -1133,55 +1133,110 @@ function humaniseLoginError(status: number, serverMsg?: string): string {
 function AdminDiagnostics() {
   const [health, setHealth] = useState<"checking"|"ok"|"error">("checking");
   const [dbOk, setDbOk] = useState<boolean|null>(null);
+  const [hasSecret, setHasSecret] = useState<boolean|null>(null);
+  const [hasPassword, setHasPassword] = useState<boolean|null>(null);
+  const [rawError, setRawError] = useState<string>("");
 
   useEffect(() => {
     const base = API.replace(/\/api$/, "");
     const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 6000);
+    const t = setTimeout(() => ctrl.abort(), 8000);
 
     fetch(`${base}/api/health`, { signal: ctrl.signal })
       .then(async r => {
         clearTimeout(t);
         const ct = r.headers.get("content-type") || "";
-        if (!r.ok || !ct.includes("application/json")) { setHealth("error"); return; }
+        if (!ct.includes("application/json")) {
+          setHealth("error");
+          setRawError(`Unexpected response type: ${ct}. The API may not be deployed or the URL is wrong.`);
+          return;
+        }
+        if (!r.ok) {
+          setHealth("error");
+          setRawError(`HTTP ${r.status} from health endpoint.`);
+          return;
+        }
         const j = await r.json().catch(() => null);
         if (j?.status === "ok") {
           setHealth("ok");
           setDbOk(!!j.dbConnected);
+          setHasSecret(j.hasAdminSecret ?? null);
+          setHasPassword(j.hasAdminPassword ?? null);
         } else {
           setHealth("error");
+          setRawError(j?.error || "Health check returned unexpected data.");
         }
       })
-      .catch(() => {
+      .catch((err) => {
         clearTimeout(t);
         setHealth("error");
+        setRawError(err?.name === "AbortError" ? "Request timed out after 8 seconds." : (err?.message || "Network error"));
       });
   }, []);
 
-  const dot = health === "ok" 
-    ? (dbOk ? "#3a9b6e" : "#d4a72d") 
-    : health === "error" ? RED : "#aaa";
-
-  const label = health === "ok" 
-    ? (dbOk ? "Backend reachable & DB connected" : "Backend reachable, DB missing") 
-    : health === "error" ? "Backend unreachable" : "Checking…";
+  const StatusDot = ({ ok }: { ok: boolean | null }) => {
+    const color = ok === null ? "#aaa" : ok ? "#3a9b6e" : RED;
+    return <span style={{ width:7, height:7, borderRadius:"50%", background:color, display:"inline-block", flexShrink:0 }}/>;
+  };
 
   return (
     <div style={{ marginTop:18, background:"#f0ece0", borderRadius:3, padding:"10px 14px", textAlign:"left", fontSize:11, color:"#888", lineHeight:1.8 }}>
       <div style={{ fontWeight:600, color:DARK, marginBottom:4, letterSpacing:".5px", textTransform:"uppercase", fontSize:10 }}>Diagnostics</div>
       <div><span style={{ color:"#aaa" }}>API base:</span> <code style={{ fontSize:10, wordBreak:"break-all" }}>{API}</code></div>
+
       <div style={{ display:"flex", alignItems:"center", gap:6 }}>
-        <span style={{ width:7, height:7, borderRadius:"50%", background:dot, display:"inline-block", flexShrink:0 }}/>
-        <span style={{ color: health === "ok" && !dbOk ? "#a07c1e" : undefined, fontWeight: health === "ok" && !dbOk ? 600 : undefined }}>{label}</span>
+        <StatusDot ok={health === "ok" ? true : health === "error" ? false : null} />
+        <span>{health === "ok" ? "Backend reachable" : health === "error" ? "Backend unreachable" : "Checking…"}</span>
       </div>
+
+      {health === "ok" && (
+        <>
+          <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+            <StatusDot ok={dbOk} />
+            <span style={{ color: dbOk ? "#3a9b6e" : RED, fontWeight: !dbOk ? 600 : 400 }}>
+              {dbOk === null ? "DB status unknown" : dbOk ? "Database connected" : "Database NOT connected"}
+            </span>
+          </div>
+          {dbOk === false && (
+            <div style={{ color:RED, marginLeft:13, fontSize:10, lineHeight:1.6 }}>
+              Set <code>DATABASE_URL</code> in Vercel → Settings → Environment Variables. Use a PostgreSQL provider like Neon (free tier) or Supabase.
+            </div>
+          )}
+
+          {hasSecret !== null && (
+            <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+              <StatusDot ok={hasSecret} />
+              <span style={{ color: hasSecret ? "#3a9b6e" : RED, fontWeight: !hasSecret ? 600 : 400 }}>
+                {hasSecret ? "ADMIN_SECRET configured" : "ADMIN_SECRET missing"}
+              </span>
+            </div>
+          )}
+          {hasSecret === false && (
+            <div style={{ color:RED, marginLeft:13, fontSize:10, lineHeight:1.6 }}>
+              Set <code>ADMIN_SECRET</code> in Vercel env vars. Use any long random string (e.g. from a password generator).
+            </div>
+          )}
+
+          {hasPassword !== null && (
+            <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+              <StatusDot ok={hasPassword} />
+              <span style={{ color: hasPassword ? "#3a9b6e" : RED, fontWeight: !hasPassword ? 600 : 400 }}>
+                {hasPassword ? "ADMIN_PASSWORD configured" : "ADMIN_PASSWORD missing"}
+              </span>
+            </div>
+          )}
+          {hasPassword === false && (
+            <div style={{ color:RED, marginLeft:13, fontSize:10, lineHeight:1.6 }}>
+              Set <code>ADMIN_PASSWORD</code> in Vercel env vars. This is the password you use to log in here.
+            </div>
+          )}
+        </>
+      )}
+
       {health === "error" && (
         <div style={{ color:RED, marginTop:4 }}>
           Backend API server is not responding. Ensure your Vercel backend deployment is running, and verify <code>VITE_API_BASE</code> is set correctly.
-        </div>
-      )}
-      {health === "ok" && dbOk === false && (
-        <div style={{ color:"#9E3B2E", marginTop:4, fontWeight:500 }}>
-          ⚠️ DATABASE_URL is missing. Please set <code>DATABASE_URL</code> in your Vercel project environment variables and redeploy to connect the database!
+          {rawError && <div style={{ marginTop:4, fontSize:10, color:"#777" }}>Detail: {rawError}</div>}
         </div>
       )}
     </div>

@@ -16,7 +16,7 @@ import { Router, type IRouter, type Request } from "express";
 import multer from "multer";
 import { requireAdmin } from "../lib/adminAuth";
 import { isCloudinaryConfigured, uploadToCloudinary } from "../lib/cloudinaryStorage";
-import { objectStorageClient } from "../lib/objectStorage";
+import { objectStorageClient, isObjectStorageAvailable } from "../lib/objectStorage";
 import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
@@ -83,6 +83,15 @@ router.post("/admin/upload", requireAdmin, upload.single("file"), async (req, re
     }
 
     // ── Replit Object Storage fallback (Replit-only) ────────────────────────
+    if (!isObjectStorageAvailable()) {
+      logger.error("Neither Cloudinary nor Replit Object Storage is available. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET in environment.");
+      res.status(503).json({
+        success: false,
+        error: "Image upload is not configured. Set Cloudinary environment variables (CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET) in your Vercel project settings and redeploy.",
+      });
+      return;
+    }
+
     logger.warn("Cloudinary not configured — falling back to Replit Object Storage");
 
     const objectName = context === "homepage" || context === "site"

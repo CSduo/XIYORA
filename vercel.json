@@ -6,6 +6,14 @@
   "buildCommand": "pnpm --filter @workspace/xiyora run build && pnpm --filter @workspace/api-server run build",
   "outputDirectory": "artifacts/xiyora/dist/public",
 
+  "functions": {
+    "api/server.js": {
+      "memory": 512,
+      "maxDuration": 30,
+      "includeFiles": "api/dist/**"
+    }
+  },
+
   "rewrites": [
     {
       "source": "/api/(.*)",
