@@ -699,4 +699,51 @@
   }
 }
 
+/* ── RESPONSIVE NAVBAR: hamburger vs desktop nav links ── */
+/* Desktop (>=1024px): Show nav links, hide hamburger */
+@media (min-width: 1025px) {
+  .nav-hamburger {
+    display: none !important;
+  }
+  .nc {
+    display: flex !important;
+  }
+}
+/* Mobile/Tablet (<1024px): Hide nav links, show hamburger */
+@media (max-width: 1024px) {
+  .nav-hamburger {
+    display: flex !important;
+  }
+  .nc {
+    display: none !important;
+  }
+}
 
+/* ── CURSOR: ensure native cursor is always visible ── */
+/* The custom GoldCursor is an overlay; native cursor must remain */
+html, body, * {
+  /* Do not hide native cursor globally - GoldCursor is a supplement */
+}
+/* Only hide custom cursor elements on touch devices */
+@media (pointer: coarse) {
+  .xiyora-cursor, .xiyora-cursor-dot {
+    display: none !important;
+  }
+}
+/* Ensure body cursor stays auto (visible) */
+body {
+  cursor: auto;
+}
+/* ── GOLD GRADIENT TEXT ── */
+.gold-grad {
+  background: linear-gradient(135deg, #D9B485 0%, #C8A97E 40%, #B8966A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.lux-noir .gold-grad {
+  background: linear-gradient(135deg, #F2D78C 0%, #E0BE86 50%, #C8A97E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

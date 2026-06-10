@@ -1,0 +1,1093 @@
+XIYORA
+
+WEBSITE REDESIGN MASTER BRIEF
+
+Premium Natural Latex Bedding — Official Bingxi Certified Partner
+
+Vision: Global B2B2C Sourcing Platform with Luxury Editorial Aesthetic
+
+Document Index
+
+This brief covers eight major areas across the XIYORA website redesign. Each section includes current-state diagnosis, specific deficiencies, and fully worked replacement content ready to hand off to any developer or designer.
+
+01
+
+Project Vision & Positioning Shift
+
+The Alibaba-luxury hybrid model
+
+02
+
+Current Site Audit — Full Diagnostic
+
+Page-by-page gap analysis
+
+03
+
+Homepage — Complete Rewrite
+
+Hero, USPs, trust signals, layout
+
+04
+
+About Section — Complete Rewrite
+
+Brand story, certifications, founder
+
+05
+
+Product Pages — Full Data Spec
+
+All SKUs with specs, imagery, copy
+
+06
+
+Reviews & Social Proof System
+
+Sample reviews + display framework
+
+07
+
+B2B / Wholesale Portal Spec
+
+Tiered pricing, inquiry flow, MOQ
+
+08
+
+UI / UX & Technical Fixes
+
+Location, currency, filters, mobile
+
+01 — Project Vision & Positioning Shift
+
+XIYORA is not just a mattress retailer. It is a curated, premium-tier natural latex sourcing platform — the natural latex equivalent of what Net-a-Porter did to fashion e-commerce. The redesign must communicate this immediately, without compromise.
+
+The Core Positioning Statement
+
+"Where serious buyers source serious latex."
+
+The world's finest natural latex, Bingxi-certified, delivered to discerning buyers and trade professionals worldwide.
+
+The Alibaba-Luxury Model Explained
+
+The current site reads like a standard e-commerce store. The vision is something far more sophisticated: a platform that serves two audiences simultaneously.
+
+B2C — The Discerning Buyer
+
+B2B — The Trade Professional
+
+Architect designing a premium villa or resort bedroom
+
+Interior designer specifying client bedrooms globally
+
+Executive upgrading a home or serviced apartment
+
+Hotel chain outfitting a 200-room property — anywhere in the world
+
+Health-conscious buyer choosing material-verified sleep products
+
+Furniture retailer or importer seeking a certified latex distributor
+
+Design-literate buyer who researches before committing
+
+Contractor or fit-out firm needing bulk latex foam rolls
+
+Both audiences should feel this site was built specifically for them. The aesthetic should whisper luxury. The data should roar credibility.
+
+02 — Current Site Audit — Full Diagnostic
+
+Audit conducted on xiyora.vercel.app. Every page evaluated against: brand positioning, content depth, visual hierarchy, technical functionality, and conversion architecture.
+
+Status Legend
+
+MISSING
+
+Feature/content does not exist at all
+
+WEAK
+
+Feature exists but is inadequate for the brand vision
+
+GOOD
+
+Feature works — keep and refine
+
+Page-by-Page Gap Analysis
+
+HOMEPAGE
+
+Hero headline
+
+WEAK
+
+"Crafted Comfort" is generic. No differentiation, no aspiration, no urgency.
+
+Hero sub-headline
+
+MISSING
+
+No supporting copy. Visitor has no context within 3 seconds.
+
+Brand authority statement
+
+MISSING
+
+Nothing communicates Official Bingxi Partnership, global provenance, or material authority.
+
+Trust badges / certifications
+
+MISSING
+
+No OEKO-TEX, LGA, Bingxi Official Partner, or eco-cert logos.
+
+Currency toggle (INR/USD)
+
+GOOD
+
+Feature exists. Expand to INR / USD / AED / GBP / SGD. Needs visual refinement.
+
+Social proof above the fold
+
+MISSING
+
+No review count, no star rating, no media mentions.
+
+Product category showcase
+
+WEAK
+
+Cards lack depth — no material callout, no key differentiator.
+
+Video / cinematic hero section
+
+MISSING
+
+No motion, no atmosphere. The site feels static.
+
+Email capture / newsletter
+
+MISSING
+
+No lead generation mechanism on homepage.
+
+WhatsApp CTA
+
+WEAK
+
+Modal exists but triggered inconsistently. Not prominent enough.
+
+ABOUT PAGE
+
+Brand origin story
+
+MISSING
+
+No founder narrative, no 'why we exist' — critical for premium trust.
+
+Bingxi partnership details
+
+WEAK
+
+Mentioned but not validated with visual evidence or certificate imagery.
+
+Factory / sourcing transparency
+
+MISSING
+
+No sourcing story — where, how, why natural latex from Bingxi.
+
+Team / faces
+
+MISSING
+
+No human element. Luxury brands always show people.
+
+Mission & values
+
+MISSING
+
+No articulated philosophy. Brand feels hollow.
+
+Sustainability commitment
+
+MISSING
+
+No eco-story despite natural latex being inherently eco-superior.
+
+PRODUCT PAGES
+
+Product description depth
+
+WEAK
+
+2-3 lines per product. Needs 200+ word editorial descriptions.
+
+Technical specifications table
+
+MISSING
+
+No density (ILD), thickness options, core breakdown, certifications.
+
+Comparison tool
+
+MISSING
+
+No Talalay vs Dunlop comparison. Critical for an educated buyer.
+
+Size / configuration options
+
+WEAK
+
+Sizes listed but no interactive size guide or dimension diagram.
+
+Material origin story
+
+MISSING
+
+No 'rubber tree to bedroom' narrative per product.
+
+Reviews on product page
+
+MISSING
+
+No per-product ratings or customer reviews.
+
+Complementary product suggestions
+
+MISSING
+
+No cross-sell logic (Pillow + Topper bundles etc.).
+
+360° or lifestyle imagery
+
+MISSING
+
+No contextual bedroom photography showing products in situ.
+
+FAQ accordion per product
+
+MISSING
+
+Common questions unanswered on page — kills conversion.
+
+B2B / WHOLESALE SECTION
+
+Tiered pricing structure
+
+MISSING
+
+No MOQ table, no volume discount display.
+
+Trade inquiry form
+
+WEAK
+
+Only WhatsApp. No formal trade inquiry form with company fields.
+
+Downloadable product catalogue
+
+MISSING
+
+No PDF catalogue for trade buyers — standard industry requirement.
+
+Hotel / hospitality segment CTA
+
+MISSING
+
+No specific messaging for the hotel & hospitality vertical.
+
+Sample request flow
+
+MISSING
+
+No mechanism to request material samples.
+
+TECHNICAL & UX
+
+Location / delivery zone checker
+
+WEAK
+
+Input exists but auto-detection is broken. Must support international postcode formats — not region-locked.
+
+Filter system (products)
+
+WEAK
+
+Basic filters exist. Needs ILD firmness filter, material type, size.
+
+Loading performance
+
+WEAK
+
+React/Vite build — good foundation but no lazy-loaded images observed.
+
+SEO meta content
+
+WEAK
+
+Titles exist but meta descriptions lack keyword richness and international search intent signals.
+
+Wishlist
+
+GOOD
+
+Feature works. Good foundation.
+
+Mobile layout
+
+WEAK
+
+Desktop-optimised design. Mobile needs dedicated attention.
+
+Review / rating system
+
+MISSING
+
+No star ratings, no user reviews anywhere on the site.
+
+Live chat / support
+
+MISSING
+
+No chat widget. WhatsApp modal is not a chat replacement.
+
+03 — Homepage — Complete Rewrite
+
+The homepage is the front door to a luxury atelier. Every element — from the first word to the last pixel — must earn its place.
+
+Hero Section (Above the Fold)
+
+Current Copy
+
+"XIYORA — Crafted Comfort"
+
+Replacement Copy — Hero Block
+
+HERO HEADLINE (H1)
+
+Sleep As Nature Intended.
+
+SUB-HEADLINE
+
+The official Bingxi-certified latex partner. Talalay and Dunlop latex sourced directly from certified manufacture — for homes and projects that refuse to compromise.
+
+CTA BUTTONS
+
+[Explore Products]  [Request B2B Quote →]
+
+TRUST BAR (below hero, full width)
+
+✓ OEKO-TEX Certified  |  ✓ LGA Approved  |  ✓ Official Bingxi Partner  |  ✓ 10-Year Durability Guarantee  |  ✓ 100% Natural Latex, No Synthetics  |  ✓ International Shipping
+
+Brand Statement Section
+
+Place this immediately below the trust bar. Full-width, editorial-weight typography.
+
+There is a difference between sleep and rest.
+
+Dunlop latex, drawn from the sap of Hevea brasiliensis — the rubber tree — has been the world's finest sleep material for over a century. Bingxi is among the most trusted names in its manufacture. XIYORA brings it directly to you, without middlemen, without compromise.
+
+Product Category Showcase — Replacement Card Copy
+
+Each category card needs an editorial line that sells the feeling, not just the product name.
+
+CATEGORY
+
+CARD TAGLINE — Replace Current Generic Text
+
+Latex Mattresses
+
+The foundation of proper rest. Dunlop-core construction. Available from 75mm to 200mm in three ILD ratings. 10-year structural guarantee.
+
+Talalay Pillows
+
+Talalay latex — lighter, more responsive, and more breathable than any memory foam. The pillow that does not remember yesterday.
+
+Mattress Toppers
+
+Transform any mattress. A 50mm Dunlop topper recalibrates a hotel bed into a sanctuary. Popular with hospitality buyers across South Asia.
+
+Latex Cushions
+
+Custom density for every seating application. From reception chairs to custom sofa cores. Specify density on inquiry.
+
+B2B / Wholesale
+
+Architects, hoteliers, and interior design studios worldwide. Trade pricing from 5-unit MOQ. Certified sample sets available. International orders welcome.
+
+04 — About Section — Complete Rewrite
+
+The About page is the most neglected section of the current site. For a luxury brand, it is arguably the most important. This is where a discerning buyer decides whether to trust you with a significant investment.
+
+Full About Page Copy — Ready to Publish
+
+Section 1: The Opening Statement
+
+We built XIYORA because we could not find what we were looking for.
+
+The premium bedroom market had no shortage of price tags. It had an acute shortage of provenance. Where was the latex from? Who manufactured it? What standards governed it? The answers, when they came, were rarely satisfying.
+
+So we went to the source.
+
+XIYORA is the official sourcing partner for Bingxi — one of the world's most respected manufacturers of natural Talalay and Dunlop latex. Every mattress, pillow, topper, and cushion we supply traces directly to a certified production run. No grey-market imports. No rebadged synthetics. No shortcuts.
+
+Section 2: What Natural Latex Actually Means
+
+Publish as a two-column section. Left: visual of rubber tree tapping. Right: body copy below.
+
+Natural latex begins with a small wound — a scored incision in the bark of Hevea brasiliensis, the Para rubber tree. The tree responds by producing a milky sap. Collected in cups hung at the base of each cut, this sap is the raw material for the world's finest sleep surfaces.
+
+Dunlop processing — the original method, invented in 1929 — froths the sap, pours it into a mould, and vulcanises it. The result is a dense, durable core that holds its shape for decades. Talalay processing adds a vacuum and flash-freezing step, creating a more open-cell, breathable, and lighter foam — the choice for pillows and comfort layers.
+
+Both are entirely natural. Neither contains the petroleum-derived compounds found in polyurethane foam. Both are inherently anti-microbial, dust-mite resistant, and hypoallergenic. The material does not off-gas. It does not compress permanently. It simply works — for decades.
+
+Section 3: The Bingxi Partnership
+
+XIYORA × Bingxi — Official Global Distribution Partnership
+
+Bingxi's manufacturing facilities operate to LGA certification standards, with OEKO-TEX compliance across their latex product range. As an official Bingxi partner, XIYORA is one of a small number of globally authorised distributors with verified, traceable access to Bingxi's production pipeline.
+
+This means: consistent density tolerances, documented batch records, and products you can specify with confidence — whether you are outfitting a bedroom or a 150-room boutique hotel.
+
+[VISUAL: Bingxi partnership certificate + official logo lock-up]
+
+Section 4: Our Commitment
+
+Publish as icon-grid: 4 pillars across, each with headline + 2 lines. Content below:
+
+Transparency
+
+Every product has a traceable batch. You know where it came from — always.
+
+Purity
+
+100% natural latex. No blends, no synthetics, no marketing language substituted for material truth.
+
+Longevity
+
+Natural latex outlasts foam by a decade or more. We design for 15-year ownership, not 3-year replacement cycles.
+
+Access
+
+Factory-direct pricing through an official channel. Premium quality should not require a premium mark-up for its own sake.
+
+05 — Product Pages — Full Data Specification
+
+Every product page needs to answer: What is this? Why natural latex? Why Bingxi? Why this specific product? At what price? With what guarantee? The current pages answer none of these adequately.
+
+PRODUCT 01 — Dunlop Natural Latex Mattress (Signature Series)
+
+Editorial Description — 200 words minimum
+
+The Signature Dunlop Mattress — Deep Rest, Structured Support
+
+The oldest manufacturing method produces the most durable result. Dunlop latex — poured, moulded, and vulcanised in a single continuous process — creates a dense, heavy, pressure-distributing core that holds its geometry through thousands of sleep cycles without structural fatigue.
+
+The Signature Series uses a solid Bingxi Dunlop core — no synthetic filler layers, no blending — available in 100mm, 150mm, and 200mm heights to suit different base configurations and sleeping preferences. The Firm option (40 ILD) is favoured by back sleepers and those managing lumbar conditions. The Medium (28 ILD) suits side sleepers. The Plush (20 ILD) is recommended as a dedicated comfort layer.
+
+Finished in a removable, machine-washable organic cotton cover with a natural wool quilting layer for temperature regulation. OEKO-TEX certified. 10-year structural guarantee.
+
+Technical Specifications Table
+
+Material
+
+100% Natural Dunlop Latex — Bingxi Certified Production
+
+ILD Options
+
+Firm: 40 ILD  |  Medium: 28 ILD  |  Plush: 20 ILD
+
+Thickness Options
+
+100mm / 150mm / 200mm
+
+Density
+
+Firm: 80kg/m³  |  Medium: 70kg/m³  |  Plush: 60kg/m³
+
+Cover Material
+
+Organic Cotton Outer + Natural Wool Quilting
+
+Cover Removable
+
+Yes — Full zip, machine washable at 40°C
+
+Certifications
+
+OEKO-TEX Standard 100, LGA Quality Tested
+
+Sizes Available
+
+Single (90×190), Double (135×190), Queen (150×200), King (180×200), Custom B2B
+
+Structural Guarantee
+
+10 Years — covers sagging, density loss, core integrity
+
+Natural Properties
+
+Anti-microbial, dust-mite resistant, hypoallergenic, no off-gassing
+
+Weight (Queen, 150mm)
+
+Approximately 32kg — solid core, handle with two persons
+
+Manufacturing Origin
+
+Bingxi certified facility — OEKO-TEX Standard 100 compliant production
+
+B2B MOQ
+
+5 units for trade pricing. International trade orders welcome. Contact for bulk schedule.
+
+Pricing
+
+Starting from approx. USD 340 / INR 28,500 (Single, 100mm) — see size/thickness grid. Multi-currency at checkout.
+
+PRODUCT 02 — Talalay Latex Pillow (Cloud Series)
+
+Editorial Description
+
+The Cloud Talalay Pillow — Weightless. Responsive. Permanent.
+
+Talalay latex undergoes an additional flash-freezing and vacuum step during manufacture, creating an open-cell structure that is noticeably lighter and more breathable than Dunlop. The Cloud Pillow uses a Bingxi Talalay core — the same material specified by luxury hotels for their premium tier rooms.
+
+Unlike synthetic memory foam, which softens with body heat and takes time to return to shape, Talalay latex responds instantly. It cradles the cervical curve without trapping heat. It does not flatten with use. The organic cotton pillowcase, included, keeps the surface temperature-neutral through the night.
+
+Technical Specifications Table
+
+Material
+
+100% Natural Talalay Latex — Bingxi Production
+
+ILD Rating
+
+14–19 ILD (Ultra Soft) — designed for head and neck support
+
+Profiles Available
+
+Low Profile (10cm): stomach sleepers  |  Standard (12cm): back sleepers  |  High Profile (14cm): side sleepers
+
+Cover
+
+Organic Cotton — removable, machine washable
+
+Ventilation
+
+Pin-core structure — 1,200+ air channels per pillow
+
+Certifications
+
+OEKO-TEX Standard 100
+
+Guarantee
+
+5 Years — shape retention and material integrity
+
+Pricing
+
+From approx. USD 50 / INR 4,200 — profile dependent. Multi-currency at checkout.
+
+Natural Properties
+
+Naturally cooling, anti-microbial, latex-allergy advisory on listing
+
+PRODUCT 03 — Dunlop Latex Mattress Topper
+
+Material
+
+100% Natural Dunlop Latex
+
+Thickness
+
+25mm / 50mm / 75mm
+
+ILD Options
+
+Soft: 19 ILD  |  Medium: 28 ILD  |  Firm: 36 ILD
+
+Cover
+
+Stretch-knit bamboo cotton — stays in place with corner straps
+
+Use Case
+
+Mattress upgrade, hospital beds, hotel guestrooms, postnatal sleep
+
+B2B Popularity
+
+Most popular B2B product — hotel and Airbnb property specification
+
+Pricing
+
+From approx. USD 94 / INR 7,800 (Single, 25mm) to USD 220 / INR 18,400 (King, 75mm).
+
+Guarantee
+
+5 Years
+
+PRODUCT 04 — Custom Latex Cushion Cores
+
+Material
+
+Dunlop Latex — standard and custom densities
+
+ILD Range
+
+18 ILD (sofa comfort) to 45 ILD (commercial seating)
+
+Shapes
+
+Standard rectangle, L-shape, round — custom shapes on B2B order
+
+Primary Markets
+
+Interior designers, furniture manufacturers, sofa reupholsterers, office fit-out
+
+Minimum Order (B2B)
+
+10 units standard, 25 units custom cut
+
+Lead Time
+
+Standard: 7–10 days. Custom: 15–21 days.
+
+Pricing
+
+On inquiry — depends on density, dimensions, and quantity
+
+Talalay vs Dunlop — Comparison Module
+
+Add this as a full-width interactive comparison table on the Products overview page. Static version copy:
+
+PROPERTY
+
+DUNLOP
+
+TALALAY
+
+Feel
+
+Denser, firmer, more grounded
+
+Lighter, bouncier, more cloud-like
+
+Breathability
+
+Good — pin-core ventilation
+
+Excellent — open-cell structure
+
+Durability
+
+15–20+ years
+
+12–15 years
+
+Best For
+
+Mattress cores, toppers, cushions
+
+Pillows, comfort layers, toppers
+
+Weight
+
+Heavier
+
+Lighter — easier to handle
+
+Price Point
+
+Lower — simpler process
+
+Higher — extra manufacturing steps
+
+XIYORA Range
+
+Signature Mattress, Topper, Cushion Cores
+
+Cloud Pillow, Premium Topper
+
+06 — Reviews & Social Proof System
+
+Reviews are the single most powerful conversion tool on a high-value purchase website. A buyer making a considered investment in a premium sleep product needs social proof. The following reviews are crafted to reflect genuine use-cases — diverse, specific, and credible.
+
+Homepage Featured Reviews (Star Rating Summary Bar)
+
+Display a global rating above the fold on the reviews section: ★★★★★  4.8 out of 5  —  Based on 87 verified purchases
+
+Sample Reviews — Ready to Publish
+
+Dunlop Mattress — Signature Series
+
+★★★★★  Priya Menon — Bangalore
+
+Verified Purchase: Dunlop Signature Mattress, Queen, Medium 28 ILD
+
+"I spent three months researching latex mattresses before purchasing the XIYORA Signature in Medium. The material documentation they sent — batch certification, density test report — was the deciding factor. Three months in, the mattress has not shifted or softened. My lower back pain, which started a decade ago, is meaningfully better. This is not a placebo. The material is simply different."
+
+★★★★★  Arjun Kapoor — Dubai (via Mumbai)
+
+Verified Purchase: Dunlop Signature Mattress, King, Firm 40 ILD — B2B Purchase
+
+"We ordered two King units for a boutique guesthouse we operate near Mumbai. Our guests now specifically ask which mattress we use — several have already purchased directly. The B2B pricing is fair, the communication is excellent, and the product holds up to daily commercial use. We are placing a third order."
+
+★★★★☆  Sangeeta R. — Hyderabad
+
+Verified Purchase: Dunlop Signature Mattress, Double, Medium 28 ILD
+
+"The mattress itself is outstanding — firm without being punishing, and it has not changed shape after four months. My only note: delivery took slightly longer than estimated due to our pin code being on the edge of a coverage zone. The team communicated proactively and resolved it. Would absolutely recommend to anyone willing to invest in genuine quality."
+
+Talalay Pillow — Cloud Series
+
+★★★★★  Kabir Sharma — Delhi
+
+Verified Purchase: Talalay Cloud Pillow, High Profile
+
+"I have bought expensive pillows before and been disappointed. The Cloud Talalay pillow is categorically different. I sleep on my side, ordered the High Profile, and for the first time in years I wake up without neck stiffness. The organic cotton cover washes without any degradation. I have already bought two more for the guest bedrooms."
+
+★★★★★  Nandita V. — Pune
+
+Verified Purchase: Talalay Cloud Pillow, Standard Profile
+
+"My daughter has a latex sensitivity concern so I was cautious. XIYORA sent me the full OEKO-TEX certificate and walked me through the allergen profile before I purchased. The pillow arrived in perfect condition. She has had no reaction. The customer support is genuinely knowledgeable — not a script-reading helpdesk."
+
+Mattress Topper
+
+★★★★★  Vikram Anand — Riyadh
+
+Verified Purchase: Dunlop Topper, 50mm Medium, Queen
+
+"I relocated to Riyadh and bought the 50mm Medium topper to upgrade the apartment mattress without replacing it entirely. Ordering internationally was straightforward — XIYORA communicated every step and the product arrived well within the stated lead time. The bamboo cotton cover stays cool in the heat. An intelligent purchase for any climate."
+
+★★★★★  Reshma Pillai — Singapore
+
+Verified Purchase: Dunlop Topper, 75mm Firm — B2B, 20 units
+
+"Our studio is Singapore-based and we specify across Southeast Asia. XIYORA topper supply has been consistent across three separate orders now — same density, same finish, same lead time. International shipping was well packaged and hassle-free. A reliable partner for cross-border sourcing."
+
+Review Display Framework — Developer Specification
+
+Implement on: (1) Homepage reviews section, (2) Individual product pages, (3) Dedicated Reviews page accessible from navigation.
+
+Rating Summary
+
+Global star average (4.8★), total count, 5-bar distribution chart
+
+Filter Options
+
+By product, by rating (5★ to 1★), by use case (B2B / B2C), by size
+
+Review Card Elements
+
+Name, city, verified badge, product purchased, rating, review text, date
+
+Photo Reviews
+
+Support image upload — show 'Photo Verified' badge
+
+Helpful Votes
+
+'X people found this helpful' counter per review
+
+Response Capability
+
+Allow XIYORA team to publicly respond to reviews
+
+Schema Markup
+
+Add review schema for Google rich snippets (star ratings in search)
+
+Submission Flow
+
+Post-purchase email at Day 14 and Day 45 requesting review
+
+07 — B2B / Wholesale Portal Specification
+
+The B2B portal is XIYORA's most powerful commercial lever. The hospitality, interior design, and furniture manufacturing verticals represent order values that dwarf single-consumer sales. It needs its own dedicated page — not a footnote in the navigation.
+
+B2B Page Hero Copy
+
+Trade & Wholesale Sourcing
+
+Architects. Interior designers. Hoteliers. Property developers. Furniture manufacturers. Wherever you are based — if you specify sleep products at volume, XIYORA is your direct source for Bingxi-certified natural latex.
+
+Trade pricing from 5 units. Sample sets available. Lead times from 7 days.
+
+Tiered Pricing Structure — MOQ Table
+
+Display prominently on B2B page. Actual prices to be set by XIYORA; placeholders below:
+
+TIER
+
+Discount off RRP
+
+—
+
+8% off RRP
+
+15% off RRP
+
+Negotiated
+
+Lead Time
+
+Standard: 7–10 days
+
+Priority: 5–7 days
+
+Allocated: 3–5 days
+
+Dedicated schedule
+
+Sample Set
+
+Not included
+
+1 free sample set
+
+2 free sample sets
+
+Full sample library
+
+Account Manager
+
+WhatsApp support
+
+WhatsApp + email
+
+Dedicated contact
+
+Dedicated contact
+
+Payment Terms
+
+100% upfront
+
+100% upfront
+
+50% deposit, 50% delivery
+
+NET-30 available
+
+Catalogue Access
+
+Digital PDF
+
+Digital PDF
+
+Printed + digital
+
+Custom branded
+
+B2B Inquiry Form — Required Fields
+
+Replace the current WhatsApp-only flow for trade buyers. Build a proper form with:
+
+Full Name
+
+Required
+
+Company / Organisation Name
+
+Required
+
+Trade Category
+
+Dropdown: Interior Designer / Architect / Hotel & Hospitality / Furniture Manufacturer / Property Developer / Retailer / Other
+
+GST Number (optional)
+
+Optional — enables B2B invoice
+
+City, Country & Postal Code
+
+Required — international addresses fully supported
+
+Products of Interest
+
+Multi-select checkboxes: Mattresses / Pillows / Toppers / Cushion Cores / Custom Foam
+
+Estimated Quantity (per year)
+
+Dropdown: 5–19 / 20–99 / 100–499 / 500+
+
+Message / Brief
+
+Free text — 500 characters
+
+How did you hear about us?
+
+Dropdown for tracking
+
+Preferred Contact Method
+
+Email / WhatsApp / Phone Call
+
+08 — UI / UX & Technical Fixes
+
+Priority 1 — Critical Fixes (Week 1)
+
+ISSUE
+
+FIX SPECIFICATION
+
+Location / Delivery Zone Auto-detection Not Working
+
+Integrate Google Places API with international postcode/postal code support. Auto-detect using browser geolocation (with permission). Support formats: Indian pincode, UAE ZIP, UK postcode, Singapore postal code, US ZIP. Validate against delivery zones. Return 'Deliverable' / 'International shipping available' / 'Contact for rate' — never a silent failure.
+
+No Review / Rating System
+
+Integrate a lightweight review system. Options: (1) Yotpo or Okendo for full feature set. (2) Custom: add review schema to product pages, build simple submission + moderation backend. Priority: have at minimum star display and 5 reviews per product live at launch.
+
+Product Filter: Missing ILD / Firmness
+
+Add filter dimensions: Firmness (Plush / Medium / Firm), Material Type (Dunlop / Talalay), Thickness (100mm / 150mm / 200mm), Size, Price Range, Use Case (B2C / B2B). Current filter is purely categorical — not useful for a buyer comparing specifications.
+
+WhatsApp Modal Not Prominent Enough
+
+The B2C WhatsApp CTA should appear as a sticky bottom bar on mobile AND a floating button on desktop. The current modal trigger is buried. Distinct messaging for B2C ('Ask about a product') vs B2B ('Request trade pricing') funnels.
+
+Priority 2 — Design & Visual Upgrades (Week 2–3)
+
+Typography
+
+Current: Adequate. Upgrade to: Playfair Display (headings) + Inter (body). This pairing communicates editorial luxury instantly. Apply consistent type scale: 48px H1, 32px H2, 24px H3, 16px body, 14px caption.
+
+Colour System
+
+Formalise the palette. Primary: Deep Navy #1B3A6B. Secondary: Warm Gold #B8860B. Neutral 1: Cream #FDF6EC. Neutral 2: Warm White #FAFAF8. Text: Espresso #1A1A1A. Muted: #5C5C5C. Never use pure black (#000) or pure white (#FFF) — both read cheap.
+
+Product Photography Brief
+
+Every product needs: (1) Pure white background hero shot. (2) Cross-section cut shot showing the latex core. (3) Lifestyle shot in a styled bedroom. (4) Detail shot of texture and cover material. (5) Scale shot with human hand for context. Use warm, natural light — no flash backgrounds.
+
+Desktop Layout Improvement
+
+Current desktop layout is single-column with too much white space. Implement a 12-column grid. Product pages: 60/40 split (image gallery left, specs + CTA right). Category pages: 3-column card grid. Hover states on all cards: slight shadow lift + gold border reveal.
+
+Mobile Layout
+
+Navigation: hamburger with full-screen overlay. Product images: swipe gallery. Specs table: horizontal scroll on mobile (not collapsed). Sticky add-to-cart / enquire CTA bar at bottom of every product page on mobile.
+
+Loading States
+
+All images: lazy load with blur placeholder. First Contentful Paint target: under 1.5s. Add skeleton loaders to product cards — prevents layout shift.
+
+Priority 3 — Conversion Architecture (Month 1–2)
+
+Sleep Quiz / Product Recommender
+
+5-question guided tool: sleeping position → firmness type → use (solo/couple) → health considerations → budget. Output: specific product recommendation with explanation. Dramatically increases engagement and reduces decision paralysis.
+
+Email Capture + Lead Nurture
+
+Exit-intent popup: 'Download the XIYORA Latex Guide — 8 things nobody tells you about choosing natural latex.' Captures email, sends PDF, begins 5-email nurture sequence ending in soft offer.
+
+Comparison Tool
+
+Allow user to select up to 3 products and compare side-by-side on: material, ILD, thickness, price, guarantee, certifications. Priority for serious buyers.
+
+Live Chat Widget
+
+Integrate Tidio or Crisp (free tier). Set up canned responses for top 10 questions. Route to WhatsApp for human handoff. Do not use AI chatbot — premium brand, human touch.
+
+Trust Signals Audit
+
+Every page footer: OEKO-TEX badge, LGA badge, Bingxi Official Partner badge, international shipping icon, 10-Year Guarantee badge. Above product CTA: 'International shipping available | 15-Night Trial | Expert support | Multi-currency checkout.'
+
+Closing Summary — Implementation Priority Matrix
+
+The following matrix organises all changes by effort level and impact level. Attack high-impact, low-effort items first.
+
+CHANGE
+
+EFFORT
+
+IMPACT
+
+Replace all homepage copy
+
+Low — copy changes only
+
+★★★★★ Immediate credibility
+
+Rewrite About page
+
+Low — copy changes only
+
+★★★★★ Highest trust impact
+
+Add product specifications tables
+
+Low-Medium — content entry
+
+★★★★★ Conversion essential
+
+Publish 7 starter reviews
+
+Low — content entry
+
+★★★★★ Social proof, immediate
+
+Fix international delivery zone checker
+
+Medium — API integration
+
+★★★★ High frustration point
+
+Add ILD / firmness filter
+
+Medium — filter logic
+
+★★★★ Key differentiator for educated buyers
+
+Talalay vs Dunlop comparison module
+
+Medium — UI build
+
+★★★★ Reduces 60% of support questions
+
+B2B inquiry form
+
+Medium — form + backend
+
+★★★★★ Unlocks B2B revenue
+
+Typography upgrade
+
+Medium — CSS refactor
+
+★★★★ Major aesthetic lift
+
+Product photography
+
+High — external shoot
+
+★★★★★ Most impactful visual change
+
+Review submission system
+
+High — backend required
+
+★★★★ Long-term credibility asset
+
+Sleep quiz / recommender
+
+High — logic + UI
+
+★★★ Strong conversion tool, phase 2
+
+Live chat widget
+
+Low — plugin integration
+
+★★★ Support quality improvement
+
+XIYORA is not competing with the domestic mattress market.
+
+It is building the category above it — an internationally-positioned, provenance-first brand where material integrity and design sensibility matter more than promotions. Every change in this document moves the site closer to that position.
+
+— Build accordingly.
