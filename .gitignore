@@ -68,3 +68,4 @@ large-media/
 *.rar
 *.psd
 *.ai
+.vercel

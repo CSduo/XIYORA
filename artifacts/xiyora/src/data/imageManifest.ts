@@ -7,13 +7,13 @@ const p = (slug: string, ...g: string[]) => ({
 
 export const imageManifest = {
   categories: {
-    Mattresses:       `${B}/categories/mattresses.png`,
-    Pillows:          `${B}/categories/pillows.png`,
-    Toppers:          `${B}/categories/toppers.png`,
-    Cushions:         `${B}/categories/cushions.png`,
-    "Latex Material": `${B}/categories/latex-material.png`,
-    startingFrom:     `${B}/categories/latex-material.png`,
-    heroNew:          `${B}/categories/hero-bg-new.png`,
+    Mattresses:       `${B}/categories/mattresses.jpg`,
+    Pillows:          `${B}/categories/pillows.jpg`,
+    Toppers:          `${B}/categories/toppers.jpg`,
+    Cushions:         `${B}/categories/cushions.jpg`,
+    "Latex Material": `${B}/categories/latex-material.jpg`,
+    startingFrom:     `${B}/categories/latex-material.jpg`,
+    heroNew:          `${B}/categories/hero-bg-new.jpg`,
   },
   products: {
     // ── Talalay pillows ────────────────────────────────────────────────────
