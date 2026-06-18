@@ -646,34 +646,24 @@
 }
 
 /* ── 23. RESPONSIVE NAVBAR LAYOUT OVERHAUL ─────────────────── */
-.nav-hamburger {
-  display: block;
-}
-
+/* Desktop (>=1200px): Show nav links, hide hamburger */
 @media (min-width: 1200px) {
-  /* Hide hamburger menu button on wide desktop screens */
   .nav-hamburger {
     display: none !important;
   }
-  
-  /* Show horizontal navigation links */
   .nc {
     display: flex !important;
   }
 }
 
+/* Mobile/Tablet (<1200px): Hide nav links, show hamburger */
 @media (max-width: 1199px) {
-  /* Hide horizontal navigation links on smaller viewports */
   .nc {
     display: none !important;
   }
-  
-  /* Show hamburger menu button */
   .nav-hamburger {
-    display: block !important;
+    display: flex !important;
   }
-  
-  /* Reduce logo size or gaps if necessary to fit mobile/tablet */
   .nav-brand-x {
     font-size: 20px !important;
     letter-spacing: 4px !important;
@@ -682,41 +672,37 @@
     font-size: 8px !important;
     letter-spacing: 2px !important;
   }
-  
-  /* Let the right container take up less space on small screens */
   .nav-b2b-text {
     display: none !important;
   }
 }
 
 @media (max-width: 768px) {
-  /* On mobile, make sure the grid fits without overlapping */
   .nav-cartouche {
     padding: 4px 12px !important;
   }
   .nav-right {
     gap: 4px !important;
   }
+  .nav-b2b-btn {
+    display: none !important;
+  }
 }
 
-/* ── RESPONSIVE NAVBAR: hamburger vs desktop nav links ── */
-/* Desktop (>=1024px): Show nav links, hide hamburger */
-@media (min-width: 1025px) {
-  .nav-hamburger {
-    display: none !important;
-  }
-  .nc {
-    display: flex !important;
-  }
+/* CMS Editor Outline & Highlight System */
+[data-cms-id] {
+  cursor: pointer !important;
+  position: relative;
+  transition: outline 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
-/* Mobile/Tablet (<1024px): Hide nav links, show hamburger */
-@media (max-width: 1024px) {
-  .nav-hamburger {
-    display: flex !important;
-  }
-  .nc {
-    display: none !important;
-  }
+[data-cms-id]:hover {
+  outline: 2px dashed #C8A97E !important;
+  outline-offset: 2px;
+}
+[data-cms-id].cms-selected {
+  outline: 2px solid #C8A97E !important;
+  outline-offset: 2px;
+  background-color: rgba(200, 169, 126, 0.08) !important;
 }
 
 /* ── CURSOR: ensure native cursor is always visible ── */

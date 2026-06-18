@@ -17,6 +17,9 @@ const resolveGallery=(id:string,apiValue:string[]):string[]=>{
 
 /* ─── BUSINESS INFO ─────────────────────────────────────── */
 export let BIZ = {
+  enabledCurrencies: JSON.stringify(["USD", "INR", "EUR", "GBP", "AED", "SGD", "AUD"]),
+  navItems: "",
+  defaultCurrency: "USD",
   wa: "917028311226",
   email: "xiyatosaanvi@gmail.com",
   ig: "https://www.instagram.com/xiyora.zi/",
@@ -1157,14 +1160,22 @@ const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg
 const parsePriceNum=(s:string):number=>{if(!s)return 0;const m=String(s).replace(/,/g,"").match(/[\d.]+/);return m?parseFloat(m[0]):0;};
 
 /* ─── CURRENCY (base INR; rates indicative, not live FX) ──── */
+/* ─── CURRENCY (base INR; rates indicative, not live FX) ──── */
 const FX:Record<string,{symbol:string;rate:number;name:string;locale:string}>={
   INR:{symbol:"₹",rate:1,name:"Indian Rupee",locale:"en-IN"},
   USD:{symbol:"$",rate:1/83,name:"US Dollar",locale:"en-US"},
-  AED:{symbol:"AED ",rate:1/22.6,name:"UAE Dirham",locale:"en-US"},
   EUR:{symbol:"€",rate:1/90,name:"Euro",locale:"en-US"},
   GBP:{symbol:"£",rate:1/105,name:"British Pound",locale:"en-GB"},
+  AED:{symbol:"AED ",rate:1/22.6,name:"UAE Dirham",locale:"en-US"},
+  SAR:{symbol:"SR ",rate:1/22.1,name:"Saudi Riyal",locale:"en-US"},
+  QAR:{symbol:"QR ",rate:1/22.8,name:"Qatari Riyal",locale:"en-US"},
+  KWD:{symbol:"KD ",rate:1/270,name:"Kuwaiti Dinar",locale:"en-US"},
+  BHD:{symbol:"BD ",rate:1/220,name:"Bahraini Dinar",locale:"en-US"},
+  OMR:{symbol:"RO ",rate:1/215,name:"Omani Rial",locale:"en-US"},
   SGD:{symbol:"S$",rate:1/61.5,name:"Singapore Dollar",locale:"en-US"},
   AUD:{symbol:"A$",rate:1/54.5,name:"Australian Dollar",locale:"en-US"},
+  CAD:{symbol:"C$",rate:1/60.5,name:"Canadian Dollar",locale:"en-US"},
+  JPY:{symbol:"¥",rate:1/0.53,name:"Japanese Yen",locale:"en-US"},
 };
 const CURRENCIES=Object.keys(FX);
 const CURRENCY_DISCLAIMER="Currency conversion is indicative only and refreshed periodically from a public reference source. Final proforma and payment are confirmed in INR unless otherwise agreed.";
@@ -2173,7 +2184,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
   const isReverse = layout === "reverse";
 
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}} data-cms-id="hero-section">
       <Petals count={16}/>
       {/* section-edge framing motifs — low z-index, kept away from text */}
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
@@ -2213,7 +2224,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
                 <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
                 <Seal ch="印" style={{marginTop:2}}/>
               </ArchedCartouche>
-              <h1 className="serif" style={{
+              <h1 className="serif" data-cms-id="hero-title" style={{
                 fontSize: BIZ.heroTitleSize || "clamp(2.1rem,3.6vw,3.5rem)",
                 fontWeight: 500,
                 lineHeight: 1.12,
@@ -2260,7 +2271,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
                   <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
                 ))}
               </div>
-              <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}}>
+              <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}} data-cms-id="hero-cta">
                 <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#C8A97E"}}>✦</span></button>
                 <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"#9E3B2E"}}>→</span></button>
               </div>
@@ -2268,7 +2279,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
           </div>
           {/* RIGHT — photo */}
           <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:540,overflow:"hidden"}}>
-            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":(BIZ.heroImage||imageManifest.categories.heroNew)} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+            <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":(BIZ.heroImage||imageManifest.categories.heroNew)} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}} data-cms-id="hero-image"/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
             {/* corner-only gold hairline frame — no motifs over the room photo (guardrail) */}
@@ -2357,7 +2368,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
       <section className="sec paper ink-wash">
         <div className="container">
           <Reveal>
-            <div style={{maxWidth:820,margin:"0 auto",textAlign:"center"}}>
+            <div style={{maxWidth:820,margin:"0 auto",textAlign:"center"}} data-cms-id="about-heading">
               <SL center>{BIZ.aboutStatementLabel || "The Opening Statement"}</SL>
               <h2 className="serif" style={{fontSize:"clamp(1.6rem,2.8vw,2.4rem)",fontWeight:400,lineHeight:1.35,color:C.dark,margin:"12px 0 28px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutStatementHeading || "\"There is a difference between sleep and rest.\""}} />
               {(() => {
@@ -5558,7 +5569,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
 
 /* ─── CURRENCY FLAGS ──────────────────────────────────────── */
 const CURRENCY_FLAGS:Record<string,string>={
-  INR:"🇮🇳",USD:"🇺🇸",AED:"🇦🇪",EUR:"🇪🇺",GBP:"🇬🇧",SGD:"🇸🇬",AUD:"🇦🇺",
+  INR:"🇮🇳",USD:"🇺🇸",EUR:"🇪🇺",GBP:"🇬🇧",AED:"🇦🇪",SAR:"🇸🇦",QAR:"🇶🇦",KWD:"🇰🇼",BHD:"🇧🇭",OMR:"🇴🇲",SGD:"🇸🇬",AUD:"🇦🇺",CAD:"🇨🇦",JPY:"🇯🇵"
 };
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
@@ -5576,8 +5587,38 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
     return()=>document.removeEventListener("mousedown",handler);
   },[curOpen]);
 
+  const enabledCurs = (() => {
+    try {
+      if (BIZ.enabledCurrencies) {
+        const parsed = JSON.parse(BIZ.enabledCurrencies);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.filter((c: string) => CURRENCIES.includes(c));
+        }
+      }
+    } catch {}
+    return CURRENCIES;
+  })();
+
+  const menuLinks = (() => {
+    try {
+      if (BIZ.navItems) {
+        const parsed = JSON.parse(BIZ.navItems);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {}
+    return [
+      ["Home", "home"],
+      ["Products", "catalog"],
+      ["Latex Guide", "latex-guide"],
+      ["About XIYORA", "about"],
+      ["Partnership", "supplier"],
+      ["Reviews", "reviews"],
+      ["Contact", "contact"]
+    ];
+  })();
+
   return(
-    <nav style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(200,169,126,.18)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 30px rgba(0,0,0,.32)":"none",transition:"all .35s ease"}}>
+    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(200,169,126,.18)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 30px rgba(0,0,0,.32)":"none",transition:"all .35s ease"}}>
       {/* corner ornaments — top-left + mirrored top-right */}
       <svg className="nav-ornament" width={26} height={26} viewBox="0 0 26 26" fill="none" style={{position:"absolute",top:6,left:10,opacity:.55,pointerEvents:"none"}} aria-hidden>
         <path d="M2 13c0-6 5-11 11-11" stroke="#C8A97E" strokeWidth="1"/><path d="M2 8c0-3 3-6 6-6" stroke="#C8A97E" strokeWidth=".7" opacity=".6"/><circle cx="13" cy="2" r="1.3" fill="#C8A97E"/>
@@ -5587,18 +5628,18 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
       </svg>
       {/* fine gold hairline divider at the base of the bar */}
       <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"linear-gradient(90deg,transparent,rgba(200,169,126,.55),transparent)",pointerEvents:"none"}}/>
-      <div className="container" style={{display:"grid",gridTemplateColumns:"1fr auto 1fr",alignItems:"center",height:62}}>
+      <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1fr) auto minmax(0, 1fr)",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
-        <div style={{display:"flex",alignItems:"center",gap:4}}>
-          {/* Hamburger — hidden on >=1024px where desktop nav links are shown */}
+        <div className="header-left-nav" style={{display:"flex",alignItems:"center",gap:4,minWidth:0,justifyContent:"flex-start"}} data-cms-id="left-nav">
+          {/* Hamburger — hidden on >=1200px where desktop nav links are shown */}
           <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8",padding:"8px",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
           </button>
-          <div className="nc" style={{display:"flex",gap:20,alignItems:"center",marginLeft:8}}>
-            {[["Home","home"],["Products","catalog"],["Latex Guide","latex-guide"],["About XIYORA","about"],["Partnership","supplier"],["Reviews","reviews"],["Contact","contact"]].map(([l,v],i)=>(
-              <button key={i} className="nl" style={{fontSize:11,color:page===v?"#E6C89A":"#D9CBB8",letterSpacing:"1.4px"}} onClick={()=>{
+          <div className="nc" style={{display:"flex",gap:"clamp(10px, 1.4vw, 24px)",alignItems:"center",marginLeft:8}} data-cms-id="nav-items">
+            {menuLinks.map(([l,v]: any,i: number)=>(
+              <button key={i} className="nl" style={{fontSize:"clamp(10px, 0.75vw, 11px)",color:page===v?"#E6C89A":"#D9CBB8",letterSpacing:"clamp(0.8px, 0.12vw, 1.4px)",whiteSpace:"nowrap"}} onClick={()=>{
                 if(v==="catalog")onCatalog();
                 else setPage(v);
               }}>{l}</button>
@@ -5606,21 +5647,21 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           </div>
         </div>
         {/* Center: ornate cartouche — sakura garland + circle-X monogram + XIYORA + 舒适·自然·匠心 */}
-        <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0}}>
+        <div className="header-logo" style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0,flexShrink:0}} data-cms-id="logo">
           <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",left:-30,top:-14,width:46,opacity:.9,pointerEvents:"none",zIndex:1}}/>
           <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",right:-30,top:-14,width:46,opacity:.9,transform:"scaleX(-1)",pointerEvents:"none",zIndex:1}}/>
-          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px 24px",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
+          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px clamp(12px, 2vw, 24px)",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg className="nav-mono" width={24} height={24} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
                 <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/><circle cx="24" cy="24" r="17.5" stroke="#C8A97E" strokeWidth=".6" opacity=".45"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/><circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
               </svg>
-              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:23,fontWeight:600,letterSpacing:6,color:"#F2EADB",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}}>XIYORA</div>
+              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px, 1.8vw, 23px)",fontWeight:600,letterSpacing:"clamp(3px, 0.4vw, 6px)",color:"#F2EADB",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
             </div>
-            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:3,color:"#B89A6E",userSelect:"none",whiteSpace:"nowrap"}}>舒适 · 自然 · 匠心</div>
+            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"clamp(7.5px, 0.7vw, 8.5px)",letterSpacing:"clamp(1.5px, 0.2vw, 3px)",color:"#B89A6E",userSelect:"none",whiteSpace:"nowrap"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
           </div>
         </div>
         {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
-        <div className="nav-right" style={{display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end"}}>
+        <div className="header-actions nav-right" style={{display:"flex",alignItems:"center",gap:"clamp(4px, 0.8vw, 8px)",justifyContent:"flex-end",minWidth:0}}>
           {/* ── Custom currency dropdown ── */}
           <div ref={curRef} style={{position:"relative"}}>
             <button
@@ -5628,6 +5669,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               title={CURRENCY_DISCLAIMER}
               aria-label="Display currency"
               style={{display:"flex",alignItems:"center",gap:5,background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.28)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
+              data-cms-id="currency-selector"
             >
               <span style={{fontSize:14,lineHeight:1}}>{CURRENCY_FLAGS[cur]||""}</span>
               <span>{cur}</span>
@@ -5636,15 +5678,15 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               </svg>
             </button>
             {curOpen&&(
-              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:120,background:"rgba(18,14,10,.97)",border:"1px solid rgba(200,169,126,.32)",borderRadius:10,boxShadow:"0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(200,169,126,.08)",overflow:"hidden",zIndex:300}}>
-                {CURRENCIES.map(c=>(
+              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:220,background:"rgba(18,14,10,.97)",border:"1px solid rgba(200,169,126,.32)",borderRadius:10,boxShadow:"0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(200,169,126,.08)",overflow:"hidden",zIndex:300}}>
+                {enabledCurs.map((c: string)=>(
                   <button key={c} onClick={()=>{setCur(c);setCurOpen(false);}}
                     style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(200,169,126,.13)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#E6C89A":"#D9CBB8",fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(200,169,126,.08)"}}
                     onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(200,169,126,.07)";}}
                     onMouseLeave={(e:any)=>{if(c!==cur)e.currentTarget.style.background="transparent";}}
                   >
                     <span style={{fontSize:16,lineHeight:1,flexShrink:0}}>{CURRENCY_FLAGS[c]||""}</span>
-                    <span style={{fontWeight:c===cur?600:400}}>{c}</span>
+                    <span style={{fontWeight:c===cur?600:400}}>{c} ({FX[c]?.symbol.trim()}) - {FX[c]?.name}</span>
                     {c===cur&&<svg width={10} height={10} viewBox="0 0 12 12" fill="none" stroke="#C8A97E" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{marginLeft:"auto"}}><path d="M2 6l3 3 5-5"/></svg>}
                   </button>
                 ))}
@@ -5684,10 +5726,10 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
 function Footer({setPage,onInquire,onSubscribe}:any){
   const C=useC();
   return(
-    <footer style={{background:"#141210",color:"#888",padding:"70px 0 36px",position:"relative",overflow:"hidden"}}>
+    <footer style={{background:"#141210",color:"#888",padding:"70px 0 36px",position:"relative",overflow:"hidden"}} data-cms-id="footer">
       <GoldCloud className="x-drift-slow" size={220} opacity={.12} style={{position:"absolute",top:30,right:40,pointerEvents:"none"}}/>
       <div className="container" style={{position:"relative"}}>
-        <div className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
+        <div data-cms-id="footer-links" className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
           <div>
             <div style={{cursor:"pointer",marginBottom:16,display:"inline-block"}} onClick={()=>setPage("home")}><Monogram color="#E9D6B4" size={.95}/></div>
             <p style={{fontSize:13,lineHeight:1.85,color:"#999",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
@@ -5761,7 +5803,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
             <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #9E3B2E",color:"#C04A39",fontFamily:"'Playfair Display',serif",fontSize:13,borderRadius:2}}>印</span>
           </div>
         </div>
-        <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
+        <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}} data-cms-id="footer-copyright">
           <div style={{fontSize:12,color:"#666"}}>© 2025 XIYORA. All prices indicative. Proforma / Estimate provided where applicable.</div>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
             {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
@@ -6717,8 +6759,9 @@ const SIMPLE_HERO:Record<string,{img:string;seal:string;subtitle:string;crumbs:s
 export function SimplePage({title,content,setPage}:any){
   const C=useC();
   const h=SIMPLE_HERO[title]||{img:"/assets/lux/inkwash-landscape.webp",seal:"印",subtitle:"XIYORA",crumbs:`Home · ${title}`};
+  const cmsId = title.toLowerCase().includes("faq") ? "latex-guide" : title.toLowerCase().includes("contact") ? "contact-section" : "shipping-terms";
   return(
-    <div style={{background:C.white}}>
+    <div style={{background:C.white}} data-cms-id={cmsId}>
       <LuxHero
         crumbs={h.crumbs}
         title={<span style={{color:C.dark}}>{title}</span>}
