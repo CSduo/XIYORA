@@ -36,8 +36,24 @@ export let BIZ = {
   catImg_Toppers: "",
   catImg_Cushions: "",
   catImg_LatexMaterial: "",
-  // Expanded customizable items:
-  // Marquee
+  // Dynamic layout options
+  heroLayout: "split",
+  aboutStoryLayout: "split",
+  categoryCardColumns: "3",
+  heroTitleSize: "",
+  heroBodySize: "",
+  aboutHeroHeadingSize: "",
+  aboutHeroBodySize: "",
+  generalSectionHeadingSize: "",
+  heroPadding: "",
+  sectionPadding: "",
+  showB2BStats: "true",
+  showTrustTicker: "true",
+  showBuyerBestFit: "true",
+  showLatexStory: "true",
+  showWhyXiyora: "true",
+  showProcessSteps: "true",
+  showDocuments: "true",
   marqueeItemsTop: JSON.stringify(["2nd-Generation Talalay", "93% Natural Latex", "China → India Direct", "Premium Latex Collection", "Document-Backed Sourcing", "37 Premium Products", "Talalay & Dunlop Latex", "Custom Sizes Available", "Hotel & Retail Supply", "Certified Quality", "Bingxi Partner India", "B2B Pricing Available"]),
   marqueeItemsBottom: JSON.stringify(["Breathable Open-Cell Latex", "Free Consultation", "Mattresses · Pillows · Toppers", "Premium Comfort", "Pan-India Delivery", "Natural & Eco-Conscious", "5-Star Hotel Quality", "Private Label Available", "Dunlop & Talalay Processes", "100% Latex Comfort", "Ergonomic Sleep Products", "Made with Integrity"]),
   
@@ -1876,7 +1892,7 @@ const SL=({children,dark,center}:{children:React.ReactNode;dark?:boolean;center?
 );
 const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>{
   const C=useC();
-  const st:React.CSSProperties={fontFamily:"'Playfair Display',serif",fontSize:size||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
+  const st:React.CSSProperties={fontFamily:"'Playfair Display',serif",fontSize:size||BIZ.generalSectionHeadingSize||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
   if(typeof children==="string")return <h2 style={st} dangerouslySetInnerHTML={{__html:children}}/>;
   return <h2 style={st}>{children}</h2>;
 };
@@ -2132,8 +2148,8 @@ const Rosette=({size=24}:{size?:number})=>(
   </svg>
 );
 /* Ornate open arched cartouche framing the brand lockup (2D gold linework) */
-const ArchedCartouche=({children,className}:{children:React.ReactNode;className?:string})=>(
-  <div className={className} style={{position:"relative",display:"inline-flex",flexDirection:"column",alignItems:"center",padding:"32px 42px 14px",maxWidth:"100%"}}>
+const ArchedCartouche=({children,className,style}:{children:React.ReactNode;className?:string;style?:React.CSSProperties})=>(
+  <div className={className} style={{position:"relative",display:"inline-flex",flexDirection:"column",alignItems:"center",padding:"32px 42px 14px",maxWidth:"100%",...style}}>
     <svg viewBox="0 0 320 150" fill="none" preserveAspectRatio="none" aria-hidden style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
       <path d="M16 150 V62 Q16 16 84 14 H236 Q304 16 304 62 V150" stroke="#C8A97E" strokeWidth="1.4"/>
       <path d="M24 150 V62 Q24 24 86 22 H234 Q296 24 296 62 V150" stroke="#C8A97E" strokeWidth=".7" opacity=".5"/>
@@ -2152,8 +2168,12 @@ const LUX_HERO_FEATURES=[
 /* ─── DARK ORNATE HOME HERO ───────────────────────────────── */
 function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>void}){
   const [err,setErr]=useState(false);
+  const layout = BIZ.heroLayout || "split";
+  const isCentered = layout === "centered";
+  const isReverse = layout === "reverse";
+
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
       <Petals count={16}/>
       {/* section-edge framing motifs — low z-index, kept away from text */}
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
@@ -2163,31 +2183,79 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
       <div className="x-orb x-orb-seal"  style={{width:380,height:380,bottom:"-5%",right:"8%",zIndex:0,position:"absolute",animationDelay:"-4s"}}/>
       <div className="x-orb x-orb-ivory" style={{width:300,height:300,top:"20%",left:"-5%",zIndex:0,position:"absolute",animationDelay:"-8s"}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
-        <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
+        <div className={`ornate ${isCentered ? "" : "lux-hero-grid"}`} style={{
+          display: isCentered ? "block" : "grid",
+          gridTemplateColumns: isCentered ? "none" : isReverse ? "1.04fr 1fr" : "1fr 1.04fr",
+          borderRadius: 8,
+          overflow: "hidden",
+          background: "linear-gradient(160deg,#16110b,#0c0a08)"
+        }}>
           <CornerSet/>
           {/* LEFT — copy */}
-          <div className="lux-hero-copy" style={{position:"relative",padding:"clamp(34px,4vw,60px) clamp(24px,4vw,54px)",display:"flex",flexDirection:"column",justifyContent:"center",overflow:"hidden"}}>
+          <div className="lux-hero-copy" style={{
+            position: "relative",
+            padding: "clamp(34px,4vw,60px) clamp(24px,4vw,54px)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: isCentered ? "center" : "flex-start",
+            textAlign: isCentered ? "center" : "left",
+            overflow: "hidden"
+          }}>
             {/* decorations BEHIND text (zIndex 1) for guaranteed readability */}
             <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
             <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}}/>
             <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-4,left:8,width:"clamp(50px,5.5vw,82px)",opacity:.28,pointerEvents:"none",zIndex:1}}/>
             <Reveal>
-              <ArchedCartouche className="lux-brand-lock">
+              <ArchedCartouche className="lux-brand-lock" style={isCentered ? { alignSelf: "center", margin: "0 auto 20px" } : {}}>
                 <MonoMark size={38}/>
                 <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#E8D6B4",lineHeight:1,fontWeight:600}}>XIYORA</div>
                 <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
                 <Seal ch="印" style={{marginTop:2}}/>
               </ArchedCartouche>
-              <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.5rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}}>
+              <h1 className="serif" style={{
+                fontSize: BIZ.heroTitleSize || "clamp(2.1rem,3.6vw,3.5rem)",
+                fontWeight: 500,
+                lineHeight: 1.12,
+                color: "#F4ECDC",
+                margin: "18px 0 0",
+                position: "relative",
+                zIndex: 3
+              }}>
                 {BIZ.heroTitle||"Sleep As Nature Intended."}<br/><span className="gold-italic">{BIZ.heroSubtitle||"Bingxi-certified. No compromises."}</span>
               </h1>
-              <p style={{fontSize:14.5,lineHeight:1.85,color:"#C7BBA4",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
+              <p style={{
+                fontSize: BIZ.heroBodySize || 14.5,
+                lineHeight: 1.85,
+                color: "#C7BBA4",
+                margin: "20px 0 0",
+                maxWidth: 460,
+                position: "relative",
+                zIndex: 3
+              }}>
                 {BIZ.heroBody||"The official Bingxi-certified latex partner. Talalay and Dunlop latex sourced directly from certified manufacture — for homes and projects that refuse to compromise."}
               </p>
-              <p className="lux-bingxi" style={{fontSize:12,letterSpacing:"1px",color:"#C9A876",margin:"16px 0 0",display:"flex",alignItems:"center",gap:10,position:"relative",zIndex:3}}>
+              <p className="lux-bingxi" style={{
+                fontSize: 12,
+                letterSpacing: "1.5px",
+                color: "#C9A876",
+                margin: "16px 0 0",
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                position: "relative",
+                zIndex: 3,
+                justifyContent: isCentered ? "center" : "flex-start"
+              }}>
                 <span style={{width:26,height:1,background:"#C8A97E",display:"inline-block"}}/>Official Bingxi Partner — Certified Natural Latex
               </p>
-              <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:470,position:"relative",zIndex:3}}>
+              <div className="lux-feat-row" style={{
+                margin: "30px 0 0",
+                maxWidth: 470,
+                position: "relative",
+                zIndex: 3,
+                justifyContent: isCentered ? "center" : "flex-start"
+              }}>
                 {LUX_HERO_FEATURES.map((f,i)=>(
                   <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
                 ))}
@@ -2305,33 +2373,36 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
             </div>
           </Reveal>
         </div>
-      </section>
-
-      {/* SECTION 2 — What Natural Latex Actually Means */}
+      </section>      {/* SECTION 2 — What Natural Latex Actually Means */}
       <section className="sec" style={{background:C.beige}}>
         <div className="container">
-          <div className="grid-2" style={{gap:"clamp(36px,6vw,80px)",alignItems:"center"}}>
-            <Reveal>
-              <div className="x-frame" style={{borderRadius:6,overflow:"hidden",height:480}}>
-                <img src="/assets/lux/hero-bedroom.webp" alt="Natural latex rubber tree tapping" loading="lazy" style={{width:"100%",height:"100%",objectFit:"cover"}} onError={(e:any)=>{e.currentTarget.src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80";}}/>
+          {(() => {
+            const isStoryStacked = BIZ.aboutStoryLayout === "stacked";
+            return (
+              <div className={isStoryStacked ? "" : "grid-2"} style={isStoryStacked ? { display: "block" } : { gap: "clamp(36px,6vw,80px)", alignItems: "center" }}>
+                <Reveal>
+                  <div className="x-frame" style={{borderRadius:6,overflow: "hidden", height: isStoryStacked ? 350 : 480, marginBottom: isStoryStacked ? 24 : 0}}>
+                    <img src="/assets/lux/hero-bedroom.webp" alt="Natural latex rubber tree tapping" loading="lazy" style={{width:"100%",height:"100%",objectFit:"cover"}} onError={(e:any)=>{e.currentTarget.src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80";}}/>
+                  </div>
+                </Reveal>
+                <Reveal>
+                  <SL>{BIZ.aboutNaturalLabel || "What Natural Latex Actually Means"}</SL>
+                  <SH><span dangerouslySetInnerHTML={{__html: BIZ.aboutNaturalHeading || "From Rubber Tree<br/>to Bedroom"}} /></SH>
+                  {(() => {
+                    let paragraphs = [
+                      "Natural latex begins with a small wound — a scored incision in the bark of Hevea brasiliensis, the Para rubber tree. The tree responds by producing a milky sap. Collected in cups hung at the base of each cut, this sap is the raw material for the world's finest sleep surfaces.",
+                      "Dunlop processing — the original method, invented in 1929 — froths the sap, pours it into a mould, and vulcanises it. The result is a dense, durable core that holds its shape for decades. Talalay processing adds a vacuum and flash-freezing step, creating a more open-cell, breathable, and lighter foam — the choice for pillows and comfort layers.",
+                      "Both are entirely natural. Neither contains the petroleum-derived compounds found in polyurethane foam. Both are inherently anti-microbial, dust-mite resistant, and hypoallergenic. The material does not off-gas. It does not compress permanently. It simply works — for decades."
+                    ];
+                    try { if (BIZ.aboutNaturalBody) paragraphs = JSON.parse(BIZ.aboutNaturalBody); } catch {}
+                    return paragraphs.map((pText, idx) => (
+                      <p key={idx} style={{fontSize:14.5,color:C.ink,lineHeight:1.9,marginBottom:idx === paragraphs.length - 1 ? 0 : 16}} dangerouslySetInnerHTML={{__html: pText}} />
+                    ));
+                  })()}
+                </Reveal>
               </div>
-            </Reveal>
-            <Reveal>
-              <SL>{BIZ.aboutNaturalLabel || "What Natural Latex Actually Means"}</SL>
-              <SH><span dangerouslySetInnerHTML={{__html: BIZ.aboutNaturalHeading || "From Rubber Tree<br/>to Bedroom"}} /></SH>
-              {(() => {
-                let paragraphs = [
-                  "Natural latex begins with a small wound — a scored incision in the bark of Hevea brasiliensis, the Para rubber tree. The tree responds by producing a milky sap. Collected in cups hung at the base of each cut, this sap is the raw material for the world's finest sleep surfaces.",
-                  "Dunlop processing — the original method, invented in 1929 — froths the sap, pours it into a mould, and vulcanises it. The result is a dense, durable core that holds its shape for decades. Talalay processing adds a vacuum and flash-freezing step, creating a more open-cell, breathable, and lighter foam — the choice for pillows and comfort layers.",
-                  "Both are entirely natural. Neither contains the petroleum-derived compounds found in polyurethane foam. Both are inherently anti-microbial, dust-mite resistant, and hypoallergenic. The material does not off-gas. It does not compress permanently. It simply works — for decades."
-                ];
-                try { if (BIZ.aboutNaturalBody) paragraphs = JSON.parse(BIZ.aboutNaturalBody); } catch {}
-                return paragraphs.map((pText, idx) => (
-                  <p key={idx} style={{fontSize:14.5,color:C.ink,lineHeight:1.9,marginBottom:idx === paragraphs.length - 1 ? 0 : 16}} dangerouslySetInnerHTML={{__html: pText}} />
-                ));
-              })()}
-            </Reveal>
-          </div>
+            );
+          })()}
         </div>
       </section>
 
@@ -5250,7 +5321,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
             <SH>Documents & Certifications</SH>
             <p style={{fontSize:15,color:"#888",maxWidth:540,margin:"14px auto 0",lineHeight:1.8}}>All Bingxi quality documents available for buyer review. Tap any card to request via WhatsApp — we share the original within 24 hours.</p>
           </div>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:18}}>
+          <div className="grid-3" style={{gap:18}}>
             {[
               {icon:<svg width={28} height={28} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,title:"OEKO-TEX® Standard 100",sub:"Tested for harmful substances",msg:"Hi XIYORA, I would like to request the OEKO-TEX® Standard 100 certificate for my review."},
               {icon:<svg width={28} height={28} fill="none" stroke={C.gold} strokeWidth={1.5} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>,title:"ISO 9001 Certificate",sub:"International quality management",msg:"Hi XIYORA, I would like to request the ISO 9001 Quality Management certificate for my review."},
@@ -6931,6 +7002,13 @@ export default function App(){
   return(
     <ThemeCtx.Provider value={tc}>
     <div style={{background:tc.white,minHeight:"100vh",transition:"background .25s,color .25s"}}>
+      <style>{`
+        ${BIZ.sectionPadding ? `.sec{padding:${BIZ.sectionPadding} !important;}` : ""}
+        ${BIZ.heroPadding ? `.lux-noir{padding:${BIZ.heroPadding} !important;}` : ""}
+        ${BIZ.heroTitleSize ? `.lux-hero-copy h1{font-size:${BIZ.heroTitleSize} !important;}` : ""}
+        ${BIZ.heroBodySize ? `.lux-hero-copy p{font-size:${BIZ.heroBodySize} !important;}` : ""}
+        ${BIZ.generalSectionHeadingSize ? `h2.serif, .sh-title{font-size:${BIZ.generalSectionHeadingSize} !important;}` : ""}
+      `}</style>
       <SideDrawer open={showSidebar} onClose={()=>setShowSidebar(false)}
         setPage={nav} onCatFilter={openCatFilter} onCatalog={openCatalog}
         onInquire={openInquiry} onProof={openProof}/>

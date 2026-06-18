@@ -1,3 +1,31 @@
+
+const RESOLUTIONS = [
+  { w: 1920, h: 1080, label: "1920x1080 (PC / Laptop - Full HD)", type: "desktop" },
+  { w: 1366, h: 768, label: "1366x768 (PC / Laptop - HD)", type: "desktop" },
+  { w: 1536, h: 864, label: "1536x864 (Windows Laptop)", type: "desktop" },
+  { w: 1440, h: 900, label: "1440x900 (Macbook Air/Pro 13)", type: "desktop" },
+  { w: 1280, h: 720, label: "1280x720 (Laptop Standard)", type: "desktop" },
+  { w: 1600, h: 900, label: "1600x900 (Desktop Medium)", type: "desktop" },
+  { w: 1280, h: 800, label: "1280x800 (Small Laptop / WXGA)", type: "desktop" },
+  { w: 1024, h: 768, label: "1024x768 (iPad / Legacy PC)", type: "desktop" },
+  { w: 2560, h: 1440, label: "2560x1440 (PC - QHD)", type: "desktop" },
+  { w: 3840, h: 2160, label: "3840x2160 (PC - 4K UHD)", type: "desktop" },
+  { w: 360, h: 800, label: "360x800 (Android - Galaxy S20+)", type: "mobile" },
+  { w: 390, h: 844, label: "390x844 (iOS - iPhone 13/14)", type: "mobile" },
+  { w: 412, h: 915, label: "412x915 (Android - Google Pixel)", type: "mobile" },
+  { w: 393, h: 852, label: "393x852 (iOS - iPhone 14/15 Pro)", type: "mobile" },
+  { w: 428, h: 926, label: "428x926 (iOS - iPhone Pro Max)", type: "mobile" },
+  { w: 375, h: 812, label: "375x812 (iOS - iPhone X/XS/11 Pro)", type: "mobile" },
+  { w: 414, h: 896, label: "414x896 (iOS - iPhone XR/11)", type: "mobile" },
+  { w: 360, h: 640, label: "360x640 (Android - Older/Budget)", type: "mobile" },
+  { w: 412, h: 892, label: "412x892 (Android - Samsung S21)", type: "mobile" },
+  { w: 360, h: 780, label: "360x780 (Android - Samsung S22)", type: "mobile" },
+  { w: 360, h: 760, label: "360x760 (Android - Samsung S10)", type: "mobile" },
+  { w: 412, h: 846, label: "412x846 (Android - Galaxy Note)", type: "mobile" },
+  { w: 384, h: 854, label: "384x854 (Android - Budget)", type: "mobile" },
+  { w: 320, h: 568, label: "320x568 (iOS - iPhone SE / Small)", type: "mobile" },
+  { w: 768, h: 1024, label: "768x1024 (Tablet - iPad Portrait)", type: "mobile" }
+];
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const API = (import.meta.env.VITE_API_BASE as string) || "/api";
@@ -1165,6 +1193,24 @@ function SiteContentPanel({
   const [err, setErr] = useState("");
   const [activeAccordion, setActiveAccordion] = useState("header");
   const [previewTab, setPreviewTab] = useState("home");
+  const [selectedRes, setSelectedRes] = useState(RESOLUTIONS[0]);
+  const [containerWidth, setContainerWidth] = useState(500);
+  const [containerHeight, setContainerHeight] = useState(600);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setContainerWidth(entry.contentRect.width || 500);
+        setContainerHeight(entry.contentRect.height || 600);
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const scale = Math.min((containerWidth - 32) / selectedRes.w, 1);
 
   const backupRef = useRef<any>(null);
 
@@ -2027,6 +2073,110 @@ function SiteContentPanel({
             <PairListEditor value={draft.whyXiyoraCards} onChange={(v) => setKey("whyXiyoraCards", v)} label="Why choose XIYORA Cards" keyPlaceholder="Title" valPlaceholder="Description" hasIcon={true} />
             <PairListEditor value={draft.howItWorksSteps} onChange={(v) => setKey("howItWorksSteps", v)} label="Homepage Sourcing Process Steps" keyPlaceholder="Title" valPlaceholder="Description" hasIcon={true} />
           </AccordionItem>
+
+          <AccordionItem
+            title="10. Layout, Sizing & Accessibility Customizer"
+            active={activeAccordion === "layout"}
+            onClick={() => setActiveAccordion(activeAccordion === "layout" ? "" : "layout")}
+          >
+            <div style={{ padding: 12, background: "#fff", borderRadius: 4, border: "1px solid " + BEIGE }}>
+              <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Typography & Sizing</h4>
+              
+              <Label>Homepage Hero Layout</Label>
+              <Select
+                value={draft.heroLayout || "split"}
+                onChange={(v) => setKey("heroLayout", v)}
+                options={[
+                  { value: "split", label: "Split Layout (Text Left, Image Right)" },
+                  { value: "reverse", label: "Reversed Split Layout (Image Left, Text Right)" },
+                  { value: "centered", label: "Centered Content Layout (Stacked)" }
+                ]}
+              />
+
+              <Label>About Page Story Layout</Label>
+              <Select
+                value={draft.aboutStoryLayout || "split"}
+                onChange={(v) => setKey("aboutStoryLayout", v)}
+                options={[
+                  { value: "split", label: "Split Layout (Left Title, Right Paragraphs)" },
+                  { value: "stacked", label: "Stacked Layout (Full Width)" }
+                ]}
+              />
+
+              <Label>Homepage Hero Section Padding</Label>
+              <Input
+                value={draft.heroPadding || ""}
+                onChange={(v) => setKey("heroPadding", v)}
+                placeholder="e.g. clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"
+              />
+
+              <Label>Global Section Padding</Label>
+              <Input
+                value={draft.sectionPadding || ""}
+                onChange={(v) => setKey("sectionPadding", v)}
+                placeholder="e.g. 80px 0 (or clamp(40px, 6vw, 80px) 0)"
+              />
+
+              <Label>Hero Title Font Size</Label>
+              <Input
+                value={draft.heroTitleSize || ""}
+                onChange={(v) => setKey("heroTitleSize", v)}
+                placeholder="e.g. clamp(2.1rem,3.6vw,3.5rem)"
+              />
+
+              <Label>Hero Body Font Size</Label>
+              <Input
+                value={draft.heroBodySize || ""}
+                onChange={(v) => setKey("heroBodySize", v)}
+                placeholder="e.g. 14.5px"
+              />
+
+              <Label>About Hero Title Font Size</Label>
+              <Input
+                value={draft.aboutHeroHeadingSize || ""}
+                onChange={(v) => setKey("aboutHeroHeadingSize", v)}
+                placeholder="e.g. clamp(2.4rem,5vw,4rem)"
+              />
+
+              <Label>About Hero Body Font Size</Label>
+              <Input
+                value={draft.aboutHeroBodySize || ""}
+                onChange={(v) => setKey("aboutHeroBodySize", v)}
+                placeholder="e.g. 15.5px"
+              />
+
+              <Label>General Section Heading Size (SH)</Label>
+              <Input
+                value={draft.generalSectionHeadingSize || ""}
+                onChange={(v) => setKey("generalSectionHeadingSize", v)}
+                placeholder="e.g. clamp(1.9rem,3.2vw,2.8rem)"
+              />
+
+              <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginTop: 24, marginBottom: 16 }}>Section Visibility & Controls</h4>
+              
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 12 }}>
+                {[
+                  { key: "showTrustTicker", label: "Show Trust Ticker Strip" },
+                  { key: "showB2BStats", label: "Show B2B Stats Band" },
+                  { key: "showBuyerBestFit", label: "Show Find Your Best Fit Section" },
+                  { key: "showLatexStory", label: "Show Latex Story Panel" },
+                  { key: "showWhyXiyora", label: "Show Why Choose XIYORA Section" },
+                  { key: "showProcessSteps", label: "Show Sourcing Process Steps" },
+                  { key: "showDocuments", label: "Show Documents & Certifications Grid" }
+                ].map(item => (
+                  <label key={item.key} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: DARK, cursor: "pointer" }}>
+                    <input
+                      type="checkbox"
+                      checked={draft[item.key] !== "false"}
+                      onChange={(e) => setKey(item.key, e.target.checked ? "true" : "false")}
+                      style={{ accentColor: GOLD }}
+                    />
+                    {item.label}
+                  </label>
+                ))}
+              </div>
+            </div>
+          </AccordionItem>
         </div>
       </div>
 
@@ -2067,8 +2217,55 @@ function SiteContentPanel({
           ))}
         </div>
 
+        {/* Resolution selector header */}
+        <div style={{ padding: "10px 14px", background: "#252523", borderBottom: `1px solid ${BEIGE}`, display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", flexShrink: 0 }}>
+          <span style={{ fontSize: 10, color: GOLD, letterSpacing: "1.2px", textTransform: "uppercase", fontWeight: 600 }}>Simulated Device:</span>
+          <select
+            value={selectedRes.w + "x" + selectedRes.h}
+            onChange={(e) => {
+              const val = e.target.value;
+              const res = RESOLUTIONS.find(r => (r.w + "x" + r.h) === val);
+              if (res) setSelectedRes(res);
+            }}
+            style={{ background: "#333330", color: "#FAF6EE", border: `1px solid ${GOLD}`, padding: "4px 8px", fontSize: 11, borderRadius: 3, outline: "none", fontFamily: "'Inter', sans-serif" }}
+          >
+            {RESOLUTIONS.map(r => (
+              <option key={r.w + "x" + r.h} value={r.w + "x" + r.h}>
+                {r.label}
+              </option>
+            ))}
+          </select>
+          <span style={{ fontSize: 10, color: "#aaa" }}>
+            Fit: {Math.round(scale * 100)}%
+          </span>
+        </div>
+
         {/* Render View inside scrollable wrapper */}
-        <div style={{ flex: 1, overflowY: "auto", position: "relative", background: "#fff" }}>
+        <div ref={containerRef} style={{ flex: 1, overflowY: "auto", position: "relative", background: "#EAE6DB", padding: "16px 0" }}>
+          {/* Centering container for the device frame */}
+          <div style={{
+            width: "100%",
+            height: selectedRes.h * scale + 40,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            overflow: "hidden"
+          }}>
+            {/* The Device Frame */}
+            <div style={{
+              width: selectedRes.w,
+              height: selectedRes.h,
+              background: "#fff",
+              transform: `scale(${scale})`,
+              transformOrigin: "top center",
+              position: "relative",
+              overflowY: "auto",
+              overflowX: "hidden",
+              boxShadow: "0 10px 40px rgba(0,0,0,0.25)",
+              borderRadius: selectedRes.type === "mobile" ? "24px" : "4px",
+              border: selectedRes.type === "mobile" ? "12px solid #1c1a17" : "6px solid #2d2d2a",
+              flexShrink: 0
+            }}>
           {previewTab === "home" && (
             <HomeView
               cur={currency}
@@ -2159,6 +2356,8 @@ function SiteContentPanel({
               }}
             />
           )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
