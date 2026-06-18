@@ -82,13 +82,17 @@ router.post("/admin/upload", requireAdmin, upload.single("file"), async (req, re
       return;
     }
 
+    // ── Base64 Database Fallback (Vercel-compatible & self-contained) ───────
+    logger.warn("Cloudinary not configured — falling back to Base64 Database storage");
+    const base64Data = req.file.buffer.toString("base64");
+    const dataUrl = `data:${req.file.mimetype};base64,${base64Data}`;
+    res.json({ success: true, url: dataUrl, provider: "database" });
+    return;
+
     // ── Replit Object Storage fallback (Replit-only) ────────────────────────
     if (!isObjectStorageAvailable()) {
-      logger.error("Neither Cloudinary nor Replit Object Storage is available. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET in environment.");
-      res.status(503).json({
-        success: false,
-        error: "Image upload is not configured. Set Cloudinary environment variables (CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET) in your Vercel project settings and redeploy.",
-      });
+      logger.error("Neither Cloudinary nor Replit Object Storage is available.");
+      res.status(503).json({ success: false, error: "Upload failed" });
       return;
     }
 
