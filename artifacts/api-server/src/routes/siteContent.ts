@@ -52,13 +52,13 @@ router.put("/admin/site-content", requireAdmin, async (req, res): Promise<void> 
     res.status(400).json({ success: false, error: "Invalid body" });
     return;
   }
-  for (const key of ALLOWED_KEYS) {
-    if (key in updates && typeof updates[key] === "string") {
+  for (const [key, value] of Object.entries(updates)) {
+    if (typeof value === "string") {
       const existing = await db.select().from(siteContentTable).where(eq(siteContentTable.key, key));
       if (existing.length > 0) {
-        await db.update(siteContentTable).set({ value: updates[key], updatedAt: new Date() }).where(eq(siteContentTable.key, key));
+        await db.update(siteContentTable).set({ value, updatedAt: new Date() }).where(eq(siteContentTable.key, key));
       } else {
-        await db.insert(siteContentTable).values({ key, value: updates[key] });
+        await db.insert(siteContentTable).values({ key, value });
       }
     }
   }

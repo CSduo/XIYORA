@@ -16,7 +16,7 @@ const resolveGallery=(id:string,apiValue:string[]):string[]=>{
 // When API products are loaded they use DB values directly — no manifest override.
 
 /* ─── BUSINESS INFO ─────────────────────────────────────── */
-let BIZ = {
+export let BIZ = {
   wa: "917028311226",
   email: "xiyatosaanvi@gmail.com",
   ig: "https://www.instagram.com/xiyora.zi/",
@@ -28,11 +28,241 @@ let BIZ = {
   heroBody: "The official Bingxi-certified latex partner. Talalay and Dunlop latex sourced directly from certified manufacture — for homes and projects that refuse to compromise.",
   promiseImage: "",
   supplierHeroImage: "",
+  supplierHeroHeading: "",
+  supplierHeroSubheading: "",
+  supplierHeroBody: "",
   catImg_Mattresses: "",
   catImg_Pillows: "",
   catImg_Toppers: "",
   catImg_Cushions: "",
   catImg_LatexMaterial: "",
+  // Expanded customizable items:
+  // Marquee
+  marqueeItemsTop: JSON.stringify(["2nd-Generation Talalay", "93% Natural Latex", "China → India Direct", "Premium Latex Collection", "Document-Backed Sourcing", "37 Premium Products", "Talalay & Dunlop Latex", "Custom Sizes Available", "Hotel & Retail Supply", "Certified Quality", "Bingxi Partner India", "B2B Pricing Available"]),
+  marqueeItemsBottom: JSON.stringify(["Breathable Open-Cell Latex", "Free Consultation", "Mattresses · Pillows · Toppers", "Premium Comfort", "Pan-India Delivery", "Natural & Eco-Conscious", "5-Star Hotel Quality", "Private Label Available", "Dunlop & Talalay Processes", "100% Latex Comfort", "Ergonomic Sleep Products", "Made with Integrity"]),
+  
+  // Hero Extra
+  heroSealChar: "印",
+  heroPartnerLine: "Official Bingxi Partner — Certified Natural Latex",
+  heroCTAPrimary: "Explore Products ✦",
+  heroCTASecondary: "Request B2B Quote →",
+  heroFeatures: JSON.stringify([{name:"leaf",label:"Natural Latex"}, {name:"shield",label:"Premium Quality"}, {name:"heart",label:"Crafted for Comfort"}, {name:"globe",label:"Sourced Responsibly"}]),
+
+  // Business Band
+  bizBandLabel: "For Businesses & Partners",
+  bizBandHeading: "Crafted for Hotels.",
+  bizBandSubheading: "Chosen by the Finest.",
+  bizBandBody: "Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support.",
+  bizBandCTA: "Partner With XIYORA ✦",
+  bizBandFeatures: JSON.stringify([{name:"doc",label:"Trade Pricing"}, {name:"box",label:"Bulk Order Support"}, {name:"handshake",label:"Dedicated Relationship"}, {name:"truck",label:"Pan India Delivery"}]),
+
+  // About
+  aboutHeroLabel: "Our Story",
+  aboutHeroHeading: "We Built XIYORA Because We Could Not Find What We Were Looking For.",
+  aboutHeroBody: "The premium bedroom market had no shortage of price tags. It had an acute shortage of provenance. Where was the latex from? Who manufactured it? What standards governed it? The answers, when they came, were rarely satisfying. So we went to the source.",
+  aboutTrustBar: JSON.stringify(["✓ OEKO-TEX Certified","✓ LGA Approved","✓ Official Bingxi Partner","✓ 10-Year Durability Guarantee","✓ 100% Natural Latex, No Synthetics","✓ International Shipping"]),
+  aboutStatementLabel: "The Opening Statement",
+  aboutStatementHeading: "\"There is a difference between sleep and rest.\"",
+  aboutStatementBody: JSON.stringify([
+    "Dunlop latex, drawn from the sap of Hevea brasiliensis — the rubber tree — has been the world's finest sleep material for over a century. Bingxi is among the most trusted names in its manufacture. XIYORA brings it directly to you, without middlemen, without compromise.",
+    "XIYORA is the official sourcing partner for Bingxi — one of the world's most respected manufacturers of natural Talalay and Dunlop latex. Every mattress, pillow, topper, and cushion we supply traces directly to a certified production run. No grey-market imports. No rebadged synthetics. No shortcuts."
+  ]),
+  aboutNaturalLabel: "What Natural Latex Actually Means",
+  aboutNaturalHeading: "From Rubber Tree to Bedroom",
+  aboutNaturalBody: JSON.stringify([
+    "Natural latex begins with a small wound — a scored incision in the bark of Hevea brasiliensis, the Para rubber tree. The tree responds by producing a milky sap. Collected in cups hung at the base of each cut, this sap is the raw material for the world's finest sleep surfaces.",
+    "Dunlop processing — the original method, invented in 1929 — froths the sap, pours it into a mould, and vulcanises it. The result is a dense, durable core that holds its shape for decades. Talalay processing adds a vacuum and flash-freezing step, creating a more open-cell, breathable, and lighter foam — the choice for pillows and comfort layers.",
+    "Both are entirely natural. Neither contains the petroleum-derived compounds found in polyurethane foam. Both are inherently anti-microbial, dust-mite resistant, and hypoallergenic. The material does not off-gas. It does not compress permanently. It simply works — for decades."
+  ]),
+  aboutPartnerLabel: "The Partnership",
+  aboutPartnerHeading: "XIYORA × Bingxi",
+  aboutPartnerSub: "Official Global Distribution Partnership",
+  aboutPartnerBody: "Bingxi's manufacturing facilities operate to LGA certification standards, with OEKO-TEX compliance across their latex product range. As an official Bingxi partner, XIYORA is one of a small number of globally authorised distributors with verified, traceable access to Bingxi's production pipeline.",
+  aboutPartnerStats: JSON.stringify([
+    {num:"100%",label:"Natural Latex",desc:"No blends, no synthetics, no marketing language substituted for material truth."},
+    {num:"LGA+",label:"Certified Quality",desc:"Bingxi facilities operate to LGA certification with OEKO-TEX compliance across the range."},
+    {num:"5+",label:"Units MOQ",desc:"Trade pricing from just 5 units. Certified sample sets available for hotel and trade buyers."}
+  ]),
+  aboutCommitmentLabel: "Our Commitment",
+  aboutCommitmentHeading: "Four Pillars of Everything We Do",
+  aboutCommitmentPillars: JSON.stringify([
+    {icon:"◈",title:"Transparency",body:"Every product has a traceable batch. You know where it came from — always."},
+    {icon:"◉",title:"Purity",body:"100% natural latex. No blends, no synthetics, no marketing language substituted for material truth."},
+    {icon:"◎",title:"Longevity",body:"Natural latex outlasts foam by a decade or more. We design for 15-year ownership, not 3-year replacement cycles."},
+    {icon:"◇",title:"Access",body:"Factory-direct pricing through an official channel. Premium quality should not require a premium mark-up for its own sake."}
+  ]),
+  aboutCTAHeading: "Ready to Source with Integrity?",
+  aboutCTABody: "Explore our full Bingxi latex collection or contact us to discuss trade pricing, custom specifications, and certified sample sets.",
+
+  // B2B Inquiry Form
+  b2bTradeCategories: JSON.stringify(["Interior Designer","Architect","Hotel & Hospitality","Furniture Manufacturer","Property Developer","Retailer","Other"]),
+  b2bProducts: JSON.stringify(["Mattresses","Pillows","Toppers","Cushion Cores","Custom Foam"]),
+  b2bQuantities: JSON.stringify(["5–19","20–99","100–499","500+"]),
+  b2bSources: JSON.stringify(["Google Search","Social Media","Industry Event / Fair","Word of Mouth","Professional Referral","Other"]),
+  b2bContactMethods: JSON.stringify(["WhatsApp","Email","Phone Call"]),
+  b2bDefaultCountry: "India",
+  b2bFormNote: "Your inquiry is logged securely, and opens a pre-filled WhatsApp message. We respond within 24 hours.",
+
+  // Supplier
+  supplierFeatures: JSON.stringify([{name:"doc",label:"Bulk Pricing"}, {name:"box",label:"Custom Specs"}, {name:"tag",label:"Private Label"}, {name:"handshake",label:"Dedicated Support"}]),
+  supplierProcess: JSON.stringify([
+    {step:"01",title:"Send Inquiry",body:"Submit your B2B trade requirements via our website form or contact WhatsApp direct."},
+    {step:"02",title:"Specification Match",body:"Confirm material dimensions, densities, quantities, and branding preferences with our team."},
+    {step:"03",title:"Landed Quote",body:"Receive a formal proforma showing all inclusive costs - shipping, customs, local freight, tax."},
+    {step:"04",title:"Production & Delivery",body:"Factory-direct dispatch from Bingxi via sea freight with full tracking and document package."}
+  ]),
+  supplierPricingTiers: JSON.stringify(["Starter (5–19 units)","Professional (20–99 units)","Enterprise (100–499 units)","Strategic (500+ units)"]),
+  supplierPricingRows: JSON.stringify([
+    {label:"Discount off RRP",values:["Standard","8% off RRP","15% off RRP","Negotiated"]},
+    {label:"Lead Time",values:["7–10 days","Priority: 5–7 days","Allocated: 3–5 days","Dedicated schedule"]},
+    {label:"Sample Set",values:["Not included","1 free sample set","2 free sample sets","Full sample library"]},
+    {label:"Account Manager",values:["WhatsApp support","WhatsApp + email","Dedicated contact","Dedicated contact"]},
+    {label:"Payment Terms",values:["100% upfront","100% upfront","50% deposit / 50% delivery","NET-30 available"]},
+    {label:"Catalogue Access",values:["Digital PDF","Digital PDF","Printed + digital","Custom branded"]}
+  ]),
+  supplierDetailCards: JSON.stringify([
+    {title:"Bulk & Trade Pricing",body:"Volume discounts for trade buyers. MOQ varies by product. Contact us for a private price list."},
+    {title:"Custom Specifications",body:"Custom sizes, densities, cover fabrics, and construction available on most Bingxi products."},
+    {title:"Private Label",body:"White-label and private-label branding available. Ask for details with your enquiry."},
+    {title:"Documentation",body:"Full compliance documents: OEKO-TEX®, ISO 9001, GTTC lab reports, business licence."},
+    {title:"Hotels & Resorts",body:"Dedicated support for hospitality procurement including custom sizing and bulk mattress orders."},
+    {title:"Retailers & Distributors",body:"Add Bingxi-certified latex to your product catalogue with reliable supply lines and marketing support."}
+  ]),
+  supplierCTAHeading: "Start Your B2B Partnership",
+  supplierCTABody: "Connect with our trade desk to request sample kits, review certificates, or request a custom landed quote for your project.",
+
+  // FAQs
+  faqItems: JSON.stringify([
+    ["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],
+    ["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],
+    ["Do you provide tax documentation?", "Formal tax documentation can be provided where applicable once GST registration is complete."],
+    ["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],
+    ["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],
+    ["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]
+  ]),
+
+  // Navigation / Nav / Brand Taglines
+  navBrandTagline: "Official Bingxi sourcing partner for India",
+  certChips: JSON.stringify([{label:"OEKO-TEX®",icon:"🛡"}, {label:"ISO 9001",icon:"◎"}, {label:"GTTC Lab Report",icon:"◈"}, {label:"Business Licence",icon:"◇"}, {label:"Product Catalogue",icon:"◉"}, {label:"Mattress Catalogue",icon:"◉"}]),
+  loadingBrand: "XIYORA",
+  loadingTagline: "Crafted Comfort · Sourced for India",
+  loadingStats: JSON.stringify(["37+ Products", "🇨🇳→🇮🇳 Direct Sourcing", "93% Natural Latex"]),
+  quickLinks: JSON.stringify([{ic:"box",t:"Explore Products",d:"Mattresses, Toppers & More"}, {ic:"handshake",t:"For Businesses",d:"Solutions for Hotels, Retail & Institutions"}, {ic:"doc",t:"Documents",d:"Certifications & Reports"}, {ic:"globe",t:"B2B Portal",d:"Official Bingxi Partner for India"}]),
+  categoryCards: JSON.stringify([
+    {filter:"Mattresses",name:"Latex Mattresses",sub:"The foundation of proper rest. Dunlop-core construction. Available in three ILD ratings. 10-year structural guarantee.",cn:"床垫"},
+    {filter:"Pillows",name:"Talalay Pillows",sub:"Talalay latex — lighter, more responsive, and more breathable than any memory foam. The pillow that does not remember yesterday.",cn:"枕头"},
+    {filter:"Toppers",name:"Mattress Toppers",sub:"Transform any mattress. A 50mm Dunlop topper recalibrates a hotel bed into a sanctuary. Popular with hospitality buyers.",cn:"床垫层"},
+    {filter:"Cushions",name:"Latex Cushions",sub:"Custom density for every seating application. From reception chairs to custom sofa cores. Specify density on inquiry.",cn:"坐垫"},
+    {filter:"Latex Material",name:"B2B / Wholesale",sub:"Architects, hoteliers, and interior design studios worldwide. Trade pricing from 5-unit MOQ. Certified sample sets available.",cn:"乳胶"}
+  ]),
+  whyXiyoraCards: JSON.stringify([
+    ["◈","Honest Sourcing","Official Bingxi sourcing partner for India — certified Dunlop & Talalay latex."],
+    ["◉","Transparent Pricing","Indicative ranges shown. Landed costs calculated down to your city hub."],
+    ["◎","B2B Focused","Outfitting hotels, interior designers, and retail distributors with MoQ tiers."],
+    ["◇","Custom Orders","Non-standard dimensions, custom cut shapes, and specified density ranges."]
+  ]),
+  howItWorksSteps: JSON.stringify([
+    ["01","Browse & Select","Explore the full catalog of certified latex pillows, toppers, and mattresses."],
+    ["02","Submit Enquiry","Send your requirements (city, quantities, sizing) to open a trade ticket."],
+    ["03","Review Landed Quote","We calculate exact customs, ocean freight, and inland transport to your hub."],
+    ["04","Order & Delivery","We manage full import documentation, port clearance, and final delivery."]
+  ]),
+  promiseHeading: "Our Promise",
+  promiseBody: "Elevating Everyday Rest Into an Art of Living.",
+  startingPrice: "₹1,600",
+  trustTickerItems: JSON.stringify(["✓ OEKO-TEX Certified","✓ LGA Approved","✓ Official Bingxi Partner","✓ 10-Year Durability Guarantee","✓ 100% Natural Latex, No Synthetics","✓ International Shipping"]),
+
+  // Reviews
+  reviewsList: JSON.stringify([
+    {name:"Priya Menon",city:"Bangalore",product:"Dunlop Signature Mattress, Queen, Medium 28 ILD",category:"mattress",rating:5,date:"March 2025",verified:true,text:"I spent three months researching latex mattresses before purchasing the XIYORA Signature in Medium. The material documentation they sent — batch certification, density test report — was the deciding factor. Three months in, the mattress has not shifted or softened. My lower back pain, which started a decade ago, is meaningfully better. This is not a placebo. The material is simply different."},
+    {name:"Arjun Kapoor",city:"Mumbai",product:"Dunlop Signature Mattress, King, Firm 40 ILD — B2B Purchase",category:"mattress",rating:5,date:"February 2025",verified:true,text:"We ordered two King units for a boutique guesthouse we operate near Mumbai. Our guests now specifically ask which mattress we use — several have already purchased directly. The B2B pricing is fair, the communication is excellent, and the product holds up to daily commercial use. We are placing a third order."},
+    {name:"Sangeeta R.",city:"Hyderabad",product:"Dunlop Signature Mattress, Double, Medium 28 ILD",category:"mattress",rating:4,date:"January 2025",verified:true,text:"The mattress itself is outstanding — firm without being punishing, and it has not changed shape after four months. My only note: delivery took slightly longer than estimated due to our pin code being on the edge of a coverage zone. The team communicated proactively and resolved it. Would absolutely recommend to anyone willing to invest in genuine quality."},
+    {name:"Kabir Sharma",city:"Delhi",product:"Talalay Cloud Pillow, High Profile",category:"pillow",rating:5,date:"January 2025",verified:true,text:"I have bought expensive pillows before and been disappointed. The Cloud Talalay pillow is categorically different. I sleep on my side, ordered the High Profile, and for the first time in years I wake up without neck stiffness. The organic cotton cover washes without any degradation. I have already bought two more for the guest bedrooms."},
+    {name:"Nandita V.",city:"Pune",product:"Talalay Cloud Pillow, Standard Profile",category:"pillow",rating:5,date:"December 2024",verified:true,text:"My daughter has a latex sensitivity concern so I was cautious. XIYORA sent me the full OEKO-TEX certificate and walked me through the allergen profile before I purchased. The pillow arrived in perfect condition. She has had no reaction. The customer support is genuinely knowledgeable — not a script-reading helpdesk."},
+    {name:"Vikram Anand",city:"Riyadh",product:"Dunlop Topper, 50mm Medium, Queen",category:"topper",rating:5,date:"November 2024",verified:true,text:"I relocated to Riyadh and bought the 50mm Medium topper to upgrade the apartment mattress without replacing it entirely. Ordering internationally was straightforward — XIYORA communicated every step and the product arrived well within the stated lead time. The bamboo cotton cover stays cool in the heat. An intelligent purchase for any climate."},
+    {name:"Reshma Pillai",city:"Singapore",product:"Dunlop Topper, 75mm Firm — B2B, 20 units",category:"topper",rating:5,date:"October 2024",verified:true,text:"Our studio is Singapore-based and we specify across Southeast Asia. XIYORA topper supply has been consistent across three separate orders now — same density, same finish, same lead time. International shipping was well packaged and hassle-free. A reliable partner for cross-border sourcing."}
+  ]),
+  reviewsTotalCount: "87",
+  reviewsAvgRating: "4.8",
+  reviewsDistribution: JSON.stringify([{stars:5,pct:91},{stars:4,pct:7},{stars:3,pct:2},{stars:2,pct:0},{stars:1,pct:0}]),
+  reviewsFormProducts: JSON.stringify(["Dunlop Signature Mattress","Talalay Cloud Pillow","Dunlop Mattress Topper","Latex Cushion Core"]),
+  reviewsPageHeading: "Verified Purchaser Audits",
+  reviewsPageBody: "At XIYORA, transparency is our primary pillar. Read direct, unedited reports from premium home and boutique hotel purchasers sourcing our natural latex.",
+
+  // B2B Stats Band
+  b2bStats: JSON.stringify([
+    {num:37,suffix:"+",label:"Verified B2B SKUs"},
+    {num:93,suffix:"%",label:"Natural Latex Purity"},
+    {num:5,suffix:"★",label:"Hotel Standard Quality"},
+    {num:24,suffix:"h",label:"Specs Dispatch Response"}
+  ]),
+
+  // Buyer Best-Fit
+  buyerTypes: JSON.stringify([
+    {key:"home_buyer",label:"Home Buyer",cta:"Explore Comfort Products",message:"Sourcing a premium natural latex pillow or mattress for your personal bedroom. Indicative single-unit pricing shown. Sourced direct from factory run."},
+    {key:"retailer",label:"Retailer",cta:"Request Catalogue",message:"Showrooms and distributors looking to stock Bingxi natural Talalay and Dunlop latex. Margin support from 20-unit orders."},
+    {key:"hotel",label:"Hotel / Villa / Serviced Apartment",cta:"Request B2B Proforma",message:"Hotel developers and operators sourcing custom mattress specs, U-pillows or toppers. Custom sizing, branding and private-labeling support."},
+    {key:"interior_designer",label:"Interior Designer",cta:"Discuss Custom Project",message:"Architects and interior designers working on custom residential or commercial projects. Custom shapes, custom density ranges, trade commission structure."},
+    {key:"trade_partner",label:"Trade / Distributor",cta:"Start Trade Enquiry",message:"Bulk wholesale sourcing of raw natural latex sheets, rolls, or container-load cushion cores. Direct customs-cleared port delivery."}
+  ]),
+  buyerFitHeading: "Find Your Best Fit",
+  buyerFitSubheading: "Tell Us Who You Are",
+  buyerFitBody: "We'll point you to the right starting point — whether you're buying a single pillow for your home or outfitting a 100-room boutique hotel.",
+
+  // Sourcing Network
+  sourcingLabel: "Global Sourcing Platform",
+  sourcingHeading: "Our Brand Partners",
+  sourcingBody: "XIYORA acts as the direct sourcing gateway connecting Indian trade buyers and custom residential projects with certified global manufacturers. We manage transport, customs, and inland dispatch.",
+  sourcingPartners: JSON.stringify([
+    {
+      name: "Bingxi Latex",
+      desc: "One of the world's most modern latex vulcanization plants. Operating advanced Dunlop and Talalay lines with ISO 9001 quality management and full OEKO-TEX compliance.",
+      tags: ["93% Pure Latex", "Dunlop & Talalay", "OEKO-TEX® Certified"],
+      status: "Active",
+      badge: "Est. 2024"
+    },
+    {
+      name: "European Flax & Linens",
+      desc: "Premium organic linen and long-staple cotton weaving mills located in Belgium and northern France. Heritage weavers supplying organic fabrics. Sourcing agreements under discussion.",
+      tags: ["Master of Linen", "Organic Cotton", "Oeko-Tex Standard"],
+      status: "Coming Soon",
+      badge: "Phase II"
+    },
+    {
+      name: "Heritage Weaves",
+      desc: "Traditional Indian handloom collectives producing natural cotton and silk covers. Blending local artisanal heritage with hospitality-grade durability standards.",
+      tags: ["100% Cotton", "Handloom Weave", "GI Tagged"],
+      status: "Coming Soon",
+      badge: "Phase II"
+    }
+  ]),
+
+  // Freight Calculator
+  freightOrigins: JSON.stringify([
+    {name:"Shanghai Port",rate:90},
+    {name:"Rotterdam Port",rate:140},
+    {name:"Ningbo Port",rate:85},
+    {name:"Hamburg Port",rate:150}
+  ]),
+  freightDestinations: JSON.stringify([
+    {name:"Nhava Sheva (Mumbai)",customs:250,inland:40},
+    {name:"Mundra (Gujarat)",customs:240,inland:55},
+    {name:"Chennai Port",customs:260,inland:35},
+    {name:"Kolkata Port",customs:280,inland:50},
+    {name:"Cochin Port",customs:245,inland:30},
+    {name:"Tuticorin Port",customs:250,inland:45}
+  ]),
+  freightMaterials: JSON.stringify([
+    {name:"Talalay Pillow",mult:0.85},
+    {name:"Dunlop Mattress",mult:1.25},
+    {name:"Latex Topper",mult:1.0},
+    {name:"Cushion Core",mult:0.95}
+  ]),
+  freightPortHandling: "120",
+  freightIGSTRate: "0.18",
+  freightTitle: "B2B Freight Calculator",
+  freightSubtitle: "Global Sourcing & Landed Cost Estimate",
+  freightDisclaimer: "* Calculated at base rate. Actual B2B invoice may vary depending on shipping line schedules, container utilization, and local terminal handling charges."
 };
 
 const API_BASE = (import.meta.env.VITE_API_BASE as string) || "/api";
@@ -1258,11 +1488,21 @@ function LuxMarquee({dark=true}:{dark?:boolean}){
   const bg=dark?"#070605":"#F3EFE5";
   const borderColor=dark?"rgba(200,169,126,0.18)":"rgba(200,169,126,0.32)";
   const double=(arr:string[])=>[...arr,...arr];
+  
+  let itemsTop = MARQUEE_ITEMS_TOP;
+  try {
+    if (BIZ.marqueeItemsTop) itemsTop = JSON.parse(BIZ.marqueeItemsTop);
+  } catch {}
+  let itemsBottom = MARQUEE_ITEMS_BTM;
+  try {
+    if (BIZ.marqueeItemsBottom) itemsBottom = JSON.parse(BIZ.marqueeItemsBottom);
+  } catch {}
+
   return(
     <div style={{background:bg,borderTop:`1px solid ${borderColor}`,borderBottom:`1px solid ${borderColor}`,overflow:"hidden",padding:"11px 0",userSelect:"none"}} aria-hidden>
       <div style={{overflow:"hidden",marginBottom:4}}>
         <div className="lux-marquee-track">
-          {double(MARQUEE_ITEMS_TOP).map((item,i)=>(
+          {double(itemsTop).map((item,i)=>(
             <span key={i} className="lux-marquee-item">
               {item}<span className="lm-diamond">◆</span>
             </span>
@@ -1271,7 +1511,7 @@ function LuxMarquee({dark=true}:{dark?:boolean}){
       </div>
       <div style={{overflow:"hidden"}}>
         <div className="lux-marquee-track-r">
-          {double(MARQUEE_ITEMS_BTM).map((item,i)=>(
+          {double(itemsBottom).map((item,i)=>(
             <span key={i} className={`lux-marquee-item ${dark?"":"lux-marquee-item-light"}`}>
               <span className="lm-diamond">◆</span>{item}
             </span>
@@ -2011,7 +2251,7 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
   );
 }
 /* ─── ABOUT PAGE — FULL EDITORIAL REWRITE (brief v2) ───── */
-function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>void}){
+export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>void}){
   const C=useC();
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
@@ -2020,9 +2260,9 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
         <Petals count={12}/>
         <HeroCanvas height={420}/>
         <div className="container" style={{position:"relative",zIndex:4,textAlign:"center"}}>
-          <span style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:"#C9A876",display:"block",marginBottom:16}}>Our Story</span>
-          <h1 className="serif gold-grad" style={{fontSize:"clamp(2.4rem,5vw,4rem)",fontWeight:500,lineHeight:1.1,margin:"0 0 24px"}}>We Built XIYORA Because We<br/>Could Not Find What We Were<br/><em>Looking For.</em></h1>
-          <p style={{fontSize:15.5,color:"#C7BBA4",lineHeight:1.85,maxWidth:640,margin:"0 auto 32px"}}>The premium bedroom market had no shortage of price tags. It had an acute shortage of provenance. Where was the latex from? Who manufactured it? What standards governed it? The answers, when they came, were rarely satisfying. <strong style={{color:"#E8D6B4"}}>So we went to the source.</strong></p>
+          <span style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:"#C9A876",display:"block",marginBottom:16}}>{BIZ.aboutHeroLabel || "Our Story"}</span>
+          <h1 className="serif gold-grad" style={{fontSize:"clamp(2.4rem,5vw,4rem)",fontWeight:500,lineHeight:1.1,margin:"0 0 24px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroHeading || "We Built XIYORA Because We<br/>Could Not Find What We Were<br/><em>Looking For.</em>"}} />
+          <p style={{fontSize:15.5,color:"#C7BBA4",lineHeight:1.85,maxWidth:640,margin:"0 auto 32px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroBody || "The premium bedroom market had no shortage of price tags. It had an acute shortage of provenance. Where was the latex from? Who manufactured it? What standards governed it? The answers, when they came, were rarely satisfying. <strong style=\"color:#E8D6B4\">So we went to the source.</strong>"}} />
           <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
             <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Our Products ✦</button>
             <button className="btn-ivory" onClick={()=>setPage("supplier")}>B2B Partnership →</button>
@@ -2034,7 +2274,11 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
       <section style={{background:"#13100c",borderTop:"1px solid rgba(200,169,126,.15)",borderBottom:"1px solid rgba(200,169,126,.15)",padding:"18px 0",overflow:"hidden"}}>
         <div className="container">
           <div style={{display:"flex",gap:0,flexWrap:"wrap",justifyContent:"center"}}>
-            {["✓ OEKO-TEX Certified","✓ LGA Approved","✓ Official Bingxi Partner","✓ 10-Year Durability Guarantee","✓ 100% Natural Latex, No Synthetics","✓ International Shipping"].map((t,i)=>(
+            {(() => {
+              let trustItems = ["✓ OEKO-TEX Certified","✓ LGA Approved","✓ Official Bingxi Partner","✓ 10-Year Durability Guarantee","✓ 100% Natural Latex, No Synthetics","✓ International Shipping"];
+              try { if (BIZ.aboutTrustBar) trustItems = JSON.parse(BIZ.aboutTrustBar); } catch {}
+              return trustItems;
+            })().map((t,i)=>(
               <span key={i} style={{fontSize:11,letterSpacing:"1.4px",textTransform:"uppercase",color:i%2===0?"#E8D6B4":"#C9A876",padding:"4px 20px",borderRight:"1px solid rgba(200,169,126,.2)",whiteSpace:"nowrap"}}>{t}</span>
             ))}
           </div>
@@ -2046,16 +2290,18 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
         <div className="container">
           <Reveal>
             <div style={{maxWidth:820,margin:"0 auto",textAlign:"center"}}>
-              <SL center>The Opening Statement</SL>
-              <h2 className="serif" style={{fontSize:"clamp(1.6rem,2.8vw,2.4rem)",fontWeight:400,lineHeight:1.35,color:C.dark,margin:"12px 0 28px"}}>
-                "There is a difference between sleep and rest."
-              </h2>
-              <p style={{fontSize:15,color:C.ink,lineHeight:1.95,marginBottom:20}}>
-                Dunlop latex, drawn from the sap of <em>Hevea brasiliensis</em> — the rubber tree — has been the world's finest sleep material for over a century. Bingxi is among the most trusted names in its manufacture. XIYORA brings it directly to you, without middlemen, without compromise.
-              </p>
-              <p style={{fontSize:15,color:C.ink,lineHeight:1.95}}>
-                XIYORA is the official sourcing partner for Bingxi — one of the world's most respected manufacturers of natural Talalay and Dunlop latex. Every mattress, pillow, topper, and cushion we supply traces directly to a certified production run. No grey-market imports. No rebadged synthetics. No shortcuts.
-              </p>
+              <SL center>{BIZ.aboutStatementLabel || "The Opening Statement"}</SL>
+              <h2 className="serif" style={{fontSize:"clamp(1.6rem,2.8vw,2.4rem)",fontWeight:400,lineHeight:1.35,color:C.dark,margin:"12px 0 28px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutStatementHeading || "\"There is a difference between sleep and rest.\""}} />
+              {(() => {
+                let paragraphs = [
+                  "Dunlop latex, drawn from the sap of Hevea brasiliensis — the rubber tree — has been the world's finest sleep material for over a century. Bingxi is among the most trusted names in its manufacture. XIYORA brings it directly to you, without middlemen, without compromise.",
+                  "XIYORA is the official sourcing partner for Bingxi — one of the world's most respected manufacturers of natural Talalay and Dunlop latex. Every mattress, pillow, topper, and cushion we supply traces directly to a certified production run. No grey-market imports. No rebadged synthetics. No shortcuts."
+                ];
+                try { if (BIZ.aboutStatementBody) paragraphs = JSON.parse(BIZ.aboutStatementBody); } catch {}
+                return paragraphs.map((pText, idx) => (
+                  <p key={idx} style={{fontSize:15,color:C.ink,lineHeight:1.95,marginBottom:idx === paragraphs.length - 1 ? 0 : 20}} dangerouslySetInnerHTML={{__html: pText}} />
+                ));
+              })()}
             </div>
           </Reveal>
         </div>
@@ -2071,17 +2317,19 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
               </div>
             </Reveal>
             <Reveal>
-              <SL>What Natural Latex Actually Means</SL>
-              <SH>From Rubber Tree<br/>to Bedroom</SH>
-              <p style={{fontSize:14.5,color:C.ink,lineHeight:1.9,margin:"18px 0 16px"}}>
-                Natural latex begins with a small wound — a scored incision in the bark of <em>Hevea brasiliensis</em>, the Para rubber tree. The tree responds by producing a milky sap. Collected in cups hung at the base of each cut, this sap is the raw material for the world's finest sleep surfaces.
-              </p>
-              <p style={{fontSize:14.5,color:C.ink,lineHeight:1.9,marginBottom:16}}>
-                <strong>Dunlop processing</strong> — the original method, invented in 1929 — froths the sap, pours it into a mould, and vulcanises it. The result is a dense, durable core that holds its shape for decades. <strong>Talalay processing</strong> adds a vacuum and flash-freezing step, creating a more open-cell, breathable, and lighter foam — the choice for pillows and comfort layers.
-              </p>
-              <p style={{fontSize:14.5,color:C.ink,lineHeight:1.9}}>
-                Both are entirely natural. Neither contains the petroleum-derived compounds found in polyurethane foam. Both are inherently anti-microbial, dust-mite resistant, and hypoallergenic. The material does not off-gas. It does not compress permanently. It simply works — for decades.
-              </p>
+              <SL>{BIZ.aboutNaturalLabel || "What Natural Latex Actually Means"}</SL>
+              <SH><span dangerouslySetInnerHTML={{__html: BIZ.aboutNaturalHeading || "From Rubber Tree<br/>to Bedroom"}} /></SH>
+              {(() => {
+                let paragraphs = [
+                  "Natural latex begins with a small wound — a scored incision in the bark of Hevea brasiliensis, the Para rubber tree. The tree responds by producing a milky sap. Collected in cups hung at the base of each cut, this sap is the raw material for the world's finest sleep surfaces.",
+                  "Dunlop processing — the original method, invented in 1929 — froths the sap, pours it into a mould, and vulcanises it. The result is a dense, durable core that holds its shape for decades. Talalay processing adds a vacuum and flash-freezing step, creating a more open-cell, breathable, and lighter foam — the choice for pillows and comfort layers.",
+                  "Both are entirely natural. Neither contains the petroleum-derived compounds found in polyurethane foam. Both are inherently anti-microbial, dust-mite resistant, and hypoallergenic. The material does not off-gas. It does not compress permanently. It simply works — for decades."
+                ];
+                try { if (BIZ.aboutNaturalBody) paragraphs = JSON.parse(BIZ.aboutNaturalBody); } catch {}
+                return paragraphs.map((pText, idx) => (
+                  <p key={idx} style={{fontSize:14.5,color:C.ink,lineHeight:1.9,marginBottom:idx === paragraphs.length - 1 ? 0 : 16}} dangerouslySetInnerHTML={{__html: pText}} />
+                ));
+              })()}
             </Reveal>
           </div>
         </div>
@@ -2092,24 +2340,28 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
         <Petals count={8}/>
         <div className="container" style={{position:"relative",zIndex:4}}>
           <div style={{textAlign:"center",marginBottom:52}}>
-            <SL dark>The Partnership</SL>
-            <h2 className="serif" style={{fontSize:"clamp(1.8rem,3vw,2.8rem)",fontWeight:500,color:"#F4ECDC",margin:"12px 0 20px"}}>XIYORA × Bingxi<br/><span className="gold-italic">Official Global Distribution Partnership</span></h2>
-            <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.85,maxWidth:620,margin:"0 auto"}}>Bingxi's manufacturing facilities operate to LGA certification standards, with OEKO-TEX compliance across their latex product range. As an official Bingxi partner, XIYORA is one of a small number of globally authorised distributors with verified, traceable access to Bingxi's production pipeline.</p>
+            <SL dark>{BIZ.aboutPartnerLabel || "The Partnership"}</SL>
+            <h2 className="serif" style={{fontSize:"clamp(1.8rem,3vw,2.8rem)",fontWeight:500,color:"#F4ECDC",margin:"12px 0 20px"}} dangerouslySetInnerHTML={{__html: `${BIZ.aboutPartnerHeading || "XIYORA × Bingxi"}<br/><span class="gold-italic">${BIZ.aboutPartnerSub || "Official Global Distribution Partnership"}</span>`}} />
+            <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.85,maxWidth:620,margin:"0 auto"}}>{BIZ.aboutPartnerBody || "Bingxi's manufacturing facilities operate to LGA certification standards, with OEKO-TEX compliance across their latex product range. As an official Bingxi partner, XIYORA is one of a small number of globally authorised distributors with verified, traceable access to Bingxi's production pipeline."}</p>
           </div>
           <div className="ornate" style={{borderRadius:8,padding:"clamp(28px,4vw,52px)",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
             <CornerSet/>
             <div className="grid-3" style={{gap:32}}>
-              {[
-                {num:"100%",label:"Natural Latex",desc:"No blends, no synthetics, no marketing language substituted for material truth."},
-                {num:"LGA+",label:"Certified Quality",desc:"Bingxi facilities operate to LGA certification with OEKO-TEX compliance across the range."},
-                {num:"5+",label:"Units MOQ",desc:"Trade pricing from just 5 units. Certified sample sets available for hotel and trade buyers."},
-              ].map((s,i)=>(
-                <div key={i} style={{textAlign:"center",padding:"24px 20px",borderTop:"1px solid rgba(200,169,126,.25)"}}>
-                  <div className="serif gold-grad" style={{fontSize:"clamp(2.8rem,4vw,3.8rem)",fontWeight:600,lineHeight:1,marginBottom:8}}>{s.num}</div>
-                  <div style={{fontSize:11,letterSpacing:"2.5px",textTransform:"uppercase",color:"#C9A876",marginBottom:12}}>{s.label}</div>
-                  <p style={{fontSize:13,color:"#B8AA93",lineHeight:1.75}}>{s.desc}</p>
-                </div>
-              ))}
+              {(() => {
+                let stats = [
+                  {num:"100%",label:"Natural Latex",desc:"No blends, no synthetics, no marketing language substituted for material truth."},
+                  {num:"LGA+",label:"Certified Quality",desc:"Bingxi facilities operate to LGA certification with OEKO-TEX compliance across the range."},
+                  {num:"5+",label:"Units MOQ",desc:"Trade pricing from just 5 units. Certified sample sets available for hotel and trade buyers."}
+                ];
+                try { if (BIZ.aboutPartnerStats) stats = JSON.parse(BIZ.aboutPartnerStats); } catch {}
+                return stats.map((s,i)=>(
+                  <div key={i} style={{textAlign:"center",padding:"24px 20px",borderTop:"1px solid rgba(200,169,126,.25)"}}>
+                    <div className="serif gold-grad" style={{fontSize:"clamp(2.8rem,4vw,3.8rem)",fontWeight:600,lineHeight:1,marginBottom:8}}>{s.num}</div>
+                    <div style={{fontSize:11,letterSpacing:"2.5px",textTransform:"uppercase",color:"#C9A876",marginBottom:12}}>{s.label}</div>
+                    <p style={{fontSize:13,color:"#B8AA93",lineHeight:1.75}}>{s.desc}</p>
+                  </div>
+                ));
+              })()}
             </div>
             <p style={{textAlign:"center",fontSize:14,color:"#C3B7A1",lineHeight:1.8,maxWidth:640,margin:"32px auto 0"}}>
               This means: consistent density tolerances, documented batch records, and products you can specify with confidence — whether you are outfitting a bedroom or a 150-room boutique hotel.
@@ -2122,24 +2374,28 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
       <section className="sec paper ink-wash">
         <div className="container">
           <div style={{textAlign:"center",marginBottom:52}}>
-            <SL>Our Commitment</SL>
-            <SH center>Four Pillars of<br/><em>Everything We Do</em></SH>
+            <SL>{BIZ.aboutCommitmentLabel || "Our Commitment"}</SL>
+            <SH center><span dangerouslySetInnerHTML={{__html: BIZ.aboutCommitmentHeading || "Four Pillars of<br/><em>Everything We Do</em>"}} /></SH>
           </div>
           <div className="grid-4">
-            {[
-              {icon:"◈",title:"Transparency",body:"Every product has a traceable batch. You know where it came from — always."},
-              {icon:"◉",title:"Purity",body:"100% natural latex. No blends, no synthetics, no marketing language substituted for material truth."},
-              {icon:"◎",title:"Longevity",body:"Natural latex outlasts foam by a decade or more. We design for 15-year ownership, not 3-year replacement cycles."},
-              {icon:"◇",title:"Access",body:"Factory-direct pricing through an official channel. Premium quality should not require a premium mark-up for its own sake."},
-            ].map((p,i)=>(
-              <div key={i} style={{padding:"28px 24px",background:C.white,borderRadius:4,borderTop:`3px solid ${C.gold}`,transition:"box-shadow .3s,transform .3s",boxShadow:"0 2px 12px rgba(0,0,0,.04)"}}
-                onMouseEnter={(e:any)=>{e.currentTarget.style.boxShadow="0 16px 40px rgba(0,0,0,.10)";e.currentTarget.style.transform="translateY(-4px)";}}
-                onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(0,0,0,.04)";e.currentTarget.style.transform="translateY(0)";}}>
-                <div style={{fontSize:26,color:C.gold,marginBottom:12}}>{p.icon}</div>
-                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:10}}>{p.title}</h4>
-                <p style={{fontSize:13.5,color:C.ink,lineHeight:1.75}}>{p.body}</p>
-              </div>
-            ))}
+            {(() => {
+              let pillars = [
+                {icon:"◈",title:"Transparency",body:"Every product has a traceable batch. You know where it came from — always."},
+                {icon:"◉",title:"Purity",body:"100% natural latex. No blends, no synthetics, no marketing language substituted for material truth."},
+                {icon:"◎",title:"Longevity",body:"Natural latex outlasts foam by a decade or more. We design for 15-year ownership, not 3-year replacement cycles."},
+                {icon:"◇",title:"Access",body:"Factory-direct pricing through an official channel. Premium quality should not require a premium mark-up for its own sake."}
+              ];
+              try { if (BIZ.aboutCommitmentPillars) pillars = JSON.parse(BIZ.aboutCommitmentPillars); } catch {}
+              return pillars.map((p,i)=>(
+                <div key={i} style={{padding:"28px 24px",background:C.white,borderRadius:4,borderTop:`3px solid ${C.gold}`,transition:"box-shadow .3s,transform .3s",boxShadow:"0 2px 12px rgba(0,0,0,.04)"}}
+                  onMouseEnter={(e:any)=>{e.currentTarget.style.boxShadow="0 16px 40px rgba(0,0,0,.10)";e.currentTarget.style.transform="translateY(-4px)";}}
+                  onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(0,0,0,.04)";e.currentTarget.style.transform="translateY(0)";}}>
+                  <div style={{fontSize:26,color:C.gold,marginBottom:12}}>{p.icon}</div>
+                  <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:10}}>{p.title}</h4>
+                  <p style={{fontSize:13.5,color:C.ink,lineHeight:1.75}}>{p.body}</p>
+                </div>
+              ));
+            })()}
           </div>
         </div>
       </section>
@@ -2147,8 +2403,8 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
       {/* CTA */}
       <section style={{background:"linear-gradient(135deg,#16110b,#0c0a08)",padding:"clamp(40px,5vw,64px) 0"}}>
         <div className="container" style={{textAlign:"center"}}>
-          <h2 className="serif" style={{fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#F4ECDC",margin:"0 0 16px",fontWeight:500}}>Ready to Source with Integrity?</h2>
-          <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.8,maxWidth:480,margin:"0 auto 34px"}}>Explore our full Bingxi latex collection or contact us to discuss trade pricing, custom specifications, and certified sample sets.</p>
+          <h2 className="serif" style={{fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#F4ECDC",margin:"0 0 16px",fontWeight:500}}>{BIZ.aboutCTAHeading || "Ready to Source with Integrity?"}</h2>
+          <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.8,maxWidth:480,margin:"0 auto 34px"}}>{BIZ.aboutCTABody || "Explore our full Bingxi latex collection or contact us to discuss trade pricing, custom specifications, and certified sample sets."}</p>
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
             <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products ✦</button>
             <button className="btn-ivory" onClick={()=>setPage("contact")}>Get in Touch →</button>
@@ -2161,7 +2417,7 @@ function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalog:()=>v
 }
 
 /* ─── B2B INQUIRY FORM (brief spec) ──────────────────────── */
-function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
+export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
   const C = useC();
   const [form, setForm] = useState({
     name: "",
@@ -2171,7 +2427,7 @@ function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
     category: "",
     gst: "",
     city: "",
-    country: "India",
+    country: BIZ.b2bDefaultCountry || "India",
     postal: "",
     products: [] as string[],
     qty: "",
@@ -2182,7 +2438,7 @@ function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const CATS = [
+  let tradeCats = [
     "Interior Designer",
     "Architect",
     "Hotel & Hospitality",
@@ -2191,20 +2447,26 @@ function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
     "Retailer",
     "Other"
   ];
-  const PRODS = [
+  try { if (BIZ.b2bTradeCategories) tradeCats = JSON.parse(BIZ.b2bTradeCategories); } catch {}
+
+  let prodsList = [
     "Mattresses",
     "Pillows",
     "Toppers",
     "Cushion Cores",
     "Custom Foam"
   ];
-  const QTYS = [
+  try { if (BIZ.b2bProducts) prodsList = JSON.parse(BIZ.b2bProducts); } catch {}
+
+  let qtyTiers = [
     "5–19",
     "20–99",
     "100–499",
     "500+"
   ];
-  const SOURCES = [
+  try { if (BIZ.b2bQuantities) qtyTiers = JSON.parse(BIZ.b2bQuantities); } catch {}
+
+  let sourceOptions = [
     "Google Search",
     "Social Media",
     "Industry Event / Fair",
@@ -2212,6 +2474,10 @@ function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
     "Professional Referral",
     "Other"
   ];
+  try { if (BIZ.b2bSources) sourceOptions = JSON.parse(BIZ.b2bSources); } catch {}
+
+  let contactMethods = ["WhatsApp", "Email", "Phone Call"];
+  try { if (BIZ.b2bContactMethods) contactMethods = JSON.parse(BIZ.b2bContactMethods); } catch {}
 
   const toggleProd = (p: string) =>
     setForm(f => ({
@@ -2298,7 +2564,7 @@ function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
         <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Trade Category *</label>
         <select required value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
           <option value="" disabled>Select category</option>
-          {CATS.map(c => <option key={c} value={c}>{c}</option>)}
+          {tradeCats.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
       </div>
 
@@ -2327,7 +2593,7 @@ function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
       <div style={{ marginBottom: 16 }}>
         <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 10 }}>Products of Interest</label>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {PRODS.map(p => (
+          {prodsList.map(p => (
             <label key={p} style={{ display: "flex", alignItems: "center", gap: 7, cursor: "pointer", background: form.products.includes(p) ? C.lgold : C.beige, border: `1px solid ${form.products.includes(p) ? C.gold : C.sand}`, borderRadius: 3, padding: "7px 13px", fontSize: 12, color: C.dark, transition: "all .15s" }}>
               <input type="checkbox" checked={form.products.includes(p)} onChange={() => toggleProd(p)} style={{ accentColor: C.gold }}/>
               {p}
@@ -2341,14 +2607,14 @@ function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Estimated Quantity (per year)</label>
           <select value={form.qty} onChange={e => setForm(f => ({ ...f, qty: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
             <option value="">Select quantity tier</option>
-            {QTYS.map(q => <option key={q} value={q}>{q} units</option>)}
+            {qtyTiers.map(q => <option key={q} value={q}>{q} units</option>)}
           </select>
         </div>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>How did you hear about us?</label>
           <select value={form.howHear} onChange={e => setForm(f => ({ ...f, howHear: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
             <option value="">Select option</option>
-            {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
+            {sourceOptions.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
       </div>
@@ -2357,9 +2623,9 @@ function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Preferred Contact Method</label>
           <select value={form.contact} onChange={e => setForm(f => ({ ...f, contact: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
-            <option value="whatsapp">WhatsApp</option>
-            <option value="email">Email</option>
-            <option value="phone">Phone Call</option>
+            {contactMethods.map(m => (
+              <option key={m} value={m.toLowerCase()}>{m}</option>
+            ))}
           </select>
         </div>
       </div>
@@ -2388,10 +2654,55 @@ const SUPPLIER_PROCESS=[
   ["03","Confirm & Pay","Review proforma invoice, confirm specs, and approve before any payment is collected."],
   ["04","Delivery","Shipped from China via sea freight. 3–10 days inland after port clearance."],
 ];
-function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onInquire:(p:any,i:string)=>void;setPage:(p:string)=>void;cur:string}){
+export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onInquire:(p:any,i:string)=>void;setPage:(p:string)=>void;cur:string}){
   const C=useC();
   const [err,setErr]=useState(false);
   const heroImg=BIZ.supplierHeroImage||"https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80";
+
+  let features = SUPPLIER_FEATURES;
+  try { if (BIZ.supplierFeatures) features = JSON.parse(BIZ.supplierFeatures); } catch {}
+
+  let processSteps = SUPPLIER_PROCESS;
+  try {
+    if (BIZ.supplierProcess) {
+      const parsed = JSON.parse(BIZ.supplierProcess);
+      processSteps = parsed.map((x: any) => [x.step, x.title, x.body]);
+    }
+  } catch {}
+
+  let pricingTiers = ["Starter (5–19 units)","Professional (20–99 units)","Enterprise (100–499 units)","Strategic (500+ units)"];
+  try { if (BIZ.supplierPricingTiers) pricingTiers = JSON.parse(BIZ.supplierPricingTiers); } catch {}
+
+  let pricingRows = [
+    ["Discount off RRP","Standard","8% off RRP","15% off RRP","Negotiated"],
+    ["Lead Time","7–10 days","Priority: 5–7 days","Allocated: 3–5 days","Dedicated schedule"],
+    ["Sample Set","Not included","1 free sample set","2 free sample sets","Full sample library"],
+    ["Account Manager","WhatsApp support","WhatsApp + email","Dedicated contact","Dedicated contact"],
+    ["Payment Terms","100% upfront","100% upfront","50% deposit / 50% delivery","NET-30 available"],
+    ["Catalogue Access","Digital PDF","Digital PDF","Printed + digital","Custom branded"],
+  ];
+  try {
+    if (BIZ.supplierPricingRows) {
+      const parsed = JSON.parse(BIZ.supplierPricingRows);
+      pricingRows = parsed.map((x: any) => [x.label, ...x.values]);
+    }
+  } catch {}
+
+  let detailCards = [
+    ["Bulk & Trade Pricing","Volume discounts for trade buyers. MOQ varies by product. Contact us for a private price list."],
+    ["Custom Specifications","Custom sizes, densities, cover fabrics, and construction available on most Bingxi products."],
+    ["Private Label","White-label and private-label branding available. Ask for details with your enquiry."],
+    ["Documentation","Full compliance documents: OEKO-TEX®, ISO 9001, GTTC lab reports, business licence."],
+    ["Hotels & Resorts","Dedicated support for hospitality procurement including custom sizing and bulk mattress orders."],
+    ["Retailers & Distributors","Wholesale pricing available. Contact us for distributor partnership terms."],
+  ];
+  try {
+    if (BIZ.supplierDetailCards) {
+      const parsed = JSON.parse(BIZ.supplierDetailCards);
+      detailCards = parsed.map((x: any) => [x.title, x.body]);
+    }
+  } catch {}
+
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
       {/* HERO */}
@@ -2413,14 +2724,12 @@ function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onIn
                   <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
                   <Seal ch="印" style={{marginTop:2}}/>
                 </ArchedCartouche>
-                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}}>
-                  For B2B Buyers<br/><span className="gold-italic">Partnership, Considered.</span>
-                </h1>
+                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
                 <p style={{fontSize:14.5,lineHeight:1.85,color:"#C7BBA4",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
-                  Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support.
+                  {BIZ.supplierHeroBody || "Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support."}
                 </p>
                 <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:470,position:"relative",zIndex:3}}>
-                  {SUPPLIER_FEATURES.map((f,i)=>(
+                  {features.map((f,i)=>(
                     <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
                   ))}
                 </div>
@@ -2448,7 +2757,7 @@ function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onIn
             <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.5rem)",fontWeight:500,color:C.dark,margin:0}}>The B2B Process</h2>
           </div>
           <div className="grid-4">
-            {SUPPLIER_PROCESS.map(([n,t,d])=>(
+            {processSteps.map(([n,t,d])=>(
               <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:3,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
                 onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.09)";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
@@ -2460,7 +2769,7 @@ function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onIn
           </div>
         </div>
       </section>
-      {/* B2B TIERED PRICING — MOQ TABLE (brief spec) */}
+      {/* B2B TIERED PRICING — MOQ TABLE */}
       <section style={{background:C.white,padding:"clamp(40px,5vw,70px) 0"}}>
         <div className="container">
           <div style={{textAlign:"center",marginBottom:44}}>
@@ -2473,23 +2782,16 @@ function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onIn
               <thead>
                 <tr style={{background:"#1C1C1C",color:"#E8D6B4"}}>
                   <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #C8A97E"}}>Feature</th>
-                  {[{name:"Starter",sub:"5–19 units"},{name:"Professional",sub:"20–99 units"},{name:"Enterprise",sub:"100–499 units"},{name:"Strategic",sub:"500+ units"}].map((t,i)=>(
+                  {pricingTiers.map((tierName,i)=>(
                     <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #C8A97E",background:i===1?"#2a2318":undefined}}>
-                      <div style={{color:"#F2D78C"}}>{t.name}</div>
-                      <div style={{fontSize:10,color:"#B89A6E",fontWeight:400,marginTop:3}}>{t.sub}</div>
+                      <div style={{color:"#F2D78C"}}>{tierName.split(" ")[0]}</div>
+                      <div style={{fontSize:10,color:"#B89A6E",fontWeight:400,marginTop:3}}>{tierName.substring(tierName.indexOf("("))}</div>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {[
-                  ["Discount off RRP","Standard","8% off RRP","15% off RRP","Negotiated"],
-                  ["Lead Time","7–10 days","Priority: 5–7 days","Allocated: 3–5 days","Dedicated schedule"],
-                  ["Sample Set","Not included","1 free sample set","2 free sample sets","Full sample library"],
-                  ["Account Manager","WhatsApp support","WhatsApp + email","Dedicated contact","Dedicated contact"],
-                  ["Payment Terms","100% upfront","100% upfront","50% deposit / 50% delivery","NET-30 available"],
-                  ["Catalogue Access","Digital PDF","Digital PDF","Printed + digital","Custom branded"],
-                ].map((row,ri)=>(
+                {pricingRows.map((row,ri)=>(
                   <tr key={ri} style={{borderBottom:`1px solid ${C.sand}`,background:ri%2===0?C.white:C.beige}}>
                     <td style={{padding:"12px 18px",color:C.dark,fontWeight:500}}>{row[0]}</td>
                     {row.slice(1).map((cell,ci)=>(
@@ -2503,14 +2805,7 @@ function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onIn
 
           {/* B2B DETAILS CARDS */}
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:24,marginTop:40}}>
-            {[
-              ["Bulk & Trade Pricing","Volume discounts for trade buyers. MOQ varies by product. Contact us for a private price list."],
-              ["Custom Specifications","Custom sizes, densities, cover fabrics, and construction available on most Bingxi products."],
-              ["Private Label","White-label and private-label branding available. Ask for details with your enquiry."],
-              ["Documentation","Full compliance documents: OEKO-TEX®, ISO 9001, GTTC lab reports, business licence."],
-              ["Hotels & Resorts","Dedicated support for hospitality procurement including custom sizing and bulk mattress orders."],
-              ["Retailers & Distributors","Wholesale pricing available. Contact us for distributor partnership terms."],
-            ].map(([t,d],i)=>(
+            {detailCards.map(([t,d],i)=>(
               <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:3,borderLeft:`3px solid ${C.gold}`}}>
                 <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:8}}>{t}</h4>
                 <p style={{fontSize:13,color:C.ink,lineHeight:1.72}}>{d}</p>
@@ -2520,14 +2815,14 @@ function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onIn
         </div>
       </section>
 
-      {/* B2B INQUIRY FORM — brief spec */}
+      {/* B2B INQUIRY FORM — BIZ list logic */}
       <section style={{background:C.beige,padding:"clamp(40px,5vw,70px) 0"}}>
         <div className="container">
           <div style={{maxWidth:760,margin:"0 auto"}}>
             <div style={{textAlign:"center",marginBottom:40}}>
               <SL>Trade Inquiry Form</SL>
               <SH center>Start Your B2B Partnership</SH>
-              <p style={{fontSize:14,color:C.ink,maxWidth:520,margin:"14px auto 0",lineHeight:1.8}}>Replace the current WhatsApp-only flow. All fields are used to prepare a bespoke trade quote.</p>
+              <p style={{fontSize:14,color:C.ink,maxWidth:520,margin:"14px auto 0",lineHeight:1.8}}>{BIZ.b2bFormNote || "Replace the current WhatsApp-only flow. All fields are used to prepare a bespoke trade quote."}</p>
             </div>
             <B2BInquiryForm cur={cur}/>
           </div>
@@ -2546,8 +2841,8 @@ function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>void;onIn
       <section style={{background:"linear-gradient(135deg,#16110b,#0c0a08)",padding:"clamp(40px,5vw,64px) 0"}}>
         <div className="container" style={{textAlign:"center"}}>
           <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14}}>Get in Touch</div>
-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#F4ECDC",margin:"0 0 16px",fontWeight:500}}>Start Your B2B Partnership</h2>
-          <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>WhatsApp us with your requirements — product type, quantity, and city. We respond within 24 hours.</p>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#F4ECDC",margin:"0 0 16px",fontWeight:500}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
+          <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>{BIZ.supplierCTABody || "WhatsApp us with your requirements — product type, quantity, and city. We respond within 24 hours."}</p>
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
             <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#C8A97E"}}>✦</span></button>
             <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"'Inter',sans-serif",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,fontWeight:500}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
@@ -3341,20 +3636,25 @@ function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose
 /* ─── GLOBAL PORT SOURCING & FREIGHT CALCULATOR ────────── */
 function GlobalFreightCalculator({ cur }: { cur: string }) {
   const C = useC();
-  const [origin, setOrigin] = useState("Shanghai");
-  const [destination, setDestination] = useState("Nhava Sheva");
-  const [material, setMaterial] = useState("mattress");
-  const [volume, setVolume] = useState(5); // CBM
-  const [materialValue, setMaterialValue] = useState(3000); // USD base material value
 
-  const ORIGINS = [
+  let ORIGINS = [
     { key: "Shanghai", name: "Shanghai Port (China) - Latex Hub", rate: 90 },
     { key: "Rotterdam", name: "Rotterdam Port (Netherlands) - Linens", rate: 140 },
     { key: "Ningbo", name: "Ningbo Port (China) - Silk & Textiles", rate: 85 },
     { key: "Hamburg", name: "Hamburg Port (Germany) - Bedding", rate: 150 }
   ];
+  try {
+    if (BIZ.freightOrigins) {
+      const parsed = JSON.parse(BIZ.freightOrigins);
+      ORIGINS = parsed.map((x: any) => ({
+        key: x.name.split(" ")[0] || x.name,
+        name: x.name,
+        rate: Number(x.rate)
+      }));
+    }
+  } catch {}
 
-  const DESTINATIONS = [
+  let DESTINATIONS = [
     { key: "Nhava Sheva", name: "Nhava Sheva (Mumbai, India)", customsFlat: 250, inlandRate: 40 },
     { key: "Mundra", name: "Mundra Port (Gujarat, India)", customsFlat: 240, inlandRate: 45 },
     { key: "Chennai", name: "Chennai Port (Tamil Nadu, India)", customsFlat: 260, inlandRate: 38 },
@@ -3362,23 +3662,54 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
     { key: "Kolkata", name: "Kolkata Port (West Bengal, India)", customsFlat: 300, inlandRate: 55 },
     { key: "Visakhapatnam", name: "Visakhapatnam Port (Andhra, India)", customsFlat: 270, inlandRate: 48 }
   ];
+  try {
+    if (BIZ.freightDestinations) {
+      const parsed = JSON.parse(BIZ.freightDestinations);
+      DESTINATIONS = parsed.map((x: any) => ({
+        key: x.name.split(" ")[0] || x.name,
+        name: x.name,
+        customsFlat: Number(x.customs),
+        inlandRate: Number(x.inland)
+      }));
+    }
+  } catch {}
 
-  const MATERIALS = [
+  let MATERIALS = [
     { key: "mattress", name: "Latex Mattress Cores (Bulky)", mult: 1.25 },
     { key: "pillow", name: "Latex Pillows (Volumetric)", mult: 0.85 },
     { key: "topper", name: "Latex Mattress Toppers", mult: 1.0 },
     { key: "linen", name: "Linen Fabrics & Covers", mult: 0.75 }
   ];
+  try {
+    if (BIZ.freightMaterials) {
+      const parsed = JSON.parse(BIZ.freightMaterials);
+      MATERIALS = parsed.map((x: any) => ({
+        key: x.name.toLowerCase().includes("pillow") ? "pillow" : x.name.toLowerCase().includes("mattress") ? "mattress" : x.name.toLowerCase().includes("topper") ? "topper" : x.name.toLowerCase().replace(/\s+/g, ""),
+        name: x.name,
+        mult: Number(x.mult)
+      }));
+    }
+  } catch {}
+
+  const [origin, setOrigin] = useState(() => ORIGINS[0]?.key || "Shanghai");
+  const [destination, setDestination] = useState(() => DESTINATIONS[0]?.key || "Nhava Sheva");
+  const [material, setMaterial] = useState(() => MATERIALS[0]?.key || "mattress");
+  const [volume, setVolume] = useState(5); // CBM
+  const [materialValue, setMaterialValue] = useState(3000); // USD base material value
 
   const selOrigin = ORIGINS.find(o => o.key === origin) || ORIGINS[0];
   const selDest = DESTINATIONS.find(d => d.key === destination) || DESTINATIONS[0];
   const selMat = MATERIALS.find(m => m.key === material) || MATERIALS[0];
 
-  const oceanFreightUSD = volume * selOrigin.rate * selMat.mult;
-  const customsClearanceUSD = selDest.customsFlat;
-  const importDutyIGSTUSD = materialValue * 0.18;
-  const inlandHaulageUSD = volume * selDest.inlandRate;
-  const portHandlingUSD = 120; // flat local port fees
+  const oceanFreightUSD = volume * (selOrigin?.rate ?? 90) * (selMat?.mult ?? 1.0);
+  const customsClearanceUSD = selDest?.customsFlat ?? 250;
+  
+  const igstRate = Number(BIZ.freightIGSTRate) || 0.18;
+  const importDutyIGSTUSD = materialValue * igstRate;
+  
+  const inlandHaulageUSD = volume * (selDest?.inlandRate ?? 40);
+  
+  const portHandlingUSD = Number(BIZ.freightPortHandling) || 120; // flat local port fees
 
   const totalUSD = materialValue + oceanFreightUSD + customsClearanceUSD + importDutyIGSTUSD + inlandHaulageUSD + portHandlingUSD;
 
@@ -3393,11 +3724,15 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
     return `${sym}${valInTarget.toLocaleString(loc)}`;
   };
 
+  const freightTitle = BIZ.freightTitle || "B2B Freight Calculator";
+  const freightSubtitle = BIZ.freightSubtitle || "Global Sourcing & Landed Cost Estimate";
+  const freightDisclaimer = BIZ.freightDisclaimer || "* Calculated at base rate. Actual B2B invoice may vary depending on shipping line schedules, container utilization, and local terminal handling charges.";
+
   return (
     <div style={{ background: "linear-gradient(135deg, #1C1916 0%, #0F0F0D 100%)", border: `1px solid rgba(200,169,126,.2)`, borderRadius: 6, padding: "32px 36px", color: "#F2EDE4", maxWidth: 900, margin: "40px auto 0", boxShadow: "0 15px 45px rgba(0,0,0,0.4)" }}>
       <div style={{ textAlign: "center", marginBottom: 28 }}>
-        <span style={{ fontSize: 10, letterSpacing: "3px", textTransform: "uppercase", color: C.gold, fontWeight: 600, display: "block", marginBottom: 4 }}>B2B Freight Calculator</span>
-        <h3 className="serif" style={{ fontSize: 24, color: "#FAF6EE", margin: 0 }}>Global Sourcing &amp; Landed Cost Estimate</h3>
+        <span style={{ fontSize: 10, letterSpacing: "3px", textTransform: "uppercase", color: C.gold, fontWeight: 600, display: "block", marginBottom: 4 }}>{freightTitle}</span>
+        <h3 className="serif" style={{ fontSize: 24, color: "#FAF6EE", margin: 0 }}>{freightSubtitle}</h3>
         <p style={{ fontSize: 13, color: "#8a8378", marginTop: 8 }}>Select route, material volume, and valuation to calculate estimated sea freight and port clearance fees.</p>
       </div>
 
@@ -3433,7 +3768,7 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
               <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#8a8378" }}>Cargo Volume: <strong>{volume} CBM</strong></label>
-              <span style={{ fontSize: 11, color: C.gold }}>{Math.ceil(volume * (selMat.key === "pillow" ? 12 : 1.5))} packages approx</span>
+              <span style={{ fontSize: 11, color: C.gold }}>{Math.ceil(volume * (selMat?.key === "pillow" ? 12 : 1.5))} packages approx</span>
             </div>
             <input type="range" min="1" max="100" value={volume} onChange={e => setVolume(parseInt(e.target.value) || 1)} style={{ width: "100%", accentColor: C.gold }} />
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#555", marginTop: 4 }}>
@@ -3461,7 +3796,7 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
                 <span>{formatCost(customsClearanceUSD)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
-                <span style={{ color: "#aaa" }}>Import Duty &amp; IGST (18% est.)</span>
+                <span style={{ color: "#aaa" }}>Import Duty &amp; IGST ({(igstRate*100).toFixed(0)}% est.)</span>
                 <span>{formatCost(importDutyIGSTUSD)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
@@ -3469,7 +3804,7 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
                 <span>{formatCost(portHandlingUSD)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
-                <span style={{ color: "#aaa" }}>Inland Haulage to {selDest.key}</span>
+                <span style={{ color: "#aaa" }}>Inland Haulage to {selDest?.key}</span>
                 <span>{formatCost(inlandHaulageUSD)}</span>
               </div>
             </div>
@@ -3479,10 +3814,10 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
                 <span style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>Est. Total Landed Cost (CIF)</span>
                 <span style={{ fontSize: 22, fontWeight: 700, color: C.gold, fontFamily: "'Playfair Display', serif" }}>{formatCost(totalUSD)}</span>
               </div>
-              <p style={{ fontSize: 10, color: "#8a8378", marginTop: 8, lineHeight: 1.4 }}>* Calculated at base rate. Actual B2B invoice may vary depending on active custom duties, container availability, and shipping line charges.</p>
+              <p style={{ fontSize: 10, color: "#8a8378", marginTop: 8, lineHeight: 1.4 }}>{freightDisclaimer}</p>
             </div>
           </div>
-          <button className="bg" onClick={() => window.open(waMsg(`Hi XIYORA, I used the B2B Freight Calculator and want a proforma quote. Origin: ${origin}, Destination: ${destination}, Material: ${selMat.name}, Volume: ${volume} CBM, Est Value: ${materialValue} USD.`), "_blank")} style={{ width: "100%", padding: 12, fontSize: 12, marginTop: 16 }}>Request B2B Proforma Quote</button>
+          <button className="bg" onClick={() => window.open(waMsg(`Hi XIYORA, I used the B2B Freight Calculator and want a proforma quote. Origin: ${origin}, Destination: ${destination}, Material: ${selMat?.name}, Volume: ${volume} CBM, Est Value: ${materialValue} USD.`), "_blank")} style={{ width: "100%", padding: 12, fontSize: 12, marginTop: 16 }}>Request B2B Proforma Quote</button>
         </div>
       </div>
     </div>
@@ -3565,26 +3900,47 @@ const SAMPLE_REVIEWS = [
   }
 ];
 
-function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) => void}) {
+export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) => void}) {
   const C = useC();
   const [filterRating, setFilterRating] = useState<number | null>(null);
   const [filterCat, setFilterCat] = useState<string | null>(null);
   const [filterType, setFilterType] = useState<string | null>(null);
   const [reviews, setReviews] = useState(() => {
-    return SAMPLE_REVIEWS.map((r, i) => ({
+    let list = [];
+    try {
+      if (BIZ.reviewsList) list = JSON.parse(BIZ.reviewsList);
+    } catch (e) {
+      list = SAMPLE_REVIEWS;
+    }
+    return list.map((r: any, i: number) => ({
       ...r,
       id: i,
-      helpful: 4 + (i * 3) % 7,
+      helpful: r.helpful ?? (4 + (i * 3) % 7),
       voted: false
     }));
   });
+
+  useEffect(() => {
+    let list = [];
+    try {
+      if (BIZ.reviewsList) list = JSON.parse(BIZ.reviewsList);
+    } catch (e) {
+      list = SAMPLE_REVIEWS;
+    }
+    setReviews(list.map((r: any, i: number) => ({
+      ...r,
+      id: i,
+      helpful: r.helpful ?? (4 + (i * 3) % 7),
+      voted: false
+    })));
+  }, [BIZ.reviewsList]);
   
   const [showForm, setShowForm] = useState(false);
   const [newReview, setNewReview] = useState({name:"", city:"", product:"Dunlop Signature Mattress", rating:5, text:""});
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleHelpful = (id: number) => {
-    setReviews(prev => prev.map(r => {
+    setReviews((prev: any[]) => prev.map((r: any) => {
       if (r.id === id && !r.voted) {
         return { ...r, helpful: r.helpful + 1, voted: true };
       }
@@ -3620,7 +3976,7 @@ function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) => void}
     }, 2000);
   };
 
-  const filtered = reviews.filter(r => {
+  const filtered = reviews.filter((r: any) => {
     if (filterRating && r.rating !== filterRating) return false;
     if (filterCat && r.category !== filterCat) return false;
     if (filterType) {
@@ -3631,9 +3987,17 @@ function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) => void}
     return true;
   });
 
-  const totalReviews = 87;
-  const avgRating = 4.8;
-  const distribution = [{stars:5,pct:91},{stars:4,pct:7},{stars:3,pct:2},{stars:2,pct:0},{stars:1,pct:0}];
+  const totalReviews = BIZ.reviewsTotalCount || "87";
+  const avgRating = BIZ.reviewsAvgRating || "4.8";
+  
+  let distribution = [{stars:5,pct:91},{stars:4,pct:7},{stars:3,pct:2},{stars:2,pct:0},{stars:1,pct:0}];
+  try { if (BIZ.reviewsDistribution) distribution = JSON.parse(BIZ.reviewsDistribution); } catch {}
+
+  let reviewsFormProducts = ["Dunlop Signature Mattress","Talalay Cloud Pillow","Dunlop Mattress Topper","Latex Cushion Core"];
+  try { if (BIZ.reviewsFormProducts) reviewsFormProducts = JSON.parse(BIZ.reviewsFormProducts); } catch {}
+
+  const reviewsPageHeading = BIZ.reviewsPageHeading || "Verified Purchaser Audits";
+  const reviewsPageBody = BIZ.reviewsPageBody || "At XIYORA, transparency is our primary pillar. Read direct, unedited reports from premium home and boutique hotel purchasers sourcing our natural latex.";
 
   return (
     <div style={{ background: C.white, minHeight: "100vh" }}>
@@ -3648,10 +4012,10 @@ function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) => void}
       <div className="container" style={{ padding: "48px 40px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 32, marginBottom: 44 }}>
           <div>
-            <SL>Verified Purchaser Audits</SL>
+            <SL>{reviewsPageHeading}</SL>
             <SH>Customer Reviews &<br/><em>Experience Reports</em></SH>
             <p style={{ fontSize: 14.5, color: "#666", lineHeight: 1.8, maxWidth: 520, marginTop: 14 }}>
-              At XIYORA, transparency is our primary pillar. Read direct, unedited reports from premium home and boutique hotel purchasers sourcing our natural latex.
+              {reviewsPageBody}
             </p>
           </div>
           
@@ -3709,10 +4073,9 @@ function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) => void}
                   <div style={{ marginBottom: 14 }}>
                     <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Product Purchased</label>
                     <select value={newReview.product} onChange={e => setNewReview(n => ({...n, product: e.target.value}))} style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}>
-                      <option value="Dunlop Signature Mattress">Dunlop Signature Mattress</option>
-                      <option value="Talalay Cloud Pillow">Talalay Cloud Pillow</option>
-                      <option value="Dunlop Mattress Topper">Dunlop Mattress Topper</option>
-                      <option value="Latex Cushion Core">Latex Cushion Core</option>
+                      {reviewsFormProducts.map((p, idx) => (
+                        <option key={idx} value={p}>{p}</option>
+                      ))}
                     </select>
                   </div>
                   
@@ -3790,7 +4153,7 @@ function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) => void}
           </div>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
-            {filtered.map(r => (
+            {filtered.map((r: any) => (
               <div key={r.id} style={{ background: C.white, borderRadius: 5, padding: "28px 24px", border: `1px solid ${C.sand}`, transition: "box-shadow .2s" }}
                 onMouseEnter={e => e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,.05)"}
                 onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}>
@@ -4712,7 +5075,7 @@ function CustomerReviewsSection(){
 }
 
 /* ─── HOME VIEW ──────────────────────────────────────────── */
-function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire,setPage}:any){
+export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,onInquire,setPage}:any){
   const C=useC();
   const catImages:Record<string,string>=imageManifest.categories as Record<string,string>;
   // Admin-uploaded image takes priority; falls back to imageManifest, then empty
@@ -6280,7 +6643,7 @@ const SIMPLE_HERO:Record<string,{img:string;seal:string;subtitle:string;crumbs:s
   "Contact XIYORA":{img:"/assets/lux/moongate-lounge.webp",seal:"和",subtitle:"Let Us Guide You",crumbs:"Home · Contact",features:[{name:"headset",label:"WhatsApp"},{name:"doc",label:"Email"},{name:"clock",label:"24–48h Reply"},{name:"globe",label:"@xiyora.zi"}]},
   "FAQ":{img:"/assets/lux/documents-still.webp",seal:"问",subtitle:"Answers, Honestly",crumbs:"Home · Resources · FAQ"},
 };
-function SimplePage({title,content,setPage}:any){
+export function SimplePage({title,content,setPage}:any){
   const C=useC();
   const h=SIMPLE_HERO[title]||{img:"/assets/lux/inkwash-landscape.webp",seal:"印",subtitle:"XIYORA",crumbs:`Home · ${title}`};
   return(
@@ -6388,30 +6751,15 @@ export default function App(){
   useEffect(()=>{
     fetch(`${API_BASE}/site-content`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
       if(data&&typeof data==="object"){
-        // Use ?? not || so that intentionally-empty strings ("") from DB are respected.
-        BIZ={
-          wa:data.wa??BIZ.wa,
-          email:data.email??BIZ.email,
-          ig:data.ig??BIZ.ig,
-          address:data.address??BIZ.address,
-          gstNote:data.gstNote??BIZ.gstNote,
-          heroImage:data.heroImage??BIZ.heroImage,
-          heroTitle:data.heroTitle??BIZ.heroTitle,
-          heroSubtitle:data.heroSubtitle??BIZ.heroSubtitle,
-          heroBody:data.heroBody??BIZ.heroBody,
-          promiseImage:data.promiseImage??BIZ.promiseImage,
-          supplierHeroImage:data.supplierHeroImage??BIZ.supplierHeroImage,
-          catImg_Mattresses:data.catImg_Mattresses??BIZ.catImg_Mattresses,
-          catImg_Pillows:data.catImg_Pillows??BIZ.catImg_Pillows,
-          catImg_Toppers:data.catImg_Toppers??BIZ.catImg_Toppers,
-          catImg_Cushions:data.catImg_Cushions??BIZ.catImg_Cushions,
-          catImg_LatexMaterial:data.catImg_LatexMaterial??BIZ.catImg_LatexMaterial,
-        };
+        for(const k of Object.keys(BIZ)){
+          if(k in data && data[k]!==undefined){
+            (BIZ as any)[k] = data[k];
+          }
+        }
         forceProductRefresh();
       }
     }).catch(()=>{}).finally(()=>setSiteLoading(false));
   },[]);
-  // Set app ready once both products and site content have resolved
   useEffect(()=>{
     if(!productsLoading&&!siteLoading)setAppReady(true);
   },[productsLoading,siteLoading]);
@@ -6524,14 +6872,38 @@ export default function App(){
     if(page==="checkout")return<CheckoutView cart={cart} setCart={setCart} cur={cur} wl={wl} onWish={toggleWl} onAddToCart={addToCart} onOpen={openProd} onInquire={openInquiry} onCatalog={openCatalog} userLoc={userLoc} setUserLoc={updateUserLoc}/>;
     if(page==="account")return<AccountView setPage={nav}/>;
     if(page==="admin")return<AdminView/>;
-    if(page==="xiyora-admin")return<AdminPanel/>;
+    if(page==="xiyora-admin")return(
+      <AdminPanel
+        BIZ={BIZ}
+        HomeView={HomeView}
+        AboutView={AboutView}
+        SupplierView={SupplierView}
+        ReviewsView={ReviewsView}
+        SimplePage={SimplePage}
+        B2BInquiryForm={B2BInquiryForm}
+        forceRefresh={forceProductRefresh}
+        products={PRODUCTS}
+        currency={cur}
+      />
+    );
     if(page==="proof")return<ProofLibraryView setPage={nav}/>;
     if(page==="order-status")return<OrderStatusView setPage={nav}/>;
     if(page==="supplier")return<SupplierView onCatalog={openCatalog} onInquire={openInquiry} setPage={nav} cur={cur}/>;
     if(page==="about")return<AboutView setPage={nav} onCatalog={openCatalog}/>;
     if(page==="reviews")return<ReviewsView cur={cur} setPage={nav}/>;
-    if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)","+91 70283 11226"],["Email",BIZ.email],["Instagram","@xiyora.zi — instagram.com/xiyora.zi/"],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={nav}/>;
-    if(page==="faq")return<SimplePage title="FAQ" content={[["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],["Do you provide tax documentation?",BIZ.gstNote],["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]]} setPage={nav}/>;
+    if(page==="contact")return<SimplePage title="Contact XIYORA" content={[["WhatsApp (Fastest)",`+${BIZ.wa}`],["Email",BIZ.email],["Instagram",`@xiyora.zi — ${BIZ.ig}`],["Address",BIZ.address],["Response Time","We reply within 24–48 hours. WhatsApp is the fastest channel."]]} setPage={nav}/>;
+    if(page==="faq") {
+      let faqs = [
+        ["How is price calculated?","Prices shown are indicative. Final landed price includes product cost, freight, customs, IGST, port handling, and delivery to your city."],
+        ["How long does delivery take?","Sea freight from China takes approximately 25–40 days. Inland delivery after port clearance is 3–10 days depending on your location."],
+        ["Do you provide tax documentation?",BIZ.gstNote],
+        ["Can I order in bulk?","Yes. Contact us for B2B pricing and minimum order quantities."],
+        ["Are custom sizes available?","Many products support custom sizes and densities. Contact us for a custom quote."],
+        ["Can I visit a showroom?","We currently operate as an import sourcing business. Products are available for order only."]
+      ];
+      try { if (BIZ.faqItems) faqs = JSON.parse(BIZ.faqItems); } catch {}
+      return <SimplePage title="FAQ" content={faqs} setPage={nav}/>;
+    }
     if(page==="shipping")return<SimplePage title="Shipping & Delivery" content={[["Origin","Imported from Bingxi, China via sea freight."],["Indian Ports","Mumbai (Nhava Sheva), Mundra, Chennai, Kolkata, Cochin — based on buyer location."],["Sea Freight","~25–40 days from order confirmation, depending on product and quantity."],["Inland Delivery","3–10 days after port clearance depending on your zone."],["Costs","Shipping, customs, IGST, and inland delivery are included in your final quoted price."]]} setPage={nav}/>;
     if(page==="returns")return<SimplePage title="Returns & Refunds" content={[["Damaged in Transit","Document with photos within 24 hours of delivery and contact us immediately."],["Wrong Product","We arrange replacement or refund for incorrect products sent."],["Custom Orders","Non-returnable once production has started — confirm all specs before approval."],["Contact",`${BIZ.email} or WhatsApp +91 70283 11226`]]} setPage={nav}/>;
     if(page==="privacy")return<SimplePage title="Privacy Policy" content={[["Data Collected","Name, phone, email, city from inquiry forms."],["Use","To respond to inquiries, send quotes, and process orders."],["Sharing","Not sold or shared except where required for order processing and delivery."],["Contact",BIZ.email]]} setPage={nav}/>;
@@ -6541,7 +6913,18 @@ export default function App(){
 
   if(page==="xiyora-admin")return(
     <ThemeCtx.Provider value={tc}>
-      <AdminPanel/>
+      <AdminPanel
+        BIZ={BIZ}
+        HomeView={HomeView}
+        AboutView={AboutView}
+        SupplierView={SupplierView}
+        ReviewsView={ReviewsView}
+        SimplePage={SimplePage}
+        B2BInquiryForm={B2BInquiryForm}
+        forceRefresh={forceProductRefresh}
+        products={PRODUCTS}
+        currency={cur}
+      />
     </ThemeCtx.Provider>
   );
 

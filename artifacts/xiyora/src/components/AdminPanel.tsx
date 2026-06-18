@@ -53,15 +53,15 @@ function Label({ children }: { children: React.ReactNode }) {
   return <label style={{ fontSize:11, letterSpacing:"1.5px", textTransform:"uppercase", color:"#888", display:"block", marginBottom:5, fontWeight:500 }}>{children}</label>;
 }
 
-function Input({ value, onChange, placeholder, type = "text", style = {} }: any) {
+function Input({ value, onChange, placeholder, type = "text", style = {} }: { value?: string; onChange: (v: string) => void; placeholder?: string; type?: string; style?: React.CSSProperties }) {
   return <input type={type} value={value ?? ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter',sans-serif", color:DARK, marginBottom:12, outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE} />;
 }
 
-function Textarea({ value, onChange, placeholder, rows = 3, style = {} }: any) {
+function Textarea({ value, onChange, placeholder, rows = 3, style = {} }: { value?: string; onChange: (v: string) => void; placeholder?: string; rows?: number; style?: React.CSSProperties }) {
   return <textarea value={value ?? ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter',sans-serif", color:DARK, marginBottom:12, resize:"vertical", outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE} />;
 }
 
-function Select({ value, onChange, options, style = {} }: any) {
+function Select({ value, onChange, options, style = {} }: { value?: string; onChange: (v: string) => void; options: any[]; style?: React.CSSProperties }) {
   return <select value={value ?? ""} onChange={e => onChange(e.target.value)} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter',sans-serif", color:DARK, marginBottom:12, outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE}>
     {options.map((o: any) => <option key={o.value ?? o} value={o.value ?? o}>{o.label ?? o}</option>)}
   </select>;
@@ -946,111 +946,1220 @@ function ProductsPanel({ token }: { token: string }) {
   );
 }
 
-function SiteContentPanel({ token }: { token: string }) {
-  const [form, setForm] = useState<SiteContent>({ wa:"", email:"", ig:"", address:"", gstNote:"", heroImage:"", heroTitle:"", heroSubtitle:"", heroBody:"", promiseImage:"", supplierHeroImage:"", catImg_Mattresses:"", catImg_Pillows:"", catImg_Toppers:"", catImg_Cushions:"", catImg_LatexMaterial:"" });
+function AccordionItem({ title, active, onClick, children }: { title: string; active: boolean; onClick: () => void; children: React.ReactNode }) {
+  return (
+    <div style={{ borderBottom: "1px solid " + BEIGE, marginBottom: 8, borderRadius: 3, overflow: "hidden" }}>
+      <button
+        onClick={onClick}
+        type="button"
+        style={{
+          width: "100%",
+          padding: "12px 16px",
+          background: active ? GOLD : "#FAF8F4",
+          color: active ? "#fff" : DARK,
+          border: "none",
+          textAlign: "left",
+          fontSize: 13,
+          fontWeight: 600,
+          cursor: "pointer",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}
+      >
+        <span>{title}</span>
+        <span>{active ? "▲" : "▼"}</span>
+      </button>
+      {active && (
+        <div style={{ padding: "16px 16px 8px 16px", background: "#fff" }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StringListEditor({ value, onChange, label, placeholder = "Add item..." }: { value: string; onChange: (v: string) => void; label: string; placeholder?: string }) {
+  let list = [];
+  try { list = JSON.parse(value || "[]"); } catch {}
+  if (!Array.isArray(list)) list = [];
+
+  const update = (newList: any[]) => {
+    onChange(JSON.stringify(newList));
+  };
+
+  return (
+    <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+      <Label>{label}</Label>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+        {list.map((item: any, idx: number) => (
+          <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <input
+              type="text"
+              value={item}
+              onChange={e => {
+                const next = [...list];
+                next[idx] = e.target.value;
+                update(next);
+              }}
+              placeholder={placeholder}
+              style={{ flex: 1, padding: "6px 10px", fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }}
+            />
+            <button type="button" onClick={() => {
+              if (idx === 0) return;
+              const next = [...list];
+              [next[idx], next[idx - 1]] = [next[idx - 1], next[idx]];
+              update(next);
+            }} disabled={idx === 0} style={{ border: "none", background: "none", cursor: "pointer", color: idx === 0 ? "#ddd" : GOLD }}>▲</button>
+            <button type="button" onClick={() => {
+              if (idx === list.length - 1) return;
+              const next = [...list];
+              [next[idx], next[idx + 1]] = [next[idx + 1], next[idx]];
+              update(next);
+            }} disabled={idx === list.length - 1} style={{ border: "none", background: "none", cursor: "pointer", color: idx === list.length - 1 ? "#ddd" : GOLD }}>▼</button>
+            <button type="button" onClick={() => update(list.filter((_: any, i: number) => i !== idx))} style={{ border: "none", background: "none", cursor: "pointer", color: RED }}>✕</button>
+          </div>
+        ))}
+        <button type="button" onClick={() => update([...list, ""])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}>
+          + Add Item
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function PairListEditor({ value, onChange, label, keyPlaceholder = "Title", valPlaceholder = "Description", hasIcon = false }: { value: string; onChange: (v: string) => void; label: string; keyPlaceholder?: string; valPlaceholder?: string; hasIcon?: boolean }) {
+  let list = [];
+  try { list = JSON.parse(value || "[]"); } catch {}
+  if (!Array.isArray(list)) list = [];
+
+  const update = (newList: any[]) => {
+    onChange(JSON.stringify(newList));
+  };
+
+  const handleAdd = () => {
+    if (hasIcon) {
+      update([...list, ["", "", ""]]);
+    } else {
+      update([...list, ["", ""]]);
+    }
+  };
+
+  return (
+    <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+      <Label>{label}</Label>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8 }}>
+        {list.map((item: any, idx: number) => (
+          <div key={idx} style={{ borderBottom: idx < list.length - 1 ? "1px dashed " + BEIGE : "none", paddingBottom: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <span style={{ fontSize: 12, color: "#888", fontWeight: 600 }}>#{idx + 1}</span>
+              <div style={{ flex: 1, display: "flex", gap: 8, flexDirection: "column" }}>
+                {hasIcon ? (
+                  <>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <input
+                        type="text"
+                        value={item[0] || ""}
+                        onChange={e => {
+                          const next = [...list];
+                          next[idx] = [e.target.value, item[1], item[2]];
+                          update(next);
+                        }}
+                        placeholder="Icon (e.g. ✓)"
+                        style={{ width: "80px", padding: "6px 10px", fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }}
+                      />
+                      <input
+                        type="text"
+                        value={item[1] || ""}
+                        onChange={e => {
+                          const next = [...list];
+                          next[idx] = [item[0], e.target.value, item[2]];
+                          update(next);
+                        }}
+                        placeholder="Title"
+                        style={{ flex: 1, padding: "6px 10px", fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }}
+                      />
+                    </div>
+                    <textarea
+                      value={item[2] || ""}
+                      onChange={e => {
+                        const next = [...list];
+                        next[idx] = [item[0], item[1], e.target.value];
+                        update(next);
+                      }}
+                      placeholder="Description"
+                      rows={2}
+                      style={{ padding: "6px 10px", fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3, width: "100%", fontFamily: "sans-serif" }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <input
+                      type="text"
+                      value={item[0] || ""}
+                      onChange={e => {
+                        const next = [...list];
+                        next[idx] = [e.target.value, item[1]];
+                        update(next);
+                      }}
+                      placeholder={keyPlaceholder}
+                      style={{ padding: "6px 10px", fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }}
+                    />
+                    <textarea
+                      value={item[1] || ""}
+                      onChange={e => {
+                        const next = [...list];
+                        next[idx] = [item[0], e.target.value];
+                        update(next);
+                      }}
+                      placeholder={valPlaceholder}
+                      rows={2}
+                      style={{ padding: "6px 10px", fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3, width: "100%", fontFamily: "sans-serif" }}
+                    />
+                  </>
+                )}
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <button type="button" onClick={() => {
+                  if (idx === 0) return;
+                  const next = [...list];
+                  [next[idx], next[idx - 1]] = [next[idx - 1], next[idx]];
+                  update(next);
+                }} disabled={idx === 0} style={{ border: "none", background: "none", cursor: "pointer", color: idx === 0 ? "#ddd" : GOLD, fontSize: 11 }}>▲</button>
+                <button type="button" onClick={() => {
+                  if (idx === list.length - 1) return;
+                  const next = [...list];
+                  [next[idx], next[idx + 1]] = [next[idx + 1], next[idx]];
+                  update(next);
+                }} disabled={idx === list.length - 1} style={{ border: "none", background: "none", cursor: "pointer", color: idx === list.length - 1 ? "#ddd" : GOLD, fontSize: 11 }}>▼</button>
+                <button type="button" onClick={() => update(list.filter((_: any, i: number) => i !== idx))} style={{ border: "none", background: "none", cursor: "pointer", color: RED, fontSize: 11 }}>✕</button>
+              </div>
+            </div>
+          </div>
+        ))}
+        <button type="button" onClick={handleAdd} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}>
+          + Add Item
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SiteContentPanel({
+  token,
+  BIZ,
+  HomeView,
+  AboutView,
+  SupplierView,
+  ReviewsView,
+  SimplePage,
+  B2BInquiryForm,
+  forceRefresh,
+  products,
+  currency,
+}: any) {
+  const [draft, setDraft] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
+  const [activeAccordion, setActiveAccordion] = useState("header");
+  const [previewTab, setPreviewTab] = useState("home");
+
+  const backupRef = useRef<any>(null);
 
   useEffect(() => {
-    apiFetch("/admin/site-content", {}, token).then(r=>r.json()).then(data => {
-      setForm(data);
-      setLoading(false);
-    }).catch(() => setLoading(false));
+    apiFetch("/admin/site-content", {}, token)
+      .then(r => r.json())
+      .then(data => {
+        const loaded = { ...BIZ, ...data };
+        setDraft(loaded);
+        Object.assign(BIZ, loaded);
+        backupRef.current = { ...loaded };
+        setLoading(false);
+        forceRefresh();
+      })
+      .catch(() => {
+        setDraft({ ...BIZ });
+        backupRef.current = { ...BIZ };
+        setLoading(false);
+      });
+
+    return () => {
+      if (backupRef.current) {
+        Object.assign(BIZ, backupRef.current);
+        forceRefresh();
+      }
+    };
   }, [token]);
 
-  const set = (k: keyof SiteContent) => (v: string) => setForm(f => ({ ...f, [k]: v }));
-
-  const save = async () => {
-    setSaving(true); setErr("");
-    try {
-      const res = await apiFetch("/admin/site-content", { method:"PUT", body:JSON.stringify(form) }, token);
-      const data = await res.json();
-      if (data.success) { setMsg("Saved ✓"); setTimeout(() => setMsg(""), 3000); }
-      else setErr(data.error || "Save failed");
-    } catch { setErr("Network error"); }
-    setSaving(false);
+  const setKey = (key: string, value: any) => {
+    const stringVal = typeof value === "string" ? value : JSON.stringify(value);
+    setDraft((prev: any) => {
+      const next = { ...prev, [key]: stringVal };
+      BIZ[key] = stringVal;
+      return next;
+    });
+    forceRefresh();
   };
 
-  const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-    <div style={{ marginBottom: 32 }}>
-      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:18 }}>
-        <div style={{ height:1, background:BEIGE, flex:1 }}/>
-        <span style={{ fontSize:10, letterSpacing:"2px", textTransform:"uppercase", color:GOLD, fontWeight:600, whiteSpace:"nowrap" }}>{title}</span>
-        <div style={{ height:1, background:BEIGE, flex:1 }}/>
-      </div>
-      {children}
-    </div>
-  );
+  const handleCancel = () => {
+    if (backupRef.current) {
+      Object.assign(BIZ, backupRef.current);
+      setDraft({ ...backupRef.current });
+      setMsg("Reverted changes ✓");
+      setTimeout(() => setMsg(""), 3000);
+      forceRefresh();
+    }
+  };
 
-  if (loading) return <div style={{ textAlign:"center", padding:40 }}><Spinner/></div>;
+  const handleSave = async () => {
+    setSaving(true);
+    setErr("");
+    try {
+      const res = await apiFetch("/admin/site-content", {
+        method: "PUT",
+        body: JSON.stringify(draft)
+      }, token);
+      const data = await res.json();
+      if (data.success) {
+        backupRef.current = { ...draft };
+        setMsg("Saved successfully ✓");
+        setTimeout(() => setMsg(""), 3000);
+      } else {
+        setErr(data.error || "Save failed");
+      }
+    } catch {
+      setErr("Network error");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) return <div style={{ textAlign: "center", padding: 40 }}><Spinner /></div>;
+
   return (
-    <div style={{ maxWidth:640 }}>
-      <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:28 }}>
-        <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, color:DARK, margin:0 }}>Site Content</h2>
-        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-          {msg && <span style={{ color:"#3a9b6e", fontSize:12, fontWeight:500 }}>{msg}</span>}
-          {err && <span style={{ color:RED, fontSize:12 }}>{err}</span>}
-          <Btn onClick={save} disabled={saving}>{saving ? <Spinner size={14}/> : "Save Changes"}</Btn>
+    <div style={{ display: "flex", gap: 24, height: "calc(100vh - 120px)", minHeight: 600 }}>
+      {/* LEFT: Accordion Editor Pane */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#fff", border: "1px solid " + BEIGE, borderRadius: 4, overflow: "hidden" }}>
+        {/* Editor Top Bar */}
+        <div style={{ padding: "16px 20px", borderBottom: "1px solid " + BEIGE, display: "flex", justifyContent: "space-between", alignItems: "center", background: "#FAF8F4" }}>
+          <div>
+            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: DARK, margin: 0 }}>Sourcing CMS Editor</h3>
+            <span style={{ fontSize: 11, color: "#999" }}>Mutates preview state in real-time</span>
+          </div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <Btn variant="secondary" onClick={handleCancel} style={{ fontSize: 11, padding: "6px 12px" }}>Cancel</Btn>
+            <Btn onClick={handleSave} disabled={saving} style={{ fontSize: 11, padding: "6px 12px" }}>
+              {saving ? <Spinner size={12} /> : "Save Changes"}
+            </Btn>
+          </div>
+        </div>
+
+        {/* Scrollable Accordions */}
+        <div style={{ flex: 1, overflowY: "auto", padding: 20 }}>
+          {err && <div style={{ color: RED, background: "#fff3f3", border: "1px solid " + RED, padding: 10, borderRadius: 3, marginBottom: 16, fontSize: 13 }}>{err}</div>}
+          {msg && <div style={{ color: "green", background: "#f0fdf4", border: "1px solid green", padding: 10, borderRadius: 3, marginBottom: 16, fontSize: 13 }}>{msg}</div>}
+
+          {/* 1. Header & Marquees */}
+          <AccordionItem
+            title="1. Header & Marquees"
+            active={activeAccordion === "header"}
+            onClick={() => setActiveAccordion("header")}
+          >
+            <Label>WhatsApp Sourcing Hot-Line</Label>
+            <Input value={draft.wa} onChange={(v) => setKey("wa", v)} placeholder="e.g. 917028311226" />
+            
+            <Label>Contact Email Address</Label>
+            <Input value={draft.email} onChange={(v) => setKey("email", v)} placeholder="e.g. info@xiyora.com" />
+            
+            <Label>Instagram Handle/URL</Label>
+            <Input value={draft.ig} onChange={(v) => setKey("ig", v)} placeholder="e.g. https://instagram.com/xiyora.zi" />
+            
+            <Label>Business Address (Ulhasnagar, Thane)</Label>
+            <Textarea value={draft.address} onChange={(v) => setKey("address", v)} rows={2} />
+            
+            <Label>GST Compliance Note</Label>
+            <Textarea value={draft.gstNote} onChange={(v) => setKey("gstNote", v)} rows={2} />
+            
+            <Label>Navbar brand tagline</Label>
+            <Input value={draft.navBrandTagline} onChange={(v) => setKey("navBrandTagline", v)} />
+
+            <StringListEditor value={draft.marqueeItemsTop} onChange={(v) => setKey("marqueeItemsTop", v)} label="Top Marquee Items Ticker" />
+            <StringListEditor value={draft.marqueeItemsBottom} onChange={(v) => setKey("marqueeItemsBottom", v)} label="Bottom Marquee Items Ticker" />
+          </AccordionItem>
+
+          {/* 2. Hero & Promise */}
+          <AccordionItem
+            title="2. Homepage Hero & Promise"
+            active={activeAccordion === "hero"}
+            onClick={() => setActiveAccordion("hero")}
+          >
+            <Label>Hero Main Heading (first line)</Label>
+            <Input value={draft.heroTitle} onChange={(v) => setKey("heroTitle", v)} />
+            
+            <Label>Hero Sub-heading (gold italicized)</Label>
+            <Input value={draft.heroSubtitle} onChange={(v) => setKey("heroSubtitle", v)} />
+            
+            <Label>Hero Body Text</Label>
+            <Textarea value={draft.heroBody} onChange={(v) => setKey("heroBody", v)} rows={3} />
+            
+            <ImageUploader token={token} slug="home-hero" context="site" label="Hero Background Image" value={draft.heroImage} onChange={(v) => setKey("heroImage", v)} />
+            
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div>
+                <Label>Hero Seal Character</Label>
+                <Input value={draft.heroSealChar} onChange={(v) => setKey("heroSealChar", v)} style={{ width: 80 }} />
+              </div>
+              <div>
+                <Label>Hero Partner Line</Label>
+                <Input value={draft.heroPartnerLine} onChange={(v) => setKey("heroPartnerLine", v)} />
+              </div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div>
+                <Label>CTA Primary Text</Label>
+                <Input value={draft.heroCTAPrimary} onChange={(v) => setKey("heroCTAPrimary", v)} />
+              </div>
+              <div>
+                <Label>CTA Secondary Text</Label>
+                <Input value={draft.heroCTASecondary} onChange={(v) => setKey("heroCTASecondary", v)} />
+              </div>
+            </div>
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.heroFeatures || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Hero Sourcing Trust Features</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <input type="text" value={item.name || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, name: e.target.value };
+                          setKey("heroFeatures", next);
+                        }} placeholder="Icon" style={{ width: 80, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <input type="text" value={item.label || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, label: e.target.value };
+                          setKey("heroFeatures", next);
+                        }} placeholder="Feature Label" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("heroFeatures", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED }}>✕</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("heroFeatures", [...list, { name: "", label: "" }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Feature</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            <Label>Promise Heading (White title)</Label>
+            <Input value={draft.promiseHeading} onChange={(v) => setKey("promiseHeading", v)} />
+            
+            <Label>Promise Body Description</Label>
+            <Textarea value={draft.promiseBody} onChange={(v) => setKey("promiseBody", v)} rows={2} />
+
+            <Label>Starting Price (Why Choose Section)</Label>
+            <Input value={draft.startingPrice} onChange={(v) => setKey("startingPrice", v)} style={{ width: 120 }} />
+
+            <ImageUploader token={token} slug="home-promise" context="site" label="Why Choose Promise Image" value={draft.promiseImage} onChange={(v) => setKey("promiseImage", v)} />
+            <StringListEditor value={draft.trustTickerItems} onChange={(v) => setKey("trustTickerItems", v)} label="Trust Ticker Items" />
+          </AccordionItem>
+
+          {/* 3. About Page */}
+          <AccordionItem
+            title="3. About Page CMS"
+            active={activeAccordion === "about"}
+            onClick={() => setActiveAccordion("about")}
+          >
+            <Label>About Page Hero Label</Label>
+            <Input value={draft.aboutHeroLabel} onChange={(v) => setKey("aboutHeroLabel", v)} />
+            
+            <Label>About Page Hero Main Heading</Label>
+            <Input value={draft.aboutHeroHeading} onChange={(v) => setKey("aboutHeroHeading", v)} />
+            
+            <Label>About Page Hero Description</Label>
+            <Textarea value={draft.aboutHeroBody} onChange={(v) => setKey("aboutHeroBody", v)} rows={3} />
+
+            <StringListEditor value={draft.aboutTrustBar} onChange={(v) => setKey("aboutTrustBar", v)} label="About Page Trust Ticker" />
+
+            <Label>Statement Section Sub-label</Label>
+            <Input value={draft.aboutStatementLabel} onChange={(v) => setKey("aboutStatementLabel", v)} />
+
+            <Label>Statement Section Heading</Label>
+            <Input value={draft.aboutStatementHeading} onChange={(v) => setKey("aboutStatementHeading", v)} />
+
+            <StringListEditor value={draft.aboutStatementBody} onChange={(v) => setKey("aboutStatementBody", v)} label="Statement Main Paragraphs" placeholder="Statement paragraph..." />
+
+            <Label>Natural Latex Section Label</Label>
+            <Input value={draft.aboutNaturalLabel} onChange={(v) => setKey("aboutNaturalLabel", v)} />
+
+            <Label>Natural Latex Section Heading</Label>
+            <Input value={draft.aboutNaturalHeading} onChange={(v) => setKey("aboutNaturalHeading", v)} />
+
+            <StringListEditor value={draft.aboutNaturalBody} onChange={(v) => setKey("aboutNaturalBody", v)} label="Natural Latex Story Paragraphs" />
+
+            <Label>Partnership Section Label</Label>
+            <Input value={draft.aboutPartnerLabel} onChange={(v) => setKey("aboutPartnerLabel", v)} />
+
+            <Label>Partnership Section Heading</Label>
+            <Input value={draft.aboutPartnerHeading} onChange={(v) => setKey("aboutPartnerHeading", v)} />
+
+            <Label>Partnership Section Subtitle</Label>
+            <Input value={draft.aboutPartnerSub} onChange={(v) => setKey("aboutPartnerSub", v)} />
+
+            <Label>Partnership Section Description</Label>
+            <Textarea value={draft.aboutPartnerBody} onChange={(v) => setKey("aboutPartnerBody", v)} rows={3} />
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.aboutPartnerStats || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>About Partner Statistics</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ borderBottom: idx < list.length - 1 ? "1px dashed " + BEIGE : "none", paddingBottom: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <input type="text" value={item.num || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, num: e.target.value };
+                            setKey("aboutPartnerStats", next);
+                          }} placeholder="Number (e.g. LGA+)" style={{ width: 100, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                          <input type="text" value={item.label || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, label: e.target.value };
+                            setKey("aboutPartnerStats", next);
+                          }} placeholder="Label (e.g. Quality)" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        </div>
+                        <textarea value={item.desc || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, desc: e.target.value };
+                          setKey("aboutPartnerStats", next);
+                        }} placeholder="Stat Description" rows={2} style={{ width: "100%", padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3, fontFamily: "sans-serif" }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("aboutPartnerStats", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED, alignSelf: "flex-end" }}>✕ Remove Stat</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("aboutPartnerStats", [...list, { num: "", label: "", desc: "" }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Stat</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.aboutCommitmentPillars || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>About Commitment Pillars</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ borderBottom: idx < list.length - 1 ? "1px dashed " + BEIGE : "none", paddingBottom: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <input type="text" value={item.icon || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, icon: e.target.value };
+                            setKey("aboutCommitmentPillars", next);
+                          }} placeholder="Icon" style={{ width: 60, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                          <input type="text" value={item.title || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, title: e.target.value };
+                            setKey("aboutCommitmentPillars", next);
+                          }} placeholder="Title" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        </div>
+                        <textarea value={item.body || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, body: e.target.value };
+                          setKey("aboutCommitmentPillars", next);
+                        }} placeholder="Pillar Description" rows={2} style={{ width: "100%", padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3, fontFamily: "sans-serif" }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("aboutCommitmentPillars", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED, alignSelf: "flex-end" }}>✕ Remove Pillar</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("aboutCommitmentPillars", [...list, { icon: "", title: "", body: "" }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Pillar</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            <Label>About CTA Heading</Label>
+            <Input value={draft.aboutCTAHeading} onChange={(v) => setKey("aboutCTAHeading", v)} />
+
+            <Label>About CTA Description</Label>
+            <Textarea value={draft.aboutCTABody} onChange={(v) => setKey("aboutCTABody", v)} rows={2} />
+          </AccordionItem>
+
+          {/* 4. Supplier Page & B2B Inquiry */}
+          <AccordionItem
+            title="4. Supplier B2B Page & Inquiry Form"
+            active={activeAccordion === "supplier"}
+            onClick={() => setActiveAccordion("supplier")}
+          >
+            <ImageUploader token={token} slug="supplier-hero" context="site" label="Supplier Page Hero Image" value={draft.supplierHeroImage} onChange={(v) => setKey("supplierHeroImage", v)} />
+            
+            <Label>B2B Inquiry Form Description</Label>
+            <Textarea value={draft.b2bFormNote} onChange={(v) => setKey("b2bFormNote", v)} rows={2} />
+
+            <StringListEditor value={draft.b2bTradeCategories} onChange={(v) => setKey("b2bTradeCategories", v)} label="B2B Trade Business Types" />
+            <StringListEditor value={draft.b2bProducts} onChange={(v) => setKey("b2bProducts", v)} label="B2B Products Offered" />
+            <StringListEditor value={draft.b2bQuantities} onChange={(v) => setKey("b2bQuantities", v)} label="B2B Quantity Range Tiers" />
+            <StringListEditor value={draft.b2bSources} onChange={(v) => setKey("b2bSources", v)} label="B2B Referral Sources list" />
+            <StringListEditor value={draft.b2bContactMethods} onChange={(v) => setKey("b2bContactMethods", v)} label="B2B Contact Methods list" />
+
+            <Label>B2B Sourcing Default Country</Label>
+            <Input value={draft.b2bDefaultCountry} onChange={(v) => setKey("b2bDefaultCountry", v)} />
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.supplierFeatures || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Supplier Key Features Icons</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <input type="text" value={item.name || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, name: e.target.value };
+                          setKey("supplierFeatures", next);
+                        }} placeholder="Icon" style={{ width: 80, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <input type="text" value={item.label || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, label: e.target.value };
+                          setKey("supplierFeatures", next);
+                        }} placeholder="Label" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("supplierFeatures", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED }}>✕</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("supplierFeatures", [...list, { name: "", label: "" }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Feature</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.supplierProcess || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Supplier Sourcing Process Steps</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ borderBottom: idx < list.length - 1 ? "1px dashed " + BEIGE : "none", paddingBottom: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <input type="text" value={item.step || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, step: e.target.value };
+                            setKey("supplierProcess", next);
+                          }} placeholder="Step" style={{ width: 60, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                          <input type="text" value={item.title || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, title: e.target.value };
+                            setKey("supplierProcess", next);
+                          }} placeholder="Step Title" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        </div>
+                        <textarea value={item.body || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, body: e.target.value };
+                          setKey("supplierProcess", next);
+                        }} placeholder="Step Description" rows={2} style={{ width: "100%", padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3, fontFamily: "sans-serif" }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("supplierProcess", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED, alignSelf: "flex-end" }}>✕ Remove Step</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("supplierProcess", [...list, { step: "", title: "", body: "" }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Step</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            <StringListEditor value={draft.supplierPricingTiers} onChange={(v) => setKey("supplierPricingTiers", v)} label="Supplier Landed Pricing MOQ Tiers" />
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.supplierPricingRows || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Supplier MOQ Pricing Table Rows</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ borderBottom: idx < list.length - 1 ? "1px dashed " + BEIGE : "none", paddingBottom: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <input type="text" value={item.label || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, label: e.target.value };
+                          setKey("supplierPricingRows", next);
+                        }} placeholder="Pricing Feature (e.g. Lead Time)" style={{ padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                          {(item.values || ["", "", "", ""]).map((val: any, vIdx: number) => (
+                            <input key={vIdx} type="text" value={val} onChange={e => {
+                              const nextRows = [...list];
+                              const nextVals = [...(item.values || ["", "", "", ""])];
+                              nextVals[vIdx] = e.target.value;
+                              nextRows[idx] = { ...item, values: nextVals };
+                              setKey("supplierPricingRows", nextRows);
+                            }} placeholder={`Tier ${vIdx + 1} rate`} style={{ padding: 6, fontSize: 12, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                          ))}
+                        </div>
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("supplierPricingRows", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED, alignSelf: "flex-end" }}>✕ Remove Row</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("supplierPricingRows", [...list, { label: "", values: ["", "", "", ""] }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Row</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.supplierDetailCards || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Supplier Sourcing Support Cards</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ borderBottom: idx < list.length - 1 ? "1px dashed " + BEIGE : "none", paddingBottom: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <input type="text" value={item.title || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, title: e.target.value };
+                          setKey("supplierDetailCards", next);
+                        }} placeholder="Card Title" style={{ padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <textarea value={item.body || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, body: e.target.value };
+                          setKey("supplierDetailCards", next);
+                        }} placeholder="Card Body Description" rows={2} style={{ width: "100%", padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3, fontFamily: "sans-serif" }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("supplierDetailCards", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED, alignSelf: "flex-end" }}>✕ Remove Card</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("supplierDetailCards", [...list, { title: "", body: "" }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Card</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            <Label>Supplier CTA Footer Heading</Label>
+            <Input value={draft.supplierCTAHeading} onChange={(v) => setKey("supplierCTAHeading", v)} />
+
+            <Label>Supplier CTA Footer Body</Label>
+            <Textarea value={draft.supplierCTABody} onChange={(v) => setKey("supplierCTABody", v)} rows={2} />
+          </AccordionItem>
+
+          {/* 5. Reviews Manager */}
+          <AccordionItem
+            title="5. Reviews Database CMS"
+            active={activeAccordion === "reviews"}
+            onClick={() => setActiveAccordion("reviews")}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div>
+                <Label>Total Review Count</Label>
+                <Input value={draft.reviewsTotalCount} onChange={(v) => setKey("reviewsTotalCount", v)} />
+              </div>
+              <div>
+                <Label>Average Rating (out of 5)</Label>
+                <Input value={draft.reviewsAvgRating} onChange={(v) => setKey("reviewsAvgRating", v)} />
+              </div>
+            </div>
+
+            <Label>Reviews Page Label Heading</Label>
+            <Input value={draft.reviewsPageHeading} onChange={(v) => setKey("reviewsPageHeading", v)} />
+
+            <Label>Reviews Page Sub-text Description</Label>
+            <Textarea value={draft.reviewsPageBody} onChange={(v) => setKey("reviewsPageBody", v)} rows={3} />
+
+            <StringListEditor value={draft.reviewsFormProducts} onChange={(v) => setKey("reviewsFormProducts", v)} label="Form Review Selectable Products" />
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.reviewsDistribution || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Star Distribution Percentages</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <span style={{ fontSize: 12, color: "#888", width: 50 }}>{item.stars}★:</span>
+                        <input type="number" value={item.pct} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, pct: Number(e.target.value) || 0 };
+                          setKey("reviewsDistribution", next);
+                        }} placeholder="Percentage" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <span>%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.reviewsList || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Reviews Sourcing Registry ({list.length} items)</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 8, maxHeight: 360, overflowY: "auto", paddingRight: 4 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ borderBottom: "1px solid #eee", paddingBottom: 14, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <input type="text" value={item.name || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, name: e.target.value };
+                            setKey("reviewsList", next);
+                          }} placeholder="Name" style={{ flex: 1, padding: 6, fontSize: 12, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                          <input type="text" value={item.city || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, city: e.target.value };
+                            setKey("reviewsList", next);
+                          }} placeholder="City" style={{ width: 120, padding: 6, fontSize: 12, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        </div>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <input type="text" value={item.product || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, product: e.target.value };
+                            setKey("reviewsList", next);
+                          }} placeholder="Product detail purchased" style={{ flex: 1, padding: 6, fontSize: 12, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                          <select value={item.rating || 5} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, rating: Number(e.target.value) };
+                            setKey("reviewsList", next);
+                          }} style={{ width: 80, padding: 6, fontSize: 12, border: "1px solid " + BEIGE, borderRadius: 3 }}>
+                            <option value="5">5★</option>
+                            <option value="4">4★</option>
+                            <option value="3">3★</option>
+                            <option value="2">2★</option>
+                            <option value="1">1★</option>
+                          </select>
+                        </div>
+                        <textarea value={item.text || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, text: e.target.value };
+                          setKey("reviewsList", next);
+                        }} placeholder="Review comment text..." rows={2} style={{ width: "100%", padding: 6, fontSize: 12, border: "1px solid " + BEIGE, borderRadius: 3, fontFamily: "sans-serif" }} />
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <label style={{ fontSize: 11, display: "flex", alignItems: "center", gap: 4 }}>
+                            <input type="checkbox" checked={item.verified ?? true} onChange={e => {
+                              const next = [...list];
+                              next[idx] = { ...item, verified: e.target.checked };
+                              setKey("reviewsList", next);
+                            }} /> Verified Purchaser
+                          </label>
+                          <button type="button" onClick={() => {
+                            const next = list.filter((_: any, i: number) => i !== idx);
+                            setKey("reviewsList", next);
+                          }} style={{ border: "none", background: "none", cursor: "pointer", color: RED, fontSize: 12 }}>✕ Delete Review</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <button type="button" onClick={() => setKey("reviewsList", [{ name: "", city: "", product: "", category: "mattress", rating: 5, date: "Today", verified: true, text: "" }, ...list])} style={{ width: "100%", border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "8px", borderRadius: 3, cursor: "pointer", fontSize: 12, marginTop: 12 }}>
+                    + Add New Review to Top
+                  </button>
+                </div>
+              );
+            })()}
+          </AccordionItem>
+
+          {/* 6. FAQ Manager */}
+          <AccordionItem
+            title="6. FAQ Manager CMS"
+            active={activeAccordion === "faq"}
+            onClick={() => setActiveAccordion("faq")}
+          >
+            <PairListEditor value={draft.faqItems} onChange={(v) => setKey("faqItems", v)} label="FAQ Items List (Question / Answer)" keyPlaceholder="Question" valPlaceholder="Answer" />
+          </AccordionItem>
+
+          {/* 7. Freight Calculator */}
+          <AccordionItem
+            title="7. Freight Sourcing Parameters"
+            active={activeAccordion === "freight"}
+            onClick={() => setActiveAccordion("freight")}
+          >
+            <Label>Calculator Block Header</Label>
+            <Input value={draft.freightTitle} onChange={(v) => setKey("freightTitle", v)} />
+
+            <Label>Calculator Subheading description</Label>
+            <Input value={draft.freightSubtitle} onChange={(v) => setKey("freightSubtitle", v)} />
+
+            <Label>Port Handling flat fee (USD)</Label>
+            <Input value={draft.freightPortHandling} onChange={(v) => setKey("freightPortHandling", v)} style={{ width: 120 }} />
+
+            <Label>IGST Customs Rate (decimal, e.g. 0.18 for 18%)</Label>
+            <Input value={draft.freightIGSTRate} onChange={(v) => setKey("freightIGSTRate", v)} style={{ width: 120 }} />
+
+            <Label>Calculator Footer Disclaimer Note</Label>
+            <Textarea value={draft.freightDisclaimer} onChange={(v) => setKey("freightDisclaimer", v)} rows={2} />
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.freightOrigins || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Origin Loading Ports (Sea Freight rates)</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <input type="text" value={item.name || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, name: e.target.value };
+                          setKey("freightOrigins", next);
+                        }} placeholder="Port Name (e.g. Shanghai Port)" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <input type="number" value={item.rate || 0} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, rate: Number(e.target.value) };
+                          setKey("freightOrigins", next);
+                        }} placeholder="Rate/CBM" style={{ width: 100, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("freightOrigins", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED }}>✕</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("freightOrigins", [...list, { name: "", rate: 0 }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Origin Port</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.freightDestinations || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Destination Discharge Ports (India Customs & Inland rates)</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ borderBottom: idx < list.length - 1 ? "1px dashed " + BEIGE : "none", paddingBottom: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <input type="text" value={item.name || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, name: e.target.value };
+                          setKey("freightDestinations", next);
+                        }} placeholder="Destination Port Name" style={{ padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <input type="number" value={item.customs || 0} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, customs: Number(e.target.value) };
+                            setKey("freightDestinations", next);
+                          }} placeholder="Customs Flat (USD)" style={{ flex: 1, padding: 6, fontSize: 12, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                          <input type="number" value={item.inland || 0} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, inland: Number(e.target.value) };
+                            setKey("freightDestinations", next);
+                          }} placeholder="Inland/CBM (USD)" style={{ flex: 1, padding: 6, fontSize: 12, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        </div>
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("freightDestinations", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED, alignSelf: "flex-end" }}>✕ Remove Port</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("freightDestinations", [...list, { name: "", customs: 0, inland: 0 }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Discharge Port</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.freightMaterials || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Freight Material Volume Multipliers</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <input type="text" value={item.name || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, name: e.target.value };
+                          setKey("freightMaterials", next);
+                        }} placeholder="Material Category" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <input type="number" step="0.01" value={item.mult || 1.0} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, mult: Number(e.target.value) };
+                          setKey("freightMaterials", next);
+                        }} placeholder="Multiplier" style={{ width: 100, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("freightMaterials", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED }}>✕</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("freightMaterials", [...list, { name: "", mult: 1.0 }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Material Multiplier</button>
+                  </div>
+                </div>
+              );
+            })()}
+          </AccordionItem>
+
+          {/* 8. Homepage Category Images */}
+          <AccordionItem
+            title="8. Homepage Category Grid Images"
+            active={activeAccordion === "categories"}
+            onClick={() => setActiveAccordion("categories")}
+          >
+            <p style={{ fontSize:12, color:"#888", marginBottom:16, lineHeight:1.65 }}>
+              These images appear in the "Shop By Category" section. Overwrites default images.
+            </p>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr", gap:16 }}>
+              {([
+                ["catImg_Mattresses","Mattresses","mattresses"],
+                ["catImg_Pillows","Pillows","pillows"],
+                ["catImg_Toppers","Toppers","toppers"],
+                ["catImg_Cushions","Cushions","cushions"],
+                ["catImg_LatexMaterial","Latex Material","latex-material"],
+              ] as const).map(([key,label,slug])=>(
+                <div key={key} style={{ background:"#FAF8F4", borderRadius:4, padding:"14px 14px 10px", border:"1px solid " + BEIGE }}>
+                  {draft[key] && (
+                    <img src={draft[key]} alt={label} style={{ width:"100%", height:140, objectFit:"cover", borderRadius:3, marginBottom:10, display:"block" }} onError={(e)=>{ (e.target as HTMLImageElement).style.display="none"; }}/>
+                  )}
+                  <ImageUploader token={token} slug={slug} context="category" label={label} value={draft[key]} onChange={(v)=>setKey(key, v)}/>
+                </div>
+              ))}
+            </div>
+          </AccordionItem>
+
+          {/* 9. Footer & Loader Settings */}
+          <AccordionItem
+            title="9. Navigation & Loader Settings"
+            active={activeAccordion === "footer"}
+            onClick={() => setActiveAccordion("footer")}
+          >
+            <Label>Loader Brand text</Label>
+            <Input value={draft.loadingBrand} onChange={(v) => setKey("loadingBrand", v)} />
+
+            <Label>Loader Tagline sub-text</Label>
+            <Input value={draft.loadingTagline} onChange={(v) => setKey("loadingTagline", v)} />
+
+            <StringListEditor value={draft.loadingStats} onChange={(v) => setKey("loadingStats", v)} label="Loader Stats Band" />
+            <StringListEditor value={draft.trustTickerItems} onChange={(v) => setKey("trustTickerItems", v)} label="Footer Trust ticker" />
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.certChips || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Footer Certification Chips</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <input type="text" value={item.icon || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, icon: e.target.value };
+                          setKey("certChips", next);
+                        }} placeholder="Icon" style={{ width: 60, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <input type="text" value={item.label || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, label: e.target.value };
+                          setKey("certChips", next);
+                        }} placeholder="Label" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("certChips", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED }}>✕</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("certChips", [...list, { icon: "", label: "" }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Certification Chip</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {(() => {
+              let list = [];
+              try { list = JSON.parse(draft.quickLinks || "[]"); } catch {}
+              return (
+                <div style={{ marginBottom: 16, border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
+                  <Label>Homepage Quick Links</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8 }}>
+                    {list.map((item: any, idx: number) => (
+                      <div key={idx} style={{ borderBottom: idx < list.length - 1 ? "1px dashed " + BEIGE : "none", paddingBottom: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <input type="text" value={item.ic || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, ic: e.target.value };
+                            setKey("quickLinks", next);
+                          }} placeholder="Icon (e.g. box)" style={{ width: 80, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                          <input type="text" value={item.t || ""} onChange={e => {
+                            const next = [...list];
+                            next[idx] = { ...item, t: e.target.value };
+                            setKey("quickLinks", next);
+                          }} placeholder="Title" style={{ flex: 1, padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        </div>
+                        <input type="text" value={item.d || ""} onChange={e => {
+                          const next = [...list];
+                          next[idx] = { ...item, d: e.target.value };
+                          setKey("quickLinks", next);
+                        }} placeholder="Description tagline" style={{ padding: 6, fontSize: 13, border: "1px solid " + BEIGE, borderRadius: 3 }} />
+                        <button type="button" onClick={() => {
+                          const next = list.filter((_: any, i: number) => i !== idx);
+                          setKey("quickLinks", next);
+                        }} style={{ border: "none", background: "none", cursor: "pointer", color: RED, alignSelf: "flex-end" }}>✕ Remove Link</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setKey("quickLinks", [...list, { ic: "", t: "", d: "" }])} style={{ border: "1px dashed " + GOLD, color: GOLD, background: "none", padding: "6px", borderRadius: 3, cursor: "pointer", fontSize: 12 }}>+ Add Quick Link</button>
+                  </div>
+                </div>
+              );
+            })()}
+
+            <PairListEditor value={draft.whyXiyoraCards} onChange={(v) => setKey("whyXiyoraCards", v)} label="Why choose XIYORA Cards" keyPlaceholder="Title" valPlaceholder="Description" hasIcon={true} />
+            <PairListEditor value={draft.howItWorksSteps} onChange={(v) => setKey("howItWorksSteps", v)} label="Homepage Sourcing Process Steps" keyPlaceholder="Title" valPlaceholder="Description" hasIcon={true} />
+          </AccordionItem>
         </div>
       </div>
 
-      <Section title="Homepage Hero">
-        <Label>Hero Headline (first line)</Label>
-        <Input value={form.heroTitle} onChange={set("heroTitle")} placeholder="Premium Latex Comfort," />
-        <Label>Hero Subline (gold italic, second line)</Label>
-        <Input value={form.heroSubtitle} onChange={set("heroSubtitle")} placeholder="Sourced for India." />
-        <Label>Hero Body Text</Label>
-        <Textarea value={form.heroBody} onChange={set("heroBody")} rows={3} placeholder="Pure Talalay & Dunlop latex…" />
-        <ImageUploader token={token} slug="homepage" context="site" label="Hero Background Image" value={form.heroImage} onChange={set("heroImage")} />
-      </Section>
-
-      <Section title="Category Section Images">
-        <p style={{ fontSize:12, color:"#888", marginBottom:16, lineHeight:1.65 }}>
-          These images appear on the homepage "Shop By Category" grid. Upload a photo for each category — if left empty, the default image is used automatically.
-        </p>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))", gap:16 }}>
+      {/* RIGHT: Live Visual Preview Pane */}
+      <div style={{ width: "50%", display: "flex", flexDirection: "column", background: "#FAF8F4", border: "1px solid " + BEIGE, borderRadius: 4, overflow: "hidden" }}>
+        {/* Preview Top Bar / Page Tabs */}
+        <div style={{ display: "flex", background: DARK, borderBottom: "1px solid " + BEIGE, overflowX: "auto", flexShrink: 0 }}>
           {([
-            ["catImg_Mattresses","Mattresses","mattresses"],
-            ["catImg_Pillows","Pillows","pillows"],
-            ["catImg_Toppers","Toppers","toppers"],
-            ["catImg_Cushions","Cushions","cushions"],
-            ["catImg_LatexMaterial","Latex Material","latex-material"],
-          ] as const).map(([key,label,slug])=>(
-            <div key={key} style={{ background:"#FAF8F4", borderRadius:4, padding:"14px 14px 10px", border:`1px solid ${BEIGE}` }}>
-              {form[key] && (
-                <img src={form[key]} alt={label} style={{ width:"100%", height:100, objectFit:"cover", borderRadius:3, marginBottom:10, display:"block" }} onError={(e)=>{ (e.target as HTMLImageElement).style.display="none"; }}/>
-              )}
-              <ImageUploader token={token} slug={slug} context="category" label={label} value={form[key]} onChange={set(key)}/>
-            </div>
+            ["home", "Home"],
+            ["about", "About"],
+            ["supplier", "Supplier B2B"],
+            ["reviews", "Reviews"],
+            ["faq", "FAQ"],
+            ["contact", "Contact"],
+            ["shipping", "Shipping"]
+          ]).map(([tabKey, tabLabel]) => (
+            <button
+              key={tabKey}
+              onClick={() => setPreviewTab(tabKey)}
+              type="button"
+              style={{
+                background: previewTab === tabKey ? GOLD : "transparent",
+                color: previewTab === tabKey ? "#fff" : "#aaa",
+                border: "none",
+                padding: "14px 18px",
+                fontSize: 12,
+                fontFamily: "'Inter', sans-serif",
+                cursor: "pointer",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                whiteSpace: "nowrap",
+                borderBottom: previewTab === tabKey ? "2px solid " + GOLD : "none"
+              }}
+            >
+              {tabLabel}
+            </button>
           ))}
         </div>
-      </Section>
 
-      <Section title="Homepage Promise Section">
-        <ImageUploader token={token} slug="homepage-promise" context="site" label="Promise Section Image (right panel)" value={form.promiseImage} onChange={set("promiseImage")} />
-      </Section>
-
-      <Section title="Partnership / Supplier Page">
-        <ImageUploader token={token} slug="supplier-hero" context="site" label="Supplier Page Hero Image (right panel)" value={form.supplierHeroImage} onChange={set("supplierHeroImage")} />
-      </Section>
-
-      <Section title="Contact & Business Info">
-        <Label>WhatsApp Number (with country code, no +)</Label>
-        <Input value={form.wa} onChange={set("wa")} placeholder="917028311226" />
-        <Label>Email Address</Label>
-        <Input value={form.email} onChange={set("email")} placeholder="xiyatosaanvi@gmail.com" />
-        <Label>Instagram URL</Label>
-        <Input value={form.ig} onChange={set("ig")} placeholder="https://www.instagram.com/xiyora.zi/" />
-        <Label>Business Address</Label>
-        <Textarea value={form.address} onChange={set("address")} rows={2} />
-        <Label>GST Note</Label>
-        <Textarea value={form.gstNote} onChange={set("gstNote")} rows={2} />
-      </Section>
-
-      <div style={{ paddingTop:8 }}>
-        <Btn onClick={save} disabled={saving}>{saving ? <Spinner size={14}/> : "Save All Changes"}</Btn>
+        {/* Render View inside scrollable wrapper */}
+        <div style={{ flex: 1, overflowY: "auto", position: "relative", background: "#fff" }}>
+          {previewTab === "home" && (
+            <HomeView
+              cur={currency}
+              wl={[]}
+              onWish={() => {}}
+              onOpen={() => {}}
+              onCatalog={() => {}}
+              onCatFilter={() => {}}
+              onSupplier={() => setPreviewTab("supplier")}
+              onInquire={() => {}}
+              setPage={(p: any) => {
+                if (["about", "supplier", "reviews", "faq", "contact", "shipping"].includes(p)) {
+                  setPreviewTab(p);
+                }
+              }}
+            />
+          )}
+          {previewTab === "about" && (
+            <AboutView
+              setPage={(p: any) => {
+                if (["home", "supplier", "contact"].includes(p)) {
+                  setPreviewTab(p === "home" ? "home" : p);
+                }
+              }}
+              onCatalog={() => {}}
+            />
+          )}
+          {previewTab === "supplier" && (
+            <SupplierView
+              onCatalog={() => {}}
+              onInquire={() => {}}
+              setPage={(p: any) => {
+                if (["home", "contact"].includes(p)) {
+                  setPreviewTab(p === "home" ? "home" : p);
+                }
+              }}
+              cur={currency}
+            />
+          )}
+          {previewTab === "reviews" && (
+            <ReviewsView
+              cur={currency}
+              setPage={(p: any) => {
+                if (p === "home") setPreviewTab("home");
+              }}
+            />
+          )}
+          {previewTab === "faq" && (
+            <SimplePage
+              title="FAQ"
+              content={(() => {
+                let faqs = [];
+                try { if (draft.faqItems) faqs = JSON.parse(draft.faqItems); } catch {}
+                return faqs;
+              })()}
+              setPage={(p: any) => {
+                if (p === "home") setPreviewTab("home");
+              }}
+            />
+          )}
+          {previewTab === "contact" && (
+            <SimplePage
+              title="Contact XIYORA"
+              content={[
+                ["WhatsApp (Fastest)", "+" + (draft.wa || "")],
+                ["Email", draft.email || ""],
+                ["Instagram", "@xiyora.zi — " + (draft.ig || "")],
+                ["Address", draft.address || ""],
+                ["Response Time", "We reply within 24–48 hours. WhatsApp is the fastest channel."]
+              ]}
+              setPage={(p: any) => {
+                if (p === "home") setPreviewTab("home");
+              }}
+            />
+          )}
+          {previewTab === "shipping" && (
+            <SimplePage
+              title="Shipping & Delivery"
+              content={[
+                ["Origin", "Imported from Bingxi, China via sea freight."],
+                ["Indian Ports", "Mumbai (Nhava Sheva), Mundra, Chennai, Kolkata, Cochin — based on buyer location."],
+                ["Sea Freight", "~25–40 days from order confirmation, depending on product and quantity."],
+                ["Inland Delivery", "3–10 days after port clearance depending on your zone."],
+                ["Costs", "Shipping, customs, IGST, and inland delivery are included in your final quoted price."]
+              ]}
+              setPage={(p: any) => {
+                if (p === "home") setPreviewTab("home");
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -1243,7 +2352,18 @@ function AdminDiagnostics() {
   );
 }
 
-export default function AdminPanel() {
+export default function AdminPanel({
+  BIZ,
+  HomeView,
+  AboutView,
+  SupplierView,
+  ReviewsView,
+  SimplePage,
+  B2BInquiryForm,
+  forceRefresh,
+  products,
+  currency,
+}: any) {
   const [token, setToken] = useState<string|null>(() => { try { return localStorage.getItem(TOKEN_KEY); } catch { return null; } });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -1423,7 +2543,21 @@ export default function AdminPanel() {
         </aside>
         <main className="adm-main" style={{ flex:1, padding:"28px 36px", overflowY:"auto" }}>
           {section==="products" && <ProductsPanel token={token} />}
-          {section==="site" && <SiteContentPanel token={token} />}
+          {section==="site" && (
+            <SiteContentPanel
+              token={token}
+              BIZ={BIZ}
+              HomeView={HomeView}
+              AboutView={AboutView}
+              SupplierView={SupplierView}
+              ReviewsView={ReviewsView}
+              SimplePage={SimplePage}
+              B2BInquiryForm={B2BInquiryForm}
+              forceRefresh={forceRefresh}
+              products={products}
+              currency={currency}
+            />
+          )}
           {section==="leads" && <LeadsPanel token={token} />}
         </main>
       </div>
