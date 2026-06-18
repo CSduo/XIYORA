@@ -15,7 +15,11 @@ export function getDb() {
       "DATABASE_URL must be set. Did you forget to configure the DATABASE_URL environment variable?",
     );
   }
-  poolInstance = new Pool({ connectionString: dbUrl });
+  let connectionString = dbUrl;
+  if (connectionString.includes("sslmode=require")) {
+    connectionString = connectionString.replace("sslmode=require", "sslmode=verify-full");
+  }
+  poolInstance = new Pool({ connectionString });
   dbInstance = drizzle(poolInstance, { schema });
   return dbInstance;
 }

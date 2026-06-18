@@ -8,7 +8,6 @@
 
   "functions": {
     "api/server.js": {
-      "memory": 512,
       "maxDuration": 30,
       "includeFiles": "api/dist/**"
     }
