@@ -646,8 +646,8 @@
 }
 
 /* ── 23. RESPONSIVE NAVBAR LAYOUT OVERHAUL ─────────────────── */
-/* Desktop (>=1200px): Show nav links, hide hamburger */
-@media (min-width: 1200px) {
+/* Desktop (>=1340px): Show nav links, hide hamburger */
+@media (min-width: 1340px) {
   .nav-hamburger {
     display: none !important;
   }
@@ -656,8 +656,8 @@
   }
 }
 
-/* Mobile/Tablet (<1200px): Hide nav links, show hamburger */
-@media (max-width: 1199px) {
+/* Mobile/Tablet (<1340px): Hide nav links, show hamburger */
+@media (max-width: 1339px) {
   .nc {
     display: none !important;
   }
@@ -689,21 +689,7 @@
   }
 }
 
-/* CMS Editor Outline & Highlight System */
-[data-cms-id] {
-  cursor: pointer !important;
-  position: relative;
-  transition: outline 0.15s ease-in-out, background-color 0.15s ease-in-out;
-}
-[data-cms-id]:hover {
-  outline: 2px dashed #C8A97E !important;
-  outline-offset: 2px;
-}
-[data-cms-id].cms-selected {
-  outline: 2px solid #C8A97E !important;
-  outline-offset: 2px;
-  background-color: rgba(200, 169, 126, 0.08) !important;
-}
+/* CMS Editor Outline & Highlight System removed */
 
 /* ── CURSOR: ensure native cursor is always visible ── */
 /* The custom GoldCursor is an overlay; native cursor must remain */

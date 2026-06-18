@@ -28,8 +28,22 @@ const RESOLUTIONS = [
 ];
 import { useState, useEffect, useCallback, useRef } from "react";
 
-const CURRENCY_FLAGS: Record<string, string> = {
-  INR: "🇮🇳", USD: "🇺🇸", EUR: "🇪🇺", GBP: "🇬🇧", AED: "🇦🇪", SAR: "🇸🇦", QAR: "🇶🇦", KWD: "🇰🇼", BHD: "🇧🇭", OMR: "🇴🇲", SGD: "🇸🇬", AUD: "🇦🇺", CAD: "🇨🇦", JPY: "🇯🇵"
+const CURRENCY_COUNTRY_CODES: Record<string, string> = {
+  INR: "in", USD: "us", EUR: "eu", GBP: "gb", AED: "ae", SAR: "sa", QAR: "qa", KWD: "kw", BHD: "bh", OMR: "om", SGD: "sg", AUD: "au", CAD: "ca", JPY: "jp"
+};
+const getFlagElement = (c: string) => {
+  const code = CURRENCY_COUNTRY_CODES[c];
+  if (!code) return null;
+  return (
+    <img 
+      src={`https://flagcdn.com/w20/${code}.png`} 
+      srcSet={`https://flagcdn.com/w40/${code}.png 2x`}
+      width="18" 
+      height="13" 
+      alt="" 
+      style={{ objectFit: "cover", borderRadius: 1.5, display: "inline-block", verticalAlign: "middle", flexShrink: 0 }} 
+    />
+  );
 };
 
 const FX: Record<string, { symbol: string; rate: number; name: string; locale: string }> = {
@@ -1819,7 +1833,10 @@ function SiteContentPanel({
                       }}
                       style={{ accentColor: GOLD }}
                     />
-                    <span>{CURRENCY_FLAGS[c] || ""} {c} - {FX[c]?.name}</span>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 18, height: 13, flexShrink: 0 }}>{getFlagElement(c)}</span>
+                      <span>{c} - {FX[c]?.name}</span>
+                    </span>
                   </label>
                 );
               })}

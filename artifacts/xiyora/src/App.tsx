@@ -5568,8 +5568,22 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
 }
 
 /* ─── CURRENCY FLAGS ──────────────────────────────────────── */
-const CURRENCY_FLAGS:Record<string,string>={
-  INR:"🇮🇳",USD:"🇺🇸",EUR:"🇪🇺",GBP:"🇬🇧",AED:"🇦🇪",SAR:"🇸🇦",QAR:"🇶🇦",KWD:"🇰🇼",BHD:"🇧🇭",OMR:"🇴🇲",SGD:"🇸🇬",AUD:"🇦🇺",CAD:"🇨🇦",JPY:"🇯🇵"
+const CURRENCY_COUNTRY_CODES: Record<string, string> = {
+  INR: "in", USD: "us", EUR: "eu", GBP: "gb", AED: "ae", SAR: "sa", QAR: "qa", KWD: "kw", BHD: "bh", OMR: "om", SGD: "sg", AUD: "au", CAD: "ca", JPY: "jp"
+};
+const getFlagElement = (c: string) => {
+  const code = CURRENCY_COUNTRY_CODES[c];
+  if (!code) return null;
+  return (
+    <img 
+      src={`https://flagcdn.com/w20/${code}.png`} 
+      srcSet={`https://flagcdn.com/w40/${code}.png 2x`}
+      width="18" 
+      height="13" 
+      alt="" 
+      style={{ objectFit: "cover", borderRadius: 1.5, display: "inline-block", verticalAlign: "middle", flexShrink: 0 }} 
+    />
+  );
 };
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
@@ -5671,7 +5685,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               style={{display:"flex",alignItems:"center",gap:5,background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.28)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
               data-cms-id="currency-selector"
             >
-              <span style={{fontSize:14,lineHeight:1}}>{CURRENCY_FLAGS[cur]||""}</span>
+              <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13}}>{getFlagElement(cur)}</span>
               <span>{cur}</span>
               <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#C8A97E" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
                 <path d="M2 3.5l3 3 3-3"/>
@@ -5685,7 +5699,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
                     onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(200,169,126,.07)";}}
                     onMouseLeave={(e:any)=>{if(c!==cur)e.currentTarget.style.background="transparent";}}
                   >
-                    <span style={{fontSize:16,lineHeight:1,flexShrink:0}}>{CURRENCY_FLAGS[c]||""}</span>
+                    <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13,flexShrink:0}}>{getFlagElement(c)}</span>
                     <span style={{fontWeight:c===cur?600:400}}>{c} ({FX[c]?.symbol.trim()}) - {FX[c]?.name}</span>
                     {c===cur&&<svg width={10} height={10} viewBox="0 0 12 12" fill="none" stroke="#C8A97E" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{marginLeft:"auto"}}><path d="M2 6l3 3 5-5"/></svg>}
                   </button>
