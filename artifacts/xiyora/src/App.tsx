@@ -1333,17 +1333,31 @@ const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
 /* ─── LUXURY COMPONENTS (v6 visual upgrade) ─────────────── */
 
 /* ── Loading Screen ── */
-function LoadingScreen({onDone}:{onDone:()=>void}){
+function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
   const [exit,setExit]=useState(false);
   const [num,setNum]=useState(0);
+  const startTimeRef=useRef(Date.now());
   useEffect(()=>{
-    const t=setTimeout(()=>{setExit(true);setTimeout(onDone,700);},2600);
-    return()=>clearTimeout(t);
-  },[onDone]);
+    let t: ReturnType<typeof setTimeout> | undefined;
+    if(appReady){
+      const elapsed=Date.now()-startTimeRef.current;
+      const minTime=1200; // enough time for content to paint behind loader
+      const delay=Math.max(0,minTime-elapsed);
+      t=setTimeout(()=>{
+        setExit(true);
+        setTimeout(onDone,700); // must be >= exit animation duration (650ms)
+      },delay);
+    }
+    return()=>{if(t)clearTimeout(t);};
+  },[appReady,onDone]);
   useEffect(()=>{
     let frame=0;
-    const tick=()=>{frame++;setNum(Math.min(37,Math.floor(frame*1.2)));if(frame<31)requestAnimationFrame(tick);};
-    const id=setTimeout(()=>requestAnimationFrame(tick),1100);
+    const tick=()=>{
+      frame++;
+      setNum(Math.min(93,Math.floor(frame*3.2)));
+      if(frame<30)requestAnimationFrame(tick);
+    };
+    const id=setTimeout(()=>requestAnimationFrame(tick),100);
     return()=>clearTimeout(id);
   },[]);
   return(
@@ -1362,11 +1376,11 @@ function LoadingScreen({onDone}:{onDone:()=>void}){
         <div className="xl-sub">Crafted Comfort · Sourced for India</div>
       </div>
       <div className="xl-count-row">
-        <div className="xl-count-item"><div className="xl-count-num">{num}+</div><div className="xl-count-label">Products</div></div>
-        <div className="xl-count-item"><div className="xl-count-num" style={{fontSize:18,marginTop:4}}>🇨🇳→🇮🇳</div><div className="xl-count-label">Direct Sourcing</div></div>
+        <div className="xl-count-item"><div className="xl-count-num">{num}%</div><div className="xl-count-label">Direct Sourcing</div></div>
+        <div className="xl-count-item"><div className="xl-count-num" style={{fontSize:18,marginTop:4}}>🇨🇳→🇮🇳</div><div className="xl-count-label">Bingxi Partner</div></div>
         <div className="xl-count-item"><div className="xl-count-num">93%</div><div className="xl-count-label">Natural Latex</div></div>
       </div>
-      <div className="xl-progress"/>
+      <div className="xl-progress" style={{animationDuration:exit?"0.4s":"1.2s"}}/>
     </div>
   );
 }
@@ -1569,6 +1583,8 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 .ht3{animation:fadeInUp .9s .28s ease both}
 .ht4{animation:fadeInUp .9s .42s ease both}
 .ht5{animation:fadeInUp .9s .56s ease both}
+.page-fade-in{animation:pageFadeIn .4s cubic-bezier(.22,1,.36,1) both}
+@keyframes pageFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .at{display:flex;animation:marquee 38s linear infinite}
 .sl{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#C8A97E;margin-bottom:14px;font-weight:500;display:block}
 .nl{color:#2D2D2D;font-size:12.5px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;padding:4px 0;position:relative;line-height:1}
@@ -2064,7 +2080,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
         <div className="lux-hero-inner">
           {crumbs&&<div className="ht1" style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:C.taupe,marginBottom:22}}>{crumbs}</div>}
           <div className="ht1" style={{marginBottom:20}}><Monogram color={C.gold} size={monoSize}/></div>
-          <h1 className="ht2 serif" style={{fontSize:"clamp(2.3rem,4.4vw,3.7rem)",fontWeight:500,lineHeight:1.1,color:C.dark,margin:"4px 0 0"}}>{title}</h1>
+          <h1 className="ht2 serif" style={{fontSize:"clamp(2.3rem,4.4vw,3.7rem)",fontWeight:500,lineHeight:1.25,color:C.dark,margin:"4px 0 0"}}>{title}</h1>
           {subtitle&&<div className="ht2" style={{display:"flex",alignItems:"center",gap:12,margin:"16px 0 0"}}>
             <span style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
             {seal&&<Seal ch={seal}/>}
@@ -2227,7 +2243,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
               <h1 className="serif" data-cms-id="hero-title" style={{
                 fontSize: BIZ.heroTitleSize || "clamp(2.1rem,3.6vw,3.5rem)",
                 fontWeight: 500,
-                lineHeight: 1.12,
+                lineHeight: 1.25,
                 color: "#F4ECDC",
                 margin: "18px 0 0",
                 position: "relative",
@@ -2310,7 +2326,7 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
           <div>
             <Reveal>
               <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
-              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:500,lineHeight:1.14,color:"#F4ECDC",margin:0}}>
+              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:0}}>
                 Crafted for Hotels.<br/><span className="gold-italic">Chosen by the Finest.</span>
               </h2>
               <p style={{fontSize:14,lineHeight:1.8,color:"#C3B7A1",margin:"18px 0 0",maxWidth:540}}>
@@ -2340,7 +2356,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
         <HeroCanvas height={420}/>
         <div className="container" style={{position:"relative",zIndex:4,textAlign:"center"}}>
           <span style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:"#C9A876",display:"block",marginBottom:16}}>{BIZ.aboutHeroLabel || "Our Story"}</span>
-          <h1 className="serif gold-grad" style={{fontSize:"clamp(2.4rem,5vw,4rem)",fontWeight:500,lineHeight:1.1,margin:"0 0 24px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroHeading || "We Built XIYORA Because We<br/>Could Not Find What We Were<br/><em>Looking For.</em>"}} />
+          <h1 className="serif gold-grad" style={{fontSize:"clamp(2.4rem,5vw,4rem)",fontWeight:500,lineHeight:1.25,margin:"0 0 24px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroHeading || "We Built XIYORA Because We<br/>Could Not Find What We Were<br/><em>Looking For.</em>"}} />
           <p style={{fontSize:15.5,color:"#C7BBA4",lineHeight:1.85,maxWidth:640,margin:"0 auto 32px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroBody || "The premium bedroom market had no shortage of price tags. It had an acute shortage of provenance. Where was the latex from? Who manufactured it? What standards governed it? The answers, when they came, were rarely satisfying. <strong style=\"color:#E8D6B4\">So we went to the source.</strong>"}} />
           <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
             <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Our Products ✦</button>
@@ -2806,7 +2822,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
                   <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
                   <Seal ch="印" style={{marginTop:2}}/>
                 </ArchedCartouche>
-                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:500,lineHeight:1.12,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
+                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
                 <p style={{fontSize:14.5,lineHeight:1.85,color:"#C7BBA4",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
                   {BIZ.supplierHeroBody || "Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support."}
                 </p>
@@ -3044,7 +3060,7 @@ function CategoryIntroPanel(){
       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Seal ch="选" title="Curated collection"/>
         <div className="ci-label" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px"}}>Bingxi Collection</div>
-        <h2 className="ci-h" style={{fontSize:"clamp(2rem,3.6vw,2.9rem)",lineHeight:1.12,margin:0}}>Shop By Category</h2>
+        <h2 className="ci-h" style={{fontSize:"clamp(2rem,3.6vw,2.9rem)",lineHeight:1.25,margin:0}}>Shop By Category</h2>
         <div className="x-divider" style={{margin:"16px auto"}}>❖</div>
         <p className="ci-sub" style={{fontSize:14.5,maxWidth:440,lineHeight:1.7}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
       </div>
@@ -3064,7 +3080,7 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
       <div className="container" style={{position:"relative",zIndex:4}}>
         <Reveal style={{maxWidth:560}}>
           <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#C9A876",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
-          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:500,lineHeight:1.14,color:"#F4ECDC",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
+          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
           <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#C8A97E"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#C8A97E"}}/></div>
           <p style={{fontSize:14.5,lineHeight:1.85,color:"#cabfa9",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
           <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#C8A97E"}}>→</span></button>
@@ -4388,7 +4404,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
               <Tag c={p.latexType==="Talalay"?"#9B8B6E":p.latexType==="Hybrid"?"#7B8F7E":"#5a7a7a"}>{p.latexType} Latex</Tag>
               <Tag c="#999">{p.category}</Tag>
             </div>
-            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.1,marginBottom:8}}>{p.name}</h1>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.25,marginBottom:8}}>{p.name}</h1>
             <p style={{fontSize:16,color:C.gold,fontFamily:"'Playfair Display',serif",fontStyle:"italic",marginBottom:20,lineHeight:1.4}}>{p.headline}</p>
             <p style={{fontSize:14.5,color:"#666",lineHeight:1.82,marginBottom:24,fontWeight:300}}>{p.description}</p>
             {p.latexContent&&<div style={{padding:"8px 14px",background:C.lgold,borderRadius:3,marginBottom:20,display:"flex",gap:8,alignItems:"center"}}>
@@ -4757,7 +4773,7 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
           <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-6,right:-6,width:"clamp(90px,10vw,140px)",opacity:.6,pointerEvents:"none",zIndex:2}}/>
           <div style={{position:"relative",zIndex:5,textAlign:"center"}}>
             <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#C9A876",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#C8A97E"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#C8A97E"}}/></div>
-            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:500,color:"#F4ECDC",lineHeight:1.12,margin:0}}>Tell Us Who You Are</h2>
+            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:500,color:"#F4ECDC",lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
             <p style={{fontSize:14,color:"#bdb09a",maxWidth:560,margin:"14px auto 0",lineHeight:1.7}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
             <div style={{display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center",margin:"28px 0 24px"}}>
               {BUYER_TYPES.map(b=>(
@@ -5664,14 +5680,14 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
         <div className="header-logo" style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0,flexShrink:0}} data-cms-id="logo">
           <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",left:-30,top:-14,width:46,opacity:.9,pointerEvents:"none",zIndex:1}}/>
           <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",right:-30,top:-14,width:46,opacity:.9,transform:"scaleX(-1)",pointerEvents:"none",zIndex:1}}/>
-          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px clamp(12px, 2vw, 24px)",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)"}}>
+          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px clamp(12px, 2vw, 24px)",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)",outline:"none"}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg className="nav-mono" width={24} height={24} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
                 <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/><circle cx="24" cy="24" r="17.5" stroke="#C8A97E" strokeWidth=".6" opacity=".45"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/><circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
               </svg>
               <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px, 1.8vw, 23px)",fontWeight:600,letterSpacing:"clamp(3px, 0.4vw, 6px)",color:"#F2EADB",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
             </div>
-            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"clamp(7.5px, 0.7vw, 8.5px)",letterSpacing:"clamp(1.5px, 0.2vw, 3px)",color:"#B89A6E",userSelect:"none",whiteSpace:"nowrap"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
+            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"clamp(9.5px, 0.8vw, 10.5px)",letterSpacing:"clamp(1.2px, 0.2vw, 2px)",color:"#B89A6E",userSelect:"none",whiteSpace:"nowrap"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
           </div>
         </div>
         {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
@@ -5680,6 +5696,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           <div ref={curRef} style={{position:"relative"}}>
             <button
               onClick={()=>setCurOpen(o=>!o)}
+              className="nav-cur"
               title={CURRENCY_DISCLAIMER}
               aria-label="Display currency"
               style={{display:"flex",alignItems:"center",gap:5,background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.28)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
@@ -5710,6 +5727,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           {/* ── Theme toggle ── */}
           <button
             onClick={toggleTheme}
+            className="nav-theme"
             title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
             style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(200,169,126,.14)":"rgba(200,169,126,.22)",border:"1px solid rgba(200,169,126,.38)",cursor:"pointer",color:"#E6C89A",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
             aria-label={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
@@ -6853,6 +6871,7 @@ export default function App(){
   const [siteLoading,setSiteLoading]=useState(true);
   const [appReady,setAppReady]=useState(false);
   const [loaderDone,setLoaderDone]=useState(false);
+  const handleLoaderDone=useCallback(()=>setLoaderDone(true),[]);
   useEffect(()=>{
     setProductsLoading(true);
     fetch(`${API_BASE}/products`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
@@ -6893,13 +6912,11 @@ export default function App(){
   },[productsLoading,siteLoading]);
   // Safety timeout: always show app after 6 s even if a fetch stalls
   useEffect(()=>{const t=setTimeout(()=>setAppReady(true),6000);return()=>clearTimeout(t);},[]);
-  // Dismiss the HTML loading screen (#xi-loader in index.html) once data is ready
+  // Dismiss the static HTML loading screen instantly on React mount to hand off to React's LoadingScreen
   useEffect(()=>{
-    if(appReady){
-      const el=document.getElementById("xi-loader");
-      if(el){el.classList.add("xi-fade");setTimeout(()=>{try{el.remove();}catch{}},500);}
-    }
-  },[appReady]);
+    const el=document.getElementById("xi-loader");
+    if(el)el.remove();
+  },[]);
 
   useEffect(()=>{
     let s=document.getElementById("xiyora-css") as HTMLStyleElement|null;
@@ -7080,7 +7097,7 @@ export default function App(){
           <button onClick={() => setShowLocationPrompt(true)} style={{ background: "none", border: "none", color: tc.gold, textDecoration: "underline", cursor: "pointer", fontSize: "12px", padding: 0, fontWeight: 600 }}>Change Location</button>
         </div>
       )}
-      <main style={{minHeight:"80vh",paddingBottom:2}}>{renderView()}</main>
+      <main style={{minHeight:"80vh",paddingBottom:2}}><div key={page} className="page-fade-in">{renderView()}</div></main>
       <Footer setPage={nav} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
       <div className="wb" style={{bottom:80}} onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")} title="Chat on WhatsApp">
         <svg width={26} height={26} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
@@ -7092,7 +7109,7 @@ export default function App(){
       <WhatsAppPopup page={page} context={{product:page==="product"&&selProd?selProd.name:(cart.length?cart.map(i=>i.productName).join(", "):"")}}/>
       <LocationPromptModal show={showLocationPrompt} onClose={() => setShowLocationPrompt(false)} onSave={(l: any) => updateUserLoc(l)} />
     </div>
-    {!loaderDone&&<LoadingScreen onDone={()=>setLoaderDone(true)}/>}
+    {!loaderDone&&<LoadingScreen appReady={appReady} onDone={handleLoaderDone}/>}
     <GoldCursor/>
     <ScrollProgress/>
     </ThemeCtx.Provider>

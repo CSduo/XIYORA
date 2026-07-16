@@ -1300,9 +1300,27 @@ function SiteContentPanel({
     setSaving(true);
     setErr("");
     try {
+      const payload: Record<string, string> = {};
+      if (backupRef.current) {
+        for (const [k, v] of Object.entries(draft)) {
+          if (v !== backupRef.current[k]) {
+            payload[k] = v as string;
+          }
+        }
+      } else {
+        Object.assign(payload, draft);
+      }
+
+      if (Object.keys(payload).length === 0) {
+        setMsg("No changes to save ✓");
+        setTimeout(() => setMsg(""), 3000);
+        setSaving(false);
+        return;
+      }
+
       const res = await apiFetch("/admin/site-content", {
         method: "PUT",
-        body: JSON.stringify(draft)
+        body: JSON.stringify(payload)
       }, token);
       const data = await res.json();
       if (data.success) {
@@ -1703,11 +1721,11 @@ function SiteContentPanel({
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
               <div>
                 <Label>Average Rating</Label>
-                <Input value={draft.reviewsAverage} onChange={(v) => setKey("reviewsAverage", v)} />
+                <Input value={draft.reviewsAvgRating || draft.reviewsAverage || "4.8"} onChange={(v) => setKey("reviewsAvgRating", v)} />
               </div>
               <div>
-                <Label>Total Reviews count</Label>
-                <Input value={draft.reviewsTotal} onChange={(v) => setKey("reviewsTotal", v)} />
+                <Label>Total Reviews Count</Label>
+                <Input value={draft.reviewsTotalCount || draft.reviewsTotal || "87"} onChange={(v) => setKey("reviewsTotalCount", v)} />
               </div>
             </div>
             

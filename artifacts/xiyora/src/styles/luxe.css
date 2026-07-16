@@ -61,6 +61,8 @@
   justify-content: center;
   gap: 0;
   overflow: hidden;
+  will-change: opacity, transform;
+  transform: translateZ(0);
 }
 .xiyora-loader::before {
   content: '';
@@ -160,11 +162,13 @@
   to   { width: 100%; }
 }
 .xiyora-loader.loader-exit {
-  animation: xlLoaderExit 0.7s cubic-bezier(.7,0,.3,1) forwards;
+  animation: xlLoaderExit 0.65s cubic-bezier(.4,0,.2,1) forwards;
+  pointer-events: none;
 }
 @keyframes xlLoaderExit {
-  0%   { clip-path: inset(0 0 0 0); }
-  100% { clip-path: inset(0 0 100% 0); opacity: 0; }
+  0%   { opacity: 1; transform: scale(1); }
+  60%  { opacity: 0.6; transform: scale(1.015); }
+  100% { opacity: 0; transform: scale(1.03); }
 }
 
 /* ── 3. AMBIENT GRADIENT ORBS ───────────────────────────────── */
@@ -669,8 +673,8 @@
     letter-spacing: 4px !important;
   }
   .nav-brand-sub {
-    font-size: 8px !important;
-    letter-spacing: 2px !important;
+    font-size: 9.5px !important;
+    letter-spacing: 1.5px !important;
   }
   .nav-b2b-text {
     display: none !important;
