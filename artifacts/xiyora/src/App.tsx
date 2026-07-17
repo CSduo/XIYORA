@@ -1499,7 +1499,7 @@ function LuxMarquee({dark=true}:{dark?:boolean}){
 const CSS=`
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
-body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:'Inter',sans-serif;background:#060408;color:#F5EEF0;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 #root{max-width:100%;overflow-x:hidden}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -1516,10 +1516,10 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 .page-fade-in{animation:pageFadeIn .4s cubic-bezier(.22,1,.36,1) both}
 @keyframes pageFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .at{display:flex;animation:marquee 38s linear infinite}
-.sl{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#C8A97E;margin-bottom:14px;font-weight:500;display:block}
-.nl{color:#2D2D2D;font-size:12.5px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;padding:4px 0;position:relative;line-height:1}
-.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#C8A97E;transition:width .3s ease}
-.nl:hover{color:#C8A97E}.nl:hover::after{width:100%}
+.sl{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:#E8B4C0;margin-bottom:16px;font-weight:600;display:block}
+.nl{color:rgba(245,238,240,.6);font-size:12px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;padding:4px 0;position:relative;line-height:1}
+.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#E8B4C0;transition:width .3s ease}
+.nl:hover{color:#E8B4C0}.nl:hover::after{width:100%}
 .bg{background:#C8A97E;color:#fff;border:none;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem;position:relative;overflow:hidden}
 .bg::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);transition:none}
 /* .bg:hover::before{animation:sweepBtn .5s ease forwards} */
@@ -1529,8 +1529,8 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 .bo:hover{background:#C8A97E;color:#fff;transform:translateY(-1px)}
 .bd{background:transparent;border:1px solid rgba(246, 239, 224, 0.08);color:#D9CBB8;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem}
 .bd:hover{border-color:#C8A97E;color:#C8A97E}
-.ib{background:none;border:none;cursor:pointer;color:#2D2D2D;display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
-.ib:hover{color:#C8A97E;transform:scale(1.1)}
+.ib{background:none;border:none;cursor:pointer;color:rgba(245,238,240,.65);display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
+.ib:hover{color:#E8B4C0;transform:scale(1.1)}
 .pc{background:rgba(22,17,11,.6);border-radius:2.5rem;overflow:hidden;transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative;border:1px solid rgba(246,239,224,.07)}
 .pc:hover{transform:translateY(-4px)}
 .pc:hover .pi{transform:scale(1.05)}
@@ -1731,13 +1731,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 }
 @media(max-width:560px){.icon-strip .ist{min-width:33%}.icon-strip .ist:nth-child(3)::after{display:none}}
 /* ── DARK LUX HOMEPAGE (reference-faithful black-lacquer + gold) ── */
-.lux-noir{background:#0c0a08;background-image:radial-gradient(130% 82% at 50% -12%,rgba(48,35,20,.92),transparent 56%),radial-gradient(70% 55% at 100% 0%,rgba(64,46,24,.42),transparent 60%),radial-gradient(60% 50% at 0% 100%,rgba(60,42,22,.34),transparent 60%);color:#EFE6D6}
+.lux-noir{background:#060408;color:#F5EEF0}
 .ornate{position:relative;border:1px solid rgba(200,169,126,.42);box-shadow:inset 0 0 0 4px rgba(200,169,126,.07),inset 0 0 80px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.5)}
 .ornate::before{content:'';position:absolute;inset:9px;border:1px solid rgba(200,169,126,.2);border-radius:inherit;pointer-events:none;z-index:6}
-.gold-italic{font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(180deg,#F2D78C 0%,#C99A55 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#D9B485}
-.gold-grad{background:linear-gradient(180deg,#F2D78C 0%,#C99A55 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#D9B485}
-.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(200,169,126,.5);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
-.feat-circ:hover{background:rgba(200,169,126,.12);border-color:#E6C89A;transform:translateY(-3px)}
+.gold-italic{font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(180deg,#F2C4CE 0%,#C4889A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#E8B4C0}
+.gold-grad{background:linear-gradient(135deg,#E8B4C0 0%,#C4889A 50%,#9A5A6E 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#E8B4C0}
+.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(232,180,192,.28);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
+.feat-circ:hover{background:rgba(232,180,192,.1);border-color:#E8B4C0;transform:translateY(-3px)}
 .btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,rgba(200,169,126,.16),rgba(200,169,126,.03));color:#EBD3A6;border:1px solid rgba(246, 239, 224, 0.08);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2rem;transition:all .35s;position:relative;overflow:hidden}
 .btn-gold-out:hover{background:rgba(200,169,126,.22);border-color:#E6C89A;color:#FBEFD8;transform:translateY(-2px);box-shadow:0 12px 32px rgba(200,169,126,.22)}
 .btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,#F4EBD9,#E2D2B6);color:#2a2118;border:1px solid rgba(246, 239, 224, 0.08);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2rem;transition:all .35s}
@@ -1751,9 +1751,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .lux-feat-row{display:flex;align-items:flex-start;gap:0}
 .lux-feat-row .lf{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:0 6px;position:relative}
 .lux-feat-row .lf:not(:last-child)::after{content:'';position:absolute;right:0;top:8px;height:42px;width:1px;background:rgba(200,169,126,.3)}
-.lux-feat-row .lf .lfl{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#bdae97;line-height:1.5;font-weight:500}
+.lux-feat-row .lf .lfl{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(245,238,240,.5);line-height:1.5;font-weight:500}
 .biz-feat{display:flex;align-items:center;gap:9px}
-.biz-feat .bft{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#bdae97;line-height:1.4;font-weight:500}
+.biz-feat .bft{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(245,238,240,.5);line-height:1.4;font-weight:500}
 .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
 .trust-item{display:flex;align-items:center;gap:14px;justify-content:center}
 @media(max-width:900px){
@@ -1777,7 +1777,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
   .wb::before{animation:none!important;opacity:0!important}
 }
 /* ── XIYORA LUX TOKENS + REUSABLE HOMEPAGE UTILITIES (v5) ── */
-:root{--xiyora-black:#0c0a08;--xiyora-charcoal:#16110b;--xiyora-ivory:#F6EFE0;--xiyora-gold:#C8A97E;--xiyora-soft-gold:#E6C89A;--xiyora-sage:#7c8270;--xiyora-muted-text:#bdae97}
+:root{--xiyora-black:#060408;--xiyora-charcoal:#16101a;--xiyora-ivory:#F5EEF0;--xiyora-gold:#D4A574;--xiyora-soft-gold:#C8A97E;--xiyora-rose:#E8B4C0;--xiyora-rose-muted:#C4889A;--xiyora-rose-deep:#9A5A6E;--xiyora-sage:#7c8270;--xiyora-muted-text:rgba(245,238,240,0.55)}
 /* @keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}} */
 @keyframes cloudDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
 @keyframes idleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
@@ -1798,16 +1798,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .benefit-noir .bn{flex:1;min-width:130px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:6px 16px;position:relative;transition:transform .4s}
 .benefit-noir .bn:not(:last-child)::after{content:'';position:absolute;right:0;top:14%;height:72%;width:1px;background:rgba(200,169,126,.26)}
 .benefit-noir .bn:hover{transform:translateY(-4px)}
-.benefit-noir .bn .bnl{font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--xiyora-muted-text);font-weight:500;line-height:1.5}
-.benefit-noir .bn:hover .bnl{color:var(--xiyora-soft-gold)}
+.benefit-noir .bn .bnl{font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(245,238,240,.5);font-weight:500;line-height:1.5}
+.benefit-noir .bn:hover .bnl{color:#E8B4C0}
 @media(max-width:620px){.benefit-noir{justify-content:flex-start}.benefit-noir .bn{min-width:42%}.benefit-noir .bn:nth-child(2)::after{display:none}}
 .bt-noir{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:2rem;border:1px solid rgba(246, 239, 224, 0.08);background:rgba(255,255,255,.02);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#E3D7C0;cursor:pointer;transition:all .3s;white-space:nowrap}
 .bt-noir:hover{border-color:var(--xiyora-soft-gold);color:#fff;transform:translateY(-2px)}
 .bt-noir.active{background:linear-gradient(180deg,#E8CDA0,#C9A368);border-color:var(--xiyora-soft-gold);color:#211a10;font-weight:600;box-shadow:0 10px 26px rgba(200,169,126,.32)}
-.cat-intro{position:relative;background:var(--xiyora-ivory);background-image:radial-gradient(circle at 16% 20%,rgba(200,169,126,.1),transparent 44%),radial-gradient(circle at 84% 82%,rgba(159,59,46,.05),transparent 46%);border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
-.cat-intro .ci-h{font-family:'Playfair Display',serif;color:#241c12;font-weight:500}
-.cat-intro .ci-sub{color:#6a5c44}
-.cat-intro .ci-label{color:#9E3B2E}
+.cat-intro{position:relative;background:linear-gradient(145deg,rgba(22,16,26,.9),rgba(13,10,16,.95));border:1px solid rgba(232,180,192,.1);border-radius:2.5rem;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
+.cat-intro .ci-h{font-family:'Playfair Display',serif;color:#F5EEF0;font-weight:400}
+.cat-intro .ci-sub{color:rgba(245,238,240,.6)}
+.cat-intro .ci-label{color:#E8B4C0}
 .latex-story{position:relative;overflow:hidden;min-height:clamp(380px,52vw,520px);display:flex;align-items:center;background:var(--xiyora-black)}
 .latex-story img.ls-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
 .latex-story .ls-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,7,6,.93) 0%,rgba(8,7,6,.74) 42%,rgba(8,7,6,.28) 70%,transparent 100%)}
@@ -1821,27 +1821,27 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .cat-grid6{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .cat-grid6 .sp2{grid-column:span 2}
 .cat-grid6 .sp3{grid-column:span 3}
-.cat-card{position:relative;display:block;width:100%;height:392px;border:none;padding:0;margin:0;cursor:pointer;border-radius:2rem;overflow:hidden;background:#16110b;box-shadow:0 0 0 1px rgba(200,169,126,.45),0 16px 38px rgba(0,0,0,.16);transition:box-shadow .45s ease,transform .45s ease;text-align:left;-webkit-tap-highlight-color:transparent}
+.cat-card{position:relative;display:block;width:100%;height:392px;border:none;padding:0;margin:0;cursor:pointer;border-radius:2.5rem;overflow:hidden;background:#16101a;border:1px solid rgba(232,180,192,.1)!important;transition:box-shadow .45s ease,transform .45s ease,border-color .45s;text-align:left;-webkit-tap-highlight-color:transparent}
 .cat-card.cat-card-wide{height:340px}
-.cat-card:hover,.cat-card:focus-visible{outline:none;box-shadow:0 0 0 1px rgba(200,169,126,.95),0 0 24px rgba(200,169,126,.34),0 22px 48px rgba(0,0,0,.28);transform:translateY(-4px)}
+.cat-card:hover,.cat-card:focus-visible{outline:none;border-color:rgba(232,180,192,.38)!important;box-shadow:0 0 30px rgba(232,180,192,.07),0 22px 50px rgba(0,0,0,.55);transform:translateY(-5px)}
 .cat-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 .cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:scale(1.07)}
-.cat-card-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(16,13,10,.92) 0%,rgba(16,13,10,.5) 32%,rgba(16,13,10,.05) 60%,transparent 78%);pointer-events:none}
+.cat-card-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,4,8,.95) 0%,rgba(6,4,8,.55) 32%,rgba(6,4,8,.1) 62%,transparent 80%);pointer-events:none}
 .cat-card-body{position:absolute;left:0;right:0;bottom:0;padding:24px 22px 24px;z-index:4}
-.cat-card-title{font-family:'Playfair Display',serif;font-size:23px;font-weight:600;color:#F4ECDC;letter-spacing:.3px;margin:0 0 5px;line-height:1.1}
-.cat-card-sub{font-size:12px;color:rgba(244,236,220,.74);letter-spacing:.2px;margin:0 0 13px;line-height:1.5;max-width:88%}
-.cat-card-explore{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#E8C893;font-weight:600}
+.cat-card-title{font-family:'Playfair Display',serif;font-size:23px;font-weight:500;color:#F5EEF0;letter-spacing:.3px;margin:0 0 5px;line-height:1.1}
+.cat-card-sub{font-size:12px;color:rgba(245,238,240,.72);letter-spacing:.2px;margin:0 0 13px;line-height:1.5;max-width:88%}
+.cat-card-explore{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#E8B4C0;font-weight:600}
 .cat-card-arr{display:inline-block;transition:transform .35s ease}
 .cat-card:hover .cat-card-arr,.cat-card:focus-visible .cat-card-arr{transform:translateX(6px)}
-.cat-vtag{position:absolute;top:52px;right:0;writing-mode:vertical-rl;text-orientation:upright;background:linear-gradient(180deg,rgba(214,184,138,.96),rgba(158,124,82,.94));color:#1a140d;font-size:11px;letter-spacing:4px;padding:11px 5px;border-radius:4px 0 0 4px;font-weight:700;z-index:4;box-shadow:0 5px 14px rgba(0,0,0,.28)}
-.cat-corner{position:absolute;width:26px;height:26px;z-index:4;pointer-events:none;border-color:rgba(232,200,147,.85)}
+.cat-vtag{position:absolute;top:52px;right:0;writing-mode:vertical-rl;text-orientation:upright;background:linear-gradient(180deg,#C4889A,#9A5A6E);color:#F5EEF0;font-size:11px;letter-spacing:4px;padding:11px 5px;border-radius:4px 0 0 4px;font-weight:700;z-index:4;box-shadow:0 5px 14px rgba(0,0,0,.28)}
+.cat-corner{position:absolute;width:26px;height:26px;z-index:4;pointer-events:none;border-color:rgba(232,180,192,.6)}
 .cat-corner.tl{top:13px;left:13px;border-top:1.5px solid;border-left:1.5px solid;border-top-left-radius:3px}
 .cat-corner.tr{top:13px;right:13px;border-top:1.5px solid;border-right:1.5px solid;border-top-right-radius:3px}
 @media(max-width:900px){.cat-grid6{grid-template-columns:1fr 1fr;gap:16px}.cat-grid6 .sp2,.cat-grid6 .sp3{grid-column:auto}.cat-card,.cat-card.cat-card-wide{height:320px}}
 @media(max-width:600px){.cat-grid6{grid-template-columns:1fr;gap:16px}.cat-card,.cat-card.cat-card-wide{height:300px}}
 @media(prefers-reduced-motion:reduce){.cat-card,.cat-card-img,.cat-card-arr{transition:none!important}.cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:none!important}}
 
-/* ── 2D premium overrides are in luxe.css ── */
+/* 2D premium overrides are in luxe.css */
 `;
 
 /* ─── SMALL UI COMPONENTS ────────────────────────────────── */
@@ -5469,7 +5469,7 @@ const getFlagElement = (c: string) => {
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme,onSearch,onCatalog,onCatFilter,onCheckout,onWishlist,onSidebar,onSupplier}:any){
-  const NAVBG="rgba(22,19,16,.97)";
+  const NAVBG="rgba(6,4,8,0.93)";
   const [curOpen,setCurOpen]=useState(false);
   const curRef=useRef<HTMLDivElement>(null);
 
@@ -5513,7 +5513,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
   })();
 
   return(
-    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(246,239,224,.07)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 4px 24px rgba(0,0,0,.28)":"none",transition:"box-shadow .35s ease"}}>
+    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(232,180,192,.09)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:scrolled?"0 4px 32px rgba(0,0,0,.5)":"none",transition:"box-shadow .35s ease"}}>
       {/* fine hairline divider at the base of the bar */}
       <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"rgba(246,239,224,.07)",pointerEvents:"none"}}/>
       <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1fr) auto minmax(0, 1fr)",alignItems:"center",height:62}}>
@@ -5539,11 +5539,11 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px clamp(12px,2vw,20px)",position:"relative",zIndex:2,outline:"none",background:"none",border:"none",borderRadius:0}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
-                <circle cx="24" cy="24" r="21" stroke="#C8A97E" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/>
+                <circle cx="24" cy="24" r="21" stroke="#E8B4C0" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#E8B4C0" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
-              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F2EADB",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
+              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
             </div>
-            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(184,154,110,.75)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
+            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(232,180,192,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
           </div>
         </div>
         {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
@@ -5555,20 +5555,20 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               className="nav-cur"
               title={CURRENCY_DISCLAIMER}
               aria-label="Display currency"
-              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(255,255,255,.07)",color:"#E6DCC9",border:"1px solid rgba(200,169,126,.28)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
+              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(232,180,192,.08)",color:"#F5EEF0",border:"1px solid rgba(232,180,192,.2)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
               data-cms-id="currency-selector"
             >
               <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13}}>{getFlagElement(cur)}</span>
               <span>{cur}</span>
-              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#C8A97E" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
+              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#E8B4C0" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
                 <path d="M2 3.5l3 3 3-3"/>
               </svg>
             </button>
             {curOpen&&(
-              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:220,background:"rgba(18,14,10,.97)",border:"1px solid rgba(200,169,126,.32)",borderRadius:10,boxShadow:"0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(200,169,126,.08)",overflow:"hidden",zIndex:300}}>
+              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:220,background:"rgba(6,4,8,.98)",border:"1px solid rgba(232,180,192,.18)",borderRadius:12,boxShadow:"0 8px 32px rgba(0,0,0,.7),0 0 0 1px rgba(232,180,192,.06)",overflow:"hidden",zIndex:300}}>
                 {enabledCurs.map((c: string)=>(
                   <button key={c} onClick={()=>{setCur(c);setCurOpen(false);}}
-                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(200,169,126,.13)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#E6C89A":"#D9CBB8",fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(200,169,126,.08)"}}
+                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(232,180,192,.1)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#E8B4C0":"rgba(245,238,240,.7)",fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(232,180,192,.07)"}}
                     onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(200,169,126,.07)";}}
                     onMouseLeave={(e:any)=>{if(c!==cur)e.currentTarget.style.background="transparent";}}
                   >
@@ -5585,7 +5585,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             onClick={toggleTheme}
             className="nav-theme"
             title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
-            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(200,169,126,.14)":"rgba(200,169,126,.22)",border:"1px solid rgba(200,169,126,.38)",cursor:"pointer",color:"#E6C89A",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
+            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(232,180,192,.1)":"rgba(232,180,192,.18)",border:"1px solid rgba(232,180,192,.25)",cursor:"pointer",color:"#E8B4C0",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
             aria-label={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
           >
             {theme==="dark"?"☀️":"🌙"}
@@ -5593,13 +5593,13 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           <button className="ib" onClick={onSearch} title="Search" style={{color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}}>
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
-            <svg width={17} height={17} fill={wl&&wl.length?"#C8A97E":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{wl.length}</span>}
+          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:"rgba(245,238,240,.65)",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
+            <svg width={17} height={17} fill={wl&&wl.length?"#E8B4C0":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C4889A",color:"#060408",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
           </button>
           <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}} title="Basket / Checkout">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C8A97E",color:"#fff",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:600}}>{cartCount}</span>}
+            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C4889A",color:"#060408",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{cartCount}</span>}
           </button>
           <button className="nc-item nav-b2b-btn" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:"#E6C89A",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
             <LuxIcon name="globe" size={15} color="#E6C89A"/><span className="nav-b2b-text">B2B Portal</span>
