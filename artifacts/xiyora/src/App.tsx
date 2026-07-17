@@ -1505,8 +1505,6 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 @keyframes heroScale{from{transform:scale(1.06)}to{transform:scale(1)}}
-@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(200,169,126,.12)}50%{box-shadow:0 0 60px rgba(200,169,126,.32)}}
-/* @keyframes sweepBtn{0%{left:-60%}100%{left:120%}} */
 @keyframes revealUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
@@ -1533,9 +1531,9 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 .bd:hover{border-color:#C8A97E;color:#C8A97E}
 .ib{background:none;border:none;cursor:pointer;color:#2D2D2D;display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
 .ib:hover{color:#C8A97E;transform:scale(1.1)}
-.pc{background:#F8F6F2;border-radius:2rem;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.05);transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative}
-.pc:hover{box-shadow:0 24px 60px rgba(0,0,0,.13);transform:translateY(-5px)}
-.pc:hover .pi{transform:scale(1.07)}
+.pc{background:rgba(22,17,11,.6);border-radius:2.5rem;overflow:hidden;transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative;border:1px solid rgba(246,239,224,.07)}
+.pc:hover{transform:translateY(-4px)}
+.pc:hover .pi{transform:scale(1.05)}
 .pi{transition:transform .65s cubic-bezier(.23,1,.32,1);width:100%;height:100%;object-fit:cover}
 .cc{position:relative;border-radius:2rem;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1)}
 .cc:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(0,0,0,.18)}
@@ -1843,24 +1841,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 @media(max-width:600px){.cat-grid6{grid-template-columns:1fr;gap:16px}.cat-card,.cat-card.cat-card-wide{height:300px}}
 @media(prefers-reduced-motion:reduce){.cat-card,.cat-card-img,.cat-card-arr{transition:none!important}.cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:none!important}}
 
-/* Cards organic rounding & fine border */
-.pc, .pc-luxe, .cc, .cat-card, .testimonial-card, .glass-card, .ql-card, .cat-intro {
-  border-radius: 2rem !important;
-  border: 1px solid rgba(246, 239, 224, 0.08) !important;
-}
-
-/* Buttons organic rounding & fine border */
-button, .bg, .bo, .bd, .btn-gold-out, .btn-ivory, .bt-noir, .google-btn {
-  border-radius: 2rem !important;
-  border: 1px solid rgba(246, 239, 224, 0.08) !important;
-}
-
-/* Dividers fine border */
-.x-gold-divider, hr {
-  border: none !important;
-  height: 1px !important;
-  background: rgba(246, 239, 224, 0.08) !important;
-}
+/* ── 2D premium overrides are in luxe.css ── */
 `;
 
 /* ─── SMALL UI COMPONENTS ────────────────────────────────── */
@@ -5532,46 +5513,37 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
   })();
 
   return(
-    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(200,169,126,.18)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 2px 30px rgba(0,0,0,.32)":"none",transition:"all .35s ease"}}>
-      {/* corner ornaments — top-left + mirrored top-right */}
-      <svg className="nav-ornament" width={26} height={26} viewBox="0 0 26 26" fill="none" style={{position:"absolute",top:6,left:10,opacity:.55,pointerEvents:"none"}} aria-hidden>
-        <path d="M2 13c0-6 5-11 11-11" stroke="#C8A97E" strokeWidth="1"/><path d="M2 8c0-3 3-6 6-6" stroke="#C8A97E" strokeWidth=".7" opacity=".6"/><circle cx="13" cy="2" r="1.3" fill="#C8A97E"/>
-      </svg>
-      <svg className="nav-ornament" width={26} height={26} viewBox="0 0 26 26" fill="none" style={{position:"absolute",top:6,right:10,opacity:.55,pointerEvents:"none",transform:"scaleX(-1)"}} aria-hidden>
-        <path d="M2 13c0-6 5-11 11-11" stroke="#C8A97E" strokeWidth="1"/><path d="M2 8c0-3 3-6 6-6" stroke="#C8A97E" strokeWidth=".7" opacity=".6"/><circle cx="13" cy="2" r="1.3" fill="#C8A97E"/>
-      </svg>
-      {/* fine gold hairline divider at the base of the bar */}
-      <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"linear-gradient(90deg,transparent,rgba(200,169,126,.55),transparent)",pointerEvents:"none"}}/>
+    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(246,239,224,.07)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",boxShadow:scrolled?"0 4px 24px rgba(0,0,0,.28)":"none",transition:"box-shadow .35s ease"}}>
+      {/* fine hairline divider at the base of the bar */}
+      <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"rgba(246,239,224,.07)",pointerEvents:"none"}}/>
       <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1fr) auto minmax(0, 1fr)",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
         <div className="header-left-nav" style={{display:"flex",alignItems:"center",gap:4,minWidth:0,justifyContent:"flex-start"}} data-cms-id="left-nav">
           {/* Hamburger — hidden on >=1200px where desktop nav links are shown */}
-          <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8",padding:"8px",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
+          <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8",padding:"8px",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center",background:"none",border:"none",borderRadius:0}}>
+            <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
           </button>
           <div className="nc" style={{display:"flex",gap:"clamp(10px, 1.4vw, 24px)",alignItems:"center",marginLeft:8}} data-cms-id="nav-items">
             {menuLinks.map(([l,v]: any,i: number)=>(
-              <button key={i} className="nl" style={{fontSize:"clamp(10px, 0.75vw, 11px)",color:page===v?"#E6C89A":"#D9CBB8",letterSpacing:"clamp(0.8px, 0.12vw, 1.4px)",whiteSpace:"nowrap"}} onClick={()=>{
+              <button key={i} className="nl" style={{fontSize:"clamp(10px, 0.75vw, 11px)",color:page===v?"#E6C89A":"rgba(246,239,224,.65)",letterSpacing:"clamp(0.8px, 0.12vw, 1.4px)",whiteSpace:"nowrap",background:"none",border:"none"}} onClick={()=>{
                 if(v==="catalog")onCatalog();
                 else setPage(v);
               }}>{l}</button>
             ))}
           </div>
         </div>
-        {/* Center: ornate cartouche — sakura garland + circle-X monogram + XIYORA + 舒适·自然·匠心 */}
+        {/* Center: clean flat brand mark — monogram + XIYORA wordmark + tagline */}
         <div className="header-logo" style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0,flexShrink:0}} data-cms-id="logo">
-          <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",left:-30,top:-14,width:46,opacity:.9,pointerEvents:"none",zIndex:1}}/>
-          <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="nav-ornament" style={{position:"absolute",right:-30,top:-14,width:46,opacity:.9,transform:"scaleX(-1)",pointerEvents:"none",zIndex:1}}/>
-          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px clamp(12px, 2vw, 24px)",position:"relative",zIndex:2,border:"1px solid rgba(200,169,126,.32)",borderTop:"none",borderRadius:"0 0 16px 16px",background:"linear-gradient(180deg,rgba(200,169,126,.1),transparent 85%)",outline:"none"}}>
+          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px clamp(12px,2vw,20px)",position:"relative",zIndex:2,outline:"none",background:"none",border:"none",borderRadius:0}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
-              <svg className="nav-mono" width={24} height={24} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
-                <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/><circle cx="24" cy="24" r="17.5" stroke="#C8A97E" strokeWidth=".6" opacity=".45"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/><circle cx="24" cy="24" r="3.2" fill="#C8A97E"/>
+              <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
+                <circle cx="24" cy="24" r="21" stroke="#C8A97E" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
-              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px, 1.8vw, 23px)",fontWeight:600,letterSpacing:"clamp(3px, 0.4vw, 6px)",color:"#F2EADB",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
+              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F2EADB",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
             </div>
-            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"clamp(9.5px, 0.8vw, 10.5px)",letterSpacing:"clamp(1.2px, 0.2vw, 2px)",color:"#B89A6E",userSelect:"none",whiteSpace:"nowrap"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
+            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(184,154,110,.75)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
           </div>
         </div>
         {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
