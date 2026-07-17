@@ -3,51 +3,7 @@
    Premium animations, cursor, loading, particles, tilt
    ══════════════════════════════════════════════════════ */
 
-/* ── 1. CUSTOM MAGNETIC CURSOR ──────────────────────────────── */
-@media (pointer: coarse) {
-  .xiyora-cursor, .xiyora-cursor-dot { display: none !important; }
-}
-/* Native cursor is preserved. Custom cursor provides a luxury trailing effect. */
-.xiyora-cursor {
-  position: fixed;
-  top: 0; left: 0;
-  width: 36px; height: 36px;
-  border: 1.5px solid rgba(200, 169, 126, 0.85);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: width 0.35s cubic-bezier(.22,1,.36,1),
-              height 0.35s cubic-bezier(.22,1,.36,1),
-              border-color 0.35s ease,
-              opacity 0.35s ease,
-              background 0.35s ease;
-  will-change: transform;
-  box-shadow: 0 0 14px rgba(200,169,126,0.18), inset 0 0 14px rgba(200,169,126,0.06);
-}
-.xiyora-cursor.cursor-hover {
-  width: 64px; height: 64px;
-  background: rgba(200, 169, 126, 0.07);
-  border-color: rgba(200, 169, 126, 1);
-  box-shadow: 0 0 32px rgba(200,169,126,0.38), inset 0 0 20px rgba(200,169,126,0.1);
-}
-.xiyora-cursor.cursor-click {
-  width: 20px; height: 20px;
-  background: rgba(200, 169, 126, 0.35);
-}
-.xiyora-cursor-dot {
-  position: fixed;
-  top: 0; left: 0;
-  width: 5px; height: 5px;
-  background: #C8A97E;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 100000;
-  transform: translate(-50%, -50%);
-  will-change: transform;
-  transition: opacity 0.3s ease;
-  box-shadow: 0 0 8px rgba(200,169,126,0.7);
-}
+/* ── 1. CUSTOM MAGNETIC CURSOR REMOVED FOR 2D LUXURY AESTHETIC ──────────────── */
 
 /* ── 2. CINEMATIC LOADING SCREEN ────────────────────────────── */
 .xiyora-loader {
@@ -171,24 +127,7 @@
   100% { opacity: 0; transform: scale(1.03); }
 }
 
-/* ── 3. AMBIENT GRADIENT ORBS ───────────────────────────────── */
-.x-orb {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  filter: blur(80px);
-  opacity: 0.18;
-  animation: orbDrift 22s ease-in-out infinite;
-  will-change: transform;
-}
-.x-orb-gold  { background: radial-gradient(circle, #C8A97E, transparent 70%); }
-.x-orb-ivory { background: radial-gradient(circle, #F0E6D0, transparent 70%); opacity: 0.1; }
-.x-orb-seal  { background: radial-gradient(circle, #9E3B2E, transparent 70%); opacity: 0.09; }
-@keyframes orbDrift {
-  0%,100% { transform: translate(0, 0) scale(1); }
-  33%     { transform: translate(30px, -40px) scale(1.06); }
-  66%     { transform: translate(-20px, 25px) scale(0.96); }
-}
+/* ── 3. AMBIENT GRADIENT ORBS REMOVED FOR 2D LUXURY AESTHETIC ───────────────── */
 
 /* ── 4. ADVANCED REVEAL ANIMATIONS ─────────────────────────── */
 .reveal-left {
@@ -230,31 +169,7 @@
 .reveal-stagger > *:nth-child(7)  { transition-delay: 480ms !important; }
 .reveal-stagger > *:nth-child(8)  { transition-delay: 560ms !important; }
 
-/* ── 5. 3D CARD TILT SHIMMER ────────────────────────────────── */
-.tilt-card {
-  transform-style: preserve-3d;
-  will-change: transform;
-  transition: transform 0.5s cubic-bezier(.22,1,.36,1);
-}
-.tilt-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    115deg,
-    transparent 0%,
-    rgba(200,169,126,0.04) 30%,
-    rgba(242,215,140,0.12) 50%,
-    rgba(200,169,126,0.04) 70%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 10;
-}
-.tilt-card:hover::after { opacity: 1; }
+/* ── 5. 3D CARD TILT SHIMMER REMOVED FOR 2D LUXURY AESTHETIC ────────────────── */
 
 /* ── 6. ENHANCED DUAL MARQUEE ───────────────────────────────── */
 .lux-marquee-track {
@@ -313,10 +228,10 @@
 .pc-luxe {
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 2rem;
   background: #141008;
+  border: 1px solid rgba(246, 239, 224, 0.08);
   box-shadow:
-    0 0 0 1px rgba(200,169,126,0.22),
     0 8px 32px rgba(0,0,0,0.35);
   transition:
     box-shadow 0.5s cubic-bezier(.22,1,.36,1),
@@ -342,14 +257,7 @@
   100% { box-shadow: 0 0 0 1px rgba(200,169,126,0.5), 0 0 12px rgba(200,169,126,0.15); }
 }
 
-/* ── 9. HERO CANVAS CONTAINER ────────────────────────────────── */
-.hero-particle-canvas {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
-  opacity: 0.55;
-}
+/* ── 9. HERO CANVAS CONTAINER REMOVED FOR 2D LUXURY AESTHETIC ────────────────── */
 
 /* ── 10. FLOATING STAT BADGES ────────────────────────────────── */
 .stat-badge {
@@ -358,8 +266,8 @@
   align-items: center;
   gap: 4px;
   padding: 16px 20px;
-  border: 1px solid rgba(200,169,126,0.35);
-  border-radius: 8px;
+  border: 1px solid rgba(246, 239, 224, 0.08);
+  border-radius: 2rem;
   background: rgba(200,169,126,0.06);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -398,43 +306,8 @@
   box-shadow: 0 0 8px rgba(200,169,126,0.6);
 }
 
-/* ── 12. MORPHING GRADIENT HERO TEXT ─────────────────────────── */
-@keyframes goldTextShimmer {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.gold-shimmer-text {
-  background: linear-gradient(90deg, #C8A97E, #F2D78C, #E6C89A, #C8A97E, #D4A872);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: goldTextShimmer 5s ease infinite;
-}
-
-/* ── 13. ENHANCED BUTTON EFFECTS ─────────────────────────────── */
-.btn-luxe-glow {
-  position: relative;
-  overflow: hidden;
-}
-.btn-luxe-glow::before {
-  content: '';
-  position: absolute;
-  top: -2px; left: -2px; right: -2px; bottom: -2px;
-  background: linear-gradient(90deg, #C8A97E, #F2D78C, #C8A97E);
-  background-size: 200% 200%;
-  z-index: -1;
-  border-radius: inherit;
-  animation: btnBorderAnim 3s ease infinite;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.btn-luxe-glow:hover::before { opacity: 1; }
-@keyframes btnBorderAnim {
-  0%,100% { background-position: 0% 50%; }
-  50%     { background-position: 100% 50%; }
-}
+/* ── 12. MORPHING GRADIENT HERO TEXT REMOVED FOR 2D LUXURY AESTHETIC ─────────────────── */
+/* ── 13. ENHANCED BUTTON EFFECTS REMOVED FOR 2D LUXURY AESTHETIC ─────────────────────── */
 
 /* ── 14. CATEGORY SECTION LUXURY HEADER ─────────────────────── */
 .cat-section-header {
@@ -477,8 +350,8 @@
 /* ── 16. TESTIMONIAL CARDS ───────────────────────────────────── */
 .testimonial-card {
   background: rgba(20,16,10,0.8);
-  border: 1px solid rgba(200,169,126,0.25);
-  border-radius: 8px;
+  border: 1px solid rgba(246, 239, 224, 0.08);
+  border-radius: 2rem;
   padding: 28px 26px;
   position: relative;
   overflow: hidden;
@@ -608,7 +481,8 @@
   background: rgba(28, 22, 17, 0.45);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(200, 169, 126, 0.22);
+  border: 1px solid rgba(246, 239, 224, 0.08);
+  border-radius: 2rem;
   box-shadow: 
     0 10px 30px rgba(0, 0, 0, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.05);
@@ -622,32 +496,10 @@
     0 0 25px rgba(200, 169, 126, 0.15);
 }
 
-.perspective-1000 {
-  perspective: 1000px;
-}
-.tilt-3d {
-  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
-  transform-style: preserve-3d;
-}
-.tilt-3d:hover {
-  box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.6), 
-    0 0 35px rgba(200, 169, 126, 0.25);
-}
-.tilt-3d-inner {
-  transform: translateZ(40px);
-  transform-style: preserve-3d;
-  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-}
+/* ── PERSPECTIVE & 3D TILT REMOVED FOR 2D LUXURY AESTHETIC ── */
 
 /* Floating ambient elements */
-@keyframes ambientPulse {
-  0%, 100% { opacity: 0.18; transform: scale(1) translateY(0); }
-  50% { opacity: 0.28; transform: scale(1.1) translateY(-10px); }
-}
-.ambient-glow-glow {
-  animation: ambientPulse 8s ease-in-out infinite;
-}
+/* ── AMBIENT GLOW ANIMATION REMOVED FOR 2D LUXURY AESTHETIC ── */
 
 /* ── 23. RESPONSIVE NAVBAR LAYOUT OVERHAUL ─────────────────── */
 /* Desktop (>=1340px): Show nav links, hide hamburger */
@@ -695,21 +547,7 @@
 
 /* CMS Editor Outline & Highlight System removed */
 
-/* ── CURSOR: ensure native cursor is always visible ── */
-/* The custom GoldCursor is an overlay; native cursor must remain */
-html, body, * {
-  /* Do not hide native cursor globally - GoldCursor is a supplement */
-}
-/* Only hide custom cursor elements on touch devices */
-@media (pointer: coarse) {
-  .xiyora-cursor, .xiyora-cursor-dot {
-    display: none !important;
-  }
-}
-/* Ensure body cursor stays auto (visible) */
-body {
-  cursor: auto;
-}
+/* ── CURSOR STYLES REMOVED FOR 2D LUXURY AESTHETIC ── */
 /* ── GOLD GRADIENT TEXT ── */
 .gold-grad {
   background: linear-gradient(135deg, #D9B485 0%, #C8A97E 40%, #B8966A 100%);
@@ -746,4 +584,24 @@ body {
   .biz-feats {
     grid-template-columns: 1fr !important;
   }
+}
+
+/* ── 24. MILESTONE 2: 2D GLOBAL OVERRIDES ────────────────────── */
+/* Cards organic rounding & fine border */
+.pc, .pc-luxe, .cc, .cat-card, .testimonial-card, .glass-card, .ql-card, .cat-intro {
+  border-radius: 2rem !important; /* 32px */
+  border: 1px solid rgba(246, 239, 224, 0.08) !important;
+}
+
+/* Buttons organic rounding & fine border */
+button, .bg, .bo, .bd, .btn-gold-out, .btn-ivory, .bt-noir, .google-btn {
+  border-radius: 2rem !important; /* 32px */
+  border: 1px solid rgba(246, 239, 224, 0.08) !important;
+}
+
+/* Dividers fine border */
+.x-gold-divider, hr {
+  border: none !important;
+  height: 1px !important;
+  background: rgba(246, 239, 224, 0.08) !important;
 }

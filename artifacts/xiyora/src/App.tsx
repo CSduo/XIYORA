@@ -1363,8 +1363,6 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
   return(
     <div className={`xiyora-loader${exit?" loader-exit":""}`} aria-hidden>
       <div className="xl-line"/>
-      <div className="x-orb x-orb-gold"  style={{width:360,height:360,top:"20%",left:"15%",opacity:.12}}/>
-      <div className="x-orb x-orb-seal"  style={{width:260,height:260,bottom:"18%",right:"20%",opacity:.08}}/>
       <div className="xl-monogram">
         <svg width={52} height={52} viewBox="0 0 48 48" fill="none" aria-hidden>
           <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/>
@@ -1387,78 +1385,12 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
 
 /* ── Gold Magnetic Cursor ── */
 function GoldCursor(){
-  const ringRef=useRef<HTMLDivElement>(null);
-  const dotRef=useRef<HTMLDivElement>(null);
-  const pos=useRef({x:0,y:0});
-  const ringPos=useRef({x:0,y:0});
-  useEffect(()=>{
-    // skip on touch devices
-    if(typeof window==="undefined"||window.matchMedia("(pointer:coarse)").matches)return;
-    const onMove=(e:MouseEvent)=>{pos.current={x:e.clientX,y:e.clientY};};
-    const onDown=()=>{ringRef.current?.classList.add("cursor-click");};
-    const onUp=()=>{ringRef.current?.classList.remove("cursor-click");};
-    const onEnter=(e:Event)=>{const t=e.target as Element;if(t.matches("button,a,[role='button'],.pc,.pc-luxe,.cat-card"))ringRef.current?.classList.add("cursor-hover");};
-    const onLeave=()=>{ringRef.current?.classList.remove("cursor-hover");};
-    document.addEventListener("mousemove",onMove,{passive:true});
-    document.addEventListener("mousedown",onDown);
-    document.addEventListener("mouseup",onUp);
-    document.addEventListener("mouseover",onEnter);
-    document.addEventListener("mouseout",onLeave);
-    let raf=0;
-    const lerp=(a:number,b:number,t:number)=>a+(b-a)*t;
-    const tick=()=>{
-      ringPos.current.x=lerp(ringPos.current.x,pos.current.x,0.12);
-      ringPos.current.y=lerp(ringPos.current.y,pos.current.y,0.12);
-      if(ringRef.current)ringRef.current.style.transform=`translate(${ringPos.current.x}px,${ringPos.current.y}px) translate(-50%,-50%)`;
-      if(dotRef.current)dotRef.current.style.transform=`translate(${pos.current.x}px,${pos.current.y}px) translate(-50%,-50%)`;
-      raf=requestAnimationFrame(tick);
-    };
-    raf=requestAnimationFrame(tick);
-    return()=>{
-      document.removeEventListener("mousemove",onMove);document.removeEventListener("mousedown",onDown);
-      document.removeEventListener("mouseup",onUp);document.removeEventListener("mouseover",onEnter);
-      document.removeEventListener("mouseout",onLeave);cancelAnimationFrame(raf);
-    };
-  },[]);
-  return(<><div ref={ringRef} className="xiyora-cursor"/><div ref={dotRef} className="xiyora-cursor-dot"/></>);
+  return null;
 }
 
 /* ── Gold Particle Canvas (hero) ── */
 function HeroCanvas({height=620}:{height?:number}){
-  const canvasRef=useRef<HTMLCanvasElement>(null);
-  useEffect(()=>{
-    const canvas=canvasRef.current;if(!canvas)return;
-    const ctx=canvas.getContext("2d");if(!ctx)return;
-    const resize=()=>{canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;};
-    resize();
-    const ro=new ResizeObserver(resize);ro.observe(canvas);
-    type P={x:number;y:number;vx:number;vy:number;r:number;a:number;va:number;};
-    const N=55;
-    const pts:P[]=Array.from({length:N},()=>({
-      x:Math.random()*canvas.width,y:Math.random()*canvas.height,
-      vx:(Math.random()-.5)*0.28,vy:-(0.12+Math.random()*0.22),
-      r:0.6+Math.random()*1.8,a:Math.random(),va:(Math.random()-.5)*0.006,
-    }));
-    let alive=true;
-    const draw=()=>{
-      if(!alive||!ctx)return;
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(const p of pts){
-        p.x+=p.vx;p.y+=p.vy;p.a+=p.va;
-        if(p.a<0){p.a=0;p.va*=-1;}if(p.a>0.9){p.a=0.9;p.va*=-1;}
-        if(p.y<-10){p.y=canvas.height+10;p.x=Math.random()*canvas.width;}
-        if(p.x<-10)p.x=canvas.width+10;if(p.x>canvas.width+10)p.x=-10;
-        const grad=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.5);
-        grad.addColorStop(0,`rgba(242,215,140,${p.a})`);
-        grad.addColorStop(1,`rgba(200,169,126,0)`);
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r*2,0,Math.PI*2);ctx.fillStyle=grad;ctx.fill();
-      }
-      requestAnimationFrame(draw);
-    };
-    draw();
-    return()=>{alive=false;ro.disconnect();};
-  },[]);
-  return <canvas ref={canvasRef} className="hero-particle-canvas" style={{height}} aria-hidden/>;
+  return null;
 }
 
 /* ── Scroll Progress Bar ── */
@@ -1574,7 +1506,7 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 @keyframes heroScale{from{transform:scale(1.06)}to{transform:scale(1)}}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(200,169,126,.12)}50%{box-shadow:0 0 60px rgba(200,169,126,.32)}}
-@keyframes sweepBtn{0%{left:-60%}100%{left:120%}}
+/* @keyframes sweepBtn{0%{left:-60%}100%{left:120%}} */
 @keyframes revealUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
@@ -1590,22 +1522,22 @@ body{font-family:'Inter',sans-serif;background:#F6F3EB;color:#1E1E1C;overflow-x:
 .nl{color:#2D2D2D;font-size:12.5px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;padding:4px 0;position:relative;line-height:1}
 .nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#C8A97E;transition:width .3s ease}
 .nl:hover{color:#C8A97E}.nl:hover::after{width:100%}
-.bg{background:#C8A97E;color:#fff;border:none;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px;position:relative;overflow:hidden}
+.bg{background:#C8A97E;color:#fff;border:none;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem;position:relative;overflow:hidden}
 .bg::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);transition:none}
-.bg:hover::before{animation:sweepBtn .5s ease forwards}
+/* .bg:hover::before{animation:sweepBtn .5s ease forwards} */
 .bg:hover{background:#B89472;transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,169,126,.32)}
 .bg:active{transform:translateY(0)}
-.bo{background:transparent;color:#C8A97E;border:1px solid #C8A97E;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px}
+.bo{background:transparent;color:#C8A97E;border:1px solid rgba(246, 239, 224, 0.08);padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem}
 .bo:hover{background:#C8A97E;color:#fff;transform:translateY(-1px)}
-.bd{background:transparent;border:1px solid #3a3a3a;color:#D9CBB8;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2px}
+.bd{background:transparent;border:1px solid rgba(246, 239, 224, 0.08);color:#D9CBB8;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem}
 .bd:hover{border-color:#C8A97E;color:#C8A97E}
 .ib{background:none;border:none;cursor:pointer;color:#2D2D2D;display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
 .ib:hover{color:#C8A97E;transform:scale(1.1)}
-.pc{background:#F8F6F2;border-radius:4px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.05);transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative}
+.pc{background:#F8F6F2;border-radius:2rem;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.05);transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative}
 .pc:hover{box-shadow:0 24px 60px rgba(0,0,0,.13);transform:translateY(-5px)}
 .pc:hover .pi{transform:scale(1.07)}
 .pi{transition:transform .65s cubic-bezier(.23,1,.32,1);width:100%;height:100%;object-fit:cover}
-.cc{position:relative;border-radius:4px;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1)}
+.cc{position:relative;border-radius:2rem;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1)}
 .cc:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(0,0,0,.18)}
 .cc:hover .ci{transform:scale(1.08)}
 .ci{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.23,1,.32,1)}
@@ -1630,8 +1562,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .img-zoom-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.96);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(8px)}
 .img-zoom-overlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;animation:fadeInUp .25s ease}
 @keyframes galleryFade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
-.glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(217,203,184,.4);border-radius:6px;box-shadow:0 32px 80px rgba(0,0,0,.22)}
-.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #E0D5C9;border-radius:20px;padding:5px 13px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
+.glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;box-shadow:0 32px 80px rgba(0,0,0,.22)}
+.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;padding:5px 13px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
 .google-btn:hover{background:#F5EEE4;border-color:#C8A97E;color:#2D2D2D;box-shadow:0 4px 12px rgba(200,169,126,.16)}
 .inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Inter',sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
 .tag-pill{background:#C8A97E;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
@@ -1808,9 +1740,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .gold-grad{background:linear-gradient(180deg,#F2D78C 0%,#C99A55 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#D9B485}
 .feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(200,169,126,.5);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
 .feat-circ:hover{background:rgba(200,169,126,.12);border-color:#E6C89A;transform:translateY(-3px)}
-.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,rgba(200,169,126,.16),rgba(200,169,126,.03));color:#EBD3A6;border:1px solid rgba(200,169,126,.55);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .35s;position:relative;overflow:hidden}
+.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,rgba(200,169,126,.16),rgba(200,169,126,.03));color:#EBD3A6;border:1px solid rgba(246, 239, 224, 0.08);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2rem;transition:all .35s;position:relative;overflow:hidden}
 .btn-gold-out:hover{background:rgba(200,169,126,.22);border-color:#E6C89A;color:#FBEFD8;transform:translateY(-2px);box-shadow:0 12px 32px rgba(200,169,126,.22)}
-.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,#F4EBD9,#E2D2B6);color:#2a2118;border:1px solid #d8c298;padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .35s}
+.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,#F4EBD9,#E2D2B6);color:#2a2118;border:1px solid rgba(246, 239, 224, 0.08);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2rem;transition:all .35s}
 .btn-ivory:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.45);background:linear-gradient(180deg,#FBF4E6,#EADCC2)}
 .deco-float{animation:driftSlow 14s ease-in-out infinite}
 @keyframes petalFall{0%{transform:translateY(-12vh) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translateY(118vh) rotate(480deg);opacity:0}}
@@ -1848,15 +1780,15 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 }
 /* ── XIYORA LUX TOKENS + REUSABLE HOMEPAGE UTILITIES (v5) ── */
 :root{--xiyora-black:#0c0a08;--xiyora-charcoal:#16110b;--xiyora-ivory:#F6EFE0;--xiyora-gold:#C8A97E;--xiyora-soft-gold:#E6C89A;--xiyora-sage:#7c8270;--xiyora-muted-text:#bdae97}
-@keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}}
+/* @keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}} */
 @keyframes cloudDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
 @keyframes idleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .cloud-drift{animation:cloudDrift 16s ease-in-out infinite}
 .idle-bob{animation:idleBob 7s ease-in-out infinite}
-.gold-badge{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(200,169,126,.5);background:radial-gradient(circle at 50% 28%,rgba(200,169,126,.16),rgba(200,169,126,.02));box-shadow:inset 0 0 0 4px rgba(200,169,126,.06);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
+.gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(246, 239, 224, 0.08);background:radial-gradient(circle at 50% 28%,rgba(200,169,126,.16),rgba(200,169,126,.02));box-shadow:inset 0 0 0 4px rgba(200,169,126,.06);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
 .gold-badge.round{border-radius:50%}
 .ql-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.ql-card{position:relative;display:flex;align-items:center;gap:16px;padding:24px 22px;background:transparent;border:none;text-align:left;width:100%;cursor:pointer;transition:background .35s,box-shadow .35s;border-radius:6px}
+.ql-card{position:relative;display:flex;align-items:center;gap:16px;padding:24px 22px;background:transparent;border:none;text-align:left;width:100%;cursor:pointer;transition:background .35s,box-shadow .35s;border-radius:2rem}
 .ql-card .ql-arrow{margin-left:auto;color:#9a8a68;font-size:18px;transition:transform .4s,color .4s}
 .ql-card:hover{background:rgba(200,169,126,.06);box-shadow:inset 0 0 0 1px rgba(200,169,126,.28),0 14px 40px rgba(0,0,0,.4)}
 .ql-card:hover .ql-arrow{transform:translateX(6px);color:var(--xiyora-soft-gold)}
@@ -1871,25 +1803,27 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .benefit-noir .bn .bnl{font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--xiyora-muted-text);font-weight:500;line-height:1.5}
 .benefit-noir .bn:hover .bnl{color:var(--xiyora-soft-gold)}
 @media(max-width:620px){.benefit-noir{justify-content:flex-start}.benefit-noir .bn{min-width:42%}.benefit-noir .bn:nth-child(2)::after{display:none}}
-.bt-noir{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:30px;border:1px solid rgba(200,169,126,.4);background:rgba(255,255,255,.02);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#E3D7C0;cursor:pointer;transition:all .3s;white-space:nowrap}
+.bt-noir{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:2rem;border:1px solid rgba(246, 239, 224, 0.08);background:rgba(255,255,255,.02);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#E3D7C0;cursor:pointer;transition:all .3s;white-space:nowrap}
 .bt-noir:hover{border-color:var(--xiyora-soft-gold);color:#fff;transform:translateY(-2px)}
 .bt-noir.active{background:linear-gradient(180deg,#E8CDA0,#C9A368);border-color:var(--xiyora-soft-gold);color:#211a10;font-weight:600;box-shadow:0 10px 26px rgba(200,169,126,.32)}
-.cat-intro{position:relative;background:var(--xiyora-ivory);background-image:radial-gradient(circle at 16% 20%,rgba(200,169,126,.1),transparent 44%),radial-gradient(circle at 84% 82%,rgba(159,59,46,.05),transparent 46%);border:1px solid rgba(200,169,126,.42);border-radius:8px;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
+.cat-intro{position:relative;background:var(--xiyora-ivory);background-image:radial-gradient(circle at 16% 20%,rgba(200,169,126,.1),transparent 44%),radial-gradient(circle at 84% 82%,rgba(159,59,46,.05),transparent 46%);border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
 .cat-intro .ci-h{font-family:'Playfair Display',serif;color:#241c12;font-weight:500}
 .cat-intro .ci-sub{color:#6a5c44}
 .cat-intro .ci-label{color:#9E3B2E}
 .latex-story{position:relative;overflow:hidden;min-height:clamp(380px,52vw,520px);display:flex;align-items:center;background:var(--xiyora-black)}
 .latex-story img.ls-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
 .latex-story .ls-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,7,6,.93) 0%,rgba(8,7,6,.74) 42%,rgba(8,7,6,.28) 70%,transparent 100%)}
+/*
 .gold-line-btn{position:relative;overflow:hidden}
 .gold-line-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,240,205,.45) 50%,transparent 70%);background-size:220% 100%;background-position:-180% 0;pointer-events:none}
 .gold-line-btn:hover::before{animation:goldShimmer 1.1s ease}
+*/
 @media(prefers-reduced-motion:reduce){.gold-line-btn::before{display:none!important}.cloud-drift,.idle-bob{animation:none!important}.gold-badge,.ql-card,.benefit-noir .bn,.bt-noir{transition:none!important}}
 /* ── SHOP-BY-CATEGORY PREMIUM CARD GRID (3 + 2 layout) ── */
 .cat-grid6{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .cat-grid6 .sp2{grid-column:span 2}
 .cat-grid6 .sp3{grid-column:span 3}
-.cat-card{position:relative;display:block;width:100%;height:392px;border:none;padding:0;margin:0;cursor:pointer;border-radius:7px;overflow:hidden;background:#16110b;box-shadow:0 0 0 1px rgba(200,169,126,.45),0 16px 38px rgba(0,0,0,.16);transition:box-shadow .45s ease,transform .45s ease;text-align:left;-webkit-tap-highlight-color:transparent}
+.cat-card{position:relative;display:block;width:100%;height:392px;border:none;padding:0;margin:0;cursor:pointer;border-radius:2rem;overflow:hidden;background:#16110b;box-shadow:0 0 0 1px rgba(200,169,126,.45),0 16px 38px rgba(0,0,0,.16);transition:box-shadow .45s ease,transform .45s ease;text-align:left;-webkit-tap-highlight-color:transparent}
 .cat-card.cat-card-wide{height:340px}
 .cat-card:hover,.cat-card:focus-visible{outline:none;box-shadow:0 0 0 1px rgba(200,169,126,.95),0 0 24px rgba(200,169,126,.34),0 22px 48px rgba(0,0,0,.28);transform:translateY(-4px)}
 .cat-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
@@ -1908,6 +1842,25 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 @media(max-width:900px){.cat-grid6{grid-template-columns:1fr 1fr;gap:16px}.cat-grid6 .sp2,.cat-grid6 .sp3{grid-column:auto}.cat-card,.cat-card.cat-card-wide{height:320px}}
 @media(max-width:600px){.cat-grid6{grid-template-columns:1fr;gap:16px}.cat-card,.cat-card.cat-card-wide{height:300px}}
 @media(prefers-reduced-motion:reduce){.cat-card,.cat-card-img,.cat-card-arr{transition:none!important}.cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:none!important}}
+
+/* Cards organic rounding & fine border */
+.pc, .pc-luxe, .cc, .cat-card, .testimonial-card, .glass-card, .ql-card, .cat-intro {
+  border-radius: 2rem !important;
+  border: 1px solid rgba(246, 239, 224, 0.08) !important;
+}
+
+/* Buttons organic rounding & fine border */
+button, .bg, .bo, .bd, .btn-gold-out, .btn-ivory, .bt-noir, .google-btn {
+  border-radius: 2rem !important;
+  border: 1px solid rgba(246, 239, 224, 0.08) !important;
+}
+
+/* Dividers fine border */
+.x-gold-divider, hr {
+  border: none !important;
+  height: 1px !important;
+  background: rgba(246, 239, 224, 0.08) !important;
+}
 `;
 
 /* ─── SMALL UI COMPONENTS ────────────────────────────────── */
@@ -2142,18 +2095,7 @@ const CornerSet=()=>(<>
 </>);
 /* Falling sakura petals overlay (CSS-only, reduced-motion safe) */
 function Petals({count=14,z=5}:{count?:number;z?:number}){
-  const [petals]=useState(()=>Array.from({length:count}).map(()=>({
-    left:Math.random()*100,size:7+Math.random()*9,dur:9+Math.random()*11,delay:Math.random()*14,sway:3+Math.random()*4,
-  })));
-  return(
-    <div className="petal-layer" style={{zIndex:z}} aria-hidden>
-      {petals.map((p,i)=>(
-        <span key={i} className="petal" style={{left:`${p.left}%`,width:p.size,height:p.size*0.78,animationDuration:`${p.dur}s`,animationDelay:`-${p.delay}s`}}>
-          <i style={{animationDuration:`${p.sway}s`,animationDelay:`-${p.delay}s`}}/>
-        </span>
-      ))}
-    </div>
-  );
+  return null;
 }
 /* Circle-X monogram mark (gold lockup) */
 const MonoMark=({size=42,color="#C8A97E"}:{size?:number;color?:string})=>(
@@ -2201,14 +2143,8 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
 
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}} data-cms-id="hero-section">
-      <Petals count={16}/>
       {/* section-edge framing motifs — low z-index, kept away from text */}
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
-      <HeroCanvas height={520}/>
-      {/* Ambient depth orbs */}
-      <div className="x-orb x-orb-gold"  style={{width:500,height:500,top:"-10%",left:"30%",zIndex:0,position:"absolute"}}/>
-      <div className="x-orb x-orb-seal"  style={{width:380,height:380,bottom:"-5%",right:"8%",zIndex:0,position:"absolute",animationDelay:"-4s"}}/>
-      <div className="x-orb x-orb-ivory" style={{width:300,height:300,top:"20%",left:"-5%",zIndex:0,position:"absolute",animationDelay:"-8s"}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <div className={`ornate ${isCentered ? "" : "lux-hero-grid"}`} style={{
           display: isCentered ? "block" : "grid",
@@ -2316,7 +2252,6 @@ const BIZ_FEATURES=[
 function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
-      <Petals count={10}/>
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}}/>
       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
@@ -2352,8 +2287,6 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
     <div style={{background:C.white,minHeight:"100vh"}}>
       {/* HERO */}
       <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(40px,6vw,80px) 0"}}>
-        <Petals count={12}/>
-        <HeroCanvas height={420}/>
         <div className="container" style={{position:"relative",zIndex:4,textAlign:"center"}}>
           <span style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:"#C9A876",display:"block",marginBottom:16}}>{BIZ.aboutHeroLabel || "Our Story"}</span>
           <h1 className="serif gold-grad" style={{fontSize:"clamp(2.4rem,5vw,4rem)",fontWeight:500,lineHeight:1.25,margin:"0 0 24px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroHeading || "We Built XIYORA Because We<br/>Could Not Find What We Were<br/><em>Looking For.</em>"}} />
@@ -2435,7 +2368,6 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
 
       {/* SECTION 3 — Bingxi Partnership */}
       <section className="lux-noir sec" style={{position:"relative",overflow:"hidden"}}>
-        <Petals count={8}/>
         <div className="container" style={{position:"relative",zIndex:4}}>
           <div style={{textAlign:"center",marginBottom:52}}>
             <SL dark>{BIZ.aboutPartnerLabel || "The Partnership"}</SL>
@@ -2805,7 +2737,6 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
     <div style={{background:C.white,minHeight:"100vh"}}>
       {/* HERO */}
       <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
-        <Petals count={14}/>
         <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
         <div className="container" style={{position:"relative",zIndex:4}}>
           <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
@@ -3001,7 +2932,6 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
   ];
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
-      <Petals count={8}/>
       <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.24,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
       <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-8,left:-14,width:"clamp(80px,9vw,120px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
@@ -3053,10 +2983,8 @@ function DarkBenefitStrip(){
 function CategoryIntroPanel(){
   return(
     <div className="cat-intro" style={{maxWidth:760,margin:"0 auto"}}>
-      <CornerSet/>
       <img src={DECO.sakuraCorner} alt="" aria-hidden loading="lazy" decoding="async" style={{position:"absolute",top:0,left:0,width:"clamp(80px,12vw,140px)",opacity:.9,pointerEvents:"none",zIndex:2}}/>
       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}}/>
-      <GoldCloud className="cloud-drift" size={120} opacity={.12} style={{position:"absolute",bottom:18,left:18,pointerEvents:"none",zIndex:1}}/>
       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Seal ch="选" title="Curated collection"/>
         <div className="ci-label" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px"}}>Bingxi Collection</div>
@@ -3074,7 +3002,6 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
     <section className="latex-story">
       <img className="ls-bg" src={err?"https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=85":"/assets/lux/latex-closeup.webp"} alt="Natural latex close-up" loading="lazy" decoding="async" onError={()=>setErr(true)}/>
       <div className="ls-ov"/>
-      {/* gold hairline frame + bottom edge wave — border-only, no motifs over the photo (guardrail) */}
       <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(200,169,126,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
       <svg aria-hidden viewBox="0 0 1200 80" preserveAspectRatio="none" style={{position:"absolute",left:0,right:0,bottom:0,width:"100%",height:60,opacity:.5,zIndex:3}}><path d="M0 60 Q150 20 300 50 T600 50 T900 50 T1200 45" fill="none" stroke="#C8A97E" strokeWidth="1.2"/><path d="M0 70 Q150 34 300 62 T600 62 T900 62 T1200 58" fill="none" stroke="#C8A97E" strokeWidth=".7" opacity=".5"/></svg>
       <div className="container" style={{position:"relative",zIndex:4}}>
@@ -3089,6 +3016,9 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
     </section>
   );
 }
+
+
+
 function WhatsAppPopup({page,context}:{page:string;context:any}){
   const C=useC();
   const [visible,setVisible]=useState(false);
@@ -3100,9 +3030,6 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
   const shownRef=useRef(false);
   const DISMISS_KEY="xiyora_whatsapp_popup_dismissed";
   useEffect(()=>{
-    // Show at most once per session. Once the user closes it, persist the
-    // dismissal in sessionStorage so it never re-opens until a fresh page load
-    // in a new session (clears when the tab is closed).
     try{if(sessionStorage.getItem(DISMISS_KEY))return;}catch{}
     let timer:ReturnType<typeof setTimeout>;
     const onScroll=()=>{
@@ -3245,7 +3172,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:2,fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7}}>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:2,fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7}}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp Us
               </button>
@@ -3361,7 +3288,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               <button onClick={submit} className="bg" style={{flex:1,minWidth:120,padding:"12px 14px",fontSize:12}} disabled={loading}>
                 {loading?<Spinner/>:"Send Enquiry"}
               </button>
-              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 14px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 14px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:1,textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp
               </button>
@@ -3563,7 +3490,6 @@ function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose
   const handleSave = () => {
     if (!state.trim() && !city.trim()) { alert("Please enter at least your city or region."); return; }
     const pc = pincode.trim();
-    // Accept international postal codes: Indian 6-digit, UAE 5-digit, UK alphanumeric, US 5-digit, Singapore 6-digit
     const validPostal = !pc || /^\d{5,6}$/.test(pc) || /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i.test(pc) || /^[A-Z0-9]{3,8}$/i.test(pc);
     if (!validPostal) { alert("Please enter a valid postal code."); return; }
     onSave({ state: state.trim(), city: city.trim() || state.trim() || "Local Hub", pincode: pc });
@@ -4765,7 +4691,6 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
   };
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(40px,5vw,72px) 0"}}>
-      <Petals count={8}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <OrnamentalFrame style={{background:"linear-gradient(160deg,#16110b,#0c0a08)",padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
           <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
@@ -4798,49 +4723,12 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
 
 function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub:string;cn?:string;wide?:boolean;onClick:()=>void}){
   const [imgErr,setImgErr]=useState(false);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Calculate rotation (-12 to 12 degrees)
-    const rotateX = ((y / rect.height) - 0.5) * -16; 
-    const rotateY = ((x / rect.width) - 0.5) * 16;
-    
-    setTilt({ x: rotateX, y: rotateY });
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setTilt({ x: 0, y: 0 });
-  };
-
-  const transformStyle = isHovered 
-    ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(1.02, 1.02, 1.02)` 
-    : 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-
   return(
     <button 
       type="button" 
       onClick={onClick} 
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       aria-label={`${name} — ${sub}`} 
-      className={"cat-card glass-card tilt-3d"+(wide?" cat-card-wide":"")}
-      style={{
-        transform: transformStyle,
-        transformStyle: 'preserve-3d',
-        transition: isHovered ? 'transform 0.08s ease-out' : 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
-      }}
+      className={"cat-card glass-card"+(wide?" cat-card-wide":"")}
     >
       <img 
         src={imgErr?FALLBACK_IMG:img} 
@@ -4849,19 +4737,15 @@ function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub
         loading="lazy" 
         decoding="async" 
         onError={()=>setImgErr(true)}
-        style={{
-          transform: isHovered ? 'translateZ(10px) scale(1.05)' : 'translateZ(0px) scale(1)',
-          transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'
-        }}
       />
-      <div className="cat-card-grad" style={{ transform: 'translateZ(15px)' }}/>
-      <span className="cat-corner tl" aria-hidden style={{ transform: 'translateZ(25px)' }}/>
-      <span className="cat-corner tr" aria-hidden style={{ transform: 'translateZ(25px)' }}/>
-      {cn&&<span className="cat-vtag" aria-hidden style={{ transform: 'translateZ(30px)' }}>{cn}</span>}
-      <div className="cat-card-body" style={{ transform: 'translateZ(45px)', transformStyle: 'preserve-3d' }}>
-        <div className="cat-card-title" style={{ transform: 'translateZ(20px)' }}>{name}</div>
-        <div className="cat-card-sub" style={{ transform: 'translateZ(10px)' }}>{sub}</div>
-        <span className="cat-card-explore" style={{ transform: 'translateZ(15px)' }}>Explore <span className="cat-card-arr">→</span></span>
+      <div className="cat-card-grad" />
+      <span className="cat-corner tl" aria-hidden />
+      <span className="cat-corner tr" aria-hidden />
+      {cn&&<span className="cat-vtag" aria-hidden>{cn}</span>}
+      <div className="cat-card-body">
+        <div className="cat-card-title">{name}</div>
+        <div className="cat-card-sub">{sub}</div>
+        <span className="cat-card-explore">Explore <span className="cat-card-arr">→</span></span>
       </div>
     </button>
   );
@@ -7110,7 +6994,7 @@ export default function App(){
       <LocationPromptModal show={showLocationPrompt} onClose={() => setShowLocationPrompt(false)} onSave={(l: any) => updateUserLoc(l)} />
     </div>
     {!loaderDone&&<LoadingScreen appReady={appReady} onDone={handleLoaderDone}/>}
-    <GoldCursor/>
+    {/* <GoldCursor/> */}
     <ScrollProgress/>
     </ThemeCtx.Provider>
   );
