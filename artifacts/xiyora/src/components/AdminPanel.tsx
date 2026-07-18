@@ -66,7 +66,7 @@ const FX: Record<string, { symbol: string; rate: number; name: string; locale: s
 const API = (import.meta.env.VITE_API_BASE as string) || "/api";
 const TOKEN_KEY = "xiyora_admin_token";
 
-const GOLD = "#C8A97E";
+const GOLD = "#6BAE88";
 const DARK = "#1E1E1C";
 const BG = "#F6F3EB";
 const BEIGE = "#E5DFCD";
@@ -117,21 +117,21 @@ function Label({ children }: { children: React.ReactNode }) {
 }
 
 function Input({ value, onChange, placeholder, type = "text", style = {} }: { value?: string; onChange: (v: string) => void; placeholder?: string; type?: string; style?: React.CSSProperties }) {
-  return <input type={type} value={value ?? ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter',sans-serif", color:DARK, marginBottom:12, outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE} />;
+  return <input type={type} value={value ?? ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter', sans-serif", color:DARK, marginBottom:12, outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE} />;
 }
 
 function Textarea({ value, onChange, placeholder, rows = 3, style = {} }: { value?: string; onChange: (v: string) => void; placeholder?: string; rows?: number; style?: React.CSSProperties }) {
-  return <textarea value={value ?? ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter',sans-serif", color:DARK, marginBottom:12, resize:"vertical", outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE} />;
+  return <textarea value={value ?? ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter', sans-serif", color:DARK, marginBottom:12, resize:"vertical", outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE} />;
 }
 
 function Select({ value, onChange, options, style = {} }: { value?: string; onChange: (v: string) => void; options: any[]; style?: React.CSSProperties }) {
-  return <select value={value ?? ""} onChange={e => onChange(e.target.value)} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter',sans-serif", color:DARK, marginBottom:12, outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE}>
+  return <select value={value ?? ""} onChange={e => onChange(e.target.value)} style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"9px 12px", fontSize:13, borderRadius:3, fontFamily:"'Inter', sans-serif", color:DARK, marginBottom:12, outline:"none", ...style }} onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = BEIGE}>
     {options.map((o: any) => <option key={o.value ?? o} value={o.value ?? o}>{o.label ?? o}</option>)}
   </select>;
 }
 
 function Btn({ children, onClick, variant = "primary", disabled = false, style = {} }: any) {
-  const base: React.CSSProperties = { border:"none", padding:"9px 20px", fontSize:12, fontFamily:"'Inter',sans-serif", letterSpacing:"1.5px", textTransform:"uppercase", cursor:disabled?"not-allowed":"pointer", borderRadius:2, transition:"all .2s", fontWeight:500, display:"flex", alignItems:"center", gap:6, opacity:disabled?.6:1 };
+  const base: React.CSSProperties = { border:"none", padding:"9px 20px", fontSize:12, fontFamily:"'Inter', sans-serif", letterSpacing:"1.5px", textTransform:"uppercase", cursor:disabled?"not-allowed":"pointer", borderRadius:2, transition:"all .2s", fontWeight:500, display:"flex", alignItems:"center", gap:6, opacity:disabled?.6:1 };
   const styles: Record<string, React.CSSProperties> = {
     primary: { background:GOLD, color:"#fff" },
     secondary: { background:"transparent", border:`1px solid ${GOLD}`, color:GOLD },
@@ -169,8 +169,8 @@ function ImageUploader({ token, slug, context, label, value, onChange }: { token
         <Btn variant="secondary" onClick={() => inputRef.current?.click()} disabled={uploading} style={{ fontSize:11, padding:"7px 14px" }}>
           {uploading ? <Spinner size={14}/> : "Upload Image"}
         </Btn>
-        {value && <input type="text" value={value} onChange={e => onChange(e.target.value)} style={{ flex:1, minWidth:140, background:"#fff", border:`1px solid ${BEIGE}`, padding:"7px 10px", fontSize:11, borderRadius:3, fontFamily:"'Inter',sans-serif", color:"#666", outline:"none" }} placeholder="Image URL" />}
-        {!value && <input type="text" placeholder="or paste URL…" onChange={e => onChange(e.target.value)} style={{ flex:1, minWidth:140, background:"#fff", border:`1px solid ${BEIGE}`, padding:"7px 10px", fontSize:11, borderRadius:3, fontFamily:"'Inter',sans-serif", color:"#666", outline:"none" }} />}
+        {value && <input type="text" value={value} onChange={e => onChange(e.target.value)} style={{ flex:1, minWidth:140, background:"#fff", border:`1px solid ${BEIGE}`, padding:"7px 10px", fontSize:11, borderRadius:3, fontFamily:"'Inter', sans-serif", color:"#666", outline:"none" }} placeholder="Image URL" />}
+        {!value && <input type="text" placeholder="or paste URL…" onChange={e => onChange(e.target.value)} style={{ flex:1, minWidth:140, background:"#fff", border:`1px solid ${BEIGE}`, padding:"7px 10px", fontSize:11, borderRadius:3, fontFamily:"'Inter', sans-serif", color:"#666", outline:"none" }} />}
       </div>
       {err && <p style={{ color:RED, fontSize:11, marginTop:4 }}>{err}</p>}
       <input ref={inputRef} type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f = e.target.files?.[0]; if(f) handleFile(f); e.target.value = ""; }} />
@@ -395,7 +395,7 @@ function PCardMock({ p, cur }: { p: Partial<Product>; cur: string }) {
         <div style={{ fontSize: 9, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD, marginBottom: 4, fontWeight: 500 }}>
           {p.latexType || "Pure"} · {p.category}
         </div>
-        <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 16, fontWeight: 500, color: DARK, marginBottom: 6, lineHeight: 1.2, height: 38, overflow: "hidden" }}>
+        <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 500, color: DARK, marginBottom: 6, lineHeight: 1.2, height: 38, overflow: "hidden" }}>
           {p.name || "Product Name"}
         </h3>
         <p style={{ fontSize: 11, color: "#aaa", marginBottom: 12, lineHeight: 1.45, height: 32, overflow: "hidden" }}>
@@ -406,10 +406,10 @@ function PCardMock({ p, cur }: { p: Partial<Product>; cur: string }) {
             {discInfo ? (
               <div>
                 <span style={{ textDecoration: "line-through", fontSize: 10, color: "#999", marginRight: 4 }}>{discInfo.originalPriceStr}</span>
-                <span style={{ fontFamily: "'Playfair Display',serif", fontSize: 14, fontWeight: 600, color: GOLD }}>{discInfo.discountedPriceStr}</span>
+                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 14, fontWeight: 600, color: GOLD }}>{discInfo.discountedPriceStr}</span>
               </div>
             ) : (
-              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 14, fontWeight: 600, color: DARK }}>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 14, fontWeight: 600, color: DARK }}>
                 {displayPrice}
               </div>
             )}
@@ -503,8 +503,8 @@ function ProductDetailMock({ p, cur }: { p: Partial<Product>; cur: string }) {
             {p.latexType && <span style={{ border: `1px solid ${GOLD}`, color: GOLD, padding: "1px 4px", fontSize: 8, fontWeight: 600, borderRadius: 2 }}>{p.latexType} Latex</span>}
           </div>
 
-          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 18, color: DARK, margin: "0 0 4px", fontWeight: 500, lineHeight: 1.2 }}>{p.name || "Listing Name"}</h2>
-          <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", color: GOLD, fontSize: 12, margin: "0 0 10px" }}>{p.headline || "Tagline/Headline"}</p>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, color: DARK, margin: "0 0 4px", fontWeight: 500, lineHeight: 1.2 }}>{p.name || "Listing Name"}</h2>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", color: GOLD, fontSize: 12, margin: "0 0 10px" }}>{p.headline || "Tagline/Headline"}</p>
           <p style={{ fontSize: 11, color: "#666", lineHeight: 1.5, margin: "0 0 12px", maxHeight: 60, overflowY: "auto" }}>{p.shortDesc || "Listing summary text."}</p>
 
           {p.latexContent && (
@@ -518,11 +518,11 @@ function ProductDetailMock({ p, cur }: { p: Partial<Product>; cur: string }) {
               {discInfo ? (
                 <>
                   <span style={{ textDecoration: "line-through", color: "#999", fontSize: 11 }}>{discInfo.originalPriceStr}</span>
-                  <span style={{ fontSize: 16, fontWeight: 700, color: GOLD, fontFamily: "'Playfair Display',serif" }}>{discInfo.discountedPriceStr}</span>
+                  <span style={{ fontSize: 16, fontWeight: 700, color: GOLD, fontFamily: "'Cormorant Garamond', serif" }}>{discInfo.discountedPriceStr}</span>
                   <span style={{ background: "rgba(158,59,46,.12)", color: RED, fontSize: 8, fontWeight: 700, padding: "1px 4px", borderRadius: 2 }}>{discInfo.discountPct}% OFF</span>
                 </>
               ) : (
-                <span style={{ fontSize: 16, fontWeight: 700, color: DARK, fontFamily: "'Playfair Display',serif" }}>{displayPrice}</span>
+                <span style={{ fontSize: 16, fontWeight: 700, color: DARK, fontFamily: "'Cormorant Garamond', serif" }}>{displayPrice}</span>
               )}
             </div>
             {p.priceNote && <div style={{ fontSize: 8, color: GOLD, fontStyle: "italic", marginTop: 2 }}>{p.priceNote}</div>}
@@ -701,7 +701,7 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
         <div style={{ padding: "16px 24px", borderBottom: `1px solid ${BEIGE}`, display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff", borderRadius: "8px 8px 0 0" }}>
           <div>
             <p style={{ fontSize: 10, letterSpacing: "3px", textTransform: "uppercase", color: GOLD, margin: 0 }}>Sourcing Gateway Admin</p>
-            <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 20, color: DARK, margin: 0 }}>{isNew ? "New B2B Product Listing" : `Edit B2B Product: ${form.name}`}</h2>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: DARK, margin: 0 }}>{isNew ? "New B2B Product Listing" : `Edit B2B Product: ${form.name}`}</h2>
           </div>
           <button onClick={onClose} style={{ background: "none", border: "none", fontSize: 22, cursor: "pointer", color: "#888" }}>✕</button>
         </div>
@@ -797,8 +797,8 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${BEIGE}`, paddingBottom: 12, marginBottom: 16 }}>
               <span style={{ fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", color: GOLD, fontWeight: 600 }}>Visual Live Preview</span>
               <div style={{ display: "flex", gap: 6 }}>
-                <button onClick={() => setPreviewTab("detail")} style={{ background: previewTab === "detail" ? GOLD : "transparent", color: previewTab === "detail" ? "#fff" : "#888", border: `1px solid ${previewTab === "detail" ? GOLD : BEIGE}`, padding: "5px 12px", fontSize: 11, borderRadius: 3, cursor: "pointer", fontFamily: "'Inter',sans-serif", fontWeight: 500 }}>Detail Page</button>
-                <button onClick={() => setPreviewTab("card")} style={{ background: previewTab === "card" ? GOLD : "transparent", color: previewTab === "card" ? "#fff" : "#888", border: `1px solid ${previewTab === "card" ? GOLD : BEIGE}`, padding: "5px 12px", fontSize: 11, borderRadius: 3, cursor: "pointer", fontFamily: "'Inter',sans-serif", fontWeight: 500 }}>Product Card</button>
+                <button onClick={() => setPreviewTab("detail")} style={{ background: previewTab === "detail" ? GOLD : "transparent", color: previewTab === "detail" ? "#fff" : "#888", border: `1px solid ${previewTab === "detail" ? GOLD : BEIGE}`, padding: "5px 12px", fontSize: 11, borderRadius: 3, cursor: "pointer", fontFamily: "'Inter', sans-serif", fontWeight: 500 }}>Detail Page</button>
+                <button onClick={() => setPreviewTab("card")} style={{ background: previewTab === "card" ? GOLD : "transparent", color: previewTab === "card" ? "#fff" : "#888", border: `1px solid ${previewTab === "card" ? GOLD : BEIGE}`, padding: "5px 12px", fontSize: 11, borderRadius: 3, cursor: "pointer", fontFamily: "'Inter', sans-serif", fontWeight: 500 }}>Product Card</button>
               </div>
             </div>
 
@@ -929,7 +929,7 @@ function ProductsPanel({ token }: { token: string }) {
         <ProductEditor product={editing==="new"?null:editing as Product} token={token} onSave={onSave} onClose={() => setEditing(null)} />
       )}
       <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:20, flexWrap:"wrap", gap:12 }}>
-        <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, color:DARK }}>Products</h2>
+        <h2 style={{ fontFamily:"'Cormorant Garamond', serif", fontSize:22, color:DARK }}>Products</h2>
         <div style={{ display:"flex", gap:8 }}>
           <Btn variant="secondary" onClick={seedProducts} disabled={seeding} style={{ fontSize:11 }}>{seeding ? <Spinner size={12}/> : "Seed Products"}</Btn>
           <Btn onClick={() => setEditing("new")}>+ New Product</Btn>
@@ -939,12 +939,12 @@ function ProductsPanel({ token }: { token: string }) {
       {loadErr && (
         <div style={{ background:"#fff3f3", border:`1px solid ${RED}`, borderRadius:4, padding:"14px 18px", marginBottom:16 }}>
           <p style={{ color:RED, fontSize:13, margin:0 }}>{loadErr}</p>
-          <button onClick={load} style={{ marginTop:8, color:GOLD, background:"none", border:"none", cursor:"pointer", fontSize:12, padding:0, fontFamily:"'Inter',sans-serif" }}>Retry</button>
+          <button onClick={load} style={{ marginTop:8, color:GOLD, background:"none", border:"none", cursor:"pointer", fontSize:12, padding:0, fontFamily:"'Inter', sans-serif" }}>Retry</button>
         </div>
       )}
       <div style={{ display:"flex", gap:8, marginBottom:16, flexWrap:"wrap" }}>
         {CATS.map(c => (
-          <button key={c} onClick={() => setCatFilter(c)} style={{ background:catFilter===c?GOLD:"transparent", color:catFilter===c?"#fff":"#888", border:`1px solid ${catFilter===c?GOLD:BEIGE}`, padding:"5px 14px", fontSize:12, borderRadius:20, cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>{c}</button>
+          <button key={c} onClick={() => setCatFilter(c)} style={{ background:catFilter===c?GOLD:"transparent", color:catFilter===c?"#fff":"#888", border:`1px solid ${catFilter===c?GOLD:BEIGE}`, padding:"5px 14px", fontSize:12, borderRadius:20, cursor:"pointer", fontFamily:"'Inter', sans-serif" }}>{c}</button>
         ))}
       </div>
       {loading ? <div style={{ textAlign:"center", padding:40 }}><Spinner/></div> : loadErr ? null : products.length === 0 ? (
@@ -984,7 +984,7 @@ function ProductsPanel({ token }: { token: string }) {
                   </td>
                   <td style={{ padding:"10px 10px", color:"#666", whiteSpace:"nowrap" }}>{p.priceINR||"—"}</td>
                   <td style={{ padding:"10px 10px" }}>
-                    <button onClick={() => toggleVisible(p)} style={{ background:p.visible?"#e8f5e9":"#fce4ec", color:p.visible?"#388e3c":"#c62828", border:"none", borderRadius:20, padding:"3px 10px", fontSize:11, cursor:"pointer", fontFamily:"'Inter',sans-serif", fontWeight:500 }}>
+                    <button onClick={() => toggleVisible(p)} style={{ background:p.visible?"#e8f5e9":"#fce4ec", color:p.visible?"#388e3c":"#c62828", border:"none", borderRadius:20, padding:"3px 10px", fontSize:11, cursor:"pointer", fontFamily:"'Inter', sans-serif", fontWeight:500 }}>
                       {p.visible ? "Visible" : "Hidden"}
                     </button>
                   </td>
@@ -1450,7 +1450,7 @@ function SiteContentPanel({
       case "header":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Header & Top Marquees</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Header & Top Marquees</h4>
             <Label>WhatsApp Sourcing Hot-Line</Label>
             <Input value={draft.wa} onChange={(v) => setKey("wa", v)} placeholder="e.g. 917028311226" />
             
@@ -1473,7 +1473,7 @@ function SiteContentPanel({
       case "logo":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Logo & Brand Tagline</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Logo & Brand Tagline</h4>
             <Label>Navbar brand tagline</Label>
             <Input value={draft.navBrandTagline} onChange={(v) => setKey("navBrandTagline", v)} />
           </div>
@@ -1494,7 +1494,7 @@ function SiteContentPanel({
         }
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Navigation Menu Links</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Navigation Menu Links</h4>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {list.map((item: any, idx: number) => (
                 <div key={idx} style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", gap: 8, alignItems: "center", borderBottom: "1px solid #FAF8F4", paddingBottom: 8 }}>
@@ -1533,7 +1533,7 @@ function SiteContentPanel({
       case "hero-section":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Homepage Hero & Promise</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Homepage Hero & Promise</h4>
             <Label>Hero Main Heading</Label>
             <Input value={draft.heroTitle} onChange={(v) => setKey("heroTitle", v)} />
             
@@ -1614,7 +1614,7 @@ function SiteContentPanel({
       case "categories":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Category Images</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Category Images</h4>
             {[
               { key: "catImg_Mattresses", label: "Mattresses Category Image", slug: "cat-mattresses" },
               { key: "catImg_Pillows", label: "Pillows Category Image", slug: "cat-pillows" },
@@ -1631,7 +1631,7 @@ function SiteContentPanel({
         try { if (draft.faqItems) list = JSON.parse(draft.faqItems); } catch {}
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Latex Sourcing FAQ / Guide</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Latex Sourcing FAQ / Guide</h4>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {list.map((item: any, idx: number) => (
                 <div key={idx} style={{ border: "1px solid " + BEIGE, padding: 12, borderRadius: 4 }}>
@@ -1661,7 +1661,7 @@ function SiteContentPanel({
       case "about-xiyora":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>About XIYORA Page content</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>About XIYORA Page content</h4>
             <Label>About Hero Label</Label>
             <Input value={draft.aboutHeroLabel} onChange={(v) => setKey("aboutHeroLabel", v)} />
             
@@ -1698,7 +1698,7 @@ function SiteContentPanel({
       case "partnership":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Bingxi Sourcing Partner</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Bingxi Sourcing Partner</h4>
             <Label>Partnership Section Label</Label>
             <Input value={draft.aboutPartnerLabel} onChange={(v) => setKey("aboutPartnerLabel", v)} />
             
@@ -1717,7 +1717,7 @@ function SiteContentPanel({
       case "reviews":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Reviews Database CMS</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Reviews Database CMS</h4>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
               <div>
                 <Label>Average Rating</Label>
@@ -1785,7 +1785,7 @@ function SiteContentPanel({
       case "contact-section":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Contact Sourcing Details</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Contact Sourcing Details</h4>
             <Label>WhatsApp Sourcing Hot-Line</Label>
             <Input value={draft.wa} onChange={(v) => setKey("wa", v)} placeholder="e.g. 917028311226" />
             
@@ -1802,7 +1802,7 @@ function SiteContentPanel({
       case "b2b-portal":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Supplier B2B Sourcing Portal</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Supplier B2B Sourcing Portal</h4>
             <Label>Supplier Page Hero Label</Label>
             <Input value={draft.supplierHeroLabel} onChange={(v) => setKey("supplierHeroLabel", v)} />
 
@@ -1829,7 +1829,7 @@ function SiteContentPanel({
         
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Currency Dropdown Setup</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Currency Dropdown Setup</h4>
             <Label>Enabled Currencies Checklist</Label>
             <div style={{ display: "flex", flexDirection: "column", gap: 8, margin: "8px 0 16px" }}>
               {currenciesList.map(c => {
@@ -1872,7 +1872,7 @@ function SiteContentPanel({
       case "freight":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Freight & Sourcing Costs</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Freight & Sourcing Costs</h4>
             
             <Label>Freight Origin Ports</Label>
             {(() => {
@@ -1908,7 +1908,7 @@ function SiteContentPanel({
       case "footer":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Footer & Copyright Info</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Footer & Copyright Info</h4>
             <Label>GST Compliance Note</Label>
             <Textarea value={draft.gstNote} onChange={(v) => setKey("gstNote", v)} rows={2} />
             
@@ -1919,7 +1919,7 @@ function SiteContentPanel({
       case "global-styles":
         return (
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Global Spacing, Sizing & Visibility</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginBottom: 16 }}>Global Spacing, Sizing & Visibility</h4>
             
             <Label>Homepage Hero Layout</Label>
             <Select
@@ -1991,7 +1991,7 @@ function SiteContentPanel({
               placeholder="e.g. clamp(1.9rem,3.2vw,2.8rem)"
             />
 
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: DARK, marginTop: 24, marginBottom: 16 }}>Section Visibility & Controls</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: DARK, marginTop: 24, marginBottom: 16 }}>Section Visibility & Controls</h4>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {[
                 { key: "showTrustTicker", label: "Show Trust Ticker Strip" },
@@ -2026,7 +2026,7 @@ function SiteContentPanel({
       {/* COLUMN 1: LEFT Content Navigation Tree */}
       <div style={{ width: 240, display: "flex", flexDirection: "column", background: "#FAF8F4", borderRight: "1px solid " + BEIGE, flexShrink: 0 }}>
         <div style={{ padding: "16px 20px", borderBottom: "1px solid " + BEIGE }}>
-          <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: DARK, margin: 0 }}>Content Tree</h4>
+          <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 15, color: DARK, margin: 0 }}>Content Tree</h4>
           <span style={{ fontSize: 10, color: "#999" }}>Website Outline Sections</span>
         </div>
         <div style={{ flex: 1, overflowY: "auto", padding: "10px 8px" }}>
@@ -2069,7 +2069,7 @@ function SiteContentPanel({
         {/* Save/Cancel Top Banner */}
         <div style={{ padding: "16px 20px", borderBottom: "1px solid " + BEIGE, display: "flex", justifyContent: "space-between", alignItems: "center", background: "#FAF8F4" }}>
           <div>
-            <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: DARK, margin: 0 }}>Inspector</h4>
+            <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 15, color: DARK, margin: 0 }}>Inspector</h4>
             <span style={{ fontSize: 10, color: "#999" }}>Edit selected element</span>
           </div>
           <div style={{ display: "flex", gap: 6 }}>
@@ -2124,12 +2124,12 @@ function LeadsPanel({ token }: { token: string }) {
   return (
     <div>
       <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:20 }}>
-        <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, color:DARK }}>Leads</h2>
+        <h2 style={{ fontFamily:"'Cormorant Garamond', serif", fontSize:22, color:DARK }}>Leads</h2>
         <Btn variant="secondary" onClick={exportCSV} style={{ fontSize:11 }}>Export CSV</Btn>
       </div>
       <div style={{ display:"flex", gap:0, borderBottom:`1px solid ${BEIGE}`, marginBottom:20 }}>
         {TABS.map(([key,label]) => (
-          <button key={key} onClick={() => setTab(key)} style={{ background:"none", border:"none", padding:"10px 18px", fontSize:13, fontFamily:"'Inter',sans-serif", cursor:"pointer", color:tab===key?GOLD:"#888", borderBottom:`2px solid ${tab===key?GOLD:"transparent"}`, transition:"all .2s" }}>{label}</button>
+          <button key={key} onClick={() => setTab(key)} style={{ background:"none", border:"none", padding:"10px 18px", fontSize:13, fontFamily:"'Inter', sans-serif", cursor:"pointer", color:tab===key?GOLD:"#888", borderBottom:`2px solid ${tab===key?GOLD:"transparent"}`, transition:"all .2s" }}>{label}</button>
         ))}
       </div>
       {loading && <div style={{ textAlign:"center", padding:40 }}><Spinner/></div>}
@@ -2398,13 +2398,13 @@ export default function AdminPanel({
         <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
         <div style={{ background:BEIGE, borderRadius:4, padding:"40px 48px", maxWidth:420, width:"100%", textAlign:"center" }}>
           <p style={{ fontSize:11, letterSpacing:"4px", textTransform:"uppercase", color:GOLD, marginBottom:8 }}>Private</p>
-          <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:26, color:DARK, marginBottom:8 }}>Admin Panel</h2>
+          <h2 style={{ fontFamily:"'Cormorant Garamond', serif", fontSize:26, color:DARK, marginBottom:8 }}>Admin Panel</h2>
           <p style={{ fontSize:13, color:"#aaa", margin:"0 0 24px", lineHeight:1.7 }}>XIYORA internal management console.</p>
-          <input type="text" value={username} onChange={e=>setUsername(e.target.value)} placeholder="Username" autoComplete="username" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter',sans-serif", marginBottom:10, outline:"none", boxSizing:"border-box" }} onKeyDown={e=>e.key==="Enter"&&login()} />
-          <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter',sans-serif", marginBottom:10, outline:"none", boxSizing:"border-box" }} onKeyDown={e=>e.key==="Enter"&&login()} />
+          <input type="text" value={username} onChange={e=>setUsername(e.target.value)} placeholder="Username" autoComplete="username" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter', sans-serif", marginBottom:10, outline:"none", boxSizing:"border-box" }} onKeyDown={e=>e.key==="Enter"&&login()} />
+          <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" style={{ width:"100%", background:"#fff", border:`1px solid ${BEIGE}`, padding:"12px 14px", fontSize:14, borderRadius:3, fontFamily:"'Inter', sans-serif", marginBottom:10, outline:"none", boxSizing:"border-box" }} onKeyDown={e=>e.key==="Enter"&&login()} />
           {loginErr && <p style={{ color:RED, fontSize:12, marginBottom:10, textAlign:"left", lineHeight:1.6 }}>{loginErr}</p>}
           {lastStatus > 0 && <p style={{ fontSize:10, color:"#bbb", marginBottom:8 }}>Last HTTP status: {lastStatus}</p>}
-          <button onClick={login} disabled={loginLoading} style={{ width:"100%", background:GOLD, color:"#fff", border:"none", padding:"13px", fontSize:12, letterSpacing:"2px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter',sans-serif", display:"flex", alignItems:"center", justifyContent:"center", gap:8, marginBottom:12 }}>
+          <button onClick={login} disabled={loginLoading} style={{ width:"100%", background:GOLD, color:"#fff", border:"none", padding:"13px", fontSize:12, letterSpacing:"2px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter', sans-serif", display:"flex", alignItems:"center", justifyContent:"center", gap:8, marginBottom:12 }}>
             {loginLoading ? <Spinner/> : "Sign In"}
           </button>
           <div style={{ display:"flex", alignItems:"center", margin:"16px 0", gap:10 }}>
@@ -2443,12 +2443,12 @@ export default function AdminPanel({
       {/* Top bar */}
       <div className="adm-topbar" style={{ background:DARK, padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", height:56 }}>
         <div style={{ display:"flex", alignItems:"center", gap:16 }}>
-          <span style={{ color:GOLD, fontFamily:"'Playfair Display',serif", fontSize:17, letterSpacing:"2px" }}>XIYORA</span>
+          <span style={{ color:GOLD, fontFamily:"'Cormorant Garamond', serif", fontSize:17, letterSpacing:"2px" }}>XIYORA</span>
           <span className="brand-label" style={{ color:"#555", fontSize:11, letterSpacing:"2px", textTransform:"uppercase" }}>Admin</span>
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:12 }}>
           <span style={{ color:"#555", fontSize:11 }}>Section: <strong style={{ color:GOLD }}>{NAV.find(n=>n.key===section)?.label}</strong></span>
-          <button onClick={logout} style={{ background:"none", border:`1px solid #444`, color:"#aaa", padding:"7px 16px", fontSize:11, letterSpacing:"1px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter',sans-serif" }}>
+          <button onClick={logout} style={{ background:"none", border:`1px solid #444`, color:"#aaa", padding:"7px 16px", fontSize:11, letterSpacing:"1px", textTransform:"uppercase", cursor:"pointer", borderRadius:2, fontFamily:"'Inter', sans-serif" }}>
             Sign Out
           </button>
         </div>
@@ -2457,7 +2457,7 @@ export default function AdminPanel({
       <div className="adm-layout" style={{ display:"flex", minHeight:"calc(100vh - 56px)" }}>
         <aside className="adm-sidebar" style={{ width:210, background:"#fff", borderRight:`1px solid ${BEIGE}`, padding:"20px 0", flexShrink:0, display:"flex", flexDirection:"column" }}>
           {NAV.map(n => (
-            <button key={n.key} onClick={() => setSection(n.key)} className={section===n.key?"active":""} style={{ width:"100%", background:section===n.key?"#FAF8F4":"none", border:"none", borderLeft:`3px solid ${section===n.key?GOLD:"transparent"}`, padding:"14px 20px", fontSize:13.5, fontFamily:"'Inter',sans-serif", cursor:"pointer", color:section===n.key?DARK:"#888", textAlign:"left", display:"flex", alignItems:"center", gap:12, transition:"all .15s", fontWeight:section===n.key?500:400 }}>
+            <button key={n.key} onClick={() => setSection(n.key)} className={section===n.key?"active":""} style={{ width:"100%", background:section===n.key?"#FAF8F4":"none", border:"none", borderLeft:`3px solid ${section===n.key?GOLD:"transparent"}`, padding:"14px 20px", fontSize:13.5, fontFamily:"'Inter', sans-serif", cursor:"pointer", color:section===n.key?DARK:"#888", textAlign:"left", display:"flex", alignItems:"center", gap:12, transition:"all .15s", fontWeight:section===n.key?500:400 }}>
               <span style={{ fontSize:18 }}>{n.icon}</span>
               <div>
                 <div>{n.label}</div>

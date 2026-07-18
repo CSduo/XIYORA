@@ -1151,9 +1151,9 @@ const lookupPincode = (pin:string) => {
   return { type: "unknown" as const, label: "Contact for rate", days: "Varies", port: "Bespoke Sourcing", zone: "UNKNOWN" };
 };
 
-const C={white:"#EDE8DF",beige:"#E5DFCD",gold:"#6BAE88",dark:"#07090E",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141B24",ink:"#EDE8DF",seal:"#B87B5A",taupe:"#BFA295"};
-const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#6BAE88",dark:"#EDE8DF",sand:"#2C2825",lgold:"#1C1916",char:"#080706",ink:"#EDE8DF",seal:"#B87B5A",taupe:"#9C8B7E"};
-const DARK_CSS=`body{background:#07090E!important;color:#EDE8DF!important}.nl{color:rgba(237,232,223,.62)!important}.nl:hover{color:#6BAE88!important}.nl::after{background:#6BAE88!important}.bg{background:#4A8A68!important;color:#EDE8DF!important}.bg:hover{background:#2D6B4A!important}.bo{color:#6BAE88!important;border-color:rgba(107,174,136,.42)!important}.bo:hover{background:rgba(107,174,136,.08)!important;color:#EDE8DF!important}.bd{color:rgba(237,232,223,.65)!important;border-color:rgba(237,232,223,.12)!important}.pc{background:linear-gradient(145deg,rgba(20,27,36,.85),rgba(14,18,24,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(237,232,223,.65)!important}.ib:hover{color:#6BAE88!important}.sl{color:#6BAE88!important}.fl{color:rgba(237,232,223,.55)!important}.fl:hover{color:#6BAE88!important}.inp{background:#141B24!important;border-color:rgba(237,232,223,.12)!important;color:#EDE8DF!important}input,select,textarea{background:#141B24!important;border-color:rgba(237,232,223,.12)!important;color:#EDE8DF!important}input::placeholder,textarea::placeholder{color:rgba(237,232,223,.3)!important}.glass-modal{background:rgba(20,27,36,.96)!important;border-color:rgba(107,174,136,.12)!important}.sdrawer{background:#07090E!important}.sdr-link{color:#EDE8DF!important}.sdr-link:hover{color:#6BAE88!important;background:rgba(107,174,136,.08)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(237,232,223,.12)!important;color:rgba(237,232,223,.55)!important}.cert-chip:hover{border-color:#6BAE88!important;color:#6BAE88!important}::-webkit-scrollbar-track{background:#07090E!important}::-webkit-scrollbar-thumb{background:rgba(237,232,223,.1)!important}.spec-key{color:rgba(237,232,223,.55)!important}.spec-val{color:#EDE8DF!important}.tag-pill{background:#4A8A68!important}.paper{background-color:#07090E!important;background-image:radial-gradient(circle at 18% 24%,rgba(107,174,136,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(107,174,136,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(107,174,136,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(107,174,136,.03),transparent 55%)!important}`;
+const C={white:"#f5f2ed",beige:"#eae5dc",gold:"#5A5A40",dark:"#1a1a1a",sand:"#d3ced2",lgold:"#fdfcfb",char:"#eae5dc",ink:"#1a1a1a",seal:"#5A5A40",taupe:"#8B8B70"};
+const CD={white:"#1a1a1a",beige:"#222222",gold:"#5A5A40",dark:"#f5f2ed",sand:"#333333",lgold:"#252525",char:"#121212",ink:"#f5f2ed",seal:"#5A5A40",taupe:"#8B8B70"};
+const DARK_CSS=`body{background:#1a1a1a!important;color:#f5f2ed!important;--glass-bg:rgba(30,30,30,0.45);--glass-border:rgba(245,242,237,0.06);--glass-hover-bg:rgba(30,30,30,0.8);--glass-hover-border:rgba(245,242,237,0.2);--glass-shadow-hover:0 16px 40px rgba(0,0,0,0.5)}.nl{color:rgba(245,242,237,.62)!important}.nl:hover{color:#5A5A40!important}.nl::after{background:#5A5A40!important}.bg{background:#5A5A40!important;color:#f5f2ed!important}.bg:hover{background:#434330!important}.bo{color:#5A5A40!important;border-color:rgba(90,90,64,.42)!important}.bo:hover{background:rgba(90,90,64,.08)!important;color:#f5f2ed!important}.bd{color:rgba(245,242,237,.65)!important;border-color:rgba(245,242,237,.12)!important}.pc{background:linear-gradient(145deg,rgba(34,34,34,.85),rgba(26,26,26,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(245,242,237,.65)!important}.ib:hover{color:#5A5A40!important}.sl{color:#5A5A40!important}.fl{color:rgba(245,242,237,.55)!important}.fl:hover{color:#5A5A40!important}.inp{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input,select,textarea{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input::placeholder,textarea::placeholder{color:rgba(245,242,237,.3)!important}.glass-modal{background:rgba(30,30,30,.96)!important;border-color:rgba(90,90,64,.12)!important}.sdrawer{background:#1a1a1a!important}.sdr-link{color:#f5f2ed!important}.sdr-link:hover{color:#5A5A40!important;background:rgba(90,90,64,.08)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(245,242,237,.12)!important;color:rgba(245,242,237,.55)!important}.cert-chip:hover{border-color:#5A5A40!important;color:#5A5A40!important}::-webkit-scrollbar-track{background:#1a1a1a!important}::-webkit-scrollbar-thumb{background:rgba(245,242,237,.1)!important}.spec-key{color:rgba(245,242,237,.55)!important}.spec-val{color:#f5f2ed!important}.tag-pill{background:#5A5A40!important}.paper{background-color:#1a1a1a!important;background-image:radial-gradient(circle at 18% 24%,rgba(90,90,64,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(90,90,64,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(90,90,64,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(90,90,64,.03),transparent 55%)!important}`;
 const ThemeCtx=createContext(C);
 const useC=()=>useContext(ThemeCtx);
 const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
@@ -1328,7 +1328,7 @@ type CartItem={cartKey:string;productId:string;productName:string;sku:string;var
 const EMPTY_FORM={name:"",company:"",email:"",phone:"",city:"",state:"",pincode:"",customerType:"Home Buyer",productName:"",selectedSize:"",quantity:"1",message:"",intent:"quote"};
 /** All 28 Indian states + 8 union territories (alphabetical). Used for state-selection dropdowns. */
 const INDIAN_STATES=["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu","Delhi (NCT)","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"];
-const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23EFE8DE'/%3E%3Crect x='220' y='140' width='160' height='120' rx='8' fill='%23D9CBB8'/%3E%3Ccircle cx='300' cy='165' r='22' fill='%23C8A97E' opacity='.6'/%3E%3Ctext x='300' y='290' text-anchor='middle' font-family='serif' font-size='14' fill='%23C8A97E' letter-spacing='3'%3EXIYORA%3C/text%3E%3C/svg%3E";
+const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23EFE8DE'/%3E%3Crect x='220' y='140' width='160' height='120' rx='8' fill='%23D9CBB8'/%3E%3Ccircle cx='300' cy='165' r='22' fill='%23B87B5A' opacity='.6'/%3E%3Ctext x='300' y='290' text-anchor='middle' font-family='serif' font-size='14' fill='%23B87B5A' letter-spacing='3'%3EXIYORA%3C/text%3E%3C/svg%3E";
 
 /* ─── LUXURY COMPONENTS (v6 visual upgrade) ─────────────── */
 
@@ -1499,7 +1499,7 @@ function LuxMarquee({dark=true}:{dark?:boolean}){
 const CSS=`
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
-body{font-family:'Space Grotesk',sans-serif;background:#07090E;color:#EDE8DF;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:'Inter', sans-serif;background:#07090E;color:#EDE8DF;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 #root{max-width:100%;overflow-x:hidden}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -1516,16 +1516,16 @@ body{font-family:'Space Grotesk',sans-serif;background:#07090E;color:#EDE8DF;ove
 .page-fade-in{animation:pageFadeIn .4s cubic-bezier(.22,1,.36,1) both}
 @keyframes pageFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .at{display:flex;animation:marquee 38s linear infinite}
-.sl{font-family:'Space Grotesk',sans-serif;font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:#6BAE88;margin-bottom:18px;font-weight:600;display:block}
-.nl{font-family:'Space Grotesk',sans-serif;color:rgba(237,232,223,.62);font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;padding:4px 0;position:relative;line-height:1}
+.sl{font-family:'Inter', sans-serif;font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:#6BAE88;margin-bottom:18px;font-weight:600;display:block}
+.nl{font-family:'Inter', sans-serif;color:rgba(237,232,223,.62);font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;padding:4px 0;position:relative;line-height:1}
 .nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#6BAE88;transition:width .3s ease}
 .nl:hover{color:#6BAE88}.nl:hover::after{width:100%}
-.bg{background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background .28s,transform .28s,box-shadow .28s;border-radius:4px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(107,174,136,.3)}
+.bg{background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background .28s,transform .28s,box-shadow .28s;border-radius:4px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(107,174,136,.3)}
 .bg:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,174,136,.42)}
 .bg:active{transform:translateY(0)}
-.bo{background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.42);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
+.bo{background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.42);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
 .bo:hover{background:rgba(107,174,136,.08);border-color:#6BAE88;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 6px 20px rgba(107,174,136,.2)}
-.bd{background:transparent;border:1px solid rgba(237,232,223,.12);color:rgba(237,232,223,.65);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
+.bd{background:transparent;border:1px solid rgba(237,232,223,.12);color:rgba(237,232,223,.65);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
 .bd:hover{border-color:#6BAE88;color:#6BAE88}
 .ib{background:none;border:none;cursor:pointer;color:rgba(237,232,223,.65);display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
 .ib:hover{color:#6BAE88;transform:scale(1.1)}
@@ -1551,7 +1551,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#07090E;color:#EDE8DF;ove
 .wb::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;z-index:-1;animation:wbPulse 2.4s cubic-bezier(.22,1,.36,1) infinite}
 @keyframes wbPulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.65);opacity:0}100%{transform:scale(1.65);opacity:0}}
 .wb:hover{transform:scale(1.14);box-shadow:0 10px 38px rgba(37,211,102,.52)}
-.fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Space Grotesk',sans-serif;padding:0}
+.fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Inter', sans-serif;padding:0}
 .fl:hover{color:#6BAE88}
 input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!important;box-shadow:0 0 0 3px rgba(107,174,136,.1)}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#6BAE88}
@@ -1559,9 +1559,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .img-zoom-overlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;animation:fadeInUp .25s ease}
 @keyframes galleryFade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 .glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;box-shadow:0 32px 80px rgba(0,0,0,.22)}
-.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;padding:5px 13px;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
+.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;padding:5px 13px;font-family:'Inter', sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
 .google-btn:hover{background:#F5EEE4;border-color:#6BAE88;color:#2D2D2D;box-shadow:0 4px 12px rgba(107,174,136,.16)}
-.inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Space Grotesk',sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
+.inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Inter', sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
 .tag-pill{background:#6BAE88;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -1632,11 +1632,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .sdrawer{position:fixed;top:0;left:0;height:100%;width:300px;max-width:85vw;background:#07090E;z-index:500;box-shadow:12px 0 60px rgba(0,0,0,.6);overflow-y:auto;transform:translateX(-100%);transition:transform .32s cubic-bezier(.23,1,.32,1)}
 .sdrawer.open{transform:translateX(0)}
 .sdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:499;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
-.sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
+.sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Inter', sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
 .sdr-link:hover{color:#6BAE88;background:rgba(107,174,136,.08);border-left-color:#6BAE88}
 .sdr-section{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#555;padding:14px 24px 4px;display:block}
 /* ── CERT CHIPS ── */
-.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid #D4C5A1;border-radius:20px;font-family:'Space Grotesk',sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid #D4C5A1;border-radius:20px;font-family:'Inter', sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
 .cert-chip:hover{border-color:#6BAE88;color:#6BAE88;background:#F5EDE0}
 /* ── PROOF CTA MOBILE ── */
 @media(max-width:680px){
@@ -1664,7 +1664,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .xiyora-whatsapp-popup{transform-origin:bottom right;animation:xiyoraPopupIn .42s cubic-bezier(.22,1,.36,1)}
 @keyframes xiyoraPopupIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 .xiyora-video-overlay{background:linear-gradient(90deg,rgba(7,9,14,.74),rgba(7,9,14,.34),rgba(7,9,14,.1)),linear-gradient(0deg,rgba(7,9,14,.5),transparent 44%)}
-.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid #D4C5A1;background:#fafaf8;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
+.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid #D4C5A1;background:#fafaf8;font-family:'Inter', sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
 .bt-chip:hover{border-color:#6BAE88;color:#2D2D2D;box-shadow:0 6px 18px rgba(107,174,136,.16);transform:translateY(-2px)}
 .bt-chip.active{background:#6BAE88;border-color:#6BAE88;color:#fff;box-shadow:0 8px 22px rgba(107,174,136,.3)}
 /* ── ASIAN-LUXURY MOTIF SYSTEM (v4 redesign) ── */
@@ -1678,7 +1678,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .x-divider::before,.x-divider::after{content:'';height:1px;width:clamp(40px,8vw,80px)}
 .x-divider::before{background:linear-gradient(to right,transparent,#6BAE88)}
 .x-divider::after{background:linear-gradient(to left,transparent,#6BAE88)}
-.x-link{position:relative;display:inline-flex;align-items:center;gap:9px;color:rgba(237,232,223,.65);cursor:pointer;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;background:none;border:none;font-family:'Space Grotesk',sans-serif;font-weight:500;padding:0;transition:color .3s;text-decoration:none}
+.x-link{position:relative;display:inline-flex;align-items:center;gap:9px;color:rgba(237,232,223,.65);cursor:pointer;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;background:none;border:none;font-family:'Inter', sans-serif;font-weight:500;padding:0;transition:color .3s;text-decoration:none}
 .x-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:#6BAE88;transition:width .45s cubic-bezier(.22,1,.36,1)}
 .x-link:hover{color:#6BAE88}.x-link:hover::after{width:100%}
 .x-link .ar{display:inline-block;transition:transform .45s cubic-bezier(.22,1,.36,1)}
@@ -1690,7 +1690,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .x-drift{animation:drift 9s ease-in-out infinite}
 @keyframes driftSlow{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-9px,8px) rotate(2deg)}}
 .x-drift-slow{animation:driftSlow 13s ease-in-out infinite}
-.x-tag{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:5px;font-family:var(--fn-serif)}
+.x-tag{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:5px;font-family:'Cormorant Garamond', serif}
 .brush-edge{-webkit-mask-image:linear-gradient(to right,#000 84%,transparent 100%);mask-image:linear-gradient(to right,#000 84%,transparent 100%)}
 .x-stagger>*{opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
 .x-stagger.is-visible>*{opacity:1;transform:translateY(0)}
@@ -1736,9 +1736,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .gold-grad{background:linear-gradient(135deg,#6BAE88 0%,#8AC9A0 50%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#6BAE88}
 .feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(107,174,136,.28);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
 .feat-circ:hover{background:rgba(107,174,136,.1);border-color:#6BAE88;transform:translateY(-3px)}
-.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.38);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;position:relative;overflow:hidden}
+.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.38);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;position:relative;overflow:hidden}
 .btn-gold-out:hover{background:rgba(107,174,136,.09);border-color:#6BAE88;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,174,136,.2)}
-.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(107,174,136,.32)}
+.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(107,174,136,.32)}
 .btn-ivory:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,174,136,.42)}
 .deco-float{animation:driftSlow 14s ease-in-out infinite}
 @keyframes petalFall{0%{transform:translateY(-12vh) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translateY(118vh) rotate(480deg);opacity:0}}
@@ -1775,7 +1775,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
   .wb::before{animation:none!important;opacity:0!important}
 }
 /* ── XIYORA LUX TOKENS + REUSABLE HOMEPAGE UTILITIES (v5) ── */
-:root{--xiyora-black:#07090E;--xiyora-charcoal:#141B24;--xiyora-ivory:#EDE8DF;--xiyora-gold:#6BAE88;--xiyora-soft-gold:#6BAE88;--xiyora-rose:#6BAE88;--xiyora-rose-muted:#4A8A68;--xiyora-rose-deep:#2D6B4A;--xiyora-sage:#6BAE88;--xiyora-muted-text:rgba(237,232,223,0.55);--fn-serif:'Libre Baskerville',Georgia,serif;--fn-sans:'Space Grotesk',sans-serif}
+:root{--xiyora-black:#07090E;--xiyora-charcoal:#141B24;--xiyora-ivory:#EDE8DF;--xiyora-gold:#6BAE88;--xiyora-soft-gold:#6BAE88;--xiyora-rose:#6BAE88;--xiyora-rose-muted:#4A8A68;--xiyora-rose-deep:#2D6B4A;--xiyora-sage:#6BAE88;--xiyora-muted-text:rgba(237,232,223,0.55);--fn-serif:'Libre Baskerville',Georgia,serif;--fn-sans:'Inter', sans-serif}
 /* @keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}} */
 @keyframes cloudDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
 @keyframes idleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
@@ -1799,11 +1799,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .benefit-noir .bn .bnl{font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(245,238,240,.5);font-weight:500;line-height:1.5}
 .benefit-noir .bn:hover .bnl{color:#E8B4C0}
 @media(max-width:620px){.benefit-noir{justify-content:flex-start}.benefit-noir .bn{min-width:42%}.benefit-noir .bn:nth-child(2)::after{display:none}}
-.bt-noir{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:2rem;border:1px solid rgba(246, 239, 224, 0.08);background:rgba(255,255,255,.02);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#E3D7C0;cursor:pointer;transition:all .3s;white-space:nowrap}
+.bt-noir{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:2rem;border:1px solid rgba(246, 239, 224, 0.08);background:rgba(255,255,255,.02);font-family:'Inter', sans-serif;font-size:12px;letter-spacing:.4px;color:#E3D7C0;cursor:pointer;transition:all .3s;white-space:nowrap}
 .bt-noir:hover{border-color:var(--xiyora-soft-gold);color:#fff;transform:translateY(-2px)}
 .bt-noir.active{background:linear-gradient(180deg,#E8CDA0,#C9A368);border-color:var(--xiyora-soft-gold);color:#211a10;font-weight:600;box-shadow:0 10px 26px rgba(200,169,126,.32)}
 .cat-intro{position:relative;background:linear-gradient(145deg,rgba(22,16,26,.9),rgba(13,10,16,.95));border:1px solid rgba(232,180,192,.1);border-radius:2.5rem;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
-.cat-intro .ci-h{font-family:var(--fn-serif);color:#F5EEF0;font-weight:400}
+.cat-intro .ci-h{font-family:'Cormorant Garamond', serif;color:#F5EEF0;font-weight:400}
 .cat-intro .ci-sub{color:rgba(245,238,240,.6)}
 .cat-intro .ci-label{color:#E8B4C0}
 .latex-story{position:relative;overflow:hidden;min-height:clamp(380px,52vw,520px);display:flex;align-items:center;background:var(--xiyora-black)}
@@ -1826,7 +1826,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:scale(1.07)}
 .cat-card-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,4,8,.95) 0%,rgba(6,4,8,.55) 32%,rgba(6,4,8,.1) 62%,transparent 80%);pointer-events:none}
 .cat-card-body{position:absolute;left:0;right:0;bottom:0;padding:24px 22px 24px;z-index:4}
-.cat-card-title{font-family:var(--fn-serif);font-size:23px;font-weight:500;color:#F5EEF0;letter-spacing:.3px;margin:0 0 5px;line-height:1.1}
+.cat-card-title{font-family:'Cormorant Garamond', serif;font-size:23px;font-weight:500;color:#F5EEF0;letter-spacing:.3px;margin:0 0 5px;line-height:1.1}
 .cat-card-sub{font-size:12px;color:rgba(245,238,240,.72);letter-spacing:.2px;margin:0 0 13px;line-height:1.5;max-width:88%}
 .cat-card-explore{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#E8B4C0;font-weight:600}
 .cat-card-arr{display:inline-block;transition:transform .35s ease}
@@ -1851,7 +1851,7 @@ const SL=({children,dark,center}:{children:React.ReactNode;dark?:boolean;center?
 );
 const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>{
   const C=useC();
-  const st:React.CSSProperties={fontFamily:"var(--fn-serif)",fontSize:size||BIZ.generalSectionHeadingSize||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
+  const st:React.CSSProperties={fontFamily:"'Cormorant Garamond', serif",fontSize:size||BIZ.generalSectionHeadingSize||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
   if(typeof children==="string")return <h2 style={st} dangerouslySetInnerHTML={{__html:children}}/>;
   return <h2 style={st}>{children}</h2>;
 };
@@ -1932,7 +1932,7 @@ const Monogram=({color,size=1,tagline=true,center}:{color?:string;size?:number;t
         <circle cx="24" cy="24" r="3.4" fill={c}/>
       </svg>
       <div style={{fontFamily:"'Libre Baskerville',serif",fontSize:30*size,letterSpacing:8*size,color:c,lineHeight:1,fontWeight:400}}>XIYORA</div>
-      {tagline&&<div style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:9.5*size,letterSpacing:4.5*size,textTransform:"uppercase",color:c,opacity:.8}}>Natural · Crafted · Pure</div>}
+      {tagline&&<div style={{fontFamily:"'Inter', sans-serif",fontSize:9.5*size,letterSpacing:4.5*size,textTransform:"uppercase",color:c,opacity:.8}}>Natural · Crafted · Pure</div>}
     </div>
   );
 };
@@ -2014,7 +2014,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
           <div className="ht1" style={{marginBottom:20}}><Monogram color={C.gold} size={monoSize}/></div>
           <h1 className="ht2 serif" style={{fontSize:"clamp(2.3rem,4.4vw,3.7rem)",fontWeight:400,lineHeight:1.25,color:C.dark,margin:"4px 0 0"}}>{title}</h1>
           {subtitle&&<div className="ht2" style={{display:"flex",alignItems:"center",gap:12,margin:"16px 0 0"}}>
-            <span style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
+            <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
             {seal&&<Seal ch={seal}/>}
           </div>}
           {intro&&<p className="ht3" style={{fontSize:14.5,color:C.ink,lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:300}}>{intro}</p>}
@@ -2026,7 +2026,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
             {ctas.map((c,i)=>(
               <button key={i} onClick={c.onClick}
                 className={c.variant==="outline"?"bo xiyora-gold-button":c.variant==="dark"?"xiyora-gold-button":"bg xiyora-gold-button"}
-                style={c.variant==="dark"?{background:C.char,color:"#EDE8DF",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"var(--fn-sans)",cursor:"pointer",borderRadius:4,fontWeight:600}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
+                style={c.variant==="dark"?{background:C.char,color:C.ink,border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",cursor:"pointer",borderRadius:4,fontWeight:600}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
             ))}
           </div>}
         </div>
@@ -2049,12 +2049,12 @@ function IconStrip({items,bg}:{items:{name:string;label:string}[];bg?:string}){
 
 /* ─── DARK-LUXURY HOMEPAGE SYSTEM (black-lacquer + gold, reference-faithful) ── */
 const DECO={
-  sakuraCluster:"/assets/lux/deco/sakura-cluster.webp",
-  sakuraCorner:"/assets/lux/deco/sakura-corner.webp",
-  crane:"/assets/lux/deco/gold-crane.webp",
-  rabbit:"/assets/lux/deco/gold-rabbit.webp",
-  medallion:"/assets/lux/deco/crane-medallion.webp",
-  bamboo:"/assets/lux/deco/gold-bamboo.webp",
+  sakuraCluster:"",
+  sakuraCorner:"",
+  crane:"",
+  rabbit:"",
+  medallion:"",
+  bamboo:"",
 };
 /* Gold corner flourish for ornate frames */
 const CornerFlourish=({style}:{style?:React.CSSProperties})=>(
@@ -2130,7 +2130,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
           gridTemplateColumns: isCentered ? "none" : isReverse ? "1.04fr 1fr" : "1fr 1.04fr",
           borderRadius: 8,
           overflow: "hidden",
-          background: "linear-gradient(160deg,#16110b,#0c0a08)"
+          background: "#1a1a1a", border: "1px solid rgba(245,242,237,0.06)"
         }}>
           <CornerSet/>
           {/* LEFT — copy */}
@@ -2151,8 +2151,8 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
             <Reveal>
               <ArchedCartouche className="lux-brand-lock" style={isCentered ? { alignSelf: "center", margin: "0 auto 20px" } : {}}>
                 <MonoMark size={38}/>
-                <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#E8D6B4",lineHeight:1,fontWeight:600}}>XIYORA</div>
-                <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
+                <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#f5f2ed",lineHeight:1,fontWeight:600}}>XIYORA</div>
+                <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#5A5A40"}}>Crafted Comfort</div>
                 <Seal ch="印" style={{marginTop:2}}/>
               </ArchedCartouche>
               <h1 className="serif" data-cms-id="hero-title" style={{
@@ -2240,7 +2240,7 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
           <div>
             <Reveal>
               <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
-              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:0}}>
+              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:400,lineHeight:1.25,color:C.ink,margin:0}}>
                 Crafted for Hotels.<br/><span className="gold-italic">Chosen by the Finest.</span>
               </h2>
               <p style={{fontSize:14,lineHeight:1.8,color:"rgba(237,232,223,0.7)",margin:"18px 0 0",maxWidth:540}}>
@@ -2400,7 +2400,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                   onMouseEnter={(e:any)=>{e.currentTarget.style.boxShadow="0 16px 40px rgba(0,0,0,.10)";e.currentTarget.style.transform="translateY(-4px)";}}
                   onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(0,0,0,.04)";e.currentTarget.style.transform="translateY(0)";}}>
                   <div style={{fontSize:26,color:C.gold,marginBottom:12}}>{p.icon}</div>
-                  <h4 style={{fontFamily:"var(--fn-serif)",fontSize:19,fontWeight:500,color:C.dark,marginBottom:10}}>{p.title}</h4>
+                  <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:10}}>{p.title}</h4>
                   <p style={{fontSize:13.5,color:C.ink,lineHeight:1.75}}>{p.body}</p>
                 </div>
               ));
@@ -2418,7 +2418,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
             <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products ✦</button>
             <button className="btn-ivory" onClick={()=>setPage("contact")}>Get in Touch →</button>
           </div>
-          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:"#7a6b52",fontSize:12,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:"1px",textTransform:"uppercase"}}>← Back to Home</button>
+          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:"#7a6b52",fontSize:12,cursor:"pointer",fontFamily:"'Inter', sans-serif",letterSpacing:"1px",textTransform:"uppercase"}}>← Back to Home</button>
         </div>
       </section>
     </div>
@@ -2538,9 +2538,9 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
     return (
       <div style={{ background: C.white, borderRadius: 6, padding: "40px", textAlign: "center", border: `1px solid ${C.sand}` }}>
         <div style={{ fontSize: 32, marginBottom: 12 }}>✓</div>
-        <h3 style={{ fontFamily: "var(--fn-serif)", fontSize: 22, color: C.dark, marginBottom: 8 }}>Inquiry Submitted</h3>
+        <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, color: C.dark, marginBottom: 8 }}>Inquiry Submitted</h3>
         <p style={{ fontSize: 14, color: C.ink, lineHeight: 1.7 }}>Your trade inquiry has been saved. A pre-filled WhatsApp message has also been prepared.</p>
-        <button style={{ marginTop: 18, background: "none", border: `1px solid ${C.sand}`, color: C.dark, padding: "10px 24px", borderRadius: 3, cursor: "pointer", fontSize: 12, fontFamily: "'Inter',sans-serif" }} onClick={() => setSent(false)}>Send Another</button>
+        <button style={{ marginTop: 18, background: "none", border: `1px solid ${C.sand}`, color: C.dark, padding: "10px 24px", borderRadius: 3, cursor: "pointer", fontSize: 12, fontFamily: "'Inter', sans-serif" }} onClick={() => setSent(false)}>Send Another</button>
       </div>
     );
   }
@@ -2550,28 +2550,28 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Full Name *</label>
-          <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Your full name" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+          <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Your full name" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Company / Brand *</label>
-          <input required value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} placeholder="Company or brand name" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+          <input required value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} placeholder="Company or brand name" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
       </div>
       
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Phone Number *</label>
-          <input required value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="Mobile number" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+          <input required value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="Mobile number" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Email Address *</label>
-          <input required type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="Business email" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+          <input required type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="Business email" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
       </div>
 
       <div style={{ marginBottom: 16 }}>
         <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Trade Category *</label>
-        <select required value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
+        <select required value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}>
           <option value="" disabled>Select category</option>
           {tradeCats.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
@@ -2580,22 +2580,22 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>GST <span style={{ color: "#bbb", fontWeight: 400 }}>(optional)</span></label>
-          <input value={form.gst} onChange={e => setForm(f => ({ ...f, gst: e.target.value }))} placeholder="GSTIN" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+          <input value={form.gst} onChange={e => setForm(f => ({ ...f, gst: e.target.value }))} placeholder="GSTIN" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>City *</label>
-          <input required value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))} placeholder="e.g. Mumbai, Dubai" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+          <input required value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))} placeholder="e.g. Mumbai, Dubai" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Country</label>
-          <input value={form.country} onChange={e => setForm(f => ({ ...f, country: e.target.value }))} placeholder="Country" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+          <input value={form.country} onChange={e => setForm(f => ({ ...f, country: e.target.value }))} placeholder="Country" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Postal / ZIP</label>
-          <input value={form.postal} onChange={e => setForm(f => ({ ...f, postal: e.target.value }))} placeholder="Postal code" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}/>
+          <input value={form.postal} onChange={e => setForm(f => ({ ...f, postal: e.target.value }))} placeholder="Postal code" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
       </div>
 
@@ -2614,14 +2614,14 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Estimated Quantity (per year)</label>
-          <select value={form.qty} onChange={e => setForm(f => ({ ...f, qty: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
+          <select value={form.qty} onChange={e => setForm(f => ({ ...f, qty: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}>
             <option value="">Select quantity tier</option>
             {qtyTiers.map(q => <option key={q} value={q}>{q} units</option>)}
           </select>
         </div>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>How did you hear about us?</label>
-          <select value={form.howHear} onChange={e => setForm(f => ({ ...f, howHear: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
+          <select value={form.howHear} onChange={e => setForm(f => ({ ...f, howHear: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}>
             <option value="">Select option</option>
             {sourceOptions.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
@@ -2631,7 +2631,7 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
       <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20, marginBottom: 16 }}>
         <div>
           <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Preferred Contact Method</label>
-          <select value={form.contact} onChange={e => setForm(f => ({ ...f, contact: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter',sans-serif", color: C.dark, outline: "none" }}>
+          <select value={form.contact} onChange={e => setForm(f => ({ ...f, contact: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}>
             {contactMethods.map(m => (
               <option key={m} value={m.toLowerCase()}>{m}</option>
             ))}
@@ -2728,11 +2728,11 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
                 <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>Home · Partnership</div>
                 <ArchedCartouche className="lux-brand-lock">
                   <MonoMark size={38}/>
-                  <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#EDE8DF",lineHeight:1,fontWeight:400}}>XIYORA</div>
-                  <div style={{fontFamily:"var(--fn-sans)",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"rgba(237,232,223,.65)"}}>Natural · Crafted · Pure</div>
+                  <div className="serif" style={{fontSize:23,letterSpacing:8,color:C.ink,lineHeight:1,fontWeight:400}}>XIYORA</div>
+                  <div style={{fontFamily:"'Inter', sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"rgba(237,232,223,.65)"}}>Natural · Crafted · Pure</div>
                   <Seal ch="印" style={{marginTop:2}}/>
                 </ArchedCartouche>
-                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
+                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:400,lineHeight:1.25,color:C.ink,margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
                 <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
                   {BIZ.supplierHeroBody || "Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support."}
                 </p>
@@ -2762,15 +2762,15 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
         <div className="container">
           <div style={{textAlign:"center",marginBottom:44}}>
             <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>How It Works</div>
-            <h2 style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1.8rem,3vw,2.5rem)",fontWeight:400,color:C.dark,margin:0}}>The B2B Process</h2>
+            <h2 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1.8rem,3vw,2.5rem)",fontWeight:400,color:C.dark,margin:0}}>The B2B Process</h2>
           </div>
           <div className="grid-4">
             {processSteps.map(([n,t,d])=>(
               <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:4,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
                 onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.5)";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
-                <div style={{fontFamily:"var(--fn-serif)",fontSize:38,fontWeight:300,color:C.sand,marginBottom:12,lineHeight:1}}>{n}</div>
-                <h4 style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
+                <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:38,fontWeight:300,color:C.sand,marginBottom:12,lineHeight:1}}>{n}</div>
+                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
                 <p style={{fontSize:13,color:C.ink,lineHeight:1.72,fontWeight:300}}>{d}</p>
               </div>
             ))}
@@ -2786,9 +2786,9 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
             <p style={{fontSize:14,color:C.ink,maxWidth:560,margin:"14px auto 0",lineHeight:1.8}}>All prices confirmed after enquiry. Discounts applied off standard retail price (RRP). Sample sets available for qualified trade buyers.</p>
           </div>
           <div style={{overflowX:"auto"}}>
-            <table style={{width:"100%",borderCollapse:"collapse",fontFamily:"var(--fn-sans)",fontSize:13}}>
+            <table style={{width:"100%",borderCollapse:"collapse",fontFamily:"'Inter', sans-serif",fontSize:13}}>
               <thead>
-                <tr style={{background:"#0E1218",color:"#EDE8DF"}}>
+                <tr style={{background:"#0E1218",color:C.ink}}>
                   <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #6BAE88"}}>Feature</th>
                   {pricingTiers.map((tierName,i)=>(
                     <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #6BAE88",background:i===1?"rgba(107,174,136,.06)":undefined}}>
@@ -2815,7 +2815,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:24,marginTop:40}}>
             {detailCards.map(([t,d],i)=>(
               <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:4,borderLeft:`3px solid ${C.gold}`}}>
-                <h4 style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
+                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
                 <p style={{fontSize:13,color:C.ink,lineHeight:1.72}}>{d}</p>
               </div>
             ))}
@@ -2849,13 +2849,13 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
       <section style={{background:"linear-gradient(135deg,#141B24,#07090E)",padding:"clamp(40px,5vw,64px) 0"}}>
         <div className="container" style={{textAlign:"center"}}>
           <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14}}>Get in Touch</div>
-          <h2 style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#EDE8DF",margin:"0 0 16px",fontWeight:400}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
+          <h2 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:C.ink,margin:"0 0 16px",fontWeight:400}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
           <p style={{fontSize:14.5,color:"rgba(237,232,223,0.7)",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>{BIZ.supplierCTABody || "WhatsApp us with your requirements — product type, quantity, and city. We respond within 24 hours."}</p>
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
             <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#6BAE88"}}>✦</span></button>
-            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"var(--fn-sans)",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
+            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"'Inter', sans-serif",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
           </div>
-          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:C.gold,fontSize:12,cursor:"pointer",fontFamily:"var(--fn-sans)",letterSpacing:"1px",textTransform:"uppercase"}}>← Back to Home</button>
+          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:C.gold,fontSize:12,cursor:"pointer",fontFamily:"'Inter', sans-serif",letterSpacing:"1px",textTransform:"uppercase"}}>← Back to Home</button>
         </div>
       </section>
       <FooterTrustStrip/>
@@ -2881,7 +2881,7 @@ function FooterTrustStrip(){
             <div key={i} className="trust-item">
               <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#6BAE88"/></div>
               <div>
-                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:"#EDE8DF",fontWeight:600}}>{it.t}</div>
+                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:C.ink,fontWeight:600}}>{it.t}</div>
                 <div style={{fontSize:12,color:C.gold,marginTop:3}}>{it.d}</div>
               </div>
             </div>
@@ -2920,7 +2920,7 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
               <button key={i} type="button" onClick={q.fn} aria-label={`${q.t} — ${q.d}`} className="ql-card">
                 <GoldIconBadge name={q.ic} size={24} round/>
                 <span style={{display:"block"}}>
-                  <span style={{display:"block",fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:400,color:"#EDE8DF",marginBottom:4}}>{q.t}</span>
+                  <span style={{display:"block",fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:400,color:C.ink,marginBottom:4}}>{q.t}</span>
                   <span style={{display:"block",fontSize:11.5,color:"var(--mn-linen-muted)",lineHeight:1.5,maxWidth:210}}>{q.d}</span>
                 </span>
                 <span className="ql-arrow" aria-hidden>→</span>
@@ -2966,7 +2966,7 @@ function CategoryIntroPanel(){
       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Seal ch="选" title="Curated collection"/>
         <div className="sl" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px",color:"#6BAE88"}}>Bingxi Collection</div>
-        <h2 className="ci-h" style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(2rem,3.6vw,2.9rem)",fontWeight:400,color:"#EDE8DF",lineHeight:1.25,margin:0}}>Shop By Category</h2>
+        <h2 className="ci-h" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(2rem,3.6vw,2.9rem)",fontWeight:400,color:C.ink,lineHeight:1.25,margin:0}}>Shop By Category</h2>
         <div className="x-divider" style={{margin:"16px auto",color:"#6BAE88"}}>❖</div>
         <p className="ci-sub" style={{fontSize:14.5,maxWidth:440,lineHeight:1.7,color:"rgba(237,232,223,0.7)"}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
       </div>
@@ -2985,7 +2985,7 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
       <div className="container" style={{position:"relative",zIndex:4}}>
         <Reveal style={{maxWidth:560}}>
           <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
-          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
+          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:400,lineHeight:1.25,color:C.ink,margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
           <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#6BAE88"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#6BAE88"}}/></div>
           <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
           <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#6BAE88"}}>→</span></button>
@@ -3031,11 +3031,11 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
         <div style={{width:38,height:38,borderRadius:"50%",background:"#25D366",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
           <svg width={20} height={20} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
         </div>
-        <strong style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:400,color:C.dark}}>Need help choosing?</strong>
+        <strong style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:400,color:C.dark}}>Need help choosing?</strong>
       </div>
       <p style={{fontSize:12.5,color:"var(--mn-linen-muted)",lineHeight:1.6,marginBottom:14}}>Share your size, city, and product interest — we'll help with a proforma.</p>
       <a href={waMsg(msg)} target="_blank" rel="noreferrer"
-        style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"#25D366",color:"#fff",padding:"11px",borderRadius:8,fontSize:12.5,fontWeight:500,letterSpacing:".6px",textDecoration:"none",fontFamily:"var(--fn-sans)"}}
+        style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"#25D366",color:"#fff",padding:"11px",borderRadius:8,fontSize:12.5,fontWeight:500,letterSpacing:".6px",textDecoration:"none",fontFamily:"'Inter', sans-serif"}}
         onClick={dismiss}>
         WhatsApp XIYORA
       </a>
@@ -3129,7 +3129,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
   };
 
   if(!show)return null;
-  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"var(--fn-sans)",color:C.dark,marginBottom:10,transition:"border-color .2s"};
+  const inp:React.CSSProperties={width:"100%",background:"#ffffff",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter', sans-serif",color:C.dark,marginBottom:10,transition:"border-color .2s"};
   const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block",letterSpacing:".3px"};
 
   return(
@@ -3138,7 +3138,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
           <div>
             <SL>{f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"Enquiry"}</SL>
-            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
+            <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
           </div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:22,lineHeight:1,marginLeft:16}}>✕</button>
         </div>
@@ -3146,11 +3146,11 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
         {ok?(
           <div style={{textAlign:"center",padding:"28px 0"}}>
             <div style={{width:64,height:64,background:"linear-gradient(135deg,#6BAE88,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28,color:"#fff"}}>✓</div>
-            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
+            <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:4,fontFamily:"var(--fn-sans)",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7,fontWeight:600}}>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:4,fontFamily:"'Inter', sans-serif",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7,fontWeight:600}}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp Us
               </button>
@@ -3161,12 +3161,12 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
           <>
             <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:18}}>
               {[["quote","Get Quote"],["proforma","Proforma Invoice"],["bulk","Bulk Order"],["general","General"]].map(([k,v])=>(
-                <button key={k} onClick={()=>set("intent",k)} style={{background:f.intent===k?C.gold:"#EFE8DE",color:f.intent===k?"#fff":"#888",border:"none",padding:"5px 13px",borderRadius:20,fontSize:11,cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"all .2s"}}>{v}</button>
+                <button key={k} onClick={()=>set("intent",k)} style={{background:f.intent===k?C.gold:"#EFE8DE",color:f.intent===k?"#fff":"#888",border:"none",padding:"5px 13px",borderRadius:20,fontSize:11,cursor:"pointer",fontFamily:"'Inter', sans-serif",transition:"all .2s"}}>{v}</button>
               ))}
             </div>
             {product&&<div style={{background:C.lgold,padding:"10px 14px",borderRadius:3,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <span style={{fontSize:13,color:"#888"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
-              <span style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
+              <span style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
             </div>}
             <div className="co-form-grid">
               {([["Your Name *","name","text","Full name"],["Phone / WhatsApp *","phone","tel","+91 XXXXX"]] as const).map(([l,k,t,ph])=>(
@@ -3182,7 +3182,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
                 Your Location &amp; Delivery
               </div>
               <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",marginBottom:10}}>
-                <button type="button" disabled={geoLoading} onClick={detectInquiryLocation} style={{background:"#fff",border:`1px solid ${C.sand}`,color:C.dark,padding:"7px 13px",borderRadius:3,fontSize:11.5,cursor:geoLoading?"wait":"pointer",fontFamily:"'Inter',sans-serif",display:"flex",alignItems:"center",gap:7,flexShrink:0,whiteSpace:"nowrap"}}
+                <button type="button" disabled={geoLoading} onClick={detectInquiryLocation} style={{background:"#fff",border:`1px solid ${C.sand}`,color:C.dark,padding:"7px 13px",borderRadius:3,fontSize:11.5,cursor:geoLoading?"wait":"pointer",fontFamily:"'Inter', sans-serif",display:"flex",alignItems:"center",gap:7,flexShrink:0,whiteSpace:"nowrap"}}
                   onMouseEnter={(e:any)=>!geoLoading&&(e.currentTarget.style.borderColor=C.gold)}
                   onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
                   {geoLoading?<Spinner/>:<svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
@@ -3255,9 +3255,9 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               <div style={{background:"#fff7ed",border:"1px solid #f0d9b8",borderRadius:3,padding:"12px 14px",marginBottom:12}}>
                 <div style={{fontSize:12.5,color:"#9a6a2a",lineHeight:1.6,marginBottom:9}}>{apiErr} Your details are still here — send them directly and we'll respond.</div>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                  <button onClick={submit} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>Try Again</button>
-                  <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>WhatsApp</button>
-                  <a href={`mailto:${BIZ.email}?subject=${encodeURIComponent(`XIYORA ${f.intent==="proforma"?"Proforma":"Quote"} — ${f.productName||"Enquiry"}`)}&body=${encodeURIComponent(`Product: ${f.productName||"General Inquiry"}\nIntent: ${f.intent}\nName: ${f.name}\nPhone: ${f.phone}${f.company?"\nCompany: "+f.company:""}${f.city?"\nCity: "+f.city:""}${f.pincode?"\nPincode: "+f.pincode:""}${f.quantity?"\nQuantity: "+f.quantity:""}${f.selectedSize?"\nSize: "+f.selectedSize:""}${f.message?"\nMessage: "+f.message:""}`)}`} style={{background:C.beige,color:C.dark,padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Inter',sans-serif",display:"inline-flex",alignItems:"center"}}>Email</a>
+                  <button onClick={submit} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>Try Again</button>
+                  <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>WhatsApp</button>
+                  <a href={`mailto:${BIZ.email}?subject=${encodeURIComponent(`XIYORA ${f.intent==="proforma"?"Proforma":"Quote"} — ${f.productName||"Enquiry"}`)}&body=${encodeURIComponent(`Product: ${f.productName||"General Inquiry"}\nIntent: ${f.intent}\nName: ${f.name}\nPhone: ${f.phone}${f.company?"\nCompany: "+f.company:""}${f.city?"\nCity: "+f.city:""}${f.pincode?"\nPincode: "+f.pincode:""}${f.quantity?"\nQuantity: "+f.quantity:""}${f.selectedSize?"\nSize: "+f.selectedSize:""}${f.message?"\nMessage: "+f.message:""}`)}`} style={{background:C.beige,color:C.dark,padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Inter', sans-serif",display:"inline-flex",alignItems:"center"}}>Email</a>
                 </div>
               </div>
             )}
@@ -3266,7 +3266,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               <button onClick={submit} className="bg" style={{flex:1,minWidth:120,padding:"12px 14px",fontSize:12}} disabled={loading}>
                 {loading?<Spinner/>:"Send Enquiry"}
               </button>
-              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 14px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:1,textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",flex:1,minWidth:120,padding:"12px 14px",fontFamily:"'Inter', sans-serif",fontSize:12,letterSpacing:1,textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp
               </button>
@@ -3299,7 +3299,7 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
   };
 
   if(!show)return null;
-  const inp:React.CSSProperties={width:"100%",background:"#1e1e1e",border:"1px solid #2a2a2a",color:"#F0EBE3",padding:"11px 14px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",marginBottom:10};
+  const inp:React.CSSProperties={width:"100%",background:"#1e1e1e",border:"1px solid #2a2a2a",color:"#F0EBE3",padding:"11px 14px",fontSize:13,borderRadius:3,fontFamily:"'Inter', sans-serif",marginBottom:10};
   const lbl:React.CSSProperties={fontSize:11.5,color:"#666",marginBottom:5,display:"block"};
   return(
     <div style={{position:"fixed",inset:0,zIndex:900,background:"rgba(0,0,0,.72)",display:"flex",alignItems:"center",justifyContent:"center",padding:16,backdropFilter:"blur(10px)"}} onClick={onClose}>
@@ -3307,14 +3307,14 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
           <div>
             <SL dark>Stay in Touch</SL>
-            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,color:"#F0EBE3",marginTop:4}}>Join XIYORA</h3>
+            <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,color:"#F0EBE3",marginTop:4}}>Join XIYORA</h3>
           </div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#555",fontSize:22,lineHeight:1}}>✕</button>
         </div>
         {ok?(
           <div style={{textAlign:"center",padding:"20px 0"}}>
             <div style={{fontSize:48,marginBottom:14}}>✓</div>
-            <p style={{fontSize:16,color:"#F0EBE3",fontFamily:"var(--fn-serif)",marginBottom:8}}>You're on the list!</p>
+            <p style={{fontSize:16,color:"#F0EBE3",fontFamily:"'Cormorant Garamond', serif",marginBottom:8}}>You're on the list!</p>
             <p style={{fontSize:13,color:"#666",lineHeight:1.7}}>We'll reach out with product launches, B2B updates, and exclusive offers.</p>
           </div>
         ):(
@@ -3335,7 +3335,7 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
             <label style={lbl}>Subscription Type</label>
             <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14}}>
               {["Home Buyer Updates","Retailer — B2B Access","Hotel & Interior Partner","Trade Partner"].map(t=>(
-                <button key={t} onClick={()=>set("subscriptionType",t)} style={{background:f.subscriptionType===t?C.gold:"#1e1e1e",color:f.subscriptionType===t?"#fff":"#666",border:`1px solid ${f.subscriptionType===t?C.gold:"#2a2a2a"}`,padding:"6px 12px",borderRadius:20,fontSize:11.5,cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"all .2s"}}>{t}</button>
+                <button key={t} onClick={()=>set("subscriptionType",t)} style={{background:f.subscriptionType===t?C.gold:"#1e1e1e",color:f.subscriptionType===t?"#fff":"#666",border:`1px solid ${f.subscriptionType===t?C.gold:"#2a2a2a"}`,padding:"6px 12px",borderRadius:20,fontSize:11.5,cursor:"pointer",fontFamily:"'Inter', sans-serif",transition:"all .2s"}}>{t}</button>
               ))}
             </div>
             {err&&<div style={{color:"#f87171",fontSize:12,marginBottom:10}}>{err}</div>}
@@ -3377,7 +3377,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
       <div style={{width:"100%",maxWidth:620,background:"rgba(248,246,242,.98)",backdropFilter:"blur(20px)",borderRadius:5,overflow:"hidden",boxShadow:"0 40px 100px rgba(0,0,0,.28)",border:`1px solid ${C.sand}`,animation:"fadeInUp .22s ease"}} onClick={e=>e.stopPropagation()}>
         <div style={{display:"flex",alignItems:"center",padding:"15px 20px",borderBottom:`1px solid ${C.sand}`,gap:12}}>
           <svg width={17} height={17} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
-          <input ref={ref} value={q} onChange={e=>setQ(e.target.value)} placeholder="Search mattresses, pillows, toppers, cushions…" style={{flex:1,background:"none",border:"none",fontSize:15,color:C.dark,fontFamily:"'Inter',sans-serif",outline:"none"}}/>
+          <input ref={ref} value={q} onChange={e=>setQ(e.target.value)} placeholder="Search mattresses, pillows, toppers, cushions…" style={{flex:1,background:"none",border:"none",fontSize:15,color:C.dark,fontFamily:"'Inter', sans-serif",outline:"none"}}/>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:20}}>✕</button>
         </div>
         {hits.length>0&&<div style={{maxHeight:400,overflowY:"auto"}}>
@@ -3388,7 +3388,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
               onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
               <img src={p.heroImage||p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
               <div style={{flex:1,minWidth:0}}>
-                <div style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
+                <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
                 <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
               </div>
               <div style={{fontSize:13,color:"#aaa",flexShrink:0}}>{p.priceINR}</div>
@@ -3405,7 +3405,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
           <p style={{fontSize:11,color:"#bbb",marginBottom:10,letterSpacing:"1px",textTransform:"uppercase"}}>Quick Browse</p>
           <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
             {["Mattresses","Pillows","Toppers","Cushions","Talalay","Dunlop"].map(t=>(
-              <button key={t} onClick={()=>setQ(t)} style={{background:C.beige,border:"none",padding:"7px 14px",borderRadius:20,fontSize:12.5,color:C.dark,cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>{t}</button>
+              <button key={t} onClick={()=>setQ(t)} style={{background:C.beige,border:"none",padding:"7px 14px",borderRadius:20,fontSize:12.5,color:C.dark,cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>{t}</button>
             ))}
           </div>
         </div>}
@@ -3435,17 +3435,17 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
       </div>
       <div style={{padding:"16px 18px"}}>
         <div style={{fontSize:10,letterSpacing:"1.8px",textTransform:"uppercase",color:C.gold,marginBottom:5,fontWeight:500}}>{p.latexType} · {p.category}</div>
-        <h3 style={{fontFamily:"var(--fn-serif)",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
+        <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
         <p style={{fontSize:12.5,color:"#aaa",marginBottom:14,lineHeight:1.55,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:12,borderTop:`1px solid ${C.sand}`}}>
           <div>
             {discInfo ? (
               <div>
                 <span className="x-original-price-strike">{discInfo.originalPriceStr}</span>
-                <span style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:600,color:C.gold}}>{discInfo.discountedPriceStr}</span>
+                <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:600,color:C.gold}}>{discInfo.discountedPriceStr}</span>
               </div>
             ) : (
-              <div style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
+              <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
             )}
             <div style={{fontSize:10,color:"#ccc",marginTop:2}}>Indicative · Quote after city</div>
           </div>
@@ -3599,7 +3599,7 @@ function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose
         <h3 className="serif" style={{ fontSize: 22, color: C.dark, margin: "0 0 10px" }}>Set Delivery Destination</h3>
         <p style={{ fontSize: 12.5, color: "#777", lineHeight: 1.6, marginBottom: 20 }}>We customize landed sea-freight, customs, local taxation, and transit estimates based on your delivery hub.</p>
 
-        <button type="button" disabled={geoLoading} onClick={detect} style={{ width: "100%", background: C.white, border: `1px solid ${C.sand}`, color: C.dark, padding: "11px", borderRadius: 4, fontSize: 13, cursor: geoLoading ? "wait" : "pointer", fontFamily: "'Inter',sans-serif", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 16, fontWeight: 500 }}>
+        <button type="button" disabled={geoLoading} onClick={detect} style={{ width: "100%", background: C.white, border: `1px solid ${C.sand}`, color: C.dark, padding: "11px", borderRadius: 4, fontSize: 13, cursor: geoLoading ? "wait" : "pointer", fontFamily: "'Inter', sans-serif", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 16, fontWeight: 500 }}>
           {geoLoading ? <Spinner /> : <svg width={14} height={14} fill="none" stroke={C.gold} strokeWidth={2} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
           <span>Auto-Detect Current Location</span>
         </button>
@@ -3609,20 +3609,20 @@ function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, textAlign: "left", marginBottom: 16 }}>
           <div>
             <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>State / Region *</label>
-            <input value={state} onChange={e => setState(e.target.value)} placeholder="e.g. Maharashtra, Dubai, London" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter',sans-serif" }} list="xiyora-state-list" />
+            <input value={state} onChange={e => setState(e.target.value)} placeholder="e.g. Maharashtra, Dubai, London" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter', sans-serif" }} list="xiyora-state-list" />
             <datalist id="xiyora-state-list">
               {INDIAN_STATES.map(s => <option key={s} value={s}/>)}
             </datalist>
           </div>
           <div>
             <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>City *</label>
-            <input value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Mumbai, Dubai, Singapore" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter',sans-serif" }} />
+            <input value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Mumbai, Dubai, Singapore" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter', sans-serif" }} />
           </div>
         </div>
 
         <div style={{ textAlign: "left", marginBottom: 20 }}>
           <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>Postal / ZIP Code (Optional)</label>
-          <input value={pincode} onChange={e => setPincode(e.target.value.toUpperCase().replace(/[^A-Z0-9\s-]/gi, ""))} placeholder="e.g. 400001, 10001, SW1A 1AA" maxLength={12} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter',sans-serif" }} />
+          <input value={pincode} onChange={e => setPincode(e.target.value.toUpperCase().replace(/[^A-Z0-9\s-]/gi, ""))} placeholder="e.g. 400001, 10001, SW1A 1AA" maxLength={12} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter', sans-serif" }} />
           <div style={{ fontSize: 11, color: "#aaa", marginTop: 4 }}>Supports: Indian PIN, US ZIP, UAE, UK, Singapore, and international formats</div>
         </div>
 
@@ -3814,7 +3814,7 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
             <div style={{ borderTop: `1px dashed rgba(200,169,126,.2)`, marginTop: 18, paddingTop: 18 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                 <span style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>Est. Total Landed Cost (CIF)</span>
-                <span style={{ fontSize: 22, fontWeight: 700, color: C.gold, fontFamily: "var(--fn-serif)" }}>{formatCost(totalUSD)}</span>
+                <span style={{ fontSize: 22, fontWeight: 700, color: C.gold, fontFamily: "'Cormorant Garamond', serif" }}>{formatCost(totalUSD)}</span>
               </div>
               <p style={{ fontSize: 10, color: "#8a8378", marginTop: 8, lineHeight: 1.4 }}>{freightDisclaimer}</p>
             </div>
@@ -4005,7 +4005,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
     <div style={{ background: C.white, minHeight: "100vh" }}>
       <div style={{ borderBottom: `1px solid ${C.sand}`, padding: "12px 0" }}>
         <div className="container" style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13 }}>
-          <button onClick={() => setPage("home")} style={{ background: "none", border: "none", cursor: "pointer", color: "#888", fontFamily: "'Inter',sans-serif" }}>Home</button>
+          <button onClick={() => setPage("home")} style={{ background: "none", border: "none", cursor: "pointer", color: "#888", fontFamily: "'Inter', sans-serif" }}>Home</button>
           <span style={{ color: "#ddd" }}>·</span>
           <span style={{ color: C.dark, fontWeight: 500 }}>Customer Reviews</span>
         </div>
@@ -4023,7 +4023,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
           
           <div style={{ background: C.beige, borderRadius: 6, padding: "28px 36px", border: `1px solid ${C.sand}`, minWidth: 280, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6 }}>
-              <span style={{ fontFamily: "var(--fn-serif)", fontSize: 52, fontWeight: 400, color: C.gold, lineHeight: 1 }}>{avgRating}</span>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 52, fontWeight: 400, color: C.gold, lineHeight: 1 }}>{avgRating}</span>
               <span style={{ fontSize: 14, color: C.ink }}>out of 5 stars</span>
             </div>
             <StarRating n={5} size={18}/>
@@ -4033,7 +4033,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
               {distribution.map(({ stars, pct }) => (
                 <div key={stars} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
                   <span style={{ fontSize: 12, color: C.ink, minWidth: 14, textAlign: "right" }}>{stars}</span>
-                  <svg width={11} height={11} viewBox="0 0 24 24" fill="#6BAE88"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+                  <svg width={11} height={11} viewBox="0 0 24 24" fill="#5A5A40"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
                   <div style={{ flex: 1, height: 6, background: C.sand, borderRadius: 3, overflow: "hidden" }}>
                     <div style={{ height: "100%", width: `${pct}%`, background: C.gold, borderRadius: 3 }}/>
                   </div>
@@ -4055,12 +4055,12 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
               {formSubmitted ? (
                 <div style={{ textAlign: "center", padding: "32px 0" }}>
                   <div style={{ fontSize: 36, color: "#4CAF78", marginBottom: 16 }}>✓</div>
-                  <h3 style={{ fontFamily: "var(--fn-serif)", fontSize: 22, color: C.dark, marginBottom: 8 }}>Review Submitted</h3>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, color: C.dark, marginBottom: 8 }}>Review Submitted</h3>
                   <p style={{ fontSize: 14, color: C.ink }}>Thank you! Your feedback will be visible once verified against purchase records.</p>
                 </div>
               ) : (
                 <form onSubmit={handleAddReview}>
-                  <h3 style={{ fontFamily: "var(--fn-serif)", fontSize: 22, color: C.dark, marginBottom: 18 }}>Write a Review</h3>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, color: C.dark, marginBottom: 18 }}>Write a Review</h3>
                   
                   <div style={{ marginBottom: 14 }}>
                     <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Full Name</label>
@@ -4161,7 +4161,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
                 onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
                   <div>
-                    <span style={{ fontFamily: "var(--fn-serif)", fontSize: 16, fontWeight: 600, color: C.dark }}>{r.name}</span>
+                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 600, color: C.dark }}>{r.name}</span>
                     <span style={{ fontSize: 12, color: "#888", marginLeft: 10 }}>{r.city} · {r.date}</span>
                   </div>
                   <div style={{ textAlign: "right" }}>
@@ -4269,12 +4269,12 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
       {/* Breadcrumb */}
       <div style={{borderBottom:`1px solid ${C.sand}`,padding:"12px 0"}}>
         <div className="container" style={{display:"flex",gap:8,alignItems:"center",fontSize:13}}>
-          <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:"#888",fontFamily:"'Inter',sans-serif",display:"flex",alignItems:"center",gap:6,transition:"color .2s"}}
+          <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:"#888",fontFamily:"'Inter', sans-serif",display:"flex",alignItems:"center",gap:6,transition:"color .2s"}}
             onMouseEnter={(e:any)=>e.currentTarget.style.color=C.gold}
             onMouseLeave={(e:any)=>e.currentTarget.style.color="#888"}>
             <svg width={14} height={14} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Back
           </button>
-          <span style={{color:"#ddd"}}>·</span><button onClick={()=>onCatFilter&&onCatFilter(p.category)} style={{background:"none",border:"none",cursor:"pointer",color:C.gold,fontFamily:"'Inter',sans-serif",fontSize:13,padding:0,transition:"opacity .2s"}} onMouseEnter={(e:any)=>e.currentTarget.style.opacity=".7"} onMouseLeave={(e:any)=>e.currentTarget.style.opacity="1"}>{p.category}</button>
+          <span style={{color:"#ddd"}}>·</span><button onClick={()=>onCatFilter&&onCatFilter(p.category)} style={{background:"none",border:"none",cursor:"pointer",color:C.gold,fontFamily:"'Inter', sans-serif",fontSize:13,padding:0,transition:"opacity .2s"}} onMouseEnter={(e:any)=>e.currentTarget.style.opacity=".7"} onMouseLeave={(e:any)=>e.currentTarget.style.opacity="1"}>{p.category}</button>
           <span style={{color:"#ddd"}}>·</span><span style={{color:C.dark,fontWeight:500}}>{p.name}</span>
         </div>
       </div>
@@ -4284,18 +4284,18 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
           <div>
             <div style={{borderRadius:5,overflow:"hidden",background:"#111",marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
               <img key={img} src={currentSrc} alt={p.name} decoding="async" style={{width:"100%",height:"100%",objectFit:"contain",animation:"galleryFade .32s ease",background:"#111",userSelect:"none",WebkitUserSelect:"none"} as any} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
-              <div style={{position:"absolute",bottom:12,right:12,background:"rgba(7,9,14,.75)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"rgba(107,174,136,.85)",display:"flex",alignItems:"center",gap:5,border:"1px solid rgba(107,174,136,.2)"}}>
+              <div style={{position:"absolute",bottom:12,right:12,background:"rgba(7,9,14,.75)",padding:"5px 10px",borderRadius:2,fontSize:11,color:C.gold,display:"flex",alignItems:"center",gap:5,border:`1px solid ${C.gold}42`}}>
                 <svg width={11} height={11} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                 Tap to zoom
               </div>
               {displayImages.length>1&&<>
-                <button onClick={e=>{e.stopPropagation();setImg(i=>(i-1+displayImages.length)%displayImages.length);}} style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",background:"rgba(7,9,14,.72)",border:"1px solid rgba(107,174,136,.3)",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:"#6BAE88",boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>‹</button>
-                <button onClick={e=>{e.stopPropagation();setImg(i=>(i+1)%displayImages.length);}} style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"rgba(7,9,14,.72)",border:"1px solid rgba(107,174,136,.3)",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:"#6BAE88",boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>›</button>
+                <button onClick={e=>{e.stopPropagation();setImg(i=>(i-1+displayImages.length)%displayImages.length);}} style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",background:"rgba(7,9,14,.72)",border:`1px solid ${C.gold}80`,width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:C.gold,boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>‹</button>
+                <button onClick={e=>{e.stopPropagation();setImg(i=>(i+1)%displayImages.length);}} style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"rgba(7,9,14,.72)",border:`1px solid ${C.gold}80`,width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:C.gold,boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>›</button>
               </>}
             </div>
             {displayImages.length>1&&<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               {displayImages.map((im:string,i:number)=>(
-                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"rgba(107,174,136,.2)"}`,boxShadow:img===i?"0 0 0 1px rgba(107,174,136,.35),0 4px 14px rgba(107,174,136,.18)":"none",transition:"border-color .22s,box-shadow .22s",flexShrink:0,background:"#111"}}>
+                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"rgba(90,90,64,.15)"}`,boxShadow:"none",transition:"border-color .22s,box-shadow .22s",flexShrink:0,background:"#111"}}>
                   <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} loading="lazy" decoding="async" style={{width:"100%",height:"100%",objectFit:"cover"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
                 </div>
               ))}
@@ -4308,8 +4308,8 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
               <Tag c={p.latexType==="Talalay"?"#9B8B6E":p.latexType==="Hybrid"?"#7B8F7E":"#5a7a7a"}>{p.latexType} Latex</Tag>
               <Tag c="#999">{p.category}</Tag>
             </div>
-            <h1 style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.25,marginBottom:8}}>{p.name}</h1>
-            <p style={{fontSize:16,color:C.gold,fontFamily:"var(--fn-serif)",fontStyle:"italic",marginBottom:20,lineHeight:1.4}}>{p.headline}</p>
+            <h1 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.25,marginBottom:8}}>{p.name}</h1>
+            <p style={{fontSize:16,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontStyle:"italic",marginBottom:20,lineHeight:1.4}}>{p.headline}</p>
             <p style={{fontSize:14.5,color:"#666",lineHeight:1.82,marginBottom:24,fontWeight:300}}>{p.description}</p>
             {p.latexContent&&<div style={{padding:"8px 14px",background:C.lgold,borderRadius:3,marginBottom:20,display:"flex",gap:8,alignItems:"center"}}>
               <span style={{color:"#777",fontSize:13}}>Latex Content:</span>
@@ -4345,19 +4345,19 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                   {(p.variants as any[]).map((v:any,i:number)=>{
                     const vDisc = getFakeDiscountInfo(v.sku || p.id, v.priceINR, cur);
                     return (
-                      <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Inter',sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
+                      <button key={i} onClick={()=>setSelVar(i===selVar?-1:i)} style={{textAlign:"left",padding:"10px 14px",borderRadius:3,border:`2px solid ${selVar===i?C.gold:C.sand}`,background:selVar===i?C.lgold:"transparent",cursor:"pointer",fontFamily:"'Inter', sans-serif",fontSize:13,color:selVar===i?C.dark:"#555",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all .18s"}}>
                         <span>{v.label}</span>
                         <span style={{display:"flex",alignItems:"center",gap:6,flexShrink:0,marginLeft:12}}>
                           {v.quoteRequired ? (
-                            <span style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:600,color:"#888"}}>Quote req.</span>
+                            <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:600,color:"#888"}}>Quote req.</span>
                           ) : vDisc ? (
                             <>
                               <span style={{textDecoration:"line-through",fontSize:11,color:"#888"}}>{vDisc.originalPriceStr}</span>
-                              <span style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:600,color:C.gold}}>{vDisc.discountedPriceStr}</span>
+                              <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:600,color:C.gold}}>{vDisc.discountedPriceStr}</span>
                               <span style={{fontSize:9,background:"rgba(158,59,46,.15)",color:"#9E3B2E",padding:"1px 4px",borderRadius:2,fontWeight:700}}>{vDisc.discountPct}% OFF</span>
                             </>
                           ) : (
-                            <span style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888"}}>{priceIn(cur,v.priceINR)}</span>
+                            <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888"}}>{priceIn(cur,v.priceINR)}</span>
                           )}
                         </span>
                       </button>
@@ -4379,11 +4379,11 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                     {!isQuoteRequired && detailDisc ? (
                       <span style={{display:"flex",alignItems:"center",gap:10}}>
                         <span style={{textDecoration:"line-through",fontSize:15,color:"#888"}}>{detailDisc.originalPriceStr}</span>
-                        <span style={{fontFamily:"var(--fn-serif)",fontSize:24,fontWeight:600,color:C.gold}}>{detailDisc.discountedPriceStr}</span>
+                        <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,fontWeight:600,color:C.gold}}>{detailDisc.discountedPriceStr}</span>
                         <span style={{fontSize:11,background:"#9E3B2E",color:"#fff",padding:"2px 7px",borderRadius:2,fontWeight:700}}>{detailDisc.discountPct}% OFF</span>
                       </span>
                     ) : (
-                      <span style={{fontFamily:"var(--fn-serif)",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
+                      <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
                         {isQuoteRequired?"—":priceIn(cur,displayPriceINR)}
                       </span>
                     )}
@@ -4414,25 +4414,25 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             ):(
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:12}}>
                 <button onClick={handleAddToCart} disabled={!canBuy}
-                  style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
+                  style={{padding:"14px",fontFamily:"'Inter', sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
                   {addedMsg?"✓ Added!":"Add to Basket"}
                 </button>
                 <button onClick={handleBuyNow} disabled={!canBuy}
-                  style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:"none",background:canBuy?C.gold:"#fff",color:C.gold,fontWeight:500,transition:"background .2s"}}>
+                  style={{padding:"14px",fontFamily:"'Inter', sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:"none",background:canBuy?C.gold:"#fff",color:C.gold,fontWeight:500,transition:"background .2s"}}>
                   Buy Now →
                 </button>
               </div>
             )}
             {/* Secondary actions */}
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:8}}>
-              <button onClick={()=>onWish(p.id)} style={{padding:"10px 6px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,border:`1px solid ${wished?C.gold:C.sand}`,background:wished?C.lgold:"transparent",color:wished?C.gold:"#888",transition:"all .2s"}}>
+              <button onClick={()=>onWish(p.id)} style={{padding:"10px 6px",fontFamily:"'Inter', sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,border:`1px solid ${wished?C.gold:C.sand}`,background:wished?C.lgold:"transparent",color:wished?C.gold:"#888",transition:"all .2s"}}>
                 {wished?"♥ Saved":"♡ Save"}
               </button>
               <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"quote")}>Get Quote</button>
               <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"proforma")}>Proforma</button>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18}}>
-              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Inter', sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I'm interested in the ${p.name}${activeVar?` (${activeVar.label})`:""}. Can you share the landed price for my city?`),"_blank")}>
                 {WA_ICON}WhatsApp
               </button>
@@ -4484,25 +4484,25 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             ) : (
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:12}}>
                 <button onClick={handleAddToCart} disabled={!canBuy}
-                  style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
+                  style={{padding:"14px",fontFamily:"'Inter', sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:`2px solid ${C.gold}`,background:addedMsg?"#e8d9c0":"transparent",color:C.gold,fontWeight:500,transition:"all .2s",opacity:canBuy?1:.5}}>
                   {addedMsg?"✓ Added!":"Add to Basket"}
                 </button>
                 <button onClick={handleBuyNow} disabled={!canBuy}
-                  style={{padding:"14px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:"none",background:canBuy?C.gold:"#ccc",color:"#fff",fontWeight:500,transition:"background .2s"}}>
+                  style={{padding:"14px",fontFamily:"'Inter', sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",cursor:canBuy?"pointer":"not-allowed",borderRadius:2,border:"none",background:canBuy?C.gold:"#ccc",color:"#fff",fontWeight:500,transition:"background .2s"}}>
                   Buy Now →
                 </button>
               </div>
             )}
             {/* Secondary actions */}
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:8}}>
-              <button onClick={()=>onWish(p.id)} style={{padding:"10px 6px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,border:`1px solid ${wished?C.gold:C.sand}`,background:wished?C.lgold:"transparent",color:wished?C.gold:"#888",transition:"all .2s"}}>
+              <button onClick={()=>onWish(p.id)} style={{padding:"10px 6px",fontFamily:"'Inter', sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,border:`1px solid ${wished?C.gold:C.sand}`,background:wished?C.lgold:"transparent",color:wished?C.gold:"#888",transition:"all .2s"}}>
                 {wished?"♥ Saved":"♡ Save"}
               </button>
               <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"quote")}>Get Quote</button>
               <button className="bo" style={{padding:"10px 6px",fontSize:11}} onClick={()=>onInquire(p,"proforma")}>Proforma</button>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18}}>
-              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"11px 8px",fontFamily:"'Inter', sans-serif",fontSize:11,letterSpacing:"1px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,transition:"background .2s",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I'm interested in the ${p.name}${activeVar?` (${activeVar.label})`:""}. Can you share the landed price for my city?`),"_blank")}>
                 {WA_ICON}WhatsApp
               </button>
@@ -4527,7 +4527,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                   {title:"Product Catalogue",msg:"Hi XIYORA, please share the full Bingxi product catalogue with specifications and pricing."},
                 ].map((d,i)=>(
                   <button key={i} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(d.msg)}`,"_blank")}
-                    style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 12px",cursor:"pointer",textAlign:"left",transition:"all .2s",fontFamily:"'Inter',sans-serif"}}
+                    style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 12px",cursor:"pointer",textAlign:"left",transition:"all .2s",fontFamily:"'Inter', sans-serif"}}
                     onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 4px 18px rgba(200,169,126,.15)";}}
                     onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";}}>
                     <div style={{fontSize:11.5,fontWeight:500,color:C.dark,marginBottom:5}}>{d.title}</div>
@@ -4573,7 +4573,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 20, marginBottom: 32 }}>
                 <div>
                   <p style={{ fontSize: 10, letterSpacing: "2.5px", textTransform: "uppercase", color: C.gold, marginBottom: 8, fontWeight: 600 }}>Customer Audits</p>
-                  <h3 style={{ fontFamily: "var(--fn-serif)", fontSize: 24, fontWeight: 500, color: C.dark, margin: 0 }}>Verified Customer Reviews</h3>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, fontWeight: 500, color: C.dark, margin: 0 }}>Verified Customer Reviews</h3>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <StarRating n={5} size={15}/>
@@ -4586,7 +4586,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                   <div key={i} style={{ background: C.beige, borderRadius: 4, padding: "26px 24px", border: `1px solid ${C.sand}` }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
                       <div>
-                        <div style={{ fontFamily: "var(--fn-serif)", fontSize: 15, fontWeight: 600, color: C.dark }}>{r.name}</div>
+                        <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 15, fontWeight: 600, color: C.dark }}>{r.name}</div>
                         <div style={{ fontSize: 12, color: "#888", marginTop: 2 }}>{r.city} · {r.date}</div>
                       </div>
                       <div style={{ textAlign: "right" }}>
@@ -4626,7 +4626,7 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire,loading}:any){
       <div style={{borderBottom:`1px solid ${C.sand}`,position:"sticky",top:62,zIndex:10,background:`${C.white}F5`,backdropFilter:"blur(12px)"}}>
         <div className="container" style={{display:"flex",overflowX:"auto"}}>
           {CATS.map(c=>(
-            <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:C.ink,borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
+            <button key={c.name} onClick={()=>setCat(c.filter)} style={{background:"none",border:"none",padding:"15px 18px",fontSize:13,fontFamily:"'Inter', sans-serif",cursor:"pointer",whiteSpace:"nowrap",color:cat===c.filter?C.gold:C.ink,borderBottom:`2px solid ${cat===c.filter?C.gold:"transparent"}`,transition:"all .2s",letterSpacing:".5px",flexShrink:0}}>
               {c.name} <span style={{fontSize:10,color:C.sand}}>({c.name==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.category===c.filter).length})</span>
             </button>
           ))}
@@ -4670,12 +4670,12 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(40px,5vw,72px) 0"}}>
       <div className="container" style={{position:"relative",zIndex:4}}>
-        <OrnamentalFrame style={{background:"linear-gradient(160deg,#141B24,#07090E)",padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
+        <OrnamentalFrame style={{background:"#1a1a1a", border:"1px solid rgba(245,242,237,0.06)", borderRadius:"2.5rem", padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
           <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
           <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}}/>
           <div style={{position:"relative",zIndex:5,textAlign:"center"}}>
             <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#6BAE88"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#6BAE88"}}/></div>
-            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:400,color:"#EDE8DF",lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
+            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:400,color:C.ink,lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
             <p style={{fontSize:14,color:"rgba(237,232,223,0.7)",maxWidth:560,margin:"14px auto 0",lineHeight:1.7}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
             <div style={{display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center",margin:"28px 0 24px"}}>
               {BUYER_TYPES.map(b=>(
@@ -4684,8 +4684,8 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
                 </button>
               ))}
             </div>
-            <div style={{maxWidth:640,margin:"0 auto",position:"relative",border:"1px solid rgba(107,174,136,.34)",borderRadius:8,padding:"28px 30px",background:"linear-gradient(180deg,rgba(107,174,136,.06),rgba(0,0,0,.18))"}}>
-              <p className="serif" style={{fontSize:20,color:"#EDE8DF",lineHeight:1.5,marginBottom:22}}>{sel.message}</p>
+            <div style={{maxWidth:640,margin:"0 auto",position:"relative",border:"1px solid rgba(90,90,64,0.3)",borderRadius:24,padding:"28px 30px",background:"#222222"}}>
+              <p className="serif" style={{fontSize:20,color:C.ink,lineHeight:1.5,marginBottom:22}}>{sel.message}</p>
               <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
                 <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{padding:"13px 26px"}} onClick={act}>{sel.cta} <span style={{color:"#6BAE88"}}>→</span></button>
                 <button className="btn-ivory" style={{padding:"13px 24px"}} onClick={()=>onInquire(null,"quote")}>Ask For Guidance</button>
@@ -4731,7 +4731,7 @@ function CategoryCard({img,name,sub,cn,wide,onClick}:{img:string;name:string;sub
 function B2BStatsBand() {
   const C = useC();
   return (
-    <section className="sec" style={{background: "#0c0a08", padding: "30px 0", borderBottom: `1px solid rgba(200, 169, 126, 0.16)`}}>
+    <section className="sec" style={{background: C.white, padding: "30px 0", borderBottom: `1px solid ${C.sand}`}}>
       <div className="container">
         <div className="stats-grid">
           {[
@@ -4959,10 +4959,11 @@ function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
 /* ─── CUSTOMER REVIEWS SECTION ────────────────────────────── */
 
 function StarRating({n,size=14}:{n:number;size?:number}){
+  const C=useC();
   return(
     <span style={{display:"inline-flex",gap:2}}>
       {[1,2,3,4,5].map(i=>(
-        <svg key={i} width={size} height={size} viewBox="0 0 24 24" fill={i<=n?"#6BAE88":"none"} stroke="#6BAE88" strokeWidth={1.5}>
+        <svg key={i} width={size} height={size} viewBox="0 0 24 24" fill={i<=n?C.gold:"none"} stroke={C.gold} strokeWidth={1.5}>
           <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
         </svg>
       ))}
@@ -4986,7 +4987,7 @@ function CustomerReviewsSection(){
             </div>
             <div style={{background:C.white,borderRadius:6,padding:"24px 32px",border:`1px solid ${C.sand}`,minWidth:240}}>
               <div style={{display:"flex",alignItems:"baseline",gap:10,marginBottom:6}}>
-                <span style={{fontFamily:"var(--fn-serif)",fontSize:48,fontWeight:400,color:C.gold,lineHeight:1}}>{avgRating}</span>
+                <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:48,fontWeight:400,color:C.gold,lineHeight:1}}>{avgRating}</span>
                 <span style={{fontSize:14,color:C.ink}}>out of 5</span>
               </div>
               <StarRating n={5} size={16}/>
@@ -4995,7 +4996,7 @@ function CustomerReviewsSection(){
                 {distribution.map(({stars,pct})=>(
                   <div key={stars} style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
                     <span style={{fontSize:11,color:C.ink,minWidth:14,textAlign:"right"}}>{stars}</span>
-                    <svg width={10} height={10} viewBox="0 0 24 24" fill="#6BAE88"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+                    <svg width={10} height={10} viewBox="0 0 24 24" fill="#5A5A40"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
                     <div style={{flex:1,height:5,background:C.sand,borderRadius:3,overflow:"hidden"}}>
                       <div style={{height:"100%",width:`${pct}%`,background:C.gold,borderRadius:3}}/>
                     </div>
@@ -5009,12 +5010,12 @@ function CustomerReviewsSection(){
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))",gap:20}}>
           {SAMPLE_REVIEWS.map((r,i)=>(
             <Reveal key={i}>
-              <div style={{background:C.white,borderRadius:5,padding:"24px 22px",border:`1px solid ${C.sand}`,height:"100%",display:"flex",flexDirection:"column",gap:12,transition:"box-shadow .25s,transform .25s"}}
+              <div style={{background:C.white,borderRadius:24,padding:"24px 22px",border:`1px solid ${C.sand}`,height:"100%",display:"flex",flexDirection:"column",gap:12,transition:"box-shadow .25s,transform .25s"}}
                 onMouseEnter={(e:any)=>{e.currentTarget.style.boxShadow="0 12px 36px rgba(0,0,0,.09)";e.currentTarget.style.transform="translateY(-3px)";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="none";e.currentTarget.style.transform="translateY(0)";}}>
                 <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:12}}>
                   <div>
-                    <div style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:500,color:C.dark}}>{r.name}</div>
+                    <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:500,color:C.dark}}>{r.name}</div>
                     <div style={{fontSize:11,color:"#888",marginTop:2}}>{r.city} · {r.date}</div>
                   </div>
                   <div style={{textAlign:"right"}}>
@@ -5161,7 +5162,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                     onMouseEnter={(e:any)=>{e.currentTarget.style.boxShadow="0 12px 32px rgba(0,0,0,.1)";e.currentTarget.style.transform="translateY(-3px)";}}
                     onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 1px 10px rgba(0,0,0,.03)";e.currentTarget.style.transform="translateY(0)";}}>
                     <div style={{fontSize:20,color:C.gold,marginBottom:9}}>{ic}</div>
-                    <div style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:500,color:C.dark,marginBottom:6}}>{t}</div>
+                    <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:6}}>{t}</div>
                     <div style={{fontSize:12.5,color:C.ink,lineHeight:1.7}}>{d}</div>
                   </div>
                 ))}
@@ -5173,8 +5174,8 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                 <img src={BIZ.promiseImage||"/assets/xiyora-products/final/starting-from-hero.webp"} alt="Premium latex comfort" loading="lazy" decoding="async" style={{width:"100%",height:520,objectFit:"cover",objectPosition:"center 30%",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
               </div>
               <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,borderLeft:`2px solid ${C.seal}`}}>
-                <div style={{fontFamily:"'Inter',sans-serif",fontSize:11,color:C.ink,letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
-                <div style={{fontFamily:"var(--fn-serif)",fontSize:28,fontWeight:600,color:C.gold}}>₹1,600</div>
+                <div style={{fontFamily:"'Inter', sans-serif",fontSize:11,color:C.ink,letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
+                <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:28,fontWeight:600,color:C.gold}}>₹1,600</div>
                 <div style={{fontSize:11,color:C.ink,marginTop:3}}>Indicative · Quote after your city</div>
               </div>
             </Reveal>
@@ -5193,8 +5194,8 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
               <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:3,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
                 onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.09)";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
-                <div style={{fontFamily:"var(--fn-serif)",fontSize:40,fontWeight:300,color:C.sand,marginBottom:14,lineHeight:1}}>{n}</div>
-                <h4 style={{fontFamily:"var(--fn-serif)",fontSize:20,fontWeight:500,color:C.dark,marginBottom:10}}>{t}</h4>
+                <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:40,fontWeight:300,color:C.sand,marginBottom:14,lineHeight:1}}>{n}</div>
+                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:20,fontWeight:500,color:C.dark,marginBottom:10}}>{t}</h4>
                 <p style={{fontSize:13,color:"#888",lineHeight:1.72,fontWeight:300}}>{d}</p>
               </div>
             ))}
@@ -5225,12 +5226,12 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                 onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";e.currentTarget.style.transform="none";}}>
                 <div style={{width:52,height:52,background:"#F5EDE0",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{d.icon}</div>
                 <div>
-                  <h4 style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:500,color:C.dark,margin:"0 0 4px"}}>{d.title}</h4>
+                  <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:500,color:C.dark,margin:"0 0 4px"}}>{d.title}</h4>
                   <p style={{fontSize:12,color:"#999",margin:0,lineHeight:1.5}}>{d.sub}</p>
                 </div>
                 <div style={{marginTop:"auto",paddingTop:12,borderTop:`1px solid ${C.sand}`,display:"flex",alignItems:"center",gap:7}}>
                   <svg width={13} height={13} fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
-                  <span style={{fontSize:11.5,color:"#25D366",fontFamily:"'Inter',sans-serif",fontWeight:500,letterSpacing:".3px"}}>Request via WhatsApp</span>
+                  <span style={{fontSize:11.5,color:"#25D366",fontFamily:"'Inter', sans-serif",fontWeight:500,letterSpacing:".3px"}}>Request via WhatsApp</span>
                 </div>
               </div>
             ))}
@@ -5252,7 +5253,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
           </div>
           <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
             <button className="bg" onClick={()=>onInquire(null,"general")} style={{padding:"14px 28px",fontSize:12}}>Send Inquiry</button>
-            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"14px 28px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1.5px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
+            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"14px 28px",fontFamily:"'Inter', sans-serif",fontSize:12,letterSpacing:"1.5px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
               onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp
@@ -5314,9 +5315,9 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
         {/* Header */}
         <div style={{padding:"24px 24px 16px",borderBottom:"1px solid #2a2a2a",flexShrink:0}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-            <div style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,letterSpacing:6,color:"#EDE8DF"}}>XIYORA</div>
+            <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,letterSpacing:6,color:C.ink}}>XIYORA</div>
             <button onClick={onClose} style={{background:"none",border:"1px solid #2a2a2a",color:"#888",cursor:"pointer",width:28,height:28,borderRadius:"50%",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
-              onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#6BAE88";e.currentTarget.style.color="#EDE8DF";}}
+              onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#5A5A40";e.currentTarget.style.color=C.ink;}}
               onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#2a2a2a";e.currentTarget.style.color="#888";}}>✕</button>
           </div>
           <div style={{fontSize:10,color:"#555",letterSpacing:"1px",textTransform:"uppercase",lineHeight:1.5}}>Official Bingxi sourcing partner for India</div>
@@ -5354,8 +5355,8 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
           <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
             {["OEKO-TEX®","ISO 9001","GTTC Report","Business Licence","Catalogue"].map(c=>(
               <button key={c} onClick={()=>go(onProof)}
-                style={{padding:"4px 10px",border:"1px solid #333",borderRadius:20,background:"none",color:"#777",fontSize:10,cursor:"pointer",fontFamily:"var(--fn-sans)",transition:"all .2s"}}
-                onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#6BAE88";e.currentTarget.style.color="#6BAE88";}}
+                style={{padding:"4px 10px",border:"1px solid #333",borderRadius:20,background:"none",color:"#777",fontSize:10,cursor:"pointer",fontFamily:"'Inter', sans-serif",transition:"all .2s"}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#5A5A40";e.currentTarget.style.color="#6BAE88";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#333";e.currentTarget.style.color="#777";}}>{c}</button>
             ))}
           </div>
@@ -5365,17 +5366,17 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
         <div style={{padding:"18px 24px 24px"}}>
           <div style={{fontSize:9,letterSpacing:"2px",textTransform:"uppercase",color:"#555",marginBottom:12}}>Contact</div>
           <a href={`https://wa.me/${BIZ.wa}`} target="_blank" rel="noreferrer"
-            style={{display:"flex",alignItems:"center",gap:9,color:"#4fd97e",fontSize:13,textDecoration:"none",marginBottom:10,fontFamily:"var(--fn-sans)"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"#4fd97e",fontSize:13,textDecoration:"none",marginBottom:10,fontFamily:"'Inter', sans-serif"}}>
             <svg width={14} height={14} fill="#4fd97e" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
             +91 70283 11226
           </a>
           <a href={`mailto:${BIZ.email}`}
-            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:10,fontFamily:"'Inter',sans-serif"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:10,fontFamily:"'Inter', sans-serif"}}>
             <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             {BIZ.email}
           </a>
           <a href={BIZ.ig} target="_blank" rel="noreferrer"
-            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:18,fontFamily:"'Inter',sans-serif"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:18,fontFamily:"'Inter', sans-serif"}}>
             <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
             @xiyora.zi
           </a>
@@ -5404,7 +5405,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
         <div style={{padding:"20px 22px 16px",borderBottom:`1px solid ${C.sand}`,display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
           <div style={{display:"flex",alignItems:"center",gap:9}}>
             <svg width={17} height={17} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            <span style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:500,color:C.dark}}>Wishlist</span>
+            <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:500,color:C.dark}}>Wishlist</span>
             {wl.length>0&&<span style={{background:C.gold,color:"#fff",borderRadius:"50%",width:20,height:20,fontSize:10.5,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
           </div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:C.ink,fontSize:22,lineHeight:1,padding:"2px 6px"}}>✕</button>
@@ -5413,7 +5414,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
           {wishProducts.length===0?(
             <div style={{textAlign:"center",padding:"72px 24px",color:C.ink}}>
               <svg width={42} height={42} fill="none" stroke={C.sand} strokeWidth={1.2} viewBox="0 0 24 24" style={{marginBottom:16,display:"block",margin:"0 auto 16px"}}><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-              <div style={{fontFamily:"var(--fn-serif)",fontSize:17,color:C.dark,marginBottom:8}}>Your wishlist is empty</div>
+              <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,color:C.dark,marginBottom:8}}>Your wishlist is empty</div>
               <div style={{fontSize:13,color:C.ink,lineHeight:1.7}}>Tap the heart ♡ on any product to save it here.</div>
             </div>
           ):(
@@ -5422,12 +5423,12 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
                 <div key={p.id} style={{background:C.beige,borderRadius:4,padding:"13px 14px",display:"flex",gap:12,alignItems:"center"}}>
                   <img src={p.heroImage||p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:58,height:58,objectFit:"cover",borderRadius:3,flexShrink:0,cursor:"pointer",background:C.lgold}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>{onOpen(p);onClose();}}/>
                   <div style={{flex:1,minWidth:0}}>
-                    <div style={{fontFamily:"var(--fn-serif)",fontSize:14,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer",marginBottom:4}} onClick={()=>{onOpen(p);onClose();}}>{p.name}</div>
-                    <div style={{fontSize:12,color:C.gold,fontWeight:500,fontFamily:"var(--fn-serif)"}}>{priceIn(cur,p.priceINR)}</div>
+                    <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:14,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer",marginBottom:4}} onClick={()=>{onOpen(p);onClose();}}>{p.name}</div>
+                    <div style={{fontSize:12,color:C.gold,fontWeight:500,fontFamily:"'Cormorant Garamond', serif"}}>{priceIn(cur,p.priceINR)}</div>
                   </div>
                   <div style={{display:"flex",flexDirection:"column",gap:5,flexShrink:0}}>
-                    <button onClick={()=>moveToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"6px 11px",cursor:"pointer",borderRadius:3,fontSize:10,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",whiteSpace:"nowrap"}}>Add to Basket</button>
-                    <button onClick={()=>onWish(p.id)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 11px",cursor:"pointer",borderRadius:3,fontSize:10,color:C.ink,fontFamily:"'Inter',sans-serif",textAlign:"center"}}>Remove</button>
+                    <button onClick={()=>moveToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"6px 11px",cursor:"pointer",borderRadius:3,fontSize:10,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",whiteSpace:"nowrap"}}>Add to Basket</button>
+                    <button onClick={()=>onWish(p.id)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 11px",cursor:"pointer",borderRadius:3,fontSize:10,color:C.ink,fontFamily:"'Inter', sans-serif",textAlign:"center"}}>Remove</button>
                   </div>
                 </div>
               ))}
@@ -5509,21 +5510,21 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
   })();
 
   return(
-    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(232,180,192,.09)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:scrolled?"0 4px 32px rgba(0,0,0,.5)":"none",transition:"box-shadow .35s ease"}}>
+    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(26,26,26,.08)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:scrolled?"0 4px 32px rgba(0,0,0,.5)":"none",transition:"box-shadow .35s ease"}}>
       {/* fine hairline divider at the base of the bar */}
-      <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"rgba(246,239,224,.07)",pointerEvents:"none"}}/>
+      <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"rgba(26,26,26,.06)",pointerEvents:"none"}}/>
       <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1fr) auto minmax(0, 1fr)",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
         <div className="header-left-nav" style={{display:"flex",alignItems:"center",gap:4,minWidth:0,justifyContent:"flex-start"}} data-cms-id="left-nav">
           {/* Hamburger — hidden on >=1200px where desktop nav links are shown */}
-          <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:"#D9CBB8",padding:"8px",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center",background:"none",border:"none",borderRadius:0}}>
+          <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:C.ink,padding:"8px",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center",background:"none",border:"none",borderRadius:0}}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
           </button>
           <div className="nc" style={{display:"flex",gap:"clamp(10px, 1.4vw, 24px)",alignItems:"center",marginLeft:8}} data-cms-id="nav-items">
             {menuLinks.map(([l,v]: any,i: number)=>(
-              <button key={i} className="nl" style={{fontSize:"clamp(10px, 0.75vw, 11px)",color:page===v?"#E6C89A":"rgba(246,239,224,.65)",letterSpacing:"clamp(0.8px, 0.12vw, 1.4px)",whiteSpace:"nowrap",background:"none",border:"none"}} onClick={()=>{
+              <button key={i} className="nl" style={{fontSize:"clamp(10px, 0.75vw, 11px)",color:page===v?C.gold:C.ink==="#1a1a1a"?"rgba(26,26,26,0.65)":"rgba(245,242,237,0.65)",letterSpacing:"clamp(0.8px, 0.12vw, 1.4px)",whiteSpace:"nowrap",background:"none",border:"none"}} onClick={()=>{
                 if(v==="catalog")onCatalog();
                 else setPage(v);
               }}>{l}</button>
@@ -5535,11 +5536,11 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px clamp(12px,2vw,20px)",position:"relative",zIndex:2,outline:"none",background:"none",border:"none",borderRadius:0}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
-                <circle cx="24" cy="24" r="21" stroke="#E8B4C0" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#E8B4C0" strokeWidth="1.4" strokeLinecap="round"/>
+                <circle cx="24" cy="24" r="21" stroke="#5A5A40" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#5A5A40" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
-              <div className="nav-brand-x" style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
+              <div className="nav-brand-x" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
             </div>
-            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(232,180,192,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
+            <div className="nav-brand-sub" style={{fontFamily:"'Inter', sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(232,180,192,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
           </div>
         </div>
         {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
@@ -5551,12 +5552,12 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               className="nav-cur"
               title={CURRENCY_DISCLAIMER}
               aria-label="Display currency"
-              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(232,180,192,.08)",color:"#F5EEF0",border:"1px solid rgba(232,180,192,.2)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
+              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(90,90,64,.08)",color:C.ink,border:"1px solid rgba(26,26,26,0.12)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter', sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
               data-cms-id="currency-selector"
             >
               <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13}}>{getFlagElement(cur)}</span>
               <span>{cur}</span>
-              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#E8B4C0" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
+              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#5A5A40" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
                 <path d="M2 3.5l3 3 3-3"/>
               </svg>
             </button>
@@ -5564,7 +5565,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:220,background:"rgba(6,4,8,.98)",border:"1px solid rgba(232,180,192,.18)",borderRadius:12,boxShadow:"0 8px 32px rgba(0,0,0,.7),0 0 0 1px rgba(232,180,192,.06)",overflow:"hidden",zIndex:300}}>
                 {enabledCurs.map((c: string)=>(
                   <button key={c} onClick={()=>{setCur(c);setCurOpen(false);}}
-                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(107,174,136,.1)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#6BAE88":"rgba(237,232,223,.7)",fontSize:12,fontFamily:"var(--fn-sans)",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(107,174,136,.07)"}}
+                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(107,174,136,.1)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#6BAE88":"rgba(237,232,223,.7)",fontSize:12,fontFamily:"'Inter', sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(107,174,136,.07)"}}
                     onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(107,174,136,.07)";}}
                     onMouseLeave={(e:any)=>{if(c!==cur)e.currentTarget.style.background="transparent";}}
                   >
@@ -5586,19 +5587,19 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           >
             {theme==="dark"?"☀️":"🌙"}
           </button>
-          <button className="ib" onClick={onSearch} title="Search" style={{color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}}>
+          <button className="ib" onClick={onSearch} title="Search" style={{color:C.ink,padding:"8px",minWidth:34,minHeight:34}}>
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:"rgba(245,238,240,.65)",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
+          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:C.ink,padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
             <svg width={17} height={17} fill={wl&&wl.length?"#E8B4C0":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C4889A",color:"#060408",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
+            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#5A5A40",color:C.white,borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
           </button>
-          <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}} title="Basket / Checkout">
+          <button className="ib" onClick={onCheckout} style={{position:"relative",color:C.ink,padding:"8px",minWidth:34,minHeight:34}} title="Basket / Checkout">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C4889A",color:"#060408",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{cartCount}</span>}
+            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#5A5A40",color:C.white,borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{cartCount}</span>}
           </button>
-          <button className="nc-item nav-b2b-btn" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:"#E6C89A",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
-            <LuxIcon name="globe" size={15} color="#E6C89A"/><span className="nav-b2b-text">B2B Portal</span>
+          <button className="nc-item nav-b2b-btn" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:C.gold,fontFamily:"'Montserrat', sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
+            <LuxIcon name="globe" size={15} color={C.gold}/><span className="nav-b2b-text">B2B Portal</span>
           </button>
         </div>
       </div>
@@ -5681,17 +5682,17 @@ function Footer({setPage,onInquire,onSubscribe}:any){
         {/* signature bar */}
         <div style={{textAlign:"center",padding:"6px 0 34px",position:"relative"}}>
           <div className="x-divider" style={{margin:"0 auto 16px",color:"#6BAE88"}}>❖</div>
-          <div style={{fontFamily:"var(--fn-serif)",fontSize:18,letterSpacing:"3px",color:"#EDE8DF"}}>XIYORA · Crafted Comfort</div>
+          <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,letterSpacing:"3px",color:C.ink}}>XIYORA · Crafted Comfort</div>
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:10}}>
             <span style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#8a8378"}}>Considered Luxury</span>
-            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #B87B5A",color:"#B87B5A",fontFamily:"var(--fn-serif)",fontSize:13,borderRadius:2}}>印</span>
+            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #B87B5A",color:"#B87B5A",fontFamily:"'Cormorant Garamond', serif",fontSize:13,borderRadius:2}}>印</span>
           </div>
         </div>
         <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}} data-cms-id="footer-copyright">
           <div style={{fontSize:12,color:"#666"}}>© 2025 XIYORA. All prices indicative. Proforma / Estimate provided where applicable.</div>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
             {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
-              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"var(--fn-sans)",transition:"color .2s"}}
+              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"'Inter', sans-serif",transition:"color .2s"}}
                 onMouseEnter={(e:any)=>e.currentTarget.style.color="#6BAE88"}
                 onMouseLeave={(e:any)=>e.currentTarget.style.color="#666"}>{l}</button>
             ))}
@@ -5852,7 +5853,7 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
     const esc=(s:string)=>String(s||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]||c));
     const rows=items.map(i=>`<tr><td>${esc(i.productName)}${i.variantLabel&&i.variantLabel!==i.productName?`<br><span class="muted">${esc(i.variantLabel)}</span>`:""}<br><span class="muted">SKU: ${esc(i.sku)||"—"}</span></td><td class="c">${i.quantity}</td><td class="r">₹${(i.priceNumINR||0).toLocaleString("en-IN")}</td><td class="r">₹${((i.priceNumINR||0)*i.quantity).toLocaleString("en-IN")}</td></tr>`).join("");
     const html=`<!doctype html><html><head><meta charset="utf-8"><title>XIYORA Proforma ${ref}</title><style>
-*{box-sizing:border-box}body{font-family:'Space Grotesk',Helvetica,Arial,sans-serif;color:#2D2D2D;max-width:760px;margin:0 auto;padding:40px 32px;font-size:13px;line-height:1.6}
+*{box-sizing:border-box}body{font-family:'Inter',Helvetica,Arial,sans-serif;color:#2D2D2D;max-width:760px;margin:0 auto;padding:40px 32px;font-size:13px;line-height:1.6}
 h1{font-family:'Libre Baskerville',Georgia,serif;letter-spacing:6px;font-size:30px;margin:0 0 2px;font-weight:400}
 .tag{letter-spacing:2px;text-transform:uppercase;font-size:10px;color:#6BAE88;margin-bottom:24px}
 .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #6BAE88;padding-bottom:16px;margin-bottom:20px}
@@ -5889,7 +5890,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
     w.document.write(html);w.document.close();w.focus();
   };
 
-  const inp=(k?:string):React.CSSProperties=>({width:"100%",background:"#fafaf8",border:`1px solid ${k&&fieldErr[k]?"#e0a0a0":C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,marginBottom:fieldErr[k||""]?3:10});
+  const inp=(k?:string):React.CSSProperties=>({width:"100%",background:"#ffffff",border:`1px solid ${k&&fieldErr[k]?"#e0a0a0":C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter', sans-serif",color:C.dark,marginBottom:fieldErr[k||""]?3:10});
   const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
   const ferr=(k:string)=>fieldErr[k]?<div style={{fontSize:11,color:"#cc4444",marginBottom:8}}>{fieldErr[k]}</div>:null;
 
@@ -5917,11 +5918,11 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.lgold,borderRadius:4,padding:"10px 12px"}}>
                       <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                       <div style={{flex:1,minWidth:0}}>
-                        <div style={{fontFamily:"var(--fn-serif)",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
-                        <div style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
+                        <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
+                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                       </div>
-                      <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:4,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"var(--fn-sans)",flexShrink:0}}>Move to Basket</button>
-                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:4,fontSize:11,color:"#aaa",fontFamily:"var(--fn-sans)",flexShrink:0}}>✕</button>
+                      <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:4,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",flexShrink:0}}>Move to Basket</button>
+                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:4,fontSize:11,color:"#aaa",fontFamily:"'Inter', sans-serif",flexShrink:0}}>✕</button>
                     </div>
                   ))}
                 </div>
@@ -5933,7 +5934,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             <div style={{width:72,height:72,background:"linear-gradient(135deg,#6BAE88,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
               <svg width={28} height={28} fill="none" stroke="white" strokeWidth={2.5} viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
-            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:24,fontWeight:400,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
+            <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,fontWeight:400,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:8}}>Reference: CHK-{String(savedId).padStart(4,"0")}</p>}
             <p style={{fontSize:14,color:"#888",lineHeight:1.75,marginBottom:8}}>
               {payMode==="upi"?`UPI payment pending verification. UTR/Ref: ${utr||"not entered"}.`:""}
@@ -5942,7 +5943,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             </p>
             <p style={{fontSize:13,color:"#aaa",lineHeight:1.7,marginBottom:20}}>We will contact you within 24–48 hours to confirm and proceed with your final invoice.</p>
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 26px",fontFamily:"var(--fn-sans)",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}}
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 26px",fontFamily:"'Inter', sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I placed an order (CHK-${String(savedId).padStart(4,"0")}) for: ${productNames}. Please confirm next steps.`),"_blank")}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 Confirm on WhatsApp
@@ -5963,12 +5964,12 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
                     <img src={item.image} alt={item.productName} loading="lazy" decoding="async" style={{width:60,height:60,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
                     <div style={{flex:1,minWidth:0,overflow:"hidden"}}>
-                      <div style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:400,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
+                      <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:400,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
                       {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11,color:"#888",marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
                       {(() => {
                         const itemDisc = getFakeDiscountInfo(item.sku || item.productId, item.priceINR, cur);
                         return (
-                          <div style={{fontSize:13,fontFamily:"var(--fn-serif)",fontWeight:500}}>
+                          <div style={{fontSize:13,fontFamily:"'Cormorant Garamond', serif",fontWeight:500}}>
                             {itemDisc ? (
                               <>
                                 <span className="x-original-price-strike">{itemDisc.originalPriceStr}</span>
@@ -5978,7 +5979,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                             ) : (
                               <span style={{color:C.gold}}>{priceIn(cur,item.priceINR)}</span>
                             )}
-                            <span style={{fontSize:10,color:"#bbb",fontFamily:"'Inter',sans-serif",fontWeight:400,marginLeft:4}}>ea.</span>
+                            <span style={{fontSize:10,color:"#bbb",fontFamily:"'Inter', sans-serif",fontWeight:400,marginLeft:4}}>ea.</span>
                           </div>
                         );
                       })()}
@@ -5989,7 +5990,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                         <span style={{padding:"0 8px",fontSize:13,color:C.dark,minWidth:20,textAlign:"center"}}>{item.quantity}</span>
                         <button onClick={()=>updateQty(item.cartKey,item.quantity+1)} style={{padding:"5px 9px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>+</button>
                       </div>
-                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif"}}>✕</button>
+                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter', sans-serif"}}>✕</button>
                     </div>
                   </div>
                 ))}
@@ -6006,11 +6007,11 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                       <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.white,borderRadius:4,padding:"10px 12px"}}>
                         <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                         <div style={{flex:1,minWidth:0}}>
-                          <div style={{fontFamily:"var(--fn-serif)",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
-                          <div style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
+                          <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
+                          <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                         </div>
-                        <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",flexShrink:0}}>Move to Basket</button>
-                        <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif",flexShrink:0}}>✕</button>
+                        <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",flexShrink:0}}>Move to Basket</button>
+                        <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter', sans-serif",flexShrink:0}}>✕</button>
                       </div>
                     ))}
                   </div>
@@ -6031,7 +6032,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 {/* Location detect block */}
                 <div style={{background:C.lgold,borderRadius:3,padding:"10px 12px",marginBottom:12}}>
                   <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
-                    <button type="button" disabled={geoLoading} onClick={detectLocation} style={{background:C.white,border:`1px solid ${C.sand}`,color:C.dark,padding:"8px 13px",borderRadius:3,fontSize:12,cursor:geoLoading?"wait":"pointer",fontFamily:"'Inter',sans-serif",display:"flex",alignItems:"center",gap:7,flexShrink:0,whiteSpace:"nowrap"}}
+                    <button type="button" disabled={geoLoading} onClick={detectLocation} style={{background:C.white,border:`1px solid ${C.sand}`,color:C.dark,padding:"8px 13px",borderRadius:3,fontSize:12,cursor:geoLoading?"wait":"pointer",fontFamily:"'Inter', sans-serif",display:"flex",alignItems:"center",gap:7,flexShrink:0,whiteSpace:"nowrap"}}
                       onMouseEnter={(e:any)=>!geoLoading&&(e.currentTarget.style.borderColor=C.gold)}
                       onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
                       {geoLoading?<Spinner/>:<svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
@@ -6096,9 +6097,9 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 <div style={{background:"#fff7ed",border:"1px solid #f0d9b8",borderRadius:3,padding:"12px 14px",marginBottom:12}}>
                   <div style={{fontSize:12.5,color:"#9a6a2a",lineHeight:1.6,marginBottom:9}}>{err} Your basket is safe — confirm directly or save a proforma.</div>
                   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                    <button onClick={submitIntent} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>Try Again</button>
-                    <button onClick={checkoutWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>WhatsApp</button>
-                    {cartTotalINR>0&&<button onClick={printProforma} style={{background:C.beige,color:C.dark,border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>Save Proforma</button>}
+                    <button onClick={submitIntent} disabled={loading} style={{background:C.dark,color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>Try Again</button>
+                    <button onClick={checkoutWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>WhatsApp</button>
+                    {cartTotalINR>0&&<button onClick={printProforma} style={{background:C.beige,color:C.dark,border:"none",padding:"8px 14px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>Save Proforma</button>}
                   </div>
                 </div>
               )}
@@ -6117,7 +6118,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                       </div>
                       <div style={{flexShrink:0,textAlign:"right",paddingLeft:8}}>
                         <div style={{fontSize:12,color:"#888",whiteSpace:"nowrap"}}>×{i.quantity}</div>
-                        <div style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:500,whiteSpace:"nowrap"}}>{priceIn(cur,i.priceINR)}</div>
+                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontWeight:500,whiteSpace:"nowrap"}}>{priceIn(cur,i.priceINR)}</div>
                       </div>
                     </div>
                   ))}
@@ -6146,15 +6147,15 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     </div>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",gap:8,borderTop:`1px solid ${C.sand}`,paddingTop:10,marginTop:6}}>
                       <span style={{fontSize:12,letterSpacing:".5px",textTransform:"uppercase",color:"#999",flex:1}}>{(delivery && delivery.type === "india") ? "Estimated total" : "Subtotal"}</span>
-                      <span style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(18px,5vw,22px)" as any,fontWeight:600,color:C.gold,flexShrink:0,paddingLeft:8}}>₹{(delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR).toLocaleString("en-IN")}</span>
+                      <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(18px,5vw,22px)" as any,fontWeight:600,color:C.gold,flexShrink:0,paddingLeft:8}}>₹{(delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR).toLocaleString("en-IN")}</span>
                     </div>
                     {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"#aaa",marginTop:3}}>≈ {fmtMoney(cur,delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR)} {cur}</div>}
                     {!delivery&&<div style={{fontSize:11,color:"#9a8a6a",marginTop:8,lineHeight:1.5}}>Enter your postal code above to see delivery charge and estimated total.</div>}
                     <div style={{fontSize:10.5,color:"#bbb",lineHeight:1.6,marginTop:8,wordBreak:"break-word"}}>Indicative total. Final price confirmed via proforma invoice.{cur!=="INR"?` ${CURRENCY_DISCLAIMER}`:""}</div>
-                    <button onClick={printProforma} style={{marginTop:10,width:"100%",boxSizing:"border-box",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>View / Print Proforma Estimate</button>
+                    <button onClick={printProforma} style={{marginTop:10,width:"100%",boxSizing:"border-box",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>View / Print Proforma Estimate</button>
                   </div>
                 ):(
-                  <div style={{fontFamily:"var(--fn-serif)",fontSize:20,fontWeight:600,color:C.gold}}>Price on request</div>
+                  <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:20,fontWeight:600,color:C.gold}}>Price on request</div>
                 )}
               </div>
 
@@ -6197,7 +6198,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                       <div style={{fontSize:10.5,color:"#aaa",marginTop:6,letterSpacing:".5px"}}>Scan with any UPI app</div>
                     </div>
                   </div>
-                  <a href={upiLink} style={{display:"block",textAlign:"center",background:C.gold,color:"#fff",padding:"11px",borderRadius:3,fontSize:12,textDecoration:"none",letterSpacing:"1px",textTransform:"uppercase",marginBottom:12,fontFamily:"'Inter',sans-serif",fontWeight:500}}>
+                  <a href={upiLink} style={{display:"block",textAlign:"center",background:C.gold,color:"#fff",padding:"11px",borderRadius:3,fontSize:12,textDecoration:"none",letterSpacing:"1px",textTransform:"uppercase",marginBottom:12,fontFamily:"'Inter', sans-serif",fontWeight:500}}>
                     Open UPI App to Pay
                   </a>
                   <label style={lbl}>UTR / Reference Number (after payment)</label>
@@ -6219,7 +6220,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
               <button className="bg" onClick={submitIntent} style={{width:"100%",padding:"14px",fontSize:12,marginBottom:10,opacity:confirmed?1:.55,cursor:confirmed?"pointer":"not-allowed"}} disabled={loading||!confirmed}>
                 {loading?<Spinner/>:!confirmed?"Confirm Details & Location First":payMode==="upi"?"Confirm UPI Payment Intent":payMode==="proforma"?"Request Proforma Invoice":payMode==="whatsapp"?"Confirm via WhatsApp":"Submit Order Intent"}
               </button>
-              <button style={{width:"100%",background:"#25D366",color:"#fff",border:"none",padding:"13px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}
+              <button style={{width:"100%",background:"#25D366",color:"#fff",border:"none",padding:"13px",fontFamily:"'Inter', sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I'd like to order: ${productNames}. Can you guide me through payment?`),"_blank")}>
                 <svg width={15} height={15} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp Support
@@ -6241,7 +6242,7 @@ function AccountView({setPage}:any){
   const [saved,setSaved]=useState(false);
   const set=(k:string,v:string)=>setProfile((p:any)=>({...p,[k]:v}));
   const save=()=>{localStorage.setItem("xiyora_profile",JSON.stringify(profile));setSaved(true);setTimeout(()=>setSaved(false),3000);};
-  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,marginBottom:12};
+  const inp:React.CSSProperties={width:"100%",background:"#ffffff",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter', sans-serif",color:C.dark,marginBottom:12};
   const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
   return(
     <div style={{background:C.white,minHeight:"70vh",padding:"56px 0"}}>
@@ -6267,7 +6268,7 @@ function AccountView({setPage}:any){
                 alert(`Location detected (${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}). Please enter your city and pincode manually for accurate delivery estimates.`);
                 localStorage.setItem("xiyora_geo",JSON.stringify({lat:pos.coords.latitude,lng:pos.coords.longitude,ts:Date.now()}));
               },()=>alert("Location access denied. Please enter your city and pincode manually."));
-            }} style={{background:C.beige,border:`1px solid ${C.sand}`,color:C.dark,padding:"10px 16px",borderRadius:3,fontSize:12,cursor:"pointer",fontFamily:"'Inter',sans-serif",display:"flex",alignItems:"center",gap:8,transition:"border-color .2s"}}
+            }} style={{background:C.beige,border:`1px solid ${C.sand}`,color:C.dark,padding:"10px 16px",borderRadius:3,fontSize:12,cursor:"pointer",fontFamily:"'Inter', sans-serif",display:"flex",alignItems:"center",gap:8,transition:"border-color .2s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold}
               onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
               <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -6373,14 +6374,14 @@ function ProofLibraryView({setPage}:any){
                 onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
                 <div style={{marginBottom:16}}>{c.icon}</div>
                 <span style={{fontSize:10,letterSpacing:"1.5px",textTransform:"uppercase",color:C.gold,fontWeight:500,background:"#F5EDE0",padding:"3px 10px",borderRadius:20,marginBottom:14,display:"inline-block"}}>{c.tag}</span>
-                <h3 style={{fontFamily:"var(--fn-serif)",fontSize:20,fontWeight:500,color:C.dark,margin:"10px 0 6px"}}>{c.title}</h3>
+                <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:20,fontWeight:500,color:C.dark,margin:"10px 0 6px"}}>{c.title}</h3>
                 <div style={{fontSize:11.5,color:C.gold,letterSpacing:".4px",marginBottom:10}}>{c.sub}</div>
                 <p style={{fontSize:13.5,color:"#666",lineHeight:1.78,fontWeight:400,flex:1}}>{c.body}</p>
                 {doc&&(
                   <div style={{marginTop:18}}>
                     <button
                       onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(doc.msg)}`,"_blank")}
-                      style={{display:"inline-flex",alignItems:"center",gap:8,padding:"11px 20px",background:"#25D366",color:"#fff",border:"none",borderRadius:3,fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,cursor:"pointer",transition:"background .2s",width:"100%",justifyContent:"center"}}
+                      style={{display:"inline-flex",alignItems:"center",gap:8,padding:"11px 20px",background:"#25D366",color:"#fff",border:"none",borderRadius:3,fontSize:12,fontFamily:"'Inter', sans-serif",letterSpacing:"1px",textTransform:"uppercase",fontWeight:500,cursor:"pointer",transition:"background .2s",width:"100%",justifyContent:"center"}}
                       onMouseEnter={(e:any)=>e.currentTarget.style.background="#1ebe59"}
                       onMouseLeave={(e:any)=>e.currentTarget.style.background="#25D366"}>
                       <svg width={15} height={15} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
@@ -6397,7 +6398,7 @@ function ProofLibraryView({setPage}:any){
         <div className="proof-cta" style={{marginTop:56,background:"linear-gradient(135deg,#2D2D2D,#1a1a1a)",borderRadius:5,padding:"40px 44px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24,boxSizing:"border-box"}}>
           <div style={{flex:1,minWidth:0}}>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>Request Documentation</div>
-            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
+            <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,maxWidth:480}}>Send us your company details and the specific documentation required. We will provide the relevant certificates from Bingxi's documentation library for your import/compliance team.</p>
           </div>
           <div className="proof-cta-btns" style={{display:"flex",gap:12,flexShrink:0,flexWrap:"wrap"}}>
@@ -6469,7 +6470,7 @@ function OrderStatusView({setPage}:any){
             <input
               value={ref} onChange={e=>setRef(e.target.value)} onKeyDown={e=>e.key==="Enter"&&lookup()}
               placeholder="e.g. EQ-0001" maxLength={12}
-              style={{flex:1,background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:15,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,letterSpacing:"1px"}}/>
+              style={{flex:1,background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:15,borderRadius:3,fontFamily:"'Inter', sans-serif",color:C.dark,letterSpacing:"1px"}}/>
             <button className="bg" onClick={lookup} disabled={loading} style={{padding:"12px 24px",fontSize:12,letterSpacing:"1.5px",whiteSpace:"nowrap"}}>
               {loading?<Spinner/>:"Track →"}
             </button>
@@ -6491,7 +6492,7 @@ function OrderStatusView({setPage}:any){
           <div style={{border:`1px solid ${C.sand}`,borderRadius:5,overflow:"hidden",animation:"fadeInUp .3s ease"}}>
             <div style={{background:status.bg,borderBottom:`3px solid ${status.color}`,padding:"22px 26px"}}>
               <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:6}}>
-                <span style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:500,color:C.dark}}>{result.ref}</span>
+                <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:500,color:C.dark}}>{result.ref}</span>
                 <span style={{background:status.color,color:"#fff",padding:"3px 12px",borderRadius:20,fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500}}>{status.label}</span>
               </div>
               <p style={{fontSize:14,color:"#666",lineHeight:1.7,margin:0}}>{status.desc}</p>
@@ -6513,7 +6514,7 @@ function OrderStatusView({setPage}:any){
               <p style={{fontSize:12.5,color:"#aaa",marginTop:18,lineHeight:1.65}}>For the latest update or to make changes, contact us on WhatsApp with your reference number.</p>
               <div style={{display:"flex",gap:10,marginTop:14,flexWrap:"wrap"}}>
                 <a href={`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(`Hi XIYORA, I need an update on my order. Reference: ${result.ref}`)}`} target="_blank" rel="noreferrer"
-                  style={{background:"#25D366",color:"#fff",padding:"10px 18px",borderRadius:2,fontSize:12,letterSpacing:"1px",textTransform:"uppercase",textDecoration:"none",display:"flex",alignItems:"center",gap:6,fontFamily:"'Inter',sans-serif"}}>
+                  style={{background:"#25D366",color:"#fff",padding:"10px 18px",borderRadius:2,fontSize:12,letterSpacing:"1px",textTransform:"uppercase",textDecoration:"none",display:"flex",alignItems:"center",gap:6,fontFamily:"'Inter', sans-serif"}}>
                   <svg width={13} height={13} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                   WhatsApp Update
                 </a>
@@ -6581,7 +6582,7 @@ function AdminView(){
         <SL>Internal</SL>
         <SH>Admin Panel</SH>
         <p style={{fontSize:13,color:"#aaa",margin:"12px 0 24px",lineHeight:1.7}}>Enter your ADMIN_SECRET environment variable to access leads.</p>
-        <input type="password" value={pin} onChange={e=>setPin(e.target.value)} onKeyDown={e=>e.key==="Enter"&&unlock()} placeholder="Admin secret" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:14,borderRadius:3,fontFamily:"'Inter',sans-serif",marginBottom:12}}/>
+        <input type="password" value={pin} onChange={e=>setPin(e.target.value)} onKeyDown={e=>e.key==="Enter"&&unlock()} placeholder="Admin secret" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:14,borderRadius:3,fontFamily:"'Inter', sans-serif",marginBottom:12}}/>
         {err&&<p style={{color:"#cc4444",fontSize:12,marginBottom:12}}>{err}</p>}
         <button className="bg" onClick={unlock} style={{width:"100%",padding:13}} disabled={loading}>{loading?<Spinner/>:"Unlock"}</button>
       </div>
@@ -6598,7 +6599,7 @@ function AdminView(){
         </div>
         <div style={{display:"flex",gap:0,borderBottom:`1px solid ${C.sand}`,marginBottom:28}}>
           {tabs.map(([key,label])=>(
-            <button key={key} onClick={()=>setTab(key)} style={{background:"none",border:"none",padding:"12px 20px",fontSize:13,fontFamily:"'Inter',sans-serif",cursor:"pointer",color:tab===key?C.gold:"#888",borderBottom:`2px solid ${tab===key?C.gold:"transparent"}`,transition:"all .2s"}}>
+            <button key={key} onClick={()=>setTab(key)} style={{background:"none",border:"none",padding:"12px 20px",fontSize:13,fontFamily:"'Inter', sans-serif",cursor:"pointer",color:tab===key?C.gold:"#888",borderBottom:`2px solid ${tab===key?C.gold:"transparent"}`,transition:"all .2s"}}>
               {label}
             </button>
           ))}
@@ -6661,7 +6662,7 @@ export function SimplePage({title,content,setPage}:any){
           <div key={i} style={{padding:"22px 22px",background:C.white,borderTop:`2px solid ${C.gold}`,borderRadius:3,boxShadow:"0 1px 12px rgba(0,0,0,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:9}}>
               <LuxIcon name={["box","sliders","shield","craft","globe","doc","clock","headset"][i%8]} size={18}/>
-              <h3 style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:500,color:C.dark,margin:0}}>{k}</h3>
+              <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:500,color:C.dark,margin:0}}>{k}</h3>
             </div>
             <p style={{fontSize:14,color:C.ink,lineHeight:1.82,fontWeight:400}}>{v}</p>
           </div>
