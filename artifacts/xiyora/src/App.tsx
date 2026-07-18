@@ -1124,7 +1124,7 @@ const PINCODE_ZONES: Record<string,{zone:string;port:string;days:string}> = {
 };
 const ZONE_INFO: Record<string,{label:string;col:string;bg:string}> = {
   A:{label:"Zone A — Near Port",col:"#1a9e6e",bg:"#edfaf5"},
-  B:{label:"Zone B — Standard",col:"#6BAE88",bg:"#F4F7F5"},
+  B:{label:"Zone B — Standard",col:"#ffffff",bg:"#F4F7F5"},
   C:{label:"Zone C — Extended",col:"#888",bg:"#f5f5f5"},
 };
 const lookupPincode = (pin:string) => {
@@ -1151,9 +1151,9 @@ const lookupPincode = (pin:string) => {
   return { type: "unknown" as const, label: "Contact for rate", days: "Varies", port: "Bespoke Sourcing", zone: "UNKNOWN" };
 };
 
-const C={white:"#f5f2ed",beige:"#eae5dc",gold:"#5A5A40",dark:"#1a1a1a",sand:"#d3ced2",lgold:"#fdfcfb",char:"#eae5dc",ink:"#1a1a1a",seal:"#5A5A40",taupe:"#8B8B70"};
-const CD={white:"#1a1a1a",beige:"#222222",gold:"#5A5A40",dark:"#f5f2ed",sand:"#333333",lgold:"#252525",char:"#121212",ink:"#f5f2ed",seal:"#5A5A40",taupe:"#8B8B70"};
-const DARK_CSS=`body{background:#1a1a1a!important;color:#f5f2ed!important;--glass-bg:rgba(30,30,30,0.45);--glass-border:rgba(245,242,237,0.06);--glass-hover-bg:rgba(30,30,30,0.8);--glass-hover-border:rgba(245,242,237,0.2);--glass-shadow-hover:0 16px 40px rgba(0,0,0,0.5)}.nl{color:rgba(245,242,237,.62)!important}.nl:hover{color:#5A5A40!important}.nl::after{background:#5A5A40!important}.bg{background:#5A5A40!important;color:#f5f2ed!important}.bg:hover{background:#434330!important}.bo{color:#5A5A40!important;border-color:rgba(90,90,64,.42)!important}.bo:hover{background:rgba(90,90,64,.08)!important;color:#f5f2ed!important}.bd{color:rgba(245,242,237,.65)!important;border-color:rgba(245,242,237,.12)!important}.pc{background:linear-gradient(145deg,rgba(34,34,34,.85),rgba(26,26,26,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(245,242,237,.65)!important}.ib:hover{color:#5A5A40!important}.sl{color:#5A5A40!important}.fl{color:rgba(245,242,237,.55)!important}.fl:hover{color:#5A5A40!important}.inp{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input,select,textarea{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input::placeholder,textarea::placeholder{color:rgba(245,242,237,.3)!important}.glass-modal{background:rgba(30,30,30,.96)!important;border-color:rgba(90,90,64,.12)!important}.sdrawer{background:#1a1a1a!important}.sdr-link{color:#f5f2ed!important}.sdr-link:hover{color:#5A5A40!important;background:rgba(90,90,64,.08)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(245,242,237,.12)!important;color:rgba(245,242,237,.55)!important}.cert-chip:hover{border-color:#5A5A40!important;color:#5A5A40!important}::-webkit-scrollbar-track{background:#1a1a1a!important}::-webkit-scrollbar-thumb{background:rgba(245,242,237,.1)!important}.spec-key{color:rgba(245,242,237,.55)!important}.spec-val{color:#f5f2ed!important}.tag-pill{background:#5A5A40!important}.paper{background-color:#1a1a1a!important;background-image:radial-gradient(circle at 18% 24%,rgba(90,90,64,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(90,90,64,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(90,90,64,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(90,90,64,.03),transparent 55%)!important}`;
+const C={white:"#f5f2ed",beige:"#eae5dc",gold:"#B8B2A8",dark:"#1a1a1a",sand:"#d3ced2",lgold:"#fdfcfb",char:"#eae5dc",ink:"#1a1a1a",seal:"#B8B2A8",taupe:"#8a857e"};
+const CD={white:"#1a1a1a",beige:"#222222",gold:"#e8e4de",dark:"#f5f2ed",sand:"#333333",lgold:"#252525",char:"#121212",ink:"#f5f2ed",seal:"#e8e4de",taupe:"#a09a92"};
+const DARK_CSS=`body{background:#1a1a1a!important;color:#f5f2ed!important;--glass-bg:rgba(30,30,30,0.45);--glass-border:rgba(245,242,237,0.06);--glass-hover-bg:rgba(30,30,30,0.8);--glass-hover-border:rgba(245,242,237,0.2);--glass-shadow-hover:0 16px 40px rgba(0,0,0,0.5)}.nl{color:rgba(245,242,237,.62)!important}.nl:hover{color:#ffffff!important}.nl::after{background:#ffffff!important}.bg{background:#ffffff!important;color:#1a1a1a!important}.bg:hover{background:#e8e4de!important}.bo{color:#ffffff!important;border-color:rgba(255,255,255,.2)!important}.bo:hover{background:rgba(255,255,255,.08)!important;color:#ffffff!important}.bd{color:rgba(245,242,237,.65)!important;border-color:rgba(245,242,237,.12)!important}.pc{background:linear-gradient(145deg,rgba(34,34,34,.85),rgba(26,26,26,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(245,242,237,.65)!important}.ib:hover{color:#ffffff!important}.sl{color:rgba(245,242,237,.5)!important}.fl{color:rgba(245,242,237,.55)!important}.fl:hover{color:#ffffff!important}.inp{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input,select,textarea{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input::placeholder,textarea::placeholder{color:rgba(245,242,237,.3)!important}.glass-modal{background:rgba(30,30,30,.96)!important;border-color:rgba(255,255,255,.08)!important}.sdrawer{background:#1a1a1a!important}.sdr-link{color:#f5f2ed!important}.sdr-link:hover{color:#ffffff!important;background:rgba(255,255,255,.05)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(245,242,237,.12)!important;color:rgba(245,242,237,.55)!important}.cert-chip:hover{border-color:rgba(255,255,255,.4)!important;color:#ffffff!important}::-webkit-scrollbar-track{background:#1a1a1a!important}::-webkit-scrollbar-thumb{background:rgba(245,242,237,.1)!important}.spec-key{color:rgba(245,242,237,.55)!important}.spec-val{color:#f5f2ed!important}.tag-pill{background:rgba(255,255,255,.12)!important}.paper{background-color:#1a1a1a!important;background-image:radial-gradient(circle at 18% 24%,rgba(200,195,186,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(200,195,186,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(200,195,186,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(200,195,186,.03),transparent 55%)!important}`;
 const ThemeCtx=createContext(C);
 const useC=()=>useContext(ThemeCtx);
 const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
@@ -1365,10 +1365,10 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
       <div className="xl-line"/>
       <div className="xl-monogram">
         <svg width={52} height={52} viewBox="0 0 48 48" fill="none" aria-hidden>
-          <circle cx="24" cy="24" r="22" stroke="#6BAE88" strokeWidth="1.3"/>
-          <circle cx="24" cy="24" r="17" stroke="#6BAE88" strokeWidth=".5" opacity=".4"/>
-          <path d="M16 16l16 16M32 16L16 32" stroke="#6BAE88" strokeWidth="1.4" strokeLinecap="round"/>
-          <circle cx="24" cy="24" r="3.4" fill="#6BAE88"/>
+          <circle cx="24" cy="24" r="22" stroke="#ffffff" strokeWidth="1.3"/>
+          <circle cx="24" cy="24" r="17" stroke="#ffffff" strokeWidth=".5" opacity=".4"/>
+          <path d="M16 16l16 16M32 16L16 32" stroke="#ffffff" strokeWidth="1.4" strokeLinecap="round"/>
+          <circle cx="24" cy="24" r="3.4" fill="#ffffff"/>
         </svg>
         <div className="xl-brand">XIYORA</div>
         <div className="xl-sub">Crafted Comfort · Sourced for India</div>
@@ -1459,7 +1459,7 @@ const MARQUEE_ITEMS_BTM=[
 ];
 function LuxMarquee({dark=true}:{dark?:boolean}){
   const bg=dark?"#07090E":"#F3EFE5";
-  const borderColor=dark?"rgba(107,174,136,0.18)":"rgba(107,174,136,0.32)";
+  const borderColor=dark?"rgba(255,255,255,0.18)":"rgba(255,255,255,0.32)";
   const double=(arr:string[])=>[...arr,...arr];
   
   let itemsTop = MARQUEE_ITEMS_TOP;
@@ -1516,21 +1516,21 @@ body{font-family:'Inter', sans-serif;background:#07090E;color:#EDE8DF;overflow-x
 .page-fade-in{animation:pageFadeIn .4s cubic-bezier(.22,1,.36,1) both}
 @keyframes pageFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .at{display:flex;animation:marquee 38s linear infinite}
-.sl{font-family:'Inter', sans-serif;font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:#6BAE88;margin-bottom:18px;font-weight:600;display:block}
+.sl{font-family:'Inter', sans-serif;font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:#ffffff;margin-bottom:18px;font-weight:600;display:block}
 .nl{font-family:'Inter', sans-serif;color:rgba(237,232,223,.62);font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;padding:4px 0;position:relative;line-height:1}
-.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#6BAE88;transition:width .3s ease}
-.nl:hover{color:#6BAE88}.nl:hover::after{width:100%}
-.bg{background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background .28s,transform .28s,box-shadow .28s;border-radius:4px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(107,174,136,.3)}
-.bg:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,174,136,.42)}
+.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#ffffff;transition:width .3s ease}
+.nl:hover{color:#ffffff}.nl:hover::after{width:100%}
+.bg{background:#d4d0cb;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background .28s,transform .28s,box-shadow .28s;border-radius:4px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,255,255,.3)}
+.bg:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.42)}
 .bg:active{transform:translateY(0)}
-.bo{background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.42);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
-.bo:hover{background:rgba(107,174,136,.08);border-color:#6BAE88;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 6px 20px rgba(107,174,136,.2)}
+.bo{background:transparent;color:#ffffff;border:1px solid rgba(255,255,255,.42);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
+.bo:hover{background:rgba(255,255,255,.08);border-color:#ffffff;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,255,255,.2)}
 .bd{background:transparent;border:1px solid rgba(237,232,223,.12);color:rgba(237,232,223,.65);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
-.bd:hover{border-color:#6BAE88;color:#6BAE88}
+.bd:hover{border-color:#ffffff;color:#ffffff}
 .ib{background:none;border:none;cursor:pointer;color:rgba(237,232,223,.65);display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
-.ib:hover{color:#6BAE88;transform:scale(1.1)}
-.pc{background:linear-gradient(145deg,rgba(20,27,36,.85),rgba(14,18,24,.9));border-radius:8px;overflow:hidden;transition:border-color .45s,transform .45s,box-shadow .45s;cursor:pointer;position:relative;border:1px solid rgba(107,174,136,.1);box-shadow:0 2px 20px rgba(0,0,0,.4)}
-.pc:hover{transform:translateY(-7px);border-color:rgba(107,174,136,.35);box-shadow:0 28px 65px rgba(0,0,0,.6),0 0 40px rgba(107,174,136,.08)}
+.ib:hover{color:#ffffff;transform:scale(1.1)}
+.pc{background:linear-gradient(145deg,rgba(20,27,36,.85),rgba(14,18,24,.9));border-radius:8px;overflow:hidden;transition:border-color .45s,transform .45s,box-shadow .45s;cursor:pointer;position:relative;border:1px solid rgba(255,255,255,.1);box-shadow:0 2px 20px rgba(0,0,0,.4)}
+.pc:hover{transform:translateY(-7px);border-color:rgba(255,255,255,.35);box-shadow:0 28px 65px rgba(0,0,0,.6),0 0 40px rgba(255,255,255,.08)}
 .pc:hover .pi{transform:scale(1.05)}
 .pi{transition:transform .65s cubic-bezier(.23,1,.32,1);width:100%;height:100%;object-fit:cover}
 .cc{position:relative;border-radius:2rem;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1)}
@@ -1552,17 +1552,17 @@ body{font-family:'Inter', sans-serif;background:#07090E;color:#EDE8DF;overflow-x
 @keyframes wbPulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.65);opacity:0}100%{transform:scale(1.65);opacity:0}}
 .wb:hover{transform:scale(1.14);box-shadow:0 10px 38px rgba(37,211,102,.52)}
 .fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Inter', sans-serif;padding:0}
-.fl:hover{color:#6BAE88}
-input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!important;box-shadow:0 0 0 3px rgba(107,174,136,.1)}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#6BAE88}
+.fl:hover{color:#ffffff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ffffff!important;box-shadow:0 0 0 3px rgba(255,255,255,.1)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#ffffff}
 .img-zoom-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.96);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(8px)}
 .img-zoom-overlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;animation:fadeInUp .25s ease}
 @keyframes galleryFade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 .glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;box-shadow:0 32px 80px rgba(0,0,0,.22)}
 .google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;padding:5px 13px;font-family:'Inter', sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
-.google-btn:hover{background:#F5EEE4;border-color:#6BAE88;color:#2D2D2D;box-shadow:0 4px 12px rgba(107,174,136,.16)}
+.google-btn:hover{background:#F5EEE4;border-color:#ffffff;color:#2D2D2D;box-shadow:0 4px 12px rgba(255,255,255,.16)}
 .inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Inter', sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
-.tag-pill{background:#6BAE88;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
+.tag-pill{background:#ffffff;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 /* ── DESKTOP LAYOUT ── */
@@ -1633,11 +1633,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .sdrawer.open{transform:translateX(0)}
 .sdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:499;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
 .sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Inter', sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
-.sdr-link:hover{color:#6BAE88;background:rgba(107,174,136,.08);border-left-color:#6BAE88}
+.sdr-link:hover{color:#ffffff;background:rgba(255,255,255,.08);border-left-color:#ffffff}
 .sdr-section{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#555;padding:14px 24px 4px;display:block}
 /* ── CERT CHIPS ── */
 .cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid #D4C5A1;border-radius:20px;font-family:'Inter', sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
-.cert-chip:hover{border-color:#6BAE88;color:#6BAE88;background:#F5EDE0}
+.cert-chip:hover{border-color:#ffffff;color:#ffffff;background:#F5EDE0}
 /* ── PROOF CTA MOBILE ── */
 @media(max-width:680px){
   .proof-cta{flex-direction:column!important;align-items:stretch!important;padding:28px 22px!important}
@@ -1660,27 +1660,27 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .xiyora-gold-button::after{content:'';position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(110deg,transparent,rgba(255,255,255,.28),transparent);transition:transform .68s cubic-bezier(.22,1,.36,1);pointer-events:none}
 .xiyora-gold-button:hover::after{transform:translateX(120%)}
 .xiyora-price-pulse{animation:xiyoraPricePulse .9s cubic-bezier(.22,1,.36,1)}
-@keyframes xiyoraPricePulse{0%{box-shadow:0 0 0 rgba(107,174,136,0)}35%{box-shadow:0 0 0 7px rgba(107,174,136,.1)}100%{box-shadow:0 0 0 rgba(107,174,136,0)}}
+@keyframes xiyoraPricePulse{0%{box-shadow:0 0 0 rgba(255,255,255,0)}35%{box-shadow:0 0 0 7px rgba(255,255,255,.1)}100%{box-shadow:0 0 0 rgba(255,255,255,0)}}
 .xiyora-whatsapp-popup{transform-origin:bottom right;animation:xiyoraPopupIn .42s cubic-bezier(.22,1,.36,1)}
 @keyframes xiyoraPopupIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 .xiyora-video-overlay{background:linear-gradient(90deg,rgba(7,9,14,.74),rgba(7,9,14,.34),rgba(7,9,14,.1)),linear-gradient(0deg,rgba(7,9,14,.5),transparent 44%)}
 .bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid #D4C5A1;background:#fafaf8;font-family:'Inter', sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
-.bt-chip:hover{border-color:#6BAE88;color:#2D2D2D;box-shadow:0 6px 18px rgba(107,174,136,.16);transform:translateY(-2px)}
-.bt-chip.active{background:#6BAE88;border-color:#6BAE88;color:#fff;box-shadow:0 8px 22px rgba(107,174,136,.3)}
+.bt-chip:hover{border-color:#ffffff;color:#2D2D2D;box-shadow:0 6px 18px rgba(255,255,255,.16);transform:translateY(-2px)}
+.bt-chip.active{background:#ffffff;border-color:#ffffff;color:#fff;box-shadow:0 8px 22px rgba(255,255,255,.3)}
 /* ── ASIAN-LUXURY MOTIF SYSTEM (v4 redesign) ── */
 .serif{font-family:'Libre Baskerville',serif}
-.paper{background-color:#EDE8DF;background-image:radial-gradient(circle at 18% 24%,rgba(107,174,136,.06),transparent 42%),radial-gradient(circle at 82% 76%,rgba(107,174,136,.07),transparent 46%)}
+.paper{background-color:#EDE8DF;background-image:radial-gradient(circle at 18% 24%,rgba(255,255,255,.06),transparent 42%),radial-gradient(circle at 82% 76%,rgba(255,255,255,.07),transparent 46%)}
 .ink-wash{position:relative;isolation:isolate}
-.ink-wash::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(110% 70% at 100% 0%,rgba(107,174,136,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(107,174,136,.045),transparent 55%)}
+.ink-wash::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(110% 70% at 100% 0%,rgba(255,255,255,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(255,255,255,.045),transparent 55%)}
 .seal{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 7px;border:1.5px solid #B87B5A;color:#B87B5A;border-radius:6px;font-family:'Libre Baskerville',serif;font-size:15px;font-weight:600;line-height:1;opacity:.9;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
 .seal:hover{transform:rotate(-4deg) scale(1.06);box-shadow:0 6px 18px rgba(184,123,90,.18)}
-.x-divider{display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;color:#6BAE88;font-size:13px}
+.x-divider{display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;color:#ffffff;font-size:13px}
 .x-divider::before,.x-divider::after{content:'';height:1px;width:clamp(40px,8vw,80px)}
-.x-divider::before{background:linear-gradient(to right,transparent,#6BAE88)}
-.x-divider::after{background:linear-gradient(to left,transparent,#6BAE88)}
+.x-divider::before{background:linear-gradient(to right,transparent,#ffffff)}
+.x-divider::after{background:linear-gradient(to left,transparent,#ffffff)}
 .x-link{position:relative;display:inline-flex;align-items:center;gap:9px;color:rgba(237,232,223,.65);cursor:pointer;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;background:none;border:none;font-family:'Inter', sans-serif;font-weight:500;padding:0;transition:color .3s;text-decoration:none}
-.x-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:#6BAE88;transition:width .45s cubic-bezier(.22,1,.36,1)}
-.x-link:hover{color:#6BAE88}.x-link:hover::after{width:100%}
+.x-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:#ffffff;transition:width .45s cubic-bezier(.22,1,.36,1)}
+.x-link:hover{color:#ffffff}.x-link:hover::after{width:100%}
 .x-link .ar{display:inline-block;transition:transform .45s cubic-bezier(.22,1,.36,1)}
 .x-link:hover .ar{transform:translateX(7px)}
 .x-frame{position:relative;overflow:hidden}
@@ -1703,7 +1703,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .feat-ic{display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .feat-ic:hover{transform:translateY(-4px)}
 .feat-ic .ring{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid ${C.sand};transition:border-color .4s,background .4s}
-.feat-ic:hover .ring{border-color:#6BAE88;background:rgba(107,174,136,.08)}
+.feat-ic:hover .ring{border-color:#ffffff;background:rgba(255,255,255,.08)}
 /* ── LUX SPLIT HERO (mockup-faithful) ── */
 .lux-hero{position:relative;overflow:hidden;background:#F6F3EB}
 .lux-hero-photo{position:absolute;top:0;right:0;bottom:0;width:55%;overflow:hidden}
@@ -1715,7 +1715,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .feat-row{display:flex;gap:26px;flex-wrap:wrap}
 .feat-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;width:78px}
 .feat-item .fring{width:44px;height:44px;border-radius:50%;border:1px solid ${C.sand};display:flex;align-items:center;justify-content:center;transition:all .4s cubic-bezier(.22,1,.36,1)}
-.feat-item:hover .fring{border-color:#6BAE88;background:rgba(107,174,136,.08);transform:translateY(-3px)}
+.feat-item:hover .fring{border-color:#ffffff;background:rgba(255,255,255,.08);transform:translateY(-3px)}
 .feat-item .flabel{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:${C.ink};line-height:1.45;font-weight:500}
 .icon-strip{display:flex;justify-content:center;align-items:flex-start;gap:0;flex-wrap:wrap}
 .icon-strip .ist{flex:1;min-width:120px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:11px;padding:10px 16px;position:relative}
@@ -1730,16 +1730,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 @media(max-width:560px){.icon-strip .ist{min-width:33%}.icon-strip .ist:nth-child(3)::after{display:none}}
 /* ── DARK LUX HOMEPAGE (reference-faithful black-lacquer + gold) ── */
 .lux-noir{background:#07090E;color:#EDE8DF}
-.ornate{position:relative;border:1px solid rgba(107,174,136,.42);box-shadow:inset 0 0 0 4px rgba(107,174,136,.07),inset 0 0 80px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.5)}
-.ornate::before{content:'';position:absolute;inset:9px;border:1px solid rgba(107,174,136,.2);border-radius:inherit;pointer-events:none;z-index:6}
-.gold-italic{font-family:'Libre Baskerville',Georgia,serif;font-style:italic;background:linear-gradient(135deg,#8AC9A0 0%,#6BAE88 60%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#6BAE88}
-.gold-grad{background:linear-gradient(135deg,#6BAE88 0%,#8AC9A0 50%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#6BAE88}
-.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(107,174,136,.28);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
-.feat-circ:hover{background:rgba(107,174,136,.1);border-color:#6BAE88;transform:translateY(-3px)}
-.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.38);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;position:relative;overflow:hidden}
-.btn-gold-out:hover{background:rgba(107,174,136,.09);border-color:#6BAE88;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,174,136,.2)}
-.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(107,174,136,.32)}
-.btn-ivory:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,174,136,.42)}
+.ornate{position:relative;border:1px solid rgba(255,255,255,.42);box-shadow:inset 0 0 0 4px rgba(255,255,255,.07),inset 0 0 80px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.5)}
+.ornate::before{content:'';position:absolute;inset:9px;border:1px solid rgba(255,255,255,.2);border-radius:inherit;pointer-events:none;z-index:6}
+.gold-italic{font-family:'Libre Baskerville',Georgia,serif;font-style:italic;background:linear-gradient(135deg,#8AC9A0 0%,#ffffff 60%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#ffffff}
+.gold-grad{background:linear-gradient(135deg,#ffffff 0%,#8AC9A0 50%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#ffffff}
+.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
+.feat-circ:hover{background:rgba(255,255,255,.1);border-color:#ffffff;transform:translateY(-3px)}
+.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:transparent;color:#ffffff;border:1px solid rgba(255,255,255,.38);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;position:relative;overflow:hidden}
+.btn-gold-out:hover{background:rgba(255,255,255,.09);border-color:#ffffff;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.2)}
+.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#d4d0cb;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(255,255,255,.32)}
+.btn-ivory:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.42)}
 .deco-float{animation:driftSlow 14s ease-in-out infinite}
 @keyframes petalFall{0%{transform:translateY(-12vh) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translateY(118vh) rotate(480deg);opacity:0}}
 @keyframes petalSway{0%,100%{transform:translateX(0)}50%{transform:translateX(26px)}}
@@ -1748,7 +1748,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
 .petal i{display:block;width:100%;height:100%;background:radial-gradient(circle at 32% 28%,#f8d3d9,#ea9faa 62%,#d77f8f);border-radius:100% 0 100% 0;box-shadow:inset -1px -1px 2px rgba(150,60,80,.22);animation:petalSway ease-in-out infinite}
 .lux-feat-row{display:flex;align-items:flex-start;gap:0}
 .lux-feat-row .lf{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:0 6px;position:relative}
-.lux-feat-row .lf:not(:last-child)::after{content:'';position:absolute;right:0;top:8px;height:42px;width:1px;background:rgba(107,174,136,.3)}
+.lux-feat-row .lf:not(:last-child)::after{content:'';position:absolute;right:0;top:8px;height:42px;width:1px;background:rgba(255,255,255,.3)}
 .lux-feat-row .lf .lfl{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(237,232,223,.42);line-height:1.5;font-weight:500}
 .biz-feat{display:flex;align-items:center;gap:9px}
 .biz-feat .bft{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(237,232,223,.42);line-height:1.4;font-weight:500}
@@ -1775,13 +1775,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!import
   .wb::before{animation:none!important;opacity:0!important}
 }
 /* ── XIYORA LUX TOKENS + REUSABLE HOMEPAGE UTILITIES (v5) ── */
-:root{--xiyora-black:#07090E;--xiyora-charcoal:#141B24;--xiyora-ivory:#EDE8DF;--xiyora-gold:#6BAE88;--xiyora-soft-gold:#6BAE88;--xiyora-rose:#6BAE88;--xiyora-rose-muted:#4A8A68;--xiyora-rose-deep:#2D6B4A;--xiyora-sage:#6BAE88;--xiyora-muted-text:rgba(237,232,223,0.55);--fn-serif:'Libre Baskerville',Georgia,serif;--fn-sans:'Inter', sans-serif}
+:root{--xiyora-black:#07090E;--xiyora-charcoal:#141B24;--xiyora-ivory:#EDE8DF;--xiyora-gold:#ffffff;--xiyora-soft-gold:#ffffff;--xiyora-rose:#ffffff;--xiyora-rose-muted:#d4d0cb;--xiyora-rose-deep:#2D6B4A;--xiyora-sage:#ffffff;--xiyora-muted-text:rgba(237,232,223,0.55);--fn-serif:'Libre Baskerville',Georgia,serif;--fn-sans:'Inter', sans-serif}
 /* @keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}} */
 @keyframes cloudDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
 @keyframes idleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .cloud-drift{animation:cloudDrift 16s ease-in-out infinite}
 .idle-bob{animation:idleBob 7s ease-in-out infinite}
-.gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(107,174,136,.1);background:radial-gradient(circle at 50% 28%,rgba(107,174,136,.06),rgba(107,174,136,.01));box-shadow:inset 0 0 0 4px rgba(107,174,136,.04);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
+.gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,255,255,.1);background:radial-gradient(circle at 50% 28%,rgba(255,255,255,.06),rgba(255,255,255,.01));box-shadow:inset 0 0 0 4px rgba(255,255,255,.04);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
 .gold-badge.round{border-radius:50%}
 .ql-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
 .ql-card{position:relative;display:flex;align-items:center;gap:16px;padding:24px 22px;background:transparent;border:none;text-align:left;width:100%;cursor:pointer;transition:background .35s,box-shadow .35s;border-radius:2rem}
@@ -1847,7 +1847,7 @@ const Tag=({c=C.gold,children}:{c?:string;children:React.ReactNode})=>(
   <span className="tag-pill" style={{background:c}}>{children}</span>
 );
 const SL=({children,dark,center}:{children:React.ReactNode;dark?:boolean;center?:boolean})=>(
-  <span className="sl" style={{color:dark?"rgba(107,174,136,.65)":"#6BAE88",display:"block",textAlign:center?"center":"left"}}>{children}</span>
+  <span className="sl" style={{color:dark?"rgba(255,255,255,.65)":"#ffffff",display:"block",textAlign:center?"center":"left"}}>{children}</span>
 );
 const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>{
   const C=useC();
@@ -1896,10 +1896,10 @@ const Stagger=({children,style,className}:{children:React.ReactNode;style?:React
 /* ─── DECORATIVE MOTIFS (inline SVG, Asian-luxury identity) ── */
 /** Red seal stamp — accent near headings. `ch` is the glyph (Chinese char or monogram). */
 const Seal=({ch="信",title,style}:{ch?:string;title?:string;style?:React.CSSProperties})=>(
-  <span className="seal" title={title||"XIYORA seal"} style={{...style, borderColor:"#B87B5A", color:"#B87B5A"}} aria-hidden>{ch}</span>
+  <span className="seal" title={title||"XIYORA seal"} style={{...style, borderColor:"rgba(245,242,237,.5)", color:"rgba(245,242,237,.5)"}} aria-hidden>{ch}</span>
 );
 /** Champagne-gold cloud motif (祥云) — corner/background ornament. */
-const GoldCloud=({size=120,opacity=.5,color="#6BAE88",className,style}:{size?:number;opacity?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
+const GoldCloud=({size=120,opacity=.5,color="#ffffff",className,style}:{size?:number;opacity?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
   <svg className={className} style={style} width={size} height={size*0.5} viewBox="0 0 240 120" fill="none" aria-hidden>
     <g stroke={color} strokeWidth="2" opacity={opacity} fill="none" strokeLinecap="round">
       <path d="M20 86c0-14 10-24 24-24 2-18 16-30 34-30 14 0 26 8 31 21 14 1 25 12 25 26"/>
@@ -1910,20 +1910,20 @@ const GoldCloud=({size=120,opacity=.5,color="#6BAE88",className,style}:{size?:nu
   </svg>
 );
 /** Sakura/plum branch sprig — soft editorial accent. */
-const Sakura=({size=140,color="#4A8A68",className,style}:{size?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
+const Sakura=({size=140,color="#d4d0cb",className,style}:{size?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
   <svg className={className} style={style} width={size} height={size} viewBox="0 0 160 160" fill="none" aria-hidden>
     <path d="M10 150C50 120 70 90 78 50" stroke={color} strokeWidth="2.4" strokeLinecap="round"/>
     <path d="M78 50C84 36 96 28 112 26M60 86C70 80 82 82 90 92M40 116c8-8 20-9 30-3" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
     {[[112,24],[90,94],[70,4],[36,118],[126,40]].map(([cx,cy],i)=>(
       <g key={i} opacity=".85">{[0,72,144,216,288].map(a=>(
         <ellipse key={a} cx={cx} cy={cy-7} rx="3.4" ry="6" fill={color} opacity=".55" transform={`rotate(${a} ${cx} ${cy})`}/>
-      ))}<circle cx={cx} cy={cy} r="2" fill="#B87B5A" opacity=".6"/></g>
+      ))}<circle cx={cx} cy={cy} r="2" fill="rgba(245,242,237,.5)" opacity=".6"/></g>
     ))}
   </svg>
 );
 /** XIYORA monogram lockup with "Natural · Crafted · Pure" tagline. */
 const Monogram=({color,size=1,tagline=true,center}:{color?:string;size?:number;tagline?:boolean;center?:boolean})=>{
-  const c=color||"#6BAE88";
+  const c=color||"#ffffff";
   return(
     <div style={{display:"flex",flexDirection:"column",alignItems:center?"center":"flex-start",gap:6*size}}>
       <svg width={40*size} height={40*size} viewBox="0 0 48 48" fill="none" aria-hidden>
@@ -1974,7 +1974,7 @@ const LUX_ICONS:Record<string,React.ReactNode>={
   bed:<><path d="M2 18v-7a2 2 0 012-2h16a2 2 0 012 2v7M2 14h20M2 18v2M22 18v2"/><path d="M6 9V7a1 1 0 011-1h3a1 1 0 011 1v2"/></>,
 };
 const LuxIcon=({name,size=22,color}:{name:string;size?:number;color?:string})=>(
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color||"#6BAE88"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>{LUX_ICONS[name]||LUX_ICONS.leaf}</svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color||"#ffffff"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>{LUX_ICONS[name]||LUX_ICONS.leaf}</svg>
 );
 /* Thin-line feature icon (vertical) used in heroes + strips */
 const FeatItem=({name,label}:{name:string;label:string})=>(
@@ -2037,7 +2037,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
 /* Reusable thin-line icon strip (recurring promise band) */
 function IconStrip({items,bg}:{items:{name:string;label:string}[];bg?:string}){
   return(
-    <section style={{background:bg||"#0E1218",borderTop:`1px solid rgba(107,174,136,0.1)`,borderBottom:`1px solid rgba(107,174,136,0.1)`,padding:"30px 0"}}>
+    <section style={{background:bg||"#0E1218",borderTop:`1px solid rgba(255,255,255,0.1)`,borderBottom:`1px solid rgba(255,255,255,0.1)`,padding:"30px 0"}}>
       <div className="container"><Stagger className="icon-strip">
         {items.map((it,i)=>(
           <div key={i} className="ist"><LuxIcon name={it.name} size={26}/><div className="flabel">{it.label}</div></div>
@@ -2059,11 +2059,11 @@ const DECO={
 /* Gold corner flourish for ornate frames */
 const CornerFlourish=({style}:{style?:React.CSSProperties})=>(
   <svg width={58} height={58} viewBox="0 0 58 58" fill="none" aria-hidden style={style}>
-    <path d="M4 4h20M4 4v20" stroke="#6BAE88" strokeWidth="1.3" strokeLinecap="round"/>
-    <path d="M4 16c0-6.6 5.4-12 12-12" stroke="#6BAE88" strokeWidth=".9" opacity=".6"/>
-    <path d="M10 10c14 0 24 10 24 24" stroke="#6BAE88" strokeWidth=".8" opacity=".4"/>
-    <circle cx="8" cy="8" r="2.1" fill="#6BAE88"/>
-    <path d="M16 6q9 2 11 11" stroke="#6BAE88" strokeWidth=".7" opacity=".4"/>
+    <path d="M4 4h20M4 4v20" stroke="#ffffff" strokeWidth="1.3" strokeLinecap="round"/>
+    <path d="M4 16c0-6.6 5.4-12 12-12" stroke="#ffffff" strokeWidth=".9" opacity=".6"/>
+    <path d="M10 10c14 0 24 10 24 24" stroke="#ffffff" strokeWidth=".8" opacity=".4"/>
+    <circle cx="8" cy="8" r="2.1" fill="#ffffff"/>
+    <path d="M16 6q9 2 11 11" stroke="#ffffff" strokeWidth=".7" opacity=".4"/>
   </svg>
 );
 const CornerSet=()=>(<>
@@ -2077,7 +2077,7 @@ function Petals({count=14,z=5}:{count?:number;z?:number}){
   return null;
 }
 /* Circle-X monogram mark (gold lockup) */
-const MonoMark=({size=42,color="#6BAE88"}:{size?:number;color?:string})=>(
+const MonoMark=({size=42,color="#ffffff"}:{size?:number;color?:string})=>(
   <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
     <circle cx="24" cy="24" r="22" stroke={color} strokeWidth="1.2"/>
     <circle cx="24" cy="24" r="17.5" stroke={color} strokeWidth=".6" opacity=".45"/>
@@ -2089,9 +2089,9 @@ const MonoMark=({size=42,color="#6BAE88"}:{size?:number;color?:string})=>(
 const Rosette=({size=24}:{size?:number})=>(
   <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden style={{display:"block"}}>
     <g transform="translate(20 20)">
-      {[0,45,90,135,180,225,270,315].map(a=>(<ellipse key={a} cx="0" cy="-11" rx="3.6" ry="8" fill="#6BAE88" opacity=".82" transform={`rotate(${a})`}/>))}
-      <circle r="6.6" fill="none" stroke="#6BAE88" strokeWidth="1" opacity=".7"/>
-      <circle r="3.4" fill="#B87B5A"/>
+      {[0,45,90,135,180,225,270,315].map(a=>(<ellipse key={a} cx="0" cy="-11" rx="3.6" ry="8" fill="#ffffff" opacity=".82" transform={`rotate(${a})`}/>))}
+      <circle r="6.6" fill="none" stroke="#ffffff" strokeWidth="1" opacity=".7"/>
+      <circle r="3.4" fill="#ffffff"/>
     </g>
   </svg>
 );
@@ -2099,9 +2099,9 @@ const Rosette=({size=24}:{size?:number})=>(
 const ArchedCartouche=({children,className,style}:{children:React.ReactNode;className?:string;style?:React.CSSProperties})=>(
   <div className={className} style={{position:"relative",display:"inline-flex",flexDirection:"column",alignItems:"center",padding:"32px 42px 14px",maxWidth:"100%",...style}}>
     <svg viewBox="0 0 320 150" fill="none" preserveAspectRatio="none" aria-hidden style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
-      <path d="M16 150 V62 Q16 16 84 14 H236 Q304 16 304 62 V150" stroke="#6BAE88" strokeWidth="1.4"/>
-      <path d="M24 150 V62 Q24 24 86 22 H234 Q296 24 296 62 V150" stroke="#6BAE88" strokeWidth=".7" opacity=".5"/>
-      <path d="M16 150 q-13 -1 -14 -16 M304 150 q13 -1 14 -16" stroke="#6BAE88" strokeWidth="1"/>
+      <path d="M16 150 V62 Q16 16 84 14 H236 Q304 16 304 62 V150" stroke="#ffffff" strokeWidth="1.4"/>
+      <path d="M24 150 V62 Q24 24 86 22 H234 Q296 24 296 62 V150" stroke="#ffffff" strokeWidth=".7" opacity=".5"/>
+      <path d="M16 150 q-13 -1 -14 -16 M304 150 q13 -1 14 -16" stroke="#ffffff" strokeWidth="1"/>
     </svg>
     <div style={{position:"absolute",top:-12,left:"50%",transform:"translateX(-50%)",zIndex:3}}><Rosette size={24}/></div>
     <div style={{position:"relative",zIndex:2,display:"flex",flexDirection:"column",alignItems:"center",gap:5}}>{children}</div>
@@ -2116,7 +2116,7 @@ const LUX_HERO_FEATURES=[
 /* ─── DARK ORNATE HOME HERO ───────────────────────────────── */
 function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>void}){
   const [err,setErr]=useState(false);
-  const layout = BIZ.heroLayout || "split";
+  const layout = BIZ.heroLayout || "centered";
   const isCentered = layout === "centered";
   const isReverse = layout === "reverse";
 
@@ -2152,7 +2152,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
               <ArchedCartouche className="lux-brand-lock" style={isCentered ? { alignSelf: "center", margin: "0 auto 20px" } : {}}>
                 <MonoMark size={38}/>
                 <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#f5f2ed",lineHeight:1,fontWeight:600}}>XIYORA</div>
-                <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#5A5A40"}}>Crafted Comfort</div>
+                <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"rgba(245,242,237,.6)"}}>Crafted Comfort</div>
                 <Seal ch="印" style={{marginTop:2}}/>
               </ArchedCartouche>
               <h1 className="serif" data-cms-id="hero-title" style={{
@@ -2180,7 +2180,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
               <p className="lux-bingxi" style={{
                 fontSize: 12,
                 letterSpacing: "1.5px",
-                color: "#6BAE88",
+                color: "#ffffff",
                 margin: "16px 0 0",
                 display: "flex",
                 alignItems: "center",
@@ -2189,7 +2189,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
                 zIndex: 3,
                 justifyContent: isCentered ? "center" : "flex-start"
               }}>
-                <span style={{width:26,height:1,background:"#6BAE88",display:"inline-block"}}/>Official Bingxi Partner — Certified Natural Latex
+                <span style={{width:26,height:1,background:"#ffffff",display:"inline-block"}}/>Official Bingxi Partner — Certified Natural Latex
               </p>
               <div className="lux-feat-row" style={{
                 margin: "30px 0 0",
@@ -2199,12 +2199,12 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
                 justifyContent: isCentered ? "center" : "flex-start"
               }}>
                 {LUX_HERO_FEATURES.map((f,i)=>(
-                  <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#6BAE88"/></div><div className="lfl">{f.label}</div></div>
+                  <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#ffffff"/></div><div className="lfl">{f.label}</div></div>
                 ))}
               </div>
               <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}} data-cms-id="hero-cta">
-                <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#6BAE88"}}>✦</span></button>
-                <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"#B87B5A"}}>→</span></button>
+                <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#ffffff"}}>✦</span></button>
+                <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"rgba(245,242,237,.5)"}}>→</span></button>
               </div>
             </Reveal>
           </div>
@@ -2214,7 +2214,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(7,9,14,.55),rgba(7,9,14,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(7,9,14,.42),transparent 34%)",pointerEvents:"none"}}/>
             {/* corner-only gold hairline frame — no motifs over the room photo (guardrail) */}
-            <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(107,174,136,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+            <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(255,255,255,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
           </div>
         </div>
       </div>
@@ -2239,7 +2239,7 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
           <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}}/></div>
           <div>
             <Reveal>
-              <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
+              <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#ffffff",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
               <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:400,lineHeight:1.25,color:"#f5f2ed",margin:0}}>
                 Crafted for Hotels.<br/><span className="gold-italic">Chosen by the Finest.</span>
               </h2>
@@ -2248,10 +2248,10 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
               </p>
               <div className="biz-feats" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"16px 28px",margin:"26px 0 0",maxWidth:540}}>
                 {BIZ_FEATURES.map((f,i)=>(
-                  <div key={i} className="biz-feat"><div className="feat-circ" style={{width:42,height:42}}><LuxIcon name={f.name} size={18} color="#6BAE88"/></div><div className="bft">{f.label}</div></div>
+                  <div key={i} className="biz-feat"><div className="feat-circ" style={{width:42,height:42}}><LuxIcon name={f.name} size={18} color="#ffffff"/></div><div className="bft">{f.label}</div></div>
                 ))}
               </div>
-              <button className="btn-gold-out xiyora-gold-button" style={{marginTop:30}} onClick={onSupplier}>Partner With XIYORA <span style={{color:"#6BAE88"}}>✦</span></button>
+              <button className="btn-gold-out xiyora-gold-button" style={{marginTop:30}} onClick={onSupplier}>Partner With XIYORA <span style={{color:"#ffffff"}}>✦</span></button>
             </Reveal>
           </div>
         </div>
@@ -2267,7 +2267,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
       {/* HERO */}
       <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(40px,6vw,80px) 0"}}>
         <div className="container" style={{position:"relative",zIndex:4,textAlign:"center"}}>
-          <span style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:"#C9A876",display:"block",marginBottom:16}}>{BIZ.aboutHeroLabel || "Our Story"}</span>
+          <span style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:"rgba(245,242,237,.6)",display:"block",marginBottom:16}}>{BIZ.aboutHeroLabel || "Our Story"}</span>
           <h1 className="serif gold-grad" style={{fontSize:"clamp(2.4rem,5vw,4rem)",fontWeight:500,lineHeight:1.25,margin:"0 0 24px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroHeading || "We Built XIYORA Because We<br/>Could Not Find What We Were<br/><em>Looking For.</em>"}} />
           <p style={{fontSize:15.5,color:"#C7BBA4",lineHeight:1.85,maxWidth:640,margin:"0 auto 32px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroBody || "The premium bedroom market had no shortage of price tags. It had an acute shortage of provenance. Where was the latex from? Who manufactured it? What standards governed it? The answers, when they came, were rarely satisfying. <strong style=\"color:#E8D6B4\">So we went to the source.</strong>"}} />
           <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
@@ -2286,7 +2286,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
               try { if (BIZ.aboutTrustBar) trustItems = JSON.parse(BIZ.aboutTrustBar); } catch {}
               return trustItems;
             })().map((t,i)=>(
-              <span key={i} style={{fontSize:11,letterSpacing:"1.4px",textTransform:"uppercase",color:i%2===0?"#E8D6B4":"#C9A876",padding:"4px 20px",borderRight:"1px solid rgba(200,169,126,.2)",whiteSpace:"nowrap"}}>{t}</span>
+              <span key={i} style={{fontSize:11,letterSpacing:"1.4px",textTransform:"uppercase",color:i%2===0?"#f5f2ed":"rgba(245,242,237,.6)",padding:"4px 20px",borderRight:"1px solid rgba(200,169,126,.2)",whiteSpace:"nowrap"}}>{t}</span>
             ))}
           </div>
         </div>
@@ -2366,7 +2366,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                 return stats.map((s,i)=>(
                   <div key={i} style={{textAlign:"center",padding:"24px 20px",borderTop:"1px solid rgba(200,169,126,.25)"}}>
                     <div className="serif gold-grad" style={{fontSize:"clamp(2.8rem,4vw,3.8rem)",fontWeight:600,lineHeight:1,marginBottom:8}}>{s.num}</div>
-                    <div style={{fontSize:11,letterSpacing:"2.5px",textTransform:"uppercase",color:"#C9A876",marginBottom:12}}>{s.label}</div>
+                    <div style={{fontSize:11,letterSpacing:"2.5px",textTransform:"uppercase",color:"rgba(245,242,237,.6)",marginBottom:12}}>{s.label}</div>
                     <p style={{fontSize:13,color:"#B8AA93",lineHeight:1.75}}>{s.desc}</p>
                   </div>
                 ));
@@ -2725,7 +2725,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
               <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
               <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}}/>
               <Reveal>
-                <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>Home · Partnership</div>
+                <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(245,242,237,.6)",marginBottom:14,fontWeight:500}}>Home · Partnership</div>
                 <ArchedCartouche className="lux-brand-lock">
                   <MonoMark size={38}/>
                   <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#f5f2ed",lineHeight:1,fontWeight:400}}>XIYORA</div>
@@ -2738,12 +2738,12 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
                 </p>
                 <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:470,position:"relative",zIndex:3}}>
                   {features.map((f,i)=>(
-                    <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#6BAE88"/></div><div className="lfl">{f.label}</div></div>
+                    <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#ffffff"/></div><div className="lfl">{f.label}</div></div>
                   ))}
                 </div>
                 <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}}>
-                  <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send B2B Enquiry <span style={{color:"#6BAE88"}}>✦</span></button>
-                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"#B87B5A"}}>✦</span></button>
+                  <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send B2B Enquiry <span style={{color:"#ffffff"}}>✦</span></button>
+                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"rgba(245,242,237,.5)"}}>✦</span></button>
                 </div>
               </Reveal>
             </div>
@@ -2752,7 +2752,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
               <img src={err?"/assets/lux/hero-bedroom.webp":heroImg} alt="XIYORA B2B Partnership" loading="eager" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
               <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(7,9,14,.55),rgba(7,9,14,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
               <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(7,9,14,.42),transparent 34%)",pointerEvents:"none"}}/>
-              <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(107,174,136,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+              <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(255,255,255,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
             </div>
           </div>
         </div>
@@ -2789,10 +2789,10 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
             <table style={{width:"100%",borderCollapse:"collapse",fontFamily:"'Inter', sans-serif",fontSize:13}}>
               <thead>
                 <tr style={{background:"#0E1218",color:"#f5f2ed"}}>
-                  <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #6BAE88"}}>Feature</th>
+                  <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #ffffff"}}>Feature</th>
                   {pricingTiers.map((tierName,i)=>(
-                    <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #6BAE88",background:i===1?"rgba(107,174,136,.06)":undefined}}>
-                      <div style={{color:"#6BAE88"}}>{tierName.split(" ")[0]}</div>
+                    <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #ffffff",background:i===1?"rgba(255,255,255,.06)":undefined}}>
+                      <div style={{color:"#ffffff"}}>{tierName.split(" ")[0]}</div>
                       <div style={{fontSize:10,color:C.gold,fontWeight:400,marginTop:3}}>{tierName.substring(tierName.indexOf("("))}</div>
                     </th>
                   ))}
@@ -2800,10 +2800,10 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
               </thead>
               <tbody>
                 {pricingRows.map((row,ri)=>(
-                  <tr key={ri} style={{borderBottom:`1px solid rgba(107,174,136,.08)`,background:ri%2===0?C.white:C.beige}}>
+                  <tr key={ri} style={{borderBottom:`1px solid rgba(255,255,255,.08)`,background:ri%2===0?C.white:C.beige}}>
                     <td style={{padding:"12px 18px",color:C.dark,fontWeight:500}}>{row[0]}</td>
                     {row.slice(1).map((cell,ci)=>(
-                      <td key={ci} style={{padding:"12px 18px",textAlign:"center",color:ci===1?"#6BAE88":C.ink,fontWeight:ci===1?500:400}}>{cell}</td>
+                      <td key={ci} style={{padding:"12px 18px",textAlign:"center",color:ci===1?"#ffffff":C.ink,fontWeight:ci===1?500:400}}>{cell}</td>
                     ))}
                   </tr>
                 ))}
@@ -2848,11 +2848,11 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
       {/* CTA */}
       <section style={{background:"linear-gradient(135deg,#141B24,#07090E)",padding:"clamp(40px,5vw,64px) 0"}}>
         <div className="container" style={{textAlign:"center"}}>
-          <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14}}>Get in Touch</div>
+          <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#ffffff",marginBottom:14}}>Get in Touch</div>
           <h2 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#f5f2ed",margin:"0 0 16px",fontWeight:400}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
           <p style={{fontSize:14.5,color:"rgba(237,232,223,0.7)",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>{BIZ.supplierCTABody || "WhatsApp us with your requirements — product type, quantity, and city. We respond within 24 hours."}</p>
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
-            <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#6BAE88"}}>✦</span></button>
+            <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#ffffff"}}>✦</span></button>
             <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"'Inter', sans-serif",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
           </div>
           <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:C.gold,fontSize:12,cursor:"pointer",fontFamily:"'Inter', sans-serif",letterSpacing:"1px",textTransform:"uppercase"}}>← Back to Home</button>
@@ -2873,13 +2873,13 @@ const TRUST_ITEMS=[
 function FooterTrustStrip(){
   const C=useC();
   return(
-    <section className="lux-noir" style={{borderTop:"1px solid rgba(107,174,136,.2)",borderBottom:"1px solid rgba(107,174,136,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
-      <div className="x-divider" style={{color:"#6BAE88",marginBottom:20}}>✦</div>
+    <section className="lux-noir" style={{borderTop:"1px solid rgba(255,255,255,.2)",borderBottom:"1px solid rgba(255,255,255,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
+      <div className="x-divider" style={{color:"#ffffff",marginBottom:20}}>✦</div>
       <div className="container">
         <Stagger className="trust-grid">
           {TRUST_ITEMS.map((it,i)=>(
             <div key={i} className="trust-item">
-              <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#6BAE88"/></div>
+              <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#ffffff"/></div>
               <div>
                 <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:"#f5f2ed",fontWeight:600}}>{it.t}</div>
                 <div style={{fontSize:12,color:C.gold,marginTop:3}}>{it.d}</div>
@@ -2896,7 +2896,7 @@ function FooterTrustStrip(){
 /* ─── REUSABLE LUX HOMEPAGE PRIMITIVES (v5) ──────────────── */
 /* Gold-outlined icon badge */
 function GoldIconBadge({name,size=24,round,className}:{name:string;size?:number;round?:boolean;className?:string}){
-  return <div className={`gold-badge${round?" round":""}${className?" "+className:""}`}><LuxIcon name={name} size={size} color="#6BAE88"/></div>;
+  return <div className={`gold-badge${round?" round":""}${className?" "+className:""}`}><LuxIcon name={name} size={size} color="#ffffff"/></div>;
 }
 /* Ornate frame (gold double border + corner flourishes) */
 function OrnamentalFrame({children,style,className}:{children:React.ReactNode;style?:React.CSSProperties;className?:string}){
@@ -2928,8 +2928,8 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
             ))}
           </div>
           <div className="ql-cross" aria-hidden>
-            <span style={{position:"absolute",left:"50%",top:"15%",bottom:"15%",width:1,background:"linear-gradient(rgba(107,174,136,0),rgba(107,174,136,.34),rgba(107,174,136,0))",transform:"translateX(-.5px)"}}/>
-            <span style={{position:"absolute",top:"50%",left:"7%",right:"7%",height:1,background:"linear-gradient(90deg,rgba(107,174,136,0),rgba(107,174,136,.3),rgba(107,174,136,0))",transform:"translateY(-.5px)"}}/>
+            <span style={{position:"absolute",left:"50%",top:"15%",bottom:"15%",width:1,background:"linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.34),rgba(255,255,255,0))",transform:"translateX(-.5px)"}}/>
+            <span style={{position:"absolute",top:"50%",left:"7%",right:"7%",height:1,background:"linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.3),rgba(255,255,255,0))",transform:"translateY(-.5px)"}}/>
             <span style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",display:"flex"}}><Rosette size={18}/></span>
           </div>
         </OrnamentalFrame>
@@ -2947,7 +2947,7 @@ const BENEFITS=[
 ];
 function DarkBenefitStrip(){
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(107,174,136,0.16)",borderBottom:"1px solid rgba(107,174,136,0.16)"}}>
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(255,255,255,0.16)",borderBottom:"1px solid rgba(255,255,255,0.16)"}}>
       <div className="container" style={{position:"relative",zIndex:2}}>
         <Stagger className="benefit-noir">
           {BENEFITS.map((b,i)=>(
@@ -2965,9 +2965,9 @@ function CategoryIntroPanel(){
       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}}/>
       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Seal ch="选" title="Curated collection"/>
-        <div className="sl" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px",color:"#6BAE88"}}>Bingxi Collection</div>
+        <div className="sl" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px",color:"#ffffff"}}>Bingxi Collection</div>
         <h2 className="ci-h" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(2rem,3.6vw,2.9rem)",fontWeight:400,color:"#f5f2ed",lineHeight:1.25,margin:0}}>Shop By Category</h2>
-        <div className="x-divider" style={{margin:"16px auto",color:"#6BAE88"}}>❖</div>
+        <div className="x-divider" style={{margin:"16px auto",color:"#ffffff"}}>❖</div>
         <p className="ci-sub" style={{fontSize:14.5,maxWidth:440,lineHeight:1.7,color:"rgba(237,232,223,0.7)"}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
       </div>
     </div>
@@ -2980,15 +2980,15 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
     <section className="latex-story">
       <img className="ls-bg" src={err?"https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=85":"/assets/lux/latex-closeup.webp"} alt="Natural latex close-up" loading="lazy" decoding="async" onError={()=>setErr(true)}/>
       <div className="ls-ov"/>
-      <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(107,174,136,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
-      <svg aria-hidden viewBox="0 0 1200 80" preserveAspectRatio="none" style={{position:"absolute",left:0,right:0,bottom:0,width:"100%",height:60,opacity:.5,zIndex:3}}><path d="M0 60 Q150 20 300 50 T600 50 T900 50 T1200 45" fill="none" stroke="#6BAE88" strokeWidth="1.2"/><path d="M0 70 Q150 34 300 62 T600 62 T900 62 T1200 58" fill="none" stroke="#6BAE88" strokeWidth=".7" opacity=".5"/></svg>
+      <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(255,255,255,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+      <svg aria-hidden viewBox="0 0 1200 80" preserveAspectRatio="none" style={{position:"absolute",left:0,right:0,bottom:0,width:"100%",height:60,opacity:.5,zIndex:3}}><path d="M0 60 Q150 20 300 50 T600 50 T900 50 T1200 45" fill="none" stroke="#ffffff" strokeWidth="1.2"/><path d="M0 70 Q150 34 300 62 T600 62 T900 62 T1200 58" fill="none" stroke="#ffffff" strokeWidth=".7" opacity=".5"/></svg>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <Reveal style={{maxWidth:560}}>
-          <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
+          <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#ffffff",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
           <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:400,lineHeight:1.25,color:"#f5f2ed",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
-          <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#6BAE88"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#6BAE88"}}/></div>
+          <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#ffffff"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#ffffff"}}/></div>
           <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
-          <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#6BAE88"}}>→</span></button>
+          <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#ffffff"}}>→</span></button>
         </Reveal>
       </div>
     </section>
@@ -3024,8 +3024,8 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
   if(!visible)return null;
   return(
     <div className="xiyora-whatsapp-popup" role="dialog" aria-label="XIYORA WhatsApp help"
-      style={{position:"fixed",right:24,bottom:148,zIndex:997,width:"min(330px,calc(100vw - 36px))",background:C.white,border:`1px solid rgba(107,174,136,0.18)`,borderRadius:8,boxShadow:"0 24px 70px rgba(0,0,0,.5)",padding:"20px 20px 18px",overflow:"hidden"}}>
-      <div style={{position:"absolute",top:0,left:0,right:0,height:4,background:"linear-gradient(90deg,#6BAE88,#25D366)"}}/>
+      style={{position:"fixed",right:24,bottom:148,zIndex:997,width:"min(330px,calc(100vw - 36px))",background:C.white,border:`1px solid rgba(255,255,255,0.18)`,borderRadius:8,boxShadow:"0 24px 70px rgba(0,0,0,.5)",padding:"20px 20px 18px",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:0,left:0,right:0,height:4,background:"linear-gradient(90deg,#ffffff,#25D366)"}}/>
       <button aria-label="Close" onClick={dismiss} style={{position:"absolute",top:10,right:12,background:"none",border:"none",fontSize:20,lineHeight:1,color:"#aaa",cursor:"pointer",padding:4}}>×</button>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:38,height:38,borderRadius:"50%",background:"#25D366",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
@@ -3145,7 +3145,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
 
         {ok?(
           <div style={{textAlign:"center",padding:"28px 0"}}>
-            <div style={{width:64,height:64,background:"linear-gradient(135deg,#6BAE88,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28,color:"#fff"}}>✓</div>
+            <div style={{width:64,height:64,background:"linear-gradient(135deg,#ffffff,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28,color:"#fff"}}>✓</div>
             <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
@@ -4033,7 +4033,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
               {distribution.map(({ stars, pct }) => (
                 <div key={stars} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
                   <span style={{ fontSize: 12, color: C.ink, minWidth: 14, textAlign: "right" }}>{stars}</span>
-                  <svg width={11} height={11} viewBox="0 0 24 24" fill="#5A5A40"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+                  <svg width={11} height={11} viewBox="0 0 24 24" fill="#C8C3BA"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
                   <div style={{ flex: 1, height: 6, background: C.sand, borderRadius: 3, overflow: "hidden" }}>
                     <div style={{ height: "100%", width: `${pct}%`, background: C.gold, borderRadius: 3 }}/>
                   </div>
@@ -4295,7 +4295,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             </div>
             {displayImages.length>1&&<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               {displayImages.map((im:string,i:number)=>(
-                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"rgba(90,90,64,.15)"}`,boxShadow:"none",transition:"border-color .22s,box-shadow .22s",flexShrink:0,background:"#111"}}>
+                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"rgba(200,195,186,.15)"}`,boxShadow:"none",transition:"border-color .22s,box-shadow .22s",flexShrink:0,background:"#111"}}>
                   <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} loading="lazy" decoding="async" style={{width:"100%",height:"100%",objectFit:"cover"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
                 </div>
               ))}
@@ -4674,7 +4674,7 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
           <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
           <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}}/>
           <div style={{position:"relative",zIndex:5,textAlign:"center"}}>
-            <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#6BAE88"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#6BAE88"}}/></div>
+            <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#ffffff",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#ffffff"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#ffffff"}}/></div>
             <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:400,color:"#f5f2ed",lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
             <p style={{fontSize:14,color:"rgba(237,232,223,0.7)",maxWidth:560,margin:"14px auto 0",lineHeight:1.7}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
             <div style={{display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center",margin:"28px 0 24px"}}>
@@ -4684,10 +4684,10 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
                 </button>
               ))}
             </div>
-            <div style={{maxWidth:640,margin:"0 auto",position:"relative",border:"1px solid rgba(90,90,64,0.3)",borderRadius:24,padding:"28px 30px",background:"#222222"}}>
+            <div style={{maxWidth:640,margin:"0 auto",position:"relative",border:"1px solid rgba(200,195,186,0.3)",borderRadius:24,padding:"28px 30px",background:"#222222"}}>
               <p className="serif" style={{fontSize:20,color:"#f5f2ed",lineHeight:1.5,marginBottom:22}}>{sel.message}</p>
               <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
-                <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{padding:"13px 26px"}} onClick={act}>{sel.cta} <span style={{color:"#6BAE88"}}>→</span></button>
+                <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{padding:"13px 26px"}} onClick={act}>{sel.cta} <span style={{color:"#ffffff"}}>→</span></button>
                 <button className="btn-ivory" style={{padding:"13px 24px"}} onClick={()=>onInquire(null,"quote")}>Ask For Guidance</button>
               </div>
             </div>
@@ -4771,11 +4771,11 @@ function SourcingNetwork({onCatalog, setPage}: any) {
         <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24}}>
           {/* Active Partner: Bingxi */}
           <div style={{background: C.white, border: `1px solid ${C.sand}`, borderRadius: 4, padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between", transition: "all .3s"}}
-            onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 12px 32px rgba(107,174,136,.12)";}}
+            onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 12px 32px rgba(255,255,255,.12)";}}
             onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";}}>
             <div>
               <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12}}>
-                <span style={{background: "#6BAE88", color: "#07090E", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Active Partner</span>
+                <span style={{background: "#ffffff", color: "#07090E", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Active Partner</span>
                 <span style={{fontSize: 11, color: "#aaa"}}>Est. 2024</span>
               </div>
               <h3 className="serif" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>Bingxi Latex</h3>
@@ -4996,7 +4996,7 @@ function CustomerReviewsSection(){
                 {distribution.map(({stars,pct})=>(
                   <div key={stars} style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
                     <span style={{fontSize:11,color:"#f5f2ed",minWidth:14,textAlign:"right"}}>{stars}</span>
-                    <svg width={10} height={10} viewBox="0 0 24 24" fill="#5A5A40"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+                    <svg width={10} height={10} viewBox="0 0 24 24" fill="#C8C3BA"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
                     <div style={{flex:1,height:5,background:C.sand,borderRadius:3,overflow:"hidden"}}>
                       <div style={{height:"100%",width:`${pct}%`,background:C.gold,borderRadius:3}}/>
                     </div>
@@ -5075,7 +5075,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
       <section style={{background:"#0c0a08",borderTop:"1px solid rgba(200,169,126,.15)",borderBottom:"1px solid rgba(200,169,126,.15)",padding:"14px 0",overflow:"hidden"}}>
         <div style={{display:"flex",gap:0,flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
           {["✓ OEKO-TEX Certified","✓ LGA Approved","✓ Official Bingxi Partner","✓ 10-Year Durability Guarantee","✓ 100% Natural Latex, No Synthetics","✓ International Shipping"].map((t,i)=>(
-            <span key={i} style={{fontSize:10.5,letterSpacing:"1.2px",textTransform:"uppercase",color:i%2===0?"#E2D5BA":"#C9A876",padding:"3px 18px",borderRight:"1px solid rgba(200,169,126,.18)",whiteSpace:"nowrap"}}>{t}</span>
+            <span key={i} style={{fontSize:10.5,letterSpacing:"1.2px",textTransform:"uppercase",color:i%2===0?"#E2D5BA":"rgba(245,242,237,.6)",padding:"3px 18px",borderRight:"1px solid rgba(200,169,126,.18)",whiteSpace:"nowrap"}}>{t}</span>
           ))}
         </div>
       </section>
@@ -5317,7 +5317,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
             <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,letterSpacing:6,color:"#f5f2ed"}}>XIYORA</div>
             <button onClick={onClose} style={{background:"none",border:"1px solid #2a2a2a",color:"#888",cursor:"pointer",width:28,height:28,borderRadius:"50%",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
-              onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#5A5A40";e.currentTarget.style.color=C.ink;}}
+              onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8C3BA";e.currentTarget.style.color=C.ink;}}
               onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#2a2a2a";e.currentTarget.style.color="#888";}}>✕</button>
           </div>
           <div style={{fontSize:10,color:"#555",letterSpacing:"1px",textTransform:"uppercase",lineHeight:1.5}}>Official Bingxi sourcing partner for India</div>
@@ -5356,7 +5356,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
             {["OEKO-TEX®","ISO 9001","GTTC Report","Business Licence","Catalogue"].map(c=>(
               <button key={c} onClick={()=>go(onProof)}
                 style={{padding:"4px 10px",border:"1px solid #333",borderRadius:20,background:"none",color:"#777",fontSize:10,cursor:"pointer",fontFamily:"'Inter', sans-serif",transition:"all .2s"}}
-                onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#5A5A40";e.currentTarget.style.color="#6BAE88";}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8C3BA";e.currentTarget.style.color="#ffffff";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#333";e.currentTarget.style.color="#777";}}>{c}</button>
             ))}
           </div>
@@ -5515,7 +5515,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
       <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"rgba(26,26,26,.06)",pointerEvents:"none"}}/>
       <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1.2fr) auto minmax(0, 1.2fr)",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
-        <div className="header-left-nav" style={{display:"flex",alignItems:"center",gap:4,minWidth:0,justifyContent:"center"}} data-cms-id="left-nav">
+        <div className="header-left-nav" style={{display:"flex",alignItems:"center",gap:8,minWidth:0,justifyContent:"flex-start"}} data-cms-id="left-nav">
           {/* Hamburger — hidden on desktop, shown on mobile */}
           <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:"rgba(245,242,237,0.85)",padding:"8px",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center",background:"none",border:"none",borderRadius:0}}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
@@ -5525,24 +5525,21 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"flex-start",gap:3,padding:"4px 0",position:"relative",zIndex:2,outline:"none",background:"none",border:"none",borderRadius:0}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
-                <circle cx="24" cy="24" r="21" stroke="#5A5A40" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#5A5A40" strokeWidth="1.4" strokeLinecap="round"/>
+                <circle cx="24" cy="24" r="21" stroke="rgba(255,255,255,0.7)" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="rgba(255,255,255,0.7)" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
               <div className="nav-brand-x" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
             </div>
             <div className="nav-brand-sub" style={{fontFamily:"'Inter', sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(245,242,237,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
           </div>
         </div>
-        {/* Center: clean flat brand mark — monogram + XIYORA wordmark + tagline */}
-        <div className="header-logo" style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"flex-start",minWidth:0,flexShrink:0}} data-cms-id="logo">
-          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px clamp(12px,2vw,20px)",position:"relative",zIndex:2,outline:"none",background:"none",border:"none",borderRadius:0}}>
-            <div style={{display:"flex",alignItems:"center",gap:9}}>
-              <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
-                <circle cx="24" cy="24" r="21" stroke="#5A5A40" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#5A5A40" strokeWidth="1.4" strokeLinecap="round"/>
-              </svg>
-              <div className="nav-brand-x" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
-            </div>
-            <div className="nav-brand-sub" style={{fontFamily:"'Inter', sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(232,180,192,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
-          </div>
+        {/* Center: Desktop navigation links */}
+        <div className="header-logo nc" style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0,gap:"clamp(14px, 1.6vw, 28px)"}} data-cms-id="nav-items">
+          {menuLinks.map(([l,v]: any,i: number)=>(
+            <button key={i} className="nl" style={{fontSize:"clamp(10px, 0.75vw, 11px)",color:page===v?"#ffffff":"rgba(245,242,237,0.65)",letterSpacing:"clamp(0.8px, 0.12vw, 1.4px)",whiteSpace:"nowrap",background:"none",border:"none",fontFamily:"'Montserrat', sans-serif",textTransform:"uppercase",fontWeight:500,padding:"4px 0"}} onClick={()=>{
+              if(v==="catalog")onCatalog();
+              else setPage(v);
+            }}>{l}</button>
+          ))}
         </div>
         {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
         <div className="header-actions nav-right" style={{display:"flex",alignItems:"center",gap:"clamp(4px, 0.8vw, 8px)",justifyContent:"flex-end",minWidth:0}}>
@@ -5558,7 +5555,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             >
               <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13}}>{getFlagElement(cur)}</span>
               <span>{cur}</span>
-              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#5A5A40" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
+              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="rgba(255,255,255,.5)" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
                 <path d="M2 3.5l3 3 3-3"/>
               </svg>
             </button>
@@ -5566,13 +5563,13 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:220,background:"rgba(6,4,8,.98)",border:"1px solid rgba(232,180,192,.18)",borderRadius:12,boxShadow:"0 8px 32px rgba(0,0,0,.7),0 0 0 1px rgba(232,180,192,.06)",overflow:"hidden",zIndex:300}}>
                 {enabledCurs.map((c: string)=>(
                   <button key={c} onClick={()=>{setCur(c);setCurOpen(false);}}
-                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(107,174,136,.1)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#6BAE88":"rgba(237,232,223,.7)",fontSize:12,fontFamily:"'Inter', sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(107,174,136,.07)"}}
-                    onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(107,174,136,.07)";}}
+                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(255,255,255,.08)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#ffffff":"rgba(245,242,237,.7)",fontSize:12,fontFamily:"'Inter', sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(255,255,255,.05)"}}
+                    onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(255,255,255,.05)";}}
                     onMouseLeave={(e:any)=>{if(c!==cur)e.currentTarget.style.background="transparent";}}
                   >
                     <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13,flexShrink:0}}>{getFlagElement(c)}</span>
                     <span style={{fontWeight:c===cur?600:400}}>{c} ({FX[c]?.symbol.trim()}) - {FX[c]?.name}</span>
-                    {c===cur&&<svg width={10} height={10} viewBox="0 0 12 12" fill="none" stroke="#6BAE88" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{marginLeft:"auto"}}><path d="M2 6l3 3 5-5"/></svg>}
+                    {c===cur&&<svg width={10} height={10} viewBox="0 0 12 12" fill="none" stroke="#ffffff" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{marginLeft:"auto"}}><path d="M2 6l3 3 5-5"/></svg>}
                   </button>
                 ))}
               </div>
@@ -5583,7 +5580,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             onClick={toggleTheme}
             className="nav-theme"
             title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
-            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(107,174,136,.1)":"rgba(107,174,136,.18)",border:"1px solid rgba(107,174,136,.25)",cursor:"pointer",color:"#6BAE88",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
+            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.15)",cursor:"pointer",color:"#ffffff",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
             aria-label={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
           >
             {theme==="dark"?"☀️":"🌙"}
@@ -5593,14 +5590,14 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           </button>
           <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:"#F5EEF0",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
             <svg width={17} height={17} fill={wl&&wl.length?"#E8B4C0":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#5A5A40",color:C.white,borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
+            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C8C3BA",color:C.white,borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
           </button>
           <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#F5EEF0",padding:"8px",minWidth:34,minHeight:34}} title="Basket / Checkout">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#5A5A40",color:C.white,borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{cartCount}</span>}
+            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C8C3BA",color:C.white,borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{cartCount}</span>}
           </button>
-          <button className="nc-item nav-b2b-btn" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:C.gold,fontFamily:"'Montserrat', sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
-            <LuxIcon name="globe" size={15} color={C.gold}/><span className="nav-b2b-text">B2B Portal</span>
+          <button className="nc-item nav-b2b-btn" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:"rgba(255,255,255,0.75)",fontFamily:"'Montserrat', sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
+            <LuxIcon name="globe" size={15} color="rgba(255,255,255,0.6)"/><span className="nav-b2b-text">B2B Portal</span>
           </button>
         </div>
       </div>
@@ -5617,7 +5614,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
       <div className="container" style={{position:"relative"}}>
         <div data-cms-id="footer-links" className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
           <div>
-            <div style={{cursor:"pointer",marginBottom:16,display:"inline-block"}} onClick={()=>setPage("home")}><Monogram color="#6BAE88" size={.95}/></div>
+            <div style={{cursor:"pointer",marginBottom:16,display:"inline-block"}} onClick={()=>setPage("home")}><Monogram color="#ffffff" size={.95}/></div>
             <p style={{fontSize:13,lineHeight:1.85,color:"#999",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
             <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:7,transition:"color .2s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.color="#4fd97e"}
@@ -5625,7 +5622,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
               <span style={{color:"#25D366",fontSize:9}}>●</span>+91 70283 11226
             </a>
             <a href={`mailto:${BIZ.email}`} style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:8,transition:"color .2s"}}
-              onMouseEnter={(e:any)=>e.currentTarget.style.color="#6BAE88"}
+              onMouseEnter={(e:any)=>e.currentTarget.style.color="#ffffff"}
               onMouseLeave={(e:any)=>e.currentTarget.style.color="#aaa"}>
               <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               {BIZ.email}
@@ -5682,11 +5679,11 @@ function Footer({setPage,onInquire,onSubscribe}:any){
         </div>
         {/* signature bar */}
         <div style={{textAlign:"center",padding:"6px 0 34px",position:"relative"}}>
-          <div className="x-divider" style={{margin:"0 auto 16px",color:"#6BAE88"}}>❖</div>
-          <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,letterSpacing:"3px",color:"#f5f2ed"}}>XIYORA · Crafted Comfort</div>
+          <div className="x-divider" style={{margin:"0 auto 16px",color:"#ffffff"}}>❖</div>
+          <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,letterSpacing:"3px",color:"rgba(245,242,237,.8)"}}>XIYORA · Crafted Comfort</div>
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:10}}>
             <span style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#8a8378"}}>Considered Luxury</span>
-            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #B87B5A",color:"#B87B5A",fontFamily:"'Cormorant Garamond', serif",fontSize:13,borderRadius:2}}>印</span>
+            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #B87B5A",color:"rgba(245,242,237,.5)",fontFamily:"'Cormorant Garamond', serif",fontSize:13,borderRadius:2}}>印</span>
           </div>
         </div>
         <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}} data-cms-id="footer-copyright">
@@ -5694,7 +5691,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
             {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
               <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"'Inter', sans-serif",transition:"color .2s"}}
-                onMouseEnter={(e:any)=>e.currentTarget.style.color="#6BAE88"}
+                onMouseEnter={(e:any)=>e.currentTarget.style.color="#ffffff"}
                 onMouseLeave={(e:any)=>e.currentTarget.style.color="#666"}>{l}</button>
             ))}
           </div>
@@ -5856,8 +5853,8 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
     const html=`<!doctype html><html><head><meta charset="utf-8"><title>XIYORA Proforma ${ref}</title><style>
 *{box-sizing:border-box}body{font-family:'Inter',Helvetica,Arial,sans-serif;color:#2D2D2D;max-width:760px;margin:0 auto;padding:40px 32px;font-size:13px;line-height:1.6}
 h1{font-family:'Libre Baskerville',Georgia,serif;letter-spacing:6px;font-size:30px;margin:0 0 2px;font-weight:400}
-.tag{letter-spacing:2px;text-transform:uppercase;font-size:10px;color:#6BAE88;margin-bottom:24px}
-.head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #6BAE88;padding-bottom:16px;margin-bottom:20px}
+.tag{letter-spacing:2px;text-transform:uppercase;font-size:10px;color:#ffffff;margin-bottom:24px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #ffffff;padding-bottom:16px;margin-bottom:20px}
 .meta{text-align:right;font-size:12px;color:#666}
 .cols{display:flex;gap:32px;margin-bottom:22px}.col{flex:1}
 .lbl{text-transform:uppercase;letter-spacing:1px;font-size:10px;color:#999;margin-bottom:6px}
@@ -5867,8 +5864,8 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
 .c{text-align:center}.r{text-align:right}.muted{color:#999;font-size:11px}
 .totals{margin-left:auto;width:280px;margin-top:8px}
 .totals div{display:flex;justify-content:space-between;padding:5px 0}
-.grand{border-top:2px solid #6BAE88;margin-top:6px;padding-top:10px!important;font-size:16px;font-family:'Libre Baskerville',Georgia,serif;color:#6BAE88}
-.note{margin-top:30px;padding:14px 16px;background:#F4F7F5;border-left:3px solid #6BAE88;font-size:11px;color:#777;line-height:1.7}
+.grand{border-top:2px solid #ffffff;margin-top:6px;padding-top:10px!important;font-size:16px;font-family:'Libre Baskerville',Georgia,serif;color:#ffffff}
+.note{margin-top:30px;padding:14px 16px;background:#F4F7F5;border-left:3px solid #ffffff;font-size:11px;color:#777;line-height:1.7}
 @media print{body{padding:16px}.noprint{display:none}}
 </style></head><body>
 <div class="head"><div><h1>XIYORA</h1><div class="tag">Proforma / Estimate</div></div>
@@ -5932,7 +5929,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
           </div>
         ):submitted?(
           <div style={{textAlign:"center",padding:"40px 0",maxWidth:520,margin:"40px auto 0"}}>
-            <div style={{width:72,height:72,background:"linear-gradient(135deg,#6BAE88,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
+            <div style={{width:72,height:72,background:"linear-gradient(135deg,#ffffff,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
               <svg width={28} height={28} fill="none" stroke="white" strokeWidth={2.5} viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,fontWeight:400,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
@@ -6305,7 +6302,7 @@ function ProofLibraryView({setPage}:any){
   const C=useC();
   const certs=[
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#ffffff" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>),
       title:"OEKO-TEX® Standard 100",
       sub:"Tested for Harmful Substances",
       body:"Bingxi products are manufactured with OEKO-TEX® Standard 100 certification. No harmful substances per international safety requirements.",
@@ -6313,7 +6310,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"oeko-tex",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#ffffff" strokeWidth={1.5} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>),
       title:"ISO 9001 Quality Management",
       sub:"International Quality Certification",
       body:"Bingxi holds ISO 9001 quality management system certification — verifying consistent manufacturing processes and quality standards.",
@@ -6321,7 +6318,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"iso9001",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#ffffff" strokeWidth={1.5} viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>),
       title:"GTTC Lab Testing Report",
       sub:"Independent Quality Testing",
       body:"Third-party GTTC lab test reports covering latex content percentage, density, durability, and safety parameters for Bingxi product lines.",
@@ -6329,7 +6326,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"gttc",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#ffffff" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>),
       title:"Full Product Catalogue",
       sub:"Complete Bingxi Range — 37+ Products",
       body:"Complete product catalogue with specifications, SKUs, and options for the full Bingxi range of Talalay, Dunlop, and hybrid latex products.",
@@ -6337,7 +6334,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"catalogue",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#ffffff" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>),
       title:"Bingxi Company Profile",
       sub:"Authorised India Sourcing Partner",
       body:"Official Bingxi company profile with manufacturer background, production capacity, export history, and certifications overview.",
@@ -6345,7 +6342,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"profile",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#ffffff" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>),
       title:"Mattress Catalogue",
       sub:"Mattress & Topper Specifications",
       body:"Detailed mattress and topper specifications, available sizes, density options, and construction details for B2B buyers and interior designers.",
@@ -6430,13 +6427,13 @@ function OrderStatusView({setPage}:any){
   const [err,setErr]=useState("");
 
   const STATUS_MAP:Record<string,{label:string;color:string;bg:string;desc:string}>={
-    new:{label:"Received",color:"#6BAE88",bg:"#F4F7F5",desc:"Your enquiry has been received. We'll be in touch within 24–48 hours."},
+    new:{label:"Received",color:"#ffffff",bg:"#F4F7F5",desc:"Your enquiry has been received. We'll be in touch within 24–48 hours."},
     contacted:{label:"In Touch",color:"#3B82F6",bg:"#EFF6FF",desc:"Our team has reached out to you. Please check your phone or email."},
     quoted:{label:"Quote Sent",color:"#8B5CF6",bg:"#F5F3FF",desc:"A price quote has been sent to you. Please review and let us know."},
     confirmed:{label:"Confirmed",color:"#10B981",bg:"#ECFDF5",desc:"Your order has been confirmed. We are preparing it for dispatch."},
     dispatched:{label:"Dispatched",color:"#F59E0B",bg:"#FFFBEB",desc:"Your order is on its way. Track via your shipping reference."},
     delivered:{label:"Delivered",color:"#10B981",bg:"#ECFDF5",desc:"Your order has been delivered. Thank you for choosing XIYORA!"},
-    pending:{label:"Pending",color:"#6BAE88",bg:"#F4F7F5",desc:"Your request is pending review. We'll confirm within 48 hours."},
+    pending:{label:"Pending",color:"#ffffff",bg:"#F4F7F5",desc:"Your request is pending review. We'll confirm within 48 hours."},
     cancelled:{label:"Cancelled",color:"#EF4444",bg:"#FEF2F2",desc:"This order has been cancelled. Please contact us if this is a mistake."},
   };
 

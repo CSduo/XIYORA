@@ -9,13 +9,13 @@
   --xr-obsidian:    #1a1a1a;
   --xr-charcoal:    #222222;
   --xr-surface:     rgba(245,242,237,0.95);
-  --xr-rose:        #5A5A40;
-  --xr-rose-muted:  #5A5A40;
+  --xr-rose:        #C8C3BA;
+  --xr-rose-muted:  #C8C3BA;
   --xr-rose-deep:   #1a1a1a;
-  --xr-rose-glow:   rgba(90,90,64,0.08);
+  --xr-rose-glow:   rgba(200,195,186,0.08);
   --xr-rose-border: rgba(26,26,26,0.08);
-  --xr-gold:        #5A5A40;
-  --xr-gold-soft:   #5A5A40;
+  --xr-gold:        #C8C3BA;
+  --xr-gold-soft:   #C8C3BA;
   --xr-ivory:       #f5f2ed;
   --xr-ivory-muted: rgba(26,26,26,0.65);
   --glass-bg:       rgba(255, 255, 255, 0.45);
@@ -51,8 +51,8 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(90,90,64,0.04), transparent 55%),
-    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(90,90,64,0.03), transparent 55%);
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(200,195,186,0.04), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(200,195,186,0.03), transparent 55%);
   pointer-events: none;
 }
 .xl-line {
@@ -150,7 +150,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
     transparent
   );
   animation: xlProgress 2.4s cubic-bezier(.4,0,.2,1) forwards;
-  box-shadow: 0 0 12px rgba(90,90,64,0.15);
+  box-shadow: 0 0 12px rgba(200,195,186,0.15);
 }
 @keyframes xlProgress { from { width: 0; } to { width: 100%; } }
 .xiyora-loader.loader-exit {
@@ -173,7 +173,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   right: 0;
   height: 320px;
   background: radial-gradient(ellipse 80% 60% at 50% 0%,
-    rgba(90,90,64,0.03),
+    rgba(200,195,186,0.03),
     transparent 70%
   );
   pointer-events: none;
@@ -252,7 +252,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   font-size: 10px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(90,90,64,0.15);
+  color: rgba(200,195,186,0.15);
   white-space: nowrap;
   font-weight: 500;
 }
@@ -536,11 +536,11 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   color: rgba(245,238,240,0.7) !important;
 }
 .cat-card-explore {
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
 }
 .cat-corner {
   display: none !important;
-  border-color: rgba(90,90,64,0.15) !important;
+  border-color: rgba(200,195,186,0.15) !important;
 }
 .cat-vtag {
   background: linear-gradient(180deg, var(--xr-rose-muted), var(--xr-rose-deep)) !important;
@@ -552,13 +552,13 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   background: none !important;
   -webkit-background-clip: initial !important;
   -webkit-text-fill-color: initial !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
 }
 .lux-noir .gold-grad {
   background: none !important;
   -webkit-background-clip: initial !important;
   -webkit-text-fill-color: initial !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
 }
 
 /* ── 20. RESPONSIVE HERO/BIZ GRID ──────────────────────── */
@@ -617,7 +617,7 @@ body, #root {
   font-size: 9.5px !important;
   letter-spacing: 0.35em !important;
   text-transform: uppercase !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
   font-weight: 600 !important;
   display: block !important;
   margin-bottom: 16px !important;
@@ -670,7 +670,7 @@ body, #root {
 /* Outline — thin rose border */
 .bo {
   background: transparent !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
   border: 1px solid rgba(232,180,192,0.38) !important;
   border-radius: 2rem !important;
   padding: 13px 30px !important;
@@ -682,7 +682,7 @@ body, #root {
   box-shadow: none !important;
 }
 .bo:hover {
-  border-color: var(--xr-rose) !important;
+  border-color: rgba(26,26,26,0.45) !important;
   color: var(--xr-ivory) !important;
   transform: translateY(-2px) !important;
   background: rgba(232,180,192,0.07) !important;
@@ -704,14 +704,14 @@ body, #root {
 }
 .bd:hover {
   border-color: rgba(232,180,192,0.38) !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
   transform: translateY(-1px) !important;
 }
 
 /* Secondary rose outline */
 .btn-gold-out {
   background: transparent !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
   border: 1px solid rgba(232,180,192,0.32) !important;
   border-radius: 2rem !important;
   box-shadow: none !important;
@@ -719,7 +719,7 @@ body, #root {
 }
 .btn-gold-out:hover {
   background: rgba(232,180,192,0.08) !important;
-  border-color: var(--xr-rose) !important;
+  border-color: rgba(26,26,26,0.45) !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 20px rgba(196,136,154,0.2) !important;
 }
@@ -749,7 +749,7 @@ body, #root {
 }
 .bt-noir:hover {
   border-color: rgba(232,180,192,0.3) !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
 }
 .bt-noir.active {
   background: var(--xr-rose-muted) !important;
@@ -768,7 +768,7 @@ body, #root {
 }
 .bt-chip:hover {
   border-color: rgba(232,180,192,0.38) !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
   box-shadow: 0 4px 16px rgba(196,136,154,0.14) !important;
   transform: translateY(-2px) !important;
 }
@@ -815,7 +815,7 @@ body, #root {
 }
 .feat-circ:hover {
   background: rgba(232,180,192,0.1) !important;
-  border-color: rgba(90,90,64,0.15) !important;
+  border-color: rgba(200,195,186,0.15) !important;
   transform: translateY(-3px) !important;
 }
 
@@ -839,7 +839,7 @@ body, #root {
   background: rgba(232,180,192,0.04) !important;
   box-shadow: inset 0 0 0 1px rgba(232,180,192,0.22), 0 14px 40px rgba(0,0,0,0.4) !important;
 }
-.ql-card:hover .ql-arrow { color: var(--xr-rose) !important; }
+.ql-card:hover .ql-arrow { color: rgba(26,26,26,0.45) !important; }
 
 /* Testimonial + glass cards — all consistent */
 .pc, .pc-luxe, .cc, .cat-card, .testimonial-card, .glass-card, .ql-card {
@@ -886,7 +886,7 @@ body, #root {
   font-style: italic !important;
   background: none !important;
   -webkit-text-fill-color: initial !important;
-  color: var(--xr-rose) !important;
+  color: rgba(26,26,26,0.45) !important;
 }
 
 /* ── SAKURA & DECORATIONS ────────────────────────────────── */
@@ -925,7 +925,7 @@ img.deco-float { display: none !important; }
   background: rgba(232,180,192,0.2) !important;
 }
 .benefit-noir .bn .bnl { color: rgba(245,238,240,0.55) !important; }
-.benefit-noir .bn:hover .bnl { color: var(--xr-rose) !important; }
+.benefit-noir .bn:hover .bnl { color: rgba(26,26,26,0.45) !important; }
 
 /* ── LUX FEAT ROW DIVIDERS ─────────────────────────────── */
 .lux-feat-row .lf:not(:last-child)::after {
@@ -936,7 +936,7 @@ img.deco-float { display: none !important; }
 /* ── X-LINK (animated underline links) ─────────────────── */
 .x-link { color: rgba(245,238,240,0.7) !important; }
 .x-link::after { background: var(--xr-rose) !important; }
-.x-link:hover { color: var(--xr-rose) !important; }
+.x-link:hover { color: rgba(26,26,26,0.45) !important; }
 
 /* ── TRUST SECTION ICONS ────────────────────────────────── */
 .feat-ic .ring {
@@ -955,7 +955,7 @@ img.deco-float { display: none !important; }
 }
 .cat-intro .ci-h { color: var(--xr-ivory) !important; }
 .cat-intro .ci-sub { color: rgba(245,238,240,0.6) !important; }
-.cat-intro .ci-label { color: var(--xr-rose) !important; }
+.cat-intro .ci-label { color: rgba(26,26,26,0.45) !important; }
 
 /* ── PRICE PULSE (kept, rose) ───────────────────────────── */
 @keyframes xiyoraPricePulse {
