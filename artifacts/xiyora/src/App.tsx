@@ -1124,7 +1124,7 @@ const PINCODE_ZONES: Record<string,{zone:string;port:string;days:string}> = {
 };
 const ZONE_INFO: Record<string,{label:string;col:string;bg:string}> = {
   A:{label:"Zone A — Near Port",col:"#1a9e6e",bg:"#edfaf5"},
-  B:{label:"Zone B — Standard",col:"#C8A97E",bg:"#F5EEE4"},
+  B:{label:"Zone B — Standard",col:"#6BAE88",bg:"#F4F7F5"},
   C:{label:"Zone C — Extended",col:"#888",bg:"#f5f5f5"},
 };
 const lookupPincode = (pin:string) => {
@@ -1151,9 +1151,9 @@ const lookupPincode = (pin:string) => {
   return { type: "unknown" as const, label: "Contact for rate", days: "Varies", port: "Bespoke Sourcing", zone: "UNKNOWN" };
 };
 
-const C={white:"#F6F3EB",beige:"#E5DFCD",gold:"#C8A97E",dark:"#1E1E1C",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141210",ink:"#4A4B46",seal:"#9E3B2E",taupe:"#BFA295"};
-const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#C8A97E",dark:"#F2EDE4",sand:"#2C2825",lgold:"#1C1916",char:"#080706",ink:"#9AA09A",seal:"#C25B4A",taupe:"#9C8B7E"};
-const DARK_CSS=`body{background:#0F0F0D!important;color:#F2EDE4!important}.nl{color:#E8E0D4!important}.nl:hover{color:#C8A97E!important}.nl::after{background:#C8A97E!important}.bg{background:#B89472!important;color:#0F0F0D!important}.bg:hover{background:#D4B896!important}.bo{color:#D4B896!important;border-color:#D4B896!important}.bo:hover{background:#C8A97E!important;color:#0F0F0D!important}.bd{color:#C8A97E!important;border-color:#3A3530!important}.pc{background:#1A1714!important;box-shadow:0 2px 16px rgba(0,0,0,.4)!important}.ib{color:#E8E0D4!important}.ib:hover{color:#C8A97E!important}.sl{color:#C8A97E!important}.fl{color:#9A9088!important}.fl:hover{color:#C8A97E!important}.inp{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input,select,textarea{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input::placeholder,textarea::placeholder{color:#665F58!important}.glass-modal{background:rgba(15,14,13,.97)!important;border-color:rgba(80,65,45,.5)!important}.sdrawer{background:#0A0908!important}.sdr-link{color:#B0A898!important}.sdr-link:hover{color:#C8A97E!important;background:rgba(200,169,126,.06)!important}.sdr-section{color:#444!important}.cert-chip{background:#1A1714!important;border-color:#2E2B27!important;color:#9A9088!important}.cert-chip:hover{border-color:#C8A97E!important;color:#C8A97E!important}::-webkit-scrollbar-track{background:#1A1714!important}::-webkit-scrollbar-thumb{background:#3A3530!important}.spec-key{color:#9A9088!important}.spec-val{color:#F2EDE4!important}.tag-pill{background:#6A5840!important}.paper{background-color:#0F0F0D!important;background-image:radial-gradient(circle at 18% 24%,rgba(120,95,60,.08),transparent 42%),radial-gradient(circle at 82% 76%,rgba(120,95,60,.06),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(200,169,126,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(194,91,74,.05),transparent 55%)!important}`;
+const C={white:"#EDE8DF",beige:"#E5DFCD",gold:"#6BAE88",dark:"#07090E",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141B24",ink:"#EDE8DF",seal:"#B87B5A",taupe:"#BFA295"};
+const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#6BAE88",dark:"#EDE8DF",sand:"#2C2825",lgold:"#1C1916",char:"#080706",ink:"#EDE8DF",seal:"#B87B5A",taupe:"#9C8B7E"};
+const DARK_CSS=`body{background:#07090E!important;color:#EDE8DF!important}.nl{color:rgba(237,232,223,.62)!important}.nl:hover{color:#6BAE88!important}.nl::after{background:#6BAE88!important}.bg{background:#4A8A68!important;color:#EDE8DF!important}.bg:hover{background:#2D6B4A!important}.bo{color:#6BAE88!important;border-color:rgba(107,174,136,.42)!important}.bo:hover{background:rgba(107,174,136,.08)!important;color:#EDE8DF!important}.bd{color:rgba(237,232,223,.65)!important;border-color:rgba(237,232,223,.12)!important}.pc{background:linear-gradient(145deg,rgba(20,27,36,.85),rgba(14,18,24,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(237,232,223,.65)!important}.ib:hover{color:#6BAE88!important}.sl{color:#6BAE88!important}.fl{color:rgba(237,232,223,.55)!important}.fl:hover{color:#6BAE88!important}.inp{background:#141B24!important;border-color:rgba(237,232,223,.12)!important;color:#EDE8DF!important}input,select,textarea{background:#141B24!important;border-color:rgba(237,232,223,.12)!important;color:#EDE8DF!important}input::placeholder,textarea::placeholder{color:rgba(237,232,223,.3)!important}.glass-modal{background:rgba(20,27,36,.96)!important;border-color:rgba(107,174,136,.12)!important}.sdrawer{background:#07090E!important}.sdr-link{color:#EDE8DF!important}.sdr-link:hover{color:#6BAE88!important;background:rgba(107,174,136,.08)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(237,232,223,.12)!important;color:rgba(237,232,223,.55)!important}.cert-chip:hover{border-color:#6BAE88!important;color:#6BAE88!important}::-webkit-scrollbar-track{background:#07090E!important}::-webkit-scrollbar-thumb{background:rgba(237,232,223,.1)!important}.spec-key{color:rgba(237,232,223,.55)!important}.spec-val{color:#EDE8DF!important}.tag-pill{background:#4A8A68!important}.paper{background-color:#07090E!important;background-image:radial-gradient(circle at 18% 24%,rgba(107,174,136,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(107,174,136,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(107,174,136,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(107,174,136,.03),transparent 55%)!important}`;
 const ThemeCtx=createContext(C);
 const useC=()=>useContext(ThemeCtx);
 const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
@@ -1365,10 +1365,10 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
       <div className="xl-line"/>
       <div className="xl-monogram">
         <svg width={52} height={52} viewBox="0 0 48 48" fill="none" aria-hidden>
-          <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/>
-          <circle cx="24" cy="24" r="17" stroke="#C8A97E" strokeWidth=".5" opacity=".4"/>
-          <path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/>
-          <circle cx="24" cy="24" r="3.4" fill="#C8A97E"/>
+          <circle cx="24" cy="24" r="22" stroke="#6BAE88" strokeWidth="1.3"/>
+          <circle cx="24" cy="24" r="17" stroke="#6BAE88" strokeWidth=".5" opacity=".4"/>
+          <path d="M16 16l16 16M32 16L16 32" stroke="#6BAE88" strokeWidth="1.4" strokeLinecap="round"/>
+          <circle cx="24" cy="24" r="3.4" fill="#6BAE88"/>
         </svg>
         <div className="xl-brand">XIYORA</div>
         <div className="xl-sub">Crafted Comfort · Sourced for India</div>
@@ -1458,8 +1458,8 @@ const MARQUEE_ITEMS_BTM=[
   "Dunlop & Talalay Processes","100% Latex Comfort","Ergonomic Sleep Products","Made with Integrity",
 ];
 function LuxMarquee({dark=true}:{dark?:boolean}){
-  const bg=dark?"#070605":"#F3EFE5";
-  const borderColor=dark?"rgba(200,169,126,0.18)":"rgba(200,169,126,0.32)";
+  const bg=dark?"#07090E":"#F3EFE5";
+  const borderColor=dark?"rgba(107,174,136,0.18)":"rgba(107,174,136,0.32)";
   const double=(arr:string[])=>[...arr,...arr];
   
   let itemsTop = MARQUEE_ITEMS_TOP;
@@ -1499,7 +1499,7 @@ function LuxMarquee({dark=true}:{dark?:boolean}){
 const CSS=`
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
-body{font-family:'Inter',sans-serif;background:#060408;color:#F5EEF0;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:'Space Grotesk',sans-serif;background:#07090E;color:#EDE8DF;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 #root{max-width:100%;overflow-x:hidden}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -1516,23 +1516,21 @@ body{font-family:'Inter',sans-serif;background:#060408;color:#F5EEF0;overflow-x:
 .page-fade-in{animation:pageFadeIn .4s cubic-bezier(.22,1,.36,1) both}
 @keyframes pageFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .at{display:flex;animation:marquee 38s linear infinite}
-.sl{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:#E8B4C0;margin-bottom:16px;font-weight:600;display:block}
-.nl{color:rgba(245,238,240,.6);font-size:12px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;padding:4px 0;position:relative;line-height:1}
-.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#E8B4C0;transition:width .3s ease}
-.nl:hover{color:#E8B4C0}.nl:hover::after{width:100%}
-.bg{background:#C8A97E;color:#fff;border:none;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem;position:relative;overflow:hidden}
-.bg::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);transition:none}
-/* .bg:hover::before{animation:sweepBtn .5s ease forwards} */
-.bg:hover{background:#B89472;transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,169,126,.32)}
+.sl{font-family:'Space Grotesk',sans-serif;font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:#6BAE88;margin-bottom:18px;font-weight:600;display:block}
+.nl{font-family:'Space Grotesk',sans-serif;color:rgba(237,232,223,.62);font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;padding:4px 0;position:relative;line-height:1}
+.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#6BAE88;transition:width .3s ease}
+.nl:hover{color:#6BAE88}.nl:hover::after{width:100%}
+.bg{background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background .28s,transform .28s,box-shadow .28s;border-radius:4px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(107,174,136,.3)}
+.bg:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,174,136,.42)}
 .bg:active{transform:translateY(0)}
-.bo{background:transparent;color:#C8A97E;border:1px solid rgba(246, 239, 224, 0.08);padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem}
-.bo:hover{background:#C8A97E;color:#fff;transform:translateY(-1px)}
-.bd{background:transparent;border:1px solid rgba(246, 239, 224, 0.08);color:#D9CBB8;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem}
-.bd:hover{border-color:#C8A97E;color:#C8A97E}
-.ib{background:none;border:none;cursor:pointer;color:rgba(245,238,240,.65);display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
-.ib:hover{color:#E8B4C0;transform:scale(1.1)}
-.pc{background:rgba(22,17,11,.6);border-radius:2.5rem;overflow:hidden;transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative;border:1px solid rgba(246,239,224,.07)}
-.pc:hover{transform:translateY(-4px)}
+.bo{background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.42);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
+.bo:hover{background:rgba(107,174,136,.08);border-color:#6BAE88;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 6px 20px rgba(107,174,136,.2)}
+.bd{background:transparent;border:1px solid rgba(237,232,223,.12);color:rgba(237,232,223,.65);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
+.bd:hover{border-color:#6BAE88;color:#6BAE88}
+.ib{background:none;border:none;cursor:pointer;color:rgba(237,232,223,.65);display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
+.ib:hover{color:#6BAE88;transform:scale(1.1)}
+.pc{background:linear-gradient(145deg,rgba(20,27,36,.85),rgba(14,18,24,.9));border-radius:8px;overflow:hidden;transition:border-color .45s,transform .45s,box-shadow .45s;cursor:pointer;position:relative;border:1px solid rgba(107,174,136,.1);box-shadow:0 2px 20px rgba(0,0,0,.4)}
+.pc:hover{transform:translateY(-7px);border-color:rgba(107,174,136,.35);box-shadow:0 28px 65px rgba(0,0,0,.6),0 0 40px rgba(107,174,136,.08)}
 .pc:hover .pi{transform:scale(1.05)}
 .pi{transition:transform .65s cubic-bezier(.23,1,.32,1);width:100%;height:100%;object-fit:cover}
 .cc{position:relative;border-radius:2rem;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1)}
@@ -1553,18 +1551,18 @@ body{font-family:'Inter',sans-serif;background:#060408;color:#F5EEF0;overflow-x:
 .wb::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;z-index:-1;animation:wbPulse 2.4s cubic-bezier(.22,1,.36,1) infinite}
 @keyframes wbPulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.65);opacity:0}100%{transform:scale(1.65);opacity:0}}
 .wb:hover{transform:scale(1.14);box-shadow:0 10px 38px rgba(37,211,102,.52)}
-.fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Inter',sans-serif;padding:0}
-.fl:hover{color:#C8A97E}
-input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!important;box-shadow:0 0 0 3px rgba(200,169,126,.1)}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#C8A97E}
+.fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Space Grotesk',sans-serif;padding:0}
+.fl:hover{color:#6BAE88}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!important;box-shadow:0 0 0 3px rgba(107,174,136,.1)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#6BAE88}
 .img-zoom-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.96);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(8px)}
 .img-zoom-overlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;animation:fadeInUp .25s ease}
 @keyframes galleryFade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 .glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;box-shadow:0 32px 80px rgba(0,0,0,.22)}
-.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;padding:5px 13px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
-.google-btn:hover{background:#F5EEE4;border-color:#C8A97E;color:#2D2D2D;box-shadow:0 4px 12px rgba(200,169,126,.16)}
-.inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Inter',sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
-.tag-pill{background:#C8A97E;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
+.google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;padding:5px 13px;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
+.google-btn:hover{background:#F5EEE4;border-color:#6BAE88;color:#2D2D2D;box-shadow:0 4px 12px rgba(107,174,136,.16)}
+.inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Space Grotesk',sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
+.tag-pill{background:#6BAE88;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 /* ── DESKTOP LAYOUT ── */
@@ -1631,15 +1629,15 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
   .sec{padding:100px 0}
 }
 /* ── SIDEBAR DRAWER ── */
-.sdrawer{position:fixed;top:0;left:0;height:100%;width:300px;max-width:85vw;background:#1C1C1C;z-index:500;box-shadow:12px 0 60px rgba(0,0,0,.45);overflow-y:auto;transform:translateX(-100%);transition:transform .32s cubic-bezier(.23,1,.32,1)}
+.sdrawer{position:fixed;top:0;left:0;height:100%;width:300px;max-width:85vw;background:#07090E;z-index:500;box-shadow:12px 0 60px rgba(0,0,0,.6);overflow-y:auto;transform:translateX(-100%);transition:transform .32s cubic-bezier(.23,1,.32,1)}
 .sdrawer.open{transform:translateX(0)}
 .sdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:499;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
-.sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
-.sdr-link:hover{color:#C8A97E;background:rgba(200,169,126,.08);border-left-color:#C8A97E}
+.sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
+.sdr-link:hover{color:#6BAE88;background:rgba(107,174,136,.08);border-left-color:#6BAE88}
 .sdr-section{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#555;padding:14px 24px 4px;display:block}
 /* ── CERT CHIPS ── */
-.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid ${C.sand};border-radius:20px;font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
-.cert-chip:hover{border-color:#C8A97E;color:#C8A97E;background:#F5EDE0}
+.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid #D4C5A1;border-radius:20px;font-family:'Space Grotesk',sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cert-chip:hover{border-color:#6BAE88;color:#6BAE88;background:#F5EDE0}
 /* ── PROOF CTA MOBILE ── */
 @media(max-width:680px){
   .proof-cta{flex-direction:column!important;align-items:stretch!important;padding:28px 22px!important}
@@ -1662,27 +1660,27 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .xiyora-gold-button::after{content:'';position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(110deg,transparent,rgba(255,255,255,.28),transparent);transition:transform .68s cubic-bezier(.22,1,.36,1);pointer-events:none}
 .xiyora-gold-button:hover::after{transform:translateX(120%)}
 .xiyora-price-pulse{animation:xiyoraPricePulse .9s cubic-bezier(.22,1,.36,1)}
-@keyframes xiyoraPricePulse{0%{box-shadow:0 0 0 rgba(201,170,120,0)}35%{box-shadow:0 0 0 7px rgba(201,170,120,.18)}100%{box-shadow:0 0 0 rgba(201,170,120,0)}}
+@keyframes xiyoraPricePulse{0%{box-shadow:0 0 0 rgba(107,174,136,0)}35%{box-shadow:0 0 0 7px rgba(107,174,136,.1)}100%{box-shadow:0 0 0 rgba(107,174,136,0)}}
 .xiyora-whatsapp-popup{transform-origin:bottom right;animation:xiyoraPopupIn .42s cubic-bezier(.22,1,.36,1)}
 @keyframes xiyoraPopupIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
-.xiyora-video-overlay{background:linear-gradient(90deg,rgba(20,17,14,.74),rgba(20,17,14,.34),rgba(20,17,14,.1)),linear-gradient(0deg,rgba(20,17,14,.5),transparent 44%)}
-.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid ${C.sand};background:#fafaf8;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
-.bt-chip:hover{border-color:#C8A97E;color:#2D2D2D;box-shadow:0 6px 18px rgba(200,169,126,.16);transform:translateY(-2px)}
-.bt-chip.active{background:#C8A97E;border-color:#C8A97E;color:#fff;box-shadow:0 8px 22px rgba(200,169,126,.3)}
+.xiyora-video-overlay{background:linear-gradient(90deg,rgba(7,9,14,.74),rgba(7,9,14,.34),rgba(7,9,14,.1)),linear-gradient(0deg,rgba(7,9,14,.5),transparent 44%)}
+.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid #D4C5A1;background:#fafaf8;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
+.bt-chip:hover{border-color:#6BAE88;color:#2D2D2D;box-shadow:0 6px 18px rgba(107,174,136,.16);transform:translateY(-2px)}
+.bt-chip.active{background:#6BAE88;border-color:#6BAE88;color:#fff;box-shadow:0 8px 22px rgba(107,174,136,.3)}
 /* ── ASIAN-LUXURY MOTIF SYSTEM (v4 redesign) ── */
-.serif{font-family:'Playfair Display',serif}
-.paper{background-color:#F6F3EB;background-image:radial-gradient(circle at 18% 24%,rgba(191,162,149,.06),transparent 42%),radial-gradient(circle at 82% 76%,rgba(212,197,161,.07),transparent 46%)}
+.serif{font-family:'Libre Baskerville',serif}
+.paper{background-color:#EDE8DF;background-image:radial-gradient(circle at 18% 24%,rgba(107,174,136,.06),transparent 42%),radial-gradient(circle at 82% 76%,rgba(107,174,136,.07),transparent 46%)}
 .ink-wash{position:relative;isolation:isolate}
-.ink-wash::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(110% 70% at 100% 0%,rgba(74,75,70,.07),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(159,59,46,.045),transparent 55%)}
-.seal{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 7px;border:1.5px solid #9E3B2E;color:#9E3B2E;border-radius:6px;font-family:'Playfair Display',serif;font-size:15px;font-weight:600;line-height:1;opacity:.9;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
-.seal:hover{transform:rotate(-4deg) scale(1.06);box-shadow:0 6px 18px rgba(159,59,46,.18)}
-.x-divider{display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;color:#C8A97E;font-size:13px}
+.ink-wash::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(110% 70% at 100% 0%,rgba(107,174,136,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(107,174,136,.045),transparent 55%)}
+.seal{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 7px;border:1.5px solid #B87B5A;color:#B87B5A;border-radius:6px;font-family:'Libre Baskerville',serif;font-size:15px;font-weight:600;line-height:1;opacity:.9;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+.seal:hover{transform:rotate(-4deg) scale(1.06);box-shadow:0 6px 18px rgba(184,123,90,.18)}
+.x-divider{display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;color:#6BAE88;font-size:13px}
 .x-divider::before,.x-divider::after{content:'';height:1px;width:clamp(40px,8vw,80px)}
-.x-divider::before{background:linear-gradient(to right,transparent,#C8A97E)}
-.x-divider::after{background:linear-gradient(to left,transparent,#C8A97E)}
-.x-link{position:relative;display:inline-flex;align-items:center;gap:9px;color:#1E1E1C;cursor:pointer;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;background:none;border:none;font-family:'Inter',sans-serif;font-weight:500;padding:0;transition:color .3s;text-decoration:none}
-.x-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:#C8A97E;transition:width .45s cubic-bezier(.22,1,.36,1)}
-.x-link:hover{color:#C8A97E}.x-link:hover::after{width:100%}
+.x-divider::before{background:linear-gradient(to right,transparent,#6BAE88)}
+.x-divider::after{background:linear-gradient(to left,transparent,#6BAE88)}
+.x-link{position:relative;display:inline-flex;align-items:center;gap:9px;color:rgba(237,232,223,.65);cursor:pointer;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;background:none;border:none;font-family:'Space Grotesk',sans-serif;font-weight:500;padding:0;transition:color .3s;text-decoration:none}
+.x-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:#6BAE88;transition:width .45s cubic-bezier(.22,1,.36,1)}
+.x-link:hover{color:#6BAE88}.x-link:hover::after{width:100%}
 .x-link .ar{display:inline-block;transition:transform .45s cubic-bezier(.22,1,.36,1)}
 .x-link:hover .ar{transform:translateX(7px)}
 .x-frame{position:relative;overflow:hidden}
@@ -1692,7 +1690,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .x-drift{animation:drift 9s ease-in-out infinite}
 @keyframes driftSlow{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-9px,8px) rotate(2deg)}}
 .x-drift-slow{animation:driftSlow 13s ease-in-out infinite}
-.x-tag{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:5px;font-family:'Playfair Display',serif}
+.x-tag{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:5px;font-family:var(--fn-serif)}
 .brush-edge{-webkit-mask-image:linear-gradient(to right,#000 84%,transparent 100%);mask-image:linear-gradient(to right,#000 84%,transparent 100%)}
 .x-stagger>*{opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
 .x-stagger.is-visible>*{opacity:1;transform:translateY(0)}
@@ -1705,7 +1703,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .feat-ic{display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .feat-ic:hover{transform:translateY(-4px)}
 .feat-ic .ring{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid ${C.sand};transition:border-color .4s,background .4s}
-.feat-ic:hover .ring{border-color:#C8A97E;background:rgba(200,169,126,.08)}
+.feat-ic:hover .ring{border-color:#6BAE88;background:rgba(107,174,136,.08)}
 /* ── LUX SPLIT HERO (mockup-faithful) ── */
 .lux-hero{position:relative;overflow:hidden;background:#F6F3EB}
 .lux-hero-photo{position:absolute;top:0;right:0;bottom:0;width:55%;overflow:hidden}
@@ -1717,7 +1715,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .feat-row{display:flex;gap:26px;flex-wrap:wrap}
 .feat-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;width:78px}
 .feat-item .fring{width:44px;height:44px;border-radius:50%;border:1px solid ${C.sand};display:flex;align-items:center;justify-content:center;transition:all .4s cubic-bezier(.22,1,.36,1)}
-.feat-item:hover .fring{border-color:#C8A97E;background:rgba(200,169,126,.08);transform:translateY(-3px)}
+.feat-item:hover .fring{border-color:#6BAE88;background:rgba(107,174,136,.08);transform:translateY(-3px)}
 .feat-item .flabel{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:${C.ink};line-height:1.45;font-weight:500}
 .icon-strip{display:flex;justify-content:center;align-items:flex-start;gap:0;flex-wrap:wrap}
 .icon-strip .ist{flex:1;min-width:120px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:11px;padding:10px 16px;position:relative}
@@ -1731,17 +1729,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 }
 @media(max-width:560px){.icon-strip .ist{min-width:33%}.icon-strip .ist:nth-child(3)::after{display:none}}
 /* ── DARK LUX HOMEPAGE (reference-faithful black-lacquer + gold) ── */
-.lux-noir{background:#060408;color:#F5EEF0}
-.ornate{position:relative;border:1px solid rgba(200,169,126,.42);box-shadow:inset 0 0 0 4px rgba(200,169,126,.07),inset 0 0 80px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.5)}
-.ornate::before{content:'';position:absolute;inset:9px;border:1px solid rgba(200,169,126,.2);border-radius:inherit;pointer-events:none;z-index:6}
-.gold-italic{font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(180deg,#F2C4CE 0%,#C4889A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#E8B4C0}
-.gold-grad{background:linear-gradient(135deg,#E8B4C0 0%,#C4889A 50%,#9A5A6E 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#E8B4C0}
-.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(232,180,192,.28);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
-.feat-circ:hover{background:rgba(232,180,192,.1);border-color:#E8B4C0;transform:translateY(-3px)}
-.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,rgba(200,169,126,.16),rgba(200,169,126,.03));color:#EBD3A6;border:1px solid rgba(246, 239, 224, 0.08);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2rem;transition:all .35s;position:relative;overflow:hidden}
-.btn-gold-out:hover{background:rgba(200,169,126,.22);border-color:#E6C89A;color:#FBEFD8;transform:translateY(-2px);box-shadow:0 12px 32px rgba(200,169,126,.22)}
-.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,#F4EBD9,#E2D2B6);color:#2a2118;border:1px solid rgba(246, 239, 224, 0.08);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2rem;transition:all .35s}
-.btn-ivory:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.45);background:linear-gradient(180deg,#FBF4E6,#EADCC2)}
+.lux-noir{background:#07090E;color:#EDE8DF}
+.ornate{position:relative;border:1px solid rgba(107,174,136,.42);box-shadow:inset 0 0 0 4px rgba(107,174,136,.07),inset 0 0 80px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.5)}
+.ornate::before{content:'';position:absolute;inset:9px;border:1px solid rgba(107,174,136,.2);border-radius:inherit;pointer-events:none;z-index:6}
+.gold-italic{font-family:'Libre Baskerville',Georgia,serif;font-style:italic;background:linear-gradient(135deg,#8AC9A0 0%,#6BAE88 60%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#6BAE88}
+.gold-grad{background:linear-gradient(135deg,#6BAE88 0%,#8AC9A0 50%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#6BAE88}
+.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(107,174,136,.28);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
+.feat-circ:hover{background:rgba(107,174,136,.1);border-color:#6BAE88;transform:translateY(-3px)}
+.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.38);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;position:relative;overflow:hidden}
+.btn-gold-out:hover{background:rgba(107,174,136,.09);border-color:#6BAE88;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,174,136,.2)}
+.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(107,174,136,.32)}
+.btn-ivory:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,174,136,.42)}
 .deco-float{animation:driftSlow 14s ease-in-out infinite}
 @keyframes petalFall{0%{transform:translateY(-12vh) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translateY(118vh) rotate(480deg);opacity:0}}
 @keyframes petalSway{0%,100%{transform:translateX(0)}50%{transform:translateX(26px)}}
@@ -1750,10 +1748,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .petal i{display:block;width:100%;height:100%;background:radial-gradient(circle at 32% 28%,#f8d3d9,#ea9faa 62%,#d77f8f);border-radius:100% 0 100% 0;box-shadow:inset -1px -1px 2px rgba(150,60,80,.22);animation:petalSway ease-in-out infinite}
 .lux-feat-row{display:flex;align-items:flex-start;gap:0}
 .lux-feat-row .lf{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:0 6px;position:relative}
-.lux-feat-row .lf:not(:last-child)::after{content:'';position:absolute;right:0;top:8px;height:42px;width:1px;background:rgba(200,169,126,.3)}
-.lux-feat-row .lf .lfl{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(245,238,240,.5);line-height:1.5;font-weight:500}
+.lux-feat-row .lf:not(:last-child)::after{content:'';position:absolute;right:0;top:8px;height:42px;width:1px;background:rgba(107,174,136,.3)}
+.lux-feat-row .lf .lfl{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(237,232,223,.42);line-height:1.5;font-weight:500}
 .biz-feat{display:flex;align-items:center;gap:9px}
-.biz-feat .bft{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(245,238,240,.5);line-height:1.4;font-weight:500}
+.biz-feat .bft{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(237,232,223,.42);line-height:1.4;font-weight:500}
 .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
 .trust-item{display:flex;align-items:center;gap:14px;justify-content:center}
 @media(max-width:900px){
@@ -1777,13 +1775,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
   .wb::before{animation:none!important;opacity:0!important}
 }
 /* ── XIYORA LUX TOKENS + REUSABLE HOMEPAGE UTILITIES (v5) ── */
-:root{--xiyora-black:#060408;--xiyora-charcoal:#16101a;--xiyora-ivory:#F5EEF0;--xiyora-gold:#D4A574;--xiyora-soft-gold:#C8A97E;--xiyora-rose:#E8B4C0;--xiyora-rose-muted:#C4889A;--xiyora-rose-deep:#9A5A6E;--xiyora-sage:#7c8270;--xiyora-muted-text:rgba(245,238,240,0.55)}
+:root{--xiyora-black:#07090E;--xiyora-charcoal:#141B24;--xiyora-ivory:#EDE8DF;--xiyora-gold:#6BAE88;--xiyora-soft-gold:#6BAE88;--xiyora-rose:#6BAE88;--xiyora-rose-muted:#4A8A68;--xiyora-rose-deep:#2D6B4A;--xiyora-sage:#6BAE88;--xiyora-muted-text:rgba(237,232,223,0.55);--fn-serif:'Libre Baskerville',Georgia,serif;--fn-sans:'Space Grotesk',sans-serif}
 /* @keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}} */
 @keyframes cloudDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
 @keyframes idleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .cloud-drift{animation:cloudDrift 16s ease-in-out infinite}
 .idle-bob{animation:idleBob 7s ease-in-out infinite}
-.gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(246, 239, 224, 0.08);background:radial-gradient(circle at 50% 28%,rgba(200,169,126,.16),rgba(200,169,126,.02));box-shadow:inset 0 0 0 4px rgba(200,169,126,.06);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
+.gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(107,174,136,.1);background:radial-gradient(circle at 50% 28%,rgba(107,174,136,.06),rgba(107,174,136,.01));box-shadow:inset 0 0 0 4px rgba(107,174,136,.04);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
 .gold-badge.round{border-radius:50%}
 .ql-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
 .ql-card{position:relative;display:flex;align-items:center;gap:16px;padding:24px 22px;background:transparent;border:none;text-align:left;width:100%;cursor:pointer;transition:background .35s,box-shadow .35s;border-radius:2rem}
@@ -1805,7 +1803,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .bt-noir:hover{border-color:var(--xiyora-soft-gold);color:#fff;transform:translateY(-2px)}
 .bt-noir.active{background:linear-gradient(180deg,#E8CDA0,#C9A368);border-color:var(--xiyora-soft-gold);color:#211a10;font-weight:600;box-shadow:0 10px 26px rgba(200,169,126,.32)}
 .cat-intro{position:relative;background:linear-gradient(145deg,rgba(22,16,26,.9),rgba(13,10,16,.95));border:1px solid rgba(232,180,192,.1);border-radius:2.5rem;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
-.cat-intro .ci-h{font-family:'Playfair Display',serif;color:#F5EEF0;font-weight:400}
+.cat-intro .ci-h{font-family:var(--fn-serif);color:#F5EEF0;font-weight:400}
 .cat-intro .ci-sub{color:rgba(245,238,240,.6)}
 .cat-intro .ci-label{color:#E8B4C0}
 .latex-story{position:relative;overflow:hidden;min-height:clamp(380px,52vw,520px);display:flex;align-items:center;background:var(--xiyora-black)}
@@ -1828,7 +1826,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
 .cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:scale(1.07)}
 .cat-card-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,4,8,.95) 0%,rgba(6,4,8,.55) 32%,rgba(6,4,8,.1) 62%,transparent 80%);pointer-events:none}
 .cat-card-body{position:absolute;left:0;right:0;bottom:0;padding:24px 22px 24px;z-index:4}
-.cat-card-title{font-family:'Playfair Display',serif;font-size:23px;font-weight:500;color:#F5EEF0;letter-spacing:.3px;margin:0 0 5px;line-height:1.1}
+.cat-card-title{font-family:var(--fn-serif);font-size:23px;font-weight:500;color:#F5EEF0;letter-spacing:.3px;margin:0 0 5px;line-height:1.1}
 .cat-card-sub{font-size:12px;color:rgba(245,238,240,.72);letter-spacing:.2px;margin:0 0 13px;line-height:1.5;max-width:88%}
 .cat-card-explore{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#E8B4C0;font-weight:600}
 .cat-card-arr{display:inline-block;transition:transform .35s ease}
@@ -1849,11 +1847,11 @@ const Tag=({c=C.gold,children}:{c?:string;children:React.ReactNode})=>(
   <span className="tag-pill" style={{background:c}}>{children}</span>
 );
 const SL=({children,dark,center}:{children:React.ReactNode;dark?:boolean;center?:boolean})=>(
-  <span className="sl" style={{color:dark?"#9B8B6E":"#C8A97E",display:"block",textAlign:center?"center":"left"}}>{children}</span>
+  <span className="sl" style={{color:dark?"rgba(107,174,136,.65)":"#6BAE88",display:"block",textAlign:center?"center":"left"}}>{children}</span>
 );
 const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>{
   const C=useC();
-  const st:React.CSSProperties={fontFamily:"'Playfair Display',serif",fontSize:size||BIZ.generalSectionHeadingSize||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
+  const st:React.CSSProperties={fontFamily:"var(--fn-serif)",fontSize:size||BIZ.generalSectionHeadingSize||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
   if(typeof children==="string")return <h2 style={st} dangerouslySetInnerHTML={{__html:children}}/>;
   return <h2 style={st}>{children}</h2>;
 };
@@ -1898,10 +1896,10 @@ const Stagger=({children,style,className}:{children:React.ReactNode;style?:React
 /* ─── DECORATIVE MOTIFS (inline SVG, Asian-luxury identity) ── */
 /** Red seal stamp — accent near headings. `ch` is the glyph (Chinese char or monogram). */
 const Seal=({ch="信",title,style}:{ch?:string;title?:string;style?:React.CSSProperties})=>(
-  <span className="seal" title={title||"XIYORA seal"} style={style} aria-hidden>{ch}</span>
+  <span className="seal" title={title||"XIYORA seal"} style={{...style, borderColor:"#B87B5A", color:"#B87B5A"}} aria-hidden>{ch}</span>
 );
 /** Champagne-gold cloud motif (祥云) — corner/background ornament. */
-const GoldCloud=({size=120,opacity=.5,color="#C8A97E",className,style}:{size?:number;opacity?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
+const GoldCloud=({size=120,opacity=.5,color="#6BAE88",className,style}:{size?:number;opacity?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
   <svg className={className} style={style} width={size} height={size*0.5} viewBox="0 0 240 120" fill="none" aria-hidden>
     <g stroke={color} strokeWidth="2" opacity={opacity} fill="none" strokeLinecap="round">
       <path d="M20 86c0-14 10-24 24-24 2-18 16-30 34-30 14 0 26 8 31 21 14 1 25 12 25 26"/>
@@ -1912,20 +1910,20 @@ const GoldCloud=({size=120,opacity=.5,color="#C8A97E",className,style}:{size?:nu
   </svg>
 );
 /** Sakura/plum branch sprig — soft editorial accent. */
-const Sakura=({size=140,color="#BFA295",className,style}:{size?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
+const Sakura=({size=140,color="#4A8A68",className,style}:{size?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
   <svg className={className} style={style} width={size} height={size} viewBox="0 0 160 160" fill="none" aria-hidden>
     <path d="M10 150C50 120 70 90 78 50" stroke={color} strokeWidth="2.4" strokeLinecap="round"/>
     <path d="M78 50C84 36 96 28 112 26M60 86C70 80 82 82 90 92M40 116c8-8 20-9 30-3" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
     {[[112,24],[90,94],[70,4],[36,118],[126,40]].map(([cx,cy],i)=>(
       <g key={i} opacity=".85">{[0,72,144,216,288].map(a=>(
         <ellipse key={a} cx={cx} cy={cy-7} rx="3.4" ry="6" fill={color} opacity=".55" transform={`rotate(${a} ${cx} ${cy})`}/>
-      ))}<circle cx={cx} cy={cy} r="2" fill="#9E3B2E" opacity=".6"/></g>
+      ))}<circle cx={cx} cy={cy} r="2" fill="#B87B5A" opacity=".6"/></g>
     ))}
   </svg>
 );
-/** XIYORA monogram lockup with "Crafted Comfort" tagline. */
+/** XIYORA monogram lockup with "Natural · Crafted · Pure" tagline. */
 const Monogram=({color,size=1,tagline=true,center}:{color?:string;size?:number;tagline?:boolean;center?:boolean})=>{
-  const c=color||"#C8A97E";
+  const c=color||"#6BAE88";
   return(
     <div style={{display:"flex",flexDirection:"column",alignItems:center?"center":"flex-start",gap:6*size}}>
       <svg width={40*size} height={40*size} viewBox="0 0 48 48" fill="none" aria-hidden>
@@ -1933,8 +1931,8 @@ const Monogram=({color,size=1,tagline=true,center}:{color?:string;size?:number;t
         <path d="M16 16l16 16M32 16L16 32" stroke={c} strokeWidth="1.4" strokeLinecap="round"/>
         <circle cx="24" cy="24" r="3.4" fill={c}/>
       </svg>
-      <div style={{fontFamily:"'Playfair Display',serif",fontSize:30*size,letterSpacing:8*size,color:c,lineHeight:1,fontWeight:500}}>XIYORA</div>
-      {tagline&&<div style={{fontFamily:"'Inter',sans-serif",fontSize:9.5*size,letterSpacing:4.5*size,textTransform:"uppercase",color:c,opacity:.8}}>Crafted Comfort</div>}
+      <div style={{fontFamily:"'Libre Baskerville',serif",fontSize:30*size,letterSpacing:8*size,color:c,lineHeight:1,fontWeight:400}}>XIYORA</div>
+      {tagline&&<div style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:9.5*size,letterSpacing:4.5*size,textTransform:"uppercase",color:c,opacity:.8}}>Natural · Crafted · Pure</div>}
     </div>
   );
 };
@@ -1976,7 +1974,7 @@ const LUX_ICONS:Record<string,React.ReactNode>={
   bed:<><path d="M2 18v-7a2 2 0 012-2h16a2 2 0 012 2v7M2 14h20M2 18v2M22 18v2"/><path d="M6 9V7a1 1 0 011-1h3a1 1 0 011 1v2"/></>,
 };
 const LuxIcon=({name,size=22,color}:{name:string;size?:number;color?:string})=>(
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color||"#C8A97E"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>{LUX_ICONS[name]||LUX_ICONS.leaf}</svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color||"#6BAE88"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>{LUX_ICONS[name]||LUX_ICONS.leaf}</svg>
 );
 /* Thin-line feature icon (vertical) used in heroes + strips */
 const FeatItem=({name,label}:{name:string;label:string})=>(
@@ -2014,12 +2012,12 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
         <div className="lux-hero-inner">
           {crumbs&&<div className="ht1" style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:C.taupe,marginBottom:22}}>{crumbs}</div>}
           <div className="ht1" style={{marginBottom:20}}><Monogram color={C.gold} size={monoSize}/></div>
-          <h1 className="ht2 serif" style={{fontSize:"clamp(2.3rem,4.4vw,3.7rem)",fontWeight:500,lineHeight:1.25,color:C.dark,margin:"4px 0 0"}}>{title}</h1>
+          <h1 className="ht2 serif" style={{fontSize:"clamp(2.3rem,4.4vw,3.7rem)",fontWeight:400,lineHeight:1.25,color:C.dark,margin:"4px 0 0"}}>{title}</h1>
           {subtitle&&<div className="ht2" style={{display:"flex",alignItems:"center",gap:12,margin:"16px 0 0"}}>
-            <span style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
+            <span style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
             {seal&&<Seal ch={seal}/>}
           </div>}
-          {intro&&<p className="ht3" style={{fontSize:14.5,color:C.ink,lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:400}}>{intro}</p>}
+          {intro&&<p className="ht3" style={{fontSize:14.5,color:C.ink,lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:300}}>{intro}</p>}
           {partner&&<p className="ht3" style={{fontSize:12,letterSpacing:"1px",color:C.taupe,margin:"14px 0 0",display:"flex",alignItems:"center",gap:10}}><span style={{width:24,height:1,background:C.gold,display:"inline-block"}}/>{partner}</p>}
           {features&&features.length>0&&<div className="feat-row ht4" style={{margin:"30px 0 0"}}>
             {features.map((f,i)=><FeatItem key={i} name={f.name} label={f.label}/>)}
@@ -2028,7 +2026,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
             {ctas.map((c,i)=>(
               <button key={i} onClick={c.onClick}
                 className={c.variant==="outline"?"bo xiyora-gold-button":c.variant==="dark"?"xiyora-gold-button":"bg xiyora-gold-button"}
-                style={c.variant==="dark"?{background:C.char,color:"#F0EBE3",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",cursor:"pointer",borderRadius:2,fontWeight:500}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
+                style={c.variant==="dark"?{background:C.char,color:"#EDE8DF",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"var(--fn-sans)",cursor:"pointer",borderRadius:4,fontWeight:600}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
             ))}
           </div>}
         </div>
@@ -2039,7 +2037,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
 /* Reusable thin-line icon strip (recurring promise band) */
 function IconStrip({items,bg}:{items:{name:string;label:string}[];bg?:string}){
   return(
-    <section style={{background:bg||"#F3EFE5",borderTop:`1px solid #E5DFCD`,borderBottom:`1px solid #E5DFCD`,padding:"30px 0"}}>
+    <section style={{background:bg||"#0E1218",borderTop:`1px solid rgba(107,174,136,0.1)`,borderBottom:`1px solid rgba(107,174,136,0.1)`,padding:"30px 0"}}>
       <div className="container"><Stagger className="icon-strip">
         {items.map((it,i)=>(
           <div key={i} className="ist"><LuxIcon name={it.name} size={26}/><div className="flabel">{it.label}</div></div>
@@ -2061,11 +2059,11 @@ const DECO={
 /* Gold corner flourish for ornate frames */
 const CornerFlourish=({style}:{style?:React.CSSProperties})=>(
   <svg width={58} height={58} viewBox="0 0 58 58" fill="none" aria-hidden style={style}>
-    <path d="M4 4h20M4 4v20" stroke="#C8A97E" strokeWidth="1.3" strokeLinecap="round"/>
-    <path d="M4 16c0-6.6 5.4-12 12-12" stroke="#C8A97E" strokeWidth=".9" opacity=".6"/>
-    <path d="M10 10c14 0 24 10 24 24" stroke="#C8A97E" strokeWidth=".8" opacity=".4"/>
-    <circle cx="8" cy="8" r="2.1" fill="#C8A97E"/>
-    <path d="M16 6q9 2 11 11" stroke="#C8A97E" strokeWidth=".7" opacity=".4"/>
+    <path d="M4 4h20M4 4v20" stroke="#6BAE88" strokeWidth="1.3" strokeLinecap="round"/>
+    <path d="M4 16c0-6.6 5.4-12 12-12" stroke="#6BAE88" strokeWidth=".9" opacity=".6"/>
+    <path d="M10 10c14 0 24 10 24 24" stroke="#6BAE88" strokeWidth=".8" opacity=".4"/>
+    <circle cx="8" cy="8" r="2.1" fill="#6BAE88"/>
+    <path d="M16 6q9 2 11 11" stroke="#6BAE88" strokeWidth=".7" opacity=".4"/>
   </svg>
 );
 const CornerSet=()=>(<>
@@ -2079,7 +2077,7 @@ function Petals({count=14,z=5}:{count?:number;z?:number}){
   return null;
 }
 /* Circle-X monogram mark (gold lockup) */
-const MonoMark=({size=42,color="#C8A97E"}:{size?:number;color?:string})=>(
+const MonoMark=({size=42,color="#6BAE88"}:{size?:number;color?:string})=>(
   <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
     <circle cx="24" cy="24" r="22" stroke={color} strokeWidth="1.2"/>
     <circle cx="24" cy="24" r="17.5" stroke={color} strokeWidth=".6" opacity=".45"/>
@@ -2091,9 +2089,9 @@ const MonoMark=({size=42,color="#C8A97E"}:{size?:number;color?:string})=>(
 const Rosette=({size=24}:{size?:number})=>(
   <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden style={{display:"block"}}>
     <g transform="translate(20 20)">
-      {[0,45,90,135,180,225,270,315].map(a=>(<ellipse key={a} cx="0" cy="-11" rx="3.6" ry="8" fill="#C8A97E" opacity=".82" transform={`rotate(${a})`}/>))}
-      <circle r="6.6" fill="none" stroke="#C8A97E" strokeWidth="1" opacity=".7"/>
-      <circle r="3.4" fill="#9E3B2E"/>
+      {[0,45,90,135,180,225,270,315].map(a=>(<ellipse key={a} cx="0" cy="-11" rx="3.6" ry="8" fill="#6BAE88" opacity=".82" transform={`rotate(${a})`}/>))}
+      <circle r="6.6" fill="none" stroke="#6BAE88" strokeWidth="1" opacity=".7"/>
+      <circle r="3.4" fill="#B87B5A"/>
     </g>
   </svg>
 );
@@ -2101,9 +2099,9 @@ const Rosette=({size=24}:{size?:number})=>(
 const ArchedCartouche=({children,className,style}:{children:React.ReactNode;className?:string;style?:React.CSSProperties})=>(
   <div className={className} style={{position:"relative",display:"inline-flex",flexDirection:"column",alignItems:"center",padding:"32px 42px 14px",maxWidth:"100%",...style}}>
     <svg viewBox="0 0 320 150" fill="none" preserveAspectRatio="none" aria-hidden style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
-      <path d="M16 150 V62 Q16 16 84 14 H236 Q304 16 304 62 V150" stroke="#C8A97E" strokeWidth="1.4"/>
-      <path d="M24 150 V62 Q24 24 86 22 H234 Q296 24 296 62 V150" stroke="#C8A97E" strokeWidth=".7" opacity=".5"/>
-      <path d="M16 150 q-13 -1 -14 -16 M304 150 q13 -1 14 -16" stroke="#C8A97E" strokeWidth="1"/>
+      <path d="M16 150 V62 Q16 16 84 14 H236 Q304 16 304 62 V150" stroke="#6BAE88" strokeWidth="1.4"/>
+      <path d="M24 150 V62 Q24 24 86 22 H234 Q296 24 296 62 V150" stroke="#6BAE88" strokeWidth=".7" opacity=".5"/>
+      <path d="M16 150 q-13 -1 -14 -16 M304 150 q13 -1 14 -16" stroke="#6BAE88" strokeWidth="1"/>
     </svg>
     <div style={{position:"absolute",top:-12,left:"50%",transform:"translateX(-50%)",zIndex:3}}><Rosette size={24}/></div>
     <div style={{position:"relative",zIndex:2,display:"flex",flexDirection:"column",alignItems:"center",gap:5}}>{children}</div>
@@ -2182,7 +2180,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
               <p className="lux-bingxi" style={{
                 fontSize: 12,
                 letterSpacing: "1.5px",
-                color: "#C9A876",
+                color: "#6BAE88",
                 margin: "16px 0 0",
                 display: "flex",
                 alignItems: "center",
@@ -2191,7 +2189,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
                 zIndex: 3,
                 justifyContent: isCentered ? "center" : "flex-start"
               }}>
-                <span style={{width:26,height:1,background:"#C8A97E",display:"inline-block"}}/>Official Bingxi Partner — Certified Natural Latex
+                <span style={{width:26,height:1,background:"#6BAE88",display:"inline-block"}}/>Official Bingxi Partner — Certified Natural Latex
               </p>
               <div className="lux-feat-row" style={{
                 margin: "30px 0 0",
@@ -2201,22 +2199,22 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
                 justifyContent: isCentered ? "center" : "flex-start"
               }}>
                 {LUX_HERO_FEATURES.map((f,i)=>(
-                  <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
+                  <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#6BAE88"/></div><div className="lfl">{f.label}</div></div>
                 ))}
               </div>
               <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}} data-cms-id="hero-cta">
-                <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#C8A97E"}}>✦</span></button>
-                <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"#9E3B2E"}}>→</span></button>
+                <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#6BAE88"}}>✦</span></button>
+                <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"#B87B5A"}}>→</span></button>
               </div>
             </Reveal>
           </div>
           {/* RIGHT — photo */}
           <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:540,overflow:"hidden"}}>
             <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":(BIZ.heroImage||imageManifest.categories.heroNew)} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}} data-cms-id="hero-image"/>
-            <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
-            <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
+            <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(7,9,14,.55),rgba(7,9,14,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
+            <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(7,9,14,.42),transparent 34%)",pointerEvents:"none"}}/>
             {/* corner-only gold hairline frame — no motifs over the room photo (guardrail) */}
-            <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(200,169,126,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+            <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(107,174,136,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
           </div>
         </div>
       </div>
@@ -2236,24 +2234,24 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}}/>
       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
-        <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"auto 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
+        <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"auto 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#141B24,#07090E)"}}>
           <CornerSet/>
           <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}}/></div>
           <div>
             <Reveal>
-              <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
-              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:0}}>
+              <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
+              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:0}}>
                 Crafted for Hotels.<br/><span className="gold-italic">Chosen by the Finest.</span>
               </h2>
-              <p style={{fontSize:14,lineHeight:1.8,color:"#C3B7A1",margin:"18px 0 0",maxWidth:540}}>
+              <p style={{fontSize:14,lineHeight:1.8,color:"rgba(237,232,223,0.7)",margin:"18px 0 0",maxWidth:540}}>
                 Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support.
               </p>
               <div className="biz-feats" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"16px 28px",margin:"26px 0 0",maxWidth:540}}>
                 {BIZ_FEATURES.map((f,i)=>(
-                  <div key={i} className="biz-feat"><div className="feat-circ" style={{width:42,height:42}}><LuxIcon name={f.name} size={18} color="#D9B485"/></div><div className="bft">{f.label}</div></div>
+                  <div key={i} className="biz-feat"><div className="feat-circ" style={{width:42,height:42}}><LuxIcon name={f.name} size={18} color="#6BAE88"/></div><div className="bft">{f.label}</div></div>
                 ))}
               </div>
-              <button className="btn-gold-out xiyora-gold-button" style={{marginTop:30}} onClick={onSupplier}>Partner With XIYORA <span style={{color:"#C8A97E"}}>✦</span></button>
+              <button className="btn-gold-out xiyora-gold-button" style={{marginTop:30}} onClick={onSupplier}>Partner With XIYORA <span style={{color:"#6BAE88"}}>✦</span></button>
             </Reveal>
           </div>
         </div>
@@ -2402,7 +2400,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                   onMouseEnter={(e:any)=>{e.currentTarget.style.boxShadow="0 16px 40px rgba(0,0,0,.10)";e.currentTarget.style.transform="translateY(-4px)";}}
                   onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(0,0,0,.04)";e.currentTarget.style.transform="translateY(0)";}}>
                   <div style={{fontSize:26,color:C.gold,marginBottom:12}}>{p.icon}</div>
-                  <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:10}}>{p.title}</h4>
+                  <h4 style={{fontFamily:"var(--fn-serif)",fontSize:19,fontWeight:500,color:C.dark,marginBottom:10}}>{p.title}</h4>
                   <p style={{fontSize:13.5,color:C.ink,lineHeight:1.75}}>{p.body}</p>
                 </div>
               ));
@@ -2540,7 +2538,7 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
     return (
       <div style={{ background: C.white, borderRadius: 6, padding: "40px", textAlign: "center", border: `1px solid ${C.sand}` }}>
         <div style={{ fontSize: 32, marginBottom: 12 }}>✓</div>
-        <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, color: C.dark, marginBottom: 8 }}>Inquiry Submitted</h3>
+        <h3 style={{ fontFamily: "var(--fn-serif)", fontSize: 22, color: C.dark, marginBottom: 8 }}>Inquiry Submitted</h3>
         <p style={{ fontSize: 14, color: C.ink, lineHeight: 1.7 }}>Your trade inquiry has been saved. A pre-filled WhatsApp message has also been prepared.</p>
         <button style={{ marginTop: 18, background: "none", border: `1px solid ${C.sand}`, color: C.dark, padding: "10px 24px", borderRadius: 3, cursor: "pointer", fontSize: 12, fontFamily: "'Inter',sans-serif" }} onClick={() => setSent(false)}>Send Another</button>
       </div>
@@ -2730,31 +2728,31 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
                 <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>Home · Partnership</div>
                 <ArchedCartouche className="lux-brand-lock">
                   <MonoMark size={38}/>
-                  <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#E8D6B4",lineHeight:1,fontWeight:600}}>XIYORA</div>
-                  <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
+                  <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#EDE8DF",lineHeight:1,fontWeight:400}}>XIYORA</div>
+                  <div style={{fontFamily:"var(--fn-sans)",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"rgba(237,232,223,.65)"}}>Natural · Crafted · Pure</div>
                   <Seal ch="印" style={{marginTop:2}}/>
                 </ArchedCartouche>
-                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
-                <p style={{fontSize:14.5,lineHeight:1.85,color:"#C7BBA4",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
+                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
+                <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
                   {BIZ.supplierHeroBody || "Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support."}
                 </p>
                 <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:470,position:"relative",zIndex:3}}>
                   {features.map((f,i)=>(
-                    <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
+                    <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#6BAE88"/></div><div className="lfl">{f.label}</div></div>
                   ))}
                 </div>
                 <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}}>
-                  <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send B2B Enquiry <span style={{color:"#C8A97E"}}>✦</span></button>
-                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"#9E3B2E"}}>✦</span></button>
+                  <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send B2B Enquiry <span style={{color:"#6BAE88"}}>✦</span></button>
+                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"#B87B5A"}}>✦</span></button>
                 </div>
               </Reveal>
             </div>
             {/* RIGHT — photo */}
             <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:520,overflow:"hidden"}}>
               <img src={err?"/assets/lux/hero-bedroom.webp":heroImg} alt="XIYORA B2B Partnership" loading="eager" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
-              <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
-              <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
-              <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(200,169,126,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+              <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(7,9,14,.55),rgba(7,9,14,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
+              <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(7,9,14,.42),transparent 34%)",pointerEvents:"none"}}/>
+              <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(107,174,136,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
             </div>
           </div>
         </div>
@@ -2764,16 +2762,16 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
         <div className="container">
           <div style={{textAlign:"center",marginBottom:44}}>
             <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>How It Works</div>
-            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.5rem)",fontWeight:500,color:C.dark,margin:0}}>The B2B Process</h2>
+            <h2 style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1.8rem,3vw,2.5rem)",fontWeight:400,color:C.dark,margin:0}}>The B2B Process</h2>
           </div>
           <div className="grid-4">
             {processSteps.map(([n,t,d])=>(
-              <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:3,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
-                onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.09)";}}
+              <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:4,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.5)";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:38,fontWeight:300,color:C.sand,marginBottom:12,lineHeight:1}}>{n}</div>
-                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,marginBottom:8}}>{t}</h4>
-                <p style={{fontSize:13,color:"#888",lineHeight:1.72,fontWeight:300}}>{d}</p>
+                <div style={{fontFamily:"var(--fn-serif)",fontSize:38,fontWeight:300,color:C.sand,marginBottom:12,lineHeight:1}}>{n}</div>
+                <h4 style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
+                <p style={{fontSize:13,color:C.ink,lineHeight:1.72,fontWeight:300}}>{d}</p>
               </div>
             ))}
           </div>
@@ -2788,24 +2786,24 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
             <p style={{fontSize:14,color:C.ink,maxWidth:560,margin:"14px auto 0",lineHeight:1.8}}>All prices confirmed after enquiry. Discounts applied off standard retail price (RRP). Sample sets available for qualified trade buyers.</p>
           </div>
           <div style={{overflowX:"auto"}}>
-            <table style={{width:"100%",borderCollapse:"collapse",fontFamily:"'Inter',sans-serif",fontSize:13}}>
+            <table style={{width:"100%",borderCollapse:"collapse",fontFamily:"var(--fn-sans)",fontSize:13}}>
               <thead>
-                <tr style={{background:"#1C1C1C",color:"#E8D6B4"}}>
-                  <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #C8A97E"}}>Feature</th>
+                <tr style={{background:"#0E1218",color:"#EDE8DF"}}>
+                  <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #6BAE88"}}>Feature</th>
                   {pricingTiers.map((tierName,i)=>(
-                    <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #C8A97E",background:i===1?"#2a2318":undefined}}>
-                      <div style={{color:"#F2D78C"}}>{tierName.split(" ")[0]}</div>
-                      <div style={{fontSize:10,color:"#B89A6E",fontWeight:400,marginTop:3}}>{tierName.substring(tierName.indexOf("("))}</div>
+                    <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #6BAE88",background:i===1?"rgba(107,174,136,.06)":undefined}}>
+                      <div style={{color:"#6BAE88"}}>{tierName.split(" ")[0]}</div>
+                      <div style={{fontSize:10,color:C.gold,fontWeight:400,marginTop:3}}>{tierName.substring(tierName.indexOf("("))}</div>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {pricingRows.map((row,ri)=>(
-                  <tr key={ri} style={{borderBottom:`1px solid ${C.sand}`,background:ri%2===0?C.white:C.beige}}>
+                  <tr key={ri} style={{borderBottom:`1px solid rgba(107,174,136,.08)`,background:ri%2===0?C.white:C.beige}}>
                     <td style={{padding:"12px 18px",color:C.dark,fontWeight:500}}>{row[0]}</td>
                     {row.slice(1).map((cell,ci)=>(
-                      <td key={ci} style={{padding:"12px 18px",textAlign:"center",color:ci===1?"#C8A97E":C.ink,fontWeight:ci===1?500:400}}>{cell}</td>
+                      <td key={ci} style={{padding:"12px 18px",textAlign:"center",color:ci===1?"#6BAE88":C.ink,fontWeight:ci===1?500:400}}>{cell}</td>
                     ))}
                   </tr>
                 ))}
@@ -2816,8 +2814,8 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
           {/* B2B DETAILS CARDS */}
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:24,marginTop:40}}>
             {detailCards.map(([t,d],i)=>(
-              <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:3,borderLeft:`3px solid ${C.gold}`}}>
-                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:8}}>{t}</h4>
+              <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:4,borderLeft:`3px solid ${C.gold}`}}>
+                <h4 style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
                 <p style={{fontSize:13,color:C.ink,lineHeight:1.72}}>{d}</p>
               </div>
             ))}
@@ -2848,16 +2846,16 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
       </section>
 
       {/* CTA */}
-      <section style={{background:"linear-gradient(135deg,#16110b,#0c0a08)",padding:"clamp(40px,5vw,64px) 0"}}>
+      <section style={{background:"linear-gradient(135deg,#141B24,#07090E)",padding:"clamp(40px,5vw,64px) 0"}}>
         <div className="container" style={{textAlign:"center"}}>
-          <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14}}>Get in Touch</div>
-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#F4ECDC",margin:"0 0 16px",fontWeight:500}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
-          <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>{BIZ.supplierCTABody || "WhatsApp us with your requirements — product type, quantity, and city. We respond within 24 hours."}</p>
+          <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14}}>Get in Touch</div>
+          <h2 style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#EDE8DF",margin:"0 0 16px",fontWeight:400}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
+          <p style={{fontSize:14.5,color:"rgba(237,232,223,0.7)",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>{BIZ.supplierCTABody || "WhatsApp us with your requirements — product type, quantity, and city. We respond within 24 hours."}</p>
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
-            <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#C8A97E"}}>✦</span></button>
-            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"'Inter',sans-serif",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,fontWeight:500}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
+            <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#6BAE88"}}>✦</span></button>
+            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"var(--fn-sans)",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
           </div>
-          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:"#7a6b52",fontSize:12,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:"1px",textTransform:"uppercase"}}>← Back to Home</button>
+          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:C.gold,fontSize:12,cursor:"pointer",fontFamily:"var(--fn-sans)",letterSpacing:"1px",textTransform:"uppercase"}}>← Back to Home</button>
         </div>
       </section>
       <FooterTrustStrip/>
@@ -2873,17 +2871,18 @@ const TRUST_ITEMS=[
   {ic:"headset",t:"Expert Support",d:"Here to help you choose"},
 ];
 function FooterTrustStrip(){
+  const C=useC();
   return(
-    <section className="lux-noir" style={{borderTop:"1px solid rgba(200,169,126,.2)",borderBottom:"1px solid rgba(200,169,126,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
-      <div className="x-divider" style={{color:"#C8A97E",marginBottom:20}}>✦</div>
+    <section className="lux-noir" style={{borderTop:"1px solid rgba(107,174,136,.2)",borderBottom:"1px solid rgba(107,174,136,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
+      <div className="x-divider" style={{color:"#6BAE88",marginBottom:20}}>✦</div>
       <div className="container">
         <Stagger className="trust-grid">
           {TRUST_ITEMS.map((it,i)=>(
             <div key={i} className="trust-item">
-              <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#D9B485"/></div>
+              <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#6BAE88"/></div>
               <div>
-                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:"#EBDCC0",fontWeight:600}}>{it.t}</div>
-                <div style={{fontSize:12,color:"#9F9279",marginTop:3}}>{it.d}</div>
+                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:"#EDE8DF",fontWeight:600}}>{it.t}</div>
+                <div style={{fontSize:12,color:C.gold,marginTop:3}}>{it.d}</div>
               </div>
             </div>
           ))}
@@ -2897,7 +2896,7 @@ function FooterTrustStrip(){
 /* ─── REUSABLE LUX HOMEPAGE PRIMITIVES (v5) ──────────────── */
 /* Gold-outlined icon badge */
 function GoldIconBadge({name,size=24,round,className}:{name:string;size?:number;round?:boolean;className?:string}){
-  return <div className={`gold-badge${round?" round":""}${className?" "+className:""}`}><LuxIcon name={name} size={size} color="#E0BE86"/></div>;
+  return <div className={`gold-badge${round?" round":""}${className?" "+className:""}`}><LuxIcon name={name} size={size} color="#6BAE88"/></div>;
 }
 /* Ornate frame (gold double border + corner flourishes) */
 function OrnamentalFrame({children,style,className}:{children:React.ReactNode;style?:React.CSSProperties;className?:string}){
@@ -2913,25 +2912,24 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
   ];
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
-      <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.24,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
-      <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-8,left:-14,width:"clamp(80px,9vw,120px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
+      <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.12,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
-        <OrnamentalFrame style={{background:"linear-gradient(160deg,#16110b,#0c0a08)",padding:"clamp(12px,2vw,20px)"}}>
+        <OrnamentalFrame style={{background:"linear-gradient(160deg,#141B24,#07090E)",padding:"clamp(12px,2vw,20px)"}}>
           <div className="ql-grid">
             {links.map((q,i)=>(
               <button key={i} type="button" onClick={q.fn} aria-label={`${q.t} — ${q.d}`} className="ql-card">
                 <GoldIconBadge name={q.ic} size={24} round/>
                 <span style={{display:"block"}}>
-                  <span style={{display:"block",fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:"#F2EADB",marginBottom:4}}>{q.t}</span>
-                  <span style={{display:"block",fontSize:11.5,color:"#9a8f7d",lineHeight:1.5,maxWidth:210}}>{q.d}</span>
+                  <span style={{display:"block",fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:400,color:"#EDE8DF",marginBottom:4}}>{q.t}</span>
+                  <span style={{display:"block",fontSize:11.5,color:"var(--mn-linen-muted)",lineHeight:1.5,maxWidth:210}}>{q.d}</span>
                 </span>
                 <span className="ql-arrow" aria-hidden>→</span>
               </button>
             ))}
           </div>
           <div className="ql-cross" aria-hidden>
-            <span style={{position:"absolute",left:"50%",top:"15%",bottom:"15%",width:1,background:"linear-gradient(rgba(200,169,126,0),rgba(200,169,126,.34),rgba(200,169,126,0))",transform:"translateX(-.5px)"}}/>
-            <span style={{position:"absolute",top:"50%",left:"7%",right:"7%",height:1,background:"linear-gradient(90deg,rgba(200,169,126,0),rgba(200,169,126,.3),rgba(200,169,126,0))",transform:"translateY(-.5px)"}}/>
+            <span style={{position:"absolute",left:"50%",top:"15%",bottom:"15%",width:1,background:"linear-gradient(rgba(107,174,136,0),rgba(107,174,136,.34),rgba(107,174,136,0))",transform:"translateX(-.5px)"}}/>
+            <span style={{position:"absolute",top:"50%",left:"7%",right:"7%",height:1,background:"linear-gradient(90deg,rgba(107,174,136,0),rgba(107,174,136,.3),rgba(107,174,136,0))",transform:"translateY(-.5px)"}}/>
             <span style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",display:"flex"}}><Rosette size={18}/></span>
           </div>
         </OrnamentalFrame>
@@ -2949,7 +2947,7 @@ const BENEFITS=[
 ];
 function DarkBenefitStrip(){
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(200,169,126,.16)",borderBottom:"1px solid rgba(200,169,126,.16)"}}>
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(107,174,136,0.16)",borderBottom:"1px solid rgba(107,174,136,0.16)"}}>
       <div className="container" style={{position:"relative",zIndex:2}}>
         <Stagger className="benefit-noir">
           {BENEFITS.map((b,i)=>(
@@ -2960,18 +2958,17 @@ function DarkBenefitStrip(){
     </section>
   );
 }
-/* SECTION 5 — ivory category intro panel (readable in both themes) */
+/* SECTION 5 — category intro panel */
 function CategoryIntroPanel(){
   return(
     <div className="cat-intro" style={{maxWidth:760,margin:"0 auto"}}>
-      <img src={DECO.sakuraCorner} alt="" aria-hidden loading="lazy" decoding="async" style={{position:"absolute",top:0,left:0,width:"clamp(80px,12vw,140px)",opacity:.9,pointerEvents:"none",zIndex:2}}/>
       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}}/>
       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Seal ch="选" title="Curated collection"/>
-        <div className="ci-label" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px"}}>Bingxi Collection</div>
-        <h2 className="ci-h" style={{fontSize:"clamp(2rem,3.6vw,2.9rem)",lineHeight:1.25,margin:0}}>Shop By Category</h2>
-        <div className="x-divider" style={{margin:"16px auto"}}>❖</div>
-        <p className="ci-sub" style={{fontSize:14.5,maxWidth:440,lineHeight:1.7}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
+        <div className="sl" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px",color:"#6BAE88"}}>Bingxi Collection</div>
+        <h2 className="ci-h" style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(2rem,3.6vw,2.9rem)",fontWeight:400,color:"#EDE8DF",lineHeight:1.25,margin:0}}>Shop By Category</h2>
+        <div className="x-divider" style={{margin:"16px auto",color:"#6BAE88"}}>❖</div>
+        <p className="ci-sub" style={{fontSize:14.5,maxWidth:440,lineHeight:1.7,color:"rgba(237,232,223,0.7)"}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
       </div>
     </div>
   );
@@ -2983,15 +2980,15 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
     <section className="latex-story">
       <img className="ls-bg" src={err?"https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=85":"/assets/lux/latex-closeup.webp"} alt="Natural latex close-up" loading="lazy" decoding="async" onError={()=>setErr(true)}/>
       <div className="ls-ov"/>
-      <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(200,169,126,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
-      <svg aria-hidden viewBox="0 0 1200 80" preserveAspectRatio="none" style={{position:"absolute",left:0,right:0,bottom:0,width:"100%",height:60,opacity:.5,zIndex:3}}><path d="M0 60 Q150 20 300 50 T600 50 T900 50 T1200 45" fill="none" stroke="#C8A97E" strokeWidth="1.2"/><path d="M0 70 Q150 34 300 62 T600 62 T900 62 T1200 58" fill="none" stroke="#C8A97E" strokeWidth=".7" opacity=".5"/></svg>
+      <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(107,174,136,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+      <svg aria-hidden viewBox="0 0 1200 80" preserveAspectRatio="none" style={{position:"absolute",left:0,right:0,bottom:0,width:"100%",height:60,opacity:.5,zIndex:3}}><path d="M0 60 Q150 20 300 50 T600 50 T900 50 T1200 45" fill="none" stroke="#6BAE88" strokeWidth="1.2"/><path d="M0 70 Q150 34 300 62 T600 62 T900 62 T1200 58" fill="none" stroke="#6BAE88" strokeWidth=".7" opacity=".5"/></svg>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <Reveal style={{maxWidth:560}}>
-          <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#C9A876",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
-          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
-          <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#C8A97E"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#C8A97E"}}/></div>
-          <p style={{fontSize:14.5,lineHeight:1.85,color:"#cabfa9",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
-          <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#C8A97E"}}>→</span></button>
+          <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
+          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
+          <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#6BAE88"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#6BAE88"}}/></div>
+          <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
+          <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#6BAE88"}}>→</span></button>
         </Reveal>
       </div>
     </section>
@@ -3027,18 +3024,18 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
   if(!visible)return null;
   return(
     <div className="xiyora-whatsapp-popup" role="dialog" aria-label="XIYORA WhatsApp help"
-      style={{position:"fixed",right:24,bottom:148,zIndex:997,width:"min(330px,calc(100vw - 36px))",background:C.white,border:`1px solid ${C.sand}`,borderRadius:14,boxShadow:"0 24px 70px rgba(0,0,0,.22)",padding:"20px 20px 18px",overflow:"hidden"}}>
-      <div style={{position:"absolute",top:0,left:0,right:0,height:4,background:"linear-gradient(90deg,#C8A97E,#25D366)"}}/>
+      style={{position:"fixed",right:24,bottom:148,zIndex:997,width:"min(330px,calc(100vw - 36px))",background:C.white,border:`1px solid rgba(107,174,136,0.18)`,borderRadius:8,boxShadow:"0 24px 70px rgba(0,0,0,.5)",padding:"20px 20px 18px",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:0,left:0,right:0,height:4,background:"linear-gradient(90deg,#6BAE88,#25D366)"}}/>
       <button aria-label="Close" onClick={dismiss} style={{position:"absolute",top:10,right:12,background:"none",border:"none",fontSize:20,lineHeight:1,color:"#aaa",cursor:"pointer",padding:4}}>×</button>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:38,height:38,borderRadius:"50%",background:"#25D366",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
           <svg width={20} height={20} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
         </div>
-        <strong style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.dark}}>Need help choosing?</strong>
+        <strong style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:400,color:C.dark}}>Need help choosing?</strong>
       </div>
-      <p style={{fontSize:12.5,color:"#888",lineHeight:1.6,marginBottom:14}}>Share your size, city, and product interest — we'll help with a proforma.</p>
+      <p style={{fontSize:12.5,color:"var(--mn-linen-muted)",lineHeight:1.6,marginBottom:14}}>Share your size, city, and product interest — we'll help with a proforma.</p>
       <a href={waMsg(msg)} target="_blank" rel="noreferrer"
-        style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"#25D366",color:"#fff",padding:"11px",borderRadius:8,fontSize:12.5,fontWeight:500,letterSpacing:".6px",textDecoration:"none",fontFamily:"'Inter',sans-serif"}}
+        style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:"#25D366",color:"#fff",padding:"11px",borderRadius:8,fontSize:12.5,fontWeight:500,letterSpacing:".6px",textDecoration:"none",fontFamily:"var(--fn-sans)"}}
         onClick={dismiss}>
         WhatsApp XIYORA
       </a>
@@ -3132,7 +3129,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
   };
 
   if(!show)return null;
-  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,marginBottom:10,transition:"border-color .2s"};
+  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"var(--fn-sans)",color:C.dark,marginBottom:10,transition:"border-color .2s"};
   const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block",letterSpacing:".3px"};
 
   return(
@@ -3141,23 +3138,23 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
           <div>
             <SL>{f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"Enquiry"}</SL>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:500,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
+            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
           </div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:22,lineHeight:1,marginLeft:16}}>✕</button>
         </div>
 
         {ok?(
           <div style={{textAlign:"center",padding:"28px 0"}}>
-            <div style={{width:64,height:64,background:"linear-gradient(135deg,#C8A97E,#B89472)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28}}>✓</div>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
+            <div style={{width:64,height:64,background:"linear-gradient(135deg,#6BAE88,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28,color:"#fff"}}>✓</div>
+            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:2,fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7}}>
+              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:4,fontFamily:"var(--fn-sans)",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7,fontWeight:600}}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 WhatsApp Us
               </button>
-              <button className="bo" onClick={onClose} style={{padding:"12px 20px",fontSize:12}}>Close</button>
+              <button className="bo" onClick={onClose} style={{padding:"12px 20px",fontSize:12,borderRadius:4}}>Close</button>
             </div>
           </div>
         ):(
@@ -3169,7 +3166,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
             </div>
             {product&&<div style={{background:C.lgold,padding:"10px 14px",borderRadius:3,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <span style={{fontSize:13,color:"#888"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
-              <span style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
+              <span style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
             </div>}
             <div className="co-form-grid">
               {([["Your Name *","name","text","Full name"],["Phone / WhatsApp *","phone","tel","+91 XXXXX"]] as const).map(([l,k,t,ph])=>(
@@ -3310,14 +3307,14 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
           <div>
             <SL dark>Stay in Touch</SL>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:400,color:"#F0EBE3",marginTop:4}}>Join XIYORA</h3>
+            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,color:"#F0EBE3",marginTop:4}}>Join XIYORA</h3>
           </div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#555",fontSize:22,lineHeight:1}}>✕</button>
         </div>
         {ok?(
           <div style={{textAlign:"center",padding:"20px 0"}}>
             <div style={{fontSize:48,marginBottom:14}}>✓</div>
-            <p style={{fontSize:16,color:"#F0EBE3",fontFamily:"'Playfair Display',serif",marginBottom:8}}>You're on the list!</p>
+            <p style={{fontSize:16,color:"#F0EBE3",fontFamily:"var(--fn-serif)",marginBottom:8}}>You're on the list!</p>
             <p style={{fontSize:13,color:"#666",lineHeight:1.7}}>We'll reach out with product launches, B2B updates, and exclusive offers.</p>
           </div>
         ):(
@@ -3391,7 +3388,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
               onMouseLeave={(e:any)=>e.currentTarget.style.background="transparent"}>
               <img src={p.heroImage||p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:50,height:50,objectFit:"cover",borderRadius:3,flexShrink:0}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
               <div style={{flex:1,minWidth:0}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
+                <div style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
                 <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
               </div>
               <div style={{fontSize:13,color:"#aaa",flexShrink:0}}>{p.priceINR}</div>
@@ -3438,17 +3435,17 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
       </div>
       <div style={{padding:"16px 18px"}}>
         <div style={{fontSize:10,letterSpacing:"1.8px",textTransform:"uppercase",color:C.gold,marginBottom:5,fontWeight:500}}>{p.latexType} · {p.category}</div>
-        <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
+        <h3 style={{fontFamily:"var(--fn-serif)",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
         <p style={{fontSize:12.5,color:"#aaa",marginBottom:14,lineHeight:1.55,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:12,borderTop:`1px solid ${C.sand}`}}>
           <div>
             {discInfo ? (
               <div>
                 <span className="x-original-price-strike">{discInfo.originalPriceStr}</span>
-                <span style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.gold}}>{discInfo.discountedPriceStr}</span>
+                <span style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:600,color:C.gold}}>{discInfo.discountedPriceStr}</span>
               </div>
             ) : (
-              <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
+              <div style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
             )}
             <div style={{fontSize:10,color:"#ccc",marginTop:2}}>Indicative · Quote after city</div>
           </div>
@@ -3817,7 +3814,7 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
             <div style={{ borderTop: `1px dashed rgba(200,169,126,.2)`, marginTop: 18, paddingTop: 18 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                 <span style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>Est. Total Landed Cost (CIF)</span>
-                <span style={{ fontSize: 22, fontWeight: 700, color: C.gold, fontFamily: "'Playfair Display', serif" }}>{formatCost(totalUSD)}</span>
+                <span style={{ fontSize: 22, fontWeight: 700, color: C.gold, fontFamily: "var(--fn-serif)" }}>{formatCost(totalUSD)}</span>
               </div>
               <p style={{ fontSize: 10, color: "#8a8378", marginTop: 8, lineHeight: 1.4 }}>{freightDisclaimer}</p>
             </div>
@@ -4026,7 +4023,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
           
           <div style={{ background: C.beige, borderRadius: 6, padding: "28px 36px", border: `1px solid ${C.sand}`, minWidth: 280, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6 }}>
-              <span style={{ fontFamily: "'Playfair Display',serif", fontSize: 52, fontWeight: 600, color: C.gold, lineHeight: 1 }}>{avgRating}</span>
+              <span style={{ fontFamily: "var(--fn-serif)", fontSize: 52, fontWeight: 400, color: C.gold, lineHeight: 1 }}>{avgRating}</span>
               <span style={{ fontSize: 14, color: C.ink }}>out of 5 stars</span>
             </div>
             <StarRating n={5} size={18}/>
@@ -4036,7 +4033,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
               {distribution.map(({ stars, pct }) => (
                 <div key={stars} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
                   <span style={{ fontSize: 12, color: C.ink, minWidth: 14, textAlign: "right" }}>{stars}</span>
-                  <svg width={11} height={11} viewBox="0 0 24 24" fill="#C8A97E"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+                  <svg width={11} height={11} viewBox="0 0 24 24" fill="#6BAE88"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
                   <div style={{ flex: 1, height: 6, background: C.sand, borderRadius: 3, overflow: "hidden" }}>
                     <div style={{ height: "100%", width: `${pct}%`, background: C.gold, borderRadius: 3 }}/>
                   </div>
@@ -4058,12 +4055,12 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
               {formSubmitted ? (
                 <div style={{ textAlign: "center", padding: "32px 0" }}>
                   <div style={{ fontSize: 36, color: "#4CAF78", marginBottom: 16 }}>✓</div>
-                  <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, color: C.dark, marginBottom: 8 }}>Review Submitted</h3>
+                  <h3 style={{ fontFamily: "var(--fn-serif)", fontSize: 22, color: C.dark, marginBottom: 8 }}>Review Submitted</h3>
                   <p style={{ fontSize: 14, color: C.ink }}>Thank you! Your feedback will be visible once verified against purchase records.</p>
                 </div>
               ) : (
                 <form onSubmit={handleAddReview}>
-                  <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, color: C.dark, marginBottom: 18 }}>Write a Review</h3>
+                  <h3 style={{ fontFamily: "var(--fn-serif)", fontSize: 22, color: C.dark, marginBottom: 18 }}>Write a Review</h3>
                   
                   <div style={{ marginBottom: 14 }}>
                     <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Full Name</label>
@@ -4164,7 +4161,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
                 onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
                   <div>
-                    <span style={{ fontFamily: "'Playfair Display',serif", fontSize: 16, fontWeight: 600, color: C.dark }}>{r.name}</span>
+                    <span style={{ fontFamily: "var(--fn-serif)", fontSize: 16, fontWeight: 600, color: C.dark }}>{r.name}</span>
                     <span style={{ fontSize: 12, color: "#888", marginLeft: 10 }}>{r.city} · {r.date}</span>
                   </div>
                   <div style={{ textAlign: "right" }}>
@@ -4287,18 +4284,18 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
           <div>
             <div style={{borderRadius:5,overflow:"hidden",background:"#111",marginBottom:12,height:440,position:"relative",cursor:"zoom-in"}} onClick={()=>setZoom(true)} className="detail-img-h" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
               <img key={img} src={currentSrc} alt={p.name} decoding="async" style={{width:"100%",height:"100%",objectFit:"contain",animation:"galleryFade .32s ease",background:"#111",userSelect:"none",WebkitUserSelect:"none"} as any} onError={()=>setImgErrors(e=>({...e,[img]:true}))}/>
-              <div style={{position:"absolute",bottom:12,right:12,background:"rgba(20,16,10,.75)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"rgba(200,169,126,.85)",display:"flex",alignItems:"center",gap:5,border:"1px solid rgba(200,169,126,.2)"}}>
+              <div style={{position:"absolute",bottom:12,right:12,background:"rgba(7,9,14,.75)",padding:"5px 10px",borderRadius:2,fontSize:11,color:"rgba(107,174,136,.85)",display:"flex",alignItems:"center",gap:5,border:"1px solid rgba(107,174,136,.2)"}}>
                 <svg width={11} height={11} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                 Tap to zoom
               </div>
               {displayImages.length>1&&<>
-                <button onClick={e=>{e.stopPropagation();setImg(i=>(i-1+displayImages.length)%displayImages.length);}} style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",background:"rgba(20,16,10,.72)",border:"1px solid rgba(200,169,126,.3)",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:"#C8A97E",boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>‹</button>
-                <button onClick={e=>{e.stopPropagation();setImg(i=>(i+1)%displayImages.length);}} style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"rgba(20,16,10,.72)",border:"1px solid rgba(200,169,126,.3)",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:"#C8A97E",boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>›</button>
+                <button onClick={e=>{e.stopPropagation();setImg(i=>(i-1+displayImages.length)%displayImages.length);}} style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",background:"rgba(7,9,14,.72)",border:"1px solid rgba(107,174,136,.3)",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:"#6BAE88",boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>‹</button>
+                <button onClick={e=>{e.stopPropagation();setImg(i=>(i+1)%displayImages.length);}} style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"rgba(7,9,14,.72)",border:"1px solid rgba(107,174,136,.3)",width:36,height:36,borderRadius:"50%",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",color:"#6BAE88",boxShadow:"0 2px 12px rgba(0,0,0,.4)"}}>›</button>
               </>}
             </div>
             {displayImages.length>1&&<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               {displayImages.map((im:string,i:number)=>(
-                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"rgba(60,50,35,.5)"}`,boxShadow:img===i?"0 0 0 1px rgba(200,169,126,.35),0 4px 14px rgba(200,169,126,.18)":"none",transition:"border-color .22s,box-shadow .22s",flexShrink:0,background:"#111"}}>
+                <div key={i} onClick={()=>setImg(i)} style={{width:70,height:70,borderRadius:3,overflow:"hidden",cursor:"pointer",border:`2px solid ${img===i?C.gold:"rgba(107,174,136,.2)"}`,boxShadow:img===i?"0 0 0 1px rgba(107,174,136,.35),0 4px 14px rgba(107,174,136,.18)":"none",transition:"border-color .22s,box-shadow .22s",flexShrink:0,background:"#111"}}>
                   <img src={imgErrors[i]?FALLBACK_IMG:im} alt={`${p.name} view ${i+1}`} loading="lazy" decoding="async" style={{width:"100%",height:"100%",objectFit:"cover"}} onError={()=>setImgErrors(e=>({...e,[i]:true}))}/>
                 </div>
               ))}
@@ -4311,8 +4308,8 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
               <Tag c={p.latexType==="Talalay"?"#9B8B6E":p.latexType==="Hybrid"?"#7B8F7E":"#5a7a7a"}>{p.latexType} Latex</Tag>
               <Tag c="#999">{p.category}</Tag>
             </div>
-            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.25,marginBottom:8}}>{p.name}</h1>
-            <p style={{fontSize:16,color:C.gold,fontFamily:"'Playfair Display',serif",fontStyle:"italic",marginBottom:20,lineHeight:1.4}}>{p.headline}</p>
+            <h1 style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:400,color:C.dark,lineHeight:1.25,marginBottom:8}}>{p.name}</h1>
+            <p style={{fontSize:16,color:C.gold,fontFamily:"var(--fn-serif)",fontStyle:"italic",marginBottom:20,lineHeight:1.4}}>{p.headline}</p>
             <p style={{fontSize:14.5,color:"#666",lineHeight:1.82,marginBottom:24,fontWeight:300}}>{p.description}</p>
             {p.latexContent&&<div style={{padding:"8px 14px",background:C.lgold,borderRadius:3,marginBottom:20,display:"flex",gap:8,alignItems:"center"}}>
               <span style={{color:"#777",fontSize:13}}>Latex Content:</span>
@@ -4352,15 +4349,15 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                         <span>{v.label}</span>
                         <span style={{display:"flex",alignItems:"center",gap:6,flexShrink:0,marginLeft:12}}>
                           {v.quoteRequired ? (
-                            <span style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:600,color:"#888"}}>Quote req.</span>
+                            <span style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:600,color:"#888"}}>Quote req.</span>
                           ) : vDisc ? (
                             <>
                               <span style={{textDecoration:"line-through",fontSize:11,color:"#888"}}>{vDisc.originalPriceStr}</span>
-                              <span style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:600,color:C.gold}}>{vDisc.discountedPriceStr}</span>
+                              <span style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:600,color:C.gold}}>{vDisc.discountedPriceStr}</span>
                               <span style={{fontSize:9,background:"rgba(158,59,46,.15)",color:"#9E3B2E",padding:"1px 4px",borderRadius:2,fontWeight:700}}>{vDisc.discountPct}% OFF</span>
                             </>
                           ) : (
-                            <span style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888"}}>{priceIn(cur,v.priceINR)}</span>
+                            <span style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:600,color:selVar===i?C.gold:"#888"}}>{priceIn(cur,v.priceINR)}</span>
                           )}
                         </span>
                       </button>
@@ -4382,11 +4379,11 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                     {!isQuoteRequired && detailDisc ? (
                       <span style={{display:"flex",alignItems:"center",gap:10}}>
                         <span style={{textDecoration:"line-through",fontSize:15,color:"#888"}}>{detailDisc.originalPriceStr}</span>
-                        <span style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:600,color:C.gold}}>{detailDisc.discountedPriceStr}</span>
+                        <span style={{fontFamily:"var(--fn-serif)",fontSize:24,fontWeight:600,color:C.gold}}>{detailDisc.discountedPriceStr}</span>
                         <span style={{fontSize:11,background:"#9E3B2E",color:"#fff",padding:"2px 7px",borderRadius:2,fontWeight:700}}>{detailDisc.discountPct}% OFF</span>
                       </span>
                     ) : (
-                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
+                      <span style={{fontFamily:"var(--fn-serif)",fontSize:24,fontWeight:600,color:isQuoteRequired?"#aaa":C.gold}}>
                         {isQuoteRequired?"—":priceIn(cur,displayPriceINR)}
                       </span>
                     )}
@@ -4576,7 +4573,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 20, marginBottom: 32 }}>
                 <div>
                   <p style={{ fontSize: 10, letterSpacing: "2.5px", textTransform: "uppercase", color: C.gold, marginBottom: 8, fontWeight: 600 }}>Customer Audits</p>
-                  <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, fontWeight: 500, color: C.dark, margin: 0 }}>Verified Customer Reviews</h3>
+                  <h3 style={{ fontFamily: "var(--fn-serif)", fontSize: 24, fontWeight: 500, color: C.dark, margin: 0 }}>Verified Customer Reviews</h3>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <StarRating n={5} size={15}/>
@@ -4589,7 +4586,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                   <div key={i} style={{ background: C.beige, borderRadius: 4, padding: "26px 24px", border: `1px solid ${C.sand}` }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
                       <div>
-                        <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 15, fontWeight: 600, color: C.dark }}>{r.name}</div>
+                        <div style={{ fontFamily: "var(--fn-serif)", fontSize: 15, fontWeight: 600, color: C.dark }}>{r.name}</div>
                         <div style={{ fontSize: 12, color: "#888", marginTop: 2 }}>{r.city} · {r.date}</div>
                       </div>
                       <div style={{ textAlign: "right" }}>
@@ -4673,14 +4670,13 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(40px,5vw,72px) 0"}}>
       <div className="container" style={{position:"relative",zIndex:4}}>
-        <OrnamentalFrame style={{background:"linear-gradient(160deg,#16110b,#0c0a08)",padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
+        <OrnamentalFrame style={{background:"linear-gradient(160deg,#141B24,#07090E)",padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
           <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
           <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}}/>
-          <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-6,right:-6,width:"clamp(90px,10vw,140px)",opacity:.6,pointerEvents:"none",zIndex:2}}/>
           <div style={{position:"relative",zIndex:5,textAlign:"center"}}>
-            <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#C9A876",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#C8A97E"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#C8A97E"}}/></div>
-            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:500,color:"#F4ECDC",lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
-            <p style={{fontSize:14,color:"#bdb09a",maxWidth:560,margin:"14px auto 0",lineHeight:1.7}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
+            <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#6BAE88"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#6BAE88"}}/></div>
+            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:400,color:"#EDE8DF",lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
+            <p style={{fontSize:14,color:"rgba(237,232,223,0.7)",maxWidth:560,margin:"14px auto 0",lineHeight:1.7}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
             <div style={{display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center",margin:"28px 0 24px"}}>
               {BUYER_TYPES.map(b=>(
                 <button key={b.key} className={`bt-noir${active===b.key?" active":""}`} onClick={()=>setActive(b.key)}>
@@ -4688,10 +4684,10 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
                 </button>
               ))}
             </div>
-            <div style={{maxWidth:640,margin:"0 auto",position:"relative",border:"1px solid rgba(200,169,126,.34)",borderRadius:8,padding:"28px 30px",background:"linear-gradient(180deg,rgba(200,169,126,.06),rgba(0,0,0,.18))"}}>
-              <p className="serif" style={{fontSize:20,color:"#F1E6D2",lineHeight:1.5,marginBottom:22}}>{sel.message}</p>
+            <div style={{maxWidth:640,margin:"0 auto",position:"relative",border:"1px solid rgba(107,174,136,.34)",borderRadius:8,padding:"28px 30px",background:"linear-gradient(180deg,rgba(107,174,136,.06),rgba(0,0,0,.18))"}}>
+              <p className="serif" style={{fontSize:20,color:"#EDE8DF",lineHeight:1.5,marginBottom:22}}>{sel.message}</p>
               <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
-                <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{padding:"13px 26px"}} onClick={act}>{sel.cta} <span style={{color:"#C8A97E"}}>→</span></button>
+                <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{padding:"13px 26px"}} onClick={act}>{sel.cta} <span style={{color:"#6BAE88"}}>→</span></button>
                 <button className="btn-ivory" style={{padding:"13px 24px"}} onClick={()=>onInquire(null,"quote")}>Ask For Guidance</button>
               </div>
             </div>
@@ -4775,11 +4771,11 @@ function SourcingNetwork({onCatalog, setPage}: any) {
         <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24}}>
           {/* Active Partner: Bingxi */}
           <div style={{background: C.white, border: `1px solid ${C.sand}`, borderRadius: 4, padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between", transition: "all .3s"}}
-            onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 12px 32px rgba(200,169,126,.12)";}}
+            onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor=C.gold;e.currentTarget.style.boxShadow="0 12px 32px rgba(107,174,136,.12)";}}
             onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";}}>
             <div>
               <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12}}>
-                <span style={{background: "#c8a97e", color: "#0f0f0d", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Active Partner</span>
+                <span style={{background: "#6BAE88", color: "#07090E", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Active Partner</span>
                 <span style={{fontSize: 11, color: "#aaa"}}>Est. 2024</span>
               </div>
               <h3 className="serif" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>Bingxi Latex</h3>
@@ -4966,7 +4962,7 @@ function StarRating({n,size=14}:{n:number;size?:number}){
   return(
     <span style={{display:"inline-flex",gap:2}}>
       {[1,2,3,4,5].map(i=>(
-        <svg key={i} width={size} height={size} viewBox="0 0 24 24" fill={i<=n?"#C8A97E":"none"} stroke="#C8A97E" strokeWidth={1.5}>
+        <svg key={i} width={size} height={size} viewBox="0 0 24 24" fill={i<=n?"#6BAE88":"none"} stroke="#6BAE88" strokeWidth={1.5}>
           <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
         </svg>
       ))}
@@ -4990,7 +4986,7 @@ function CustomerReviewsSection(){
             </div>
             <div style={{background:C.white,borderRadius:6,padding:"24px 32px",border:`1px solid ${C.sand}`,minWidth:240}}>
               <div style={{display:"flex",alignItems:"baseline",gap:10,marginBottom:6}}>
-                <span style={{fontFamily:"'Playfair Display',serif",fontSize:48,fontWeight:600,color:C.gold,lineHeight:1}}>{avgRating}</span>
+                <span style={{fontFamily:"var(--fn-serif)",fontSize:48,fontWeight:400,color:C.gold,lineHeight:1}}>{avgRating}</span>
                 <span style={{fontSize:14,color:C.ink}}>out of 5</span>
               </div>
               <StarRating n={5} size={16}/>
@@ -4999,7 +4995,7 @@ function CustomerReviewsSection(){
                 {distribution.map(({stars,pct})=>(
                   <div key={stars} style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
                     <span style={{fontSize:11,color:C.ink,minWidth:14,textAlign:"right"}}>{stars}</span>
-                    <svg width={10} height={10} viewBox="0 0 24 24" fill="#C8A97E"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+                    <svg width={10} height={10} viewBox="0 0 24 24" fill="#6BAE88"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
                     <div style={{flex:1,height:5,background:C.sand,borderRadius:3,overflow:"hidden"}}>
                       <div style={{height:"100%",width:`${pct}%`,background:C.gold,borderRadius:3}}/>
                     </div>
@@ -5018,7 +5014,7 @@ function CustomerReviewsSection(){
                 onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="none";e.currentTarget.style.transform="translateY(0)";}}>
                 <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:12}}>
                   <div>
-                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:500,color:C.dark}}>{r.name}</div>
+                    <div style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:500,color:C.dark}}>{r.name}</div>
                     <div style={{fontSize:11,color:"#888",marginTop:2}}>{r.city} · {r.date}</div>
                   </div>
                   <div style={{textAlign:"right"}}>
@@ -5165,7 +5161,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                     onMouseEnter={(e:any)=>{e.currentTarget.style.boxShadow="0 12px 32px rgba(0,0,0,.1)";e.currentTarget.style.transform="translateY(-3px)";}}
                     onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 1px 10px rgba(0,0,0,.03)";e.currentTarget.style.transform="translateY(0)";}}>
                     <div style={{fontSize:20,color:C.gold,marginBottom:9}}>{ic}</div>
-                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:6}}>{t}</div>
+                    <div style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:500,color:C.dark,marginBottom:6}}>{t}</div>
                     <div style={{fontSize:12.5,color:C.ink,lineHeight:1.7}}>{d}</div>
                   </div>
                 ))}
@@ -5178,7 +5174,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
               </div>
               <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,borderLeft:`2px solid ${C.seal}`}}>
                 <div style={{fontFamily:"'Inter',sans-serif",fontSize:11,color:C.ink,letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:28,fontWeight:600,color:C.gold}}>₹1,600</div>
+                <div style={{fontFamily:"var(--fn-serif)",fontSize:28,fontWeight:600,color:C.gold}}>₹1,600</div>
                 <div style={{fontSize:11,color:C.ink,marginTop:3}}>Indicative · Quote after your city</div>
               </div>
             </Reveal>
@@ -5197,8 +5193,8 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
               <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:3,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
                 onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.09)";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:40,fontWeight:300,color:C.sand,marginBottom:14,lineHeight:1}}>{n}</div>
-                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:20,fontWeight:500,color:C.dark,marginBottom:10}}>{t}</h4>
+                <div style={{fontFamily:"var(--fn-serif)",fontSize:40,fontWeight:300,color:C.sand,marginBottom:14,lineHeight:1}}>{n}</div>
+                <h4 style={{fontFamily:"var(--fn-serif)",fontSize:20,fontWeight:500,color:C.dark,marginBottom:10}}>{t}</h4>
                 <p style={{fontSize:13,color:"#888",lineHeight:1.72,fontWeight:300}}>{d}</p>
               </div>
             ))}
@@ -5229,7 +5225,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                 onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor=C.sand;e.currentTarget.style.boxShadow="none";e.currentTarget.style.transform="none";}}>
                 <div style={{width:52,height:52,background:"#F5EDE0",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{d.icon}</div>
                 <div>
-                  <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,margin:"0 0 4px"}}>{d.title}</h4>
+                  <h4 style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:500,color:C.dark,margin:"0 0 4px"}}>{d.title}</h4>
                   <p style={{fontSize:12,color:"#999",margin:0,lineHeight:1.5}}>{d.sub}</p>
                 </div>
                 <div style={{marginTop:"auto",paddingTop:12,borderTop:`1px solid ${C.sand}`,display:"flex",alignItems:"center",gap:7}}>
@@ -5318,9 +5314,9 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
         {/* Header */}
         <div style={{padding:"24px 24px 16px",borderBottom:"1px solid #2a2a2a",flexShrink:0}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:600,letterSpacing:6,color:"#F0EBE3"}}>XIYORA</div>
+            <div style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,letterSpacing:6,color:"#EDE8DF"}}>XIYORA</div>
             <button onClick={onClose} style={{background:"none",border:"1px solid #2a2a2a",color:"#888",cursor:"pointer",width:28,height:28,borderRadius:"50%",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
-              onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8A97E";e.currentTarget.style.color="#F0EBE3";}}
+              onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#6BAE88";e.currentTarget.style.color="#EDE8DF";}}
               onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#2a2a2a";e.currentTarget.style.color="#888";}}>✕</button>
           </div>
           <div style={{fontSize:10,color:"#555",letterSpacing:"1px",textTransform:"uppercase",lineHeight:1.5}}>Official Bingxi sourcing partner for India</div>
@@ -5358,8 +5354,8 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
           <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
             {["OEKO-TEX®","ISO 9001","GTTC Report","Business Licence","Catalogue"].map(c=>(
               <button key={c} onClick={()=>go(onProof)}
-                style={{padding:"4px 10px",border:"1px solid #333",borderRadius:20,background:"none",color:"#777",fontSize:10,cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"all .2s"}}
-                onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8A97E";e.currentTarget.style.color="#C8A97E";}}
+                style={{padding:"4px 10px",border:"1px solid #333",borderRadius:20,background:"none",color:"#777",fontSize:10,cursor:"pointer",fontFamily:"var(--fn-sans)",transition:"all .2s"}}
+                onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#6BAE88";e.currentTarget.style.color="#6BAE88";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#333";e.currentTarget.style.color="#777";}}>{c}</button>
             ))}
           </div>
@@ -5369,7 +5365,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
         <div style={{padding:"18px 24px 24px"}}>
           <div style={{fontSize:9,letterSpacing:"2px",textTransform:"uppercase",color:"#555",marginBottom:12}}>Contact</div>
           <a href={`https://wa.me/${BIZ.wa}`} target="_blank" rel="noreferrer"
-            style={{display:"flex",alignItems:"center",gap:9,color:"#4fd97e",fontSize:13,textDecoration:"none",marginBottom:10,fontFamily:"'Inter',sans-serif"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"#4fd97e",fontSize:13,textDecoration:"none",marginBottom:10,fontFamily:"var(--fn-sans)"}}>
             <svg width={14} height={14} fill="#4fd97e" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
             +91 70283 11226
           </a>
@@ -5408,7 +5404,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
         <div style={{padding:"20px 22px 16px",borderBottom:`1px solid ${C.sand}`,display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
           <div style={{display:"flex",alignItems:"center",gap:9}}>
             <svg width={17} height={17} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            <span style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark}}>Wishlist</span>
+            <span style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:500,color:C.dark}}>Wishlist</span>
             {wl.length>0&&<span style={{background:C.gold,color:"#fff",borderRadius:"50%",width:20,height:20,fontSize:10.5,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
           </div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:C.ink,fontSize:22,lineHeight:1,padding:"2px 6px"}}>✕</button>
@@ -5417,7 +5413,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
           {wishProducts.length===0?(
             <div style={{textAlign:"center",padding:"72px 24px",color:C.ink}}>
               <svg width={42} height={42} fill="none" stroke={C.sand} strokeWidth={1.2} viewBox="0 0 24 24" style={{marginBottom:16,display:"block",margin:"0 auto 16px"}}><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-              <div style={{fontFamily:"'Playfair Display',serif",fontSize:17,color:C.dark,marginBottom:8}}>Your wishlist is empty</div>
+              <div style={{fontFamily:"var(--fn-serif)",fontSize:17,color:C.dark,marginBottom:8}}>Your wishlist is empty</div>
               <div style={{fontSize:13,color:C.ink,lineHeight:1.7}}>Tap the heart ♡ on any product to save it here.</div>
             </div>
           ):(
@@ -5426,8 +5422,8 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
                 <div key={p.id} style={{background:C.beige,borderRadius:4,padding:"13px 14px",display:"flex",gap:12,alignItems:"center"}}>
                   <img src={p.heroImage||p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:58,height:58,objectFit:"cover",borderRadius:3,flexShrink:0,cursor:"pointer",background:C.lgold}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>{onOpen(p);onClose();}}/>
                   <div style={{flex:1,minWidth:0}}>
-                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:14,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer",marginBottom:4}} onClick={()=>{onOpen(p);onClose();}}>{p.name}</div>
-                    <div style={{fontSize:12,color:C.gold,fontWeight:500,fontFamily:"'Playfair Display',serif"}}>{priceIn(cur,p.priceINR)}</div>
+                    <div style={{fontFamily:"var(--fn-serif)",fontSize:14,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer",marginBottom:4}} onClick={()=>{onOpen(p);onClose();}}>{p.name}</div>
+                    <div style={{fontSize:12,color:C.gold,fontWeight:500,fontFamily:"var(--fn-serif)"}}>{priceIn(cur,p.priceINR)}</div>
                   </div>
                   <div style={{display:"flex",flexDirection:"column",gap:5,flexShrink:0}}>
                     <button onClick={()=>moveToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"6px 11px",cursor:"pointer",borderRadius:3,fontSize:10,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",whiteSpace:"nowrap"}}>Add to Basket</button>
@@ -5541,7 +5537,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
                 <circle cx="24" cy="24" r="21" stroke="#E8B4C0" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#E8B4C0" strokeWidth="1.4" strokeLinecap="round"/>
               </svg>
-              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
+              <div className="nav-brand-x" style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
             </div>
             <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(232,180,192,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
           </div>
@@ -5568,13 +5564,13 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:220,background:"rgba(6,4,8,.98)",border:"1px solid rgba(232,180,192,.18)",borderRadius:12,boxShadow:"0 8px 32px rgba(0,0,0,.7),0 0 0 1px rgba(232,180,192,.06)",overflow:"hidden",zIndex:300}}>
                 {enabledCurs.map((c: string)=>(
                   <button key={c} onClick={()=>{setCur(c);setCurOpen(false);}}
-                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(232,180,192,.1)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#E8B4C0":"rgba(245,238,240,.7)",fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(232,180,192,.07)"}}
-                    onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(200,169,126,.07)";}}
+                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(107,174,136,.1)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#6BAE88":"rgba(237,232,223,.7)",fontSize:12,fontFamily:"var(--fn-sans)",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(107,174,136,.07)"}}
+                    onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(107,174,136,.07)";}}
                     onMouseLeave={(e:any)=>{if(c!==cur)e.currentTarget.style.background="transparent";}}
                   >
                     <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13,flexShrink:0}}>{getFlagElement(c)}</span>
                     <span style={{fontWeight:c===cur?600:400}}>{c} ({FX[c]?.symbol.trim()}) - {FX[c]?.name}</span>
-                    {c===cur&&<svg width={10} height={10} viewBox="0 0 12 12" fill="none" stroke="#C8A97E" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{marginLeft:"auto"}}><path d="M2 6l3 3 5-5"/></svg>}
+                    {c===cur&&<svg width={10} height={10} viewBox="0 0 12 12" fill="none" stroke="#6BAE88" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{marginLeft:"auto"}}><path d="M2 6l3 3 5-5"/></svg>}
                   </button>
                 ))}
               </div>
@@ -5585,7 +5581,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
             onClick={toggleTheme}
             className="nav-theme"
             title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
-            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(232,180,192,.1)":"rgba(232,180,192,.18)",border:"1px solid rgba(232,180,192,.25)",cursor:"pointer",color:"#E8B4C0",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
+            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(107,174,136,.1)":"rgba(107,174,136,.18)",border:"1px solid rgba(107,174,136,.25)",cursor:"pointer",color:"#6BAE88",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
             aria-label={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
           >
             {theme==="dark"?"☀️":"🌙"}
@@ -5619,7 +5615,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
       <div className="container" style={{position:"relative"}}>
         <div data-cms-id="footer-links" className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
           <div>
-            <div style={{cursor:"pointer",marginBottom:16,display:"inline-block"}} onClick={()=>setPage("home")}><Monogram color="#E9D6B4" size={.95}/></div>
+            <div style={{cursor:"pointer",marginBottom:16,display:"inline-block"}} onClick={()=>setPage("home")}><Monogram color="#6BAE88" size={.95}/></div>
             <p style={{fontSize:13,lineHeight:1.85,color:"#999",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
             <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:7,transition:"color .2s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.color="#4fd97e"}
@@ -5627,7 +5623,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
               <span style={{color:"#25D366",fontSize:9}}>●</span>+91 70283 11226
             </a>
             <a href={`mailto:${BIZ.email}`} style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:8,transition:"color .2s"}}
-              onMouseEnter={(e:any)=>e.currentTarget.style.color="#C8A97E"}
+              onMouseEnter={(e:any)=>e.currentTarget.style.color="#6BAE88"}
               onMouseLeave={(e:any)=>e.currentTarget.style.color="#aaa"}>
               <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               {BIZ.email}
@@ -5684,19 +5680,19 @@ function Footer({setPage,onInquire,onSubscribe}:any){
         </div>
         {/* signature bar */}
         <div style={{textAlign:"center",padding:"6px 0 34px",position:"relative"}}>
-          <div className="x-divider" style={{margin:"0 auto 16px",color:"#C8A97E"}}>❖</div>
-          <div style={{fontFamily:"'Playfair Display',serif",fontSize:18,letterSpacing:"3px",color:"#E9D6B4"}}>XIYORA · Crafted Comfort</div>
+          <div className="x-divider" style={{margin:"0 auto 16px",color:"#6BAE88"}}>❖</div>
+          <div style={{fontFamily:"var(--fn-serif)",fontSize:18,letterSpacing:"3px",color:"#EDE8DF"}}>XIYORA · Crafted Comfort</div>
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:10}}>
             <span style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#8a8378"}}>Considered Luxury</span>
-            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #9E3B2E",color:"#C04A39",fontFamily:"'Playfair Display',serif",fontSize:13,borderRadius:2}}>印</span>
+            <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #B87B5A",color:"#B87B5A",fontFamily:"var(--fn-serif)",fontSize:13,borderRadius:2}}>印</span>
           </div>
         </div>
         <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}} data-cms-id="footer-copyright">
           <div style={{fontSize:12,color:"#666"}}>© 2025 XIYORA. All prices indicative. Proforma / Estimate provided where applicable.</div>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
             {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
-              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"color .2s"}}
-                onMouseEnter={(e:any)=>e.currentTarget.style.color="#C8A97E"}
+              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"var(--fn-sans)",transition:"color .2s"}}
+                onMouseEnter={(e:any)=>e.currentTarget.style.color="#6BAE88"}
                 onMouseLeave={(e:any)=>e.currentTarget.style.color="#666"}>{l}</button>
             ))}
           </div>
@@ -5856,10 +5852,10 @@ function CheckoutView({cart,setCart,cur,wl,onWish,onAddToCart,onOpen,onInquire,o
     const esc=(s:string)=>String(s||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]||c));
     const rows=items.map(i=>`<tr><td>${esc(i.productName)}${i.variantLabel&&i.variantLabel!==i.productName?`<br><span class="muted">${esc(i.variantLabel)}</span>`:""}<br><span class="muted">SKU: ${esc(i.sku)||"—"}</span></td><td class="c">${i.quantity}</td><td class="r">₹${(i.priceNumINR||0).toLocaleString("en-IN")}</td><td class="r">₹${((i.priceNumINR||0)*i.quantity).toLocaleString("en-IN")}</td></tr>`).join("");
     const html=`<!doctype html><html><head><meta charset="utf-8"><title>XIYORA Proforma ${ref}</title><style>
-*{box-sizing:border-box}body{font-family:'Helvetica Neue',Arial,sans-serif;color:#2D2D2D;max-width:760px;margin:0 auto;padding:40px 32px;font-size:13px;line-height:1.6}
-h1{font-family:Georgia,serif;letter-spacing:6px;font-size:30px;margin:0 0 2px;font-weight:500}
-.tag{letter-spacing:2px;text-transform:uppercase;font-size:10px;color:#C8A97E;margin-bottom:24px}
-.head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #C8A97E;padding-bottom:16px;margin-bottom:20px}
+*{box-sizing:border-box}body{font-family:'Space Grotesk',Helvetica,Arial,sans-serif;color:#2D2D2D;max-width:760px;margin:0 auto;padding:40px 32px;font-size:13px;line-height:1.6}
+h1{font-family:'Libre Baskerville',Georgia,serif;letter-spacing:6px;font-size:30px;margin:0 0 2px;font-weight:400}
+.tag{letter-spacing:2px;text-transform:uppercase;font-size:10px;color:#6BAE88;margin-bottom:24px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #6BAE88;padding-bottom:16px;margin-bottom:20px}
 .meta{text-align:right;font-size:12px;color:#666}
 .cols{display:flex;gap:32px;margin-bottom:22px}.col{flex:1}
 .lbl{text-transform:uppercase;letter-spacing:1px;font-size:10px;color:#999;margin-bottom:6px}
@@ -5869,8 +5865,8 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
 .c{text-align:center}.r{text-align:right}.muted{color:#999;font-size:11px}
 .totals{margin-left:auto;width:280px;margin-top:8px}
 .totals div{display:flex;justify-content:space-between;padding:5px 0}
-.grand{border-top:2px solid #C8A97E;margin-top:6px;padding-top:10px!important;font-size:16px;font-family:Georgia,serif;color:#C8A97E}
-.note{margin-top:30px;padding:14px 16px;background:#F5EEE4;border-left:3px solid #C8A97E;font-size:11px;color:#777;line-height:1.7}
+.grand{border-top:2px solid #6BAE88;margin-top:6px;padding-top:10px!important;font-size:16px;font-family:'Libre Baskerville',Georgia,serif;color:#6BAE88}
+.note{margin-top:30px;padding:14px 16px;background:#F4F7F5;border-left:3px solid #6BAE88;font-size:11px;color:#777;line-height:1.7}
 @media print{body{padding:16px}.noprint{display:none}}
 </style></head><body>
 <div class="head"><div><h1>XIYORA</h1><div class="tag">Proforma / Estimate</div></div>
@@ -5921,11 +5917,11 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.lgold,borderRadius:4,padding:"10px 12px"}}>
                       <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                       <div style={{flex:1,minWidth:0}}>
-                        <div style={{fontFamily:"'Playfair Display',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
-                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
+                        <div style={{fontFamily:"var(--fn-serif)",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
+                        <div style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                       </div>
-                      <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",flexShrink:0}}>Move to Basket</button>
-                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif",flexShrink:0}}>✕</button>
+                      <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:4,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"var(--fn-sans)",flexShrink:0}}>Move to Basket</button>
+                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:4,fontSize:11,color:"#aaa",fontFamily:"var(--fn-sans)",flexShrink:0}}>✕</button>
                     </div>
                   ))}
                 </div>
@@ -5934,10 +5930,10 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
           </div>
         ):submitted?(
           <div style={{textAlign:"center",padding:"40px 0",maxWidth:520,margin:"40px auto 0"}}>
-            <div style={{width:72,height:72,background:"linear-gradient(135deg,#C8A97E,#B89472)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
+            <div style={{width:72,height:72,background:"linear-gradient(135deg,#6BAE88,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
               <svg width={28} height={28} fill="none" stroke="white" strokeWidth={2.5} viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:24,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
+            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:24,fontWeight:400,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:8}}>Reference: CHK-{String(savedId).padStart(4,"0")}</p>}
             <p style={{fontSize:14,color:"#888",lineHeight:1.75,marginBottom:8}}>
               {payMode==="upi"?`UPI payment pending verification. UTR/Ref: ${utr||"not entered"}.`:""}
@@ -5946,13 +5942,13 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             </p>
             <p style={{fontSize:13,color:"#aaa",lineHeight:1.7,marginBottom:20}}>We will contact you within 24–48 hours to confirm and proceed with your final invoice.</p>
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 26px",fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2}}
+              <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 26px",fontFamily:"var(--fn-sans)",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I placed an order (CHK-${String(savedId).padStart(4,"0")}) for: ${productNames}. Please confirm next steps.`),"_blank")}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                 Confirm on WhatsApp
               </button>
-              <button className="bg" onClick={sendAddressWA} style={{padding:"13px 26px",fontSize:12}}>Send Delivery Address</button>
-              {cartTotalINR>0&&<button className="bo" onClick={printProforma} style={{padding:"13px 26px",fontSize:12}}>View / Print Proforma</button>}
+              <button className="bg" onClick={sendAddressWA} style={{padding:"13px 26px",fontSize:12,borderRadius:4}}>Send Delivery Address</button>
+              {cartTotalINR>0&&<button className="bo" onClick={printProforma} style={{padding:"13px 26px",fontSize:12,borderRadius:4}}>View / Print Proforma</button>}
             </div>
             <p style={{fontSize:11.5,color:"#bbb",marginTop:14,lineHeight:1.6}}>Tap “Send Delivery Address” to share your full delivery address with us on WhatsApp so we can finalise dispatch.</p>
           </div>
@@ -5967,12 +5963,12 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
                     <img src={item.image} alt={item.productName} loading="lazy" decoding="async" style={{width:60,height:60,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
                     <div style={{flex:1,minWidth:0,overflow:"hidden"}}>
-                      <div style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:500,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
+                      <div style={{fontFamily:"var(--fn-serif)",fontSize:15,fontWeight:400,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
                       {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11,color:"#888",marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
                       {(() => {
                         const itemDisc = getFakeDiscountInfo(item.sku || item.productId, item.priceINR, cur);
                         return (
-                          <div style={{fontSize:13,fontFamily:"'Playfair Display',serif",fontWeight:500}}>
+                          <div style={{fontSize:13,fontFamily:"var(--fn-serif)",fontWeight:500}}>
                             {itemDisc ? (
                               <>
                                 <span className="x-original-price-strike">{itemDisc.originalPriceStr}</span>
@@ -6010,8 +6006,8 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                       <div key={p.id} style={{display:"flex",gap:12,alignItems:"center",background:C.white,borderRadius:4,padding:"10px 12px"}}>
                         <img src={p.gallery?.[0]||FALLBACK_IMG} alt={p.name} loading="lazy" decoding="async" style={{width:48,height:48,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.beige,cursor:"pointer"}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}} onClick={()=>onOpen(p)}/>
                         <div style={{flex:1,minWidth:0}}>
-                          <div style={{fontFamily:"'Playfair Display',serif",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
-                          <div style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
+                          <div style={{fontFamily:"var(--fn-serif)",fontSize:14.5,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}} onClick={()=>onOpen(p)}>{p.name}</div>
+                          <div style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                         </div>
                         <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",flexShrink:0}}>Move to Basket</button>
                         <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif",flexShrink:0}}>✕</button>
@@ -6121,7 +6117,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                       </div>
                       <div style={{flexShrink:0,textAlign:"right",paddingLeft:8}}>
                         <div style={{fontSize:12,color:"#888",whiteSpace:"nowrap"}}>×{i.quantity}</div>
-                        <div style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:500,whiteSpace:"nowrap"}}>{priceIn(cur,i.priceINR)}</div>
+                        <div style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:500,whiteSpace:"nowrap"}}>{priceIn(cur,i.priceINR)}</div>
                       </div>
                     </div>
                   ))}
@@ -6150,7 +6146,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     </div>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",gap:8,borderTop:`1px solid ${C.sand}`,paddingTop:10,marginTop:6}}>
                       <span style={{fontSize:12,letterSpacing:".5px",textTransform:"uppercase",color:"#999",flex:1}}>{(delivery && delivery.type === "india") ? "Estimated total" : "Subtotal"}</span>
-                      <span style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px,5vw,22px)" as any,fontWeight:600,color:C.gold,flexShrink:0,paddingLeft:8}}>₹{(delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR).toLocaleString("en-IN")}</span>
+                      <span style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(18px,5vw,22px)" as any,fontWeight:600,color:C.gold,flexShrink:0,paddingLeft:8}}>₹{(delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR).toLocaleString("en-IN")}</span>
                     </div>
                     {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"#aaa",marginTop:3}}>≈ {fmtMoney(cur,delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR)} {cur}</div>}
                     {!delivery&&<div style={{fontSize:11,color:"#9a8a6a",marginTop:8,lineHeight:1.5}}>Enter your postal code above to see delivery charge and estimated total.</div>}
@@ -6158,7 +6154,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     <button onClick={printProforma} style={{marginTop:10,width:"100%",boxSizing:"border-box",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter',sans-serif"}}>View / Print Proforma Estimate</button>
                   </div>
                 ):(
-                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:20,fontWeight:600,color:C.gold}}>Price on request</div>
+                  <div style={{fontFamily:"var(--fn-serif)",fontSize:20,fontWeight:600,color:C.gold}}>Price on request</div>
                 )}
               </div>
 
@@ -6307,7 +6303,7 @@ function ProofLibraryView({setPage}:any){
   const C=useC();
   const certs=[
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>),
       title:"OEKO-TEX® Standard 100",
       sub:"Tested for Harmful Substances",
       body:"Bingxi products are manufactured with OEKO-TEX® Standard 100 certification. No harmful substances per international safety requirements.",
@@ -6315,7 +6311,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"oeko-tex",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>),
       title:"ISO 9001 Quality Management",
       sub:"International Quality Certification",
       body:"Bingxi holds ISO 9001 quality management system certification — verifying consistent manufacturing processes and quality standards.",
@@ -6323,7 +6319,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"iso9001",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>),
       title:"GTTC Lab Testing Report",
       sub:"Independent Quality Testing",
       body:"Third-party GTTC lab test reports covering latex content percentage, density, durability, and safety parameters for Bingxi product lines.",
@@ -6331,7 +6327,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"gttc",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>),
       title:"Full Product Catalogue",
       sub:"Complete Bingxi Range — 37+ Products",
       body:"Complete product catalogue with specifications, SKUs, and options for the full Bingxi range of Talalay, Dunlop, and hybrid latex products.",
@@ -6339,7 +6335,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"catalogue",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>),
       title:"Bingxi Company Profile",
       sub:"Authorised India Sourcing Partner",
       body:"Official Bingxi company profile with manufacturer background, production capacity, export history, and certifications overview.",
@@ -6347,7 +6343,7 @@ function ProofLibraryView({setPage}:any){
       docKey:"profile",
     },
     {
-      icon:(<svg width={32} height={32} fill="none" stroke="#C8A97E" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>),
+      icon:(<svg width={32} height={32} fill="none" stroke="#6BAE88" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>),
       title:"Mattress Catalogue",
       sub:"Mattress & Topper Specifications",
       body:"Detailed mattress and topper specifications, available sizes, density options, and construction details for B2B buyers and interior designers.",
@@ -6377,7 +6373,7 @@ function ProofLibraryView({setPage}:any){
                 onMouseLeave={(e:any)=>e.currentTarget.style.boxShadow="none"}>
                 <div style={{marginBottom:16}}>{c.icon}</div>
                 <span style={{fontSize:10,letterSpacing:"1.5px",textTransform:"uppercase",color:C.gold,fontWeight:500,background:"#F5EDE0",padding:"3px 10px",borderRadius:20,marginBottom:14,display:"inline-block"}}>{c.tag}</span>
-                <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:20,fontWeight:500,color:C.dark,margin:"10px 0 6px"}}>{c.title}</h3>
+                <h3 style={{fontFamily:"var(--fn-serif)",fontSize:20,fontWeight:500,color:C.dark,margin:"10px 0 6px"}}>{c.title}</h3>
                 <div style={{fontSize:11.5,color:C.gold,letterSpacing:".4px",marginBottom:10}}>{c.sub}</div>
                 <p style={{fontSize:13.5,color:"#666",lineHeight:1.78,fontWeight:400,flex:1}}>{c.body}</p>
                 {doc&&(
@@ -6401,7 +6397,7 @@ function ProofLibraryView({setPage}:any){
         <div className="proof-cta" style={{marginTop:56,background:"linear-gradient(135deg,#2D2D2D,#1a1a1a)",borderRadius:5,padding:"40px 44px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24,boxSizing:"border-box"}}>
           <div style={{flex:1,minWidth:0}}>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>Request Documentation</div>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
+            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
             <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,maxWidth:480}}>Send us your company details and the specific documentation required. We will provide the relevant certificates from Bingxi's documentation library for your import/compliance team.</p>
           </div>
           <div className="proof-cta-btns" style={{display:"flex",gap:12,flexShrink:0,flexWrap:"wrap"}}>
@@ -6432,13 +6428,13 @@ function OrderStatusView({setPage}:any){
   const [err,setErr]=useState("");
 
   const STATUS_MAP:Record<string,{label:string;color:string;bg:string;desc:string}>={
-    new:{label:"Received",color:"#C8A97E",bg:"#FBF5EC",desc:"Your enquiry has been received. We'll be in touch within 24–48 hours."},
+    new:{label:"Received",color:"#6BAE88",bg:"#F4F7F5",desc:"Your enquiry has been received. We'll be in touch within 24–48 hours."},
     contacted:{label:"In Touch",color:"#3B82F6",bg:"#EFF6FF",desc:"Our team has reached out to you. Please check your phone or email."},
     quoted:{label:"Quote Sent",color:"#8B5CF6",bg:"#F5F3FF",desc:"A price quote has been sent to you. Please review and let us know."},
     confirmed:{label:"Confirmed",color:"#10B981",bg:"#ECFDF5",desc:"Your order has been confirmed. We are preparing it for dispatch."},
     dispatched:{label:"Dispatched",color:"#F59E0B",bg:"#FFFBEB",desc:"Your order is on its way. Track via your shipping reference."},
     delivered:{label:"Delivered",color:"#10B981",bg:"#ECFDF5",desc:"Your order has been delivered. Thank you for choosing XIYORA!"},
-    pending:{label:"Pending",color:"#C8A97E",bg:"#FBF5EC",desc:"Your request is pending review. We'll confirm within 48 hours."},
+    pending:{label:"Pending",color:"#6BAE88",bg:"#F4F7F5",desc:"Your request is pending review. We'll confirm within 48 hours."},
     cancelled:{label:"Cancelled",color:"#EF4444",bg:"#FEF2F2",desc:"This order has been cancelled. Please contact us if this is a mistake."},
   };
 
@@ -6495,7 +6491,7 @@ function OrderStatusView({setPage}:any){
           <div style={{border:`1px solid ${C.sand}`,borderRadius:5,overflow:"hidden",animation:"fadeInUp .3s ease"}}>
             <div style={{background:status.bg,borderBottom:`3px solid ${status.color}`,padding:"22px 26px"}}>
               <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:6}}>
-                <span style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:500,color:C.dark}}>{result.ref}</span>
+                <span style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:500,color:C.dark}}>{result.ref}</span>
                 <span style={{background:status.color,color:"#fff",padding:"3px 12px",borderRadius:20,fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500}}>{status.label}</span>
               </div>
               <p style={{fontSize:14,color:"#666",lineHeight:1.7,margin:0}}>{status.desc}</p>
@@ -6665,7 +6661,7 @@ export function SimplePage({title,content,setPage}:any){
           <div key={i} style={{padding:"22px 22px",background:C.white,borderTop:`2px solid ${C.gold}`,borderRadius:3,boxShadow:"0 1px 12px rgba(0,0,0,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:9}}>
               <LuxIcon name={["box","sliders","shield","craft","globe","doc","clock","headset"][i%8]} size={18}/>
-              <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,margin:0}}>{k}</h3>
+              <h3 style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:500,color:C.dark,margin:0}}>{k}</h3>
             </div>
             <p style={{fontSize:14,color:C.ink,lineHeight:1.82,fontWeight:400}}>{v}</p>
           </div>

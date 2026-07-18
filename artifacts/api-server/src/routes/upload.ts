@@ -54,14 +54,15 @@ function getBackendBaseUrl(req: Request): string {
 // ── POST /api/admin/upload ──────────────────────────────────────────────────
 router.post("/admin/upload", requireAdmin, upload.single("file"), async (req, res): Promise<void> => {
   try {
-    if (!req.file) {
+    const file = req.file;
+    if (!file) {
       res.status(400).json({ success: false, error: "No file provided. Allowed: jpg, jpeg, png, webp, gif." });
       return;
     }
 
     const context = resolveContext(req.body?.context);
     const slug = (req.body?.slug || "misc").replace(/[^a-z0-9_-]/gi, "-");
-    const ext = req.file.originalname.split(".").pop()?.toLowerCase() || "jpg";
+    const ext = file.originalname.split(".").pop()?.toLowerCase() || "jpg";
     const timestamp = Date.now();
     const filename = `${slug}-${timestamp}.${ext}`;
 
@@ -71,10 +72,10 @@ router.post("/admin/upload", requireAdmin, upload.single("file"), async (req, re
         ? "xiyora/homepage"
         : `xiyora/${context}/${slug}`;
 
-      const result = await uploadToCloudinary(req.file.buffer, {
+      const result = await uploadToCloudinary(file.buffer, {
         folder,
         filename,
-        mimetype: req.file.mimetype,
+        mimetype: file.mimetype,
       });
 
       logger.info({ publicId: result.publicId, url: result.url }, "Cloudinary upload success");
@@ -84,8 +85,8 @@ router.post("/admin/upload", requireAdmin, upload.single("file"), async (req, re
 
     // ── Base64 Database Fallback (Vercel-compatible & self-contained) ───────
     logger.warn("Cloudinary not configured — falling back to Base64 Database storage");
-    const base64Data = req.file.buffer.toString("base64");
-    const dataUrl = `data:${req.file.mimetype};base64,${base64Data}`;
+    const base64Data = file.buffer.toString("base64");
+    const dataUrl = `data:${file.mimetype};base64,${base64Data}`;
     res.json({ success: true, url: dataUrl, provider: "database" });
     return;
 
@@ -104,8 +105,8 @@ router.post("/admin/upload", requireAdmin, upload.single("file"), async (req, re
 
     const bucket = objectStorageClient.bucket(REPLIT_BUCKET_ID);
     const gcsFile = bucket.file(objectName);
-    await gcsFile.save(req.file.buffer, {
-      contentType: req.file.mimetype,
+    await gcsFile.save(file!.buffer, {
+      contentType: file!.mimetype,
       metadata: { cacheControl: "public, max-age=31536000" },
     });
 
