@@ -2017,7 +2017,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
             <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
             {seal&&<Seal ch={seal}/>}
           </div>}
-          {intro&&<p className="ht3" style={{fontSize:14.5,color:C.ink,lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:300}}>{intro}</p>}
+          {intro&&<p className="ht3" style={{fontSize:14.5,color:"#f5f2ed",lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:300}}>{intro}</p>}
           {partner&&<p className="ht3" style={{fontSize:12,letterSpacing:"1px",color:C.taupe,margin:"14px 0 0",display:"flex",alignItems:"center",gap:10}}><span style={{width:24,height:1,background:C.gold,display:"inline-block"}}/>{partner}</p>}
           {features&&features.length>0&&<div className="feat-row ht4" style={{margin:"30px 0 0"}}>
             {features.map((f,i)=><FeatItem key={i} name={f.name} label={f.label}/>)}
@@ -2026,7 +2026,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
             {ctas.map((c,i)=>(
               <button key={i} onClick={c.onClick}
                 className={c.variant==="outline"?"bo xiyora-gold-button":c.variant==="dark"?"xiyora-gold-button":"bg xiyora-gold-button"}
-                style={c.variant==="dark"?{background:C.char,color:C.ink,border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",cursor:"pointer",borderRadius:4,fontWeight:600}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
+                style={c.variant==="dark"?{background:C.char,color:"#f5f2ed",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",cursor:"pointer",borderRadius:4,fontWeight:600}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
             ))}
           </div>}
         </div>
@@ -2240,7 +2240,7 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
           <div>
             <Reveal>
               <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
-              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:400,lineHeight:1.25,color:C.ink,margin:0}}>
+              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:400,lineHeight:1.25,color:"#f5f2ed",margin:0}}>
                 Crafted for Hotels.<br/><span className="gold-italic">Chosen by the Finest.</span>
               </h2>
               <p style={{fontSize:14,lineHeight:1.8,color:"rgba(237,232,223,0.7)",margin:"18px 0 0",maxWidth:540}}>
@@ -2306,7 +2306,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                 ];
                 try { if (BIZ.aboutStatementBody) paragraphs = JSON.parse(BIZ.aboutStatementBody); } catch {}
                 return paragraphs.map((pText, idx) => (
-                  <p key={idx} style={{fontSize:15,color:C.ink,lineHeight:1.95,marginBottom:idx === paragraphs.length - 1 ? 0 : 20}} dangerouslySetInnerHTML={{__html: pText}} />
+                  <p key={idx} style={{fontSize:15,color:"#f5f2ed",lineHeight:1.95,marginBottom:idx === paragraphs.length - 1 ? 0 : 20}} dangerouslySetInnerHTML={{__html: pText}} />
                 ));
               })()}
             </div>
@@ -2335,7 +2335,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                     ];
                     try { if (BIZ.aboutNaturalBody) paragraphs = JSON.parse(BIZ.aboutNaturalBody); } catch {}
                     return paragraphs.map((pText, idx) => (
-                      <p key={idx} style={{fontSize:14.5,color:C.ink,lineHeight:1.9,marginBottom:idx === paragraphs.length - 1 ? 0 : 16}} dangerouslySetInnerHTML={{__html: pText}} />
+                      <p key={idx} style={{fontSize:14.5,color:"#f5f2ed",lineHeight:1.9,marginBottom:idx === paragraphs.length - 1 ? 0 : 16}} dangerouslySetInnerHTML={{__html: pText}} />
                     ));
                   })()}
                 </Reveal>
@@ -2401,7 +2401,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                   onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(0,0,0,.04)";e.currentTarget.style.transform="translateY(0)";}}>
                   <div style={{fontSize:26,color:C.gold,marginBottom:12}}>{p.icon}</div>
                   <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:10}}>{p.title}</h4>
-                  <p style={{fontSize:13.5,color:C.ink,lineHeight:1.75}}>{p.body}</p>
+                  <p style={{fontSize:13.5,color:"#f5f2ed",lineHeight:1.75}}>{p.body}</p>
                 </div>
               ));
             })()}
@@ -2728,11 +2728,11 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
                 <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>Home · Partnership</div>
                 <ArchedCartouche className="lux-brand-lock">
                   <MonoMark size={38}/>
-                  <div className="serif" style={{fontSize:23,letterSpacing:8,color:C.ink,lineHeight:1,fontWeight:400}}>XIYORA</div>
+                  <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#f5f2ed",lineHeight:1,fontWeight:400}}>XIYORA</div>
                   <div style={{fontFamily:"'Inter', sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"rgba(237,232,223,.65)"}}>Natural · Crafted · Pure</div>
                   <Seal ch="印" style={{marginTop:2}}/>
                 </ArchedCartouche>
-                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:400,lineHeight:1.25,color:C.ink,margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
+                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:400,lineHeight:1.25,color:"#f5f2ed",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
                 <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
                   {BIZ.supplierHeroBody || "Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail — backed by clear documentation and dedicated support."}
                 </p>
@@ -2770,8 +2770,8 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
                 onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.5)";}}
                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
                 <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:38,fontWeight:300,color:C.sand,marginBottom:12,lineHeight:1}}>{n}</div>
-                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
-                <p style={{fontSize:13,color:C.ink,lineHeight:1.72,fontWeight:300}}>{d}</p>
+                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:400,color:"#f5f2ed",marginBottom:8}}>{t}</h4>
+                <p style={{fontSize:13,color:"rgba(245,242,237,0.75)",lineHeight:1.72,fontWeight:300}}>{d}</p>
               </div>
             ))}
           </div>
@@ -2783,12 +2783,12 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
           <div style={{textAlign:"center",marginBottom:44}}>
             <SL>Tiered Pricing Structure</SL>
             <SH center>Trade Pricing from 5 Units<br/><em>MOQ Table</em></SH>
-            <p style={{fontSize:14,color:C.ink,maxWidth:560,margin:"14px auto 0",lineHeight:1.8}}>All prices confirmed after enquiry. Discounts applied off standard retail price (RRP). Sample sets available for qualified trade buyers.</p>
+            <p style={{fontSize:14,color:"#f5f2ed",maxWidth:560,margin:"14px auto 0",lineHeight:1.8}}>All prices confirmed after enquiry. Discounts applied off standard retail price (RRP). Sample sets available for qualified trade buyers.</p>
           </div>
           <div style={{overflowX:"auto"}}>
             <table style={{width:"100%",borderCollapse:"collapse",fontFamily:"'Inter', sans-serif",fontSize:13}}>
               <thead>
-                <tr style={{background:"#0E1218",color:C.ink}}>
+                <tr style={{background:"#0E1218",color:"#f5f2ed"}}>
                   <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #6BAE88"}}>Feature</th>
                   {pricingTiers.map((tierName,i)=>(
                     <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #6BAE88",background:i===1?"rgba(107,174,136,.06)":undefined}}>
@@ -2815,8 +2815,8 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:24,marginTop:40}}>
             {detailCards.map(([t,d],i)=>(
               <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:4,borderLeft:`3px solid ${C.gold}`}}>
-                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
-                <p style={{fontSize:13,color:C.ink,lineHeight:1.72}}>{d}</p>
+                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:400,color:"#f5f2ed",marginBottom:8}}>{t}</h4>
+                <p style={{fontSize:13,color:"rgba(245,242,237,0.75)",lineHeight:1.72}}>{d}</p>
               </div>
             ))}
           </div>
@@ -2830,7 +2830,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
             <div style={{textAlign:"center",marginBottom:40}}>
               <SL>Trade Inquiry Form</SL>
               <SH center>Start Your B2B Partnership</SH>
-              <p style={{fontSize:14,color:C.ink,maxWidth:520,margin:"14px auto 0",lineHeight:1.8}}>{BIZ.b2bFormNote || "Replace the current WhatsApp-only flow. All fields are used to prepare a bespoke trade quote."}</p>
+              <p style={{fontSize:14,color:"rgba(245,242,237,0.75)",maxWidth:520,margin:"14px auto 0",lineHeight:1.8}}>{BIZ.b2bFormNote || "Replace the current WhatsApp-only flow. All fields are used to prepare a bespoke trade quote."}</p>
             </div>
             <B2BInquiryForm cur={cur}/>
           </div>
@@ -2849,7 +2849,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
       <section style={{background:"linear-gradient(135deg,#141B24,#07090E)",padding:"clamp(40px,5vw,64px) 0"}}>
         <div className="container" style={{textAlign:"center"}}>
           <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14}}>Get in Touch</div>
-          <h2 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:C.ink,margin:"0 0 16px",fontWeight:400}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
+          <h2 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#f5f2ed",margin:"0 0 16px",fontWeight:400}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
           <p style={{fontSize:14.5,color:"rgba(237,232,223,0.7)",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>{BIZ.supplierCTABody || "WhatsApp us with your requirements — product type, quantity, and city. We respond within 24 hours."}</p>
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
             <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#6BAE88"}}>✦</span></button>
@@ -2881,7 +2881,7 @@ function FooterTrustStrip(){
             <div key={i} className="trust-item">
               <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#6BAE88"/></div>
               <div>
-                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:C.ink,fontWeight:600}}>{it.t}</div>
+                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:"#f5f2ed",fontWeight:600}}>{it.t}</div>
                 <div style={{fontSize:12,color:C.gold,marginTop:3}}>{it.d}</div>
               </div>
             </div>
@@ -2920,7 +2920,7 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
               <button key={i} type="button" onClick={q.fn} aria-label={`${q.t} — ${q.d}`} className="ql-card">
                 <GoldIconBadge name={q.ic} size={24} round/>
                 <span style={{display:"block"}}>
-                  <span style={{display:"block",fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:400,color:C.ink,marginBottom:4}}>{q.t}</span>
+                  <span style={{display:"block",fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:400,color:"#f5f2ed",marginBottom:4}}>{q.t}</span>
                   <span style={{display:"block",fontSize:11.5,color:"var(--mn-linen-muted)",lineHeight:1.5,maxWidth:210}}>{q.d}</span>
                 </span>
                 <span className="ql-arrow" aria-hidden>→</span>
@@ -2966,7 +2966,7 @@ function CategoryIntroPanel(){
       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Seal ch="选" title="Curated collection"/>
         <div className="sl" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px",color:"#6BAE88"}}>Bingxi Collection</div>
-        <h2 className="ci-h" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(2rem,3.6vw,2.9rem)",fontWeight:400,color:C.ink,lineHeight:1.25,margin:0}}>Shop By Category</h2>
+        <h2 className="ci-h" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(2rem,3.6vw,2.9rem)",fontWeight:400,color:"#f5f2ed",lineHeight:1.25,margin:0}}>Shop By Category</h2>
         <div className="x-divider" style={{margin:"16px auto",color:"#6BAE88"}}>❖</div>
         <p className="ci-sub" style={{fontSize:14.5,maxWidth:440,lineHeight:1.7,color:"rgba(237,232,223,0.7)"}}>From mattresses to specialty cushions — explore the full Bingxi range.</p>
       </div>
@@ -2985,7 +2985,7 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
       <div className="container" style={{position:"relative",zIndex:4}}>
         <Reveal style={{maxWidth:560}}>
           <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
-          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:400,lineHeight:1.25,color:C.ink,margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
+          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:400,lineHeight:1.25,color:"#f5f2ed",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
           <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#6BAE88"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#6BAE88"}}/></div>
           <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
           <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#6BAE88"}}>→</span></button>
@@ -3177,7 +3177,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               ))}
             </div>
             <div style={{background:C.beige,borderRadius:3,padding:"14px",marginBottom:12}}>
-              <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:8,letterSpacing:".3px",display:"flex",alignItems:"center",gap:6}}>
+              <div style={{fontSize:12,fontWeight:500,color:"#f5f2ed",marginBottom:8,letterSpacing:".3px",display:"flex",alignItems:"center",gap:6}}>
                 <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 Your Location &amp; Delivery
               </div>
@@ -4675,7 +4675,7 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
           <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}}/>
           <div style={{position:"relative",zIndex:5,textAlign:"center"}}>
             <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#6BAE88"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#6BAE88"}}/></div>
-            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:400,color:C.ink,lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
+            <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:400,color:"#f5f2ed",lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
             <p style={{fontSize:14,color:"rgba(237,232,223,0.7)",maxWidth:560,margin:"14px auto 0",lineHeight:1.7}}>We'll point you to the right starting point — comfort products, catalogue review, or document-backed B2B sourcing.</p>
             <div style={{display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center",margin:"28px 0 24px"}}>
               {BUYER_TYPES.map(b=>(
@@ -4685,7 +4685,7 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
               ))}
             </div>
             <div style={{maxWidth:640,margin:"0 auto",position:"relative",border:"1px solid rgba(90,90,64,0.3)",borderRadius:24,padding:"28px 30px",background:"#222222"}}>
-              <p className="serif" style={{fontSize:20,color:C.ink,lineHeight:1.5,marginBottom:22}}>{sel.message}</p>
+              <p className="serif" style={{fontSize:20,color:"#f5f2ed",lineHeight:1.5,marginBottom:22}}>{sel.message}</p>
               <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
                 <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{padding:"13px 26px"}} onClick={act}>{sel.cta} <span style={{color:"#6BAE88"}}>→</span></button>
                 <button className="btn-ivory" style={{padding:"13px 24px"}} onClick={()=>onInquire(null,"quote")}>Ask For Guidance</button>
@@ -4988,14 +4988,14 @@ function CustomerReviewsSection(){
             <div style={{background:C.white,borderRadius:6,padding:"24px 32px",border:`1px solid ${C.sand}`,minWidth:240}}>
               <div style={{display:"flex",alignItems:"baseline",gap:10,marginBottom:6}}>
                 <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:48,fontWeight:400,color:C.gold,lineHeight:1}}>{avgRating}</span>
-                <span style={{fontSize:14,color:C.ink}}>out of 5</span>
+                <span style={{fontSize:14,color:"#f5f2ed"}}>out of 5</span>
               </div>
               <StarRating n={5} size={16}/>
               <div style={{fontSize:12,color:"#888",marginTop:6}}>{totalReviews} verified purchases</div>
               <div style={{marginTop:16}}>
                 {distribution.map(({stars,pct})=>(
                   <div key={stars} style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
-                    <span style={{fontSize:11,color:C.ink,minWidth:14,textAlign:"right"}}>{stars}</span>
+                    <span style={{fontSize:11,color:"#f5f2ed",minWidth:14,textAlign:"right"}}>{stars}</span>
                     <svg width={10} height={10} viewBox="0 0 24 24" fill="#5A5A40"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
                     <div style={{flex:1,height:5,background:C.sand,borderRadius:3,overflow:"hidden"}}>
                       <div style={{height:"100%",width:`${pct}%`,background:C.gold,borderRadius:3}}/>
@@ -5024,7 +5024,7 @@ function CustomerReviewsSection(){
                   </div>
                 </div>
                 <div style={{fontSize:11,letterSpacing:"1px",textTransform:"uppercase",color:C.gold,padding:"3px 8px",background:C.lgold,borderRadius:2,display:"inline-block",alignSelf:"flex-start"}}>{r.product}</div>
-                <p style={{fontSize:13,color:C.ink,lineHeight:1.78,fontStyle:"italic",flex:1}}>"{r.text}"</p>
+                <p style={{fontSize:13,color:"#f5f2ed",lineHeight:1.78,fontStyle:"italic",flex:1}}>"{r.text}"</p>
               </div>
             </Reveal>
           ))}
@@ -5101,7 +5101,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
               <div><SL>Bingxi Catalogue</SL><SH>Featured Products</SH></div>
             </div>
             <div style={{display:"flex",alignItems:"center",gap:16}}>
-              <span style={{fontSize:12,color:C.ink}}>Indicative landed ranges</span>
+              <span style={{fontSize:12,color:"#f5f2ed"}}>Indicative landed ranges</span>
               <button className="x-link" onClick={onCatalog}>View All <span className="ar">→</span></button>
             </div>
           </Reveal>
@@ -5155,7 +5155,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
             <Reveal>
               <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:6}}><Seal ch="信" title="Trust"/><SL>Our Promise</SL></div>
               <SH>Why Choose<br/><em>XIYORA?</em></SH>
-              <p style={{fontSize:15,color:C.ink,lineHeight:1.85,margin:"18px 0 36px",fontWeight:400,maxWidth:460}}>We connect trusted global latex manufacturers with the Indian market — genuine comfort products with transparent pricing and dedicated support.</p>
+              <p style={{fontSize:15,color:"#f5f2ed",lineHeight:1.85,margin:"18px 0 36px",fontWeight:400,maxWidth:460}}>We connect trusted global latex manufacturers with the Indian market — genuine comfort products with transparent pricing and dedicated support.</p>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
                 {[["◈","Honest Sourcing","Official Bingxi sourcing partner. No inflated claims."],["◉","Transparent Pricing","Indicative ranges shown. Full breakdown in your quote."],["◎","B2B Focused","Hotels, retailers, designers, and manufacturers welcome."],["◇","Custom Orders","Non-standard sizes, densities, and branding available."]].map(([ic,t,d],i)=>(
                   <div key={i} style={{padding:"20px 18px",background:C.white,borderRadius:3,borderTop:`2px solid ${C.gold}`,transition:"box-shadow .3s,transform .3s",boxShadow:"0 1px 10px rgba(0,0,0,.03)"}}
@@ -5163,7 +5163,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                     onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 1px 10px rgba(0,0,0,.03)";e.currentTarget.style.transform="translateY(0)";}}>
                     <div style={{fontSize:20,color:C.gold,marginBottom:9}}>{ic}</div>
                     <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:6}}>{t}</div>
-                    <div style={{fontSize:12.5,color:C.ink,lineHeight:1.7}}>{d}</div>
+                    <div style={{fontSize:12.5,color:"#f5f2ed",lineHeight:1.7}}>{d}</div>
                   </div>
                 ))}
               </div>
@@ -5174,9 +5174,9 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                 <img src={BIZ.promiseImage||"/assets/xiyora-products/final/starting-from-hero.webp"} alt="Premium latex comfort" loading="lazy" decoding="async" style={{width:"100%",height:520,objectFit:"cover",objectPosition:"center 30%",borderRadius:5,display:"block"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}}/>
               </div>
               <div style={{position:"absolute",bottom:-20,left:-20,background:C.white,padding:"18px 24px",boxShadow:"0 14px 46px rgba(0,0,0,.11)",borderRadius:3,borderLeft:`2px solid ${C.seal}`}}>
-                <div style={{fontFamily:"'Inter', sans-serif",fontSize:11,color:C.ink,letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
+                <div style={{fontFamily:"'Inter', sans-serif",fontSize:11,color:"#f5f2ed",letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:5}}>Starting From</div>
                 <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:28,fontWeight:600,color:C.gold}}>₹1,600</div>
-                <div style={{fontSize:11,color:C.ink,marginTop:3}}>Indicative · Quote after your city</div>
+                <div style={{fontSize:11,color:"#f5f2ed",marginTop:3}}>Indicative · Quote after your city</div>
               </div>
             </Reveal>
           </div>
@@ -5315,7 +5315,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
         {/* Header */}
         <div style={{padding:"24px 24px 16px",borderBottom:"1px solid #2a2a2a",flexShrink:0}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-            <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,letterSpacing:6,color:C.ink}}>XIYORA</div>
+            <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,letterSpacing:6,color:"#f5f2ed"}}>XIYORA</div>
             <button onClick={onClose} style={{background:"none",border:"1px solid #2a2a2a",color:"#888",cursor:"pointer",width:28,height:28,borderRadius:"50%",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
               onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#5A5A40";e.currentTarget.style.color=C.ink;}}
               onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#2a2a2a";e.currentTarget.style.color="#888";}}>✕</button>
@@ -5408,14 +5408,14 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
             <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:500,color:C.dark}}>Wishlist</span>
             {wl.length>0&&<span style={{background:C.gold,color:"#fff",borderRadius:"50%",width:20,height:20,fontSize:10.5,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
           </div>
-          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:C.ink,fontSize:22,lineHeight:1,padding:"2px 6px"}}>✕</button>
+          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#f5f2ed",fontSize:22,lineHeight:1,padding:"2px 6px"}}>✕</button>
         </div>
         <div style={{flex:1,overflowY:"auto",padding:"16px"}}>
           {wishProducts.length===0?(
-            <div style={{textAlign:"center",padding:"72px 24px",color:C.ink}}>
+            <div style={{textAlign:"center",padding:"72px 24px",color:"#f5f2ed"}}>
               <svg width={42} height={42} fill="none" stroke={C.sand} strokeWidth={1.2} viewBox="0 0 24 24" style={{marginBottom:16,display:"block",margin:"0 auto 16px"}}><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-              <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,color:C.dark,marginBottom:8}}>Your wishlist is empty</div>
-              <div style={{fontSize:13,color:C.ink,lineHeight:1.7}}>Tap the heart ♡ on any product to save it here.</div>
+              <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,color:"#f5f2ed",marginBottom:8}}>Your wishlist is empty</div>
+              <div style={{fontSize:13,color:"#f5f2ed",lineHeight:1.7}}>Tap the heart ♡ on any product to save it here.</div>
             </div>
           ):(
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
@@ -5428,7 +5428,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
                   </div>
                   <div style={{display:"flex",flexDirection:"column",gap:5,flexShrink:0}}>
                     <button onClick={()=>moveToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"6px 11px",cursor:"pointer",borderRadius:3,fontSize:10,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",whiteSpace:"nowrap"}}>Add to Basket</button>
-                    <button onClick={()=>onWish(p.id)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 11px",cursor:"pointer",borderRadius:3,fontSize:10,color:C.ink,fontFamily:"'Inter', sans-serif",textAlign:"center"}}>Remove</button>
+                    <button onClick={()=>onWish(p.id)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 11px",cursor:"pointer",borderRadius:3,fontSize:10,color:"#f5f2ed",fontFamily:"'Inter', sans-serif",textAlign:"center"}}>Remove</button>
                   </div>
                 </div>
               ))}
@@ -5437,7 +5437,7 @@ function WishlistDrawer({open,onClose,wl,onWish,cur,onOpen,onAddToCart}:any){
         </div>
         {wishProducts.length>0&&(
           <div style={{padding:"13px 16px",borderTop:`1px solid ${C.sand}`,flexShrink:0,background:C.beige,textAlign:"center"}}>
-            <div style={{fontSize:11.5,color:C.ink}}>{wishProducts.length} item{wishProducts.length!==1?"s":""} saved · <strong style={{color:C.dark}}>Add to Basket</strong> to move to checkout</div>
+            <div style={{fontSize:11.5,color:"#f5f2ed"}}>{wishProducts.length} item{wishProducts.length!==1?"s":""} saved · <strong style={{color:C.dark}}>Add to Basket</strong> to move to checkout</div>
           </div>
         )}
       </div>
@@ -5513,26 +5513,27 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
     <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(26,26,26,.08)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:scrolled?"0 4px 32px rgba(0,0,0,.5)":"none",transition:"box-shadow .35s ease"}}>
       {/* fine hairline divider at the base of the bar */}
       <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"rgba(26,26,26,.06)",pointerEvents:"none"}}/>
-      <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1fr) auto minmax(0, 1fr)",alignItems:"center",height:62}}>
+      <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1.2fr) auto minmax(0, 1.2fr)",alignItems:"center",height:62}}>
         {/* Left: Hamburger + desktop nav links */}
-        <div className="header-left-nav" style={{display:"flex",alignItems:"center",gap:4,minWidth:0,justifyContent:"flex-start"}} data-cms-id="left-nav">
-          {/* Hamburger — hidden on >=1200px where desktop nav links are shown */}
-          <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:C.ink,padding:"8px",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center",background:"none",border:"none",borderRadius:0}}>
+        <div className="header-left-nav" style={{display:"flex",alignItems:"center",gap:4,minWidth:0,justifyContent:"center"}} data-cms-id="left-nav">
+          {/* Hamburger — hidden on desktop, shown on mobile */}
+          <button onClick={onSidebar} className="ib nav-hamburger" title="Menu" aria-label="Open menu" style={{color:"rgba(245,242,237,0.85)",padding:"8px",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center",background:"none",border:"none",borderRadius:0}}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
           </button>
-          <div className="nc" style={{display:"flex",gap:"clamp(10px, 1.4vw, 24px)",alignItems:"center",marginLeft:8}} data-cms-id="nav-items">
-            {menuLinks.map(([l,v]: any,i: number)=>(
-              <button key={i} className="nl" style={{fontSize:"clamp(10px, 0.75vw, 11px)",color:page===v?C.gold:C.ink==="#1a1a1a"?"rgba(26,26,26,0.65)":"rgba(245,242,237,0.65)",letterSpacing:"clamp(0.8px, 0.12vw, 1.4px)",whiteSpace:"nowrap",background:"none",border:"none"}} onClick={()=>{
-                if(v==="catalog")onCatalog();
-                else setPage(v);
-              }}>{l}</button>
-            ))}
+          <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"flex-start",gap:3,padding:"4px 0",position:"relative",zIndex:2,outline:"none",background:"none",border:"none",borderRadius:0}}>
+            <div style={{display:"flex",alignItems:"center",gap:9}}>
+              <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
+                <circle cx="24" cy="24" r="21" stroke="#5A5A40" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#5A5A40" strokeWidth="1.4" strokeLinecap="round"/>
+              </svg>
+              <div className="nav-brand-x" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
+            </div>
+            <div className="nav-brand-sub" style={{fontFamily:"'Inter', sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(245,242,237,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
           </div>
         </div>
         {/* Center: clean flat brand mark — monogram + XIYORA wordmark + tagline */}
-        <div className="header-logo" style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minWidth:0,flexShrink:0}} data-cms-id="logo">
+        <div className="header-logo" style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"flex-start",minWidth:0,flexShrink:0}} data-cms-id="logo">
           <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA — Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px clamp(12px,2vw,20px)",position:"relative",zIndex:2,outline:"none",background:"none",border:"none",borderRadius:0}}>
             <div style={{display:"flex",alignItems:"center",gap:9}}>
               <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
@@ -5552,7 +5553,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               className="nav-cur"
               title={CURRENCY_DISCLAIMER}
               aria-label="Display currency"
-              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(90,90,64,.08)",color:C.ink,border:"1px solid rgba(26,26,26,0.12)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter', sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
+              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(245,242,237,0.06)",color:"#F5EEF0",border:"1px solid rgba(245,242,237,0.15)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter', sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
               data-cms-id="currency-selector"
             >
               <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13}}>{getFlagElement(cur)}</span>
@@ -5587,14 +5588,14 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           >
             {theme==="dark"?"☀️":"🌙"}
           </button>
-          <button className="ib" onClick={onSearch} title="Search" style={{color:C.ink,padding:"8px",minWidth:34,minHeight:34}}>
+          <button className="ib" onClick={onSearch} title="Search" style={{color:"#F5EEF0",padding:"8px",minWidth:34,minHeight:34}}>
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:C.ink,padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
+          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:"#F5EEF0",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
             <svg width={17} height={17} fill={wl&&wl.length?"#E8B4C0":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
             {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#5A5A40",color:C.white,borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
           </button>
-          <button className="ib" onClick={onCheckout} style={{position:"relative",color:C.ink,padding:"8px",minWidth:34,minHeight:34}} title="Basket / Checkout">
+          <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#F5EEF0",padding:"8px",minWidth:34,minHeight:34}} title="Basket / Checkout">
             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#5A5A40",color:C.white,borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{cartCount}</span>}
           </button>
@@ -5682,7 +5683,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
         {/* signature bar */}
         <div style={{textAlign:"center",padding:"6px 0 34px",position:"relative"}}>
           <div className="x-divider" style={{margin:"0 auto 16px",color:"#6BAE88"}}>❖</div>
-          <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,letterSpacing:"3px",color:C.ink}}>XIYORA · Crafted Comfort</div>
+          <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,letterSpacing:"3px",color:"#f5f2ed"}}>XIYORA · Crafted Comfort</div>
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:10}}>
             <span style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#8a8378"}}>Considered Luxury</span>
             <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:26,height:26,border:"1px solid #B87B5A",color:"#B87B5A",fontFamily:"'Cormorant Garamond', serif",fontSize:13,borderRadius:2}}>印</span>
@@ -6664,7 +6665,7 @@ export function SimplePage({title,content,setPage}:any){
               <LuxIcon name={["box","sliders","shield","craft","globe","doc","clock","headset"][i%8]} size={18}/>
               <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:500,color:C.dark,margin:0}}>{k}</h3>
             </div>
-            <p style={{fontSize:14,color:C.ink,lineHeight:1.82,fontWeight:400}}>{v}</p>
+            <p style={{fontSize:14,color:"#f5f2ed",lineHeight:1.82,fontWeight:400}}>{v}</p>
           </div>
         ))}
         </div>
