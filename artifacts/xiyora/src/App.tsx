@@ -1458,6 +1458,7 @@ const MARQUEE_ITEMS_BTM=[
   "Dunlop & Talalay Processes","100% Latex Comfort","Ergonomic Sleep Products","Made with Integrity",
 ];
 function LuxMarquee({dark=true}:{dark?:boolean}){
+  return null; // DISABLED — clean design
   const bg=dark?"#07090E":"#F3EFE5";
   const borderColor=dark?"rgba(255,255,255,0.18)":"rgba(255,255,255,0.32)";
   const double=(arr:string[])=>[...arr,...arr];
@@ -2121,7 +2122,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
   const isReverse = layout === "reverse";
 
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}} data-cms-id="hero-section">
+    <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}} data-cms-id="hero-section">
       {/* section-edge framing motifs — low z-index, kept away from text */}
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
@@ -2230,7 +2231,7 @@ const BIZ_FEATURES=[
 ];
 function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
+    <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}}/>
       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
@@ -2265,7 +2266,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
       {/* HERO */}
-      <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(40px,6vw,80px) 0"}}>
+      <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(40px,6vw,80px) 0"}}>
         <div className="container" style={{position:"relative",zIndex:4,textAlign:"center"}}>
           <span style={{fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:"rgba(245,242,237,.6)",display:"block",marginBottom:16}}>{BIZ.aboutHeroLabel || "Our Story"}</span>
           <h1 className="serif gold-grad" style={{fontSize:"clamp(2.4rem,5vw,4rem)",fontWeight:500,lineHeight:1.25,margin:"0 0 24px"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroHeading || "We Built XIYORA Because We<br/>Could Not Find What We Were<br/><em>Looking For.</em>"}} />
@@ -2715,7 +2716,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
   return(
     <div style={{background:C.white,minHeight:"100vh"}}>
       {/* HERO */}
-      <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
+      <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
         <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
         <div className="container" style={{position:"relative",zIndex:4}}>
           <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
@@ -2873,7 +2874,7 @@ const TRUST_ITEMS=[
 function FooterTrustStrip(){
   const C=useC();
   return(
-    <section className="lux-noir" style={{borderTop:"1px solid rgba(255,255,255,.2)",borderBottom:"1px solid rgba(255,255,255,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
+    <section className="lux-noir" /* now-light */ style={{borderTop:"1px solid rgba(255,255,255,.2)",borderBottom:"1px solid rgba(255,255,255,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
       <div className="x-divider" style={{color:"#ffffff",marginBottom:20}}>✦</div>
       <div className="container">
         <Stagger className="trust-grid">
@@ -2911,7 +2912,7 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
     {ic:"globe",t:"B2B Portal",d:"Official Bingxi Partner for India",fn:onSupplier},
   ];
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
+    <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
       <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.12,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <OrnamentalFrame style={{background:"linear-gradient(160deg,#141B24,#07090E)",padding:"clamp(12px,2vw,20px)"}}>
@@ -2947,7 +2948,7 @@ const BENEFITS=[
 ];
 function DarkBenefitStrip(){
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(255,255,255,0.16)",borderBottom:"1px solid rgba(255,255,255,0.16)"}}>
+    <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(255,255,255,0.16)",borderBottom:"1px solid rgba(255,255,255,0.16)"}}>
       <div className="container" style={{position:"relative",zIndex:2}}>
         <Stagger className="benefit-noir">
           {BENEFITS.map((b,i)=>(
@@ -4668,7 +4669,7 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
     else onCatalog();
   };
   return(
-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(40px,5vw,72px) 0"}}>
+    <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(40px,5vw,72px) 0"}}>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <OrnamentalFrame style={{background:"#1a1a1a", border:"1px solid rgba(245,242,237,0.06)", borderRadius:"2.5rem", padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
           <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
@@ -5079,8 +5080,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
           ))}
         </div>
       </section>
-      {/* QUICK-NAV BAND (dark, ornate) */}
-      <PremiumQuickLinks onCatalog={onCatalog} onSupplier={onSupplier} onInquire={onInquire}/>
+      {/* Quick nav removed for clean design */}
       
       {/* B2B STATS BAND */}
       <B2BStatsBand />
@@ -5609,7 +5609,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
 function Footer({setPage,onInquire,onSubscribe}:any){
   const C=useC();
   return(
-    <footer style={{background:"#141210",color:"#888",padding:"70px 0 36px",position:"relative",overflow:"hidden"}} data-cms-id="footer">
+    <footer style={{background:"#1a1a1a",color:"#999",padding:"60px 0 30px",position:"relative",overflow:"hidden"}} data-cms-id="footer">
       <GoldCloud className="x-drift-slow" size={220} opacity={.12} style={{position:"absolute",top:30,right:40,pointerEvents:"none"}}/>
       <div className="container" style={{position:"relative"}}>
         <div data-cms-id="footer-links" className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
@@ -6711,7 +6711,7 @@ export default function App(){
   const [showSubscribe,setShowSubscribe]=useState(false);
   const [showSidebar,setShowSidebar]=useState(false);
   const [showWishlist,setShowWishlist]=useState(false);
-  const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"dark") as "light"|"dark";}catch{return"dark";}});
+  const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"light") as "light"|"dark";}catch{return"light";}});
   const toggleTheme=()=>setTheme(t=>{const n=t==="light"?"dark":"light";try{localStorage.setItem("xiyoraTheme",n);}catch{}return n;});
   // tracks whether the last page change was triggered by browser Back/Forward
   const isPopRef=useRef(false);
@@ -6926,7 +6926,7 @@ export default function App(){
 
   return(
     <ThemeCtx.Provider value={tc}>
-    <div style={{background:tc.white,minHeight:"100vh",transition:"background .25s,color .25s"}}>
+    <div style={{background:"#ffffff",minHeight:"100vh",transition:"background .25s,color .25s"}}>
       <style>{`
         ${BIZ.sectionPadding ? `.sec{padding:${BIZ.sectionPadding} !important;}` : ""}
         ${BIZ.heroPadding ? `.lux-noir{padding:${BIZ.heroPadding} !important;}` : ""}
@@ -6942,12 +6942,7 @@ export default function App(){
         theme={theme} toggleTheme={toggleTheme}
         onSearch={()=>setShowSearch(true)} onCatalog={openCatalog} onCatFilter={openCatFilter}
         onCheckout={()=>navigateTo("checkout")} onWishlist={()=>setShowWishlist(true)} onSidebar={()=>setShowSidebar(true)} onSupplier={()=>navigateTo("supplier")}/>
-      {userLoc.state && (
-        <div style={{ background: tc.lgold, borderBottom: `1px solid ${tc.sand}`, padding: "10px 0", fontSize: "12px", color: tc.ink, display: "flex", justifyContent: "center", alignItems: "center", gap: 10, position: "relative", zIndex: 9, flexWrap: "wrap" }}>
-          <span>📍 Landed sourcing pricing configured for: <strong>{userLoc.city || "Local Hub"}, {userLoc.state} ({userLoc.pincode})</strong></span>
-          <button onClick={() => setShowLocationPrompt(true)} style={{ background: "none", border: "none", color: tc.gold, textDecoration: "underline", cursor: "pointer", fontSize: "12px", padding: 0, fontWeight: 600 }}>Change Location</button>
-        </div>
-      )}
+      {/* Location bar hidden for clean design */}
       <main style={{minHeight:"80vh",paddingBottom:2}}><div key={page} className="page-fade-in">{renderView()}</div></main>
       <Footer setPage={nav} onInquire={openInquiry} onSubscribe={()=>setShowSubscribe(true)}/>
       <div className="wb" style={{bottom:80}} onClick={()=>window.open(waMsg("Hi XIYORA, I want to know more about your Bingxi latex products."),"_blank")} title="Chat on WhatsApp">
@@ -6962,7 +6957,7 @@ export default function App(){
     </div>
     {!loaderDone&&<LoadingScreen appReady={appReady} onDone={handleLoaderDone}/>}
     {/* <GoldCursor/> */}
-    <ScrollProgress/>
+    {/* <ScrollProgress/> */}
     </ThemeCtx.Provider>
   );
 }

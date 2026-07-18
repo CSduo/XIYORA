@@ -600,11 +600,9 @@ body, #root {
 
 /* SECTION BACKGROUNDS — alternate */
 .lux-noir {
-  background-color: var(--xr-black) !important;
-  background-image:
-    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(196,136,154,0.08), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 100% 90%, rgba(154,90,110,0.05), transparent 55%) !important;
-  color: var(--xr-ivory) !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #1a1a1a !important;
 }
 
 /* SECTION PADDING */
@@ -976,3 +974,83 @@ img.deco-float { display: none !important; }
   from { opacity: 0; transform: translateY(16px) scale(0.96); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+
+/* ── CLEAN DESIGN OVERRIDES ──────────────────────────── */
+.paper { background-color: #faf9f7 !important; background-image: none !important; }
+.ink-wash::before { display: none !important; }
+.ornate .cat-corner { display: none !important; }
+.x-divider { color: #1a1a1a !important; opacity: 0.2; }
+.gold-grad { background: none !important; -webkit-text-fill-color: #1a1a1a !important; color: #1a1a1a !important; }
+.gold-italic { font-style: italic; color: rgba(0,0,0,0.5) !important; }
+.btn-gold-out, .xiyora-gold-button {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 13px 28px !important;
+  font-size: 11px !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+}
+.btn-gold-out:hover, .xiyora-gold-button:hover { opacity: 0.8; }
+.btn-ivory {
+  background: transparent !important;
+  color: #1a1a1a !important;
+  border: 1px solid rgba(0,0,0,0.15) !important;
+  border-radius: 0 !important;
+  padding: 13px 28px !important;
+  font-size: 11px !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+}
+.btn-ivory:hover { border-color: #1a1a1a !important; }
+
+/* Clean glass cards */
+.glass-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.glass-card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06) !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+
+/* Section headings — clean black */
+.sh-title, h2.serif {
+  color: #1a1a1a !important;
+  -webkit-text-fill-color: #1a1a1a !important;
+}
+
+/* Feature circles — clean */
+.feat-circ {
+  background: rgba(0,0,0,0.03) !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* Section labels */
+.sl, .sec-label {
+  color: rgba(0,0,0,0.35) !important;
+}
+
+/* WhatsApp button — keep its brand green */
+.wb {
+  background: #25D366 !important;
+}
+
+/* Hide ornate corner flourishes everywhere */
+.ornate > svg[aria-hidden] { display: none !important; }
+
+/* Marquee hidden */
+.lux-marquee { display: none !important; }
+
+/* Clean link underlines */
+.nl { color: rgba(0,0,0,0.45) !important; }
+.nl:hover { color: #1a1a1a !important; }
+.nl::after { background: #1a1a1a !important; }
