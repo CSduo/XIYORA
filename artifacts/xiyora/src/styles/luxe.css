@@ -1078,3 +1078,29 @@ img.deco-float { display: none !important; }
   display: none !important;
   background: none !important;
 }
+
+
+/* ── MOBILE BREAKPOINT POLISH ──────────────────────────── */
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4, .cat-grid6, .fc-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .container {
+    padding: 0 16px !important;
+  }
+  .sec {
+    padding: 40px 0 !important;
+  }
+  button, .btn-gold-out, .btn-ivory {
+    min-height: 44px !important;
+  }
+}
+@media (max-width: 480px) {
+  .header-actions {
+    gap: 2px !important;
+  }
+  .nav-cur span:last-child {
+    display: inline-block !important;
+  }
+}

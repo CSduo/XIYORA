@@ -171,8 +171,8 @@ export let BIZ = {
     {filter:"Mattresses",name:"Latex Mattresses",sub:"The foundation of proper rest. Dunlop-core construction. Available in three ILD ratings. 10-year structural guarantee.",cn:"床垫"},
     {filter:"Pillows",name:"Talalay Pillows",sub:"Talalay latex — lighter, more responsive, and more breathable than any memory foam. The pillow that does not remember yesterday.",cn:"枕头"},
     {filter:"Toppers",name:"Mattress Toppers",sub:"Transform any mattress. A 50mm Dunlop topper recalibrates a hotel bed into a sanctuary. Popular with hospitality buyers.",cn:"床垫层"},
-    {filter:"Cushions",name:"Latex Cushions",sub:"Custom density for every seating application. From reception chairs to custom sofa cores. Specify density on inquiry.",cn:"坐垫"},
-    {filter:"Latex Material",name:"B2B / Wholesale",sub:"Architects, hoteliers, and interior design studios worldwide. Trade pricing from 5-unit MOQ. Certified sample sets available.",cn:"乳胶"}
+    {filter:"Cushions",name:"Latex Cushions",sub:"Custom density for every seating application. From reception chairs to custom sofa cores. Specify density on inquiry.",cn:"Cushions"},
+    {filter:"Latex Material",name:"B2B / Wholesale",sub:"Architects, hoteliers, and interior design studios worldwide. Trade pricing from 5-unit MOQ. Certified sample sets available.",cn:"Latex Core"}
   ]),
   whyXiyoraCards: JSON.stringify([
     ["◈","Honest Sourcing","Official Bingxi sourcing partner for India — certified Dunlop & Talalay latex."],
@@ -1896,7 +1896,7 @@ const Stagger=({children,style,className}:{children:React.ReactNode;style?:React
 
 /* ─── DECORATIVE MOTIFS (inline SVG, Asian-luxury identity) ── */
 /** Red seal stamp — accent near headings. `ch` is the glyph (Chinese char or monogram). */
-const Seal=({ch="信",title,style}:{ch?:string;title?:string;style?:React.CSSProperties})=>(
+const Seal=({ch="✓",title,style}:{ch?:string;title?:string;style?:React.CSSProperties})=>(
   <span className="seal" title={title||"XIYORA seal"} style={{...style, borderColor:"rgba(245,242,237,.5)", color:"rgba(245,242,237,.5)"}} aria-hidden>{ch}</span>
 );
 /** Champagne-gold cloud motif (祥云) — corner/background ornament. */
@@ -2124,7 +2124,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
   return(
     <section className="lux-noir" style={{position:"relative",overflow:"hidden",background:"#0c0a08",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}} data-cms-id="hero-section">
       {/* section-edge framing motifs — low z-index, kept away from text */}
-      <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
+      <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
       <div className="container" style={{position:"relative",zIndex:4}}>
         <div className={`ornate ${isCentered ? "" : "lux-hero-grid"}`} style={{
           display: isCentered ? "block" : "grid",
@@ -2146,15 +2146,15 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
             overflow: "hidden"
           }}>
             {/* decorations BEHIND text (zIndex 1) for guaranteed readability */}
-            <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
-            <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}}/>
-            <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-4,left:8,width:"clamp(50px,5.5vw,82px)",opacity:.28,pointerEvents:"none",zIndex:1}}/>
+            <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
+            <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
+            <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-4,left:8,width:"clamp(50px,5.5vw,82px)",opacity:.28,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
             <Reveal>
               <ArchedCartouche className="lux-brand-lock" style={isCentered ? { alignSelf: "center", margin: "0 auto 20px" } : {}}>
                 <MonoMark size={38}/>
                 <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#f5f2ed",lineHeight:1,fontWeight:600}}>XIYORA</div>
                 <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"rgba(245,242,237,.6)"}}>Crafted Comfort</div>
-                <Seal ch="印" style={{marginTop:2}}/>
+                <Seal ch="★" style={{marginTop:2}}/>
               </ArchedCartouche>
               <h1 className="serif" data-cms-id="hero-title" style={{
                 fontSize: BIZ.heroTitleSize || "clamp(2.1rem,3.6vw,3.5rem)",
@@ -2232,12 +2232,12 @@ const BIZ_FEATURES=[
 function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
   return(
     <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
-      <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}}/>
-      <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}}/>
+      <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
+      <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
       <div className="container" style={{position:"relative",zIndex:4}}>
         <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"auto 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#141B24,#07090E)"}}>
           <CornerSet/>
-          <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}}/></div>
+          <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} /></div>
           <div>
             <Reveal>
               <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#ffffff",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
@@ -2717,21 +2717,21 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
     <div style={{background:C.white,minHeight:"100vh"}}>
       {/* HERO */}
       <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}}>
-        <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
+        <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
         <div className="container" style={{position:"relative",zIndex:4}}>
           <div className="ornate lux-hero-grid" style={{display:"grid",gridTemplateColumns:"1fr 1.04fr",borderRadius:8,overflow:"hidden",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
             <CornerSet/>
             {/* LEFT — copy */}
             <div className="lux-hero-copy" style={{position:"relative",padding:"clamp(34px,4vw,60px) clamp(24px,4vw,54px)",display:"flex",flexDirection:"column",justifyContent:"center",overflow:"hidden"}}>
-              <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
-              <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}}/>
+              <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-10,left:-20,width:"clamp(88px,11vw,140px)",opacity:.5,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
+              <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift" style={{position:"absolute",top:14,right:6,width:"clamp(50px,6vw,84px)",opacity:.32,pointerEvents:"none",zIndex:1,transform:"scaleX(-1)"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
               <Reveal>
                 <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(245,242,237,.6)",marginBottom:14,fontWeight:500}}>Home · Partnership</div>
                 <ArchedCartouche className="lux-brand-lock">
                   <MonoMark size={38}/>
                   <div className="serif" style={{fontSize:23,letterSpacing:8,color:"#f5f2ed",lineHeight:1,fontWeight:400}}>XIYORA</div>
                   <div style={{fontFamily:"'Inter', sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"rgba(237,232,223,.65)"}}>Natural · Crafted · Pure</div>
-                  <Seal ch="印" style={{marginTop:2}}/>
+                  <Seal ch="★" style={{marginTop:2}}/>
                 </ArchedCartouche>
                 <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:400,lineHeight:1.25,color:"#f5f2ed",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
                 <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
@@ -2913,7 +2913,7 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
   ];
   return(
     <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
-      <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.12,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
+      <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.12,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
       <div className="container" style={{position:"relative",zIndex:4}}>
         <OrnamentalFrame style={{background:"linear-gradient(160deg,#141B24,#07090E)",padding:"clamp(12px,2vw,20px)"}}>
           <div className="ql-grid">
@@ -2963,7 +2963,7 @@ function DarkBenefitStrip(){
 function CategoryIntroPanel(){
   return(
     <div className="cat-intro" style={{maxWidth:760,margin:"0 auto"}}>
-      <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}}/>
+      <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <Seal ch="选" title="Curated collection"/>
         <div className="sl" style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",fontWeight:600,margin:"18px 0 10px",color:"#ffffff"}}>Bingxi Collection</div>
@@ -3027,7 +3027,7 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
     <div className="xiyora-whatsapp-popup" role="dialog" aria-label="XIYORA WhatsApp help"
       style={{position:"fixed",right:24,bottom:148,zIndex:997,width:"min(330px,calc(100vw - 36px))",background:C.white,border:`1px solid rgba(255,255,255,0.18)`,borderRadius:8,boxShadow:"0 24px 70px rgba(0,0,0,.5)",padding:"20px 20px 18px",overflow:"hidden"}}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:4,background:"linear-gradient(90deg,#ffffff,#25D366)"}}/>
-      <button aria-label="Close" onClick={dismiss} style={{position:"absolute",top:10,right:12,background:"none",border:"none",fontSize:20,lineHeight:1,color:"#aaa",cursor:"pointer",padding:4}}>×</button>
+      <button aria-label="Close" onClick={dismiss} style={{position:"absolute",top:10,right:12,background:"none",border:"none",fontSize:20,lineHeight:1,color:"rgba(255,255,255,0.75)",cursor:"pointer",padding:4}}>×</button>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:38,height:38,borderRadius:"50%",background:"#25D366",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
           <svg width={20} height={20} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
@@ -3131,7 +3131,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
 
   if(!show)return null;
   const inp:React.CSSProperties={width:"100%",background:"#ffffff",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter', sans-serif",color:C.dark,marginBottom:10,transition:"border-color .2s"};
-  const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block",letterSpacing:".3px"};
+  const lbl:React.CSSProperties={fontSize:11.5,color:"rgba(255,255,255,0.65)",marginBottom:5,display:"block",letterSpacing:".3px"};
 
   return(
     <div style={{position:"fixed",inset:0,zIndex:900,background:"rgba(28,28,28,.6)",display:"flex",alignItems:"center",justifyContent:"center",padding:"16px",backdropFilter:"blur(12px)"}} onClick={onClose}>
@@ -3148,7 +3148,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
           <div style={{textAlign:"center",padding:"28px 0"}}>
             <div style={{width:64,height:64,background:"linear-gradient(135deg,#ffffff,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28,color:"#fff"}}>✓</div>
             <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
-            <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
+            <p style={{fontSize:13.5,color:"rgba(255,255,255,0.65)",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
               <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:4,fontFamily:"'Inter', sans-serif",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7,fontWeight:600}}>
@@ -3166,7 +3166,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
               ))}
             </div>
             {product&&<div style={{background:C.lgold,padding:"10px 14px",borderRadius:3,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-              <span style={{fontSize:13,color:"#888"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
+              <span style={{fontSize:13,color:"rgba(255,255,255,0.65)"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
               <span style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
             </div>}
             <div className="co-form-grid">
@@ -3189,7 +3189,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
                   {geoLoading?<Spinner/>:<svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
                   Use my current location
                 </button>
-                <span style={{fontSize:11,color:"#aaa",flex:1,minWidth:0,lineHeight:1.4}}>Auto-fill state, city and pincode.</span>
+                <span style={{fontSize:11,color:"rgba(255,255,255,0.75)",flex:1,minWidth:0,lineHeight:1.4}}>Auto-fill state, city and pincode.</span>
               </div>
               {geoMsg&&<div style={{fontSize:11.5,padding:"6px 10px",borderRadius:3,marginBottom:8,background:geoMsg.includes("denied")||geoMsg.includes("Could not")?"#fff8f0":"#edfaf5",color:geoMsg.includes("denied")||geoMsg.includes("Could not")?"#9a6a2a":"#2a7a4e",lineHeight:1.5,wordBreak:"break-word"}}>{geoMsg}</div>}
               <div className="co-form-grid" style={{marginBottom:10}}>
@@ -3359,7 +3359,7 @@ function ImageZoom({src,alt,onClose}:{src:string;alt:string;onClose:()=>void}){
   },[onClose]);
   return(
     <div className="img-zoom-overlay" onClick={onClose}>
-      <img src={src} alt={alt} decoding="async" onClick={e=>e.stopPropagation()}/>
+      <img src={src} alt={alt} decoding="async" onClick={e => e.stopPropagation()} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
       <button onClick={onClose} style={{position:"absolute",top:24,right:28,background:"none",border:"none",color:"#fff",fontSize:28,cursor:"pointer",opacity:.6}}>✕</button>
     </div>
   );
@@ -3392,13 +3392,13 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
                 <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:500,color:C.dark,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.name}</div>
                 <div style={{fontSize:12,color:C.gold}}>{p.latexType} · {p.category}</div>
               </div>
-              <div style={{fontSize:13,color:"#aaa",flexShrink:0}}>{p.priceINR}</div>
+              <div style={{fontSize:13,color:"rgba(255,255,255,0.75)",flexShrink:0}}>{p.priceINR}</div>
             </div>
           ))}
         </div>}
         {q.length>1&&!hits.length&&(
           <div style={{padding:"28px 20px",textAlign:"center"}}>
-            <p style={{fontSize:14,color:"#aaa",marginBottom:14}}>No results for "<strong>{q}</strong>"</p>
+            <p style={{fontSize:14,color:"rgba(255,255,255,0.75)",marginBottom:14}}>No results for "<strong>{q}</strong>"</p>
             <button className="bg" onClick={()=>{onCatalog();onClose();}} style={{padding:"10px 22px",fontSize:12}}>Browse All Products</button>
           </div>
         )}
@@ -4269,7 +4269,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
       {/* Breadcrumb */}
       <div style={{borderBottom:`1px solid ${C.sand}`,padding:"12px 0"}}>
         <div className="container" style={{display:"flex",gap:8,alignItems:"center",fontSize:13}}>
-          <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:"#888",fontFamily:"'Inter', sans-serif",display:"flex",alignItems:"center",gap:6,transition:"color .2s"}}
+          <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:"rgba(255,255,255,0.65)",fontFamily:"'Inter', sans-serif",display:"flex",alignItems:"center",gap:6,transition:"color .2s"}}
             onMouseEnter={(e:any)=>e.currentTarget.style.color=C.gold}
             onMouseLeave={(e:any)=>e.currentTarget.style.color="#888"}>
             <svg width={14} height={14} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Back
@@ -4317,7 +4317,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             </div>}
             {/* Highlights */}
             <div style={{marginBottom:22}}>
-              <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:10,fontWeight:500}}>Highlights</p>
+              <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(255,255,255,0.65)",marginBottom:10,fontWeight:500}}>Highlights</p>
               {p.highlights.map((h:string,i:number)=>(
                 <div key={i} style={{display:"flex",gap:10,marginBottom:9,alignItems:"flex-start"}}>
                   <span style={{color:C.gold,flexShrink:0,marginTop:2}}>◈</span>
@@ -4327,7 +4327,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             </div>
             {/* Specs */}
             <div style={{marginBottom:22}}>
-              <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:10,fontWeight:500}}>Specifications</p>
+              <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(255,255,255,0.65)",marginBottom:10,fontWeight:500}}>Specifications</p>
               <table style={{width:"100%",borderCollapse:"collapse"}}><tbody>
                 {Object.entries(p.specs).map(([k,v])=>(
                   <tr key={k} style={{borderBottom:`1px solid ${C.beige}`}}>
@@ -4340,7 +4340,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             {/* Variant Selector */}
             {hasVariants&&(
               <div style={{marginBottom:18}}>
-                <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:10,fontWeight:500}}>Select Size / Specification</p>
+                <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(255,255,255,0.65)",marginBottom:10,fontWeight:500}}>Select Size / Specification</p>
                 <div style={{display:"flex",flexDirection:"column",gap:7}}>
                   {(p.variants as any[]).map((v:any,i:number)=>{
                     const vDisc = getFakeDiscountInfo(v.sku || p.id, v.priceINR, cur);
@@ -4349,10 +4349,10 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                         <span>{v.label}</span>
                         <span style={{display:"flex",alignItems:"center",gap:6,flexShrink:0,marginLeft:12}}>
                           {v.quoteRequired ? (
-                            <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:600,color:"#888"}}>Quote req.</span>
+                            <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:600,color:"rgba(255,255,255,0.65)"}}>Quote req.</span>
                           ) : vDisc ? (
                             <>
-                              <span style={{textDecoration:"line-through",fontSize:11,color:"#888"}}>{vDisc.originalPriceStr}</span>
+                              <span style={{textDecoration:"line-through",fontSize:11,color:"rgba(255,255,255,0.65)"}}>{vDisc.originalPriceStr}</span>
                               <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:600,color:C.gold}}>{vDisc.discountedPriceStr}</span>
                               <span style={{fontSize:9,background:"rgba(158,59,46,.15)",color:"#9E3B2E",padding:"1px 4px",borderRadius:2,fontWeight:700}}>{vDisc.discountPct}% OFF</span>
                             </>
@@ -4378,7 +4378,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                     </span>
                     {!isQuoteRequired && detailDisc ? (
                       <span style={{display:"flex",alignItems:"center",gap:10}}>
-                        <span style={{textDecoration:"line-through",fontSize:15,color:"#888"}}>{detailDisc.originalPriceStr}</span>
+                        <span style={{textDecoration:"line-through",fontSize:15,color:"rgba(255,255,255,0.65)"}}>{detailDisc.originalPriceStr}</span>
                         <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,fontWeight:600,color:C.gold}}>{detailDisc.discountedPriceStr}</span>
                         <span style={{fontSize:11,background:"#9E3B2E",color:"#fff",padding:"2px 7px",borderRadius:2,fontWeight:700}}>{detailDisc.discountPct}% OFF</span>
                       </span>
@@ -4398,7 +4398,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             {/* Qty stepper */}
             {canBuy&&(
               <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
-                <span style={{fontSize:11.5,color:"#888",letterSpacing:"1px",textTransform:"uppercase"}}>Quantity</span>
+                <span style={{fontSize:11.5,color:"rgba(255,255,255,0.65)",letterSpacing:"1px",textTransform:"uppercase"}}>Quantity</span>
                 <div style={{display:"flex",alignItems:"center",border:`1px solid ${C.sand}`,borderRadius:3,overflow:"hidden"}}>
                   <button onClick={()=>setQty(q=>Math.max(1,q-1))} style={{padding:"8px 14px",background:"none",border:"none",fontSize:18,cursor:"pointer",color:C.dark,lineHeight:1}}>−</button>
                   <span style={{padding:"0 16px",fontSize:14,fontWeight:500,color:C.dark,minWidth:32,textAlign:"center"}}>{qty}</span>
@@ -4466,12 +4466,12 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                       );
                     })()
                   ) : (
-                    <div style={{fontSize:12.5,color:"#888",lineHeight:1.6}}>
+                    <div style={{fontSize:12.5,color:"rgba(255,255,255,0.65)",lineHeight:1.6}}>
                       Configure your delivery pincode to calculate domestic inland shipping, routing ports, and transit schedules.
                       <button onClick={showLocationPrompt} style={{background:"none",border:"none",color:C.gold,textDecoration:"underline",cursor:"pointer",display:"block",padding:"4px 0 0",fontSize:12,fontWeight:600}}>📍 Set Delivery Destination</button>
                     </div>
                   )}
-                  <p style={{fontSize:11,color:"#888",marginTop:8,lineHeight:1.4}}>{p.deliveryNote}</p>
+                  <p style={{fontSize:11,color:"rgba(255,255,255,0.65)",marginTop:8,lineHeight:1.4}}>{p.deliveryNote}</p>
                 </div>
               </div>
             </div>
@@ -4518,7 +4518,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
             </div>
             {/* Document cards */}
             <div style={{padding:"18px",background:C.beige,borderRadius:4,border:`1px solid ${C.sand}`}}>
-              <div style={{fontSize:9,letterSpacing:"2.5px",textTransform:"uppercase",color:"#aaa",marginBottom:14,fontWeight:500}}>Documents Available for Buyer Review</div>
+              <div style={{fontSize:9,letterSpacing:"2.5px",textTransform:"uppercase",color:"rgba(255,255,255,0.75)",marginBottom:14,fontWeight:500}}>Documents Available for Buyer Review</div>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
                 {[
                   {title:"OEKO-TEX® Cert",msg:"Hi XIYORA, I would like to request the OEKO-TEX® Standard 100 certificate for my review."},
@@ -4546,7 +4546,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
       {p.useCases?.length>0&&(
         <div style={{background:C.beige,padding:"36px 0"}}>
           <div className="container">
-            <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#888",marginBottom:14,fontWeight:500}}>Ideal For</p>
+            <p style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(255,255,255,0.65)",marginBottom:14,fontWeight:500}}>Ideal For</p>
             <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
               {p.useCases.map((u:string,i:number)=>(
                 <div key={i} style={{background:C.white,padding:"12px 18px",borderRadius:3,fontSize:13.5,color:C.dark,boxShadow:"0 2px 10px rgba(0,0,0,.04)"}}>◈ {u}</div>
@@ -4651,7 +4651,7 @@ function CatalogView({cat,setCat,cur,wl,onWish,onOpen,onInquire,loading}:any){
         </div>
         )}
         <div style={{marginTop:44,padding:"16px 20px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2}}>
-          <p style={{fontSize:13,color:"#888",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> Indicative prices include estimated import costs. Shipping, customs, IGST, and local delivery confirmed in your final quote. {BIZ.gstNote}</p>
+          <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> Indicative prices include estimated import costs. Shipping, customs, IGST, and local delivery confirmed in your final quote. {BIZ.gstNote}</p>
         </div>
       </div>
     </div>
@@ -4671,8 +4671,8 @@ function BuyerBestFit({onCatFilter,onCatalog,onSupplier,onInquire}:any){
     <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:"clamp(40px,5vw,72px) 0"}}>
       <div className="container" style={{position:"relative",zIndex:4}}>
         <OrnamentalFrame style={{background:"#1a1a1a", border:"1px solid rgba(245,242,237,0.06)", borderRadius:"2.5rem", padding:"clamp(34px,5vw,60px) clamp(22px,4vw,54px)"}}>
-          <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}}/>
-          <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}}/>
+          <img src={DECO.crane} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:12,left:18,width:"clamp(72px,9vw,120px)",opacity:.4,pointerEvents:"none",zIndex:2}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
+          <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:16,left:"clamp(100px,14vw,158px)",width:"clamp(46px,5vw,70px)",opacity:.38,pointerEvents:"none",zIndex:2}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
           <div style={{position:"relative",zIndex:5,textAlign:"center"}}>
             <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#ffffff",fontWeight:500,marginBottom:14,display:"flex",alignItems:"center",justifyContent:"center",gap:12}}><span style={{width:22,height:1,background:"#ffffff"}}/>Find Your Best Fit<span style={{width:22,height:1,background:"#ffffff"}}/></div>
             <h2 className="serif" style={{fontSize:"clamp(1.9rem,3.4vw,2.8rem)",fontWeight:400,color:"#f5f2ed",lineHeight:1.25,margin:0}}>Tell Us Who You Are</h2>
@@ -4905,7 +4905,7 @@ function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
               <div style={{display: "flex", flexDirection: "column", gap: 8}}>
                 {talalayProds.map(p => (
                   <div key={p.id} onClick={() => onOpen(p)} style={{display: "flex", gap: 12, alignItems: "center", padding: 8, background: C.lgold, borderRadius:3, cursor: "pointer", border: `1px solid transparent`}} onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold} onMouseLeave={(e:any)=>e.currentTarget.style.borderColor="transparent"}>
-                    <img src={p.heroImage || FALLBACK_IMG} style={{width: 44, height: 44, objectFit: "cover", borderRadius: 2}} alt={p.name}/>
+                    <img src={p.heroImage || FALLBACK_IMG} style={{width: 44, height: 44, objectFit: "cover", borderRadius: 2}} alt={p.name} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
                     <div style={{flex: 1}}>
                       <div style={{fontSize: 12.5, fontWeight: 600, color: C.dark}}>{p.name}</div>
                       <div style={{fontSize: 11, color: C.gold}}>{priceIn(cur, p.priceINR)}</div>
@@ -4928,7 +4928,7 @@ function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
               <div style={{display: "flex", flexDirection: "column", gap: 8}}>
                 {dunlopProds.map(p => (
                   <div key={p.id} onClick={() => onOpen(p)} style={{display: "flex", gap: 12, alignItems: "center", padding: 8, background: C.lgold, borderRadius:3, cursor: "pointer", border: `1px solid transparent`}} onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold} onMouseLeave={(e:any)=>e.currentTarget.style.borderColor="transparent"}>
-                    <img src={p.heroImage || FALLBACK_IMG} style={{width: 44, height: 44, objectFit: "cover", borderRadius: 2}} alt={p.name}/>
+                    <img src={p.heroImage || FALLBACK_IMG} style={{width: 44, height: 44, objectFit: "cover", borderRadius: 2}} alt={p.name} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
                     <div style={{flex: 1}}>
                       <div style={{fontSize: 12.5, fontWeight: 600, color: C.dark}}>{p.name}</div>
                       <div style={{fontSize: 11, color: C.gold}}>{priceIn(cur, p.priceINR)}</div>
@@ -4991,7 +4991,7 @@ function CustomerReviewsSection(){
                 <span style={{fontSize:14,color:"#f5f2ed"}}>out of 5</span>
               </div>
               <StarRating n={5} size={16}/>
-              <div style={{fontSize:12,color:"#888",marginTop:6}}>{totalReviews} verified purchases</div>
+              <div style={{fontSize:12,color:"rgba(255,255,255,0.65)",marginTop:6}}>{totalReviews} verified purchases</div>
               <div style={{marginTop:16}}>
                 {distribution.map(({stars,pct})=>(
                   <div key={stars} style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
@@ -5000,7 +5000,7 @@ function CustomerReviewsSection(){
                     <div style={{flex:1,height:5,background:C.sand,borderRadius:3,overflow:"hidden"}}>
                       <div style={{height:"100%",width:`${pct}%`,background:C.gold,borderRadius:3}}/>
                     </div>
-                    <span style={{fontSize:11,color:"#888",minWidth:28}}>{pct}%</span>
+                    <span style={{fontSize:11,color:"rgba(255,255,255,0.65)",minWidth:28}}>{pct}%</span>
                   </div>
                 ))}
               </div>
@@ -5016,7 +5016,7 @@ function CustomerReviewsSection(){
                 <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:12}}>
                   <div>
                     <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:500,color:C.dark}}>{r.name}</div>
-                    <div style={{fontSize:11,color:"#888",marginTop:2}}>{r.city} · {r.date}</div>
+                    <div style={{fontSize:11,color:"rgba(255,255,255,0.65)",marginTop:2}}>{r.city} · {r.date}</div>
                   </div>
                   <div style={{textAlign:"right"}}>
                     <StarRating n={r.rating}/>
@@ -5047,8 +5047,8 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
     {filter:"Mattresses",name:"Latex Mattresses",sub:"The foundation of proper rest. Dunlop-core construction. Available in three ILD ratings. 10-year structural guarantee.",cn:"床垫",wide:false},
     {filter:"Pillows",name:"Talalay Pillows",sub:"Talalay latex — lighter, more responsive, and more breathable than any memory foam. The pillow that does not remember yesterday.",cn:"枕头",wide:false},
     {filter:"Toppers",name:"Mattress Toppers",sub:"Transform any mattress. A 50mm Dunlop topper recalibrates a hotel bed into a sanctuary. Popular with hospitality buyers.",cn:"床垫层",wide:false},
-    {filter:"Cushions",name:"Latex Cushions",sub:"Custom density for every seating application. From reception chairs to custom sofa cores. Specify density on inquiry.",cn:"坐垫",wide:true},
-    {filter:"Latex Material",name:"B2B / Wholesale",sub:"Architects, hoteliers, and interior design studios worldwide. Trade pricing from 5-unit MOQ. Certified sample sets available.",cn:"乳胶",wide:true},
+    {filter:"Cushions",name:"Latex Cushions",sub:"Custom density for every seating application. From reception chairs to custom sofa cores. Specify density on inquiry.",cn:"Cushions",wide:true},
+    {filter:"Latex Material",name:"B2B / Wholesale",sub:"Architects, hoteliers, and interior design studios worldwide. Trade pricing from 5-unit MOQ. Certified sample sets available.",cn:"Latex Core",wide:true},
   ];
   const CatSection=(
     <section className="sec paper ink-wash" style={{position:"relative"}}>
@@ -5096,7 +5096,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
         <div className="container">
           <Reveal style={{display:"flex",alignItems:"flex-end",justifyContent:"space-between",marginBottom:48,flexWrap:"wrap",gap:18}}>
             <div style={{display:"flex",alignItems:"flex-start",gap:16}}>
-              <Seal ch="品" title="Quality catalogue" style={{marginTop:4}}/>
+              <Seal ch="❖" title="Quality catalogue" style={{marginTop:4}}/>
               <div><SL>Bingxi Catalogue</SL><SH>Featured Products</SH></div>
             </div>
             <div style={{display:"flex",alignItems:"center",gap:16}}>
@@ -5108,7 +5108,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
             {PRODUCTS.slice(0,6).map(p=><PCard key={p.id} p={p} cur={cur} wl={wl} onWish={onWish} onOpen={onOpen} onInquire={onInquire}/>)}
           </div>
           <div style={{marginTop:32,padding:"14px 20px",background:C.lgold,borderLeft:`3px solid ${C.gold}`,borderRadius:2}}>
-            <p style={{fontSize:13,color:"#888",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> All indicative prices include estimated import costs. Final landed price confirmed in your quote. {BIZ.gstNote}</p>
+            <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",lineHeight:1.7}}><strong style={{color:C.dark}}>Pricing Note:</strong> All indicative prices include estimated import costs. Final landed price confirmed in your quote. {BIZ.gstNote}</p>
           </div>
         </div>
       </section>
@@ -5122,18 +5122,18 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
           <div className="promise-2up" style={{display:"grid",gridTemplateColumns:"1fr 1fr",borderRadius:8,overflow:"hidden",border:"1px solid rgba(200,169,126,.4)",position:"relative"}}>
             <CornerSet/>
             <div style={{position:"relative",background:"#7c8270",backgroundImage:"radial-gradient(circle at 80% 16%,rgba(255,255,255,.07),transparent 42%)",display:"flex",flexDirection:"column",justifyContent:"center",padding:"clamp(36px,4vw,56px)",color:"#fff",overflow:"hidden",minHeight:360}}>
-              <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:6,right:-8,width:"clamp(90px,12vw,150px)",opacity:.7,pointerEvents:"none",zIndex:1}}/>
+              <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:6,right:-8,width:"clamp(90px,12vw,150px)",opacity:.7,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
               <GoldCloud className="cloud-drift" size={120} opacity={.16} style={{position:"absolute",top:18,right:30,pointerEvents:"none",zIndex:1}}/>
-              <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:6,left:10,width:"clamp(46px,5vw,72px)",opacity:.3,pointerEvents:"none",zIndex:1}}/>
+              <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:6,left:10,width:"clamp(46px,5vw,72px)",opacity:.3,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
               <div style={{position:"relative",zIndex:2}}>
                 <span style={{fontSize:11,letterSpacing:"4px",textTransform:"uppercase",color:"rgba(255,255,255,.78)"}}>Our Promise</span>
                 <h3 className="serif" style={{fontSize:"clamp(1.8rem,2.8vw,2.6rem)",fontWeight:500,lineHeight:1.16,margin:"18px 0 0"}}>Elevating Everyday Rest Into an Art of Living.</h3>
-                <div style={{margin:"22px 0"}}><Seal ch="美" style={{borderColor:"rgba(255,255,255,.75)",color:"#fff"}}/></div>
+                <div style={{margin:"22px 0"}}><Seal ch="✦" style={{borderColor:"rgba(255,255,255,.75)",color:"#fff"}}/></div>
                 <p style={{fontSize:13.5,color:"rgba(255,255,255,.9)",lineHeight:1.75,maxWidth:360}}><strong style={{fontWeight:600}}>Pure by Nature. Perfected by Science.</strong><br/>Responsibly sourced natural latex for unmatched comfort and durability.</p>
               </div>
             </div>
             <div className="x-frame" style={{position:"relative",minHeight:360,overflow:"hidden"}}>
-              <img src="/assets/lux/vase-blossom.webp" alt="Ink-wash still life with cherry blossom" loading="lazy" decoding="async" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}}/>
+              <img src="/assets/lux/vase-blossom.webp" alt="Ink-wash still life with cherry blossom" loading="lazy" decoding="async" style={{width:"100%",height:"100%",objectFit:"cover",position:"absolute",inset:0}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
               <div style={{position:"absolute",inset:0,boxShadow:"inset 0 0 0 1px rgba(200,169,126,.3)",pointerEvents:"none"}}/>
             </div>
           </div>
@@ -5152,7 +5152,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
         <div className="container">
           <div className="grid-2" style={{gap:72}}>
             <Reveal>
-              <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:6}}><Seal ch="信" title="Trust"/><SL>Our Promise</SL></div>
+              <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:6}}><Seal ch="✓" title="Trust"/><SL>Our Promise</SL></div>
               <SH>Why Choose<br/><em>XIYORA?</em></SH>
               <p style={{fontSize:15,color:"#f5f2ed",lineHeight:1.85,margin:"18px 0 36px",fontWeight:400,maxWidth:460}}>We connect trusted global latex manufacturers with the Indian market — genuine comfort products with transparent pricing and dedicated support.</p>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
@@ -5195,7 +5195,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
                 <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:40,fontWeight:300,color:C.sand,marginBottom:14,lineHeight:1}}>{n}</div>
                 <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:20,fontWeight:500,color:C.dark,marginBottom:10}}>{t}</h4>
-                <p style={{fontSize:13,color:"#888",lineHeight:1.72,fontWeight:300}}>{d}</p>
+                <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",lineHeight:1.72,fontWeight:300}}>{d}</p>
               </div>
             ))}
           </div>
@@ -5207,7 +5207,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
           <div style={{textAlign:"center",marginBottom:44}}>
             <SL>Transparency First</SL>
             <SH>Documents & Certifications</SH>
-            <p style={{fontSize:15,color:"#888",maxWidth:540,margin:"14px auto 0",lineHeight:1.8}}>All Bingxi quality documents available for buyer review. Tap any card to request via WhatsApp — we share the original within 24 hours.</p>
+            <p style={{fontSize:15,color:"rgba(255,255,255,0.65)",maxWidth:540,margin:"14px auto 0",lineHeight:1.8}}>All Bingxi quality documents available for buyer review. Tap any card to request via WhatsApp — we share the original within 24 hours.</p>
           </div>
           <div className="grid-3" style={{gap:18}}>
             {[
@@ -5226,7 +5226,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
                 <div style={{width:52,height:52,background:"#F5EDE0",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{d.icon}</div>
                 <div>
                   <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:500,color:C.dark,margin:"0 0 4px"}}>{d.title}</h4>
-                  <p style={{fontSize:12,color:"#999",margin:0,lineHeight:1.5}}>{d.sub}</p>
+                  <p style={{fontSize:12,color:"rgba(255,255,255,0.7)",margin:0,lineHeight:1.5}}>{d.sub}</p>
                 </div>
                 <div style={{marginTop:"auto",paddingTop:12,borderTop:`1px solid ${C.sand}`,display:"flex",alignItems:"center",gap:7}}>
                   <svg width={13} height={13} fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
@@ -5248,7 +5248,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
           <div>
             <SL>Ready to Start?</SL>
             <SH>Let's Talk About Your Order</SH>
-            <p style={{fontSize:14.5,color:"#888",marginTop:10,maxWidth:480,lineHeight:1.72,fontWeight:300}}>Home buyer or B2B buyer — we're ready to share an indicative quote and get you started.</p>
+            <p style={{fontSize:14.5,color:"rgba(255,255,255,0.65)",marginTop:10,maxWidth:480,lineHeight:1.72,fontWeight:300}}>Home buyer or B2B buyer — we're ready to share an indicative quote and get you started.</p>
           </div>
           <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
             <button className="bg" onClick={()=>onInquire(null,"general")} style={{padding:"14px 28px",fontSize:12}}>Send Inquiry</button>
@@ -5282,13 +5282,13 @@ function CertChips({onProof}:{onProof:()=>void}){
     <div style={{padding:"13px 0",borderTop:`1px solid ${C.sand}`,borderBottom:`1px solid ${C.sand}`,background:C.beige,overflowX:"auto"}}>
       <div className="container">
         <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
-          <span style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"#aaa",flexShrink:0,whiteSpace:"nowrap"}}>Docs for buyer review:</span>
+          <span style={{fontSize:10,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(255,255,255,0.75)",flexShrink:0,whiteSpace:"nowrap"}}>Docs for buyer review:</span>
           {CERT_CHIPS_DATA.map((c,i)=>(
             <button key={i} className="cert-chip" onClick={onProof} title="Documents available for buyer review">
               <span style={{color:C.gold,fontSize:9}}>{c.icon}</span>{c.label}
             </button>
           ))}
-          <span style={{fontSize:10,color:"#ccc",marginLeft:4,fontStyle:"italic",whiteSpace:"nowrap",flexShrink:0}}>Scope per document.</span>
+          <span style={{fontSize:10,color:"rgba(255,255,255,0.7)",marginLeft:4,fontStyle:"italic",whiteSpace:"nowrap",flexShrink:0}}>Scope per document.</span>
         </div>
       </div>
     </div>
@@ -5315,7 +5315,7 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
         <div style={{padding:"24px 24px 16px",borderBottom:"1px solid #2a2a2a",flexShrink:0}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
             <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,letterSpacing:6,color:"#f5f2ed"}}>XIYORA</div>
-            <button onClick={onClose} style={{background:"none",border:"1px solid #2a2a2a",color:"#888",cursor:"pointer",width:28,height:28,borderRadius:"50%",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
+            <button onClick={onClose} style={{background:"none",border:"1px solid #2a2a2a",color:"rgba(255,255,255,0.65)",cursor:"pointer",width:28,height:28,borderRadius:"50%",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
               onMouseEnter={(e:any)=>{e.currentTarget.style.borderColor="#C8C3BA";e.currentTarget.style.color=C.ink;}}
               onMouseLeave={(e:any)=>{e.currentTarget.style.borderColor="#2a2a2a";e.currentTarget.style.color="#888";}}>✕</button>
           </div>
@@ -5370,12 +5370,12 @@ function SideDrawer({open,onClose,setPage,onCatFilter,onCatalog,onInquire,onProo
             +91 70283 11226
           </a>
           <a href={`mailto:${BIZ.email}`}
-            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:10,fontFamily:"'Inter', sans-serif"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"rgba(255,255,255,0.7)",fontSize:12,textDecoration:"none",marginBottom:10,fontFamily:"'Inter', sans-serif"}}>
             <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             {BIZ.email}
           </a>
           <a href={BIZ.ig} target="_blank" rel="noreferrer"
-            style={{display:"flex",alignItems:"center",gap:9,color:"#999",fontSize:12,textDecoration:"none",marginBottom:18,fontFamily:"'Inter', sans-serif"}}>
+            style={{display:"flex",alignItems:"center",gap:9,color:"rgba(255,255,255,0.7)",fontSize:12,textDecoration:"none",marginBottom:18,fontFamily:"'Inter', sans-serif"}}>
             <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
             @xiyora.zi
           </a>
@@ -5459,7 +5459,7 @@ const getFlagElement = (c: string) => {
       height="13" 
       alt="" 
       style={{ objectFit: "cover", borderRadius: 1.5, display: "inline-block", verticalAlign: "middle", flexShrink: 0 }} 
-    />
+     onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
   );
 };
 
@@ -5608,26 +5608,26 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
 function Footer({setPage,onInquire,onSubscribe}:any){
   const C=useC();
   return(
-    <footer style={{background:"#1a1a1a",color:"#999",padding:"60px 0 30px",position:"relative",overflow:"hidden"}} data-cms-id="footer">
+    <footer style={{background:"#1a1a1a",color:"rgba(255,255,255,0.7)",padding:"60px 0 30px",position:"relative",overflow:"hidden"}} data-cms-id="footer">
       <GoldCloud className="x-drift-slow" size={220} opacity={.12} style={{position:"absolute",top:30,right:40,pointerEvents:"none"}}/>
       <div className="container" style={{position:"relative"}}>
         <div data-cms-id="footer-links" className="fc-grid" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr 1.6fr",gap:38,marginBottom:52}}>
           <div>
             <div style={{cursor:"pointer",marginBottom:16,display:"inline-block"}} onClick={()=>setPage("home")}><Monogram color="#ffffff" size={.95}/></div>
-            <p style={{fontSize:13,lineHeight:1.85,color:"#999",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
-            <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:7,transition:"color .2s"}}
+            <p style={{fontSize:13,lineHeight:1.85,color:"rgba(255,255,255,0.7)",marginBottom:18,maxWidth:220}}>Official Bingxi sourcing partner for India. Premium natural latex mattresses, pillows, toppers, and cushions.</p>
+            <a href={waMsg("Hi XIYORA")} target="_blank" rel="noreferrer" style={{fontSize:12.5,color:"rgba(255,255,255,0.75)",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:7,transition:"color .2s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.color="#4fd97e"}
               onMouseLeave={(e:any)=>e.currentTarget.style.color="#aaa"}>
               <span style={{color:"#25D366",fontSize:9}}>●</span>+91 70283 11226
             </a>
-            <a href={`mailto:${BIZ.email}`} style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:8,transition:"color .2s"}}
+            <a href={`mailto:${BIZ.email}`} style={{fontSize:12.5,color:"rgba(255,255,255,0.75)",textDecoration:"none",display:"flex",alignItems:"center",gap:7,marginBottom:8,transition:"color .2s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.color="#ffffff"}
               onMouseLeave={(e:any)=>e.currentTarget.style.color="#aaa"}>
               <svg width={13} height={13} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               {BIZ.email}
             </a>
             <a href={BIZ.ig} target="_blank" rel="noreferrer"
-              style={{fontSize:12.5,color:"#aaa",textDecoration:"none",display:"flex",alignItems:"center",gap:8,marginBottom:12,transition:"color .25s"}}
+              style={{fontSize:12.5,color:"rgba(255,255,255,0.75)",textDecoration:"none",display:"flex",alignItems:"center",gap:8,marginBottom:12,transition:"color .25s"}}
               onMouseEnter={(e:any)=>e.currentTarget.style.color="#E1306C"}
               onMouseLeave={(e:any)=>e.currentTarget.style.color="#aaa"}>
               <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
@@ -5671,7 +5671,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
           </div>
           <div>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Stay in Touch</div>
-            <p style={{fontSize:13,color:"#888",lineHeight:1.78,marginBottom:16}}>Product launches, B2B updates, and comfort insights.</p>
+            <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",lineHeight:1.78,marginBottom:16}}>Product launches, B2B updates, and comfort insights.</p>
             <button className="bg" style={{width:"100%",padding:12,fontSize:12}} onClick={onSubscribe}>Join XIYORA</button>
             <p style={{fontSize:11.5,color:"#666",lineHeight:1.7,marginTop:16,maxWidth:220}}>{BIZ.address}</p>
           </div>
@@ -5888,7 +5888,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
   };
 
   const inp=(k?:string):React.CSSProperties=>({width:"100%",background:"#ffffff",border:`1px solid ${k&&fieldErr[k]?"#e0a0a0":C.sand}`,padding:"10px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter', sans-serif",color:C.dark,marginBottom:fieldErr[k||""]?3:10});
-  const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
+  const lbl:React.CSSProperties={fontSize:11.5,color:"rgba(255,255,255,0.65)",marginBottom:5,display:"block"};
   const ferr=(k:string)=>fieldErr[k]?<div style={{fontSize:11,color:"#cc4444",marginBottom:8}}>{fieldErr[k]}</div>:null;
 
   return(
@@ -5919,7 +5919,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                         <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                       </div>
                       <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:4,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",flexShrink:0}}>Move to Basket</button>
-                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:4,fontSize:11,color:"#aaa",fontFamily:"'Inter', sans-serif",flexShrink:0}}>✕</button>
+                      <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:4,fontSize:11,color:"rgba(255,255,255,0.75)",fontFamily:"'Inter', sans-serif",flexShrink:0}}>✕</button>
                     </div>
                   ))}
                 </div>
@@ -5933,12 +5933,12 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             </div>
             <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,fontWeight:400,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:8}}>Reference: CHK-{String(savedId).padStart(4,"0")}</p>}
-            <p style={{fontSize:14,color:"#888",lineHeight:1.75,marginBottom:8}}>
+            <p style={{fontSize:14,color:"rgba(255,255,255,0.65)",lineHeight:1.75,marginBottom:8}}>
               {payMode==="upi"?`UPI payment pending verification. UTR/Ref: ${utr||"not entered"}.`:""}
               {payMode==="proforma"?"We will prepare your Proforma Invoice and send via WhatsApp / email.":""}
               {payMode==="whatsapp"?"We will confirm your order via WhatsApp shortly.":""}
             </p>
-            <p style={{fontSize:13,color:"#aaa",lineHeight:1.7,marginBottom:20}}>We will contact you within 24–48 hours to confirm and proceed with your final invoice.</p>
+            <p style={{fontSize:13,color:"rgba(255,255,255,0.75)",lineHeight:1.7,marginBottom:20}}>We will contact you within 24–48 hours to confirm and proceed with your final invoice.</p>
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
               <button style={{background:"#25D366",color:"#fff",border:"none",padding:"13px 26px",fontFamily:"'Inter', sans-serif",fontSize:12,letterSpacing:"1.2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}}
                 onClick={()=>window.open(waMsg(`Hi XIYORA, I placed an order (CHK-${String(savedId).padStart(4,"0")}) for: ${productNames}. Please confirm next steps.`),"_blank")}>
@@ -5962,7 +5962,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     <img src={item.image} alt={item.productName} loading="lazy" decoding="async" style={{width:60,height:60,objectFit:"contain",borderRadius:3,flexShrink:0,background:C.white}} onError={(e:any)=>{e.target.src=FALLBACK_IMG;}}/>
                     <div style={{flex:1,minWidth:0,overflow:"hidden"}}>
                       <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:15,fontWeight:400,color:C.dark,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.productName}</div>
-                      {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11,color:"#888",marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
+                      {item.variantLabel&&item.variantLabel!==item.productName&&<div style={{fontSize:11,color:"rgba(255,255,255,0.65)",marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.variantLabel}</div>}
                       {(() => {
                         const itemDisc = getFakeDiscountInfo(item.sku || item.productId, item.priceINR, cur);
                         return (
@@ -5987,7 +5987,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                         <span style={{padding:"0 8px",fontSize:13,color:C.dark,minWidth:20,textAlign:"center"}}>{item.quantity}</span>
                         <button onClick={()=>updateQty(item.cartKey,item.quantity+1)} style={{padding:"5px 9px",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.dark}}>+</button>
                       </div>
-                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter', sans-serif"}}>✕</button>
+                      <button onClick={()=>removeItem(item.cartKey)} style={{background:"none",border:`1px solid ${C.sand}`,padding:"5px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"rgba(255,255,255,0.75)",fontFamily:"'Inter', sans-serif"}}>✕</button>
                     </div>
                   </div>
                 ))}
@@ -6008,7 +6008,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                           <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontWeight:500}}>{priceIn(cur,p.priceINR)}</div>
                         </div>
                         <button onClick={()=>moveWishToCart(p)} style={{background:C.gold,color:"#fff",border:"none",padding:"7px 12px",cursor:"pointer",borderRadius:3,fontSize:10.5,letterSpacing:".5px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",flexShrink:0}}>Move to Basket</button>
-                        <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"#aaa",fontFamily:"'Inter', sans-serif",flexShrink:0}}>✕</button>
+                        <button onClick={()=>onWish(p.id)} title="Remove" style={{background:"none",border:`1px solid ${C.sand}`,padding:"6px 9px",cursor:"pointer",borderRadius:2,fontSize:11,color:"rgba(255,255,255,0.75)",fontFamily:"'Inter', sans-serif",flexShrink:0}}>✕</button>
                       </div>
                     ))}
                   </div>
@@ -6035,7 +6035,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                       {geoLoading?<Spinner/>:<svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
                       <span>Use my current location</span>
                     </button>
-                    <span style={{fontSize:11,color:"#aaa",lineHeight:1.45,flex:1,minWidth:0}}>We use this only to estimate delivery zone and charges.</span>
+                    <span style={{fontSize:11,color:"rgba(255,255,255,0.75)",lineHeight:1.45,flex:1,minWidth:0}}>We use this only to estimate delivery zone and charges.</span>
                   </div>
                   {geoMsg&&<div style={{fontSize:11.5,marginTop:8,padding:"6px 8px",borderRadius:3,background:geoMsg.includes("denied")||geoMsg.includes("Could not")?"#fff8f0":"#edfaf5",color:geoMsg.includes("denied")||geoMsg.includes("Could not")?"#9a6a2a":"#2a7a4e",lineHeight:1.5,wordBreak:"break-word"}}>{geoMsg}</div>}
                 </div>
@@ -6080,13 +6080,13 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 <div><label style={lbl}>Company / Brand <span style={{color:"#bbb",fontSize:10}}>(optional)</span></label><input style={inp()} value={form.company} onChange={e=>setF("company",e.target.value)} placeholder="Company or brand name"/></div>
                 {!confirmed&&<button className="bg" onClick={confirmDetails} style={{width:"100%",padding:"12px",fontSize:11.5,marginTop:8}}>Confirm Details &amp; Location</button>}
                 {confirmed&&(
-                  <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 14px",marginTop:12,fontSize:11.5,color:"#888",lineHeight:1.65}}>
+                  <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:3,padding:"10px 14px",marginTop:12,fontSize:11.5,color:"rgba(255,255,255,0.65)",lineHeight:1.65}}>
                     <strong style={{color:C.dark,display:"block",marginBottom:2}}>{form.name} · {form.phone}</strong>
                     {form.fullAddress&&<span style={{display:"block",color:C.dark,wordBreak:"break-word"}}>{form.fullAddress}{form.landmark?`, ${form.landmark}`:""}</span>}
                     <strong style={{color:C.dark}}>{form.city}, {form.state} — {form.pincode}</strong>
-                    {form.company&&<span style={{display:"block",color:"#999",marginTop:1}}>{form.company}</span>}
+                    {form.company&&<span style={{display:"block",color:"rgba(255,255,255,0.7)",marginTop:1}}>{form.company}</span>}
                     {delivery&&<span style={{display:"block",marginTop:4,color:"#2a7a4e"}}>✓ {delivery.type === "intl" ? delivery.label : `Zone ${delivery.zone}`} · est. {delivery.days} days via {delivery.port}</span>}
-                    <span style={{display:"block",marginTop:4,color:"#aaa"}}>Edit any field above to re-confirm before payment.</span>
+                    <span style={{display:"block",marginTop:4,color:"rgba(255,255,255,0.75)"}}>Edit any field above to re-confirm before payment.</span>
                   </div>
                 )}
               </div>
@@ -6111,10 +6111,10 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     <div key={i.cartKey} style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:8,paddingTop:idx>0?6:0,marginTop:idx>0?6:0,borderTop:idx>0?`1px solid ${C.sand}`:"none"}}>
                       <div style={{flex:1,minWidth:0}}>
                         <div style={{fontSize:12,fontWeight:500,color:C.dark,wordBreak:"break-word",lineHeight:1.4}}>{i.productName}</div>
-                        {i.variantLabel&&i.variantLabel!==i.productName&&<div style={{fontSize:11,color:"#aaa",wordBreak:"break-word",lineHeight:1.35}}>{i.variantLabel}</div>}
+                        {i.variantLabel&&i.variantLabel!==i.productName&&<div style={{fontSize:11,color:"rgba(255,255,255,0.75)",wordBreak:"break-word",lineHeight:1.35}}>{i.variantLabel}</div>}
                       </div>
                       <div style={{flexShrink:0,textAlign:"right",paddingLeft:8}}>
-                        <div style={{fontSize:12,color:"#888",whiteSpace:"nowrap"}}>×{i.quantity}</div>
+                        <div style={{fontSize:12,color:"rgba(255,255,255,0.65)",whiteSpace:"nowrap"}}>×{i.quantity}</div>
                         <div style={{fontSize:12,color:C.gold,fontFamily:"'Cormorant Garamond', serif",fontWeight:500,whiteSpace:"nowrap"}}>{priceIn(cur,i.priceINR)}</div>
                       </div>
                     </div>
@@ -6124,29 +6124,29 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   <div>
                     {cartOriginalTotalINR > cartTotalINR && (
                       <>
-                        <div className="co-sum-row" style={{textDecoration:"line-through",opacity:.65}}><span className="co-label" style={{color:"#888"}}>Original Subtotal</span><span className="co-amt">₹{cartOriginalTotalINR.toLocaleString("en-IN")}</span></div>
+                        <div className="co-sum-row" style={{textDecoration:"line-through",opacity:.65}}><span className="co-label" style={{color:"rgba(255,255,255,0.65)"}}>Original Subtotal</span><span className="co-amt">₹{cartOriginalTotalINR.toLocaleString("en-IN")}</span></div>
                         <div className="co-sum-row" style={{color:"#9E3B2E",fontWeight:600}}><span className="co-label" style={{color:"#9E3B2E"}}>Savings Discount</span><span className="co-amt">-₹{(cartOriginalTotalINR - cartTotalINR).toLocaleString("en-IN")}</span></div>
                       </>
                     )}
                     <div className="co-sum-row"><span className="co-label">Subtotal (indicative)</span><span className="co-amt">₹{cartTotalINR.toLocaleString("en-IN")}</span></div>
                     <div className="co-sum-row">
                       <span className="co-label">Delivery{delivery ? (delivery.type === "intl" ? " (Intl)" : ` · Zone ${delivery.zone}`) : ""}
-                        {delivery && <span style={{display:"block",fontSize:11,color:"#aaa"}}>{delivery.days} days via {delivery.port}</span>}
+                        {delivery && <span style={{display:"block",fontSize:11,color:"rgba(255,255,255,0.75)"}}>{delivery.days} days via {delivery.port}</span>}
                       </span>
                       <span className="co-amt">
                         {delivery 
                           ? delivery.type === "intl" 
                             ? "Quote on Request" 
                             : `₹${deliveryINRr.toLocaleString("en-IN")}`
-                          : <span style={{fontSize:11,color:"#aaa"}}>Enter postal code</span>
+                          : <span style={{fontSize:11,color:"rgba(255,255,255,0.75)"}}>Enter postal code</span>
                         }
                       </span>
                     </div>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",gap:8,borderTop:`1px solid ${C.sand}`,paddingTop:10,marginTop:6}}>
-                      <span style={{fontSize:12,letterSpacing:".5px",textTransform:"uppercase",color:"#999",flex:1}}>{(delivery && delivery.type === "india") ? "Estimated total" : "Subtotal"}</span>
+                      <span style={{fontSize:12,letterSpacing:".5px",textTransform:"uppercase",color:"rgba(255,255,255,0.7)",flex:1}}>{(delivery && delivery.type === "india") ? "Estimated total" : "Subtotal"}</span>
                       <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(18px,5vw,22px)" as any,fontWeight:600,color:C.gold,flexShrink:0,paddingLeft:8}}>₹{(delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR).toLocaleString("en-IN")}</span>
                     </div>
-                    {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"#aaa",marginTop:3}}>≈ {fmtMoney(cur,delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR)} {cur}</div>}
+                    {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"rgba(255,255,255,0.75)",marginTop:3}}>≈ {fmtMoney(cur,delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR)} {cur}</div>}
                     {!delivery&&<div style={{fontSize:11,color:"#9a8a6a",marginTop:8,lineHeight:1.5}}>Enter your postal code above to see delivery charge and estimated total.</div>}
                     <div style={{fontSize:10.5,color:"#bbb",lineHeight:1.6,marginTop:8,wordBreak:"break-word"}}>Indicative total. Final price confirmed via proforma invoice.{cur!=="INR"?` ${CURRENCY_DISCLAIMER}`:""}</div>
                     <button onClick={printProforma} style={{marginTop:10,width:"100%",boxSizing:"border-box",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>View / Print Proforma Estimate</button>
@@ -6168,7 +6168,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     <div style={{width:16,height:16,borderRadius:"50%",border:`2px solid ${payMode===k?C.gold:"#ccc"}`,background:payMode===k?C.gold:"transparent",flexShrink:0,marginTop:2}}/>
                     <div>
                       <div style={{fontSize:13,fontWeight:500,color:C.dark}}>{label}</div>
-                      <div style={{fontSize:11.5,color:"#aaa",marginTop:2}}>{sub}</div>
+                      <div style={{fontSize:11.5,color:"rgba(255,255,255,0.75)",marginTop:2}}>{sub}</div>
                     </div>
                   </div>
                 ))}
@@ -6178,21 +6178,21 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 <div style={{background:C.beige,border:`1px dashed ${C.sand}`,borderRadius:4,padding:"18px 20px",marginBottom:16,textAlign:"center"}}>
                   <svg width={22} height={22} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24" style={{marginBottom:8}}><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                   <div style={{fontSize:12.5,color:C.dark,fontWeight:500,marginBottom:4}}>UPI Payment Locked</div>
-                  <div style={{fontSize:11.5,color:"#999",lineHeight:1.6}}>Complete <strong>Step 1 · Confirm Details &amp; Location</strong> above to unlock UPI payment and view the QR code.</div>
+                  <div style={{fontSize:11.5,color:"rgba(255,255,255,0.7)",lineHeight:1.6}}>Complete <strong>Step 1 · Confirm Details &amp; Location</strong> above to unlock UPI payment and view the QR code.</div>
                 </div>
               )}
               {payMode==="upi"&&upiUnlocked&&(
                 <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:4,padding:"18px 20px",marginBottom:16}}>
                   <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:12}}>UPI Payment Details</div>
                   <div style={{background:C.beige,borderRadius:3,padding:"12px 14px",marginBottom:12}}>
-                    <div style={{fontSize:11,color:"#aaa",marginBottom:3}}>UPI ID</div>
+                    <div style={{fontSize:11,color:"rgba(255,255,255,0.75)",marginBottom:3}}>UPI ID</div>
                     <div style={{fontSize:14,fontWeight:600,color:C.dark,letterSpacing:".5px"}}>{UPI_ID}</div>
-                    <div style={{fontSize:11,color:"#aaa",marginTop:3}}>Google Pay · PhonePe · Paytm · BHIM · Any UPI app</div>
+                    <div style={{fontSize:11,color:"rgba(255,255,255,0.75)",marginTop:3}}>Google Pay · PhonePe · Paytm · BHIM · Any UPI app</div>
                   </div>
                   <div style={{display:"flex",justifyContent:"center",marginBottom:12}}>
                     <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:6,padding:10,textAlign:"center"}}>
                       <img src="/assets/payment/upi-qr.webp" alt={`Scan to pay ${UPI_NAME} via UPI`} loading="lazy" decoding="async" style={{width:170,height:170,objectFit:"contain",display:"block"}} onError={(e:any)=>{e.currentTarget.parentElement.style.display="none";}}/>
-                      <div style={{fontSize:10.5,color:"#aaa",marginTop:6,letterSpacing:".5px"}}>Scan with any UPI app</div>
+                      <div style={{fontSize:10.5,color:"rgba(255,255,255,0.75)",marginTop:6,letterSpacing:".5px"}}>Scan with any UPI app</div>
                     </div>
                   </div>
                   <a href={upiLink} style={{display:"block",textAlign:"center",background:C.gold,color:"#fff",padding:"11px",borderRadius:3,fontSize:12,textDecoration:"none",letterSpacing:"1px",textTransform:"uppercase",marginBottom:12,fontFamily:"'Inter', sans-serif",fontWeight:500}}>
@@ -6200,7 +6200,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   </a>
                   <label style={lbl}>UTR / Reference Number (after payment)</label>
                   <input style={inp()} value={utr} onChange={e=>setUtr(e.target.value)} placeholder="Enter UTR or transaction reference"/>
-                  <p style={{fontSize:11.5,color:"#aaa",lineHeight:1.65}}>Payment status: <strong style={{color:"#C8860A"}}>Pending manual verification.</strong> We will confirm within 24 hours after you share the UTR.</p>
+                  <p style={{fontSize:11.5,color:"rgba(255,255,255,0.75)",lineHeight:1.65}}>Payment status: <strong style={{color:"#C8860A"}}>Pending manual verification.</strong> We will confirm within 24 hours after you share the UTR.</p>
                 </div>
               )}
 
@@ -6240,13 +6240,13 @@ function AccountView({setPage}:any){
   const set=(k:string,v:string)=>setProfile((p:any)=>({...p,[k]:v}));
   const save=()=>{localStorage.setItem("xiyora_profile",JSON.stringify(profile));setSaved(true);setTimeout(()=>setSaved(false),3000);};
   const inp:React.CSSProperties={width:"100%",background:"#ffffff",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter', sans-serif",color:C.dark,marginBottom:12};
-  const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block"};
+  const lbl:React.CSSProperties={fontSize:11.5,color:"rgba(255,255,255,0.65)",marginBottom:5,display:"block"};
   return(
     <div style={{background:C.white,minHeight:"70vh",padding:"56px 0"}}>
       <div className="container" style={{maxWidth:640}}>
         <SL>Your Profile</SL>
         <SH>Account</SH>
-        <p style={{fontSize:14,color:"#aaa",marginBottom:36,marginTop:10,lineHeight:1.7}}>Your profile is saved locally on this device. We use it to pre-fill enquiry forms for faster checkout.</p>
+        <p style={{fontSize:14,color:"rgba(255,255,255,0.75)",marginBottom:36,marginTop:10,lineHeight:1.7}}>Your profile is saved locally on this device. We use it to pre-fill enquiry forms for faster checkout.</p>
         <div style={{background:C.beige,borderRadius:4,padding:"28px 28px"}}>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 16px"}}>
             {([["Full Name","name","text","Your name"],["Phone / WhatsApp","phone","tel","+91 XXXXX"],["Email","email","email","your@email.com"],["City","city","text","Mumbai"],["State","state","text","Maharashtra"],["Pincode","pincode","text","400001"]] as const).map(([l,k,t,ph])=>(
@@ -6278,7 +6278,7 @@ function AccountView({setPage}:any){
         </div>
         <div style={{marginTop:32,padding:"18px 22px",background:C.beige,borderRadius:4,borderLeft:`3px solid ${C.gold}`}}>
           <p style={{fontSize:14,fontWeight:500,color:C.dark,marginBottom:6}}>Your Enquiries</p>
-          <p style={{fontSize:13,color:"#888",lineHeight:1.7}}>Your enquiries are saved in our database. Contact us on WhatsApp at <a href={waMsg("Hi XIYORA, I want to check my enquiry status.")} target="_blank" rel="noreferrer" style={{color:C.gold,textDecoration:"none"}}>+91 70283 11226</a> or email <a href={`mailto:${BIZ.email}`} style={{color:C.gold,textDecoration:"none"}}>{BIZ.email}</a> to check the status of your enquiry.</p>
+          <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",lineHeight:1.7}}>Your enquiries are saved in our database. Contact us on WhatsApp at <a href={waMsg("Hi XIYORA, I want to check my enquiry status.")} target="_blank" rel="noreferrer" style={{color:C.gold,textDecoration:"none"}}>+91 70283 11226</a> or email <a href={`mailto:${BIZ.email}`} style={{color:C.gold,textDecoration:"none"}}>{BIZ.email}</a> to check the status of your enquiry.</p>
         </div>
         <button className="bo" style={{marginTop:22,padding:"11px 22px",fontSize:12}} onClick={()=>setPage("home")}>← Back to Home</button>
       </div>
@@ -6356,7 +6356,7 @@ function ProofLibraryView({setPage}:any){
         <div className="container">
           <SL>Certificates & Proof</SL>
           <SH>Quality Documentation Library</SH>
-          <p style={{fontSize:15,color:"#888",maxWidth:600,lineHeight:1.78,marginTop:12}}>
+          <p style={{fontSize:15,color:"rgba(255,255,255,0.65)",maxWidth:600,lineHeight:1.78,marginTop:12}}>
             XIYORA maintains transparent documentation for all products. Certificates, lab reports, and trade documents are available on request for verified B2B buyers.
           </p>
         </div>
@@ -6384,7 +6384,7 @@ function ProofLibraryView({setPage}:any){
                       <svg width={15} height={15} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
                       Request via WhatsApp
                     </button>
-                    <p style={{fontSize:10,color:"#aaa",marginTop:8,textAlign:"center",fontStyle:"italic"}}>Original shared within 24 hours</p>
+                    <p style={{fontSize:10,color:"rgba(255,255,255,0.75)",marginTop:8,textAlign:"center",fontStyle:"italic"}}>Original shared within 24 hours</p>
                   </div>
                 )}
               </div>
@@ -6396,7 +6396,7 @@ function ProofLibraryView({setPage}:any){
           <div style={{flex:1,minWidth:0}}>
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>Request Documentation</div>
             <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,color:"#F0EBE3",marginBottom:8}}>Need Certificates or Lab Reports?</h3>
-            <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,maxWidth:480}}>Send us your company details and the specific documentation required. We will provide the relevant certificates from Bingxi's documentation library for your import/compliance team.</p>
+            <p style={{fontSize:13.5,color:"rgba(255,255,255,0.65)",lineHeight:1.72,maxWidth:480}}>Send us your company details and the specific documentation required. We will provide the relevant certificates from Bingxi's documentation library for your import/compliance team.</p>
           </div>
           <div className="proof-cta-btns" style={{display:"flex",gap:12,flexShrink:0,flexWrap:"wrap"}}>
             <button className="bg" style={{padding:"14px 26px",fontSize:12,whiteSpace:"nowrap"}}
@@ -6457,12 +6457,12 @@ function OrderStatusView({setPage}:any){
         <div className="container">
           <SL>Track Your Request</SL>
           <SH>Order Status</SH>
-          <p style={{fontSize:14.5,color:"#888",marginTop:10,maxWidth:500,lineHeight:1.72,fontWeight:300}}>Enter the reference number from your confirmation — EQ-XXXX for enquiries, CHK-XXXX for checkout orders, QR-XXXX for quote requests.</p>
+          <p style={{fontSize:14.5,color:"rgba(255,255,255,0.65)",marginTop:10,maxWidth:500,lineHeight:1.72,fontWeight:300}}>Enter the reference number from your confirmation — EQ-XXXX for enquiries, CHK-XXXX for checkout orders, QR-XXXX for quote requests.</p>
         </div>
       </div>
       <div className="container" style={{maxWidth:640,padding:"56px 40px"}}>
         <div style={{background:C.beige,borderRadius:5,padding:"32px 36px",marginBottom:28,border:`1px solid ${C.sand}`}}>
-          <label style={{fontSize:11.5,color:"#888",letterSpacing:".3px",display:"block",marginBottom:8}}>Your Reference Number</label>
+          <label style={{fontSize:11.5,color:"rgba(255,255,255,0.65)",letterSpacing:".3px",display:"block",marginBottom:8}}>Your Reference Number</label>
           <div style={{display:"flex",gap:10,marginBottom:8}}>
             <input
               value={ref} onChange={e=>setRef(e.target.value)} onKeyDown={e=>e.key==="Enter"&&lookup()}
@@ -6508,7 +6508,7 @@ function OrderStatusView({setPage}:any){
                   </div>
                 ))}
               </div>
-              <p style={{fontSize:12.5,color:"#aaa",marginTop:18,lineHeight:1.65}}>For the latest update or to make changes, contact us on WhatsApp with your reference number.</p>
+              <p style={{fontSize:12.5,color:"rgba(255,255,255,0.75)",marginTop:18,lineHeight:1.65}}>For the latest update or to make changes, contact us on WhatsApp with your reference number.</p>
               <div style={{display:"flex",gap:10,marginTop:14,flexWrap:"wrap"}}>
                 <a href={`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(`Hi XIYORA, I need an update on my order. Reference: ${result.ref}`)}`} target="_blank" rel="noreferrer"
                   style={{background:"#25D366",color:"#fff",padding:"10px 18px",borderRadius:2,fontSize:12,letterSpacing:"1px",textTransform:"uppercase",textDecoration:"none",display:"flex",alignItems:"center",gap:6,fontFamily:"'Inter', sans-serif"}}>
@@ -6578,7 +6578,7 @@ function AdminView(){
       <div style={{background:C.beige,borderRadius:4,padding:"40px 48px",maxWidth:400,width:"100%",textAlign:"center"}}>
         <SL>Internal</SL>
         <SH>Admin Panel</SH>
-        <p style={{fontSize:13,color:"#aaa",margin:"12px 0 24px",lineHeight:1.7}}>Enter your ADMIN_SECRET environment variable to access leads.</p>
+        <p style={{fontSize:13,color:"rgba(255,255,255,0.75)",margin:"12px 0 24px",lineHeight:1.7}}>Enter your ADMIN_SECRET environment variable to access leads.</p>
         <input type="password" value={pin} onChange={e=>setPin(e.target.value)} onKeyDown={e=>e.key==="Enter"&&unlock()} placeholder="Admin secret" style={{width:"100%",background:"#fff",border:`1px solid ${C.sand}`,padding:"12px 14px",fontSize:14,borderRadius:3,fontFamily:"'Inter', sans-serif",marginBottom:12}}/>
         {err&&<p style={{color:"#cc4444",fontSize:12,marginBottom:12}}>{err}</p>}
         <button className="bg" onClick={unlock} style={{width:"100%",padding:13}} disabled={loading}>{loading?<Spinner/>:"Unlock"}</button>
@@ -6601,7 +6601,7 @@ function AdminView(){
             </button>
           ))}
         </div>
-        {loading&&<div style={{textAlign:"center",padding:"40px",color:"#aaa"}}>Loading…</div>}
+        {loading&&<div style={{textAlign:"center",padding:"40px",color:"rgba(255,255,255,0.75)"}}>Loading…</div>}
         {err&&<div style={{color:"#cc4444",marginBottom:14}}>{err}</div>}
         {!loading&&data.length===0&&!err&&<div style={{textAlign:"center",padding:"40px",color:"#bbb"}}>No records yet.</div>}
         {!loading&&data.length>0&&(
@@ -6610,7 +6610,7 @@ function AdminView(){
               <thead>
                 <tr style={{borderBottom:`2px solid ${C.sand}`}}>
                   {Object.keys(data[0]).map(k=>(
-                    <th key={k} style={{padding:"10px 12px",textAlign:"left",color:"#888",fontWeight:500,whiteSpace:"nowrap",textTransform:"uppercase",fontSize:10.5,letterSpacing:"1px"}}>{k.replace(/_/g," ")}</th>
+                    <th key={k} style={{padding:"10px 12px",textAlign:"left",color:"rgba(255,255,255,0.65)",fontWeight:500,whiteSpace:"nowrap",textTransform:"uppercase",fontSize:10.5,letterSpacing:"1px"}}>{k.replace(/_/g," ")}</th>
                   ))}
                 </tr>
               </thead>
@@ -6678,6 +6678,37 @@ export function SimplePage({title,content,setPage}:any){
 export default function App(){
   const [page,setPage]=useState("home");
   const [selProd,setSelProd]=useState<any>(null);
+
+  // Dynamic SEO & Document Title Handler
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    const titles: Record<string, string> = {
+      home: "XIYORA | Official Bingxi Natural Latex Sourcing Partner",
+      catalog: "Natural Latex Collection — Mattresses, Pillows & Toppers | XIYORA",
+      product: selProd ? `${selProd.name} — XIYORA Natural Latex` : "Product Details | XIYORA",
+      about: "Our Story & Latex Provenance | XIYORA",
+      supplier: "B2B & Wholesale Partnership | XIYORA",
+      reviews: "Verified Customer Reviews & Proof | XIYORA",
+      "latex-guide": "Latex Sourcing & Density Guide | XIYORA",
+      proof: "Certificates & Test Lab Reports | XIYORA",
+      checkout: "Order Summary & Checkout | XIYORA",
+      account: "My Account | XIYORA",
+      contact: "Contact Us & B2B Inquiries | XIYORA"
+    };
+    document.title = titles[page] || "XIYORA | Premium Natural Latex";
+  }, [page, selProd]);
+
+  // Browser History Back/Forward (popstate) Handler
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (e.state && e.state.page) {
+        setPage(e.state.page);
+        if (e.state.prod) setSelProd(e.state.prod);
+      }
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
   const [activeCat,setActiveCat]=useState<string|null>(null);
   const [cur,setCur]=useState("USD");
   const [userLoc, setUserLoc] = useState(() => {
