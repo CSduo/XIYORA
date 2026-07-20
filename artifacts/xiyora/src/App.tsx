@@ -2122,7 +2122,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
   const isReverse = layout === "reverse";
 
   return(
-    <section className="lux-noir" /* now-light */ style={{position:"relative",overflow:"hidden",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}} data-cms-id="hero-section">
+    <section className="lux-noir" style={{position:"relative",overflow:"hidden",background:"#0c0a08",padding:BIZ.heroPadding || "clamp(22px,4vw,46px) 0 clamp(30px,4vw,54px)"}} data-cms-id="hero-section">
       {/* section-edge framing motifs — low z-index, kept away from text */}
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:-10,right:4,height:"min(62%,400px)",opacity:.2,pointerEvents:"none",zIndex:1}}/>
       <div className="container" style={{position:"relative",zIndex:4}}>
@@ -5513,7 +5513,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
     <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(26,26,26,.08)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:scrolled?"0 4px 32px rgba(0,0,0,.5)":"none",transition:"box-shadow .35s ease"}}>
       {/* fine hairline divider at the base of the bar */}
       <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"rgba(26,26,26,.06)",pointerEvents:"none"}}/>
-      <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1.2fr) auto minmax(0, 1.2fr)",alignItems:"center",height:62}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"0 clamp(16px, 3vw, 36px)",height:62,gap:16}}>
         {/* Left: Hamburger + desktop nav links */}
         <div className="header-left-nav" style={{display:"flex",alignItems:"center",gap:8,minWidth:0,justifyContent:"flex-start"}} data-cms-id="left-nav">
           {/* Hamburger — hidden on desktop, shown on mobile */}
@@ -5529,7 +5529,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
               </svg>
               <div className="nav-brand-x" style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
             </div>
-            <div className="nav-brand-sub" style={{fontFamily:"'Inter', sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(245,242,237,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "舒适 · 自然 · 匠心"}</div>
+            <div className="nav-brand-sub" style={{fontFamily:"'Inter', sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(245,242,237,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "OFFICIAL BINGXI SOURCING PARTNER FOR INDIA"}</div>
           </div>
         </div>
         {/* Center: Desktop navigation links */}
@@ -5542,7 +5542,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
           ))}
         </div>
         {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
-        <div className="header-actions nav-right" style={{display:"flex",alignItems:"center",gap:"clamp(4px, 0.8vw, 8px)",justifyContent:"flex-end",minWidth:0}}>
+        <div className="header-actions nav-right" style={{display:"flex",alignItems:"center",gap:"clamp(4px, 0.8vw, 8px)",justifyContent:"flex-end",minWidth:0,marginLeft:"auto"}}>
           {/* ── Custom currency dropdown ── */}
           <div ref={curRef} style={{position:"relative"}}>
             <button
@@ -6711,7 +6711,7 @@ export default function App(){
   const [showSubscribe,setShowSubscribe]=useState(false);
   const [showSidebar,setShowSidebar]=useState(false);
   const [showWishlist,setShowWishlist]=useState(false);
-  const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"light") as "light"|"dark";}catch{return"light";}});
+  const [theme,setTheme]=useState<"light"|"dark">(()=>{try{return(localStorage.getItem("xiyoraTheme")||"dark") as "light"|"dark";}catch{return"light";}});
   const toggleTheme=()=>setTheme(t=>{const n=t==="light"?"dark":"light";try{localStorage.setItem("xiyoraTheme",n);}catch{}return n;});
   // tracks whether the last page change was triggered by browser Back/Forward
   const isPopRef=useRef(false);
