@@ -2550,28 +2550,28 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
     <form onSubmit={handleSubmit} style={{ background: C.white, borderRadius: 6, padding: "clamp(24px,4vw,40px)", border: `1px solid ${C.sand}` }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Full Name *</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Full Name *</label>
           <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Your full name" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Company / Brand *</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Company / Brand *</label>
           <input required value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} placeholder="Company or brand name" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
       </div>
       
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Phone Number *</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Phone Number *</label>
           <input required value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="Mobile number" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Email Address *</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Email Address *</label>
           <input required type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="Business email" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
       </div>
 
       <div style={{ marginBottom: 16 }}>
-        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Trade Category *</label>
+        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Trade Category *</label>
         <select required value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}>
           <option value="" disabled>Select category</option>
           {tradeCats.map(c => <option key={c} value={c}>{c}</option>)}
@@ -2580,28 +2580,28 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>GST <span style={{ color: "#bbb", fontWeight: 400 }}>(optional)</span></label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>GST <span style={{ color: "rgba(245,242,237,0.78)", fontWeight: 400 }}>(optional)</span></label>
           <input value={form.gst} onChange={e => setForm(f => ({ ...f, gst: e.target.value }))} placeholder="GSTIN" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>City *</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>City *</label>
           <input required value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))} placeholder="e.g. Mumbai, Dubai" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Country</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Country</label>
           <input value={form.country} onChange={e => setForm(f => ({ ...f, country: e.target.value }))} placeholder="Country" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Postal / ZIP</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Postal / ZIP</label>
           <input value={form.postal} onChange={e => setForm(f => ({ ...f, postal: e.target.value }))} placeholder="Postal code" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}/>
         </div>
       </div>
 
       <div style={{ marginBottom: 16 }}>
-        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 10 }}>Products of Interest</label>
+        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 10 }}>Products of Interest</label>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {prodsList.map(p => (
             <label key={p} style={{ display: "flex", alignItems: "center", gap: 7, cursor: "pointer", background: form.products.includes(p) ? C.lgold : C.beige, border: `1px solid ${form.products.includes(p) ? C.gold : C.sand}`, borderRadius: 3, padding: "7px 13px", fontSize: 12, color: C.dark, transition: "all .15s" }}>
@@ -2614,14 +2614,14 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Estimated Quantity (per year)</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Estimated Quantity (per year)</label>
           <select value={form.qty} onChange={e => setForm(f => ({ ...f, qty: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}>
             <option value="">Select quantity tier</option>
             {qtyTiers.map(q => <option key={q} value={q}>{q} units</option>)}
           </select>
         </div>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>How did you hear about us?</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>How did you hear about us?</label>
           <select value={form.howHear} onChange={e => setForm(f => ({ ...f, howHear: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}>
             <option value="">Select option</option>
             {sourceOptions.map(s => <option key={s} value={s}>{s}</option>)}
@@ -2631,7 +2631,7 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20, marginBottom: 16 }}>
         <div>
-          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Preferred Contact Method</label>
+          <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Preferred Contact Method</label>
           <select value={form.contact} onChange={e => setForm(f => ({ ...f, contact: e.target.value }))} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none" }}>
             {contactMethods.map(m => (
               <option key={m} value={m.toLowerCase()}>{m}</option>
@@ -2641,12 +2641,12 @@ export function B2BInquiryForm({ cur = "USD" }: { cur?: string }) {
       </div>
 
       <div style={{ marginBottom: 24 }}>
-        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Message / Requirements</label>
+        <label style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Message / Requirements</label>
         <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} placeholder="Tell us about your project, specifications, or questions..." rows={4} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "10px 13px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", color: C.dark, outline: "none", resize: "vertical" }}/>
       </div>
       
       <button type="submit" disabled={loading} className="btn-gold-out xiyora-gold-button" style={{ width: "100%", padding: "14px", fontSize: 12, justifyContent: "center" }}>{loading ? "Preparing..." : "Submit Trade Inquiry ✦"}</button>
-      <p style={{ fontSize: 11, color: "#bbb", textAlign: "center", marginTop: 10 }}>Your inquiry is logged securely, and opens a pre-filled WhatsApp message. We respond within 24 hours.</p>
+      <p style={{ fontSize: 11, color: "rgba(245,242,237,0.78)", textAlign: "center", marginTop: 10 }}>Your inquiry is logged securely, and opens a pre-filled WhatsApp message. We respond within 24 hours.</p>
     </form>
   );
 }
@@ -3141,7 +3141,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
             <SL>{f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"Enquiry"}</SL>
             <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
           </div>
-          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:22,lineHeight:1,marginLeft:16}}>✕</button>
+          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"rgba(245,242,237,0.78)",fontSize:22,lineHeight:1,marginLeft:16}}>✕</button>
         </div>
 
         {ok?(
@@ -3149,7 +3149,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
             <div style={{width:64,height:64,background:"linear-gradient(135deg,#ffffff,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28,color:"#fff"}}>✓</div>
             <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:22,fontWeight:400,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
             <p style={{fontSize:13.5,color:"rgba(255,255,255,0.65)",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24–48 hours.</p>
-            {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
+            {savedId&&<p style={{fontSize:12,color:"rgba(245,242,237,0.78)",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
               <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:4,fontFamily:"'Inter', sans-serif",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7,fontWeight:600}}>
                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
@@ -3262,7 +3262,7 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
                 </div>
               </div>
             )}
-            <p style={{fontSize:11.5,color:"#bbb",marginBottom:14,lineHeight:1.65}}>No payment is collected through this form. Final landed price confirmed in writing before any payment.</p>
+            <p style={{fontSize:11.5,color:"rgba(245,242,237,0.78)",marginBottom:14,lineHeight:1.65}}>No payment is collected through this form. Final landed price confirmed in writing before any payment.</p>
             <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               <button onClick={submit} className="bg" style={{flex:1,minWidth:120,padding:"12px 14px",fontSize:12}} disabled={loading}>
                 {loading?<Spinner/>:"Send Enquiry"}
@@ -3379,7 +3379,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
         <div style={{display:"flex",alignItems:"center",padding:"15px 20px",borderBottom:`1px solid ${C.sand}`,gap:12}}>
           <svg width={17} height={17} fill="none" stroke={C.gold} strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
           <input ref={ref} value={q} onChange={e=>setQ(e.target.value)} placeholder="Search mattresses, pillows, toppers, cushions…" style={{flex:1,background:"none",border:"none",fontSize:15,color:C.dark,fontFamily:"'Inter', sans-serif",outline:"none"}}/>
-          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:20}}>✕</button>
+          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"rgba(245,242,237,0.78)",fontSize:20}}>✕</button>
         </div>
         {hits.length>0&&<div style={{maxHeight:400,overflowY:"auto"}}>
           {hits.map(p=>(
@@ -3403,7 +3403,7 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
           </div>
         )}
         {!q&&<div style={{padding:"14px 20px"}}>
-          <p style={{fontSize:11,color:"#bbb",marginBottom:10,letterSpacing:"1px",textTransform:"uppercase"}}>Quick Browse</p>
+          <p style={{fontSize:11,color:"rgba(245,242,237,0.78)",marginBottom:10,letterSpacing:"1px",textTransform:"uppercase"}}>Quick Browse</p>
           <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
             {["Mattresses","Pillows","Toppers","Cushions","Talalay","Dunlop"].map(t=>(
               <button key={t} onClick={()=>setQ(t)} style={{background:C.beige,border:"none",padding:"7px 14px",borderRadius:20,fontSize:12.5,color:C.dark,cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>{t}</button>
@@ -3594,7 +3594,7 @@ function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose
   return (
     <div className="glass-modal" style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(10,8,7,0.88)", backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10000, padding: 20 }}>
       <div style={{ background: C.beige, borderRadius: 8, padding: "32px 36px", maxWidth: 460, width: "100%", textAlign: "center", border: `1px solid ${C.sand}`, boxShadow: "0 10px 40px rgba(0,0,0,0.3)", position: "relative" }}>
-        <button onClick={onClose} style={{ position: "absolute", top: 16, right: 16, background: "none", border: "none", fontSize: 18, color: "#888", cursor: "pointer" }}>✕</button>
+        <button onClick={onClose} style={{ position: "absolute", top: 16, right: 16, background: "none", border: "none", fontSize: 18, color: "rgba(245,242,237,0.65)", cursor: "pointer" }}>✕</button>
         <span style={{ fontSize: 10, letterSpacing: "3px", textTransform: "uppercase", color: C.gold, fontWeight: 600, display: "block", marginBottom: 6 }}>Welcome to XIYORA Sourcing</span>
         <h3 className="serif" style={{ fontSize: 22, color: C.dark, margin: "0 0 10px" }}>Set Delivery Destination</h3>
         <p style={{ fontSize: 12.5, color: "#777", lineHeight: 1.6, marginBottom: 20 }}>We customize landed sea-freight, customs, local taxation, and transit estimates based on your delivery hub.</p>
@@ -3608,22 +3608,22 @@ function LocationPromptModal({ show, onClose, onSave }: { show: boolean; onClose
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, textAlign: "left", marginBottom: 16 }}>
           <div>
-            <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>State / Region *</label>
+            <label style={{ fontSize: 11.5, color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 5, fontWeight: 500 }}>State / Region *</label>
             <input value={state} onChange={e => setState(e.target.value)} placeholder="e.g. Maharashtra, Dubai, London" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter', sans-serif" }} list="xiyora-state-list" />
             <datalist id="xiyora-state-list">
               {INDIAN_STATES.map(s => <option key={s} value={s}/>)}
             </datalist>
           </div>
           <div>
-            <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>City *</label>
+            <label style={{ fontSize: 11.5, color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 5, fontWeight: 500 }}>City *</label>
             <input value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Mumbai, Dubai, Singapore" style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter', sans-serif" }} />
           </div>
         </div>
 
         <div style={{ textAlign: "left", marginBottom: 20 }}>
-          <label style={{ fontSize: 11.5, color: "#888", display: "block", marginBottom: 5, fontWeight: 500 }}>Postal / ZIP Code (Optional)</label>
+          <label style={{ fontSize: 11.5, color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 5, fontWeight: 500 }}>Postal / ZIP Code (Optional)</label>
           <input value={pincode} onChange={e => setPincode(e.target.value.toUpperCase().replace(/[^A-Z0-9\s-]/gi, ""))} placeholder="e.g. 400001, 10001, SW1A 1AA" maxLength={12} style={{ width: "100%", background: "#fff", border: `1px solid ${C.sand}`, padding: "9px 12px", fontSize: 13, borderRadius: 3, color: C.dark, fontFamily: "'Inter', sans-serif" }} />
-          <div style={{ fontSize: 11, color: "#aaa", marginTop: 4 }}>Supports: Indian PIN, US ZIP, UAE, UK, Singapore, and international formats</div>
+          <div style={{ fontSize: 11, color: "rgba(245,242,237,0.72)", marginTop: 4 }}>Supports: Indian PIN, US ZIP, UAE, UK, Singapore, and international formats</div>
         </div>
 
         <div style={{ display: "flex", gap: 10 }}>
@@ -3786,27 +3786,27 @@ function GlobalFreightCalculator({ cur }: { cur: string }) {
             
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
-                <span style={{ color: "#aaa" }}>Material Value (FOB)</span>
+                <span style={{ color: "rgba(245,242,237,0.72)" }}>Material Value (FOB)</span>
                 <span>{formatCost(materialValue)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
-                <span style={{ color: "#aaa" }}>Ocean Freight ({volume} CBM)</span>
+                <span style={{ color: "rgba(245,242,237,0.72)" }}>Ocean Freight ({volume} CBM)</span>
                 <span>{formatCost(oceanFreightUSD)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
-                <span style={{ color: "#aaa" }}>Customs Clearance &amp; Port Entry</span>
+                <span style={{ color: "rgba(245,242,237,0.72)" }}>Customs Clearance &amp; Port Entry</span>
                 <span>{formatCost(customsClearanceUSD)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
-                <span style={{ color: "#aaa" }}>Import Duty &amp; IGST ({(igstRate*100).toFixed(0)}% est.)</span>
+                <span style={{ color: "rgba(245,242,237,0.72)" }}>Import Duty &amp; IGST ({(igstRate*100).toFixed(0)}% est.)</span>
                 <span>{formatCost(importDutyIGSTUSD)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
-                <span style={{ color: "#aaa" }}>Local Port Handling &amp; Docs</span>
+                <span style={{ color: "rgba(245,242,237,0.72)" }}>Local Port Handling &amp; Docs</span>
                 <span>{formatCost(portHandlingUSD)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5 }}>
-                <span style={{ color: "#aaa" }}>Inland Haulage to {selDest?.key}</span>
+                <span style={{ color: "rgba(245,242,237,0.72)" }}>Inland Haulage to {selDest?.key}</span>
                 <span>{formatCost(inlandHaulageUSD)}</span>
               </div>
             </div>
@@ -4005,7 +4005,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
     <div style={{ background: C.white, minHeight: "100vh" }}>
       <div style={{ borderBottom: `1px solid ${C.sand}`, padding: "12px 0" }}>
         <div className="container" style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13 }}>
-          <button onClick={() => setPage("home")} style={{ background: "none", border: "none", cursor: "pointer", color: "#888", fontFamily: "'Inter', sans-serif" }}>Home</button>
+          <button onClick={() => setPage("home")} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(245,242,237,0.65)", fontFamily: "'Inter', sans-serif" }}>Home</button>
           <span style={{ color: "#ddd" }}>·</span>
           <span style={{ color: C.dark, fontWeight: 500 }}>Customer Reviews</span>
         </div>
@@ -4027,7 +4027,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
               <span style={{ fontSize: 14, color: C.ink }}>out of 5 stars</span>
             </div>
             <StarRating n={5} size={18}/>
-            <div style={{ fontSize: 12.5, color: "#888", marginTop: 8 }}>Based on {totalReviews} verified purchases</div>
+            <div style={{ fontSize: 12.5, color: "rgba(245,242,237,0.65)", marginTop: 8 }}>Based on {totalReviews} verified purchases</div>
             
             <div style={{ marginTop: 20 }}>
               {distribution.map(({ stars, pct }) => (
@@ -4037,7 +4037,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
                   <div style={{ flex: 1, height: 6, background: C.sand, borderRadius: 3, overflow: "hidden" }}>
                     <div style={{ height: "100%", width: `${pct}%`, background: C.gold, borderRadius: 3 }}/>
                   </div>
-                  <span style={{ fontSize: 11.5, color: "#888", minWidth: 32 }}>{pct}%</span>
+                  <span style={{ fontSize: 11.5, color: "rgba(245,242,237,0.65)", minWidth: 32 }}>{pct}%</span>
                 </div>
               ))}
             </div>
@@ -4051,7 +4051,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
         {showForm && (
           <div style={{ position: "fixed", inset: 0, zIndex: 1000, background: "rgba(28, 28, 28, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", padding: "16px", backdropFilter: "blur(12px)" }}>
             <div className="glass-modal" style={{ padding: "32px", maxWidth: 500, width: "100%", borderRadius: 6, background: C.white, border: `1px solid ${C.sand}`, position: "relative" }}>
-              <button onClick={() => setShowForm(false)} style={{ position: "absolute", top: 18, right: 18, background: "none", border: "none", fontSize: 18, color: "#888", cursor: "pointer" }}>✕</button>
+              <button onClick={() => setShowForm(false)} style={{ position: "absolute", top: 18, right: 18, background: "none", border: "none", fontSize: 18, color: "rgba(245,242,237,0.65)", cursor: "pointer" }}>✕</button>
               {formSubmitted ? (
                 <div style={{ textAlign: "center", padding: "32px 0" }}>
                   <div style={{ fontSize: 36, color: "#4CAF78", marginBottom: 16 }}>✓</div>
@@ -4063,17 +4063,17 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, color: C.dark, marginBottom: 18 }}>Write a Review</h3>
                   
                   <div style={{ marginBottom: 14 }}>
-                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Full Name</label>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Full Name</label>
                     <input required value={newReview.name} onChange={e => setNewReview(n => ({...n, name: e.target.value}))} placeholder="Your name" style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}/>
                   </div>
                   
                   <div style={{ marginBottom: 14 }}>
-                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>City & Country</label>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>City & Country</label>
                     <input required value={newReview.city} onChange={e => setNewReview(n => ({...n, city: e.target.value}))} placeholder="e.g. Pune, India" style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}/>
                   </div>
                   
                   <div style={{ marginBottom: 14 }}>
-                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Product Purchased</label>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Product Purchased</label>
                     <select value={newReview.product} onChange={e => setNewReview(n => ({...n, product: e.target.value}))} style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}>
                       {reviewsFormProducts.map((p, idx) => (
                         <option key={idx} value={p}>{p}</option>
@@ -4082,7 +4082,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
                   </div>
                   
                   <div style={{ marginBottom: 14 }}>
-                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Rating</label>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Rating</label>
                     <select value={newReview.rating} onChange={e => setNewReview(n => ({...n, rating: Number(e.target.value)}))} style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif" }}>
                       <option value="5">5 Stars</option>
                       <option value="4">4 Stars</option>
@@ -4093,7 +4093,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
                   </div>
                   
                   <div style={{ marginBottom: 20 }}>
-                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", display: "block", marginBottom: 6 }}>Review Details</label>
+                    <label style={{ fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", display: "block", marginBottom: 6 }}>Review Details</label>
                     <textarea required value={newReview.text} onChange={e => setNewReview(n => ({...n, text: e.target.value}))} placeholder="Share your experience..." rows={4} style={{ width: "100%", border: `1px solid ${C.sand}`, padding: "10px", fontSize: 13, borderRadius: 3, fontFamily: "'Inter', sans-serif", resize: "vertical" }}/>
                   </div>
                   
@@ -4105,7 +4105,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
         )}
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: 12, borderBottom: `1px solid ${C.sand}`, paddingBottom: 20, marginBottom: 28, alignItems: "center" }}>
-          <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#888", marginRight: 8 }}>Filter Reviews:</span>
+          <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", marginRight: 8 }}>Filter Reviews:</span>
           
           <div style={{ display: "flex", gap: 6 }}>
             {[
@@ -4150,7 +4150,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
         </div>
 
         {filtered.length === 0 ? (
-          <div style={{ padding: "40px", border: `1px solid ${C.sand}`, borderRadius: 4, color: "#888", textAlign: "center" }}>
+          <div style={{ padding: "40px", border: `1px solid ${C.sand}`, borderRadius: 4, color: "rgba(245,242,237,0.65)", textAlign: "center" }}>
             No reviews match the selected filters.
           </div>
         ) : (
@@ -4162,7 +4162,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
                   <div>
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 600, color: C.dark }}>{r.name}</span>
-                    <span style={{ fontSize: 12, color: "#888", marginLeft: 10 }}>{r.city} · {r.date}</span>
+                    <span style={{ fontSize: 12, color: "rgba(245,242,237,0.65)", marginLeft: 10 }}>{r.city} · {r.date}</span>
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <StarRating n={r.rating} size={15}/>
@@ -4186,7 +4186,7 @@ export function ReviewsView({cur, setPage}: {cur: string; setPage: (p: string) =
                   </button>
                   
                   {r.rating >= 4 && (
-                    <span style={{ fontSize: 11, color: "#aaa", fontStyle: "italic" }}>Reported: 100% genuine pure natural latex</span>
+                    <span style={{ fontSize: 11, color: "rgba(245,242,237,0.72)", fontStyle: "italic" }}>Reported: 100% genuine pure natural latex</span>
                   )}
                 </div>
               </div>
@@ -4538,7 +4538,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                   </button>
                 ))}
               </div>
-              <p style={{fontSize:10,color:"#bbb",marginTop:10,fontStyle:"italic",lineHeight:1.5}}>Originals shared within 24 hours. Scope per document.</p>
+              <p style={{fontSize:10,color:"rgba(245,242,237,0.78)",marginTop:10,fontStyle:"italic",lineHeight:1.5}}>Originals shared within 24 hours. Scope per document.</p>
             </div>
           </div>
         </div>
@@ -4578,7 +4578,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <StarRating n={5} size={15}/>
                   <span style={{ fontSize: 13.5, fontWeight: 600, color: C.dark }}>4.8 out of 5 stars</span>
-                  <span style={{ fontSize: 12, color: "#888" }}>({filteredReviews.length} reviews for {p.category.toLowerCase()})</span>
+                  <span style={{ fontSize: 12, color: "rgba(245,242,237,0.65)" }}>({filteredReviews.length} reviews for {p.category.toLowerCase()})</span>
                 </div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
@@ -4587,7 +4587,7 @@ function ProductDetail({p,cur,wl,onWish,onBack,onInquire,onAddToCart,onGoCheckou
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
                       <div>
                         <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 15, fontWeight: 600, color: C.dark }}>{r.name}</div>
-                        <div style={{ fontSize: 12, color: "#888", marginTop: 2 }}>{r.city} · {r.date}</div>
+                        <div style={{ fontSize: 12, color: "rgba(245,242,237,0.65)", marginTop: 2 }}>{r.city} · {r.date}</div>
                       </div>
                       <div style={{ textAlign: "right" }}>
                         <StarRating n={r.rating} size={14}/>
@@ -4763,7 +4763,7 @@ function SourcingNetwork({onCatalog, setPage}: any) {
         <div style={{textAlign: "center", marginBottom: 40}}>
           <SL>Global Sourcing Platform</SL>
           <SH center>Our Brand Partners</SH>
-          <p style={{fontSize: 14.5, color: "#888", maxWidth: 580, margin: "12px auto 0", lineHeight: 1.75}}>
+          <p style={{fontSize: 14.5, color: "rgba(245,242,237,0.65)", maxWidth: 580, margin: "12px auto 0", lineHeight: 1.75}}>
             Connecting Indian hospitality buyers, retailers, and developers directly with vetted premium global manufacturers — starting with certified latex from Bingxi.
           </p>
         </div>
@@ -4776,7 +4776,7 @@ function SourcingNetwork({onCatalog, setPage}: any) {
             <div>
               <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12}}>
                 <span style={{background: "#ffffff", color: "#07090E", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Active Partner</span>
-                <span style={{fontSize: 11, color: "#aaa"}}>Est. 2024</span>
+                <span style={{fontSize: 11, color: "rgba(245,242,237,0.72)"}}>Est. 2024</span>
               </div>
               <h3 className="serif" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>Bingxi Latex</h3>
               <p style={{fontSize: 13, color: "#666", lineHeight: 1.7, marginBottom: 16}}>
@@ -4796,19 +4796,19 @@ function SourcingNetwork({onCatalog, setPage}: any) {
             <div>
               <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12}}>
                 <span style={{background: "#2a2a2a", color: "#fff", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Coming Soon</span>
-                <span style={{fontSize: 11, color: "#aaa"}}>Phase II</span>
+                <span style={{fontSize: 11, color: "rgba(245,242,237,0.72)"}}>Phase II</span>
               </div>
               <h3 className="serif" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>European Flax &amp; Linens</h3>
-              <p style={{fontSize: 13, color: "#888", lineHeight: 1.7, marginBottom: 16}}>
+              <p style={{fontSize: 13, color: "rgba(245,242,237,0.65)", lineHeight: 1.7, marginBottom: 16}}>
                 Sourcing premium organic flax linens and long-staple cotton weaves from traditional Belgian and French mills. Curated for Indian heritage hotels and retail.
               </p>
               <div style={{display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16}}>
                 {["Belgian Flax", "Hotel Grade Sheets", "GOTS Certified Organic"].map(t => (
-                  <span key={t} style={{fontSize: 10.5, background: "#f2f2f2", color: "#888", padding: "2px 8px", borderRadius: 2}}>{t}</span>
+                  <span key={t} style={{fontSize: 10.5, background: "#f2f2f2", color: "rgba(245,242,237,0.65)", padding: "2px 8px", borderRadius: 2}}>{t}</span>
                 ))}
               </div>
             </div>
-            <button disabled style={{width: "100%", padding: "10px 0", background: "none", border: `1px solid ${C.sand}`, color: "#aaa", fontSize: 12, cursor: "not-allowed"}}>Sourcing In Progress</button>
+            <button disabled style={{width: "100%", padding: "10px 0", background: "none", border: `1px solid ${C.sand}`, color: "rgba(245,242,237,0.72)", fontSize: 12, cursor: "not-allowed"}}>Sourcing In Progress</button>
           </div>
 
           {/* Coming Soon Partner: Heritage Silks */}
@@ -4816,19 +4816,19 @@ function SourcingNetwork({onCatalog, setPage}: any) {
             <div>
               <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12}}>
                 <span style={{background: "#2a2a2a", color: "#fff", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 2, letterSpacing: "1px", textTransform: "uppercase"}}>Coming Soon</span>
-                <span style={{fontSize: 11, color: "#aaa"}}>Phase II</span>
+                <span style={{fontSize: 11, color: "rgba(245,242,237,0.72)"}}>Phase II</span>
               </div>
               <h3 className="serif" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>Heritage Weaves</h3>
-              <p style={{fontSize: 13, color: "#888", lineHeight: 1.7, marginBottom: 16}}>
+              <p style={{fontSize: 13, color: "rgba(245,242,237,0.65)", lineHeight: 1.7, marginBottom: 16}}>
                 High-thread-count organic jacquards, draperies, and premium upholstery fabrics. Connecting developers and architects with leading global fabric weavers.
               </p>
               <div style={{display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16}}>
                 {["Jacquard Weaving", "Custom Drapery", "B2B Bulk Direct"].map(t => (
-                  <span key={t} style={{fontSize: 10.5, background: "#f2f2f2", color: "#888", padding: "2px 8px", borderRadius: 2}}>{t}</span>
+                  <span key={t} style={{fontSize: 10.5, background: "#f2f2f2", color: "rgba(245,242,237,0.65)", padding: "2px 8px", borderRadius: 2}}>{t}</span>
                 ))}
               </div>
             </div>
-            <button disabled style={{width: "100%", padding: "10px 0", background: "none", border: `1px solid ${C.sand}`, color: "#aaa", fontSize: 12, cursor: "not-allowed"}}>Sourcing In Progress</button>
+            <button disabled style={{width: "100%", padding: "10px 0", background: "none", border: `1px solid ${C.sand}`, color: "rgba(245,242,237,0.72)", fontSize: 12, cursor: "not-allowed"}}>Sourcing In Progress</button>
           </div>
         </div>
       </div>
@@ -4901,7 +4901,7 @@ function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
             </div>
             <p style={{fontSize: 14, color: "#555", lineHeight: 1.8}}>By introducing a vacuum expansion step and flash-freezing before baking, the Talalay process creates a perfectly uniform round-cell matrix. The bubble structure allows heat to escape instantly. When used in pillows and topper pads, it feels like floating on air—responsive contouring that rebounds instantly as you move.</p>
             <div style={{marginTop: 20}}>
-              <h4 style={{fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", marginBottom: 10}}>Featured Talalay Products</h4>
+              <h4 style={{fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", marginBottom: 10}}>Featured Talalay Products</h4>
               <div style={{display: "flex", flexDirection: "column", gap: 8}}>
                 {talalayProds.map(p => (
                   <div key={p.id} onClick={() => onOpen(p)} style={{display: "flex", gap: 12, alignItems: "center", padding: 8, background: C.lgold, borderRadius:3, cursor: "pointer", border: `1px solid transparent`}} onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold} onMouseLeave={(e:any)=>e.currentTarget.style.borderColor="transparent"}>
@@ -4924,7 +4924,7 @@ function LatexGuideView({setPage, cur, wl, onWish, onOpen, onInquire}: any) {
             </div>
             <p style={{fontSize: 14, color: "#555", lineHeight: 1.8}}>Since 1929, Dunlop latex has been the benchmark for supportive sleep systems. Poured directly as liquid foam and baked, it develops a denser, more cohesive structure. The natural gravity settling creates a firmer bottom base and slightly softer top, providing the ideal gradient for heavy-load spinal alignment. It is the gold standard for full mattresses.</p>
             <div style={{marginTop: 20}}>
-              <h4 style={{fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#888", marginBottom: 10}}>Featured Dunlop Products</h4>
+              <h4 style={{fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(245,242,237,0.65)", marginBottom: 10}}>Featured Dunlop Products</h4>
               <div style={{display: "flex", flexDirection: "column", gap: 8}}>
                 {dunlopProds.map(p => (
                   <div key={p.id} onClick={() => onOpen(p)} style={{display: "flex", gap: 12, alignItems: "center", padding: 8, background: C.lgold, borderRadius:3, cursor: "pointer", border: `1px solid transparent`}} onMouseEnter={(e:any)=>e.currentTarget.style.borderColor=C.gold} onMouseLeave={(e:any)=>e.currentTarget.style.borderColor="transparent"}>
@@ -5235,7 +5235,7 @@ export function HomeView({cur,wl,onWish,onOpen,onCatalog,onCatFilter,onSupplier,
               </div>
             ))}
           </div>
-          <p style={{textAlign:"center",fontSize:11,color:"#bbb",marginTop:22,fontStyle:"italic"}}>Certificates apply to the scope stated in each document. Original copies shared on request.</p>
+          <p style={{textAlign:"center",fontSize:11,color:"rgba(245,242,237,0.78)",marginTop:22,fontStyle:"italic"}}>Certificates apply to the scope stated in each document. Original copies shared on request.</p>
         </div>
       </section>
       {/* MOBILE: make doc grid 1 col */}
@@ -5902,7 +5902,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             <div style={{width:80,height:80,background:C.beige,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
               <svg width={32} height={32} fill="none" stroke={C.gold} strokeWidth={1.4} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             </div>
-            <p style={{fontSize:16,color:"#bbb",marginBottom:18}}>Your basket is empty.</p>
+            <p style={{fontSize:16,color:"rgba(245,242,237,0.78)",marginBottom:18}}>Your basket is empty.</p>
             <button className="bg" onClick={onCatalog}>Browse Products</button>
             {wishProducts.length>0&&(
               <div style={{maxWidth:520,margin:"40px auto 0",textAlign:"left"}}>
@@ -5932,7 +5932,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
               <svg width={28} height={28} fill="none" stroke="white" strokeWidth={2.5} viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:24,fontWeight:400,color:C.dark,marginBottom:10}}>Order Intent Saved</h3>
-            {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:8}}>Reference: CHK-{String(savedId).padStart(4,"0")}</p>}
+            {savedId&&<p style={{fontSize:12,color:"rgba(245,242,237,0.78)",marginBottom:8}}>Reference: CHK-{String(savedId).padStart(4,"0")}</p>}
             <p style={{fontSize:14,color:"rgba(255,255,255,0.65)",lineHeight:1.75,marginBottom:8}}>
               {payMode==="upi"?`UPI payment pending verification. UTR/Ref: ${utr||"not entered"}.`:""}
               {payMode==="proforma"?"We will prepare your Proforma Invoice and send via WhatsApp / email.":""}
@@ -5948,7 +5948,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
               <button className="bg" onClick={sendAddressWA} style={{padding:"13px 26px",fontSize:12,borderRadius:4}}>Send Delivery Address</button>
               {cartTotalINR>0&&<button className="bo" onClick={printProforma} style={{padding:"13px 26px",fontSize:12,borderRadius:4}}>View / Print Proforma</button>}
             </div>
-            <p style={{fontSize:11.5,color:"#bbb",marginTop:14,lineHeight:1.6}}>Tap “Send Delivery Address” to share your full delivery address with us on WhatsApp so we can finalise dispatch.</p>
+            <p style={{fontSize:11.5,color:"rgba(245,242,237,0.78)",marginTop:14,lineHeight:1.6}}>Tap “Send Delivery Address” to share your full delivery address with us on WhatsApp so we can finalise dispatch.</p>
           </div>
         ):(
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:36,marginTop:32}} className="checkout-grid">
@@ -5976,7 +5976,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                             ) : (
                               <span style={{color:C.gold}}>{priceIn(cur,item.priceINR)}</span>
                             )}
-                            <span style={{fontSize:10,color:"#bbb",fontFamily:"'Inter', sans-serif",fontWeight:400,marginLeft:4}}>ea.</span>
+                            <span style={{fontSize:10,color:"rgba(245,242,237,0.78)",fontFamily:"'Inter', sans-serif",fontWeight:400,marginLeft:4}}>ea.</span>
                           </div>
                         );
                       })()}
@@ -6105,7 +6105,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
             {/* Right: Payment */}
             <div>
               <div style={{background:C.lgold,borderRadius:4,padding:"18px 20px",borderLeft:`3px solid ${C.gold}`,marginBottom:16}}>
-                <div style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"#bbb",marginBottom:10}}>Order Summary</div>
+                <div style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:"rgba(245,242,237,0.78)",marginBottom:10}}>Order Summary</div>
                 <div style={{marginBottom:10,borderBottom:`1px solid ${C.sand}`,paddingBottom:10}}>
                   {items.map((i:CartItem,idx:number)=>(
                     <div key={i.cartKey} style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:8,paddingTop:idx>0?6:0,marginTop:idx>0?6:0,borderTop:idx>0?`1px solid ${C.sand}`:"none"}}>
@@ -6148,7 +6148,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                     </div>
                     {cur!=="INR"&&<div style={{textAlign:"right",fontSize:11.5,color:"rgba(255,255,255,0.75)",marginTop:3}}>≈ {fmtMoney(cur,delivery && delivery.type === "india" ? grandTotalINR : cartTotalINR)} {cur}</div>}
                     {!delivery&&<div style={{fontSize:11,color:"#9a8a6a",marginTop:8,lineHeight:1.5}}>Enter your postal code above to see delivery charge and estimated total.</div>}
-                    <div style={{fontSize:10.5,color:"#bbb",lineHeight:1.6,marginTop:8,wordBreak:"break-word"}}>Indicative total. Final price confirmed via proforma invoice.{cur!=="INR"?` ${CURRENCY_DISCLAIMER}`:""}</div>
+                    <div style={{fontSize:10.5,color:"rgba(245,242,237,0.78)",lineHeight:1.6,marginTop:8,wordBreak:"break-word"}}>Indicative total. Final price confirmed via proforma invoice.{cur!=="INR"?` ${CURRENCY_DISCLAIMER}`:""}</div>
                     <button onClick={printProforma} style={{marginTop:10,width:"100%",boxSizing:"border-box",background:"transparent",color:C.gold,border:`1px solid ${C.gold}`,padding:"9px",borderRadius:2,fontSize:11,letterSpacing:".8px",textTransform:"uppercase",cursor:"pointer",fontFamily:"'Inter', sans-serif"}}>View / Print Proforma Estimate</button>
                   </div>
                 ):(
@@ -6227,7 +6227,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 </div>
               )}
 
-              <div style={{fontSize:11.5,color:"#bbb",marginBottom:14,lineHeight:1.65,padding:"0 2px"}}>
+              <div style={{fontSize:11.5,color:"rgba(245,242,237,0.78)",marginBottom:14,lineHeight:1.65,padding:"0 2px"}}>
                 No card details are collected here. No payment is processed automatically. Final invoice confirmed before any payment is collected.
               </div>
 
@@ -6288,7 +6288,7 @@ function AccountView({setPage}:any){
               <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               Detect my location
             </button>
-            <span style={{fontSize:12,color:"#bbb"}}>Then fill city & pincode below</span>
+            <span style={{fontSize:12,color:"rgba(245,242,237,0.78)"}}>Then fill city & pincode below</span>
           </div>
           {saved&&<div style={{background:"#edfaf5",border:"1px solid #1a9e6e",borderRadius:3,padding:"10px 14px",marginBottom:14,fontSize:13,color:"#1a9e6e"}}>✓ Profile saved to this device</div>}
           <button className="bg" onClick={save} style={{padding:"12px 28px",fontSize:12}}>Save Profile</button>
@@ -6489,7 +6489,7 @@ function OrderStatusView({setPage}:any){
               {loading?<Spinner/>:"Track →"}
             </button>
           </div>
-          <p style={{fontSize:11.5,color:"#bbb",lineHeight:1.6}}>Your reference was shown after submitting an enquiry or checkout form. Check your WhatsApp or email for it.</p>
+          <p style={{fontSize:11.5,color:"rgba(245,242,237,0.78)",lineHeight:1.6}}>Your reference was shown after submitting an enquiry or checkout form. Check your WhatsApp or email for it.</p>
         </div>
 
         {err&&(
@@ -6520,7 +6520,7 @@ function OrderStatusView({setPage}:any){
                   ["Submitted",new Date(result.createdAt).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})],
                 ].map(([k,v])=>(
                   <div key={k} style={{padding:"10px 0",borderBottom:`1px solid ${C.beige}`}}>
-                    <div style={{fontSize:10.5,color:"#bbb",letterSpacing:"1.2px",textTransform:"uppercase",marginBottom:4}}>{k}</div>
+                    <div style={{fontSize:10.5,color:"rgba(245,242,237,0.78)",letterSpacing:"1.2px",textTransform:"uppercase",marginBottom:4}}>{k}</div>
                     <div style={{fontSize:14,color:C.dark,fontWeight:500}}>{v}</div>
                   </div>
                 ))}
@@ -6620,7 +6620,7 @@ function AdminView(){
         </div>
         {loading&&<div style={{textAlign:"center",padding:"40px",color:"rgba(255,255,255,0.75)"}}>Loading…</div>}
         {err&&<div style={{color:"#cc4444",marginBottom:14}}>{err}</div>}
-        {!loading&&data.length===0&&!err&&<div style={{textAlign:"center",padding:"40px",color:"#bbb"}}>No records yet.</div>}
+        {!loading&&data.length===0&&!err&&<div style={{textAlign:"center",padding:"40px",color:"rgba(245,242,237,0.78)"}}>No records yet.</div>}
         {!loading&&data.length>0&&(
           <div style={{overflowX:"auto"}}>
             <table style={{width:"100%",borderCollapse:"collapse",fontSize:12.5}}>
