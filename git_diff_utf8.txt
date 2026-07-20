@@ -1,0 +1,983 @@
+﻿diff --git a/artifacts/xiyora/src/App.tsx b/artifacts/xiyora/src/App.tsx
+index 27fad8f..5ce1e5f 100644
+--- a/artifacts/xiyora/src/App.tsx
++++ b/artifacts/xiyora/src/App.tsx
+@@ -171,7 +171,7 @@ export let BIZ = {
+     {filter:"Mattresses",name:"Latex Mattresses",sub:"The foundation of proper rest. Dunlop-core construction. Available in three ILD ratings. 10-year structural guarantee.",cn:"σ║èσ₧½"},
+     {filter:"Pillows",name:"Talalay Pillows",sub:"Talalay latex ΓÇö lighter, more responsive, and more breathable than any memory foam. The pillow that does not remember yesterday.",cn:"µ₧òσñ┤"},
+     {filter:"Toppers",name:"Mattress Toppers",sub:"Transform any mattress. A 50mm Dunlop topper recalibrates a hotel bed into a sanctuary. Popular with hospitality buyers.",cn:"σ║èσ₧½σ▒é"},
+-    {filter:"Cushions",name:"Latex Cushions",sub:"Custom density for every seating application. From reception chairs to custom sofa cores. Specify density on inquiry.",cn:"σ¥Éσ₧½"},
++    {filter:"Cushions",name:"Latex Cushions",sub:"Custom density for every seating application. From reception chairs to custom sofa cores. Specify density on inquiry.",cn:"Σ╣│Φâ╢"},
+     {filter:"Latex Material",name:"B2B / Wholesale",sub:"Architects, hoteliers, and interior design studios worldwide. Trade pricing from 5-unit MOQ. Certified sample sets available.",cn:"Σ╣│Φâ╢"}
+   ]),
+   whyXiyoraCards: JSON.stringify([
+@@ -1123,7 +1123,7 @@ const PINCODE_ZONES: Record<string,{zone:string;port:string;days:string}> = {
+   "226":{zone:"C",port:"Nearest Port + ICD",days:"6ΓÇô10"},
+ };
+ const ZONE_INFO: Record<string,{label:string;col:string;bg:string}> = {
+-  A:{label:"Zone A ΓÇö Near Port",col:"#1a9e6e",bg:"#edfaf5"},
++  A:{label:"Zone A ΓÇö Near Port",col:"#6BAE88",bg:"#edfaf5"},
+   B:{label:"Zone B ΓÇö Standard",col:"#C8A97E",bg:"#F5EEE4"},
+   C:{label:"Zone C ΓÇö Extended",col:"#888",bg:"#f5f5f5"},
+ };
+@@ -1151,9 +1151,9 @@ const lookupPincode = (pin:string) => {
+   return { type: "unknown" as const, label: "Contact for rate", days: "Varies", port: "Bespoke Sourcing", zone: "UNKNOWN" };
+ };
+ 
+-const C={white:"#F6F3EB",beige:"#E5DFCD",gold:"#C8A97E",dark:"#1E1E1C",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141210",ink:"#4A4B46",seal:"#9E3B2E",taupe:"#BFA295"};
+-const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#C8A97E",dark:"#F2EDE4",sand:"#2C2825",lgold:"#1C1916",char:"#080706",ink:"#9AA09A",seal:"#C25B4A",taupe:"#9C8B7E"};
+-const DARK_CSS=`body{background:#0F0F0D!important;color:#F2EDE4!important}.nl{color:#E8E0D4!important}.nl:hover{color:#C8A97E!important}.nl::after{background:#C8A97E!important}.bg{background:#B89472!important;color:#0F0F0D!important}.bg:hover{background:#D4B896!important}.bo{color:#D4B896!important;border-color:#D4B896!important}.bo:hover{background:#C8A97E!important;color:#0F0F0D!important}.bd{color:#C8A97E!important;border-color:#3A3530!important}.pc{background:#1A1714!important;box-shadow:0 2px 16px rgba(0,0,0,.4)!important}.ib{color:#E8E0D4!important}.ib:hover{color:#C8A97E!important}.sl{color:#C8A97E!important}.fl{color:#9A9088!important}.fl:hover{color:#C8A97E!important}.inp{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input,select,textarea{background:#1E1B18!important;border-color:#3A3530!important;color:#F2EDE4!important}input::placeholder,textarea::placeholder{color:#665F58!important}.glass-modal{background:rgba(15,14,13,.97)!important;border-color:rgba(80,65,45,.5)!important}.sdrawer{background:#0A0908!important}.sdr-link{color:#B0A898!important}.sdr-link:hover{color:#C8A97E!important;background:rgba(200,169,126,.06)!important}.sdr-section{color:#444!important}.cert-chip{background:#1A1714!important;border-color:#2E2B27!important;color:#9A9088!important}.cert-chip:hover{border-color:#C8A97E!important;color:#C8A97E!important}::-webkit-scrollbar-track{background:#1A1714!important}::-webkit-scrollbar-thumb{background:#3A3530!important}.spec-key{color:#9A9088!important}.spec-val{color:#F2EDE4!important}.tag-pill{background:#6A5840!important}.paper{background-color:#0F0F0D!important;background-image:radial-gradient(circle at 18% 24%,rgba(120,95,60,.08),transparent 42%),radial-gradient(circle at 82% 76%,rgba(120,95,60,.06),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(200,169,126,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(194,91,74,.05),transparent 55%)!important}`;
++const C={white:"#EDE8DF",beige:"#E5DFCD",gold:"#6BAE88",dark:"#07090E",sand:"#D4C5A1",lgold:"#EFE9DC",char:"#141B24",ink:"#EDE8DF",seal:"#B87B5A",taupe:"#BFA295"};
++const CD={white:"#0F0F0D",beige:"#1A1714",gold:"#6BAE88",dark:"#EDE8DF",sand:"#2C2825",lgold:"#1C1916",char:"#080706",ink:"#EDE8DF",seal:"#B87B5A",taupe:"#9C8B7E"};
++const DARK_CSS=`body{background:#07090E!important;color:#EDE8DF!important}.nl{color:rgba(237,232,223,.62)!important}.nl:hover{color:#6BAE88!important}.nl::after{background:#6BAE88!important}.bg{background:#4A8A68!important;color:#EDE8DF!important}.bg:hover{background:#2D6B4A!important}.bo{color:#6BAE88!important;border-color:rgba(107,174,136,.42)!important}.bo:hover{background:rgba(107,174,136,.08)!important;color:#EDE8DF!important}.bd{color:rgba(237,232,223,.65)!important;border-color:rgba(237,232,223,.12)!important}.pc{background:linear-gradient(145deg,rgba(20,27,36,.85),rgba(14,18,24,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(237,232,223,.65)!important}.ib:hover{color:#6BAE88!important}.sl{color:#6BAE88!important}.fl{color:rgba(237,232,223,.55)!important}.fl:hover{color:#6BAE88!important}.inp{background:#141B24!important;border-color:rgba(237,232,223,.12)!important;color:#EDE8DF!important}input,select,textarea{background:#141B24!important;border-color:rgba(237,232,223,.12)!important;color:#EDE8DF!important}input::placeholder,textarea::placeholder{color:rgba(237,232,223,.3)!important}.glass-modal{background:rgba(20,27,36,.96)!important;border-color:rgba(107,174,136,.12)!important}.sdrawer{background:#07090E!important}.sdr-link{color:#EDE8DF!important}.sdr-link:hover{color:#6BAE88!important;background:rgba(107,174,136,.08)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(237,232,223,.12)!important;color:rgba(237,232,223,.55)!important}.cert-chip:hover{border-color:#6BAE88!important;color:#6BAE88!important}::-webkit-scrollbar-track{background:#07090E!important}::-webkit-scrollbar-thumb{background:rgba(237,232,223,.1)!important}.spec-key{color:rgba(237,232,223,.55)!important}.spec-val{color:#EDE8DF!important}.tag-pill{background:#4A8A68!important}.paper{background-color:#07090E!important;background-image:radial-gradient(circle at 18% 24%,rgba(107,174,136,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(107,174,136,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(107,174,136,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(107,174,136,.03),transparent 55%)!important}`;
+ const ThemeCtx=createContext(C);
+ const useC=()=>useContext(ThemeCtx);
+ const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
+@@ -1365,10 +1365,10 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
+       <div className="xl-line"/>
+       <div className="xl-monogram">
+         <svg width={52} height={52} viewBox="0 0 48 48" fill="none" aria-hidden>
+-          <circle cx="24" cy="24" r="22" stroke="#C8A97E" strokeWidth="1.3"/>
+-          <circle cx="24" cy="24" r="17" stroke="#C8A97E" strokeWidth=".5" opacity=".4"/>
+-          <path d="M16 16l16 16M32 16L16 32" stroke="#C8A97E" strokeWidth="1.4" strokeLinecap="round"/>
+-          <circle cx="24" cy="24" r="3.4" fill="#C8A97E"/>
++          <circle cx="24" cy="24" r="22" stroke="#6BAE88" strokeWidth="1.3"/>
++          <circle cx="24" cy="24" r="17" stroke="#6BAE88" strokeWidth=".5" opacity=".4"/>
++          <path d="M16 16l16 16M32 16L16 32" stroke="#6BAE88" strokeWidth="1.4" strokeLinecap="round"/>
++          <circle cx="24" cy="24" r="3.4" fill="#6BAE88"/>
+         </svg>
+         <div className="xl-brand">XIYORA</div>
+         <div className="xl-sub">Crafted Comfort ┬╖ Sourced for India</div>
+@@ -1458,8 +1458,8 @@ const MARQUEE_ITEMS_BTM=[
+   "Dunlop & Talalay Processes","100% Latex Comfort","Ergonomic Sleep Products","Made with Integrity",
+ ];
+ function LuxMarquee({dark=true}:{dark?:boolean}){
+-  const bg=dark?"#070605":"#F3EFE5";
+-  const borderColor=dark?"rgba(200,169,126,0.18)":"rgba(200,169,126,0.32)";
++  const bg=dark?"#07090E":"#F3EFE5";
++  const borderColor=dark?"rgba(107,174,136,0.18)":"rgba(107,174,136,0.32)";
+   const double=(arr:string[])=>[...arr,...arr];
+   
+   let itemsTop = MARQUEE_ITEMS_TOP;
+@@ -1499,7 +1499,7 @@ function LuxMarquee({dark=true}:{dark?:boolean}){
+ const CSS=`
+ *{box-sizing:border-box;margin:0;padding:0}
+ html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
+-body{font-family:'Inter',sans-serif;background:#060408;color:#F5EEF0;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
++body{font-family:'Space Grotesk',sans-serif;background:#07090E;color:#EDE8DF;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+ #root{max-width:100%;overflow-x:hidden}
+ @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+ @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@@ -1516,24 +1516,20 @@ body{font-family:'Inter',sans-serif;background:#060408;color:#F5EEF0;overflow-x:
+ .page-fade-in{animation:pageFadeIn .4s cubic-bezier(.22,1,.36,1) both}
+ @keyframes pageFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+ .at{display:flex;animation:marquee 38s linear infinite}
+-.sl{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:#E8B4C0;margin-bottom:16px;font-weight:600;display:block}
+-.nl{color:rgba(245,238,240,.6);font-size:12px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;padding:4px 0;position:relative;line-height:1}
+-.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#E8B4C0;transition:width .3s ease}
+-.nl:hover{color:#E8B4C0}.nl:hover::after{width:100%}
+-.bg{background:#C8A97E;color:#fff;border:none;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem;position:relative;overflow:hidden}
+-.bg::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);transition:none}
+-/* .bg:hover::before{animation:sweepBtn .5s ease forwards} */
+-.bg:hover{background:#B89472;transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,169,126,.32)}
+-.bg:active{transform:translateY(0)}
+-.bo{background:transparent;color:#C8A97E;border:1px solid rgba(246, 239, 224, 0.08);padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem}
+-.bo:hover{background:#C8A97E;color:#fff;transform:translateY(-1px)}
+-.bd{background:transparent;border:1px solid rgba(246, 239, 224, 0.08);color:#D9CBB8;padding:13px 28px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:2rem}
+-.bd:hover{border-color:#C8A97E;color:#C8A97E}
+-.ib{background:none;border:none;cursor:pointer;color:rgba(245,238,240,.65);display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
+-.ib:hover{color:#E8B4C0;transform:scale(1.1)}
+-.pc{background:rgba(22,17,11,.6);border-radius:2.5rem;overflow:hidden;transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative;border:1px solid rgba(246,239,224,.07)}
+-.pc:hover{transform:translateY(-4px)}
+-.pc:hover .pi{transform:scale(1.05)}
++.sl{font-family:'Space Grotesk',sans-serif;font-size:9.5px;letter-spacing:0.38em;text-transform:uppercase;color:#6BAE88;margin-bottom:18px;font-weight:600;display:block}
++.nl{font-family:'Space Grotesk',sans-serif;color:rgba(237,232,223,.62);font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;padding:4px 0;position:relative;line-height:1}
++.nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#6BAE88;transition:width .3s ease}
++.nl:hover{color:#6BAE88}.nl:hover::after{width:100%}
++.bg{background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background .28s,transform .28s,box-shadow .28s;border-radius:4px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(107,174,136,.3)}
++.bg:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,174,136,.42)}
++.bo{background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.42);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
++.bo:hover{background:rgba(107,174,136,.08);border-color:#6BAE88;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 6px 20px rgba(107,174,136,.2)}
++.bd{background:transparent;border:1px solid rgba(237,232,223,.12);color:rgba(237,232,223,.65);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
++.bd:hover{border-color:#6BAE88;color:#6BAE88}
++.ib{background:none;border:none;cursor:pointer;color:rgba(237,232,223,.65);display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;padding:6px}
++.ib:hover{color:#6BAE88;transform:scale(1.1)}
++.pc{background:linear-gradient(145deg,rgba(20,27,36,.85),rgba(14,18,24,.9));border-radius:8px;overflow:hidden;transition:border-color .45s,transform .45s,box-shadow .45s;cursor:pointer;position:relative;border:1px solid rgba(107,174,136,.1);box-shadow:0 2px 20px rgba(0,0,0,.4)}
++.pc:hover{transform:translateY(-7px);border-color:rgba(107,174,136,.35);box-shadow:0 28px 65px rgba(0,0,0,.6),0 0 40px rgba(107,174,136,.08)}
+ .pi{transition:transform .65s cubic-bezier(.23,1,.32,1);width:100%;height:100%;object-fit:cover}
+ .cc{position:relative;border-radius:2rem;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1)}
+ .cc:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(0,0,0,.18)}
+@@ -1554,17 +1550,17 @@ body{font-family:'Inter',sans-serif;background:#060408;color:#F5EEF0;overflow-x:
+ @keyframes wbPulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.65);opacity:0}100%{transform:scale(1.65);opacity:0}}
+ .wb:hover{transform:scale(1.14);box-shadow:0 10px 38px rgba(37,211,102,.52)}
+ .fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Inter',sans-serif;padding:0}
+-.fl:hover{color:#C8A97E}
+-input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!important;box-shadow:0 0 0 3px rgba(200,169,126,.1)}
+-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#C8A97E}
++.fl:hover{color:#6BAE88}
++input:focus,select:focus,textarea:focus{outline:none;border-color:#6BAE88!important;box-shadow:0 0 0 3px rgba(107,174,136,.1)}
++::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#6BAE88}
+ .img-zoom-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.96);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(8px)}
+ .img-zoom-overlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;animation:fadeInUp .25s ease}
+ @keyframes galleryFade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+ .glass-modal{background:rgba(248,246,242,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;box-shadow:0 32px 80px rgba(0,0,0,.22)}
+ .google-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(246, 239, 224, 0.08);border-radius:2rem;padding:5px 13px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:#444;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
+-.google-btn:hover{background:#F5EEE4;border-color:#C8A97E;color:#2D2D2D;box-shadow:0 4px 12px rgba(200,169,126,.16)}
++.google-btn:hover{background:#F5EEE4;border-color:#6BAE88;color:#2D2D2D;box-shadow:0 4px 12px rgba(107,174,136,.16)}
+ .inp{width:100%;background:#fafaf8;border:1px solid #E8DFCF;padding:11px 13px;font-size:13px;border-radius:3px;font-family:'Inter',sans-serif;color:#2D2D2D;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
+-.tag-pill{background:#C8A97E;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
++.tag-pill{background:#6BAE88;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}
+ .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+ .reveal.visible{opacity:1;transform:translateY(0)}
+ /* ΓöÇΓöÇ DESKTOP LAYOUT ΓöÇΓöÇ */
+@@ -1635,11 +1631,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+ .sdrawer.open{transform:translateX(0)}
+ .sdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:499;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+ .sdr-link{display:block;background:none;border:none;padding:11px 24px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.6px;color:#C0B8AC;cursor:pointer;text-align:left;width:100%;transition:all .2s;border-left:2px solid transparent}
+-.sdr-link:hover{color:#C8A97E;background:rgba(200,169,126,.08);border-left-color:#C8A97E}
++.sdr-link:hover{color:#6BAE88;background:rgba(107,174,136,.08);border-left-color:#6BAE88}
+ .sdr-section{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#555;padding:14px 24px 4px;display:block}
+ /* ΓöÇΓöÇ CERT CHIPS ΓöÇΓöÇ */
+-.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid ${C.sand};border-radius:20px;font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
+-.cert-chip:hover{border-color:#C8A97E;color:#C8A97E;background:#F5EDE0}
++.cert-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid #D4C5A1;border-radius:20px;font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:.8px;color:#888;background:#fafaf8;cursor:pointer;transition:all .2s;white-space:nowrap}
++.cert-chip:hover{border-color:#6BAE88;color:#6BAE88;background:#F5EDE0}
+ /* ΓöÇΓöÇ PROOF CTA MOBILE ΓöÇΓöÇ */
+ @media(max-width:680px){
+   .proof-cta{flex-direction:column!important;align-items:stretch!important;padding:28px 22px!important}
+@@ -1662,27 +1658,27 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+ .xiyora-gold-button::after{content:'';position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(110deg,transparent,rgba(255,255,255,.28),transparent);transition:transform .68s cubic-bezier(.22,1,.36,1);pointer-events:none}
+ .xiyora-gold-button:hover::after{transform:translateX(120%)}
+ .xiyora-price-pulse{animation:xiyoraPricePulse .9s cubic-bezier(.22,1,.36,1)}
+-@keyframes xiyoraPricePulse{0%{box-shadow:0 0 0 rgba(201,170,120,0)}35%{box-shadow:0 0 0 7px rgba(201,170,120,.18)}100%{box-shadow:0 0 0 rgba(201,170,120,0)}}
++@keyframes xiyoraPricePulse{0%{box-shadow:0 0 0 rgba(107,174,136,0)}35%{box-shadow:0 0 0 7px rgba(107,174,136,.1)}100%{box-shadow:0 0 0 rgba(107,174,136,0)}}
+ .xiyora-whatsapp-popup{transform-origin:bottom right;animation:xiyoraPopupIn .42s cubic-bezier(.22,1,.36,1)}
+ @keyframes xiyoraPopupIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+ .xiyora-video-overlay{background:linear-gradient(90deg,rgba(20,17,14,.74),rgba(20,17,14,.34),rgba(20,17,14,.1)),linear-gradient(0deg,rgba(20,17,14,.5),transparent 44%)}
+-.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid ${C.sand};background:#fafaf8;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
+-.bt-chip:hover{border-color:#C8A97E;color:#2D2D2D;box-shadow:0 6px 18px rgba(200,169,126,.16);transform:translateY(-2px)}
+-.bt-chip.active{background:#C8A97E;border-color:#C8A97E;color:#fff;box-shadow:0 8px 22px rgba(200,169,126,.3)}
++.bt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;border:1px solid #D4C5A1;background:#fafaf8;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#555;cursor:pointer;transition:all .25s;white-space:nowrap}
++.bt-chip:hover{border-color:#6BAE88;color:#2D2D2D;box-shadow:0 6px 18px rgba(107,174,136,.16);transform:translateY(-2px)}
++.bt-chip.active{background:#6BAE88;border-color:#6BAE88;color:#fff;box-shadow:0 8px 22px rgba(107,174,136,.3)}
+ /* ΓöÇΓöÇ ASIAN-LUXURY MOTIF SYSTEM (v4 redesign) ΓöÇΓöÇ */
+ .serif{font-family:'Playfair Display',serif}
+-.paper{background-color:#F6F3EB;background-image:radial-gradient(circle at 18% 24%,rgba(191,162,149,.06),transparent 42%),radial-gradient(circle at 82% 76%,rgba(212,197,161,.07),transparent 46%)}
++.paper{background-color:#F6F3EB;background-image:radial-gradient(circle at 18% 24%,rgba(107,174,136,.06),transparent 42%),radial-gradient(circle at 82% 76%,rgba(107,174,136,.07),transparent 46%)}
+ .ink-wash{position:relative;isolation:isolate}
+-.ink-wash::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(110% 70% at 100% 0%,rgba(74,75,70,.07),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(159,59,46,.045),transparent 55%)}
++.ink-wash::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(110% 70% at 100% 0%,rgba(107,174,136,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(107,174,136,.045),transparent 55%)}
+ .seal{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 7px;border:1.5px solid #9E3B2E;color:#9E3B2E;border-radius:6px;font-family:'Playfair Display',serif;font-size:15px;font-weight:600;line-height:1;opacity:.9;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+ .seal:hover{transform:rotate(-4deg) scale(1.06);box-shadow:0 6px 18px rgba(159,59,46,.18)}
+-.x-divider{display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;color:#C8A97E;font-size:13px}
++.x-divider{display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;color:#6BAE88;font-size:13px}
+ .x-divider::before,.x-divider::after{content:'';height:1px;width:clamp(40px,8vw,80px)}
+-.x-divider::before{background:linear-gradient(to right,transparent,#C8A97E)}
+-.x-divider::after{background:linear-gradient(to left,transparent,#C8A97E)}
++.x-divider::before{background:linear-gradient(to right,transparent,#6BAE88)}
++.x-divider::after{background:linear-gradient(to left,transparent,#6BAE88)}
+ .x-link{position:relative;display:inline-flex;align-items:center;gap:9px;color:#1E1E1C;cursor:pointer;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;background:none;border:none;font-family:'Inter',sans-serif;font-weight:500;padding:0;transition:color .3s;text-decoration:none}
+-.x-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:#C8A97E;transition:width .45s cubic-bezier(.22,1,.36,1)}
+-.x-link:hover{color:#C8A97E}.x-link:hover::after{width:100%}
++.x-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:#6BAE88;transition:width .45s cubic-bezier(.22,1,.36,1)}
++.x-link:hover{color:#6BAE88}.x-link:hover::after{width:100%}
+ .x-link .ar{display:inline-block;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+ .x-link:hover .ar{transform:translateX(7px)}
+ .x-frame{position:relative;overflow:hidden}
+@@ -1704,8 +1700,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+ .cc-tag{position:absolute;top:0;right:18px;background:linear-gradient(#EFE9DC,#E5DFCD);color:#5a4a32;padding:14px 7px 11px;border-radius:0 0 4px 4px;box-shadow:0 6px 16px rgba(0,0,0,.18);font-size:14px;z-index:3}
+ .feat-ic{display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+ .feat-ic:hover{transform:translateY(-4px)}
+-.feat-ic .ring{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid ${C.sand};transition:border-color .4s,background .4s}
+-.feat-ic:hover .ring{border-color:#C8A97E;background:rgba(200,169,126,.08)}
++.feat-ic .ring{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid #D4C5A1;transition:border-color .4s,background .4s}
++.feat-ic:hover .ring{border-color:#6BAE88;background:rgba(107,174,136,.08)}
+ /* ΓöÇΓöÇ LUX SPLIT HERO (mockup-faithful) ΓöÇΓöÇ */
+ .lux-hero{position:relative;overflow:hidden;background:#F6F3EB}
+ .lux-hero-photo{position:absolute;top:0;right:0;bottom:0;width:55%;overflow:hidden}
+@@ -1716,12 +1712,12 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+ .lux-bamboo{position:absolute;top:0;left:0;height:100%;width:130px;z-index:1;opacity:.5;pointer-events:none}
+ .feat-row{display:flex;gap:26px;flex-wrap:wrap}
+ .feat-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;width:78px}
+-.feat-item .fring{width:44px;height:44px;border-radius:50%;border:1px solid ${C.sand};display:flex;align-items:center;justify-content:center;transition:all .4s cubic-bezier(.22,1,.36,1)}
+-.feat-item:hover .fring{border-color:#C8A97E;background:rgba(200,169,126,.08);transform:translateY(-3px)}
+-.feat-item .flabel{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:${C.ink};line-height:1.45;font-weight:500}
++.feat-item .fring{width:44px;height:44px;border-radius:50%;border:1px solid #D4C5A1;display:flex;align-items:center;justify-content:center;transition:all .4s cubic-bezier(.22,1,.36,1)}
++.feat-item:hover .fring{border-color:#6BAE88;background:rgba(107,174,136,.08);transform:translateY(-3px)}
++.feat-item .flabel{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#EDE8DF;line-height:1.45;font-weight:500}
+ .icon-strip{display:flex;justify-content:center;align-items:flex-start;gap:0;flex-wrap:wrap}
+ .icon-strip .ist{flex:1;min-width:120px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:11px;padding:10px 16px;position:relative}
+-.icon-strip .ist:not(:last-child)::after{content:'';position:absolute;right:0;top:18%;height:64%;width:1px;background:${C.sand}}
++.icon-strip .ist:not(:last-child)::after{content:'';position:absolute;right:0;top:18%;height:64%;width:1px;background:#D4C5A1}
+ .icon-strip .ist .flabel{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#8a8378;font-weight:500;line-height:1.5}
+ @media(max-width:900px){
+   .lux-hero-photo{position:relative;width:100%;height:300px}
+@@ -1731,17 +1727,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+ }
+ @media(max-width:560px){.icon-strip .ist{min-width:33%}.icon-strip .ist:nth-child(3)::after{display:none}}
+ /* ΓöÇΓöÇ DARK LUX HOMEPAGE (reference-faithful black-lacquer + gold) ΓöÇΓöÇ */
+-.lux-noir{background:#060408;color:#F5EEF0}
+-.ornate{position:relative;border:1px solid rgba(200,169,126,.42);box-shadow:inset 0 0 0 4px rgba(200,169,126,.07),inset 0 0 80px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.5)}
+-.ornate::before{content:'';position:absolute;inset:9px;border:1px solid rgba(200,169,126,.2);border-radius:inherit;pointer-events:none;z-index:6}
+-.gold-italic{font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(180deg,#F2C4CE 0%,#C4889A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#E8B4C0}
+-.gold-grad{background:linear-gradient(135deg,#E8B4C0 0%,#C4889A 50%,#9A5A6E 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#E8B4C0}
+-.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(232,180,192,.28);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
+-.feat-circ:hover{background:rgba(232,180,192,.1);border-color:#E8B4C0;transform:translateY(-3px)}
+-.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,rgba(200,169,126,.16),rgba(200,169,126,.03));color:#EBD3A6;border:1px solid rgba(246, 239, 224, 0.08);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2rem;transition:all .35s;position:relative;overflow:hidden}
+-.btn-gold-out:hover{background:rgba(200,169,126,.22);border-color:#E6C89A;color:#FBEFD8;transform:translateY(-2px);box-shadow:0 12px 32px rgba(200,169,126,.22)}
+-.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(180deg,#F4EBD9,#E2D2B6);color:#2a2118;border:1px solid rgba(246, 239, 224, 0.08);padding:15px 32px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;border-radius:2rem;transition:all .35s}
+-.btn-ivory:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.45);background:linear-gradient(180deg,#FBF4E6,#EADCC2)}
++.lux-noir{background:#07090E;color:#EDE8DF}
++.ornate{position:relative;border:1px solid rgba(107,174,136,.42);box-shadow:inset 0 0 0 4px rgba(107,174,136,.07),inset 0 0 80px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.5)}
++.ornate::before{content:'';position:absolute;inset:9px;border:1px solid rgba(107,174,136,.2);border-radius:inherit;pointer-events:none;z-index:6}
++.gold-italic{font-family:'Libre Baskerville',Georgia,serif;font-style:italic;background:linear-gradient(135deg,#8AC9A0 0%,#6BAE88 60%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#6BAE88}
++.gold-grad{background:linear-gradient(135deg,#6BAE88 0%,#8AC9A0 50%,#B87B5A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#6BAE88}
++.feat-circ{width:54px;height:54px;border-radius:50%;border:1px solid rgba(107,174,136,.28);display:flex;align-items:center;justify-content:center;transition:transform .4s,background .4s,border-color .4s;flex-shrink:0}
++.feat-circ:hover{background:rgba(107,174,136,.1);border-color:#6BAE88;transform:translateY(-3px)}
++.btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:transparent;color:#6BAE88;border:1px solid rgba(107,174,136,.38);padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;position:relative;overflow:hidden}
++.btn-gold-out:hover{background:rgba(107,174,136,.09);border-color:#6BAE88;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,174,136,.2)}
++.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#4A8A68;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(107,174,136,.32)}
++.btn-ivory:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,174,136,.42)}
+ .deco-float{animation:driftSlow 14s ease-in-out infinite}
+ @keyframes petalFall{0%{transform:translateY(-12vh) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translateY(118vh) rotate(480deg);opacity:0}}
+ @keyframes petalSway{0%,100%{transform:translateX(0)}50%{transform:translateX(26px)}}
+@@ -1750,10 +1746,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+ .petal i{display:block;width:100%;height:100%;background:radial-gradient(circle at 32% 28%,#f8d3d9,#ea9faa 62%,#d77f8f);border-radius:100% 0 100% 0;box-shadow:inset -1px -1px 2px rgba(150,60,80,.22);animation:petalSway ease-in-out infinite}
+ .lux-feat-row{display:flex;align-items:flex-start;gap:0}
+ .lux-feat-row .lf{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:0 6px;position:relative}
+-.lux-feat-row .lf:not(:last-child)::after{content:'';position:absolute;right:0;top:8px;height:42px;width:1px;background:rgba(200,169,126,.3)}
+-.lux-feat-row .lf .lfl{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(245,238,240,.5);line-height:1.5;font-weight:500}
++.lux-feat-row .lf:not(:last-child)::after{content:'';position:absolute;right:0;top:8px;height:42px;width:1px;background:rgba(107,174,136,.3)}
++.lux-feat-row .lf .lfl{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(237,232,223,.42);line-height:1.5;font-weight:500}
+ .biz-feat{display:flex;align-items:center;gap:9px}
+-.biz-feat .bft{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(245,238,240,.5);line-height:1.4;font-weight:500}
++.biz-feat .bft{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(237,232,223,.42);line-height:1.4;font-weight:500}
+ .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+ .trust-item{display:flex;align-items:center;gap:14px;justify-content:center}
+ @media(max-width:900px){
+@@ -1777,20 +1773,19 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+   .wb::before{animation:none!important;opacity:0!important}
+ }
+ /* ΓöÇΓöÇ XIYORA LUX TOKENS + REUSABLE HOMEPAGE UTILITIES (v5) ΓöÇΓöÇ */
+-:root{--xiyora-black:#060408;--xiyora-charcoal:#16101a;--xiyora-ivory:#F5EEF0;--xiyora-gold:#D4A574;--xiyora-soft-gold:#C8A97E;--xiyora-rose:#E8B4C0;--xiyora-rose-muted:#C4889A;--xiyora-rose-deep:#9A5A6E;--xiyora-sage:#7c8270;--xiyora-muted-text:rgba(245,238,240,0.55)}
+-/* @keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}} */
++:root{--xiyora-black:#07090E;--xiyora-charcoal:#141B24;--xiyora-ivory:#EDE8DF;--xiyora-jade:#6BAE88;--xiyora-jade-muted:#4A8A68;--xiyora-jade-deep:#2D6B4A;--xiyora-terra:#B87B5A;--xiyora-terra-soft:#C8956C;--xiyora-muted-text:rgba(237,232,223,0.55);--fn-serif:'Libre Baskerville',Georgia,serif;--fn-sans:'Space Grotesk',sans-serif}
+ @keyframes cloudDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
+ @keyframes idleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+ .cloud-drift{animation:cloudDrift 16s ease-in-out infinite}
+ .idle-bob{animation:idleBob 7s ease-in-out infinite}
+-.gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(246, 239, 224, 0.08);background:radial-gradient(circle at 50% 28%,rgba(200,169,126,.16),rgba(200,169,126,.02));box-shadow:inset 0 0 0 4px rgba(200,169,126,.06);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
++.gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(107,174,136,.1);background:radial-gradient(circle at 50% 28%,rgba(107,174,136,.06),rgba(107,174,136,.01));box-shadow:inset 0 0 0 4px rgba(107,174,136,.04);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
+ .gold-badge.round{border-radius:50%}
+ .ql-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+ .ql-card{position:relative;display:flex;align-items:center;gap:16px;padding:24px 22px;background:transparent;border:none;text-align:left;width:100%;cursor:pointer;transition:background .35s,box-shadow .35s;border-radius:2rem}
+-.ql-card .ql-arrow{margin-left:auto;color:#9a8a68;font-size:18px;transition:transform .4s,color .4s}
+-.ql-card:hover{background:rgba(200,169,126,.06);box-shadow:inset 0 0 0 1px rgba(200,169,126,.28),0 14px 40px rgba(0,0,0,.4)}
+-.ql-card:hover .ql-arrow{transform:translateX(6px);color:var(--xiyora-soft-gold)}
+-.ql-card:hover .gold-badge{transform:translateY(-3px);border-color:var(--xiyora-soft-gold);background:radial-gradient(circle at 50% 28%,rgba(200,169,126,.3),rgba(200,169,126,.05))}
++.ql-card .ql-arrow{margin-left:auto;color:#4A8A68;font-size:18px;transition:transform .4s,color .4s}
++.ql-card:hover{background:rgba(107,174,136,.06);box-shadow:inset 0 0 0 1px rgba(107,174,136,.2),0 14px 40px rgba(0,0,0,.4)}
++.ql-card:hover .ql-arrow{transform:translateX(6px);color:#6BAE88}
++.ql-card:hover .gold-badge{transform:translateY(-3px);border-color:#6BAE88;background:radial-gradient(circle at 50% 28%,rgba(107,174,136,.2),rgba(107,174,136,.05))}
+ .ql-cross{position:absolute;inset:0;pointer-events:none;z-index:2}
+ @media(max-width:760px){.ql-grid{grid-template-columns:1fr}.ql-cross{display:none}}
+ .benefit-noir{display:flex;justify-content:center;align-items:stretch;flex-wrap:nowrap;gap:0;overflow-x:auto;scrollbar-width:none}
+@@ -1798,16 +1793,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+ .benefit-noir .bn{flex:1;min-width:130px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:6px 16px;position:relative;transition:transform .4s}
+ .benefit-noir .bn:not(:last-child)::after{content:'';position:absolute;right:0;top:14%;height:72%;width:1px;background:rgba(200,169,126,.26)}
+ .benefit-noir .bn:hover{transform:translateY(-4px)}
+-.benefit-noir .bn .bnl{font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(245,238,240,.5);font-weight:500;line-height:1.5}
+-.benefit-noir .bn:hover .bnl{color:#E8B4C0}
++.benefit-noir .bn .bnl{font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(237,232,223,.42);font-weight:500;line-height:1.5}
++.benefit-noir .bn:hover .bnl{color:#6BAE88}
+ @media(max-width:620px){.benefit-noir{justify-content:flex-start}.benefit-noir .bn{min-width:42%}.benefit-noir .bn:nth-child(2)::after{display:none}}
+ .bt-noir{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:2rem;border:1px solid rgba(246, 239, 224, 0.08);background:rgba(255,255,255,.02);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.4px;color:#E3D7C0;cursor:pointer;transition:all .3s;white-space:nowrap}
+ .bt-noir:hover{border-color:var(--xiyora-soft-gold);color:#fff;transform:translateY(-2px)}
+ .bt-noir.active{background:linear-gradient(180deg,#E8CDA0,#C9A368);border-color:var(--xiyora-soft-gold);color:#211a10;font-weight:600;box-shadow:0 10px 26px rgba(200,169,126,.32)}
+-.cat-intro{position:relative;background:linear-gradient(145deg,rgba(22,16,26,.9),rgba(13,10,16,.95));border:1px solid rgba(232,180,192,.1);border-radius:2.5rem;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
+-.cat-intro .ci-h{font-family:'Playfair Display',serif;color:#F5EEF0;font-weight:400}
+-.cat-intro .ci-sub{color:rgba(245,238,240,.6)}
+-.cat-intro .ci-label{color:#E8B4C0}
++.cat-intro{position:relative;background:linear-gradient(145deg,rgba(20,27,36,.92),rgba(14,18,24,.96));border:1px solid rgba(107,174,136,.12);border-radius:8px;overflow:hidden;padding:clamp(40px,6vw,72px) clamp(20px,5vw,56px);text-align:center}
++.cat-intro .ci-h{font-family:'Libre Baskerville',Georgia,serif;color:#EDE8DF;font-weight:400}
++.cat-intro .ci-sub{color:rgba(237,232,223,.62)}
++.cat-intro .ci-label{color:#6BAE88}
+ .latex-story{position:relative;overflow:hidden;min-height:clamp(380px,52vw,520px);display:flex;align-items:center;background:var(--xiyora-black)}
+ .latex-story img.ls-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+ .latex-story .ls-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,7,6,.93) 0%,rgba(8,7,6,.74) 42%,rgba(8,7,6,.28) 70%,transparent 100%)}
+@@ -1821,20 +1816,20 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#C8A97E!import
+ .cat-grid6{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+ .cat-grid6 .sp2{grid-column:span 2}
+ .cat-grid6 .sp3{grid-column:span 3}
+-.cat-card{position:relative;display:block;width:100%;height:392px;border:none;padding:0;margin:0;cursor:pointer;border-radius:2.5rem;overflow:hidden;background:#16101a;border:1px solid rgba(232,180,192,.1)!important;transition:box-shadow .45s ease,transform .45s ease,border-color .45s;text-align:left;-webkit-tap-highlight-color:transparent}
++.cat-card{position:relative;display:block;width:100%;height:392px;border:none;padding:0;margin:0;cursor:pointer;border-radius:8px;overflow:hidden;background:#141B24;border:1px solid rgba(107,174,136,.1)!important;transition:box-shadow .45s ease,transform .45s ease,border-color .45s;text-align:left;-webkit-tap-highlight-color:transparent}
+ .cat-card.cat-card-wide{height:340px}
+-.cat-card:hover,.cat-card:focus-visible{outline:none;border-color:rgba(232,180,192,.38)!important;box-shadow:0 0 30px rgba(232,180,192,.07),0 22px 50px rgba(0,0,0,.55);transform:translateY(-5px)}
++.cat-card:hover,.cat-card:focus-visible{outline:none;border-color:rgba(107,174,136,.4)!important;box-shadow:0 0 32px rgba(107,174,136,.08),0 22px 55px rgba(0,0,0,.55);transform:translateY(-6px)}
+ .cat-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+ .cat-card:hover .cat-card-img,.cat-card:focus-visible .cat-card-img{transform:scale(1.07)}
+-.cat-card-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,4,8,.95) 0%,rgba(6,4,8,.55) 32%,rgba(6,4,8,.1) 62%,transparent 80%);pointer-events:none}
++.cat-card-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,9,14,.96) 0%,rgba(7,9,14,.55) 35%,rgba(7,9,14,.1) 65%,transparent 82%);pointer-events:none}
+ .cat-card-body{position:absolute;left:0;right:0;bottom:0;padding:24px 22px 24px;z-index:4}
+-.cat-card-title{font-family:'Playfair Display',serif;font-size:23px;font-weight:500;color:#F5EEF0;letter-spacing:.3px;margin:0 0 5px;line-height:1.1}
+-.cat-card-sub{font-size:12px;color:rgba(245,238,240,.72);letter-spacing:.2px;margin:0 0 13px;line-height:1.5;max-width:88%}
+-.cat-card-explore{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#E8B4C0;font-weight:600}
++.cat-card-title{font-family:'Libre Baskerville',Georgia,serif;font-size:22px;font-weight:400;color:#EDE8DF;letter-spacing:.2px;margin:0 0 5px;line-height:1.15}
++.cat-card-sub{font-size:12.5px;color:rgba(237,232,223,.68);letter-spacing:.1px;margin:0 0 13px;line-height:1.55;max-width:88%;font-family:'Space Grotesk',sans-serif}
++.cat-card-explore{display:inline-flex;align-items:center;gap:9px;font-size:10px;letter-spacing:2.8px;text-transform:uppercase;color:#6BAE88;font-weight:600;font-family:'Space Grotesk',sans-serif}
+ .cat-card-arr{display:inline-block;transition:transform .35s ease}
+ .cat-card:hover .cat-card-arr,.cat-card:focus-visible .cat-card-arr{transform:translateX(6px)}
+-.cat-vtag{position:absolute;top:52px;right:0;writing-mode:vertical-rl;text-orientation:upright;background:linear-gradient(180deg,#C4889A,#9A5A6E);color:#F5EEF0;font-size:11px;letter-spacing:4px;padding:11px 5px;border-radius:4px 0 0 4px;font-weight:700;z-index:4;box-shadow:0 5px 14px rgba(0,0,0,.28)}
+-.cat-corner{position:absolute;width:26px;height:26px;z-index:4;pointer-events:none;border-color:rgba(232,180,192,.6)}
++.cat-vtag{position:absolute;top:52px;right:0;writing-mode:vertical-rl;text-orientation:upright;background:linear-gradient(180deg,#4A8A68,#2D6B4A);color:#EDE8DF;font-size:11px;letter-spacing:4px;padding:11px 5px;border-radius:4px 0 0 4px;font-weight:700;z-index:4;box-shadow:0 5px 14px rgba(0,0,0,.28)}
++.cat-corner{position:absolute;width:26px;height:26px;z-index:4;pointer-events:none;border-color:rgba(107,174,136,.55)}
+ .cat-corner.tl{top:13px;left:13px;border-top:1.5px solid;border-left:1.5px solid;border-top-left-radius:3px}
+ .cat-corner.tr{top:13px;right:13px;border-top:1.5px solid;border-right:1.5px solid;border-top-right-radius:3px}
+ @media(max-width:900px){.cat-grid6{grid-template-columns:1fr 1fr;gap:16px}.cat-grid6 .sp2,.cat-grid6 .sp3{grid-column:auto}.cat-card,.cat-card.cat-card-wide{height:320px}}
+@@ -1849,11 +1844,11 @@ const Tag=({c=C.gold,children}:{c?:string;children:React.ReactNode})=>(
+   <span className="tag-pill" style={{background:c}}>{children}</span>
+ );
+ const SL=({children,dark,center}:{children:React.ReactNode;dark?:boolean;center?:boolean})=>(
+-  <span className="sl" style={{color:dark?"#9B8B6E":"#C8A97E",display:"block",textAlign:center?"center":"left"}}>{children}</span>
++  <span className="sl" style={{color:dark?"#6BAE88":"#6BAE88",display:"block",textAlign:center?"center":"left"}}>{children}</span>
+ );
+ const SH=({children,dark,center,size}:{children:React.ReactNode;dark?:boolean;center?:boolean;size?:string|number})=>{
+   const C=useC();
+-  const st:React.CSSProperties={fontFamily:"'Playfair Display',serif",fontSize:size||BIZ.generalSectionHeadingSize||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#F0EBE3":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
++  const st:React.CSSProperties={fontFamily:"'Libre Baskerville',serif",fontSize:size||BIZ.generalSectionHeadingSize||"clamp(1.9rem,3.2vw,2.8rem)",fontWeight:400,color:dark?"#EDE8DF":C.dark,lineHeight:1.12,textAlign:center?"center":"left"};
+   if(typeof children==="string")return <h2 style={st} dangerouslySetInnerHTML={{__html:children}}/>;
+   return <h2 style={st}>{children}</h2>;
+ };
+@@ -1898,10 +1893,10 @@ const Stagger=({children,style,className}:{children:React.ReactNode;style?:React
+ /* ΓöÇΓöÇΓöÇ DECORATIVE MOTIFS (inline SVG, Asian-luxury identity) ΓöÇΓöÇ */
+ /** Red seal stamp ΓÇö accent near headings. `ch` is the glyph (Chinese char or monogram). */
+ const Seal=({ch="Σ┐í",title,style}:{ch?:string;title?:string;style?:React.CSSProperties})=>(
+-  <span className="seal" title={title||"XIYORA seal"} style={style} aria-hidden>{ch}</span>
++  <span className="seal" title={title||"XIYORA seal"} style={{...style, borderColor:"#B87B5A", color:"#B87B5A"}} aria-hidden>{ch}</span>
+ );
+ /** Champagne-gold cloud motif (τÑÑΣ║æ) ΓÇö corner/background ornament. */
+-const GoldCloud=({size=120,opacity=.5,color="#C8A97E",className,style}:{size?:number;opacity?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
++const GoldCloud=({size=120,opacity=.5,color="#6BAE88",className,style}:{size?:number;opacity?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
+   <svg className={className} style={style} width={size} height={size*0.5} viewBox="0 0 240 120" fill="none" aria-hidden>
+     <g stroke={color} strokeWidth="2" opacity={opacity} fill="none" strokeLinecap="round">
+       <path d="M20 86c0-14 10-24 24-24 2-18 16-30 34-30 14 0 26 8 31 21 14 1 25 12 25 26"/>
+@@ -1912,20 +1907,20 @@ const GoldCloud=({size=120,opacity=.5,color="#C8A97E",className,style}:{size?:nu
+   </svg>
+ );
+ /** Sakura/plum branch sprig ΓÇö soft editorial accent. */
+-const Sakura=({size=140,color="#BFA295",className,style}:{size?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
++const Sakura=({size=140,color="#4A8A68",className,style}:{size?:number;color?:string;className?:string;style?:React.CSSProperties})=>(
+   <svg className={className} style={style} width={size} height={size} viewBox="0 0 160 160" fill="none" aria-hidden>
+     <path d="M10 150C50 120 70 90 78 50" stroke={color} strokeWidth="2.4" strokeLinecap="round"/>
+     <path d="M78 50C84 36 96 28 112 26M60 86C70 80 82 82 90 92M40 116c8-8 20-9 30-3" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+     {[[112,24],[90,94],[70,4],[36,118],[126,40]].map(([cx,cy],i)=>(
+       <g key={i} opacity=".85">{[0,72,144,216,288].map(a=>(
+         <ellipse key={a} cx={cx} cy={cy-7} rx="3.4" ry="6" fill={color} opacity=".55" transform={`rotate(${a} ${cx} ${cy})`}/>
+-      ))}<circle cx={cx} cy={cy} r="2" fill="#9E3B2E" opacity=".6"/></g>
++      ))}<circle cx={cx} cy={cy} r="2" fill="#B87B5A" opacity=".6"/></g>
+     ))}
+   </svg>
+ );
+-/** XIYORA monogram lockup with "Crafted Comfort" tagline. */
++/** XIYORA monogram lockup with "Natural ┬╖ Crafted ┬╖ Pure" tagline. */
+ const Monogram=({color,size=1,tagline=true,center}:{color?:string;size?:number;tagline?:boolean;center?:boolean})=>{
+-  const c=color||"#C8A97E";
++  const c=color||"#6BAE88";
+   return(
+     <div style={{display:"flex",flexDirection:"column",alignItems:center?"center":"flex-start",gap:6*size}}>
+       <svg width={40*size} height={40*size} viewBox="0 0 48 48" fill="none" aria-hidden>
+@@ -1933,11 +1928,10 @@ const Monogram=({color,size=1,tagline=true,center}:{color?:string;size?:number;t
+         <path d="M16 16l16 16M32 16L16 32" stroke={c} strokeWidth="1.4" strokeLinecap="round"/>
+         <circle cx="24" cy="24" r="3.4" fill={c}/>
+       </svg>
+-      <div style={{fontFamily:"'Playfair Display',serif",fontSize:30*size,letterSpacing:8*size,color:c,lineHeight:1,fontWeight:500}}>XIYORA</div>
+-      {tagline&&<div style={{fontFamily:"'Inter',sans-serif",fontSize:9.5*size,letterSpacing:4.5*size,textTransform:"uppercase",color:c,opacity:.8}}>Crafted Comfort</div>}
++      <div style={{fontFamily:"'Libre Baskerville',serif",fontSize:30*size,letterSpacing:8*size,color:c,lineHeight:1,fontWeight:400}}>XIYORA</div>
++      {tagline&&<div style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:9.5*size,letterSpacing:4.5*size,textTransform:"uppercase",color:c,opacity:.8}}>Natural ┬╖ Crafted ┬╖ Pure</div>}
+     </div>
+   );
+-};
+ 
+ /* ΓöÇΓöÇΓöÇ HERO MEDIA (video-first with image fallback) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+ function HeroMedia(){
+@@ -1976,16 +1970,16 @@ const LUX_ICONS:Record<string,React.ReactNode>={
+   bed:<><path d="M2 18v-7a2 2 0 012-2h16a2 2 0 012 2v7M2 14h20M2 18v2M22 18v2"/><path d="M6 9V7a1 1 0 011-1h3a1 1 0 011 1v2"/></>,
+ };
+ const LuxIcon=({name,size=22,color}:{name:string;size?:number;color?:string})=>(
+-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color||"#C8A97E"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>{LUX_ICONS[name]||LUX_ICONS.leaf}</svg>
++  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color||"#6BAE88"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden>{LUX_ICONS[name]||LUX_ICONS.leaf}</svg>
+ );
+ /* Thin-line feature icon (vertical) used in heroes + strips */
+ const FeatItem=({name,label}:{name:string;label:string})=>(
+   <div className="feat-item"><div className="fring"><LuxIcon name={name} size={20}/></div><div className="flabel">{label}</div></div>
+ );
+ /* Bamboo silhouette (left hero ornament) */
+-const Bamboo=({className,style,color="#9aa08f"}:{className?:string;style?:React.CSSProperties;color?:string})=>(
++const Bamboo=({className,style,color="#4A8A68"}:{className?:string;style?:React.CSSProperties;color?:string})=>(
+   <svg className={className} style={style} viewBox="0 0 120 600" fill="none" preserveAspectRatio="xMinYMin slice" aria-hidden>
+-    <g stroke={color} strokeWidth="2.2" opacity=".7" fill="none">
++    <g stroke={color} strokeWidth="2.2" opacity=".4" fill="none">
+       <path d="M30 600V20M30 120h0M30 220h0M30 320h0"/>
+       <path d="M30 110q0 8 8 8M30 210q0 8 8 8M30 310q0 8 8 8M30 410q0 8 8 8"/>
+       <path d="M55 600V70"/>
+@@ -2014,12 +2008,12 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
+         <div className="lux-hero-inner">
+           {crumbs&&<div className="ht1" style={{fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",color:C.taupe,marginBottom:22}}>{crumbs}</div>}
+           <div className="ht1" style={{marginBottom:20}}><Monogram color={C.gold} size={monoSize}/></div>
+-          <h1 className="ht2 serif" style={{fontSize:"clamp(2.3rem,4.4vw,3.7rem)",fontWeight:500,lineHeight:1.25,color:C.dark,margin:"4px 0 0"}}>{title}</h1>
++          <h1 className="ht2 serif" style={{fontSize:"clamp(2.3rem,4.4vw,3.7rem)",fontWeight:400,lineHeight:1.25,color:C.dark,margin:"4px 0 0"}}>{title}</h1>
+           {subtitle&&<div className="ht2" style={{display:"flex",alignItems:"center",gap:12,margin:"16px 0 0"}}>
+-            <span style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
++            <span style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
+             {seal&&<Seal ch={seal}/>}
+           </div>}
+-          {intro&&<p className="ht3" style={{fontSize:14.5,color:C.ink,lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:400}}>{intro}</p>}
++          {intro&&<p className="ht3" style={{fontSize:14.5,color:C.ink,lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:300}}>{intro}</p>}
+           {partner&&<p className="ht3" style={{fontSize:12,letterSpacing:"1px",color:C.taupe,margin:"14px 0 0",display:"flex",alignItems:"center",gap:10}}><span style={{width:24,height:1,background:C.gold,display:"inline-block"}}/>{partner}</p>}
+           {features&&features.length>0&&<div className="feat-row ht4" style={{margin:"30px 0 0"}}>
+             {features.map((f,i)=><FeatItem key={i} name={f.name} label={f.label}/>)}
+@@ -2028,7 +2022,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
+             {ctas.map((c,i)=>(
+               <button key={i} onClick={c.onClick}
+                 className={c.variant==="outline"?"bo xiyora-gold-button":c.variant==="dark"?"xiyora-gold-button":"bg xiyora-gold-button"}
+-                style={c.variant==="dark"?{background:C.char,color:"#F0EBE3",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"'Inter',sans-serif",cursor:"pointer",borderRadius:2,fontWeight:500}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
++                style={c.variant==="dark"?{background:C.char,color:"#EDE8DF",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"var(--fn-sans)",cursor:"pointer",borderRadius:4,fontWeight:600}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
+             ))}
+           </div>}
+         </div>
+@@ -2039,7 +2033,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
+ /* Reusable thin-line icon strip (recurring promise band) */
+ function IconStrip({items,bg}:{items:{name:string;label:string}[];bg?:string}){
+   return(
+-    <section style={{background:bg||"#F3EFE5",borderTop:`1px solid #E5DFCD`,borderBottom:`1px solid #E5DFCD`,padding:"30px 0"}}>
++    <section style={{background:bg||"#0E1218",borderTop:`1px solid rgba(107,174,136,0.1)`,borderBottom:`1px solid rgba(107,174,136,0.1)`,padding:"30px 0"}}>
+       <div className="container"><Stagger className="icon-strip">
+         {items.map((it,i)=>(
+           <div key={i} className="ist"><LuxIcon name={it.name} size={26}/><div className="flabel">{it.label}</div></div>
+@@ -2061,11 +2055,11 @@ const DECO={
+ /* Gold corner flourish for ornate frames */
+ const CornerFlourish=({style}:{style?:React.CSSProperties})=>(
+   <svg width={58} height={58} viewBox="0 0 58 58" fill="none" aria-hidden style={style}>
+-    <path d="M4 4h20M4 4v20" stroke="#C8A97E" strokeWidth="1.3" strokeLinecap="round"/>
+-    <path d="M4 16c0-6.6 5.4-12 12-12" stroke="#C8A97E" strokeWidth=".9" opacity=".6"/>
+-    <path d="M10 10c14 0 24 10 24 24" stroke="#C8A97E" strokeWidth=".8" opacity=".4"/>
+-    <circle cx="8" cy="8" r="2.1" fill="#C8A97E"/>
+-    <path d="M16 6q9 2 11 11" stroke="#C8A97E" strokeWidth=".7" opacity=".4"/>
++    <path d="M4 4h20M4 4v20" stroke="#6BAE88" strokeWidth="1.3" strokeLinecap="round"/>
++    <path d="M4 16c0-6.6 5.4-12 12-12" stroke="#6BAE88" strokeWidth=".9" opacity=".6"/>
++    <path d="M10 10c14 0 24 10 24 24" stroke="#6BAE88" strokeWidth=".8" opacity=".4"/>
++    <circle cx="8" cy="8" r="2.1" fill="#6BAE88"/>
++    <path d="M16 6q9 2 11 11" stroke="#6BAE88" strokeWidth=".7" opacity=".4"/>
+   </svg>
+ );
+ const CornerSet=()=>(<>
+@@ -2079,7 +2073,7 @@ function Petals({count=14,z=5}:{count?:number;z?:number}){
+   return null;
+ }
+ /* Circle-X monogram mark (gold lockup) */
+-const MonoMark=({size=42,color="#C8A97E"}:{size?:number;color?:string})=>(
++const MonoMark=({size=42,color="#6BAE88"}:{size?:number;color?:string})=>(
+   <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+     <circle cx="24" cy="24" r="22" stroke={color} strokeWidth="1.2"/>
+     <circle cx="24" cy="24" r="17.5" stroke={color} strokeWidth=".6" opacity=".45"/>
+@@ -2091,9 +2085,9 @@ const MonoMark=({size=42,color="#C8A97E"}:{size?:number;color?:string})=>(
+ const Rosette=({size=24}:{size?:number})=>(
+   <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden style={{display:"block"}}>
+     <g transform="translate(20 20)">
+-      {[0,45,90,135,180,225,270,315].map(a=>(<ellipse key={a} cx="0" cy="-11" rx="3.6" ry="8" fill="#C8A97E" opacity=".82" transform={`rotate(${a})`}/>))}
+-      <circle r="6.6" fill="none" stroke="#C8A97E" strokeWidth="1" opacity=".7"/>
+-      <circle r="3.4" fill="#9E3B2E"/>
++      {[0,45,90,135,180,225,270,315].map(a=>(<ellipse key={a} cx="0" cy="-11" rx="3.6" ry="8" fill="#6BAE88" opacity=".82" transform={`rotate(${a})`}/>))}
++      <circle r="6.6" fill="none" stroke="#6BAE88" strokeWidth="1" opacity=".7"/>
++      <circle r="3.4" fill="#B87B5A"/>
+     </g>
+   </svg>
+ );
+@@ -2101,9 +2095,9 @@ const Rosette=({size=24}:{size?:number})=>(
+ const ArchedCartouche=({children,className,style}:{children:React.ReactNode;className?:string;style?:React.CSSProperties})=>(
+   <div className={className} style={{position:"relative",display:"inline-flex",flexDirection:"column",alignItems:"center",padding:"32px 42px 14px",maxWidth:"100%",...style}}>
+     <svg viewBox="0 0 320 150" fill="none" preserveAspectRatio="none" aria-hidden style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
+-      <path d="M16 150 V62 Q16 16 84 14 H236 Q304 16 304 62 V150" stroke="#C8A97E" strokeWidth="1.4"/>
+-      <path d="M24 150 V62 Q24 24 86 22 H234 Q296 24 296 62 V150" stroke="#C8A97E" strokeWidth=".7" opacity=".5"/>
+-      <path d="M16 150 q-13 -1 -14 -16 M304 150 q13 -1 14 -16" stroke="#C8A97E" strokeWidth="1"/>
++      <path d="M16 150 V62 Q16 16 84 14 H236 Q304 16 304 62 V150" stroke="#6BAE88" strokeWidth="1.4"/>
++      <path d="M24 150 V62 Q24 24 86 22 H234 Q296 24 296 62 V150" stroke="#6BAE88" strokeWidth=".7" opacity=".5"/>
++      <path d="M16 150 q-13 -1 -14 -16 M304 150 q13 -1 14 -16" stroke="#6BAE88" strokeWidth="1"/>
+     </svg>
+     <div style={{position:"absolute",top:-12,left:"50%",transform:"translateX(-50%)",zIndex:3}}><Rosette size={24}/></div>
+     <div style={{position:"relative",zIndex:2,display:"flex",flexDirection:"column",alignItems:"center",gap:5}}>{children}</div>
+@@ -2191,7 +2185,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
+                 zIndex: 3,
+                 justifyContent: isCentered ? "center" : "flex-start"
+               }}>
+-                <span style={{width:26,height:1,background:"#C8A97E",display:"inline-block"}}/>Official Bingxi Partner ΓÇö Certified Natural Latex
++                <span style={{width:26,height:1,background:"#6BAE88",display:"inline-block"}}/>Official Bingxi Partner ΓÇö Certified Natural Latex
+               </p>
+               <div className="lux-feat-row" style={{
+                 margin: "30px 0 0",
+@@ -2201,22 +2195,22 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
+                 justifyContent: isCentered ? "center" : "flex-start"
+               }}>
+                 {LUX_HERO_FEATURES.map((f,i)=>(
+-                  <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
++                  <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#6BAE88"/></div><div className="lfl">{f.label}</div></div>
+                 ))}
+               </div>
+               <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}} data-cms-id="hero-cta">
+-                <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#C8A97E"}}>Γ£ª</span></button>
+-                <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"#9E3B2E"}}>ΓåÆ</span></button>
++                <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#6BAE88"}}>Γ£ª</span></button>
++                <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"#B87B5A"}}>ΓåÆ</span></button>
+               </div>
+             </Reveal>
+           </div>
+           {/* RIGHT ΓÇö photo */}
+           <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:540,overflow:"hidden"}}>
+             <img src={err?"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85":(BIZ.heroImage||imageManifest.categories.heroNew)} alt="XIYORA natural latex bedroom" fetchPriority="high" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}} data-cms-id="hero-image"/>
+-            <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
+-            <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
++            <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(7,9,14,.55),rgba(7,9,14,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
++            <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(7,9,14,.42),transparent 34%)",pointerEvents:"none"}}/>
+             {/* corner-only gold hairline frame ΓÇö no motifs over the room photo (guardrail) */}
+-            <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(200,169,126,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
++            <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(107,174,136,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+           </div>
+         </div>
+       </div>
+@@ -2236,24 +2230,24 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
+       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}}/>
+       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}}/>
+       <div className="container" style={{position:"relative",zIndex:4}}>
+-        <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"auto 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#16110b,#0c0a08)"}}>
++        <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"auto 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#141B24,#07090E)"}}>
+           <CornerSet/>
+           <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}}/></div>
+           <div>
+             <Reveal>
+-              <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
+-              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:0}}>
++              <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
++              <h2 className="serif" style={{fontSize:"clamp(1.8rem,3.2vw,2.9rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:0}}>
+                 Crafted for Hotels.<br/><span className="gold-italic">Chosen by the Finest.</span>
+               </h2>
+-              <p style={{fontSize:14,lineHeight:1.8,color:"#C3B7A1",margin:"18px 0 0",maxWidth:540}}>
++              <p style={{fontSize:14,lineHeight:1.8,color:"rgba(237,232,223,0.7)",margin:"18px 0 0",maxWidth:540}}>
+                 Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail ΓÇö backed by clear documentation and dedicated support.
+               </p>
+               <div className="biz-feats" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"16px 28px",margin:"26px 0 0",maxWidth:540}}>
+                 {BIZ_FEATURES.map((f,i)=>(
+-                  <div key={i} className="biz-feat"><div className="feat-circ" style={{width:42,height:42}}><LuxIcon name={f.name} size={18} color="#D9B485"/></div><div className="bft">{f.label}</div></div>
++                  <div key={i} className="biz-feat"><div className="feat-circ" style={{width:42,height:42}}><LuxIcon name={f.name} size={18} color="#6BAE88"/></div><div className="bft">{f.label}</div></div>
+                 ))}
+               </div>
+-              <button className="btn-gold-out xiyora-gold-button" style={{marginTop:30}} onClick={onSupplier}>Partner With XIYORA <span style={{color:"#C8A97E"}}>Γ£ª</span></button>
++              <button className="btn-gold-out xiyora-gold-button" style={{marginTop:30}} onClick={onSupplier}>Partner With XIYORA <span style={{color:"#6BAE88"}}>Γ£ª</span></button>
+             </Reveal>
+           </div>
+         </div>
+@@ -2734,27 +2728,27 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
+                   <div style={{fontFamily:"'Inter',sans-serif",fontSize:8.5,letterSpacing:4,textTransform:"uppercase",color:"#A9956F"}}>Crafted Comfort</div>
+                   <Seal ch="σì░" style={{marginTop:2}}/>
+                 </ArchedCartouche>
+-                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
+-                <p style={{fontSize:14.5,lineHeight:1.85,color:"#C7BBA4",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
++                <h1 className="serif" style={{fontSize:"clamp(2.1rem,3.6vw,3.4rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:"18px 0 0",position:"relative",zIndex:3}} dangerouslySetInnerHTML={{__html: `${BIZ.supplierHeroHeading || "For B2B Buyers"}<br/><span class=\"gold-italic\">${BIZ.supplierHeroSubheading || "Partnership, Considered."}</span>`}} />
++                <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",margin:"20px 0 0",maxWidth:460,position:"relative",zIndex:3}}>
+                   {BIZ.supplierHeroBody || "Partner with XIYORA for premium natural latex solutions tailored to hospitality, wellness and retail ΓÇö backed by clear documentation and dedicated support."}
+                 </p>
+                 <div className="lux-feat-row" style={{margin:"30px 0 0",maxWidth:470,position:"relative",zIndex:3}}>
+                   {features.map((f,i)=>(
+-                    <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#D9B485"/></div><div className="lfl">{f.label}</div></div>
++                    <div key={i} className="lf"><div className="feat-circ"><LuxIcon name={f.name} size={22} color="#6BAE88"/></div><div className="lfl">{f.label}</div></div>
+                   ))}
+                 </div>
+                 <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}}>
+-                  <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send B2B Enquiry <span style={{color:"#C8A97E"}}>Γ£ª</span></button>
+-                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"#9E3B2E"}}>Γ£ª</span></button>
++                  <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send B2B Enquiry <span style={{color:"#6BAE88"}}>Γ£ª</span></button>
++                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"#B87B5A"}}>Γ£ª</span></button>
+                 </div>
+               </Reveal>
+             </div>
+             {/* RIGHT ΓÇö photo */}
+             <div className="x-frame lux-hero-photo-r" style={{position:"relative",minHeight:520,overflow:"hidden"}}>
+               <img src={err?"/assets/lux/hero-bedroom.webp":heroImg} alt="XIYORA B2B Partnership" loading="eager" decoding="async" onError={()=>setErr(true)} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+-              <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
+-              <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(12,10,8,.42),transparent 34%)",pointerEvents:"none"}}/>
+-              <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(200,169,126,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
++              <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(7,9,14,.55),rgba(7,9,14,.08) 36%,transparent 60%)",pointerEvents:"none"}}/>
++              <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(7,9,14,.42),transparent 34%)",pointerEvents:"none"}}/>
++              <div aria-hidden style={{position:"absolute",inset:14,border:"1px solid rgba(107,174,136,.32)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+             </div>
+           </div>
+         </div>
+@@ -2764,16 +2758,16 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
+         <div className="container">
+           <div style={{textAlign:"center",marginBottom:44}}>
+             <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:C.gold,marginBottom:10}}>How It Works</div>
+-            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.5rem)",fontWeight:500,color:C.dark,margin:0}}>The B2B Process</h2>
++            <h2 style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1.8rem,3vw,2.5rem)",fontWeight:400,color:C.dark,margin:0}}>The B2B Process</h2>
+           </div>
+           <div className="grid-4">
+             {processSteps.map(([n,t,d])=>(
+-              <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:3,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
+-                onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.09)";}}
++              <div key={n} style={{padding:"26px 22px",background:C.white,borderRadius:4,borderTop:`3px solid ${C.gold}`,transition:"transform .3s,box-shadow .3s"}}
++                onMouseEnter={(e:any)=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 14px 38px rgba(0,0,0,.5)";}}
+                 onMouseLeave={(e:any)=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:38,fontWeight:300,color:C.sand,marginBottom:12,lineHeight:1}}>{n}</div>
+-                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:500,color:C.dark,marginBottom:8}}>{t}</h4>
+-                <p style={{fontSize:13,color:"#888",lineHeight:1.72,fontWeight:300}}>{d}</p>
++                <div style={{fontFamily:"var(--fn-serif)",fontSize:38,fontWeight:300,color:C.sand,marginBottom:12,lineHeight:1}}>{n}</div>
++                <h4 style={{fontFamily:"var(--fn-serif)",fontSize:18,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
++                <p style={{fontSize:13,color:C.ink,lineHeight:1.72,fontWeight:300}}>{d}</p>
+               </div>
+             ))}
+           </div>
+@@ -2788,24 +2782,24 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
+             <p style={{fontSize:14,color:C.ink,maxWidth:560,margin:"14px auto 0",lineHeight:1.8}}>All prices confirmed after enquiry. Discounts applied off standard retail price (RRP). Sample sets available for qualified trade buyers.</p>
+           </div>
+           <div style={{overflowX:"auto"}}>
+-            <table style={{width:"100%",borderCollapse:"collapse",fontFamily:"'Inter',sans-serif",fontSize:13}}>
++            <table style={{width:"100%",borderCollapse:"collapse",fontFamily:"var(--fn-sans)",fontSize:13}}>
+               <thead>
+-                <tr style={{background:"#1C1C1C",color:"#E8D6B4"}}>
+-                  <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #C8A97E"}}>Feature</th>
++                <tr style={{background:"#0E1218",color:"#EDE8DF"}}>
++                  <th style={{padding:"14px 18px",textAlign:"left",fontWeight:500,letterSpacing:"1.4px",fontSize:11,textTransform:"uppercase",borderBottom:"2px solid #6BAE88"}}>Feature</th>
+                   {pricingTiers.map((tierName,i)=>(
+-                    <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #C8A97E",background:i===1?"#2a2318":undefined}}>
+-                      <div style={{color:"#F2D78C"}}>{tierName.split(" ")[0]}</div>
+-                      <div style={{fontSize:10,color:"#B89A6E",fontWeight:400,marginTop:3}}>{tierName.substring(tierName.indexOf("("))}</div>
++                    <th key={i} style={{padding:"14px 18px",textAlign:"center",fontWeight:500,letterSpacing:"1px",fontSize:12,textTransform:"uppercase",borderBottom:"2px solid #6BAE88",background:i===1?"rgba(107,174,136,.06)":undefined}}>
++                      <div style={{color:"#6BAE88"}}>{tierName.split(" ")[0]}</div>
++                      <div style={{fontSize:10,color:C.gold,fontWeight:400,marginTop:3}}>{tierName.substring(tierName.indexOf("("))}</div>
+                     </th>
+                   ))}
+                 </tr>
+               </thead>
+               <tbody>
+                 {pricingRows.map((row,ri)=>(
+-                  <tr key={ri} style={{borderBottom:`1px solid ${C.sand}`,background:ri%2===0?C.white:C.beige}}>
++                  <tr key={ri} style={{borderBottom:`1px solid rgba(107,174,136,.08)`,background:ri%2===0?C.white:C.beige}}>
+                     <td style={{padding:"12px 18px",color:C.dark,fontWeight:500}}>{row[0]}</td>
+                     {row.slice(1).map((cell,ci)=>(
+-                      <td key={ci} style={{padding:"12px 18px",textAlign:"center",color:ci===1?"#C8A97E":C.ink,fontWeight:ci===1?500:400}}>{cell}</td>
++                      <td key={ci} style={{padding:"12px 18px",textAlign:"center",color:ci===1?"#6BAE88":C.ink,fontWeight:ci===1?500:400}}>{cell}</td>
+                     ))}
+                   </tr>
+                 ))}
+@@ -2816,8 +2810,8 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
+           {/* B2B DETAILS CARDS */}
+           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:24,marginTop:40}}>
+             {detailCards.map(([t,d],i)=>(
+-              <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:3,borderLeft:`3px solid ${C.gold}`}}>
+-                <h4 style={{fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:C.dark,marginBottom:8}}>{t}</h4>
++              <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:4,borderLeft:`3px solid ${C.gold}`}}>
++                <h4 style={{fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:400,color:C.dark,marginBottom:8}}>{t}</h4>
+                 <p style={{fontSize:13,color:C.ink,lineHeight:1.72}}>{d}</p>
+               </div>
+             ))}
+@@ -2848,16 +2842,16 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
+       </section>
+ 
+       {/* CTA */}
+-      <section style={{background:"linear-gradient(135deg,#16110b,#0c0a08)",padding:"clamp(40px,5vw,64px) 0"}}>
++      <section style={{background:"linear-gradient(135deg,#141B24,#07090E)",padding:"clamp(40px,5vw,64px) 0"}}>
+         <div className="container" style={{textAlign:"center"}}>
+-          <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#C9A876",marginBottom:14}}>Get in Touch</div>
+-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#F4ECDC",margin:"0 0 16px",fontWeight:500}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
+-          <p style={{fontSize:14.5,color:"#C7BBA4",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>{BIZ.supplierCTABody || "WhatsApp us with your requirements ΓÇö product type, quantity, and city. We respond within 24 hours."}</p>
++          <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#6BAE88",marginBottom:14}}>Get in Touch</div>
++          <h2 style={{fontFamily:"var(--fn-serif)",fontSize:"clamp(1.8rem,3vw,2.8rem)",color:"#EDE8DF",margin:"0 0 16px",fontWeight:400}}>{BIZ.supplierCTAHeading || "Start Your B2B Partnership"}</h2>
++          <p style={{fontSize:14.5,color:"rgba(237,232,223,0.7)",lineHeight:1.8,maxWidth:520,margin:"0 auto 34px"}}>{BIZ.supplierCTABody || "WhatsApp us with your requirements ΓÇö product type, quantity, and city. We respond within 24 hours."}</p>
+           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
+-            <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#C8A97E"}}>Γ£ª</span></button>
+-            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"'Inter',sans-serif",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:2,fontWeight:500}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
++            <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send Enquiry <span style={{color:"#6BAE88"}}>Γ£ª</span></button>
++            <button style={{background:"#25D366",color:"#fff",border:"none",padding:"15px 32px",fontFamily:"var(--fn-sans)",fontSize:11.5,letterSpacing:"2px",textTransform:"uppercase",cursor:"pointer",borderRadius:4,fontWeight:600}} onClick={()=>window.open(`https://wa.me/${BIZ.wa}?text=${encodeURIComponent("Hi XIYORA, I am interested in B2B / trade pricing. Please share details.")}`)}>WhatsApp Us</button>
+           </div>
+-          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:"#7a6b52",fontSize:12,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:"1px",textTransform:"uppercase"}}>ΓåÉ Back to Home</button>
++          <button onClick={()=>setPage("home")} style={{marginTop:28,background:"none",border:"none",color:C.gold,fontSize:12,cursor:"pointer",fontFamily:"var(--fn-sans)",letterSpacing:"1px",textTransform:"uppercase"}}>ΓåÉ Back to Home</button>
+         </div>
+       </section>
+       <FooterTrustStrip/>
+@@ -2874,16 +2868,16 @@ const TRUST_ITEMS=[
+ ];
+ function FooterTrustStrip(){
+   return(
+-    <section className="lux-noir" style={{borderTop:"1px solid rgba(200,169,126,.2)",borderBottom:"1px solid rgba(200,169,126,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
+-      <div className="x-divider" style={{color:"#C8A97E",marginBottom:20}}>Γ£ª</div>
++    <section className="lux-noir" style={{borderTop:"1px solid rgba(107,174,136,.2)",borderBottom:"1px solid rgba(107,174,136,.2)",padding:"clamp(26px,3vw,38px) 0",position:"relative",overflow:"hidden"}}>
++      <div className="x-divider" style={{color:"#6BAE88",marginBottom:20}}>Γ£ª</div>
+       <div className="container">
+         <Stagger className="trust-grid">
+           {TRUST_ITEMS.map((it,i)=>(
+             <div key={i} className="trust-item">
+-              <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#D9B485"/></div>
++              <div className="feat-circ"><LuxIcon name={it.ic} size={22} color="#6BAE88"/></div>
+               <div>
+-                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:"#EBDCC0",fontWeight:600}}>{it.t}</div>
+-                <div style={{fontSize:12,color:"#9F9279",marginTop:3}}>{it.d}</div>
++                <div style={{fontSize:12.5,letterSpacing:"1.4px",textTransform:"uppercase",color:"#EDE8DF",fontWeight:600}}>{it.t}</div>
++                <div style={{fontSize:12,color:C.gold,marginTop:3}}>{it.d}</div>
+               </div>
+             </div>
+           ))}
+@@ -2893,11 +2887,11 @@ function FooterTrustStrip(){
+   );
+ }
+ 
+-/* ΓöÇΓöÇΓöÇ INTERACTIVE WHATSAPP POPUP (source: v3_whatsapp_popup_logic) ΓöÇΓöÇ */
++/* ΓöÇΓöÇΓöÇ INTERACTIVE WHATSAPP POPUP ΓöÇΓöÇ */
+ /* ΓöÇΓöÇΓöÇ REUSABLE LUX HOMEPAGE PRIMITIVES (v5) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+-/* Gold-outlined icon badge */
++/* Gold-outlined icon badge ΓÇö now jade badge */
+ function GoldIconBadge({name,size=24,round,className}:{name:string;size?:number;round?:boolean;className?:string}){
+-  return <div className={`gold-badge${round?" round":""}${className?" "+className:""}`}><LuxIcon name={name} size={size} color="#E0BE86"/></div>;
++  return <div className={`gold-badge${round?" round":""}${className?" "+className:""}`}><LuxIcon name={name} size={size} color="#6BAE88"/></div>;
+ }
+ /* Ornate frame (gold double border + corner flourishes) */
+ function OrnamentalFrame({children,style,className}:{children:React.ReactNode;style?:React.CSSProperties;className?:string}){
+@@ -2913,25 +2907,24 @@ function PremiumQuickLinks({onCatalog,onSupplier,onInquire}:{onCatalog:()=>void;
+   ];
+   return(
+     <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(30px,4vw,52px) 0"}}>
+-      <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.24,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
+-      <img src={DECO.sakuraCluster} alt="" aria-hidden loading="lazy" decoding="async" className="deco-float" style={{position:"absolute",top:-8,left:-14,width:"clamp(80px,9vw,120px)",opacity:.5,pointerEvents:"none",zIndex:1}}/>
++      <img src="/assets/lux/bonsai-darkwood.webp" alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",right:0,top:0,height:"100%",width:"34%",objectFit:"cover",opacity:.12,maskImage:"linear-gradient(to left,#000,transparent)",WebkitMaskImage:"linear-gradient(to left,#000,transparent)",pointerEvents:"none",zIndex:1}}/>
+       <div className="container" style={{position:"relative",zIndex:4}}>
+-        <OrnamentalFrame style={{background:"linear-gradient(160deg,#16110b,#0c0a08)",padding:"clamp(12px,2vw,20px)"}}>
++        <OrnamentalFrame style={{background:"linear-gradient(160deg,#141B24,#07090E)",padding:"clamp(12px,2vw,20px)"}}>
+           <div className="ql-grid">
+             {links.map((q,i)=>(
+               <button key={i} type="button" onClick={q.fn} aria-label={`${q.t} ΓÇö ${q.d}`} className="ql-card">
+                 <GoldIconBadge name={q.ic} size={24} round/>
+                 <span style={{display:"block"}}>
+-                  <span style={{display:"block",fontFamily:"'Playfair Display',serif",fontSize:17,fontWeight:500,color:"#F2EADB",marginBottom:4}}>{q.t}</span>
+-                  <span style={{display:"block",fontSize:11.5,color:"#9a8f7d",lineHeight:1.5,maxWidth:210}}>{q.d}</span>
++                  <span style={{display:"block",fontFamily:"var(--fn-serif)",fontSize:17,fontWeight:400,color:"#EDE8DF",marginBottom:4}}>{q.t}</span>
++                  <span style={{display:"block",fontSize:11.5,color:"var(--mn-linen-muted)",lineHeight:1.5,maxWidth:210}}>{q.d}</span>
+                 </span>
+                 <span className="ql-arrow" aria-hidden>ΓåÆ</span>
+               </button>
+             ))}
+           </div>
+           <div className="ql-cross" aria-hidden>
+-            <span style={{position:"absolute",left:"50%",top:"15%",bottom:"15%",width:1,background:"linear-gradient(rgba(200,169,126,0),rgba(200,169,126,.34),rgba(200,169,126,0))",transform:"translateX(-.5px)"}}/>
+-            <span style={{position:"absolute",top:"50%",left:"7%",right:"7%",height:1,background:"linear-gradient(90deg,rgba(200,169,126,0),rgba(200,169,126,.3),rgba(200,169,126,0))",transform:"translateY(-.5px)"}}/>
++            <span style={{position:"absolute",left:"50%",top:"15%",bottom:"15%",width:1,background:"linear-gradient(rgba(107,174,136,0),rgba(107,174,136,.34),rgba(107,174,136,0))",transform:"translateX(-.5px)"}}/>
++            <span style={{position:"absolute",top:"50%",left:"7%",right:"7%",height:1,background:"linear-gradient(90deg,rgba(107,174,136,0),rgba(107,174,136,.3),rgba(107,174,136,0))",transform:"translateY(-.5px)"}}/>
+             <span style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",display:"flex"}}><Rosette size={18}/></span>
+           </div>
+         </OrnamentalFrame>
+@@ -2949,7 +2942,7 @@ const BENEFITS=[
+ ];
+ function DarkBenefitStrip(){
+   return(
+-    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(200,169,126,.16)",borderBottom:"1px solid rgba(200,169,126,.16)"}}>
++    <section className="lux-noir" style={{position:"relative",overflow:"hidden",padding:"clamp(26px,3vw,38px) 0",borderTop:"1px solid rgba(107,174,136,0.16)",borderBottom:"1px solid rgba(107,174,136,0.16)"}}>
+       <div className="container" style={{position:"relative",zIndex:2}}>
+         <Stagger className="benefit-noir">
+           {BENEFITS.map((b,i)=>(
+@@ -2960,11 +2953,10 @@ function DarkBenefitStrip(){
+     </section>
+   );
+ }
+-/* SECTION 5 ΓÇö ivory category intro panel (readable in both themes) */
++/* SECTION 5 ΓÇö category intro panel */
+ function CategoryIntroPanel(){
+   return(
+     <div className="cat-intro" style={{maxWidth:760,margin:"0 auto"}}>
+-      <img src={DECO.sakuraCorner} alt="" aria-hidden loading="lazy" decoding="async" style={{position:"absolute",top:0,left:0,width:"clamp(80px,12vw,140px)",opacity:.9,pointerEvents:"none",zIndex:2}}/>
+       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="idle-bob" style={{position:"absolute",bottom:8,right:16,width:"clamp(54px,7vw,86px)",opacity:.45,pointerEvents:"none",zIndex:2}}/>
+       <div style={{position:"relative",zIndex:3,display:"flex",flexDirection:"column",alignItems:"center"}}>
+         <Seal ch="ΘÇë" title="Curated collection"/>
+@@ -2983,15 +2975,15 @@ function LatexStoryPanel({onCatalog}:{onCatalog:()=>void}){
+     <section className="latex-story">
+       <img className="ls-bg" src={err?"https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=85":"/assets/lux/latex-closeup.webp"} alt="Natural latex close-up" loading="lazy" decoding="async" onError={()=>setErr(true)}/>
+       <div className="ls-ov"/>
+-      <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(200,169,126,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+-      <svg aria-hidden viewBox="0 0 1200 80" preserveAspectRatio="none" style={{position:"absolute",left:0,right:0,bottom:0,width:"100%",height:60,opacity:.5,zIndex:3}}><path d="M0 60 Q150 20 300 50 T600 50 T900 50 T1200 45" fill="none" stroke="#C8A97E" strokeWidth="1.2"/><path d="M0 70 Q150 34 300 62 T600 62 T900 62 T1200 58" fill="none" stroke="#C8A97E" strokeWidth=".7" opacity=".5"/></svg>
++      <div aria-hidden style={{position:"absolute",inset:18,border:"1px solid rgba(107,174,136,.28)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
++      <svg aria-hidden viewBox="0 0 1200 80" preserveAspectRatio="none" style={{position:"absolute",left:0,right:0,bottom:0,width:"100%",height:60,opacity:.5,zIndex:3}}><path d="M0 60 Q150 20 300 50 T600 50 T900 50 T1200 45" fill="none" stroke="#6BAE88" strokeWidth="1.2"/><path d="M0 70 Q150 34 300 62 T600 62 T900 62 T1200 58" fill="none" stroke="#6BAE88" strokeWidth=".7" opacity=".5"/></svg>
+       <div className="container" style={{position:"relative",zIndex:4}}>
+         <Reveal style={{maxWidth:560}}>
+-          <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#C9A876",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
+-          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:500,lineHeight:1.25,color:"#F4ECDC",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
+-          <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#C8A97E"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#C8A97E"}}/></div>
+-          <p style={{fontSize:14.5,lineHeight:1.85,color:"#cabfa9",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
+-          <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#C8A97E"}}>ΓåÆ</span></button>
++          <div style={{fontSize:11,letterSpacing:"3.4px",textTransform:"uppercase",color:"#6BAE88",marginBottom:18,fontWeight:500}}>Nature's Intelligence</div>
++          <h2 className="serif" style={{fontSize:"clamp(2rem,4vw,3.2rem)",fontWeight:400,lineHeight:1.25,color:"#EDE8DF",margin:0}}>Pure by Nature,<br/><span className="gold-italic">Perfected by Science</span></h2>
++          <div style={{display:"flex",alignItems:"center",gap:12,margin:"22px 0"}}><span style={{width:30,height:1,background:"#6BAE88"}}/><Rosette size={16}/><span style={{width:30,height:1,background:"#6BAE88"}}/></div>
++          <p style={{fontSize:14.5,lineHeight:1.85,color:"rgba(237,232,223,0.7)",maxWidth:420}}>Responsibly sourced natural latex for unmatched comfort and durability.</p>
++          <button className="btn-gold-out gold-line-btn xiyora-gold-button" style={{marginTop:30}} onClick={onCatalog}>Discover Latex <span style={{color:"#6BAE88"}}>ΓåÆ</span></button>
+         </Reveal>
+       </div>
+     </section>
+@@ -3027,8 +3019,8 @@ function WhatsAppPopup({page,context}:{page:string;context:any}){
+   if(!visible)return null;
+   return(
+     <div className="xiyora-whatsapp-popup" role="dialog" aria-label="XIYORA WhatsApp help"
+-      style={{position:"fixed",right:24,bottom:148,zIndex:997,width:"min(330px,calc(100vw - 36px))",background:C.white,border:`1px solid ${C.sand}`,borderRadius:14,boxShadow:"0 24px 70px rgba(0,0,0,.22)",padding:"20px 20px 18px",overflow:"hidden"}}>
+-      <div style={{position:"absolute",top:0,left:0,right:0,height:4,background:"linear-gradient(90deg,#C8A97E,#25D366)"}}/>
++      style={{position:"fixed",right:24,bottom:148,zIndex:997,width:"min(330px,calc(100vw - 36px))",background:C.white,border:`1px solid ${C.sand}`,borderRadius:8,boxShadow:"0 24px 70px rgba(0,0,0,.5)",padding:"20px 20px 18px",overflow:"hidden"}}>
++      <div style={{position:"absolute",top:0,left:0,right:0,height:4,background:"linear-gradient(90deg,#6BAE88,#25D366)"}}/>
+       <button aria-label="Close" onClick={dismiss} style={{position:"absolute",top:10,right:12,background:"none",border:"none",fontSize:20,lineHeight:1,color:"#aaa",cursor:"pointer",padding:4}}>├ù</button>
+       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
+         <div style={{width:38,height:38,borderRadius:"50%",background:"#25D366",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+@@ -3132,28 +3124,28 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
+   };
+ 
+   if(!show)return null;
+-  const inp:React.CSSProperties={width:"100%",background:"#fafaf8",border:`1px solid ${C.sand}`,padding:"11px 13px",fontSize:13,borderRadius:3,fontFamily:"'Inter',sans-serif",color:C.dark,marginBottom:10,transition:"border-color .2s"};
+-  const lbl:React.CSSProperties={fontSize:11.5,color:"#888",marginBottom:5,display:"block",letterSpacing:".3px"};
++  const inp:React.CSSProperties={width:"100%",background:"#141B24",border:`1px solid rgba(107,174,136,0.18)`,padding:"11px 13px",fontSize:13,borderRadius:4,fontFamily:"'Space Grotesk',sans-serif",color:C.dark,marginBottom:10,transition:"border-color .2s"};
++  const lbl:React.CSSProperties={fontSize:11.5,color:"var(--mn-linen-muted)",marginBottom:5,display:"block",letterSpacing:".3px"};
+ 
+   return(
+-    <div style={{position:"fixed",inset:0,zIndex:900,background:"rgba(28,28,28,.6)",display:"flex",alignItems:"center",justifyContent:"center",padding:"16px",backdropFilter:"blur(12px)"}} onClick={onClose}>
++    <div style={{position:"fixed",inset:0,zIndex:900,background:"rgba(7,9,14,.6)",display:"flex",alignItems:"center",justifyContent:"center",padding:"16px",backdropFilter:"blur(12px)"}} onClick={onClose}>
+       <div className="glass-modal" style={{padding:"32px 36px",maxWidth:560,width:"100%",maxHeight:"92vh",overflowY:"auto",animation:"fadeInUp .3s ease"}} onClick={e=>e.stopPropagation()}>
+         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:22}}>
+           <div>
+             <SL>{f.intent==="quote"?"Price Quote":f.intent==="proforma"?"Proforma Invoice":f.intent==="bulk"?"Bulk Order":"Enquiry"}</SL>
+-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:500,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
++            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:22,fontWeight:400,color:C.dark,marginTop:4}}>{f.productName||"XIYORA Products"}</h3>
+           </div>
+           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#bbb",fontSize:22,lineHeight:1,marginLeft:16}}>Γ£ò</button>
+         </div>
+ 
+         {ok?(
+           <div style={{textAlign:"center",padding:"28px 0"}}>
+-            <div style={{width:64,height:64,background:"linear-gradient(135deg,#C8A97E,#B89472)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28}}>Γ£ô</div>
+-            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:22,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
+-            <p style={{fontSize:13.5,color:"#888",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24ΓÇô48 hours.</p>
++            <div style={{width:64,height:64,background:"linear-gradient(135deg,#6BAE88,#2D6B4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:28,color:"#07090E"}}>Γ£ô</div>
++            <h3 style={{fontFamily:"var(--fn-serif)",fontSize:22,color:C.dark,marginBottom:10}}>Enquiry Saved</h3>
++            <p style={{fontSize:13.5,color:"var(--mn-linen-muted)",lineHeight:1.72,marginBottom:6}}>Thank you, <strong style={{color:C.dark}}>{f.name}</strong>. We'll reply within 24ΓÇô48 hours.</p>
+             {savedId&&<p style={{fontSize:12,color:"#bbb",marginBottom:20}}>Reference: EQ-{String(savedId).padStart(4,"0")}</p>}
+             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+-              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:2,fontFamily:"'Inter',sans-serif",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7}}>
++              <button onClick={toWA} style={{background:"#25D366",color:"#fff",border:"none",padding:"12px 20px",borderRadius:4,fontFamily:"'Space Grotesk',sans-serif",fontSize:12,letterSpacing:1.2,textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",gap:7}}>
+                 <svg width={14} height={14} fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.549 5.878L0 24l6.29-1.525A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.214-3.733.905.948-3.64-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+                 WhatsApp Us
+               </button>
+@@ -3164,12 +3156,12 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
+           <>
+             <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:18}}>
+               {[["quote","Get Quote"],["proforma","Proforma Invoice"],["bulk","Bulk Order"],["general","General"]].map(([k,v])=>(
+-                <button key={k} onClick={()=>set("intent",k)} style={{background:f.intent===k?C.gold:"#EFE8DE",color:f.intent===k?"#fff":"#888",border:"none",padding:"5px 13px",borderRadius:20,fontSize:11,cursor:"pointer",fontFamily:"'Inter',sans-serif",transition:"all .2s"}}>{v}</button>
++                <button key={k} onClick={()=>set("intent",k)} style={{background:f.intent===k?C.gold:"#141B24",color:f.intent===k?C.dark:"rgba(237,232,223,.6)",border:"none",padding:"5px 13px",borderRadius:20,fontSize:11,cursor:"pointer",fontFamily:"'Space Grotesk',sans-serif",transition:"all .2s"}}>{v}</button>
+               ))}
+             </div>
+-            {product&&<div style={{background:C.lgold,padding:"10px 14px",borderRadius:3,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
++            {product&&<div style={{background:C.lgold,padding:"10px 14px",borderRadius:4,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+               <span style={{fontSize:13,color:"#888"}}>Product: <strong style={{color:C.dark}}>{product.name}</strong></span>
+-              <span style={{fontSize:12,color:C.gold,fontFamily:"'Playfair Display',serif",fontWeight:600}}>{priceIn(currency,product.priceINR)}</span>
++              <span style={{fontSize:12,color:C.gold,fontFamily:"var(--fn-serif)",fontWeight:400}}>{priceIn(currency,product.priceINR)}</span>
+             </div>}
+             <div className="co-form-grid">
+               {([["Your Name *","name","text","Full name"],["Phone / WhatsApp *","phone","tel","+91 XXXXX"]] as const).map(([l,k,t,ph])=>(
+@@ -3179,13 +3171,13 @@ function InquiryModal({show,onClose,product,intent:initIntent,currency}:any){
+                 <div key={k}><label style={lbl}>{l}</label><input style={inp} type={t} value={(f as any)[k]} onChange={e=>set(k,e.target.value)} placeholder={ph}/></div>
+               ))}
+             </div>
+-            <div style={{background:C.beige,borderRadius:3,padding:"14px",marginBottom:12}}>
++            <div style={{background:C.beige,borderRadius:4,padding:"14px",marginBottom:12}}>
+               <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:8,letterSpacing:".3px",display:"flex",alignItems:"center",gap:6}}>
+                 <svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                 Your Location &amp; Delivery
+               </div>
+               <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",marginBottom:10}}>
+-                <button type="button" disabled={geoLoading} onClick={detectInquiryLocation} style={{background:"#fff",border:`1px solid ${C.sand}`,color:C.dark,padding:"7px 13px",borderRadius:3,fontSize:11.5,cursor:geoLoading?"wait":"pointer",fontFamily:"'Inter',sans-serif",display:"flex",alignItems:"center",gap:7,flexShrink:0,whiteSpace:"nowrap"}}
++                <button type="button" disabled={geoLoading} onClick={detectInquiryLocation} style={{background:"#141B24",border:`1px solid rgba(107,174,136,.18)`,color:C.dark,padding:"7px 13px",borderRadius:4,fontSize:11.5,cursor:geoLoading?"wait":"pointer",fontFamily:"var(--fn-sans)",display:"flex",alignItems:"center",gap:7,flexShrink:0,whiteSpace:"nowrap"}}
+                   onMouseEnter={(e:any)=>!geoLoading&&(e.currentTarget.style.borderColor=C.gold)}
+                   onMouseLeave={(e:any)=>e.currentTarget.style.borderColor=C.sand}>
+                   {geoLoading?<Spinner/>:<svg width={13} height={13} fill="none" stroke={C.gold} strokeWidth={1.8} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
+@@ -5469,7 +5461,7 @@ const getFlagElement = (c: string) => {
+ 
+ /* ΓöÇΓöÇΓöÇ NAVBAR ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme,onSearch,onCatalog,onCatFilter,onCheckout,onWishlist,onSidebar,onSupplier}:any){
+-  const NAVBG="rgba(6,4,8,0.93)";
++  const NAVBG="rgba(7,9,14,0.95)";
+   const [curOpen,setCurOpen]=useState(false);
+   const curRef=useRef<HTMLDivElement>(null);
+ 
+@@ -5513,7 +5505,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
+   })();
+ 
+   return(
+-    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(232,180,192,.09)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:scrolled?"0 4px 32px rgba(0,0,0,.5)":"none",transition:"box-shadow .35s ease"}}>
++    <nav data-cms-id="header" style={{position:"sticky",top:0,zIndex:200,background:NAVBG,borderBottom:"1px solid rgba(107,174,136,.09)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:scrolled?"0 4px 32px rgba(0,0,0,.6)":"none",transition:"box-shadow .35s ease"}}>
+       {/* fine hairline divider at the base of the bar */}
+       <div aria-hidden style={{position:"absolute",left:0,right:0,bottom:0,height:1,background:"rgba(246,239,224,.07)",pointerEvents:"none"}}/>
+       <div className="container" style={{display:"grid",gridTemplateColumns:"minmax(0, 1fr) auto minmax(0, 1fr)",alignItems:"center",height:62}}>
+@@ -5539,11 +5531,11 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
+           <div className="nav-cartouche" onClick={()=>setPage("home")} title="XIYORA ΓÇö Home" role="button" tabIndex={0} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" ")setPage("home");}} style={{cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px clamp(12px,2vw,20px)",position:"relative",zIndex:2,outline:"none",background:"none",border:"none",borderRadius:0}}>
+             <div style={{display:"flex",alignItems:"center",gap:9}}>
+               <svg className="nav-mono" width={22} height={22} viewBox="0 0 48 48" fill="none" style={{flexShrink:0}} aria-hidden>
+-                <circle cx="24" cy="24" r="21" stroke="#E8B4C0" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#E8B4C0" strokeWidth="1.4" strokeLinecap="round"/>
++                <circle cx="24" cy="24" r="21" stroke="#6BAE88" strokeWidth="1.2"/><path d="M16 16l16 16M32 16L16 32" stroke="#6BAE88" strokeWidth="1.4" strokeLinecap="round"/>
+               </svg>
+-              <div className="nav-brand-x" style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(18px, 1.8vw, 22px)",fontWeight:500,letterSpacing:"clamp(4px, 0.5vw, 7px)",color:"#F5EEF0",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
++              <div className="nav-brand-x" style={{fontFamily:"'Libre Baskerville',Georgia,serif",fontSize:"clamp(17px, 1.8vw, 21px)",fontWeight:400,letterSpacing:"clamp(5px, 0.6vw, 9px)",color:"#EDE8DF",lineHeight:1,userSelect:"none",whiteSpace:"nowrap"}} data-cms-id="logo-text">XIYORA</div>
+             </div>
+-            <div className="nav-brand-sub" style={{fontFamily:"'Inter',sans-serif",fontSize:"9px",letterSpacing:"0.28em",color:"rgba(232,180,192,.6)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>{BIZ.navBrandTagline || "ΦêÆΘÇé ┬╖ Φç¬τä╢ ┬╖ σîáσ┐â"}</div>
++            <div className="nav-brand-sub" style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:"9px",letterSpacing:"0.32em",color:"rgba(107,174,136,.65)",userSelect:"none",whiteSpace:"nowrap",textTransform:"uppercase"}}>Natural ┬╖ Crafted ┬╖ Pure</div>
+           </div>
+         </div>
+         {/* Right: Currency, Theme, Search, Cart, B2B Portal */}
+@@ -5555,20 +5547,20 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
+               className="nav-cur"
+               title={CURRENCY_DISCLAIMER}
+               aria-label="Display currency"
+-              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(232,180,192,.08)",color:"#F5EEF0",border:"1px solid rgba(232,180,192,.2)",borderRadius:16,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
++              style={{display:"flex",alignItems:"center",gap:5,background:"rgba(107,174,136,.08)",color:"#EDE8DF",border:"1px solid rgba(107,174,136,.2)",borderRadius:4,padding:"5px 10px",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"'Space Grotesk',sans-serif",letterSpacing:".3px",whiteSpace:"nowrap",transition:"border-color .2s,background .2s"}}
+               data-cms-id="currency-selector"
+             >
+               <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:18,height:13}}>{getFlagElement(cur)}</span>
+               <span>{cur}</span>
+-              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#E8B4C0" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
++              <svg width={9} height={9} viewBox="0 0 10 10" fill="none" stroke="#6BAE88" strokeWidth={1.6} style={{transition:"transform .2s",transform:curOpen?"rotate(180deg)":"none",flexShrink:0}}>
+                 <path d="M2 3.5l3 3 3-3"/>
+               </svg>
+             </button>
+             {curOpen&&(
+-              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:220,background:"rgba(6,4,8,.98)",border:"1px solid rgba(232,180,192,.18)",borderRadius:12,boxShadow:"0 8px 32px rgba(0,0,0,.7),0 0 0 1px rgba(232,180,192,.06)",overflow:"hidden",zIndex:300}}>
++              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,minWidth:220,background:"rgba(7,9,14,.98)",border:"1px solid rgba(107,174,136,.18)",borderRadius:6,boxShadow:"0 8px 32px rgba(0,0,0,.7),0 0 0 1px rgba(107,174,136,.06)",overflow:"hidden",zIndex:300}}>
+                 {enabledCurs.map((c: string)=>(
+                   <button key={c} onClick={()=>{setCur(c);setCurOpen(false);}}
+-                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(232,180,192,.1)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#E8B4C0":"rgba(245,238,240,.7)",fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(232,180,192,.07)"}}
++                    style={{display:"flex",alignItems:"center",gap:9,width:"100%",padding:"9px 14px",background:c===cur?"rgba(107,174,136,.1)":"transparent",border:"none",cursor:"pointer",color:c===cur?"#6BAE88":"rgba(237,232,223,.7)",fontSize:12,fontFamily:"'Space Grotesk',sans-serif",letterSpacing:".3px",textAlign:"left",transition:"background .15s",borderBottom:"1px solid rgba(107,174,136,.07)"}}
+                     onMouseEnter={(e:any)=>{if(c!==cur)e.currentTarget.style.background="rgba(200,169,126,.07)";}}
+                     onMouseLeave={(e:any)=>{if(c!==cur)e.currentTarget.style.background="transparent";}}
+                   >
+@@ -5585,7 +5577,7 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
+             onClick={toggleTheme}
+             className="nav-theme"
+             title={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
+-            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(232,180,192,.1)":"rgba(232,180,192,.18)",border:"1px solid rgba(232,180,192,.25)",cursor:"pointer",color:"#E8B4C0",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
++            style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:"50%",background:theme==="dark"?"rgba(107,174,136,.1)":"rgba(107,174,136,.18)",border:"1px solid rgba(107,174,136,.25)",cursor:"pointer",color:"#6BAE88",fontSize:16,flexShrink:0,transition:"background .2s,border-color .2s"}}
+             aria-label={theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode"}
+           >
+             {theme==="dark"?"ΓÿÇ∩╕Å":"≡ƒîÖ"}
+@@ -5593,13 +5585,13 @@ function Navbar({page,setPage,cur,setCur,scrolled,wl,cartCount,theme,toggleTheme
+           <button className="ib" onClick={onSearch} title="Search" style={{color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}}>
+             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
+           </button>
+-          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:"rgba(245,238,240,.65)",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
+-            <svg width={17} height={17} fill={wl&&wl.length?"#E8B4C0":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+-            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C4889A",color:"#060408",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
++          <button className="ib nav-wish" onClick={onWishlist} style={{position:"relative",color:"rgba(237,232,223,.65)",padding:"8px",minWidth:34,minHeight:34}} title="Wishlist / Saved">
++            <svg width={17} height={17} fill={wl&&wl.length?"#6BAE88":"none"} stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
++            {wl&&wl.length>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#4A8A68",color:"#EDE8DF",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{wl.length}</span>}
+           </button>
+           <button className="ib" onClick={onCheckout} style={{position:"relative",color:"#D9CBB8",padding:"8px",minWidth:34,minHeight:34}} title="Basket / Checkout">
+             <svg width={17} height={17} fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+-            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#C4889A",color:"#060408",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{cartCount}</span>}
++            {cartCount>0&&<span style={{position:"absolute",top:-2,right:-2,background:"#4A8A68",color:"#EDE8DF",borderRadius:"50%",width:16,height:16,fontSize:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700}}>{cartCount}</span>}
+           </button>
+           <button className="nc-item nav-b2b-btn" onClick={onSupplier} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",marginLeft:4,color:"#E6C89A",fontFamily:"'Inter',sans-serif",fontSize:11,letterSpacing:"1.5px",textTransform:"uppercase",fontWeight:500,whiteSpace:"nowrap"}}>
+             <LuxIcon name="globe" size={15} color="#E6C89A"/><span className="nav-b2b-text">B2B Portal</span>

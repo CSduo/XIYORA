@@ -1500,8 +1500,8 @@ function LuxMarquee({dark=true}:{dark?:boolean}){
 const CSS=`
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
-body{font-family:'Inter', sans-serif;background:#07090E;color:#EDE8DF;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-#root{max-width:100%;overflow-x:hidden}
+body{font-family:'Inter', sans-serif;background:#1a1a1a;color:#EDE8DF;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+#root{max-width:100%;overflow-x:hidden;transition:opacity 0.4s ease}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
@@ -1687,10 +1687,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#ffffff!import
 .x-frame{position:relative;overflow:hidden}
 .x-frame img,.x-frame .x-frame-img{transition:transform .95s cubic-bezier(.22,1,.36,1)}
 .x-frame:hover img,.x-frame:hover .x-frame-img{transform:scale(1.07)}
-@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(7px,-11px)}}
-.x-drift{animation:drift 9s ease-in-out infinite}
-@keyframes driftSlow{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-9px,8px) rotate(2deg)}}
-.x-drift-slow{animation:driftSlow 13s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(7px,-11px,0)}}
+.x-drift{animation:drift 9s ease-in-out infinite;will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+@keyframes driftSlow{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-9px,8px,0) rotate(2deg)}}
+.x-drift-slow{animation:driftSlow 13s ease-in-out infinite;will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .x-tag{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:5px;font-family:'Cormorant Garamond', serif}
 .brush-edge{-webkit-mask-image:linear-gradient(to right,#000 84%,transparent 100%);mask-image:linear-gradient(to right,#000 84%,transparent 100%)}
 .x-stagger>*{opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
@@ -1741,9 +1741,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#ffffff!import
 .btn-gold-out:hover{background:rgba(255,255,255,.09);border-color:#ffffff;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.2)}
 .btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#d4d0cb;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(255,255,255,.32)}
 .btn-ivory:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.42)}
-.deco-float{animation:driftSlow 14s ease-in-out infinite}
-@keyframes petalFall{0%{transform:translateY(-12vh) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translateY(118vh) rotate(480deg);opacity:0}}
-@keyframes petalSway{0%,100%{transform:translateX(0)}50%{transform:translateX(26px)}}
+.deco-float{animation:driftSlow 14s ease-in-out infinite;will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+@keyframes petalFall{0%{transform:translate3d(0,-12vh,0) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translate3d(0,118vh,0) rotate(480deg);opacity:0}}
+@keyframes petalSway{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(26px,0,0)}}
 .petal-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .petal{position:absolute;top:0;will-change:transform;animation:petalFall linear infinite}
 .petal i{display:block;width:100%;height:100%;background:radial-gradient(circle at 32% 28%,#f8d3d9,#ea9faa 62%,#d77f8f);border-radius:100% 0 100% 0;box-shadow:inset -1px -1px 2px rgba(150,60,80,.22);animation:petalSway ease-in-out infinite}
@@ -1778,10 +1778,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#ffffff!import
 /* ── XIYORA LUX TOKENS + REUSABLE HOMEPAGE UTILITIES (v5) ── */
 :root{--xiyora-black:#07090E;--xiyora-charcoal:#141B24;--xiyora-ivory:#EDE8DF;--xiyora-gold:#ffffff;--xiyora-soft-gold:#ffffff;--xiyora-rose:#ffffff;--xiyora-rose-muted:#d4d0cb;--xiyora-rose-deep:#2D6B4A;--xiyora-sage:#ffffff;--xiyora-muted-text:rgba(237,232,223,0.55);--fn-serif:'Libre Baskerville',Georgia,serif;--fn-sans:'Inter', sans-serif}
 /* @keyframes goldShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}} */
-@keyframes cloudDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
-@keyframes idleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.cloud-drift{animation:cloudDrift 16s ease-in-out infinite}
-.idle-bob{animation:idleBob 7s ease-in-out infinite}
+@keyframes cloudDrift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(20px,0,0)}}
+@keyframes idleBob{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-5px,0)}}
+.cloud-drift{animation:cloudDrift 16s ease-in-out infinite;will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.idle-bob{animation:idleBob 7s ease-in-out infinite;will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,255,255,.1);background:radial-gradient(circle at 50% 28%,rgba(255,255,255,.06),rgba(255,255,255,.01));box-shadow:inset 0 0 0 4px rgba(255,255,255,.04);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}
 .gold-badge.round{border-radius:50%}
 .ql-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
@@ -6162,13 +6162,13 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   {k:"upi",label:"UPI / Google Pay / PhonePe / Paytm",sub:"Manual UPI transfer — enter UTR after payment"},
                   {k:"proforma",label:"Request Proforma Invoice",sub:"We send you a formal invoice to review before payment"},
                   {k:"whatsapp",label:"Confirm via WhatsApp",sub:"Finalise details on WhatsApp, pay after confirmation"},
-                  {k:"card",label:"Card / Net Banking (coming soon)",sub:"Gateway integration in progress"},
+                  {k:"card",label:"Card / Net Banking",sub:"Gateway integration coming soon — not yet available"},
                 ].map(({k,label,sub})=>(
-                  <div key={k} onClick={()=>setPayMode(k as any)} style={{display:"flex",gap:12,padding:"12px 14px",marginBottom:8,borderRadius:3,border:`2px solid ${payMode===k?C.gold:C.sand}`,background:payMode===k?C.white:"transparent",cursor:"pointer",transition:"all .2s",opacity:k==="card"?.5:1}}>
+                  <div key={k} onClick={k==="card"?undefined:()=>setPayMode(k as any)} style={{display:"flex",gap:12,padding:"12px 14px",marginBottom:8,borderRadius:3,border:`2px solid ${payMode===k?C.gold:C.sand}`,background:payMode===k?C.white:"transparent",cursor:k==="card"?"not-allowed":"pointer",transition:"all .2s",opacity:k==="card"?.35:1,pointerEvents:k==="card"?"none":"auto"}}>
                     <div style={{width:16,height:16,borderRadius:"50%",border:`2px solid ${payMode===k?C.gold:"#ccc"}`,background:payMode===k?C.gold:"transparent",flexShrink:0,marginTop:2}}/>
                     <div>
-                      <div style={{fontSize:13,fontWeight:500,color:C.dark}}>{label}</div>
-                      <div style={{fontSize:11.5,color:"rgba(255,255,255,0.75)",marginTop:2}}>{sub}</div>
+                      <div style={{fontSize:13,fontWeight:500,color:C.dark}}>{label}{k==="card"&&<span style={{fontSize:10,marginLeft:6,letterSpacing:"1.5px",color:"#f0a020",textTransform:"uppercase",fontFamily:"'Inter',sans-serif"}}>Coming soon</span>}</div>
+                      <div style={{fontSize:11.5,color:"rgba(255,255,255,0.85)",marginTop:2}}>{sub}</div>
                     </div>
                   </div>
                 ))}
@@ -6185,14 +6185,31 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                 <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:4,padding:"18px 20px",marginBottom:16}}>
                   <div style={{fontSize:12,fontWeight:500,color:C.dark,marginBottom:12}}>UPI Payment Details</div>
                   <div style={{background:C.beige,borderRadius:3,padding:"12px 14px",marginBottom:12}}>
-                    <div style={{fontSize:11,color:"rgba(255,255,255,0.75)",marginBottom:3}}>UPI ID</div>
+                    <div style={{fontSize:11,color:"rgba(255,255,255,0.85)",marginBottom:3}}>UPI ID</div>
                     <div style={{fontSize:14,fontWeight:600,color:C.dark,letterSpacing:".5px"}}>{UPI_ID}</div>
-                    <div style={{fontSize:11,color:"rgba(255,255,255,0.75)",marginTop:3}}>Google Pay · PhonePe · Paytm · BHIM · Any UPI app</div>
+                    <div style={{fontSize:11,color:"rgba(255,255,255,0.85)",marginTop:3}}>Google Pay · PhonePe · Paytm · BHIM · Any UPI app</div>
                   </div>
                   <div style={{display:"flex",justifyContent:"center",marginBottom:12}}>
                     <div style={{background:C.white,border:`1px solid ${C.sand}`,borderRadius:6,padding:10,textAlign:"center"}}>
-                      <img src="/assets/payment/upi-qr.webp" alt={`Scan to pay ${UPI_NAME} via UPI`} loading="lazy" decoding="async" style={{width:170,height:170,objectFit:"contain",display:"block"}} onError={(e:any)=>{e.currentTarget.parentElement.style.display="none";}}/>
-                      <div style={{fontSize:10.5,color:"rgba(255,255,255,0.75)",marginTop:6,letterSpacing:".5px"}}>Scan with any UPI app</div>
+                      <img
+                        src="/assets/payment/upi-qr.webp"
+                        alt={`Scan to pay ${UPI_NAME} via UPI`}
+                        loading="lazy"
+                        decoding="async"
+                        style={{width:170,height:170,objectFit:"contain",display:"block"}}
+                        onError={(e:any)=>{
+                          const img=e.currentTarget;
+                          const wrap=img.parentElement;
+                          if(!wrap)return;
+                          img.style.display="none";
+                          // Show text fallback with the UPI ID prominently
+                          const fb=document.createElement("div");
+                          fb.style.cssText="width:170px;height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f5f2ed;border-radius:4px;gap:8px;";
+                          fb.innerHTML=`<div style='font-size:11px;color:#888;letter-spacing:2px;text-transform:uppercase;'>UPI ID</div><div style='font-size:14px;font-weight:700;color:#1a1a1a;letter-spacing:.5px;text-align:center;padding:0 10px;word-break:break-all'>${UPI_ID}</div><div style='font-size:10px;color:#aaa;'>Open any UPI app and pay</div>`;
+                          wrap.insertBefore(fb,img);
+                        }}
+                      />
+                      <div style={{fontSize:10.5,color:"rgba(255,255,255,0.85)",marginTop:6,letterSpacing:".5px"}}>Scan with any UPI app</div>
                     </div>
                   </div>
                   <a href={upiLink} style={{display:"block",textAlign:"center",background:C.gold,color:"#fff",padding:"11px",borderRadius:3,fontSize:12,textDecoration:"none",letterSpacing:"1px",textTransform:"uppercase",marginBottom:12,fontFamily:"'Inter', sans-serif",fontWeight:500}}>
@@ -6200,7 +6217,7 @@ td{padding:9px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top}
                   </a>
                   <label style={lbl}>UTR / Reference Number (after payment)</label>
                   <input style={inp()} value={utr} onChange={e=>setUtr(e.target.value)} placeholder="Enter UTR or transaction reference"/>
-                  <p style={{fontSize:11.5,color:"rgba(255,255,255,0.75)",lineHeight:1.65}}>Payment status: <strong style={{color:"#C8860A"}}>Pending manual verification.</strong> We will confirm within 24 hours after you share the UTR.</p>
+                  <p style={{fontSize:11.5,color:"rgba(255,255,255,0.85)",lineHeight:1.65}}>Payment status: <strong style={{color:"#C8860A"}}>Pending manual verification.</strong> We will confirm within 24 hours after you share the UTR.</p>
                 </div>
               )}
 
@@ -6752,7 +6769,12 @@ export default function App(){
   const [siteLoading,setSiteLoading]=useState(true);
   const [appReady,setAppReady]=useState(false);
   const [loaderDone,setLoaderDone]=useState(false);
-  const handleLoaderDone=useCallback(()=>setLoaderDone(true),[]);
+  const handleLoaderDone=useCallback(()=>{
+    setLoaderDone(true);
+    // Reveal the main app content smoothly after loader exits
+    const root=document.getElementById("root");
+    if(root)root.style.visibility="visible";
+  },[]);
   useEffect(()=>{
     setProductsLoading(true);
     fetch(`${API_BASE}/products`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
@@ -6793,10 +6815,17 @@ export default function App(){
   },[productsLoading,siteLoading]);
   // Safety timeout: always show app after 6 s even if a fetch stalls
   useEffect(()=>{const t=setTimeout(()=>setAppReady(true),6000);return()=>clearTimeout(t);},[]);
-  // Dismiss the static HTML loading screen instantly on React mount to hand off to React's LoadingScreen
+  // Crossfade the static HTML loading screen out — DO NOT instant-remove,
+  // the CSS transition takes 600ms and must complete before DOM removal.
+  // The React LoadingScreen renders immediately in parallel behind it.
   useEffect(()=>{
     const el=document.getElementById("xi-loader");
-    if(el)el.remove();
+    if(!el)return;
+    // Trigger the fade+scale exit transition
+    el.classList.add("xi-fade");
+    // Remove from DOM only after CSS transition completes
+    const t=setTimeout(()=>el.remove(),650);
+    return()=>clearTimeout(t);
   },[]);
 
   useEffect(()=>{
@@ -6956,7 +6985,7 @@ export default function App(){
 
   return(
     <ThemeCtx.Provider value={tc}>
-    <div style={{background:"#ffffff",minHeight:"100vh",transition:"background .25s,color .25s"}}>
+    <div style={{minHeight:"100vh",transition:"background .25s,color .25s"}}>
       <style>{`
         ${BIZ.sectionPadding ? `.sec{padding:${BIZ.sectionPadding} !important;}` : ""}
         ${BIZ.heroPadding ? `.lux-noir{padding:${BIZ.heroPadding} !important;}` : ""}
