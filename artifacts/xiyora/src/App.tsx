@@ -3417,40 +3417,39 @@ function SearchOverlay({show,onClose,onPickProduct,onCatalog}:any){
 
 /* ─── PRODUCT CARD ───────────────────────────────────────── */
 function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
-  const C=useC();
   const [imgErr,setImgErr]=useState(false);
   const discInfo = getFakeDiscountInfo(p.id, p.priceINR, cur);
 
   return(
-    <div className="pc-luxe glass-card" onClick={()=>onOpen(p)}>
-      <div style={{position:"relative",overflow:"hidden",height:240}}>
-        <img src={imgErr?FALLBACK_IMG:(p.heroImage||p.gallery?.[0]||FALLBACK_IMG)} alt={p.name} className="pi" loading="lazy" decoding="async" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#1a1814":undefined,padding:p.category==="Latex Material"?"8px":undefined}}/>
+    <div className="pc-luxe glass-card" onClick={()=>onOpen(p)} style={{background:"#1a1a1a",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,overflow:"hidden",cursor:"pointer"}}>
+      <div style={{position:"relative",overflow:"hidden",height:240,background:"#111111"}}>
+        <img src={imgErr?FALLBACK_IMG:(p.heroImage||p.gallery?.[0]||FALLBACK_IMG)} alt={p.name} className="pi" loading="lazy" decoding="async" onError={()=>setImgErr(true)} style={{width:"100%",height:"100%",objectFit:p.category==="Latex Material"?"contain":"cover",background:p.category==="Latex Material"?"#111111":undefined,padding:p.category==="Latex Material"?"8px":undefined,display:"block"}}/>
         <div style={{position:"absolute",top:10,left:10,display:"flex",flexDirection:"column",gap:6,zIndex:5}}>
           {p.tag && <Tag>{p.tag}</Tag>}
           {discInfo && <span className="x-discount-badge">{discInfo.discountPct}% OFF</span>}
         </div>
-        <button style={{position:"absolute",top:10,right:10,background:"rgba(24,20,16,.85)",border:"none",width:34,height:34,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all .2s",zIndex:6}}
+        <button style={{position:"absolute",top:10,right:10,background:"rgba(0,0,0,0.65)",border:"1px solid rgba(255,255,255,0.2)",width:34,height:34,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all .2s",zIndex:6}}
           onClick={e=>{e.stopPropagation();onWish(p.id);}}>
-          <svg width={15} height={15} fill={wl.includes(p.id)?C.gold:"none"} stroke={wl.includes(p.id)?C.gold:"#999"} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg width={15} height={15} fill={wl.includes(p.id)?"#ffffff":"none"} stroke={wl.includes(p.id)?"#ffffff":"rgba(255,255,255,0.7)"} strokeWidth={1.5} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </button>
       </div>
-      <div style={{padding:"16px 18px"}}>
-        <div style={{fontSize:10,letterSpacing:"1.8px",textTransform:"uppercase",color:C.gold,marginBottom:5,fontWeight:500}}>{p.latexType} · {p.category}</div>
-        <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:6,lineHeight:1.2}}>{p.name}</h3>
-        <p style={{fontSize:12.5,color:"#aaa",marginBottom:14,lineHeight:1.55,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:12,borderTop:`1px solid ${C.sand}`}}>
+      <div style={{padding:"18px 20px",background:"#1a1a1a"}}>
+        <div style={{fontSize:10,letterSpacing:"1.8px",textTransform:"uppercase",color:"rgba(255,255,255,0.55)",marginBottom:6,fontWeight:600}}>{p.latexType} · {p.category}</div>
+        <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:20,fontWeight:600,color:"#ffffff",marginBottom:8,lineHeight:1.2}}>{p.name}</h3>
+        <p style={{fontSize:13,color:"rgba(255,255,255,0.7)",marginBottom:16,lineHeight:1.5,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{p.shortDesc}</p>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:14,borderTop:"1px solid rgba(255,255,255,0.1)"}}>
           <div>
             {discInfo ? (
               <div>
-                <span className="x-original-price-strike">{discInfo.originalPriceStr}</span>
-                <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:600,color:C.gold}}>{discInfo.discountedPriceStr}</span>
+                <span className="x-original-price-strike" style={{color:"rgba(255,255,255,0.4)",marginRight:6,textDecoration:"line-through",fontSize:13}}>{discInfo.originalPriceStr}</span>
+                <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:19,fontWeight:600,color:"#ffffff"}}>{discInfo.discountedPriceStr}</span>
               </div>
             ) : (
-              <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:600,color:C.dark}}>{priceIn(cur,p.priceINR)}</div>
+              <div style={{fontFamily:"'Cormorant Garamond', serif",fontSize:19,fontWeight:600,color:"#ffffff"}}>{priceIn(cur,p.priceINR)}</div>
             )}
-            <div style={{fontSize:10,color:"#ccc",marginTop:2}}>Indicative · Quote after city</div>
+            <div style={{fontSize:10,color:"rgba(255,255,255,0.45)",marginTop:2}}>Indicative · Quote after city</div>
           </div>
-          <button className="bg" style={{padding:"9px 14px",fontSize:11,letterSpacing:"1px"}} onClick={e=>{e.stopPropagation();onInquire(p,"quote");}}>Get Quote</button>
+          <button style={{background:"#ffffff",color:"#1a1a1a",border:"none",borderRadius:4,padding:"9px 16px",fontSize:11,letterSpacing:"1px",fontWeight:600,textTransform:"uppercase",cursor:"pointer"}} onClick={e=>{e.stopPropagation();onInquire(p,"quote");}}>Get Quote</button>
         </div>
       </div>
     </div>

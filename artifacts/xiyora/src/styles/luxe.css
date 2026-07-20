@@ -1057,3 +1057,24 @@ img.deco-float { display: none !important; }
 .nl { color: rgba(0,0,0,0.45) !important; }
 .nl:hover { color: #1a1a1a !important; }
 .nl::after { background: #1a1a1a !important; }
+
+
+/* ── PRODUCT CARD OVERRIDES ────────────────────────── */
+.glass-card, .pc-luxe, .pc {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+.glass-card h3, .pc-luxe h3, .pc h3 {
+  color: #ffffff !important;
+}
+.glass-card p, .pc-luxe p, .pc p {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Remove decorative image line overlays, pseudo-elements, and shimmers */
+.x-frame::after, .x-frame::before, .pc-luxe::before, .pc-luxe::after, .pc-glass-overlay {
+  display: none !important;
+  background: none !important;
+}
