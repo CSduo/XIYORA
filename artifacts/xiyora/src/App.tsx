@@ -1341,11 +1341,11 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
     let t: ReturnType<typeof setTimeout> | undefined;
     if(appReady){
       const elapsed=Date.now()-startTimeRef.current;
-      const minTime=1200; // enough time for content to paint behind loader
+      const minTime=300; // just enough for one paint cycle behind the loader
       const delay=Math.max(0,minTime-elapsed);
       t=setTimeout(()=>{
         setExit(true);
-        setTimeout(onDone,700); // must be >= exit animation duration (650ms)
+        setTimeout(onDone,420); // must be >= exit animation duration (400ms)
       },delay);
     }
     return()=>{if(t)clearTimeout(t);};
@@ -6813,8 +6813,8 @@ export default function App(){
   useEffect(()=>{
     if(!productsLoading&&!siteLoading)setAppReady(true);
   },[productsLoading,siteLoading]);
-  // Safety timeout: always show app after 6 s even if a fetch stalls
-  useEffect(()=>{const t=setTimeout(()=>setAppReady(true),6000);return()=>clearTimeout(t);},[]);
+  // Safety timeout: always show app after 3 s even if a fetch stalls
+  useEffect(()=>{const t=setTimeout(()=>setAppReady(true),3000);return()=>clearTimeout(t);},[]);
   // Crossfade the static HTML loading screen out — DO NOT instant-remove,
   // the CSS transition takes 600ms and must complete before DOM removal.
   // The React LoadingScreen renders immediately in parallel behind it.
@@ -6824,7 +6824,7 @@ export default function App(){
     // Trigger the fade+scale exit transition
     el.classList.add("xi-fade");
     // Remove from DOM only after CSS transition completes
-    const t=setTimeout(()=>el.remove(),650);
+    const t=setTimeout(()=>el.remove(),420);
     return()=>clearTimeout(t);
   },[]);
 

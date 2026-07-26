@@ -68,7 +68,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
     var(--xr-rose-muted) 70%,
     transparent
   );
-  animation: xlLineSweep 1.2s cubic-bezier(.4,0,.2,1) 0.2s forwards;
+  animation: xlLineSweep 0.6s cubic-bezier(.4,0,.2,1) 0.05s forwards;
   transform: translateY(-1px);
 }
 @keyframes xlLineSweep {
@@ -82,7 +82,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  animation: xlLogoIn 0.7s cubic-bezier(.22,1,.36,1) 0.1s both;
+  animation: xlLogoIn 0.4s cubic-bezier(.22,1,.36,1) 0.05s both;
   position: relative;
   z-index: 2;
 }
@@ -109,7 +109,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   display: flex;
   gap: 44px;
   margin-top: 44px;
-  animation: xlCountIn 0.8s cubic-bezier(.22,1,.36,1) 1.1s both;
+  animation: xlCountIn 0.5s cubic-bezier(.22,1,.36,1) 0.45s both;
   position: relative;
   z-index: 2;
 }
@@ -149,18 +149,18 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
     var(--xr-rose-muted),
     transparent
   );
-  animation: xlProgress 2.4s cubic-bezier(.4,0,.2,1) forwards;
+  animation: xlProgress 1.2s cubic-bezier(.4,0,.2,1) forwards;
   box-shadow: 0 0 12px rgba(200,195,186,0.15);
 }
 @keyframes xlProgress { from { width: 0; } to { width: 100%; } }
 .xiyora-loader.loader-exit {
-  animation: xlLoaderExit 0.7s cubic-bezier(.4,0,.2,1) forwards;
+  animation: xlLoaderExit 0.4s cubic-bezier(.4,0,.2,1) forwards;
   pointer-events: none;
 }
 @keyframes xlLoaderExit {
   0%   { opacity: 1; transform: scale(1); }
-  50%  { opacity: 0.5; transform: scale(1.015); }
-  100% { opacity: 0; transform: scale(1.03); }
+  50%  { opacity: 0.4; transform: scale(1.01); }
+  100% { opacity: 0; transform: scale(1.02); }
 }
 
 /* ── 3. AMBIENT SECTION BLOOM ────────────────────────────── */
