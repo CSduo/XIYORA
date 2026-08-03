@@ -28,8 +28,8 @@
       *,*::before,*::after{box-sizing:border-box}
       /* Dark body background — matches React loader background exactly */
       body{background:#1a1a1a;color:#f5f2ed;margin:0;font-family:'Inter',sans-serif}
-      /* #root hidden until React loader signals done — prevents content flash-through */
-      #root{min-height:100vh;visibility:hidden}
+      /* #root container */
+      #root{min-height:100vh}
 
       /* Side drawer: off-canvas BEFORE JavaScript loads */
       .sdrawer{

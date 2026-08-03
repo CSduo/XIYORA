@@ -35,7 +35,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
 .xiyora-loader {
   position: fixed;
   inset: 0;
-  z-index: 99990;
+  z-index: 99999;
   background: var(--xr-black);
   display: flex;
   flex-direction: column;
@@ -141,7 +141,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(to right,
     transparent,
     var(--xr-rose-deep),
@@ -149,17 +149,15 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
     var(--xr-rose-muted),
     transparent
   );
-  animation: xlProgress 1.2s cubic-bezier(.4,0,.2,1) forwards;
-  box-shadow: 0 0 12px rgba(200,195,186,0.15);
+  transition: width 0.15s ease-out;
+  box-shadow: 0 0 12px rgba(200,195,186,0.2);
 }
-@keyframes xlProgress { from { width: 0; } to { width: 100%; } }
 .xiyora-loader.loader-exit {
-  animation: xlLoaderExit 0.4s cubic-bezier(.4,0,.2,1) forwards;
+  animation: xlLoaderExit 0.35s cubic-bezier(.4,0,.2,1) forwards;
   pointer-events: none;
 }
 @keyframes xlLoaderExit {
   0%   { opacity: 1; transform: scale(1); }
-  50%  { opacity: 0.4; transform: scale(1.01); }
   100% { opacity: 0; transform: scale(1.02); }
 }
 

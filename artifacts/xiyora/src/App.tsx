@@ -1335,31 +1335,36 @@ const FALLBACK_IMG="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
 /* ── Loading Screen ── */
 function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
   const [exit,setExit]=useState(false);
-  const [num,setNum]=useState(0);
-  const startTimeRef=useRef(Date.now());
+  const [num,setNum]=useState(1);
+
   useEffect(()=>{
-    let t: ReturnType<typeof setTimeout> | undefined;
-    if(appReady){
-      const elapsed=Date.now()-startTimeRef.current;
-      const minTime=300; // just enough for one paint cycle behind the loader
-      const delay=Math.max(0,minTime-elapsed);
-      t=setTimeout(()=>{
-        setExit(true);
-        setTimeout(onDone,420); // must be >= exit animation duration (400ms)
-      },delay);
-    }
-    return()=>{if(t)clearTimeout(t);};
-  },[appReady,onDone]);
+    let interval: ReturnType<typeof setInterval>;
+    interval = setInterval(()=>{
+      setNum(prev => {
+        if(appReady) {
+          if(prev >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          const step = Math.max(3, Math.ceil((100 - prev) * 0.35));
+          return Math.min(100, prev + step);
+        } else {
+          if(prev >= 90) return 90;
+          const step = prev < 40 ? 3 : prev < 70 ? 2 : 1;
+          return Math.min(90, prev + step);
+        }
+      });
+    }, 20);
+    return ()=>clearInterval(interval);
+  },[appReady]);
+
   useEffect(()=>{
-    let frame=0;
-    const tick=()=>{
-      frame++;
-      setNum(Math.min(93,Math.floor(frame*3.2)));
-      if(frame<30)requestAnimationFrame(tick);
-    };
-    const id=setTimeout(()=>requestAnimationFrame(tick),100);
-    return()=>clearTimeout(id);
-  },[]);
+    if(num < 100) return;
+    const t1 = setTimeout(()=>setExit(true), 120);
+    const t2 = setTimeout(onDone, 480);
+    return ()=>{clearTimeout(t1); clearTimeout(t2);};
+  },[num, onDone]);
+
   return(
     <div className={`xiyora-loader${exit?" loader-exit":""}`} aria-hidden>
       <div className="xl-line"/>
@@ -1378,7 +1383,7 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
         <div className="xl-count-item"><div className="xl-count-num" style={{fontSize:18,marginTop:4}}>🇨🇳→🇮🇳</div><div className="xl-count-label">Bingxi Partner</div></div>
         <div className="xl-count-item"><div className="xl-count-num">93%</div><div className="xl-count-label">Natural Latex</div></div>
       </div>
-      <div className="xl-progress" style={{animationDuration:exit?"0.4s":"1.2s"}}/>
+      <div className="xl-progress" style={{width:`${num}%`}}/>
     </div>
   );
 }
@@ -6769,12 +6774,7 @@ export default function App(){
   const [siteLoading,setSiteLoading]=useState(true);
   const [appReady,setAppReady]=useState(false);
   const [loaderDone,setLoaderDone]=useState(false);
-  const handleLoaderDone=useCallback(()=>{
-    setLoaderDone(true);
-    // Reveal the main app content smoothly after loader exits
-    const root=document.getElementById("root");
-    if(root)root.style.visibility="visible";
-  },[]);
+  const handleLoaderDone=useCallback(()=>setLoaderDone(true),[]);
   useEffect(()=>{
     setProductsLoading(true);
     fetch(`${API_BASE}/products`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
@@ -6782,14 +6782,10 @@ export default function App(){
         PRODUCTS=data.map((p:any)=>({
           ...p,
           id:p.slug,
-          // Use DB values DIRECTLY — do NOT apply resolveHero/resolveGallery.
-          // resolveHero/resolveGallery use imageManifest fallbacks which silently
-          // override intentionally-cleared values (heroImage:"" or gallery:[]).
           heroImage:typeof p.heroImage==="string"?p.heroImage:"",
           gallery:Array.isArray(p.gallery)?p.gallery:[],
         }));
         forceProductRefresh();
-        // If a product detail page is open, refresh it with the latest DB data.
         setSelProd((prev:any)=>{
           if(!prev)return prev;
           const updated=PRODUCTS.find(x=>x.id===prev.id);
@@ -6815,17 +6811,10 @@ export default function App(){
   },[productsLoading,siteLoading]);
   // Safety timeout: always show app after 3 s even if a fetch stalls
   useEffect(()=>{const t=setTimeout(()=>setAppReady(true),3000);return()=>clearTimeout(t);},[]);
-  // Crossfade the static HTML loading screen out — DO NOT instant-remove,
-  // the CSS transition takes 600ms and must complete before DOM removal.
-  // The React LoadingScreen renders immediately in parallel behind it.
+  // Remove static HTML loader immediately on React mount to hand off to React's LoadingScreen overlay
   useEffect(()=>{
     const el=document.getElementById("xi-loader");
-    if(!el)return;
-    // Trigger the fade+scale exit transition
-    el.classList.add("xi-fade");
-    // Remove from DOM only after CSS transition completes
-    const t=setTimeout(()=>el.remove(),420);
-    return()=>clearTimeout(t);
+    if(el)el.remove();
   },[]);
 
   useEffect(()=>{
