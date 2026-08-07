@@ -285,12 +285,30 @@ export let BIZ = {
 };
 
 const API_BASE = (import.meta.env.VITE_API_BASE as string) || "/api";
+
+async function fetchWithRetry(url: string, options: RequestInit = {}, retries = 2, backoff = 500): Promise<Response> {
+  try {
+    const res = await fetch(url, options);
+    if (!res.ok && retries > 0 && res.status >= 500) {
+      await new Promise(r => setTimeout(r, backoff));
+      return fetchWithRetry(url, options, retries - 1, backoff * 1.5);
+    }
+    return res;
+  } catch (err) {
+    if (retries > 0) {
+      await new Promise(r => setTimeout(r, backoff));
+      return fetchWithRetry(url, options, retries - 1, backoff * 1.5);
+    }
+    throw err;
+  }
+}
+
 async function apiPost(endpoint: string, data: Record<string, string | undefined>) {
   const url = `${API_BASE}${endpoint}`;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 12000);
   try {
-    const res = await fetch(url, {
+    const res = await fetchWithRetry(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -1153,7 +1171,7 @@ const lookupPincode = (pin:string) => {
 
 const C={white:"#f5f2ed",beige:"#eae5dc",gold:"#B8B2A8",dark:"#1a1a1a",sand:"#d3ced2",lgold:"#fdfcfb",char:"#eae5dc",ink:"#1a1a1a",seal:"#B8B2A8",taupe:"#8a857e"};
 const CD={white:"#1a1a1a",beige:"#222222",gold:"#e8e4de",dark:"#f5f2ed",sand:"#333333",lgold:"#252525",char:"#121212",ink:"#f5f2ed",seal:"#e8e4de",taupe:"#a09a92"};
-const DARK_CSS=`body{background:#1a1a1a!important;color:#f5f2ed!important;--glass-bg:rgba(30,30,30,0.45);--glass-border:rgba(245,242,237,0.06);--glass-hover-bg:rgba(30,30,30,0.8);--glass-hover-border:rgba(245,242,237,0.2);--glass-shadow-hover:0 16px 40px rgba(0,0,0,0.5)}.nl{color:rgba(245,242,237,.62)!important}.nl:hover{color:#ffffff!important}.nl::after{background:#ffffff!important}.bg{background:#ffffff!important;color:#1a1a1a!important}.bg:hover{background:#e8e4de!important}.bo{color:#ffffff!important;border-color:rgba(255,255,255,.2)!important}.bo:hover{background:rgba(255,255,255,.08)!important;color:#ffffff!important}.bd{color:rgba(245,242,237,.65)!important;border-color:rgba(245,242,237,.12)!important}.pc{background:linear-gradient(145deg,rgba(34,34,34,.85),rgba(26,26,26,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(245,242,237,.65)!important}.ib:hover{color:#ffffff!important}.sl{color:rgba(245,242,237,.5)!important}.fl{color:rgba(245,242,237,.55)!important}.fl:hover{color:#ffffff!important}.inp{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input,select,textarea{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input::placeholder,textarea::placeholder{color:rgba(245,242,237,.3)!important}.glass-modal{background:rgba(30,30,30,.96)!important;border-color:rgba(255,255,255,.08)!important}.sdrawer{background:#1a1a1a!important}.sdr-link{color:#f5f2ed!important}.sdr-link:hover{color:#ffffff!important;background:rgba(255,255,255,.05)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(245,242,237,.12)!important;color:rgba(245,242,237,.55)!important}.cert-chip:hover{border-color:rgba(255,255,255,.4)!important;color:#ffffff!important}::-webkit-scrollbar-track{background:#1a1a1a!important}::-webkit-scrollbar-thumb{background:rgba(245,242,237,.1)!important}.spec-key{color:rgba(245,242,237,.55)!important}.spec-val{color:#f5f2ed!important}.tag-pill{background:rgba(255,255,255,.12)!important}.paper{background-color:#1a1a1a!important;background-image:radial-gradient(circle at 18% 24%,rgba(200,195,186,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(200,195,186,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(200,195,186,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(200,195,186,.03),transparent 55%)!important}`;
+const DARK_CSS=`body{background:#1a1a1a!important;color:#f5f2ed!important;--glass-bg:rgba(30,30,30,0.45);--glass-border:rgba(245,242,237,0.06);--glass-hover-bg:rgba(30,30,30,0.8);--glass-hover-border:rgba(245,242,237,0.2);--glass-shadow-hover:0 16px 40px rgba(0,0,0,0.5)}.nl{color:rgba(245,242,237,.62)!important}.nl:hover{color:#ffffff!important}.nl::after{background:#ffffff!important}.bg{background:#ffffff!important;color:#1a1a1a!important}.bg:hover{background:#e8e4de!important}.bo{color:#ffffff!important;border-color:rgba(255,255,255,.2)!important}.bo:hover{background:rgba(255,255,255,.08)!important;color:#ffffff!important}.bd{color:rgba(245,242,237,.65)!important;border-color:rgba(245,242,237,.12)!important}.pc{background:linear-gradient(145deg,rgba(34,34,34,.85),rgba(26,26,26,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(245,242,237,.65)!important}.ib:hover{color:#ffffff!important}.sl{color:rgba(245,242,237,.5)!important}.fl{color:rgba(245,242,237,.55)!important}.fl:hover{color:#ffffff!important}.inp{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input,select,textarea{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input::placeholder,textarea::placeholder{color:rgba(245,242,237,.65)!important}.glass-modal{background:rgba(30,30,30,.96)!important;border-color:rgba(255,255,255,.08)!important}.sdrawer{background:#1a1a1a!important}.sdr-link{color:#f5f2ed!important}.sdr-link:hover{color:#ffffff!important;background:rgba(255,255,255,.05)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(245,242,237,.12)!important;color:rgba(245,242,237,.55)!important}.cert-chip:hover{border-color:rgba(255,255,255,.4)!important;color:#ffffff!important}::-webkit-scrollbar-track{background:#1a1a1a!important}::-webkit-scrollbar-thumb{background:rgba(245,242,237,.1)!important}.spec-key{color:rgba(245,242,237,.55)!important}.spec-val{color:#f5f2ed!important}.tag-pill{background:rgba(255,255,255,.12)!important}.paper{background-color:#1a1a1a!important;background-image:radial-gradient(circle at 18% 24%,rgba(200,195,186,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(200,195,186,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(200,195,186,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(200,195,186,.03),transparent 55%)!important}`;
 const ThemeCtx=createContext(C);
 const useC=()=>useContext(ThemeCtx);
 const waMsg=(msg:string)=>`https://wa.me/${BIZ.wa}?text=${encodeURIComponent(msg)}`;
@@ -1224,8 +1242,11 @@ async function fetchLiveRates():Promise<boolean>{
 }
 /** Try backend /api/fx-rates first (server-side cached, no CORS issues); fallback to direct external fetch. */
 async function fetchBackendRates():Promise<boolean>{
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 6000);
   try{
-    const res=await fetch(`${API_BASE}/fx-rates`,{signal:AbortSignal.timeout(6000)});
+    const res = await fetchWithRetry(`${API_BASE}/fx-rates`, { signal: controller.signal });
+    clearTimeout(timer);
     if(!res.ok)return false;
     const data=await res.json();
     if(data?.rates&&typeof data.rates==="object"){
@@ -1233,7 +1254,9 @@ async function fetchBackendRates():Promise<boolean>{
       if(ok){try{localStorage.setItem(FX_CACHE_KEY,JSON.stringify({ts:Date.now(),rates:data.rates}));}catch{}}
       return ok;
     }
-  }catch{}
+  }catch{
+    clearTimeout(timer);
+  }
   return false;
 }
 function useLiveFx():number{
@@ -1347,14 +1370,14 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
             return 100;
           }
           const step = Math.max(3, Math.ceil((100 - prev) * 0.35));
-          return Math.min(100, prev + step);
+          return Math.min(100, Math.max(prev, prev + step));
         } else {
           if(prev >= 90) return 90;
           const step = prev < 40 ? 3 : prev < 70 ? 2 : 1;
-          return Math.min(90, prev + step);
+          return Math.min(90, Math.max(prev, prev + step));
         }
       });
-    }, 20);
+    }, 35);
     return ()=>clearInterval(interval);
   },[appReady]);
 
@@ -1384,6 +1407,27 @@ function LoadingScreen({appReady,onDone}:{appReady:boolean;onDone:()=>void}){
         <div className="xl-count-item"><div className="xl-count-num">93%</div><div className="xl-count-label">Natural Latex</div></div>
       </div>
       <div className="xl-progress" style={{width:`${num}%`}}/>
+    </div>
+  );
+}
+
+/* ── Offline Banner ── */
+function OfflineBanner() {
+  const [offline, setOffline] = useState(!navigator.onLine);
+  useEffect(() => {
+    const onOff = () => setOffline(true);
+    const onOn = () => setOffline(false);
+    window.addEventListener("offline", onOff);
+    window.addEventListener("online", onOn);
+    return () => {
+      window.removeEventListener("offline", onOff);
+      window.removeEventListener("online", onOn);
+    };
+  }, []);
+  if (!offline) return null;
+  return (
+    <div style={{ background: "#2a241e", color: "#e8e4de", padding: "8px 16px", textAlign: "center", fontSize: 12, letterSpacing: "0.5px", borderBottom: "1px solid #3a342e", position: "relative", zIndex: 9999 }}>
+      Operating in offline mode — displaying cached product catalog &amp; static rates.
     </div>
   );
 }
@@ -1557,7 +1601,7 @@ body{font-family:'Inter', sans-serif;background:#1a1a1a;color:#EDE8DF;overflow-x
 .wb::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;z-index:-1;animation:wbPulse 2.4s cubic-bezier(.22,1,.36,1) infinite}
 @keyframes wbPulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.65);opacity:0}100%{transform:scale(1.65);opacity:0}}
 .wb:hover{transform:scale(1.14);box-shadow:0 10px 38px rgba(37,211,102,.52)}
-.fl{font-size:13px;color:#666;cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Inter', sans-serif;padding:0}
+.fl{font-size:13px;color:rgba(245,242,237,0.85);cursor:pointer;transition:color .25s;margin-bottom:11px;display:block;text-decoration:none;background:none;border:none;text-align:left;font-family:'Inter', sans-serif;padding:0}
 .fl:hover{color:#ffffff}
 input:focus,select:focus,textarea:focus{outline:none;border-color:#ffffff!important;box-shadow:0 0 0 3px rgba(255,255,255,.1)}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#F8F6F2}::-webkit-scrollbar-thumb{background:#D9CBB8;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#ffffff}
@@ -3306,7 +3350,7 @@ function SubscribeModal({show,onClose}:{show:boolean;onClose:()=>void}){
 
   if(!show)return null;
   const inp:React.CSSProperties={width:"100%",background:"#1e1e1e",border:"1px solid #2a2a2a",color:"#F0EBE3",padding:"11px 14px",fontSize:13,borderRadius:3,fontFamily:"'Inter', sans-serif",marginBottom:10};
-  const lbl:React.CSSProperties={fontSize:11.5,color:"#666",marginBottom:5,display:"block"};
+  const lbl:React.CSSProperties={fontSize:11.5,color:"rgba(245,242,237,0.85)",marginBottom:5,display:"block"};
   return(
     <div style={{position:"fixed",inset:0,zIndex:900,background:"rgba(0,0,0,.72)",display:"flex",alignItems:"center",justifyContent:"center",padding:16,backdropFilter:"blur(10px)"}} onClick={onClose}>
       <div style={{background:"#141414",borderRadius:6,padding:"32px 36px",maxWidth:480,width:"100%",boxShadow:"0 32px 80px rgba(0,0,0,.5)",border:"1px solid #2a2a2a",animation:"fadeInUp .3s ease"}} onClick={e=>e.stopPropagation()}>
@@ -3446,7 +3490,7 @@ function PCard({p,cur,wl,onWish,onOpen,onInquire}:any){
           <div>
             {discInfo ? (
               <div>
-                <span className="x-original-price-strike" style={{color:"rgba(255,255,255,0.4)",marginRight:6,textDecoration:"line-through",fontSize:13}}>{discInfo.originalPriceStr}</span>
+                <span className="x-original-price-strike" style={{color:"rgba(255,255,255,0.75)",marginRight:6,textDecoration:"line-through",fontSize:13}}>{discInfo.originalPriceStr}</span>
                 <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:19,fontWeight:600,color:"#ffffff"}}>{discInfo.discountedPriceStr}</span>
               </div>
             ) : (
@@ -5678,7 +5722,7 @@ function Footer({setPage,onInquire,onSubscribe}:any){
             <div style={{fontSize:11,letterSpacing:"2px",textTransform:"uppercase",color:"#F0EBE3",marginBottom:18,fontWeight:500}}>Stay in Touch</div>
             <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",lineHeight:1.78,marginBottom:16}}>Product launches, B2B updates, and comfort insights.</p>
             <button className="bg" style={{width:"100%",padding:12,fontSize:12}} onClick={onSubscribe}>Join XIYORA</button>
-            <p style={{fontSize:11.5,color:"#666",lineHeight:1.7,marginTop:16,maxWidth:220}}>{BIZ.address}</p>
+            <p style={{fontSize:11.5,color:"rgba(255,255,255,0.75)",lineHeight:1.7,marginTop:16,maxWidth:220}}>{BIZ.address}</p>
           </div>
         </div>
         {/* signature bar */}
@@ -5691,12 +5735,12 @@ function Footer({setPage,onInquire,onSubscribe}:any){
           </div>
         </div>
         <div style={{borderTop:"1px solid #1e1e1e",paddingTop:22,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}} data-cms-id="footer-copyright">
-          <div style={{fontSize:12,color:"#666"}}>© 2025 XIYORA. All prices indicative. Proforma / Estimate provided where applicable.</div>
+          <div style={{fontSize:12,color:"rgba(255,255,255,0.75)"}}>© 2025 XIYORA. All prices indicative. Proforma / Estimate provided where applicable.</div>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
             {[["Privacy","privacy"],["Terms","terms"],["Shipping","shipping"],["Returns","returns"]].map(([l,v])=>(
-              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"#666",cursor:"pointer",fontFamily:"'Inter', sans-serif",transition:"color .2s"}}
+              <button key={l} onClick={()=>setPage(v)} style={{background:"none",border:"none",fontSize:11.5,color:"rgba(255,255,255,0.75)",cursor:"pointer",fontFamily:"'Inter', sans-serif",transition:"color .2s"}}
                 onMouseEnter={(e:any)=>e.currentTarget.style.color="#ffffff"}
-                onMouseLeave={(e:any)=>e.currentTarget.style.color="#666"}>{l}</button>
+                onMouseLeave={(e:any)=>e.currentTarget.style.color="rgba(255,255,255,0.75)"}>{l}</button>
             ))}
           </div>
         </div>
@@ -6683,7 +6727,7 @@ export function SimplePage({title,content,setPage}:any){
               <LuxIcon name={["box","sliders","shield","craft","globe","doc","clock","headset"][i%8]} size={18}/>
               <h3 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:18,fontWeight:500,color:C.dark,margin:0}}>{k}</h3>
             </div>
-            <p style={{fontSize:14,color:"#f5f2ed",lineHeight:1.82,fontWeight:400}}>{v}</p>
+            <p style={{fontSize:14,color:C.dark,lineHeight:1.82,fontWeight:400,opacity:0.85}}>{v}</p>
           </div>
         ))}
         </div>
@@ -6777,7 +6821,7 @@ export default function App(){
   const handleLoaderDone=useCallback(()=>setLoaderDone(true),[]);
   useEffect(()=>{
     setProductsLoading(true);
-    fetch(`${API_BASE}/products`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
+    fetchWithRetry(`${API_BASE}/products`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
       if(Array.isArray(data)&&data.length>0){
         PRODUCTS=data.map((p:any)=>({
           ...p,
@@ -6795,7 +6839,7 @@ export default function App(){
     }).catch(()=>{}).finally(()=>setProductsLoading(false));
   },[]);
   useEffect(()=>{
-    fetch(`${API_BASE}/site-content`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
+    fetchWithRetry(`${API_BASE}/site-content`,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then((data:any)=>{
       if(data&&typeof data==="object"){
         for(const k of Object.keys(BIZ)){
           if(k in data && data[k]!==undefined){
@@ -6811,10 +6855,15 @@ export default function App(){
   },[productsLoading,siteLoading]);
   // Safety timeout: always show app after 3 s even if a fetch stalls
   useEffect(()=>{const t=setTimeout(()=>setAppReady(true),3000);return()=>clearTimeout(t);},[]);
-  // Remove static HTML loader immediately on React mount to hand off to React's LoadingScreen overlay
+  // Smoothly crossfade static HTML loader before removing from DOM
   useEffect(()=>{
     const el=document.getElementById("xi-loader");
-    if(el)el.remove();
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    if(el){
+      el.classList.add("xi-fade");
+      timer=setTimeout(()=>{el.remove();},300);
+    }
+    return ()=>{ if(timer) clearTimeout(timer); };
   },[]);
 
   useEffect(()=>{
@@ -6975,6 +7024,7 @@ export default function App(){
   return(
     <ThemeCtx.Provider value={tc}>
     <div style={{minHeight:"100vh",transition:"background .25s,color .25s"}}>
+      <OfflineBanner />
       <style>{`
         ${BIZ.sectionPadding ? `.sec{padding:${BIZ.sectionPadding} !important;}` : ""}
         ${BIZ.heroPadding ? `.lux-noir{padding:${BIZ.heroPadding} !important;}` : ""}

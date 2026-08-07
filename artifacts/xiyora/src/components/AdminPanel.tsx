@@ -113,7 +113,7 @@ function Spinner({ size = 18 }: { size?: number }) {
 }
 
 function Label({ children }: { children: React.ReactNode }) {
-  return <label style={{ fontSize:11, letterSpacing:"1.5px", textTransform:"uppercase", color:"#888", display:"block", marginBottom:5, fontWeight:500 }}>{children}</label>;
+  return <label style={{ fontSize:11, letterSpacing:"1.5px", textTransform:"uppercase", color:"#D0C8B8", display:"block", marginBottom:5, fontWeight:500 }}>{children}</label>;
 }
 
 function Input({ value, onChange, placeholder, type = "text", style = {} }: { value?: string; onChange: (v: string) => void; placeholder?: string; type?: string; style?: React.CSSProperties }) {
@@ -259,7 +259,7 @@ function GalleryUploader({ token, slug, context, value, onChange }: { token:stri
 
   return (
     <div style={{ marginBottom:12 }}>
-      <Label>Gallery Images <span style={{ fontSize:10, color:"#aaa", fontWeight:400 }}>(drag to reorder · select multiple)</span></Label>
+      <Label>Gallery Images <span style={{ fontSize:10, color:"#D0C8B8", fontWeight:400 }}>(drag to reorder · select multiple)</span></Label>
       <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:8 }}>
         {(value||[]).map((url,i) => (
           <div
@@ -533,7 +533,7 @@ function ProductDetailMock({ p, cur }: { p: Partial<Product>; cur: string }) {
       {/* Variants */}
       {hasVariants && (
         <div style={{ marginTop: 12 }}>
-          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#888", margin: "0 0 6px" }}>Select Size (Interactive)</h4>
+          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#D0C8B8", margin: "0 0 6px" }}>Select Size (Interactive)</h4>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             {(p.variants || []).map((v: any, i: number) => {
               const vPrice = cur === "USD" ? v.priceUSD : v.priceINR;
@@ -561,24 +561,24 @@ function ProductDetailMock({ p, cur }: { p: Partial<Product>; cur: string }) {
       {/* Specs & Highlights */}
       <div style={{ marginTop: 14, borderTop: `1px solid ${BEIGE}`, paddingTop: 12, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
         <div>
-          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#888", margin: "0 0 6px" }}>Specifications</h4>
+          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#D0C8B8", margin: "0 0 6px" }}>Specifications</h4>
           {p.specs && Object.keys(p.specs).length > 0 ? (
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10.5 }}>
               <tbody>
                 {Object.entries(p.specs).map(([k, v]) => (
                   <tr key={k} style={{ borderBottom: `1px solid #FAF8F4` }}>
-                    <td style={{ padding: "4px 0", color: "#888", fontWeight: 500 }}>{k}</td>
+                    <td style={{ padding: "4px 0", color: "#D0C8B8", fontWeight: 500 }}>{k}</td>
                     <td style={{ padding: "4px 0", color: DARK }}>{String(v)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <span style={{ fontSize: 10, color: "#aaa" }}>No specs</span>
+            <span style={{ fontSize: 10, color: "#D0C8B8" }}>No specs</span>
           )}
         </div>
         <div>
-          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#888", margin: "0 0 6px" }}>Highlights</h4>
+          <h4 style={{ fontSize: 9, letterSpacing: "1px", textTransform: "uppercase", color: "#D0C8B8", margin: "0 0 6px" }}>Highlights</h4>
           {p.highlights && p.highlights.length > 0 ? (
             p.highlights.map((h, i) => (
               <div key={i} style={{ display: "flex", gap: 5, fontSize: 10.5, color: "#555", marginBottom: 3 }}>
@@ -587,7 +587,7 @@ function ProductDetailMock({ p, cur }: { p: Partial<Product>; cur: string }) {
               </div>
             ))
           ) : (
-            <span style={{ fontSize: 10, color: "#aaa" }}>No highlights</span>
+            <span style={{ fontSize: 10, color: "#D0C8B8" }}>No highlights</span>
           )}
         </div>
       </div>
@@ -596,7 +596,7 @@ function ProductDetailMock({ p, cur }: { p: Partial<Product>; cur: string }) {
       <div style={{ marginTop: 18, background: "#1E1E1C", border: `1px solid rgba(200,169,126,.2)`, borderRadius: 4, padding: 12, color: "#F2EDE4" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
           <span style={{ fontSize: 8, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD }}>Landed Shipping Simulator</span>
-          <span style={{ fontSize: 9, color: "#aaa" }}>Shanghai ➔ Nhava Sheva</span>
+          <span style={{ fontSize: 9, color: "#D0C8B8" }}>Shanghai ➔ Nhava Sheva</span>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 10, marginBottom: 8 }}>
           <span>Volume: <strong>{volume} CBM</strong></span>
@@ -804,7 +804,7 @@ function ProductEditor({ product, token, onSave, onClose }: { product: Partial<P
 
             {/* Currency toggle for preview */}
             <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 8, marginBottom: 12 }}>
-              <span style={{ fontSize: 10, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>Preview Currency:</span>
+              <span style={{ fontSize: 10, color: "#D0C8B8", letterSpacing: "1px", textTransform: "uppercase" }}>Preview Currency:</span>
               <div style={{ display: "flex", background: "#fff", border: `1px solid ${BEIGE}`, borderRadius: 3, overflow: "hidden" }}>
                 <button onClick={() => setPreviewCur("USD")} style={{ border: "none", padding: "4px 10px", fontSize: 10, background: previewCur === "USD" ? GOLD : "transparent", color: previewCur === "USD" ? "#fff" : "#888", cursor: "pointer", fontWeight: 600 }}>USD</button>
                 <button onClick={() => setPreviewCur("INR")} style={{ border: "none", padding: "4px 10px", fontSize: 10, background: previewCur === "INR" ? GOLD : "transparent", color: previewCur === "INR" ? "#fff" : "#888", cursor: "pointer", fontWeight: 600 }}>INR</button>
@@ -958,7 +958,7 @@ function ProductsPanel({ token }: { token: string }) {
             <thead>
               <tr style={{ borderBottom:`2px solid ${BEIGE}` }}>
                 {["Order","","Name","Category","Tag","Price INR","Visible","Actions"].map(h => (
-                  <th key={h} style={{ padding:"10px 10px", textAlign:"left", color:"#888", fontWeight:500, fontSize:10.5, letterSpacing:"1px", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                  <th key={h} style={{ padding:"10px 10px", textAlign:"left", color:"#E5DFCD", fontWeight:500, fontSize:10.5, letterSpacing:"1px", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -2140,7 +2140,7 @@ function LeadsPanel({ token }: { token: string }) {
           <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12.5 }}>
             <thead>
               <tr style={{ borderBottom:`2px solid ${BEIGE}` }}>
-                {Object.keys(data[0]).map(k => <th key={k} style={{ padding:"10px 12px", textAlign:"left", color:"#888", fontWeight:500, whiteSpace:"nowrap", textTransform:"uppercase", fontSize:10.5, letterSpacing:"1px" }}>{k.replace(/_/g," ")}</th>)}
+                {Object.keys(data[0]).map(k => <th key={k} style={{ padding:"10px 12px", textAlign:"left", color:"#E5DFCD", fontWeight:500, whiteSpace:"nowrap", textTransform:"uppercase", fontSize:10.5, letterSpacing:"1px" }}>{k.replace(/_/g," ")}</th>)}
               </tr>
             </thead>
             <tbody>

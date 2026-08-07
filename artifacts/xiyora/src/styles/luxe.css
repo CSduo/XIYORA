@@ -537,7 +537,7 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
   color: rgba(245,238,240,0.7) !important;
 }
 .cat-card-explore {
-  color: rgba(26,26,26,0.45) !important;
+  color: #F5F2ED !important;
 }
 .cat-corner {
   display: none !important;
@@ -550,16 +550,14 @@ a, button, [role="button"], [tabindex], label, select, input[type="submit"] {
 
 /* ── 19. GOLD GRADIENT TEXT — Rose Edition ─────────────── */
 .gold-grad {
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  -webkit-text-fill-color: initial !important;
-  color: rgba(26,26,26,0.45) !important;
+  background: linear-gradient(135deg, #E5DFCD 0%, #C8C3BA 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
 }
 .lux-noir .gold-grad {
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  -webkit-text-fill-color: initial !important;
-  color: rgba(26,26,26,0.45) !important;
+  background: linear-gradient(135deg, #E5DFCD 0%, #C8C3BA 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
 }
 
 /* ── 20. RESPONSIVE HERO/BIZ GRID ──────────────────────── */
@@ -616,7 +614,8 @@ body, #root {
   font-size: 9.5px !important;
   letter-spacing: 0.35em !important;
   text-transform: uppercase !important;
-  color: rgba(26,26,26,0.45) !important;
+  color: #C8C3BA !important;
+  opacity: 1 !important;
   font-weight: 600 !important;
   display: block !important;
   margin-bottom: 16px !important;
@@ -672,8 +671,8 @@ body, #root {
 /* Outline — thin rose border */
 .bo {
   background: transparent !important;
-  color: rgba(26,26,26,0.45) !important;
-  border: 1px solid rgba(232,180,192,0.38) !important;
+  color: #F5EEF0 !important;
+  border: 1px solid rgba(245,242,237,0.4) !important;
   border-radius: 2rem !important;
   padding: 13px 30px !important;
   font-family: 'Inter', sans-serif !important;
@@ -684,10 +683,10 @@ body, #root {
   box-shadow: none !important;
 }
 .bo:hover {
-  border-color: rgba(26,26,26,0.45) !important;
-  color: var(--xr-ivory) !important;
+  border-color: rgba(245,242,237,0.8) !important;
+  color: #FFFFFF !important;
   transform: translateY(-2px) !important;
-  background: rgba(232,180,192,0.07) !important;
+  background: rgba(245,242,237,0.07) !important;
   box-shadow: 0 6px 20px rgba(196,136,154,0.18) !important;
 }
 
@@ -713,32 +712,35 @@ body, #root {
 /* Secondary rose outline */
 .btn-gold-out {
   background: transparent !important;
-  color: rgba(26,26,26,0.45) !important;
-  border: 1px solid rgba(232,180,192,0.32) !important;
+  color: #F5EEF0 !important;
+  border: 1px solid rgba(245,242,237,0.4) !important;
   border-radius: 2rem !important;
   box-shadow: none !important;
   transition: background 0.25s, border-color 0.25s, transform 0.25s, box-shadow 0.25s !important;
 }
 .btn-gold-out:hover {
-  background: rgba(232,180,192,0.08) !important;
-  border-color: rgba(26,26,26,0.45) !important;
+  background: rgba(245,242,237,0.08) !important;
+  border-color: rgba(245,242,237,0.8) !important;
+  color: #FFFFFF !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 20px rgba(196,136,154,0.2) !important;
 }
 
-/* Ivory = rose fill */
+/* Ivory button — high-contrast dark text on light ivory background */
 .btn-ivory {
-  background: var(--xr-rose-muted) !important;
-  color: var(--xr-black) !important;
-  border: none !important;
+  background: #F5F2ED !important;
+  color: #1A1A1A !important;
+  border: 1px solid #1A1A1A !important;
   border-radius: 2rem !important;
-  box-shadow: 0 4px 18px rgba(196,136,154,0.3) !important;
-  transition: background 0.25s, transform 0.25s, box-shadow 0.25s !important;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15) !important;
+  transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s !important;
 }
 .btn-ivory:hover {
-  background: var(--xr-rose-deep) !important;
+  background: #1A1A1A !important;
+  color: #FFFFFF !important;
+  border-color: #1A1A1A !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 28px rgba(196,136,154,0.42) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.3) !important;
 }
 
 /* Filter chips */
@@ -841,7 +843,7 @@ body, #root {
   background: rgba(232,180,192,0.04) !important;
   box-shadow: inset 0 0 0 1px rgba(232,180,192,0.22), 0 14px 40px rgba(0,0,0,0.4) !important;
 }
-.ql-card:hover .ql-arrow { color: rgba(26,26,26,0.45) !important; }
+.ql-card:hover .ql-arrow { color: #F5F2ED !important; }
 
 /* Testimonial + glass cards — all consistent */
 .pc, .pc-luxe, .cc, .cat-card, .testimonial-card, .glass-card, .ql-card {
@@ -886,9 +888,8 @@ body, #root {
 .gold-italic {
   font-family: 'Cormorant Garamond', serif !important;
   font-style: italic !important;
-  background: none !important;
+  color: #E8D6B4 !important;
   -webkit-text-fill-color: initial !important;
-  color: rgba(26,26,26,0.45) !important;
 }
 
 /* ── SAKURA & DECORATIONS ────────────────────────────────── */
@@ -927,7 +928,7 @@ img.deco-float { display: none !important; }
   background: rgba(232,180,192,0.2) !important;
 }
 .benefit-noir .bn .bnl { color: rgba(245,238,240,0.55) !important; }
-.benefit-noir .bn:hover .bnl { color: rgba(26,26,26,0.45) !important; }
+.benefit-noir .bn:hover .bnl { color: #F5F2ED !important; }
 
 /* ── LUX FEAT ROW DIVIDERS ─────────────────────────────── */
 .lux-feat-row .lf:not(:last-child)::after {
@@ -938,7 +939,7 @@ img.deco-float { display: none !important; }
 /* ── X-LINK (animated underline links) ─────────────────── */
 .x-link { color: rgba(245,238,240,0.7) !important; }
 .x-link::after { background: var(--xr-rose) !important; }
-.x-link:hover { color: rgba(26,26,26,0.45) !important; }
+.x-link:hover { color: #F5F2ED !important; }
 
 /* ── TRUST SECTION ICONS ────────────────────────────────── */
 .feat-ic .ring {
@@ -957,7 +958,7 @@ img.deco-float { display: none !important; }
 }
 .cat-intro .ci-h { color: var(--xr-ivory) !important; }
 .cat-intro .ci-sub { color: rgba(245,238,240,0.6) !important; }
-.cat-intro .ci-label { color: rgba(26,26,26,0.45) !important; }
+.cat-intro .ci-label { color: #F5F2ED !important; }
 
 /* ── PRICE PULSE (kept, rose) ───────────────────────────── */
 @keyframes xiyoraPricePulse {
@@ -985,26 +986,17 @@ img.deco-float { display: none !important; }
 .ink-wash::before { display: none !important; }
 .ornate .cat-corner { display: none !important; }
 .x-divider { color: #1a1a1a !important; opacity: 0.2; }
-.gold-grad { background: none !important; -webkit-text-fill-color: #1a1a1a !important; color: #1a1a1a !important; }
-.gold-italic { font-style: italic; color: rgba(0,0,0,0.5) !important; }
+.gold-grad {
+  background: linear-gradient(135deg, #E5DFCD 0%, #C8C3BA 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+.gold-italic { font-style: italic; color: #E8D6B4 !important; -webkit-text-fill-color: initial !important; }
 .btn-gold-out, .xiyora-gold-button {
-  background: #1a1a1a !important;
-  color: #ffffff !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 13px 28px !important;
-  font-size: 11px !important;
-  letter-spacing: 0.15em !important;
-  text-transform: uppercase !important;
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 600 !important;
-}
-.btn-gold-out:hover, .xiyora-gold-button:hover { opacity: 0.8; }
-.btn-ivory {
   background: transparent !important;
-  color: #1a1a1a !important;
-  border: 1px solid rgba(0,0,0,0.15) !important;
-  border-radius: 0 !important;
+  color: #F5EEF0 !important;
+  border: 1px solid rgba(245,242,237,0.4) !important;
+  border-radius: 2rem !important;
   padding: 13px 28px !important;
   font-size: 11px !important;
   letter-spacing: 0.15em !important;
@@ -1012,7 +1004,20 @@ img.deco-float { display: none !important; }
   font-family: 'Inter', sans-serif !important;
   font-weight: 600 !important;
 }
-.btn-ivory:hover { border-color: #1a1a1a !important; }
+.btn-gold-out:hover, .xiyora-gold-button:hover { opacity: 0.95; border-color: rgba(245,242,237,0.8) !important; color: #FFFFFF !important; }
+.btn-ivory {
+  background: #F5F2ED !important;
+  color: #1A1A1A !important;
+  border: 1px solid #1A1A1A !important;
+  border-radius: 2rem !important;
+  padding: 13px 28px !important;
+  font-size: 11px !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+}
+.btn-ivory:hover { background: #1A1A1A !important; color: #FFFFFF !important; border-color: #1A1A1A !important; }
 
 /* Clean glass cards */
 .glass-card {
@@ -1027,7 +1032,7 @@ img.deco-float { display: none !important; }
 }
 
 /* Section headings — clean black */
-.sh-title, h2.serif {
+.paper .sh-title {
   color: #1a1a1a !important;
   -webkit-text-fill-color: #1a1a1a !important;
 }
@@ -1040,7 +1045,8 @@ img.deco-float { display: none !important; }
 
 /* Section labels */
 .sl, .sec-label {
-  color: rgba(0,0,0,0.35) !important;
+  color: #C8C3BA !important;
+  opacity: 1 !important;
 }
 
 /* WhatsApp button — keep its brand green */
@@ -1055,9 +1061,6 @@ img.deco-float { display: none !important; }
 .lux-marquee { display: none !important; }
 
 /* Clean link underlines */
-.nl { color: rgba(0,0,0,0.45) !important; }
-.nl:hover { color: #1a1a1a !important; }
-.nl::after { background: #1a1a1a !important; }
 
 
 /* ── PRODUCT CARD OVERRIDES ────────────────────────── */

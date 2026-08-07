@@ -22,6 +22,24 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, message: error?.message || "Unexpected error" };
   }
 
+  private handleUnhandledRejection = (event: PromiseRejectionEvent): void => {
+    console.warn("[XIYORA] Unhandled Promise Rejection caught:", event.reason);
+  };
+
+  private handleGlobalError = (event: ErrorEvent): void => {
+    console.warn("[XIYORA] Global async error caught:", event.error || event.message);
+  };
+
+  componentDidMount(): void {
+    window.addEventListener("unhandledrejection", this.handleUnhandledRejection);
+    window.addEventListener("error", this.handleGlobalError);
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener("unhandledrejection", this.handleUnhandledRejection);
+    window.removeEventListener("error", this.handleGlobalError);
+  }
+
   componentDidCatch(error: Error, info: ErrorInfo): void {
     // Surface to console for diagnostics; never crash silently.
     console.error("[XIYORA] Render error caught by ErrorBoundary:", error, info);
