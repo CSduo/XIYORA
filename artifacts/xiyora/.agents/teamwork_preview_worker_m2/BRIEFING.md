@@ -1,4 +1,4 @@
-# BRIEFING — 2026-08-07T12:45:15Z
+# BRIEFING — 2026-08-07T12:48:10Z
 
 ## Mission
 Implement Milestone M2 (Seamless Loading & Connectivity Resilience) for the XIYORA platform front-end.
@@ -18,7 +18,7 @@ Implement Milestone M2 (Seamless Loading & Connectivity Resilience) for the XIYO
 
 ## Current Parent
 - Conversation ID: ecaa8e00-ed4e-4482-894a-894dd57c0c25
-- Updated: 2026-08-07T12:45:15Z
+- Updated: 2026-08-07T12:48:10Z
 
 ## Task Summary
 - **What to build**: Smooth hydration loader transition, `fetchWithRetry` network retry helper, AbortController cross-browser compatibility, `OfflineBanner` component, and `unhandledrejection`/`error` listeners in `ErrorBoundary.tsx`.
@@ -27,24 +27,28 @@ Implement Milestone M2 (Seamless Loading & Connectivity Resilience) for the XIYO
 - **Code layout**: `src/App.tsx`, `src/ErrorBoundary.tsx`, `index.html`
 
 ## Key Decisions Made
-- Use `xi-fade` CSS class transition on `#xi-loader` in `index.html` / `src/App.tsx` for 300ms smooth handoff.
-- Implement exponential backoff `fetchWithRetry` with 2 retries.
-- Replace `AbortSignal.timeout(6000)` with standard `AbortController` + `setTimeout` fallback.
-- Use `navigator.onLine` and window events in `OfflineBanner`.
-- Register `unhandledrejection` & `error` event listeners in `ErrorBoundary.tsx`.
+- Added `xi-fade` CSS class transition to `#xi-loader` with 300ms cleanup timer in `src/App.tsx` for smooth static-to-React hydration handoff.
+- Set `#root` container background to `#1a1a1a` in `index.html` to eliminate hydration background flashes.
+- Implemented `fetchWithRetry` helper with exponential backoff (2 retries, 500ms initial delay).
+- Replaced `AbortSignal.timeout(6000)` in `fetchBackendRates` with standard `AbortController` + `setTimeout`.
+- Created `OfflineBanner` component listening to `navigator.onLine` and `offline`/`online` window events.
+- Added `unhandledrejection` and `error` global event listeners in `ErrorBoundary.tsx` `componentDidMount`.
 
 ## Change Tracker
-- **Files modified**: None yet
-- **Build status**: Pending
+- **Files modified**:
+  - `index.html`: Added `background:#1a1a1a` to `#root` CSS rule.
+  - `src/ErrorBoundary.tsx`: Added `unhandledrejection` & `error` event listeners with cleanup in `componentWillUnmount`.
+  - `src/App.tsx`: Added `fetchWithRetry`, updated `apiPost`, `fetchBackendRates`, `/products`, `/site-content`, optimized `LoadingScreen`, added `OfflineBanner` component, added smooth `#xi-loader` fade-out removal.
+- **Build status**: PASS (`pnpm run typecheck` 0 errors, `pnpm run build` passed in 8.40s)
 - **Pending issues**: None
 
 ## Quality Status
-- **Build/test result**: Pending
-- **Lint status**: 0 errors expected
-- **Tests added/modified**: Pending
+- **Build/test result**: PASS
+- **Lint status**: 0 errors
+- **Tests added/modified**: Built and typechecked cleanly
 
 ## Loaded Skills
 - None explicitly requested.
 
 ## Artifact Index
-- `handoff.md` — Handoff report (to be written upon completion)
+- `handoff.md` — Complete 5-component handoff report for Milestone M2.
