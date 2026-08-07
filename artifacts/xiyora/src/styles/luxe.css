@@ -1108,3 +1108,43 @@ img.deco-float { display: none !important; }
     display: inline-block !important;
   }
 }
+
+/* ── FOCUS-VISIBLE STATES (keyboard accessibility) ─────── */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid #C8C3BA !important;
+  outline-offset: 2px !important;
+}
+.btn-ivory:focus-visible {
+  outline: 2px solid #1A1A1A !important;
+  outline-offset: 2px !important;
+}
+
+/* ── ULTRA-WIDE VIEWPORT CONSTRAINT ────────────────────── */
+@media (min-width: 1800px) {
+  .container {
+    max-width: 1440px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* ── DISABLED BUTTON STATES ────────────────────────────── */
+button:disabled,
+button[disabled] {
+  opacity: 0.45 !important;
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
+
+/* ── SMOOTH SCROLL ─────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

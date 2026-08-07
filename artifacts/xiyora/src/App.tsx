@@ -2067,7 +2067,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
             <span style={{fontFamily:"'Cormorant Garamond', serif",fontSize:"clamp(1rem,1.5vw,1.25rem)",fontStyle:"italic",color:C.gold}}>{subtitle}</span>
             {seal&&<Seal ch={seal}/>}
           </div>}
-          {intro&&<p className="ht3" style={{fontSize:14.5,color:"#f5f2ed",lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:300}}>{intro}</p>}
+          {intro&&<p className="ht3" style={{fontSize:14.5,color:"#555",lineHeight:1.85,margin:"20px 0 0",maxWidth:430,fontWeight:300}}>{intro}</p>}
           {partner&&<p className="ht3" style={{fontSize:12,letterSpacing:"1px",color:C.taupe,margin:"14px 0 0",display:"flex",alignItems:"center",gap:10}}><span style={{width:24,height:1,background:C.gold,display:"inline-block"}}/>{partner}</p>}
           {features&&features.length>0&&<div className="feat-row ht4" style={{margin:"30px 0 0"}}>
             {features.map((f,i)=><FeatItem key={i} name={f.name} label={f.label}/>)}
@@ -2076,7 +2076,7 @@ function LuxHero({title,subtitle,intro,partner,features,ctas,image,imageAlt,crum
             {ctas.map((c,i)=>(
               <button key={i} onClick={c.onClick}
                 className={c.variant==="outline"?"bo xiyora-gold-button":c.variant==="dark"?"xiyora-gold-button":"bg xiyora-gold-button"}
-                style={c.variant==="dark"?{background:C.char,color:"#f5f2ed",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",cursor:"pointer",borderRadius:4,fontWeight:600}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
+                style={c.variant==="dark"?{background:C.dark,color:"#ffffff",border:"none",padding:"14px 30px",fontSize:12,letterSpacing:"2px",textTransform:"uppercase",fontFamily:"'Inter', sans-serif",cursor:"pointer",borderRadius:4,fontWeight:600}:{padding:"14px 30px",fontSize:12,letterSpacing:"2px"}}>{c.label}</button>
             ))}
           </div>}
         </div>
@@ -2356,7 +2356,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                 ];
                 try { if (BIZ.aboutStatementBody) paragraphs = JSON.parse(BIZ.aboutStatementBody); } catch {}
                 return paragraphs.map((pText, idx) => (
-                  <p key={idx} style={{fontSize:15,color:"#f5f2ed",lineHeight:1.95,marginBottom:idx === paragraphs.length - 1 ? 0 : 20}} dangerouslySetInnerHTML={{__html: pText}} />
+                  <p key={idx} style={{fontSize:15,color:"#444",lineHeight:1.95,marginBottom:idx === paragraphs.length - 1 ? 0 : 20}} dangerouslySetInnerHTML={{__html: pText}} />
                 ));
               })()}
             </div>
@@ -2385,7 +2385,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                     ];
                     try { if (BIZ.aboutNaturalBody) paragraphs = JSON.parse(BIZ.aboutNaturalBody); } catch {}
                     return paragraphs.map((pText, idx) => (
-                      <p key={idx} style={{fontSize:14.5,color:"#f5f2ed",lineHeight:1.9,marginBottom:idx === paragraphs.length - 1 ? 0 : 16}} dangerouslySetInnerHTML={{__html: pText}} />
+                      <p key={idx} style={{fontSize:14.5,color:"#444",lineHeight:1.9,marginBottom:idx === paragraphs.length - 1 ? 0 : 16}} dangerouslySetInnerHTML={{__html: pText}} />
                     ));
                   })()}
                 </Reveal>
@@ -2451,7 +2451,7 @@ export function AboutView({setPage,onCatalog}:{setPage:(p:string)=>void;onCatalo
                   onMouseLeave={(e:any)=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(0,0,0,.04)";e.currentTarget.style.transform="translateY(0)";}}>
                   <div style={{fontSize:26,color:C.gold,marginBottom:12}}>{p.icon}</div>
                   <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:19,fontWeight:500,color:C.dark,marginBottom:10}}>{p.title}</h4>
-                  <p style={{fontSize:13.5,color:"#f5f2ed",lineHeight:1.75}}>{p.body}</p>
+                  <p style={{fontSize:13.5,color:"#555",lineHeight:1.75}}>{p.body}</p>
                 </div>
               ));
             })()}
@@ -2853,7 +2853,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
                   <tr key={ri} style={{borderBottom:`1px solid rgba(255,255,255,.08)`,background:ri%2===0?C.white:C.beige}}>
                     <td style={{padding:"12px 18px",color:C.dark,fontWeight:500}}>{row[0]}</td>
                     {row.slice(1).map((cell,ci)=>(
-                      <td key={ci} style={{padding:"12px 18px",textAlign:"center",color:ci===1?"#ffffff":C.ink,fontWeight:ci===1?500:400}}>{cell}</td>
+                      <td key={ci} style={{padding:"12px 18px",textAlign:"center",color:C.ink,fontWeight:ci===1?500:400}}>{cell}</td>
                     ))}
                   </tr>
                 ))}
@@ -2865,8 +2865,8 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:24,marginTop:40}}>
             {detailCards.map(([t,d],i)=>(
               <div key={i} style={{padding:"24px 22px",background:C.beige,borderRadius:4,borderLeft:`3px solid ${C.gold}`}}>
-                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:400,color:"#f5f2ed",marginBottom:8}}>{t}</h4>
-                <p style={{fontSize:13,color:"rgba(245,242,237,0.75)",lineHeight:1.72}}>{d}</p>
+                <h4 style={{fontFamily:"'Cormorant Garamond', serif",fontSize:17,fontWeight:400,color:"#1a1a1a",marginBottom:8}}>{t}</h4>
+                <p style={{fontSize:13,color:"#555",lineHeight:1.72}}>{d}</p>
               </div>
             ))}
           </div>
