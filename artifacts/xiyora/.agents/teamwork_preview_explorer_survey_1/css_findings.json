@@ -1,0 +1,227 @@
+[
+  {
+    "file": "src/styles/luxe.css",
+    "line": 138,
+    "code": "color: rgba(245,238,240,0.4);",
+    "issue": "Very low opacity white text (35-40% opacity) on dark background",
+    "contrastRatio": "2.97:1 (Fails 4.5:1 WCAG AA standard)",
+    "wcagPass": false,
+    "fix": "Increase opacity to at least rgba(245,238,240,0.7) or color #C8C3BA"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 476,
+    "code": "color: rgba(245,238,240,0.35);",
+    "issue": "Very low opacity white text (35-40% opacity) on dark background",
+    "contrastRatio": "2.97:1 (Fails 4.5:1 WCAG AA standard)",
+    "wcagPass": false,
+    "fix": "Increase opacity to at least rgba(245,238,240,0.7) or color #C8C3BA"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 540,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 556,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 562,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 619,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 675,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 687,
+    "code": "border-color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 709,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 716,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 724,
+    "code": "border-color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 730,
+    "code": ".btn-ivory {",
+    "issue": ".btn-ivory background transparent with #1a1a1a text on dark page, or #EDE8DF text on light background",
+    "contrastRatio": "1.0:1 (Invisible!)",
+    "wcagPass": false,
+    "fix": "Define .btn-ivory with solid high-contrast styling: background #F5F2ED, color #1A1A1A, border 1px solid #1A1A1A"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 738,
+    "code": ".btn-ivory:hover {",
+    "issue": ".btn-ivory background transparent with #1a1a1a text on dark page, or #EDE8DF text on light background",
+    "contrastRatio": "1.0:1 (Invisible!)",
+    "wcagPass": false,
+    "fix": "Define .btn-ivory with solid high-contrast styling: background #F5F2ED, color #1A1A1A, border 1px solid #1A1A1A"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 754,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 773,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 844,
+    "code": ".ql-card:hover .ql-arrow { color: rgba(26,26,26,0.45) !important; }",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 891,
+    "code": "color: rgba(26,26,26,0.45) !important;",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 930,
+    "code": ".benefit-noir .bn:hover .bnl { color: rgba(26,26,26,0.45) !important; }",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 941,
+    "code": ".x-link:hover { color: rgba(26,26,26,0.45) !important; }",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 960,
+    "code": ".cat-intro .ci-label { color: rgba(26,26,26,0.45) !important; }",
+    "issue": "Dark muted text rgba(26,26,26,0.45) rendered over dark background (#1a1a1a / #0c0a08)",
+    "contrastRatio": "1.00:1",
+    "wcagPass": false,
+    "fix": "Change color to rgba(245,242,237,0.7) for dark mode or #4A453E (#1a1a1a background) / #EDE8DF on dark"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 988,
+    "code": ".gold-grad { background: none !important; -webkit-text-fill-color: #1a1a1a !important; color: #1a1a1a !important; }",
+    "issue": ".gold-grad or .gold-italic forcing color to #1a1a1a or rgba(26,26,26,0.45) inside dark containers",
+    "contrastRatio": "1.0:1 to 1.8:1",
+    "wcagPass": false,
+    "fix": "Use high-contrast gradient/color: linear-gradient(135deg, #E5DFCD 0%, #C8C3BA 100%) or #C8C3BA on dark background"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 989,
+    "code": ".gold-italic { font-style: italic; color: rgba(0,0,0,0.5) !important; }",
+    "issue": ".gold-grad or .gold-italic forcing color to #1a1a1a or rgba(26,26,26,0.45) inside dark containers",
+    "contrastRatio": "1.0:1 to 1.8:1",
+    "wcagPass": false,
+    "fix": "Use high-contrast gradient/color: linear-gradient(135deg, #E5DFCD 0%, #C8C3BA 100%) or #C8C3BA on dark background"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 1003,
+    "code": ".btn-ivory {",
+    "issue": ".btn-ivory background transparent with #1a1a1a text on dark page, or #EDE8DF text on light background",
+    "contrastRatio": "1.0:1 (Invisible!)",
+    "wcagPass": false,
+    "fix": "Define .btn-ivory with solid high-contrast styling: background #F5F2ED, color #1A1A1A, border 1px solid #1A1A1A"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 1015,
+    "code": ".btn-ivory:hover { border-color: #1a1a1a !important; }",
+    "issue": ".btn-ivory background transparent with #1a1a1a text on dark page, or #EDE8DF text on light background",
+    "contrastRatio": "1.0:1 (Invisible!)",
+    "wcagPass": false,
+    "fix": "Define .btn-ivory with solid high-contrast styling: background #F5F2ED, color #1A1A1A, border 1px solid #1A1A1A"
+  },
+  {
+    "file": "src/styles/luxe.css",
+    "line": 1096,
+    "code": "button, .btn-gold-out, .btn-ivory {",
+    "issue": ".btn-ivory background transparent with #1a1a1a text on dark page, or #EDE8DF text on light background",
+    "contrastRatio": "1.0:1 (Invisible!)",
+    "wcagPass": false,
+    "fix": "Define .btn-ivory with solid high-contrast styling: background #F5F2ED, color #1A1A1A, border 1px solid #1A1A1A"
+  }
+]

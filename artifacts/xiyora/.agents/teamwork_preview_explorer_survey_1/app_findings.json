@@ -1,0 +1,217 @@
+[
+  {
+    "line": 1156,
+    "type": "badge_or_tag",
+    "code": "const DARK_CSS=`body{background:#1a1a1a!important;color:#f5f2ed!important;--glass-bg:rgba(30,30,30,0.45);--glass-border:rgba(245,242,237,0.06);--glass-hover-bg:rgba(30,30,30,0.8);--glass-hover-border:rgba(245,242,237,0.2);--glass-shadow-hover:0 16px 40px rgba(0,0,0,0.5)}.nl{color:rgba(245,242,237,.62)!important}.nl:hover{color:#ffffff!important}.nl::after{background:#ffffff!important}.bg{background:#ffffff!important;color:#1a1a1a!important}.bg:hover{background:#e8e4de!important}.bo{color:#ffffff!important;border-color:rgba(255,255,255,.2)!important}.bo:hover{background:rgba(255,255,255,.08)!important;color:#ffffff!important}.bd{color:rgba(245,242,237,.65)!important;border-color:rgba(245,242,237,.12)!important}.pc{background:linear-gradient(145deg,rgba(34,34,34,.85),rgba(26,26,26,.9))!important;box-shadow:0 2px 20px rgba(0,0,0,.4)!important}.ib{color:rgba(245,242,237,.65)!important}.ib:hover{color:#ffffff!important}.sl{color:rgba(245,242,237,.5)!important}.fl{color:rgba(245,242,237,.55)!important}.fl:hover{color:#ffffff!important}.inp{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input,select,textarea{background:#222222!important;border-color:rgba(245,242,237,.12)!important;color:#f5f2ed!important}input::placeholder,textarea::placeholder{color:rgba(245,242,237,.3)!important}.glass-modal{background:rgba(30,30,30,.96)!important;border-color:rgba(255,255,255,.08)!important}.sdrawer{background:#1a1a1a!important}.sdr-link{color:#f5f2ed!important}.sdr-link:hover{color:#ffffff!important;background:rgba(255,255,255,.05)!important}.sdr-section{color:#444!important}.cert-chip{background:transparent!important;border-color:rgba(245,242,237,.12)!important;color:rgba(245,242,237,.55)!important}.cert-chip:hover{border-color:rgba(255,255,255,.4)!important;color:#ffffff!important}::-webkit-scrollbar-track{background:#1a1a1a!important}::-webkit-scrollbar-thumb{background:rgba(245,242,237,.1)!important}.spec-key{color:rgba(245,242,237,.55)!important}.spec-val{color:#f5f2ed!important}.tag-pill{background:rgba(255,255,255,.12)!important}.paper{background-color:#1a1a1a!important;background-image:radial-gradient(circle at 18% 24%,rgba(200,195,186,.04),transparent 42%),radial-gradient(circle at 82% 76%,rgba(200,195,186,.03),transparent 46%)!important}.ink-wash::before{background:radial-gradient(110% 70% at 100% 0%,rgba(200,195,186,.05),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(200,195,186,.03),transparent 55%)!important}`;"
+  },
+  {
+    "line": 1571,
+    "type": "badge_or_tag",
+    "code": ".tag-pill{background:#ffffff;color:#fff;padding:3px 10px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:20px;display:inline-block;margin-right:4px;margin-bottom:4px}"
+  },
+  {
+    "line": 1708,
+    "type": "badge_or_tag",
+    "code": ".cc-tag{position:absolute;top:0;right:18px;background:linear-gradient(#EFE9DC,#E5DFCD);color:#5a4a32;padding:14px 7px 11px;border-radius:0 0 4px 4px;box-shadow:0 6px 16px rgba(0,0,0,.18);font-size:14px;z-index:3}"
+  },
+  {
+    "line": 1747,
+    "type": "btn-ivory",
+    "code": ".btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#d4d0cb;color:#1a1a1a;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(255,255,255,.32)}"
+  },
+  {
+    "line": 1748,
+    "type": "btn-ivory",
+    "code": ".btn-ivory:hover{background:#2D6B4A;color:#ffffff;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.42)}"
+  },
+  {
+    "line": 1790,
+    "type": "badge_or_tag",
+    "code": ".gold-badge{width:54px;height:54px;border-radius:2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,255,255,.1);background:radial-gradient(circle at 50% 28%,rgba(255,255,255,.06),rgba(255,255,255,.01));box-shadow:inset 0 0 0 4px rgba(255,255,255,.04);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s,background .4s}"
+  },
+  {
+    "line": 1797,
+    "type": "badge_or_tag",
+    "code": ".ql-card:hover .gold-badge{transform:translateY(-3px);border-color:var(--xiyora-soft-gold);background:radial-gradient(circle at 50% 28%,rgba(200,169,126,.3),rgba(200,169,126,.05))}"
+  },
+  {
+    "line": 1840,
+    "type": "badge_or_tag",
+    "code": ".cat-vtag{position:absolute;top:52px;right:0;writing-mode:vertical-rl;text-orientation:upright;background:linear-gradient(180deg,#C4889A,#9A5A6E);color:#F5EEF0;font-size:11px;letter-spacing:4px;padding:11px 5px;border-radius:4px 0 0 4px;font-weight:700;z-index:4;box-shadow:0 5px 14px rgba(0,0,0,.28)}"
+  },
+  {
+    "line": 1853,
+    "type": "badge_or_tag",
+    "code": "<span className=\"tag-pill\" style={{background:c}}>{children}</span>"
+  },
+  {
+    "line": 1856,
+    "type": "styled_label_or_gradient",
+    "code": "<span className=\"sl\" style={{color:dark?\"rgba(255,255,255,.65)\":\"#ffffff\",display:\"block\",textAlign:center?\"center\":\"left\"}}>{children}</span>"
+  },
+  {
+    "line": 1899,
+    "type": "badge_or_tag",
+    "code": "return <div ref={ref} className={`x-stagger ${className||\"\"}`} style={style}>{children}</div>;"
+  },
+  {
+    "line": 1941,
+    "type": "badge_or_tag",
+    "code": "{tagline&&<div style={{fontFamily:\"'Inter', sans-serif\",fontSize:9.5*size,letterSpacing:4.5*size,textTransform:\"uppercase\",color:c,opacity:.8}}>Natural · Crafted · Pure</div>}"
+  },
+  {
+    "line": 2047,
+    "type": "badge_or_tag",
+    "code": "<div className=\"container\"><Stagger className=\"icon-strip\">"
+  },
+  {
+    "line": 2173,
+    "type": "styled_label_or_gradient",
+    "code": "{BIZ.heroTitle||\"Sleep As Nature Intended.\"}<br/><span className=\"gold-italic\">{BIZ.heroSubtitle||\"Bingxi-certified. No compromises.\"}</span>"
+  },
+  {
+    "line": 2213,
+    "type": "btn-ivory",
+    "code": "<button className=\"btn-ivory\" onClick={onSupplier}>Request B2B Quote <span style={{color:\"#1a1a1a\"}}>→</span></button>"
+  },
+  {
+    "line": 2250,
+    "type": "styled_label_or_gradient",
+    "code": "Crafted for Hotels.<br/><span className=\"gold-italic\">Chosen by the Finest.</span>"
+  },
+  {
+    "line": 2278,
+    "type": "badge_or_tag",
+    "code": "<p style={{fontSize:15.5,color:\"#C7BBA4\",lineHeight:1.85,maxWidth:640,margin:\"0 auto 32px\"}} dangerouslySetInnerHTML={{__html: BIZ.aboutHeroBody || \"The premium bedroom market had no shortage of price tags. It had an acute shortage of provenance. Where was the latex from? Who manufactured it? What standards governed it? The answers, when they came, were rarely satisfying. <strong style=\\\"color:#E8D6B4\\\">So we went to the source.</strong>\"}} />"
+  },
+  {
+    "line": 2281,
+    "type": "btn-ivory",
+    "code": "<button className=\"btn-ivory\" onClick={()=>setPage(\"supplier\")}>B2B Partnership →</button>"
+  },
+  {
+    "line": 2425,
+    "type": "btn-ivory",
+    "code": "<button className=\"btn-ivory\" onClick={()=>setPage(\"contact\")}>Get in Touch →</button>"
+  },
+  {
+    "line": 2752,
+    "type": "btn-ivory",
+    "code": "<button className=\"btn-ivory\" onClick={onCatalog}>Browse Products <span style={{color:\"#1a1a1a\"}}>✦</span></button>"
+  },
+  {
+    "line": 2885,
+    "type": "badge_or_tag",
+    "code": "<Stagger className=\"trust-grid\">"
+  },
+  {
+    "line": 2905,
+    "type": "badge_or_tag",
+    "code": "return <div className={`gold-badge${round?\" round\":\"\"}${className?\" \"+className:\"\"}`}><LuxIcon name={name} size={size} color=\"#ffffff\"/></div>;"
+  },
+  {
+    "line": 2958,
+    "type": "badge_or_tag",
+    "code": "<Stagger className=\"benefit-noir\">"
+  },
+  {
+    "line": 2974,
+    "type": "styled_label_or_gradient",
+    "code": "<div className=\"sl\" style={{fontSize:11,letterSpacing:\"4px\",textTransform:\"uppercase\",fontWeight:600,margin:\"18px 0 10px\",color:\"#ffffff\"}}>Bingxi Collection</div>"
+  },
+  {
+    "line": 2994,
+    "type": "styled_label_or_gradient",
+    "code": "<h2 className=\"serif\" style={{fontSize:\"clamp(2rem,4vw,3.2rem)\",fontWeight:400,lineHeight:1.25,color:\"#f5f2ed\",margin:0}}>Pure by Nature,<br/><span className=\"gold-italic\">Perfected by Science</span></h2>"
+  },
+  {
+    "line": 3309,
+    "type": "low_contrast_inline_text",
+    "code": "const lbl:React.CSSProperties={fontSize:11.5,color:\"#666\",marginBottom:5,display:\"block\"};"
+  },
+  {
+    "line": 3324,
+    "type": "low_contrast_inline_text",
+    "code": "<p style={{fontSize:13,color:\"#666\",lineHeight:1.7}}>We'll reach out with product launches, B2B updates, and exclusive offers.</p>"
+  },
+  {
+    "line": 3434,
+    "type": "badge_or_tag",
+    "code": "{discInfo && <span className=\"x-discount-badge\">{discInfo.discountPct}% OFF</span>}"
+  },
+  {
+    "line": 3449,
+    "type": "low_contrast_inline_text",
+    "code": "<span className=\"x-original-price-strike\" style={{color:\"rgba(255,255,255,0.4)\",marginRight:6,textDecoration:\"line-through\",fontSize:13}}>{discInfo.originalPriceStr}</span>"
+  },
+  {
+    "line": 4318,
+    "type": "low_contrast_inline_text",
+    "code": "<p style={{fontSize:14.5,color:\"#666\",lineHeight:1.82,marginBottom:24,fontWeight:300}}>{p.description}</p>"
+  },
+  {
+    "line": 4521,
+    "type": "low_contrast_inline_text",
+    "code": "<p style={{fontSize:12.5,color:\"#666\",lineHeight:1.6}}>Timeline confirmed after stock, city, port, and quantity review. {p.deliveryNote}</p>"
+  },
+  {
+    "line": 4696,
+    "type": "btn-ivory",
+    "code": "<button className=\"btn-ivory\" style={{padding:\"13px 24px\"}} onClick={()=>onInquire(null,\"quote\")}>Ask For Guidance</button>"
+  },
+  {
+    "line": 4726,
+    "type": "badge_or_tag",
+    "code": "{cn&&<span className=\"cat-vtag\" aria-hidden>{cn}</span>}"
+  },
+  {
+    "line": 4748,
+    "type": "badge_or_tag",
+    "code": "<div key={i} className=\"stat-badge\" style={{display: \"flex\", width: \"100%\", boxSizing: \"border-box\"}}>"
+  },
+  {
+    "line": 4826,
+    "type": "badge_or_tag",
+    "code": "<h3 className=\"serif\" style={{fontSize: 22, color: C.dark, marginBottom: 8}}>Heritage Weaves</h3>"
+  },
+  {
+    "line": 5065,
+    "type": "badge_or_tag",
+    "code": "<Stagger className=\"cat-grid6\">"
+  },
+  {
+    "line": 5681,
+    "type": "low_contrast_inline_text",
+    "code": "<p style={{fontSize:11.5,color:\"#666\",lineHeight:1.7,marginTop:16,maxWidth:220}}>{BIZ.address}</p>"
+  },
+  {
+    "line": 5694,
+    "type": "low_contrast_inline_text",
+    "code": "<div style={{fontSize:12,color:\"#666\"}}>© 2025 XIYORA. All prices indicative. Proforma / Estimate provided where applicable.</div>"
+  },
+  {
+    "line": 5697,
+    "type": "low_contrast_inline_text",
+    "code": "<button key={l} onClick={()=>setPage(v)} style={{background:\"none\",border:\"none\",fontSize:11.5,color:\"#666\",cursor:\"pointer\",fontFamily:\"'Inter', sans-serif\",transition:\"color .2s\"}}"
+  },
+  {
+    "line": 5860,
+    "type": "badge_or_tag",
+    "code": ".tag{letter-spacing:2px;text-transform:uppercase;font-size:10px;color:#ffffff;margin-bottom:24px}"
+  },
+  {
+    "line": 6395,
+    "type": "badge_or_tag",
+    "code": "<span style={{fontSize:10,letterSpacing:\"1.5px\",textTransform:\"uppercase\",color:C.gold,fontWeight:500,background:\"#F5EDE0\",padding:\"3px 10px\",borderRadius:20,marginBottom:14,display:\"inline-block\"}}>{c.tag}</span>"
+  },
+  {
+    "line": 6398,
+    "type": "low_contrast_inline_text",
+    "code": "<p style={{fontSize:13.5,color:\"#666\",lineHeight:1.78,fontWeight:400,flex:1}}>{c.body}</p>"
+  },
+  {
+    "line": 6517,
+    "type": "low_contrast_inline_text",
+    "code": "<p style={{fontSize:14,color:\"#666\",lineHeight:1.7,margin:0}}>{status.desc}</p>"
+  }
+]

@@ -1526,8 +1526,8 @@ body{font-family:'Inter', sans-serif;background:#1a1a1a;color:#EDE8DF;overflow-x
 .nl{font-family:'Inter', sans-serif;color:rgba(237,232,223,.62);font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;transition:color .3s;background:none;border:none;cursor:pointer;padding:4px 0;position:relative;line-height:1}
 .nl::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#ffffff;transition:width .3s ease}
 .nl:hover{color:#ffffff}.nl:hover::after{width:100%}
-.bg{background:#d4d0cb;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background .28s,transform .28s,box-shadow .28s;border-radius:4px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,255,255,.3)}
-.bg:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.42)}
+.bg{background:#d4d0cb;color:#1a1a1a;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background .28s,transform .28s,box-shadow .28s;border-radius:4px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,255,255,.3)}
+.bg:hover{background:#2D6B4A;color:#ffffff;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.42)}
 .bg:active{transform:translateY(0)}
 .bo{background:transparent;color:#ffffff;border:1px solid rgba(255,255,255,.42);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all .28s;border-radius:4px}
 .bo:hover{background:rgba(255,255,255,.08);border-color:#ffffff;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,255,255,.2)}
@@ -1744,8 +1744,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#ffffff!import
 .feat-circ:hover{background:rgba(255,255,255,.1);border-color:#ffffff;transform:translateY(-3px)}
 .btn-gold-out{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:transparent;color:#ffffff;border:1px solid rgba(255,255,255,.38);padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;position:relative;overflow:hidden}
 .btn-gold-out:hover{background:rgba(255,255,255,.09);border-color:#ffffff;color:#EDE8DF;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.2)}
-.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#d4d0cb;color:#EDE8DF;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(255,255,255,.32)}
-.btn-ivory:hover{background:#2D6B4A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.42)}
+.btn-ivory{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#d4d0cb;color:#1a1a1a;border:none;padding:14px 32px;font-family:'Inter', sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .28s;box-shadow:0 4px 18px rgba(255,255,255,.32)}
+.btn-ivory:hover{background:#2D6B4A;color:#ffffff;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.42)}
 .deco-float{animation:driftSlow 14s ease-in-out infinite;will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 @keyframes petalFall{0%{transform:translate3d(0,-12vh,0) rotate(0deg);opacity:0}9%{opacity:.85}90%{opacity:.65}100%{transform:translate3d(0,118vh,0) rotate(480deg);opacity:0}}
 @keyframes petalSway{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(26px,0,0)}}
@@ -2210,7 +2210,7 @@ function DarkHomeHero({onCatalog,onSupplier}:{onCatalog:()=>void;onSupplier:()=>
               </div>
               <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}} data-cms-id="hero-cta">
                 <button className="btn-gold-out xiyora-gold-button" onClick={onCatalog}>Explore Products <span style={{color:"#ffffff"}}>✦</span></button>
-                <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"rgba(245,242,237,.5)"}}>→</span></button>
+                <button className="btn-ivory" onClick={onSupplier}>Request B2B Quote <span style={{color:"#1a1a1a"}}>→</span></button>
               </div>
             </Reveal>
           </div>
@@ -2749,7 +2749,7 @@ export function SupplierView({onCatalog,onInquire,setPage,cur}:{onCatalog:()=>vo
                 </div>
                 <div className="lux-cta-row" style={{display:"flex",gap:14,flexWrap:"wrap",margin:"34px 0 0",position:"relative",zIndex:3}}>
                   <button className="btn-gold-out xiyora-gold-button" onClick={()=>onInquire(null,"b2b")}>Send B2B Enquiry <span style={{color:"#ffffff"}}>✦</span></button>
-                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"rgba(245,242,237,.5)"}}>✦</span></button>
+                  <button className="btn-ivory" onClick={onCatalog}>Browse Products <span style={{color:"#1a1a1a"}}>✦</span></button>
                 </div>
               </Reveal>
             </div>
