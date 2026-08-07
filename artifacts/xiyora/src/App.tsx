@@ -284,6 +284,21 @@ export let BIZ = {
   freightDisclaimer: "* Calculated at base rate. Actual B2B invoice may vary depending on shipping line schedules, container utilization, and local terminal handling charges."
 };
 
+// Synchronously hydrate BIZ and PRODUCTS from localStorage to eliminate FOUC / content flashes
+try {
+  const cachedBiz = typeof window !== "undefined" ? localStorage.getItem("xiyora_site_content") : null;
+  if (cachedBiz) {
+    const data = JSON.parse(cachedBiz);
+    if (data && typeof data === "object") {
+      for (const k of Object.keys(BIZ)) {
+        if (k in data && data[k] !== undefined && data[k] !== "") {
+          (BIZ as any)[k] = data[k];
+        }
+      }
+    }
+  }
+} catch (e) {}
+
 const API_BASE = (import.meta.env.VITE_API_BASE as string) || "/api";
 
 async function fetchWithRetry(url: string, options: RequestInit = {}, retries = 2, backoff = 500): Promise<Response> {
@@ -6846,6 +6861,7 @@ export default function App(){
             (BIZ as any)[k] = data[k];
           }
         }
+        try{ localStorage.setItem("xiyora_site_content", JSON.stringify(BIZ)); }catch{}
         forceProductRefresh();
       }
     }).catch(()=>{}).finally(()=>setSiteLoading(false));
@@ -6855,16 +6871,17 @@ export default function App(){
   },[productsLoading,siteLoading]);
   // Safety timeout: always show app after 3 s even if a fetch stalls
   useEffect(()=>{const t=setTimeout(()=>setAppReady(true),3000);return()=>clearTimeout(t);},[]);
-  // Smoothly crossfade static HTML loader before removing from DOM
+  // Smoothly crossfade static HTML loader ONLY AFTER appReady is true
   useEffect(()=>{
+    if (!appReady) return;
     const el=document.getElementById("xi-loader");
     let timer: ReturnType<typeof setTimeout> | undefined;
     if(el){
       el.classList.add("xi-fade");
-      timer=setTimeout(()=>{el.remove();},300);
+      timer=setTimeout(()=>{el.remove();},350);
     }
     return ()=>{ if(timer) clearTimeout(timer); };
-  },[]);
+  },[appReady]);
 
   useEffect(()=>{
     let s=document.getElementById("xiyora-css") as HTMLStyleElement|null;
