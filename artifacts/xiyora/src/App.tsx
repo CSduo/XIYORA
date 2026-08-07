@@ -2299,9 +2299,13 @@ function DarkBusinessBand({onSupplier}:{onSupplier:()=>void}){
       <img src={DECO.bamboo} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",top:0,right:18,height:"100%",opacity:.4,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
       <img src={DECO.rabbit} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{position:"absolute",bottom:8,left:24,width:"clamp(60px,6vw,96px)",opacity:.45,pointerEvents:"none",zIndex:1}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} />
       <div className="container" style={{position:"relative",zIndex:4}}>
-        <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"auto 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#141B24,#07090E)"}}>
+        <div className="ornate biz-grid" style={{borderRadius:8,padding:"clamp(28px,4vw,54px)",display:"grid",gridTemplateColumns:"clamp(260px,32vw,400px) 1fr",gap:"clamp(26px,4vw,58px)",alignItems:"center",background:"linear-gradient(160deg,#141B24,#07090E)"}}>
           <CornerSet/>
-          <div className="biz-medallion"><img src={DECO.medallion} alt="" aria-hidden loading="lazy" decoding="async" className="x-drift-slow" style={{width:"clamp(150px,18vw,220px)",height:"auto",filter:"drop-shadow(0 14px 34px rgba(0,0,0,.5))"}} onError={(e:any)=>{e.currentTarget.src=FALLBACK_IMG;}} /></div>
+          <div className="x-frame biz-photo-frame" style={{position:"relative",width:"100%",height:340,borderRadius:6,overflow:"hidden",boxShadow:"0 16px 40px rgba(0,0,0,0.5)",border:"1px solid rgba(200,195,186,0.2)"}}>
+            <img src="/assets/lux/b2b-hotel-suite.jpg" alt="XIYORA B2B Natural Latex Hotel Suite" loading="lazy" decoding="async" style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}} onError={(e:any)=>{e.currentTarget.src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&q=80";}} />
+            <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg,transparent 60%,rgba(7,9,14,0.6))",pointerEvents:"none"}}/>
+            <div aria-hidden style={{position:"absolute",inset:10,border:"1px solid rgba(255,255,255,0.25)",borderRadius:4,pointerEvents:"none",zIndex:2}}/>
+          </div>
           <div>
             <Reveal>
               <div style={{fontSize:11,letterSpacing:"3px",textTransform:"uppercase",color:"#ffffff",marginBottom:14,fontWeight:500}}>For Businesses &amp; Partners</div>
